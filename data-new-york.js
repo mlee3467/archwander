@@ -77,8 +77,11 @@ const LOCS_NEW_YORK = [
     wiki:'https://en.wikipedia.org/wiki/One_World_Trade_Center',
     tags:['Observatory','Memorial','Lower Manhattan','1,776 ft'],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/1_World_Trade_Center_by_David_Shankbone.jpg/800px-1_World_Trade_Center_by_David_Shankbone.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/One_World_Trade_Center%2C_New_York%2C_NY.jpg/800px-One_World_Trade_Center%2C_New_York%2C_NY.jpg'
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/View_to_One_World_Trade_Center.jpg/800px-View_to_One_World_Trade_Center.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/New_York_City_%28New_York%2C_USA%29%2C_One_World_Trade_Center_--_2012_--_6566.jpg/800px-New_York_City_%28New_York%2C_USA%29%2C_One_World_Trade_Center_--_2012_--_6566.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/One_World_Trade_Center_2025_063.jpg/800px-One_World_Trade_Center_2025_063.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/One_World_Trade_Center_%28low-angle%29.jpg/800px-One_World_Trade_Center_%28low-angle%29.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/One_WTC_NY1.jpg/800px-One_WTC_NY1.jpg'
     ],
     drawings:[]
   },
