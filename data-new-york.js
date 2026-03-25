@@ -24,8 +24,12 @@ const LOCS_NEW_YORK = [
     wiki:'https://en.wikipedia.org/wiki/Empire_State_Building',
     tags:['Observatory','Art Deco','Landmark','Midtown'],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Empire_State_Building_%28aerial_view%29.jpg/800px-Empire_State_Building_%28aerial_view%29.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Empire_State_Building_from_the_Top_of_the_Rock.jpg/800px-Empire_State_Building_from_the_Top_of_the_Rock.jpg'
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/View_of_Empire_State_Building_from_Rockefeller_Center_New_York_City_dllu.jpg/800px-View_of_Empire_State_Building_from_Rockefeller_Center_New_York_City_dllu.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/New_York_City_%28New_York%2C_USA%29%2C_Rockefeller_Center_--_2012_--_6398.jpg/800px-New_York_City_%28New_York%2C_USA%29%2C_Rockefeller_Center_--_2012_--_6398.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Empire_State_Building_From_Rooftop_2019-10-05_19-11.jpg/800px-Empire_State_Building_From_Rooftop_2019-10-05_19-11.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Empire_State_Building%2C_New_York_City_1940_978.jpeg/800px-Empire_State_Building%2C_New_York_City_1940_978.jpeg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/New_York_City_%28New_York%2C_USA%29%2C_Manhattan%2C_Skyline_--_2012_--_6696.jpg/800px-New_York_City_%28New_York%2C_USA%29%2C_Manhattan%2C_Skyline_--_2012_--_6696.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/New_York_City_%28New_York%2C_USA%29%2C_Empire_State_Building_--_2012_--_6451.jpg/800px-New_York_City_%28New_York%2C_USA%29%2C_Empire_State_Building_--_2012_--_6451.jpg'
     ],
     drawings:[
       { type:'Historic Illustration', caption:'Art Deco spire detail, 1931', src:'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/EmpireStateBldg.jpg/600px-EmpireStateBldg.jpg' }
@@ -73,8 +77,11 @@ const LOCS_NEW_YORK = [
     wiki:'https://en.wikipedia.org/wiki/One_World_Trade_Center',
     tags:['Observatory','Memorial','Lower Manhattan','1,776 ft'],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/1_World_Trade_Center_by_David_Shankbone.jpg/800px-1_World_Trade_Center_by_David_Shankbone.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/One_World_Trade_Center%2C_New_York%2C_NY.jpg/800px-One_World_Trade_Center%2C_New_York%2C_NY.jpg'
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/View_to_One_World_Trade_Center.jpg/800px-View_to_One_World_Trade_Center.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/New_York_City_%28New_York%2C_USA%29%2C_One_World_Trade_Center_--_2012_--_6566.jpg/800px-New_York_City_%28New_York%2C_USA%29%2C_One_World_Trade_Center_--_2012_--_6566.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/One_World_Trade_Center_2025_063.jpg/800px-One_World_Trade_Center_2025_063.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/One_World_Trade_Center_%28low-angle%29.jpg/800px-One_World_Trade_Center_%28low-angle%29.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/One_WTC_NY1.jpg/800px-One_WTC_NY1.jpg'
     ],
     drawings:[]
   },
