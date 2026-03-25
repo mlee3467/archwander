@@ -50,9 +50,10 @@ const LOCS_NEW_YORK = [
     wiki:'https://en.wikipedia.org/wiki/Chrysler_Building',
     tags:['Art Deco','Eagle Gargoyles','Free Lobby','Midtown East'],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Chrysler_Building_NYC-20090519-RM-094845.jpg/800px-Chrysler_Building_NYC-20090519-RM-094845.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Chrysler_Building_-_05.jpg/800px-Chrysler_Building_-_05.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Chrysler_Building_%281%29.jpg/800px-Chrysler_Building_%281%29.jpg'
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Chrysler_Building_New_York_City_in_Fog_by_PaulPangaro.jpg/800px-Chrysler_Building_New_York_City_in_Fog_by_PaulPangaro.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Chrysler_Building_NYC-20090519-RM-094845.jpg/800px-Chrysler_Building_NYC-20090519-RM-094845.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Chrysler_Building_in_New_York_City_As_Seen_From_SUMMIT_One_Vanderbilt.jpg/800px-Chrysler_Building_in_New_York_City_As_Seen_From_SUMMIT_One_Vanderbilt.jpg'
     ],
     drawings:[]
   },
