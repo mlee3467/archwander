@@ -24,8 +24,12 @@ const LOCS_NEW_YORK = [
     wiki:'https://en.wikipedia.org/wiki/Empire_State_Building',
     tags:['Observatory','Art Deco','Landmark','Midtown'],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Empire_State_Building_%28aerial_view%29.jpg/800px-Empire_State_Building_%28aerial_view%29.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Empire_State_Building_from_the_Top_of_the_Rock.jpg/800px-Empire_State_Building_from_the_Top_of_the_Rock.jpg'
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/View_of_Empire_State_Building_from_Rockefeller_Center_New_York_City_dllu.jpg/800px-View_of_Empire_State_Building_from_Rockefeller_Center_New_York_City_dllu.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/New_York_City_%28New_York%2C_USA%29%2C_Rockefeller_Center_--_2012_--_6398.jpg/800px-New_York_City_%28New_York%2C_USA%29%2C_Rockefeller_Center_--_2012_--_6398.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Empire_State_Building_From_Rooftop_2019-10-05_19-11.jpg/800px-Empire_State_Building_From_Rooftop_2019-10-05_19-11.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Empire_State_Building%2C_New_York_City_1940_978.jpeg/800px-Empire_State_Building%2C_New_York_City_1940_978.jpeg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/New_York_City_%28New_York%2C_USA%29%2C_Manhattan%2C_Skyline_--_2012_--_6696.jpg/800px-New_York_City_%28New_York%2C_USA%29%2C_Manhattan%2C_Skyline_--_2012_--_6696.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/New_York_City_%28New_York%2C_USA%29%2C_Empire_State_Building_--_2012_--_6451.jpg/800px-New_York_City_%28New_York%2C_USA%29%2C_Empire_State_Building_--_2012_--_6451.jpg'
     ],
     drawings:[
       { type:'Historic Illustration', caption:'Art Deco spire detail, 1931', src:'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/EmpireStateBldg.jpg/600px-EmpireStateBldg.jpg' }
