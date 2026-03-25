@@ -1155,4 +1155,12 @@ const LOCS_SEOUL = [
     wiki:'https://en.wikipedia.org/wiki/National_Museum_of_Korea',
     tags:['Museum','Free','Yongsan','National Museum','History','Korean Heritage','Permanent Collection'],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/National_Museum_of_Korea_at_night.jpg/800px-National_Museum_of_Korea_at_nig
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/National_Museum_of_Korea_at_night.jpg/800px-National_Museum_of_Korea_at_night.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/National_Museum_of_Korea_2.jpg/800px-National_Museum_of_Korea_2.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/National_Museum_of_Korea_-_panoramio.jpg/800px-National_Museum_of_Korea_-_panoramio.jpg'
+    ],
+    drawings:[]
+  }
+
+];
+/* DATA_END */
