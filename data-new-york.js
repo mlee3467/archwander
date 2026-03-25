@@ -24,10 +24,8 @@ const LOCS_NEW_YORK = [
     wiki:'https://en.wikipedia.org/wiki/Empire_State_Building',
     tags:['Observatory','Art Deco','Landmark','Midtown'],
     photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/View_of_Empire_State_Building_from_Rockefeller_Center_New_York_City_dllu.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Midtown_Manhattan_from_Jersey_City_September_2020_HDR.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Empire_State_Building%2C_New_York_City_1940_978.jpeg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Empire_State_Building_From_Rooftop_2019-10-05_19-11.jpg?width=800'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Empire_State_Building_From_Rooftop_2019-10-05_19-11.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/View_of_Empire_State_Building_from_Rockefeller_Center_New_York_City_dllu.jpg?width=800'
     ],
     drawings:[
       { type:'Historic Illustration', caption:'Art Deco spire detail, 1931', src:'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/EmpireStateBldg.jpg/600px-EmpireStateBldg.jpg' }
@@ -52,8 +50,7 @@ const LOCS_NEW_YORK = [
     tags:['Art Deco','Eagle Gargoyles','Free Lobby','Midtown East'],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Chrysler_Building_NYC-20090519-RM-094845.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Chrysler_Building_New_York_City_in_Fog_by_PaulPangaro.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Chrysler_Building_-_05.jpg?width=800'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Chrysler_Building_New_York_City_in_Fog_by_PaulPangaro.jpg?width=800'
     ],
     drawings:[]
   },
