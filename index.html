@@ -33,8 +33,11 @@
       height: var(--header-h);
       background: var(--surface);
       border-bottom: 1px solid var(--border);
-      display: flex; align-items: center;
-      padding: 0 18px; gap: 12px; z-index: 1000; flex-shrink: 0;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 0 18px; gap: 0; z-index: 1000; flex-shrink: 0;
+    }
+    .header-top-row {
+      display: flex; align-items: center; gap: 12px; width: 100%;
     }
     .logo {
       font-size: 14px; font-weight: 600; letter-spacing: -0.3px;
@@ -611,20 +614,14 @@
     .sb-list-wrap { display: flex; flex-direction: column; flex: 1; overflow: hidden; min-height: 80px; }
 
     /* ── CITY SELECTOR BAR ───────────────────────────────── */
-    .city-bar {
-      height: 42px; background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      display: flex; align-items: center;
-      padding: 0 16px; gap: 6px; flex-shrink: 0;
-      overflow-x: auto; z-index: 999;
+    .city-bar { display: none; } /* merged into header */
+    .city-bar-label { display: none; }
+    .city-divider { display: none; }
+    .header-city-row {
+      display: flex; align-items: center; gap: 6px;
+      overflow-x: auto; padding-top: 10px;
     }
-    .city-bar::-webkit-scrollbar { display: none; }
-    .city-bar-label {
-      font-size: 10.5px; font-weight: 600; letter-spacing: 0.5px;
-      text-transform: uppercase; color: var(--text-secondary);
-      white-space: nowrap; flex-shrink: 0; padding-right: 4px;
-    }
-    .city-divider { width: 1px; height: 16px; background: var(--border); flex-shrink: 0; margin: 0 2px; }
+    .header-city-row::-webkit-scrollbar { display: none; }
     .city-tab {
       display: inline-flex; align-items: center; gap: 5px;
       padding: 5px 12px; border-radius: 20px;
@@ -662,7 +659,8 @@
       .logo-sub { display: none; }
     }
     @media (max-width: 480px) {
-      header { padding: 0 12px; gap: 10px; }
+      header { padding: 0 12px; }
+      .header-top-row { gap: 8px; }
       #gps-btn span { display: none; }
     }
 
@@ -891,37 +889,35 @@
 </div>
 
 <header>
-  <div class="logo">
-    <img src="img/Logo_small.png" alt="ArchWander" class="logo-img">
+  <div class="header-top-row">
+    <div class="logo">
+      <img src="img/Logo_small.png" alt="ArchWander" class="logo-img">
+    </div>
+    <div class="search-wrap">
+      <svg class="search-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2.2">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input type="text" id="search" placeholder="Search buildings, architects, styles…">
+    </div>
+    <div class="map-toggle">
+      <button class="active" id="btn-street" onclick="setMapType('street')">Street</button>
+      <button id="btn-sat" onclick="setMapType('satellite')">Satellite</button>
+    </div>
+    <button id="gps-btn" onclick="locateUser()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>
+      </svg>
+      <span>My Location</span>
+    </button>
+    <button id="menu-btn" onclick="toggleSidebar()">&#9776;</button>
   </div>
-  <div class="search-wrap">
-    <svg class="search-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2.2">
-      <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-    </svg>
-    <input type="text" id="search" placeholder="Search buildings, architects, styles…">
+  <div class="header-city-row">
+    <button class="city-tab active" id="city-nyc" onclick="selectCity('nyc')">🗽 New York</button>
+    <button class="city-tab" id="city-sel" onclick="selectCity('sel')">🏙 Seoul</button>
+    <button class="city-tab" id="city-lon" onclick="selectCity('lon')">🎡 London</button>
+    <button class="city-tab soon" id="city-tky" onclick="selectCity('tky')" title="Coming soon">🏯 Tokyo <span class="city-soon-badge">Soon</span></button>
   </div>
-  <div class="map-toggle">
-    <button class="active" id="btn-street" onclick="setMapType('street')">Street</button>
-    <button id="btn-sat" onclick="setMapType('satellite')">Satellite</button>
-  </div>
-  <button id="gps-btn" onclick="locateUser()">
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-      <circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>
-    </svg>
-    <span>My Location</span>
-  </button>
-  <button id="menu-btn" onclick="toggleSidebar()">&#9776;</button>
 </header>
-
-<!-- City selector bar -->
-<div class="city-bar">
-  <span class="city-bar-label">City</span>
-  <div class="city-divider"></div>
-  <button class="city-tab active" id="city-nyc" onclick="selectCity('nyc')">🗽 New York</button>
-  <button class="city-tab" id="city-sel" onclick="selectCity('sel')">🏙 Seoul</button>
-  <button class="city-tab" id="city-lon" onclick="selectCity('lon')">🎡 London</button>
-  <button class="city-tab soon" id="city-tky" onclick="selectCity('tky')" title="Coming soon">🏯 Tokyo <span class="city-soon-badge">Soon</span></button>
-</div>
 
 <div class="app">
   <aside class="sidebar" id="sidebar">
