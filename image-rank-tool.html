@@ -36,6 +36,7 @@
   .loc-badge.searching { background: #fff3cd; color: #856404; }
   .loc-badge.error { background: #f8d7da; color: #721c24; }
   .loc-badge.done { background: #cce5ff; color: #004085; }
+  .loc-badge.kept { background: #f3e5f5; color: #6a1b9a; }
 
   .photos-row { display: flex; gap: 8px; padding: 12px 14px; overflow-x: auto; min-height: 120px; align-items: flex-start; }
   .photo-item { position: relative; flex-shrink: 0; }
@@ -46,6 +47,7 @@
   .photo-count { font-size: 10px; color: #666; text-align: center; margin-top: 3px; max-width: 100px; }
   .photo-src { font-size: 10px; color: #999; text-align: center; }
   .photo-src.new { color: #2a6e3f; font-weight: 600; }
+  .photo-src.wikipedia { color: #1565c0; font-weight: 600; }
 
   .loc-actions { padding: 8px 14px 12px; display: flex; gap: 8px; align-items: center; }
   .loc-output { font-size: 11px; color: #555; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: monospace; }
@@ -80,12 +82,13 @@
   </select>
 
   <select id="mode-select">
+    <option value="wikipedia" selected>Wikipedia article images (권장)</option>
+    <option value="search">Commons text search</option>
+    <option value="both">Both (Wikipedia + Commons)</option>
     <option value="rank">Rank existing photos only</option>
-    <option value="search">Search + rank new photos</option>
-    <option value="both">Both (combine existing + search)</option>
   </select>
 
-  <input id="top-n" type="number" value="5" min="1" max="20" style="width:70px" title="Top N photos">
+  <input id="top-n" type="number" value="4" min="1" max="20" style="width:70px" title="Top N photos">
   <span style="font-size:12px;color:#888">photos per location</span>
 
   <button class="btn-primary" id="start-btn" onclick="startProcessing()">▶ Start</button>
@@ -105,10 +108,12 @@
 
 <div class="legend">
   <span style="font-weight:600;font-size:11px;margin-right:4px">Legend:</span>
-  <div class="legend-item"><div class="legend-dot" style="background:#2a6e3f"></div> Top 5 selected</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#2a6e3f"></div> Top N 선택됨</div>
   <div class="legend-item"><div class="legend-dot" style="background:#b8860b"></div> #1 ranked</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#4a90d9"></div> New from search</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#aaa"></div> Existing</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#1565c0"></div> Wikipedia 문서 이미지</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#2a6e3f"></div> Commons 검색</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#aaa"></div> 기존 이미지</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#6a1b9a"></div> 기존 유지 (Wikimedia 없음)</div>
 </div>
 
 <div class="location-grid" id="location-grid">
@@ -127,7 +132,8 @@
 
 <script>
 // ── Config ──────────────────────────────────────────────────────────
-const WIKI_API = 'https://commons.wikimedia.org/w/api.php';
+const WIKI_API    = 'https://en.wikipedia.org/w/api.php';
+const COMMONS_API = 'https://commons.wikimedia.org/w/api.php';
 const MEDIA_REQ_API = 'https://wikimedia.org/api/rest_v1/metrics/mediarequests/per-file/commons.wikimedia.org';
 const GH_API = 'https://api.github.com/repos/mlee3467/ArchWander/contents';
 
@@ -138,22 +144,20 @@ const FILE_MAP = {
 };
 
 let allLocs = [];
-let results = {};   // { locName: [{ filename, url, requests, source }] }
+let rawSrc  = '';   // original JS source — for smart (targeted) export
+let results = {};   // { loc.id: [{ filename, url, requests, source }] }
 let isRunning = false;
-let stopFlag = false;
+let stopFlag  = false;
 
 // ── Utilities ────────────────────────────────────────────────────────
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 function extractFilename(url) {
   if (!url) return null;
-  // Special:FilePath/File.jpg?width=800
   let m = url.match(/Special:FilePath\/(.+?)(?:\?|$)/);
   if (m) return decodeURIComponent(m[1]).replace(/\+/g, ' ');
-  // thumb URL: /thumb/a/ab/File.jpg/800px-File.jpg
   m = url.match(/\/thumb\/[a-f0-9]+\/[a-f0-9]{2}\/(.+?)\//);
   if (m) return decodeURIComponent(m[1]).replace(/\+/g, ' ');
-  // direct: /commons/a/ab/File.jpg
   m = url.match(/\/commons\/[a-f0-9]+\/[a-f0-9]{2}\/(.+?)(?:\?|$)/);
   if (m) return decodeURIComponent(m[1]).replace(/\+/g, ' ');
   return null;
@@ -163,197 +167,296 @@ function makePhotoUrl(filename, width=800) {
   return `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(filename).replace(/%20/g,'_')}?width=${width}`;
 }
 
+// 아이콘·로고·지도·SVG 파일명 필터
+function isArchitecturalPhoto(filename) {
+  const n = filename.toLowerCase();
+  if (n.match(/\.(svg|gif|pdf|ogg|ogv|webm|wav|mp3|flac|tif|tiff)$/i)) return false;
+  const skipWords = ['flag_','_flag.','icon','logo','_map.','map_','coat_of','seal_of',
+    'emblem','stub','commons-logo','edit-','button','portal','wikidata','question_mark',
+    'no_image','placeholder','red_pog','blue_pog','location_dot','location_map',
+    'locator','topographic','relief_map'];
+  return !skipWords.some(w => n.includes(w));
+}
+
 function fmtDate(d) { return d.toISOString().slice(0,10).replace(/-/g,''); }
-
 function formatRequests(n) {
-  if (n >= 1000000) return (n/1000000).toFixed(1) + 'M';
-  if (n >= 1000) return (n/1000).toFixed(1) + 'K';
-  return n + '';
+  if (n >= 1_000_000) return (n/1_000_000).toFixed(1)+'M';
+  if (n >= 1_000)     return (n/1_000).toFixed(1)+'K';
+  return String(n);
 }
-
 function setStatus(msg) { document.getElementById('status').textContent = msg; }
-function setProgress(pct) { document.getElementById('progress').style.width = pct + '%'; }
+function setProgress(pct) { document.getElementById('progress').style.width = pct+'%'; }
 
-// ── API Calls ─────────────────────────────────────────────────────────
-async function getMediaRequests(filename) {
-  const now = new Date();
-  const past = new Date(now); past.setFullYear(past.getFullYear() - 1);
-  const fn = filename.replace(/ /g, '_');
-  const encoded = fn.split('/').map(encodeURIComponent).join('/');
-  const url = `${MEDIA_REQ_API}/${encoded}/daily/${fmtDate(past)}/${fmtDate(now)}`;
-  try {
-    const r = await fetch(url);
-    if (!r.ok) return 0;
-    const data = await r.json();
-    return (data.items || []).reduce((s, i) => s + (i.requests || 0), 0);
-  } catch(e) { return 0; }
-}
+// ── Wikipedia Article → Image List ───────────────────────────────────
+// wiki 필드의 Wikipedia 문서에서 사진 목록을 추출 (가장 정확한 소스)
+async function getWikipediaArticleImages(wikiUrl) {
+  if (!wikiUrl) return [];
+  const m = wikiUrl.match(/en\.wikipedia\.org\/wiki\/(.+)$/);
+  if (!m) return [];
+  const title = decodeURIComponent(m[1]);
 
-async function searchWikiImages(name, city, limit=25) {
-  const query = `${name} ${city}`;
+  // Step 1: 문서에 쓰인 이미지 파일명 목록
   const params = new URLSearchParams({
-    action: 'query', list: 'search',
-    srsearch: query, srnamespace: 6,
-    srlimit: limit, format: 'json', origin: '*'
+    action:'query', prop:'images', titles:title,
+    imlimit:50, format:'json', origin:'*'
   });
+  let imageNames = [];
   try {
     const r = await fetch(`${WIKI_API}?${params}`);
     const data = await r.json();
+    const page = Object.values(data.query?.pages||{})[0];
+    if (!page?.images) return [];
+    imageNames = page.images
+      .map(img => img.title.replace('File:',''))
+      .filter(isArchitecturalPhoto);
+  } catch(e) { return []; }
+  if (!imageNames.length) return [];
+
+  // Step 2: 각 파일의 URL·크기·MIME 가져오기 (20개 배치)
+  const images = [];
+  for (let i = 0; i < imageNames.length; i += 20) {
+    const batch  = imageNames.slice(i, i+20);
+    const titles = batch.map(n => 'File:'+n).join('|');
+    const infoP  = new URLSearchParams({
+      action:'query', prop:'imageinfo',
+      titles, iiprop:'url|size|mime',
+      format:'json', origin:'*'
+    });
+    try {
+      const r = await fetch(`${WIKI_API}?${infoP}`);
+      const d = await r.json();
+      for (const p of Object.values(d.query?.pages||{})) {
+        const info = p.imageinfo?.[0];
+        if (!info) continue;
+        // JPEG/PNG 이미지만, 최소 가로 400px
+        if (!info.mime?.match(/^image\/(jpeg|png)$/)) continue;
+        if ((info.width||0) < 400) continue;
+        const fn = p.title.replace('File:','');
+        images.push({ filename:fn, url:makePhotoUrl(fn), source:'wikipedia' });
+      }
+    } catch(e) {}
+    await sleep(100);
+  }
+  return images;
+}
+
+// ── Commons Text Search ───────────────────────────────────────────────
+// wikipedia 모드에서 이미지를 못 찾거나 'search'/'both' 모드일 때 사용
+async function searchWikiImages(name, city, limit=20) {
+  const query = `${name} ${city}`;
+  const params = new URLSearchParams({
+    action:'query', list:'search',
+    srsearch:query, srnamespace:6,
+    srlimit:limit, format:'json', origin:'*'
+  });
+  try {
+    const r = await fetch(`${COMMONS_API}?${params}`);
+    const data = await r.json();
     if (!data.query?.search?.length) return [];
 
-    const titles = data.query.search.map(s => s.title).join('|');
-    const infoParams = new URLSearchParams({
-      action: 'query', prop: 'imageinfo',
-      titles, iiprop: 'url|size|mime',
-      format: 'json', origin: '*'
+    const titles = data.query.search.map(s=>s.title).join('|');
+    const infoP  = new URLSearchParams({
+      action:'query', prop:'imageinfo',
+      titles, iiprop:'url|size|mime',
+      format:'json', origin:'*'
     });
-    const infoR = await fetch(`${WIKI_API}?${infoParams}`);
-    const infoData = await infoR.json();
+    const infoR = await fetch(`${COMMONS_API}?${infoP}`);
+    const infoD = await infoR.json();
 
     const images = [];
-    for (const page of Object.values(infoData.query?.pages || {})) {
-      if (!page.imageinfo?.[0]) continue;
-      const info = page.imageinfo[0];
-      // Filter: only jpg/png, skip SVG/PDF/audio
-      if (!info.mime?.startsWith('image/')) continue;
-      if (info.mime === 'image/svg+xml') continue;
-      const filename = page.title.replace('File:', '');
-      images.push({ filename, url: makePhotoUrl(filename), source: 'search' });
+    for (const page of Object.values(infoD.query?.pages||{})) {
+      const info = page.imageinfo?.[0];
+      if (!info) continue;
+      if (!info.mime?.match(/^image\/(jpeg|png)$/)) continue;
+      if ((info.width||0) < 400) continue;
+      const fn = page.title.replace('File:','');
+      if (!isArchitecturalPhoto(fn)) continue;
+      images.push({ filename:fn, url:makePhotoUrl(fn), source:'search' });
     }
     return images;
   } catch(e) { return []; }
 }
 
+// ── Media Requests (load 횟수 기반 인기도) ────────────────────────────
+async function getMediaRequests(filename) {
+  const now  = new Date();
+  const past = new Date(now); past.setFullYear(past.getFullYear()-1);
+  const fn      = filename.replace(/ /g,'_');
+  const encoded = fn.split('/').map(encodeURIComponent).join('/');
+  const url = `${MEDIA_REQ_API}/${encoded}/daily/${fmtDate(past)}/${fmtDate(now)}`;
+  try {
+    const r = await fetch(url);
+    if (!r.ok) return 0;
+    const d = await r.json();
+    return (d.items||[]).reduce((s,i)=>s+(i.requests||0), 0);
+  } catch(e) { return 0; }
+}
+
+// ── 후보 이미지 수집 ─────────────────────────────────────────────────
+async function getCandidates(loc, city, mode) {
+  const seen = new Set();
+  const candidates = [];
+
+  // 1) Wikipedia 문서 이미지 (wiki 필드 사용)
+  if (mode === 'wikipedia' || mode === 'both') {
+    if (loc.wiki) {
+      const imgs = await getWikipediaArticleImages(loc.wiki);
+      for (const img of imgs) {
+        if (!seen.has(img.filename)) { seen.add(img.filename); candidates.push(img); }
+      }
+    }
+  }
+
+  // 2) Commons 텍스트 검색
+  if (mode === 'search' || mode === 'both') {
+    const found = await searchWikiImages(loc.name, city);
+    await sleep(150);
+    for (const img of found) {
+      if (!seen.has(img.filename)) { seen.add(img.filename); candidates.push(img); }
+    }
+  }
+
+  // 3) 기존 사진만 랭킹
+  if (mode === 'rank') {
+    for (const url of (loc.photos||[])) {
+      const fn = extractFilename(url);
+      if (fn && !seen.has(fn)) {
+        seen.add(fn);
+        candidates.push({ filename:fn, url:makePhotoUrl(fn), source:'existing' });
+      }
+    }
+  }
+
+  return candidates;
+}
+
 // ── Data Loading ──────────────────────────────────────────────────────
 async function loadData() {
-  const token = document.getElementById('token-input').value.trim();
+  const token   = document.getElementById('token-input').value.trim();
   const cityKey = document.getElementById('city-select').value;
-  const cfg = FILE_MAP[cityKey];
-
+  const cfg     = FILE_MAP[cityKey];
   setStatus(`Loading ${cfg.file}...`);
 
   let src;
-  if (token) {
-    const r = await fetch(`${GH_API}/${cfg.file}`, { headers: { Authorization: 'token ' + token } });
+  try {
+    const headers = token ? { Authorization:'token '+token } : {};
+    const r = await fetch(`${GH_API}/${cfg.file}`, { headers });
     const d = await r.json();
-    const bytes = Uint8Array.from(atob(d.content.replace(/\n/g,'')), c => c.charCodeAt(0));
+    if (!d.content) throw new Error(d.message || 'No content');
+    const bytes = Uint8Array.from(atob(d.content.replace(/\n/g,'')), c=>c.charCodeAt(0));
     src = new TextDecoder().decode(bytes);
-  } else {
-    // Try public
-    const r = await fetch(`https://api.github.com/repos/mlee3467/ArchWander/contents/${cfg.file}`);
-    const d = await r.json();
-    const bytes = Uint8Array.from(atob(d.content.replace(/\n/g,'')), c => c.charCodeAt(0));
-    src = new TextDecoder().decode(bytes);
+  } catch(e) {
+    setStatus(`⚠ Load failed: ${e.message}`);
+    return;
   }
 
-  // Parse locations from JS source
+  rawSrc  = src;   // smart export 를 위해 원본 소스 보관
   allLocs = parseLocsFromSrc(src, cfg.varName);
   results = {};
 
   document.getElementById('mode-info').textContent =
-    `✓ Loaded ${allLocs.length} locations from ${cfg.file}`;
-  setStatus(`Loaded ${allLocs.length} locations. Click Start to begin ranking.`);
+    `✓ ${allLocs.length}개 location 로드 완료 (${cfg.file})`;
+  setStatus(`${allLocs.length}개 location 로드됨. Start 버튼을 눌러 시작하세요.`);
   renderGrid();
 }
 
 function parseLocsFromSrc(src, varName) {
-  // Eval the JS in a sandboxed way
   try {
-    const sandboxSrc = src.replace(/^const\s+\w+\s*=/, 'window.__tmpLocs =');
-    eval(sandboxSrc);
+    const s = src.replace(/^const\s+\w+\s*=/, 'window.__tmpLocs =');
+    eval(s);
     const locs = window.__tmpLocs || [];
     delete window.__tmpLocs;
     return locs;
   } catch(e) {
-    // Fallback: regex parse
-    const locs = [];
-    const re = /\{[\s\S]*?name:\s*['"](.+?)['"][\s\S]*?photos:\s*\[([^\]]*)\][\s\S]*?\}/g;
+    // fallback: regex
+    const locs = [], re = /id:\s*['"]([^'"]+)['"]/g;
     let m;
-    while ((m = re.exec(src))) {
-      const name = m[1];
-      const photos = (m[2].match(/['"]([^'"]+)['"]/g) || []).map(s => s.slice(1,-1));
-      locs.push({ name, photos });
-    }
+    while ((m = re.exec(src))) locs.push({ id:m[1], name:m[1], photos:[], wiki:'' });
     return locs;
   }
 }
 
 // ── Processing ────────────────────────────────────────────────────────
 async function startProcessing() {
-  if (!allLocs.length) { alert('Load data first!'); return; }
+  if (!allLocs.length) { alert('먼저 Load Data를 눌러 데이터를 불러오세요.'); return; }
   isRunning = true; stopFlag = false;
   document.getElementById('start-btn').disabled = true;
-  document.getElementById('stop-btn').disabled = false;
+  document.getElementById('stop-btn').disabled  = false;
 
-  const mode = document.getElementById('mode-select').value;
-  const topN = parseInt(document.getElementById('top-n').value) || 5;
-  const cityKey = document.getElementById('city-select').value;
-  const city = FILE_MAP[cityKey].city;
+  const mode  = document.getElementById('mode-select').value;
+  const topN  = parseInt(document.getElementById('top-n').value) || 4;
+  const city  = FILE_MAP[document.getElementById('city-select').value].city;
   const total = allLocs.length;
+  let doneCount = 0, keptCount = 0;
 
   for (let i = 0; i < allLocs.length; i++) {
     if (stopFlag) break;
     const loc = allLocs[i];
-    setProgress((i / total) * 100);
-    setStatus(`[${i+1}/${total}] Processing: ${loc.name}`);
-
-    updateLocBadge(i, 'searching', 'Searching...');
+    setProgress((i/total)*100);
+    setStatus(`[${i+1}/${total}] ${loc.name} 처리 중...`);
+    updateLocBadge(i, 'searching', '검색 중...');
 
     try {
       const candidates = await getCandidates(loc, city, mode);
-      // Rank by requests
-      for (const c of candidates) {
-        if (stopFlag) break;
-        c.requests = await getMediaRequests(c.filename);
-        await sleep(120);
+
+      if (!candidates.length) {
+        // Wikimedia 이미지 없음 → 기존 유지
+        results[loc.id] = [];
+        updateLocBadge(i, 'kept', '기존 유지 (Wikimedia 없음)');
+        keptCount++;
+      } else {
+        // load 횟수로 랭킹
+        for (const c of candidates) {
+          if (stopFlag) break;
+          c.requests = await getMediaRequests(c.filename);
+          await sleep(100);
+        }
+        candidates.sort((a,b) => b.requests - a.requests);
+        results[loc.id] = candidates;
+        updateLocCard(i, loc, candidates, topN);
+        updateLocBadge(i, 'done', `${Math.min(candidates.length,topN)}장 선택 / ${candidates.length}개 후보`);
+        doneCount++;
       }
-      candidates.sort((a, b) => b.requests - a.requests);
-      results[loc.name] = candidates;
-      updateLocCard(i, loc, candidates, topN);
-      updateLocBadge(i, 'done', `${candidates.length} ranked`);
     } catch(e) {
       updateLocBadge(i, 'error', 'Error');
-      setStatus(`Error on ${loc.name}: ${e.message}`);
+      setStatus(`오류: ${loc.name} — ${e.message}`);
     }
-
-    await sleep(80);
+    await sleep(60);
   }
 
   setProgress(100);
-  setStatus(stopFlag ? '⏹ Stopped.' : `✓ Done! ${allLocs.length} locations processed.`);
+  setStatus(stopFlag
+    ? `⏹ 중단됨 (${doneCount}개 완료, ${keptCount}개 기존 유지)`
+    : `✓ 완료! ${doneCount}개 업데이트, ${keptCount}개 기존 유지 — Export JS 버튼으로 내보내세요.`);
   isRunning = false;
   document.getElementById('start-btn').disabled = false;
-  document.getElementById('stop-btn').disabled = true;
+  document.getElementById('stop-btn').disabled  = true;
 }
 
 function stopProcessing() { stopFlag = true; }
 
-async function getCandidates(loc, city, mode) {
-  const seen = new Set();
-  const candidates = [];
+async function processOne(i) {
+  const loc  = allLocs[i];
+  const mode = document.getElementById('mode-select').value;
+  const topN = parseInt(document.getElementById('top-n').value) || 4;
+  const city = FILE_MAP[document.getElementById('city-select').value].city;
 
-  if (mode === 'rank' || mode === 'both') {
-    for (const url of (loc.photos || [])) {
-      const fn = extractFilename(url);
-      if (fn && !seen.has(fn)) {
-        seen.add(fn);
-        candidates.push({ filename: fn, url: makePhotoUrl(fn), source: 'existing' });
-      }
+  updateLocBadge(i, 'searching', '처리 중...');
+  try {
+    const candidates = await getCandidates(loc, city, mode);
+    if (!candidates.length) {
+      results[loc.id] = [];
+      updateLocBadge(i, 'kept', '기존 유지');
+      return;
     }
+    for (const c of candidates) { c.requests = await getMediaRequests(c.filename); await sleep(100); }
+    candidates.sort((a,b) => b.requests - a.requests);
+    results[loc.id] = candidates;
+    updateLocCard(i, loc, candidates, topN);
+    updateLocBadge(i, 'done', `${Math.min(candidates.length,topN)}장 / ${candidates.length}개 후보`);
+  } catch(e) {
+    updateLocBadge(i, 'error', 'Error: '+e.message);
   }
-
-  if (mode === 'search' || mode === 'both') {
-    const found = await searchWikiImages(loc.name, city);
-    await sleep(150);
-    for (const img of found) {
-      if (!seen.has(img.filename)) {
-        seen.add(img.filename);
-        candidates.push(img);
-      }
-    }
-  }
-
-  return candidates;
 }
 
 // ── Rendering ─────────────────────────────────────────────────────────
@@ -362,25 +465,26 @@ function renderGrid() {
   grid.innerHTML = '';
   allLocs.forEach((loc, i) => {
     const card = document.createElement('div');
-    card.className = 'loc-card';
-    card.id = `loc-card-${i}`;
+    card.className = 'loc-card'; card.id = `loc-card-${i}`;
 
-    const wikiPhotos = (loc.photos || []).filter(u => u.includes('wikimedia') || u.includes('wikipedia'));
-    const hasWiki = wikiPhotos.length > 0;
+    const hasWiki  = !!loc.wiki;
+    const nPhotos  = (loc.photos||[]).length;
+    const badgeTxt = hasWiki ? `wiki 있음 · 사진 ${nPhotos}장` : `wiki 없음 · 사진 ${nPhotos}장`;
+    const badgeCls = hasWiki ? 'ok' : '';
 
     card.innerHTML = `
       <div class="loc-header">
-        <span class="loc-name">${loc.name || '(unnamed)'}</span>
-        <span class="loc-badge" id="badge-${i}">${hasWiki ? wikiPhotos.length + ' wiki photos' : 'no wiki photos'}</span>
+        <span class="loc-name">${loc.name||'(unnamed)'}</span>
+        <span class="loc-badge ${badgeCls}" id="badge-${i}">${badgeTxt}</span>
         <button class="btn-secondary btn-small" onclick="processOne(${i})">▶ Run</button>
       </div>
       <div class="photos-row" id="photos-${i}">
-        ${(loc.photos||[]).slice(0,8).map(url => `
+        ${(loc.photos||[]).slice(0,8).map(url=>`
           <div class="photo-item">
-            <img class="photo-img" src="${url.replace('?width=800','?width=200')}"
+            <img class="photo-img" src="${url.replace(/\?width=\d+/,'?width=200')}"
               onerror="this.style.display='none'" loading="lazy">
             <div class="photo-src">existing</div>
-          </div>`).join('') || '<div class="empty">No photos</div>'}
+          </div>`).join('') || '<div class="empty">사진 없음</div>'}
       </div>
       <div class="loc-actions" id="actions-${i}" style="display:none">
         <span class="loc-output" id="output-${i}"></span>
@@ -391,57 +495,36 @@ function renderGrid() {
 }
 
 function updateLocBadge(i, type, text) {
-  const badge = document.getElementById(`badge-${i}`);
-  if (badge) { badge.className = `loc-badge ${type}`; badge.textContent = text; }
+  const b = document.getElementById(`badge-${i}`);
+  if (b) { b.className=`loc-badge ${type}`; b.textContent=text; }
 }
 
 function updateLocCard(i, loc, ranked, topN) {
   const row = document.getElementById(`photos-${i}`);
   if (!row) return;
-  row.innerHTML = ranked.slice(0, Math.max(topN + 3, 8)).map((c, idx) => {
-    const isTop = idx < topN;
-    const rankClass = idx === 0 ? 'gold' : '';
+  const show = ranked.slice(0, Math.max(topN+3, 8));
+  row.innerHTML = show.map((c, idx) => {
+    const isTop  = idx < topN;
+    const rnkCls = idx===0 ? 'gold' : '';
+    const srcCls = c.source==='wikipedia' ? 'wikipedia' : c.source==='search' ? 'new' : '';
+    const srcLbl = c.source==='wikipedia' ? 'wiki' : c.source==='search' ? 'search' : 'existing';
     return `
       <div class="photo-item">
-        <img class="photo-img ${isTop ? 'top' : ''}"
-          src="${c.url.replace('?width=800','?width=200')}"
-          onerror="this.style.display='none'" loading="lazy"
-          title="${c.filename}">
-        <div class="photo-rank ${rankClass}">#${idx+1}</div>
+        <img class="photo-img ${isTop?'top':''}"
+          src="${c.url.replace(/\?width=\d+/,'?width=200')}"
+          onerror="this.style.display='none'" loading="lazy" title="${c.filename}">
+        <div class="photo-rank ${rnkCls}">#${idx+1}</div>
         <div class="photo-count">${formatRequests(c.requests)}/yr</div>
-        <div class="photo-src ${c.source==='search'?'new':''}">${c.source==='search'?'new':'existing'}</div>
+        <div class="photo-src ${srcCls}">${srcLbl}</div>
       </div>`;
   }).join('');
 
-  // Show actions
   const actions = document.getElementById(`actions-${i}`);
-  const output = document.getElementById(`output-${i}`);
+  const output  = document.getElementById(`output-${i}`);
   if (actions && output) {
-    const top5urls = ranked.slice(0, topN).map(c => `'${c.url}'`).join(', ');
-    output.textContent = `photos: [${top5urls}]`;
+    const urls = ranked.slice(0,topN).map(c=>`'${c.url}'`).join(', ');
+    output.textContent = `photos:[${urls}]`;
     actions.style.display = 'flex';
-  }
-}
-
-async function processOne(i) {
-  const loc = allLocs[i];
-  const mode = document.getElementById('mode-select').value;
-  const topN = parseInt(document.getElementById('top-n').value) || 5;
-  const city = FILE_MAP[document.getElementById('city-select').value].city;
-
-  updateLocBadge(i, 'searching', 'Processing...');
-  try {
-    const candidates = await getCandidates(loc, city, mode);
-    for (const c of candidates) {
-      c.requests = await getMediaRequests(c.filename);
-      await sleep(120);
-    }
-    candidates.sort((a, b) => b.requests - a.requests);
-    results[loc.name] = candidates;
-    updateLocCard(i, loc, candidates, topN);
-    updateLocBadge(i, 'done', `${candidates.length} ranked`);
-  } catch(e) {
-    updateLocBadge(i, 'error', 'Error: ' + e.message);
   }
 }
 
@@ -450,47 +533,80 @@ function copyLocOutput(i) {
   if (out) navigator.clipboard.writeText(out.textContent);
 }
 
-// ── Export ────────────────────────────────────────────────────────────
+// ── Smart Export ──────────────────────────────────────────────────────
+// photos:[...] 부분만 교체 → 나머지 JS 포맷·주석 그대로 유지
+// → git diff 가 깔끔하게 사진 변경사항만 보임
+function replacePhotosInSrc(src, locId, newPhotos) {
+  // location 블록 시작점
+  const idMarker = `id:'${locId}'`;
+  const idPos    = src.indexOf(idMarker);
+  if (idPos === -1) return src;
+
+  // 다음 location 의 id 위치로 범위 제한
+  const nextIdPos = src.indexOf(`id:'`, idPos + idMarker.length);
+
+  // photos:[ 위치 탐색
+  const photosStart = src.indexOf('photos:[', idPos);
+  if (photosStart === -1) return src;
+  if (nextIdPos !== -1 && photosStart > nextIdPos) return src; // 다른 location 안임
+
+  // 매칭되는 ] 찾기
+  const bracketOpen = photosStart + 'photos:'.length;
+  let depth = 0, endPos = -1;
+  for (let i = bracketOpen; i < src.length; i++) {
+    if      (src[i]==='[') depth++;
+    else if (src[i]===']') { depth--; if (depth===0) { endPos=i; break; } }
+  }
+  if (endPos === -1) return src;
+
+  // 새 photos 문자열 생성 (원본 들여쓰기 스타일 맞춤)
+  const photosStr = newPhotos.length === 0
+    ? 'photos:[]'
+    : 'photos:[\n      ' + newPhotos.map(u=>`'${u}'`).join(',\n      ') + '\n    ]';
+
+  return src.slice(0, photosStart) + photosStr + src.slice(endPos+1);
+}
+
 function exportData() {
-  const topN = parseInt(document.getElementById('top-n').value) || 5;
-  const cityKey = document.getElementById('city-select').value;
-  const cfg = FILE_MAP[cityKey];
+  const topN = parseInt(document.getElementById('top-n').value) || 4;
+  if (!Object.keys(results).length) { alert('결과가 없습니다. Start를 먼저 실행하세요.'); return; }
+  if (!rawSrc) { alert('소스가 없습니다. Load Data를 다시 실행하세요.'); return; }
 
-  if (!Object.keys(results).length) { alert('No results yet. Run ranking first.'); return; }
+  let exportSrc  = rawSrc;
+  let updated = 0, kept = 0;
 
-  // Build updated locs array
-  const updatedLocs = allLocs.map(loc => {
-    const ranked = results[loc.name];
-    if (!ranked) return loc; // unchanged
-    const newPhotos = ranked.slice(0, topN).map(c => c.url);
-    return { ...loc, photos: newPhotos };
-  });
+  for (const loc of allLocs) {
+    const ranked = results[loc.id];
+    if (ranked === undefined) { kept++; continue; }   // 미처리
+    if (!ranked.length)       { kept++; continue; }   // 후보 없음 → 기존 유지
 
-  // Serialize back to JS
-  const js = `const ${cfg.varName} = ${JSON.stringify(updatedLocs, null, 2)};\n`;
-  document.getElementById('export-output').value = js;
+    const newPhotos = ranked.slice(0, topN).map(c=>c.url);
+    exportSrc = replacePhotosInSrc(exportSrc, loc.id, newPhotos);
+    updated++;
+  }
+
+  document.getElementById('export-output').value = exportSrc;
   document.getElementById('export-section').style.display = 'block';
-  document.getElementById('export-section').scrollIntoView({ behavior: 'smooth' });
+  document.getElementById('export-section').scrollIntoView({ behavior:'smooth' });
+  setStatus(`✓ Export 완료: ${updated}개 업데이트, ${kept}개 기존 유지`);
 }
 
 function copyExport() {
   const ta = document.getElementById('export-output');
   ta.select();
   navigator.clipboard.writeText(ta.value);
-  document.getElementById('copy-msg').textContent = '✓ Copied!';
-  setTimeout(() => document.getElementById('copy-msg').textContent = '', 2000);
+  document.getElementById('copy-msg').textContent = '✓ 복사됨!';
+  setTimeout(()=>document.getElementById('copy-msg').textContent='', 2000);
 }
 
 function downloadExport() {
-  const cityKey = document.getElementById('city-select').value;
-  const cfg = FILE_MAP[cityKey];
-  const blob = new Blob([document.getElementById('export-output').value], { type: 'text/javascript' });
+  const cfg  = FILE_MAP[document.getElementById('city-select').value];
+  const blob = new Blob([document.getElementById('export-output').value], { type:'text/javascript' });
   const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
   a.download = cfg.file; a.click();
 }
 
 // ── Init ──────────────────────────────────────────────────────────────
-// Auto-fill token if available on page
 window.addEventListener('load', () => {
   if (window._token) document.getElementById('token-input').value = window._token;
 });
