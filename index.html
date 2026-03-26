@@ -1463,7 +1463,8 @@ function renderList() {
   }
   wrap.innerHTML = list.map(loc => `
     <div class="loc-card${activeLoc?.id === loc.id ? ' active' : ''}" onclick="openLocById('${loc.id}')">
-      <img class="card-img" src="${loc.photos[0]}" alt="${loc.name}"
+      <img class="card-img" src="${photoUrl(loc.photos[0], true, 'card')}" alt="${loc.name}"
+           loading="lazy"
            onerror="this.style.background='#E0E0DC';this.src='data:image/svg+xml,<svg/>'">
       <div class="card-body">
         <div class="card-name">${loc.name}</div>
@@ -1491,9 +1492,28 @@ function syncMarkers() {
 // ══════════════════════════════════════════════════════════════════
 let photoIdx = 0;
 
-function photoUrl(u, mob) {
+function photoUrl(u, mob, role) {
   if (!u) return u;
-  return u.includes('?width=') ? u.replace(/\?width=\d+/, mob ? '?width=500' : '?width=800') : u;
+  // Determine target width by role and viewport
+  let w;
+  if      (role === 'card')    w = mob ? 80  : 120;   // 52×52 sidebar thumbnail
+  else if (role === 'gallery') w = mob ? 480 : 700;   // gallery panel
+  else                         w = mob ? 500 : 800;   // legacy / default
+
+  // Pattern 1: Wikimedia Commons /thumb/hash1/hash2/filename/NNNpx-filename
+  // e.g. https://upload.wikimedia.org/wikipedia/commons/thumb/a/b/File.jpg/800px-File.jpg
+  const thumbMatch = u.match(/^(https?:\/\/upload\.wikimedia\.org\/.+\/thumb\/[^/]+\/[^/]+\/[^/]+\/)(\d+)px-(.+)$/);
+  if (thumbMatch) return `${thumbMatch[1]}${w}px-${thumbMatch[3]}`;
+
+  // Pattern 2: Wikimedia Commons Special:FilePath?width=NNN
+  if (u.includes('Special:FilePath') && u.includes('?width='))
+    return u.replace(/\?width=\d+/, `?width=${w}`);
+
+  // Pattern 3: Generic ?width= parameter
+  if (u.includes('?width='))
+    return u.replace(/\?width=\d+/, `?width=${w}`);
+
+  return u;
 }
 
 function openLocById(id) { openLoc(LOCS.find(l => l.id === id)); }
@@ -1505,12 +1525,20 @@ function openLoc(loc) {
   // Gallery
   photoIdx = 0;
   const gallery = document.getElementById('gallery');
+  const isMob = window.innerWidth < 768;
   gallery.querySelectorAll('img').forEach(i => i.remove());
   loc.photos.forEach((src, i) => {
     const img = document.createElement('img');
+    img.alt = loc.name;
+    if (i === 0) {
+      // Load first image immediately
+      img.src = photoUrl(src, isMob, 'gallery');
+      img.classList.add('active');
+    } else {
+      // Defer remaining images until actually needed
+      img.dataset.src = photoUrl(src, isMob, 'gallery');
       img.loading = 'lazy';
-    img.src = photoUrl(src, window.innerWidth < 768); img.alt = loc.name;
-    if (i === 0) img.classList.add('active');
+    }
     img.onerror = function() { this.style.display = 'none'; };
     gallery.insertBefore(img, gallery.querySelector('.g-btn'));
   });
@@ -1640,6 +1668,7 @@ function buildDrawingsTab(loc) {
       html += `
         <div class="dw-item" onclick="openLightbox('${dw.src}','${dw.caption}')">
           <img class="dw-img" src="${dw.src}" alt="${dw.type}"
+               loading="lazy"
                onerror="this.closest('.dw-item').style.display='none'">
           <div class="dw-caption">
             <div class="dw-type">${dw.type}</div>
@@ -1698,10 +1727,17 @@ function switchTab(id) {
 // ══════════════════════════════════════════════════════════════════
 function gotoPhoto(idx) {
   const gallery = document.getElementById('gallery');
-  gallery.querySelectorAll('img').forEach((img, i) => img.classList.toggle('active', i === idx));
+  const imgs = Array.from(gallery.querySelectorAll('img'));
+  // Load current image if deferred
+  const cur = imgs[idx];
+  if (cur && cur.dataset.src) { cur.src = cur.dataset.src; delete cur.dataset.src; }
+  imgs.forEach((img, i) => img.classList.toggle('active', i === idx));
   document.getElementById('g-dots').querySelectorAll('.g-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
   photoIdx = idx;
   updateGLabel();
+  // Preload next image in background
+  const next = imgs[idx + 1];
+  if (next && next.dataset.src) { next.src = next.dataset.src; delete next.dataset.src; }
 }
 function updateGLabel() {
   if (!activeLoc) return;
