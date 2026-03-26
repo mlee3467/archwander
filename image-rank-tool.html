@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Ranker — ArchWander</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: #f8f8f6; color: #1a1a1a; font-size: 14px; }
+  header { background: #fff; border-bottom: 1px solid #e8e8e4; padding: 14px 20px; display: flex; align-items: center; gap: 14px; position: sticky; top: 0; z-index: 100; }
+  header h1 { font-size: 16px; font-weight: 600; }
+  header span { color: #888; font-size: 12px; }
+  .controls { background: #fff; border-bottom: 1px solid #e8e8e4; padding: 14px 20px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  select, input { border: 1px solid #d8d8d4; border-radius: 6px; padding: 6px 10px; font-size: 13px; background: #fff; }
+  button { border: none; border-radius: 6px; padding: 7px 14px; font-size: 13px; cursor: pointer; font-family: inherit; }
+  .btn-primary { background: #1a1a1a; color: #fff; }
+  .btn-primary:hover { background: #333; }
+  .btn-primary:disabled { background: #aaa; cursor: not-allowed; }
+  .btn-secondary { background: #f0f0ee; color: #333; }
+  .btn-secondary:hover { background: #e4e4e0; }
+  .btn-small { padding: 4px 10px; font-size: 12px; }
+  .btn-export { background: #2a6e3f; color: #fff; }
+  .btn-export:hover { background: #1e5530; }
+
+  .progress-bar { height: 3px; background: #e8e8e4; }
+  .progress-fill { height: 100%; background: #1a1a1a; transition: width 0.3s; width: 0%; }
+  .status { padding: 10px 20px; font-size: 12px; color: #666; background: #f0f0ee; border-bottom: 1px solid #e8e8e4; }
+
+  .location-grid { padding: 16px 20px; display: flex; flex-direction: column; gap: 12px; }
+
+  .loc-card { background: #fff; border: 1px solid #e8e8e4; border-radius: 10px; overflow: hidden; }
+  .loc-header { display: flex; align-items: center; gap: 10px; padding: 12px 14px; background: #fafaf8; border-bottom: 1px solid #f0f0ee; }
+  .loc-name { font-weight: 600; font-size: 13px; flex: 1; }
+  .loc-badge { font-size: 11px; padding: 2px 8px; border-radius: 20px; background: #e8e8e4; color: #555; }
+  .loc-badge.ok { background: #d4edda; color: #155724; }
+  .loc-badge.searching { background: #fff3cd; color: #856404; }
+  .loc-badge.error { background: #f8d7da; color: #721c24; }
+  .loc-badge.done { background: #cce5ff; color: #004085; }
+
+  .photos-row { display: flex; gap: 8px; padding: 12px 14px; overflow-x: auto; min-height: 120px; align-items: flex-start; }
+  .photo-item { position: relative; flex-shrink: 0; }
+  .photo-img { width: 100px; height: 75px; object-fit: cover; border-radius: 6px; display: block; border: 2px solid transparent; }
+  .photo-img.top { border-color: #2a6e3f; }
+  .photo-rank { position: absolute; top: 3px; left: 3px; background: rgba(0,0,0,0.7); color: #fff; font-size: 10px; font-weight: 700; padding: 1px 5px; border-radius: 4px; }
+  .photo-rank.gold { background: #b8860b; }
+  .photo-count { font-size: 10px; color: #666; text-align: center; margin-top: 3px; max-width: 100px; }
+  .photo-src { font-size: 10px; color: #999; text-align: center; }
+  .photo-src.new { color: #2a6e3f; font-weight: 600; }
+
+  .loc-actions { padding: 8px 14px 12px; display: flex; gap: 8px; align-items: center; }
+  .loc-output { font-size: 11px; color: #555; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: monospace; }
+
+  .export-section { margin: 16px 20px; background: #fff; border: 1px solid #e8e8e4; border-radius: 10px; padding: 16px; }
+  .export-section h3 { font-size: 14px; margin-bottom: 10px; }
+  textarea { width: 100%; height: 300px; font-family: monospace; font-size: 11px; border: 1px solid #d8d8d4; border-radius: 6px; padding: 10px; resize: vertical; }
+
+  .mode-info { font-size: 11px; color: #666; background: #f8f8f6; border: 1px solid #e8e8e4; border-radius: 6px; padding: 8px 12px; flex: 1; }
+  .token-input { font-size: 12px; width: 280px; font-family: monospace; }
+
+  .empty { color: #aaa; font-size: 12px; padding: 20px; text-align: center; }
+  .legend { display: flex; gap: 12px; font-size: 11px; color: #666; padding: 10px 20px 0; }
+  .legend-item { display: flex; align-items: center; gap: 4px; }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header>
+  <h1>🖼 Image Ranker</h1>
+  <span>Wikimedia popularity auto-selection for ArchWander</span>
+</header>
+
+<div class="controls">
+  <select id="city-select">
+    <option value="nyc">New York (data-new-york.js)</option>
+    <option value="sel">Seoul (data-seoul.js)</option>
+    <option value="lon">London (data-london.js)</option>
+  </select>
+
+  <select id="mode-select">
+    <option value="rank">Rank existing photos only</option>
+    <option value="search">Search + rank new photos</option>
+    <option value="both">Both (combine existing + search)</option>
+  </select>
+
+  <input id="top-n" type="number" value="5" min="1" max="20" style="width:70px" title="Top N photos">
+  <span style="font-size:12px;color:#888">photos per location</span>
+
+  <button class="btn-primary" id="start-btn" onclick="startProcessing()">▶ Start</button>
+  <button class="btn-secondary" id="stop-btn" onclick="stopProcessing()" disabled>⏹ Stop</button>
+  <button class="btn-export" onclick="exportData()" id="export-btn" style="margin-left:auto">⬇ Export JS</button>
+</div>
+
+<div class="controls" style="padding-top:8px;padding-bottom:8px;gap:6px">
+  <label style="font-size:12px;color:#666">GitHub token (for data files):</label>
+  <input class="token-input" id="token-input" type="password" placeholder="ghp_...">
+  <button class="btn-secondary btn-small" onclick="loadData()">Load Data</button>
+  <div class="mode-info" id="mode-info">Load data first, then start ranking.</div>
+</div>
+
+<div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+<div class="status" id="status">Waiting...</div>
+
+<div class="legend">
+  <span style="font-weight:600;font-size:11px;margin-right:4px">Legend:</span>
+  <div class="legend-item"><div class="legend-dot" style="background:#2a6e3f"></div> Top 5 selected</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#b8860b"></div> #1 ranked</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#4a90d9"></div> New from search</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#aaa"></div> Existing</div>
+</div>
+
+<div class="location-grid" id="location-grid">
+  <div class="empty">← Load data first using the Load Data button above.</div>
+</div>
+
+<div class="export-section" id="export-section" style="display:none">
+  <h3>📋 Updated Data (copy to data file)</h3>
+  <textarea id="export-output" readonly></textarea>
+  <div style="display:flex;gap:8px;margin-top:8px">
+    <button class="btn-primary btn-small" onclick="copyExport()">Copy All</button>
+    <button class="btn-secondary btn-small" onclick="downloadExport()">Download .js</button>
+    <span id="copy-msg" style="font-size:12px;color:#2a6e3f"></span>
+  </div>
+</div>
+
+<script>
+// ── Config ──────────────────────────────────────────────────────────
+const WIKI_API = 'https://commons.wikimedia.org/w/api.php';
+const MEDIA_REQ_API = 'https://wikimedia.org/api/rest_v1/metrics/mediarequests/per-file/commons.wikimedia.org';
+const GH_API = 'https://api.github.com/repos/mlee3467/ArchWander/contents';
+
+const FILE_MAP = {
+  nyc: { file: 'data-new-york.js', varName: 'LOCS_NEW_YORK', city: 'New York' },
+  sel: { file: 'data-seoul.js',    varName: 'LOCS_SEOUL',    city: 'Seoul' },
+  lon: { file: 'data-london.js',   varName: 'LOCS_LONDON',   city: 'London' }
+};
+
+let allLocs = [];
+let results = {};   // { locName: [{ filename, url, requests, source }] }
+let isRunning = false;
+let stopFlag = false;
+
+// ── Utilities ────────────────────────────────────────────────────────
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+function extractFilename(url) {
+  if (!url) return null;
+  // Special:FilePath/File.jpg?width=800
+  let m = url.match(/Special:FilePath\/(.+?)(?:\?|$)/);
+  if (m) return decodeURIComponent(m[1]).replace(/\+/g, ' ');
+  // thumb URL: /thumb/a/ab/File.jpg/800px-File.jpg
+  m = url.match(/\/thumb\/[a-f0-9]+\/[a-f0-9]{2}\/(.+?)\//);
+  if (m) return decodeURIComponent(m[1]).replace(/\+/g, ' ');
+  // direct: /commons/a/ab/File.jpg
+  m = url.match(/\/commons\/[a-f0-9]+\/[a-f0-9]{2}\/(.+?)(?:\?|$)/);
+  if (m) return decodeURIComponent(m[1]).replace(/\+/g, ' ');
+  return null;
+}
+
+function makePhotoUrl(filename, width=800) {
+  return `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(filename).replace(/%20/g,'_')}?width=${width}`;
+}
+
+function fmtDate(d) { return d.toISOString().slice(0,10).replace(/-/g,''); }
+
+function formatRequests(n) {
+  if (n >= 1000000) return (n/1000000).toFixed(1) + 'M';
+  if (n >= 1000) return (n/1000).toFixed(1) + 'K';
+  return n + '';
+}
+
+function setStatus(msg) { document.getElementById('status').textContent = msg; }
+function setProgress(pct) { document.getElementById('progress').style.width = pct + '%'; }
+
+// ── API Calls ─────────────────────────────────────────────────────────
+async function getMediaRequests(filename) {
+  const now = new Date();
+  const past = new Date(now); past.setFullYear(past.getFullYear() - 1);
+  const fn = filename.replace(/ /g, '_');
+  const encoded = fn.split('/').map(encodeURIComponent).join('/');
+  const url = `${MEDIA_REQ_API}/${encoded}/daily/${fmtDate(past)}/${fmtDate(now)}`;
+  try {
+    const r = await fetch(url);
+    if (!r.ok) return 0;
+    const data = await r.json();
+    return (data.items || []).reduce((s, i) => s + (i.requests || 0), 0);
+  } catch(e) { return 0; }
+}
+
+async function searchWikiImages(name, city, limit=25) {
+  const query = `${name} ${city}`;
+  const params = new URLSearchParams({
+    action: 'query', list: 'search',
+    srsearch: query, srnamespace: 6,
+    srlimit: limit, format: 'json', origin: '*'
+  });
+  try {
+    const r = await fetch(`${WIKI_API}?${params}`);
+    const data = await r.json();
+    if (!data.query?.search?.length) return [];
+
+    const titles = data.query.search.map(s => s.title).join('|');
+    const infoParams = new URLSearchParams({
+      action: 'query', prop: 'imageinfo',
+      titles, iiprop: 'url|size|mime',
+      format: 'json', origin: '*'
+    });
+    const infoR = await fetch(`${WIKI_API}?${infoParams}`);
+    const infoData = await infoR.json();
+
+    const images = [];
+    for (const page of Object.values(infoData.query?.pages || {})) {
+      if (!page.imageinfo?.[0]) continue;
+      const info = page.imageinfo[0];
+      // Filter: only jpg/png, skip SVG/PDF/audio
+      if (!info.mime?.startsWith('image/')) continue;
+      if (info.mime === 'image/svg+xml') continue;
+      const filename = page.title.replace('File:', '');
+      images.push({ filename, url: makePhotoUrl(filename), source: 'search' });
+    }
+    return images;
+  } catch(e) { return []; }
+}
+
+// ── Data Loading ──────────────────────────────────────────────────────
+async function loadData() {
+  const token = document.getElementById('token-input').value.trim();
+  const cityKey = document.getElementById('city-select').value;
+  const cfg = FILE_MAP[cityKey];
+
+  setStatus(`Loading ${cfg.file}...`);
+
+  let src;
+  if (token) {
+    const r = await fetch(`${GH_API}/${cfg.file}`, { headers: { Authorization: 'token ' + token } });
+    const d = await r.json();
+    const bytes = Uint8Array.from(atob(d.content.replace(/\n/g,'')), c => c.charCodeAt(0));
+    src = new TextDecoder().decode(bytes);
+  } else {
+    // Try public
+    const r = await fetch(`https://api.github.com/repos/mlee3467/ArchWander/contents/${cfg.file}`);
+    const d = await r.json();
+    const bytes = Uint8Array.from(atob(d.content.replace(/\n/g,'')), c => c.charCodeAt(0));
+    src = new TextDecoder().decode(bytes);
+  }
+
+  // Parse locations from JS source
+  allLocs = parseLocsFromSrc(src, cfg.varName);
+  results = {};
+
+  document.getElementById('mode-info').textContent =
+    `✓ Loaded ${allLocs.length} locations from ${cfg.file}`;
+  setStatus(`Loaded ${allLocs.length} locations. Click Start to begin ranking.`);
+  renderGrid();
+}
+
+function parseLocsFromSrc(src, varName) {
+  // Eval the JS in a sandboxed way
+  try {
+    const sandboxSrc = src.replace(/^const\s+\w+\s*=/, 'window.__tmpLocs =');
+    eval(sandboxSrc);
+    const locs = window.__tmpLocs || [];
+    delete window.__tmpLocs;
+    return locs;
+  } catch(e) {
+    // Fallback: regex parse
+    const locs = [];
+    const re = /\{[\s\S]*?name:\s*['"](.+?)['"][\s\S]*?photos:\s*\[([^\]]*)\][\s\S]*?\}/g;
+    let m;
+    while ((m = re.exec(src))) {
+      const name = m[1];
+      const photos = (m[2].match(/['"]([^'"]+)['"]/g) || []).map(s => s.slice(1,-1));
+      locs.push({ name, photos });
+    }
+    return locs;
+  }
+}
+
+// ── Processing ────────────────────────────────────────────────────────
+async function startProcessing() {
+  if (!allLocs.length) { alert('Load data first!'); return; }
+  isRunning = true; stopFlag = false;
+  document.getElementById('start-btn').disabled = true;
+  document.getElementById('stop-btn').disabled = false;
+
+  const mode = document.getElementById('mode-select').value;
+  const topN = parseInt(document.getElementById('top-n').value) || 5;
+  const cityKey = document.getElementById('city-select').value;
+  const city = FILE_MAP[cityKey].city;
+  const total = allLocs.length;
+
+  for (let i = 0; i < allLocs.length; i++) {
+    if (stopFlag) break;
+    const loc = allLocs[i];
+    setProgress((i / total) * 100);
+    setStatus(`[${i+1}/${total}] Processing: ${loc.name}`);
+
+    updateLocBadge(i, 'searching', 'Searching...');
+
+    try {
+      const candidates = await getCandidates(loc, city, mode);
+      // Rank by requests
+      for (const c of candidates) {
+        if (stopFlag) break;
+        c.requests = await getMediaRequests(c.filename);
+        await sleep(120);
+      }
+      candidates.sort((a, b) => b.requests - a.requests);
+      results[loc.name] = candidates;
+      updateLocCard(i, loc, candidates, topN);
+      updateLocBadge(i, 'done', `${candidates.length} ranked`);
+    } catch(e) {
+      updateLocBadge(i, 'error', 'Error');
+      setStatus(`Error on ${loc.name}: ${e.message}`);
+    }
+
+    await sleep(80);
+  }
+
+  setProgress(100);
+  setStatus(stopFlag ? '⏹ Stopped.' : `✓ Done! ${allLocs.length} locations processed.`);
+  isRunning = false;
+  document.getElementById('start-btn').disabled = false;
+  document.getElementById('stop-btn').disabled = true;
+}
+
+function stopProcessing() { stopFlag = true; }
+
+async function getCandidates(loc, city, mode) {
+  const seen = new Set();
+  const candidates = [];
+
+  if (mode === 'rank' || mode === 'both') {
+    for (const url of (loc.photos || [])) {
+      const fn = extractFilename(url);
+      if (fn && !seen.has(fn)) {
+        seen.add(fn);
+        candidates.push({ filename: fn, url: makePhotoUrl(fn), source: 'existing' });
+      }
+    }
+  }
+
+  if (mode === 'search' || mode === 'both') {
+    const found = await searchWikiImages(loc.name, city);
+    await sleep(150);
+    for (const img of found) {
+      if (!seen.has(img.filename)) {
+        seen.add(img.filename);
+        candidates.push(img);
+      }
+    }
+  }
+
+  return candidates;
+}
+
+// ── Rendering ─────────────────────────────────────────────────────────
+function renderGrid() {
+  const grid = document.getElementById('location-grid');
+  grid.innerHTML = '';
+  allLocs.forEach((loc, i) => {
+    const card = document.createElement('div');
+    card.className = 'loc-card';
+    card.id = `loc-card-${i}`;
+
+    const wikiPhotos = (loc.photos || []).filter(u => u.includes('wikimedia') || u.includes('wikipedia'));
+    const hasWiki = wikiPhotos.length > 0;
+
+    card.innerHTML = `
+      <div class="loc-header">
+        <span class="loc-name">${loc.name || '(unnamed)'}</span>
+        <span class="loc-badge" id="badge-${i}">${hasWiki ? wikiPhotos.length + ' wiki photos' : 'no wiki photos'}</span>
+        <button class="btn-secondary btn-small" onclick="processOne(${i})">▶ Run</button>
+      </div>
+      <div class="photos-row" id="photos-${i}">
+        ${(loc.photos||[]).slice(0,8).map(url => `
+          <div class="photo-item">
+            <img class="photo-img" src="${url.replace('?width=800','?width=200')}"
+              onerror="this.style.display='none'" loading="lazy">
+            <div class="photo-src">existing</div>
+          </div>`).join('') || '<div class="empty">No photos</div>'}
+      </div>
+      <div class="loc-actions" id="actions-${i}" style="display:none">
+        <span class="loc-output" id="output-${i}"></span>
+        <button class="btn-secondary btn-small" onclick="copyLocOutput(${i})">Copy</button>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+function updateLocBadge(i, type, text) {
+  const badge = document.getElementById(`badge-${i}`);
+  if (badge) { badge.className = `loc-badge ${type}`; badge.textContent = text; }
+}
+
+function updateLocCard(i, loc, ranked, topN) {
+  const row = document.getElementById(`photos-${i}`);
+  if (!row) return;
+  row.innerHTML = ranked.slice(0, Math.max(topN + 3, 8)).map((c, idx) => {
+    const isTop = idx < topN;
+    const rankClass = idx === 0 ? 'gold' : '';
+    return `
+      <div class="photo-item">
+        <img class="photo-img ${isTop ? 'top' : ''}"
+          src="${c.url.replace('?width=800','?width=200')}"
+          onerror="this.style.display='none'" loading="lazy"
+          title="${c.filename}">
+        <div class="photo-rank ${rankClass}">#${idx+1}</div>
+        <div class="photo-count">${formatRequests(c.requests)}/yr</div>
+        <div class="photo-src ${c.source==='search'?'new':''}">${c.source==='search'?'new':'existing'}</div>
+      </div>`;
+  }).join('');
+
+  // Show actions
+  const actions = document.getElementById(`actions-${i}`);
+  const output = document.getElementById(`output-${i}`);
+  if (actions && output) {
+    const top5urls = ranked.slice(0, topN).map(c => `'${c.url}'`).join(', ');
+    output.textContent = `photos: [${top5urls}]`;
+    actions.style.display = 'flex';
+  }
+}
+
+async function processOne(i) {
+  const loc = allLocs[i];
+  const mode = document.getElementById('mode-select').value;
+  const topN = parseInt(document.getElementById('top-n').value) || 5;
+  const city = FILE_MAP[document.getElementById('city-select').value].city;
+
+  updateLocBadge(i, 'searching', 'Processing...');
+  try {
+    const candidates = await getCandidates(loc, city, mode);
+    for (const c of candidates) {
+      c.requests = await getMediaRequests(c.filename);
+      await sleep(120);
+    }
+    candidates.sort((a, b) => b.requests - a.requests);
+    results[loc.name] = candidates;
+    updateLocCard(i, loc, candidates, topN);
+    updateLocBadge(i, 'done', `${candidates.length} ranked`);
+  } catch(e) {
+    updateLocBadge(i, 'error', 'Error: ' + e.message);
+  }
+}
+
+function copyLocOutput(i) {
+  const out = document.getElementById(`output-${i}`);
+  if (out) navigator.clipboard.writeText(out.textContent);
+}
+
+// ── Export ────────────────────────────────────────────────────────────
+function exportData() {
+  const topN = parseInt(document.getElementById('top-n').value) || 5;
+  const cityKey = document.getElementById('city-select').value;
+  const cfg = FILE_MAP[cityKey];
+
+  if (!Object.keys(results).length) { alert('No results yet. Run ranking first.'); return; }
+
+  // Build updated locs array
+  const updatedLocs = allLocs.map(loc => {
+    const ranked = results[loc.name];
+    if (!ranked) return loc; // unchanged
+    const newPhotos = ranked.slice(0, topN).map(c => c.url);
+    return { ...loc, photos: newPhotos };
+  });
+
+  // Serialize back to JS
+  const js = `const ${cfg.varName} = ${JSON.stringify(updatedLocs, null, 2)};\n`;
+  document.getElementById('export-output').value = js;
+  document.getElementById('export-section').style.display = 'block';
+  document.getElementById('export-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+function copyExport() {
+  const ta = document.getElementById('export-output');
+  ta.select();
+  navigator.clipboard.writeText(ta.value);
+  document.getElementById('copy-msg').textContent = '✓ Copied!';
+  setTimeout(() => document.getElementById('copy-msg').textContent = '', 2000);
+}
+
+function downloadExport() {
+  const cityKey = document.getElementById('city-select').value;
+  const cfg = FILE_MAP[cityKey];
+  const blob = new Blob([document.getElementById('export-output').value], { type: 'text/javascript' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = cfg.file; a.click();
+}
+
+// ── Init ──────────────────────────────────────────────────────────────
+// Auto-fill token if available on page
+window.addEventListener('load', () => {
+  if (window._token) document.getElementById('token-input').value = window._token;
+});
+</script>
+</body>
+</html>
