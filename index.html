@@ -1273,7 +1273,6 @@ function refreshApp() {
 function updateMarkerSize() {
   document.getElementById('map').classList.toggle('zoom-full', map.getZoom() >= 14);
 }
-map.on('zoomend', updateMarkerSize);
 
 function addMarker(loc) {
   const color = CAT_COLORS[loc.cat] || '#111';
@@ -2234,6 +2233,7 @@ window.addEventListener('load', function() {
     return;
   }
   initMap(); // badge is updated inside initMap → refreshApp path
+  map.on('zoomend', updateMarkerSize);
   // Sidebar macro drag-resize
   setupVDrag('dh-sv', 'sv-side', 80, 460);
   setupVDrag('dh-fl', 'sb-filters', 50, 480);
