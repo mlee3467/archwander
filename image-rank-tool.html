@@ -94,6 +94,7 @@
   <button class="btn-primary" id="start-btn" onclick="startProcessing()">▶ Start</button>
   <button class="btn-secondary" id="stop-btn" onclick="stopProcessing()" disabled>⏹ Stop</button>
   <button class="btn-export" onclick="exportData()" id="export-btn" style="margin-left:auto">⬇ Export JS</button>
+  <button class="btn-primary" onclick="pushToGitHub()" id="push-btn" style="background:#1a6e3a">🚀 Push to GitHub</button>
 </div>
 
 <div class="controls" style="padding-top:8px;padding-bottom:8px;gap:6px">
@@ -146,6 +147,7 @@ const FILE_MAP = {
 let allLocs = [];
 let rawSrc  = '';   // original JS source — for smart (targeted) export
 let results = {};   // { loc.id: [{ filename, url, requests, source }] }
+let fileSha = '';   // GitHub blob SHA — required for PUT (update) API call
 let isRunning = false;
 let stopFlag  = false;
 
@@ -345,6 +347,7 @@ async function loadData() {
     if (!d.content) throw new Error(d.message || 'No content');
     const bytes = Uint8Array.from(atob(d.content.replace(/\n/g,'')), c=>c.charCodeAt(0));
     src = new TextDecoder().decode(bytes);
+    fileSha = d.sha || '';
   } catch(e) {
     setStatus(`⚠ Load failed: ${e.message}`);
     return;
@@ -362,7 +365,7 @@ async function loadData() {
 
 function parseLocsFromSrc(src, varName) {
   try {
-    const s = src.replace(/^const\s+\w+\s*=/, 'window.__tmpLocs =');
+    const s = src.replace(/const\s+\w+\s*=/, 'window.__tmpLocs =');
     eval(s);
     const locs = window.__tmpLocs || [];
     delete window.__tmpLocs;
@@ -604,6 +607,68 @@ function downloadExport() {
   const blob = new Blob([document.getElementById('export-output').value], { type:'text/javascript' });
   const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
   a.download = cfg.file; a.click();
+}
+
+// ── GitHub Push ───────────────────────────────────────────────────────
+function utf8ToBase64(str) {
+  const bytes = new TextEncoder().encode(str);
+  let bin = '';
+  bytes.forEach(b => bin += String.fromCharCode(b));
+  return btoa(bin);
+}
+
+async function pushToGitHub() {
+  const token = document.getElementById('token-input').value.trim();
+  if (!token) { alert('GitHub token을 입력해 주세요.'); return; }
+  if (!rawSrc) { alert('Load Data를 먼저 실행하세요.'); return; }
+  if (!Object.keys(results).length) { alert('Start를 먼저 실행하여 결과를 생성하세요.'); return; }
+  if (!fileSha) { alert('fileSha 없음 — Load Data를 다시 실행하세요.'); return; }
+
+  const topN    = parseInt(document.getElementById('top-n').value) || 4;
+  const cityKey = document.getElementById('city-select').value;
+  const cfg     = FILE_MAP[cityKey];
+
+  // Build updated source (same logic as exportData)
+  let exportSrc = rawSrc;
+  for (const loc of allLocs) {
+    const ranked = results[loc.id];
+    if (!ranked || !ranked.length) continue;
+    const newPhotos = ranked.slice(0, topN).map(c => c.url);
+    exportSrc = replacePhotosInSrc(exportSrc, loc.id, newPhotos);
+  }
+
+  const pushBtn = document.getElementById('push-btn');
+  pushBtn.disabled = true;
+  pushBtn.textContent = '⏳ Pushing...';
+  setStatus('GitHub에 업로드 중...');
+
+  try {
+    const body = {
+      message: `image-rank-tool: update photos for ${cfg.city}`,
+      content: utf8ToBase64(exportSrc),
+      sha: fileSha
+    };
+    const resp = await fetch(`${GH_API}/${cfg.file}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: 'token ' + token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    });
+    const data = await resp.json();
+    if (!resp.ok) throw new Error(data.message || resp.statusText);
+
+    // Update SHA so repeated pushes work
+    fileSha = data.content?.sha || fileSha;
+    setStatus(`✅ GitHub push 완료! (${cfg.file})`);
+    pushBtn.textContent = '✅ Pushed!';
+    setTimeout(() => { pushBtn.textContent = '🚀 Push to GitHub'; pushBtn.disabled = false; }, 3000);
+  } catch(e) {
+    setStatus(`⚠ Push 실패: ${e.message}`);
+    pushBtn.textContent = '🚀 Push to GitHub';
+    pushBtn.disabled = false;
+  }
 }
 
 // ── Init ──────────────────────────────────────────────────────────────
