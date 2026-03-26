@@ -655,6 +655,7 @@
       transition: transform 0.18s ease-out;
     }
     #map.zoom-full .m-pin-wrap { transform: scale(1); }
+    #map.zoom-out .m-pin-wrap { transform: scale(0.5); }
     @media (max-width: 900px) {
       /* ── Compact mobile header ── */
       header { height: 52px; padding: 0 12px; gap: 8px; }
@@ -1271,7 +1272,10 @@ function refreshApp() {
 // ══════════════════════════════════════════════════════════════════
 // ── Marker zoom sizing ──────────────────────────────────────
 function updateMarkerSize() {
-  document.getElementById('map').classList.toggle('zoom-full', map.getZoom() >= 14);
+  const z = map.getZoom();
+  const el = document.getElementById('map');
+  el.classList.toggle('zoom-full', z >= 14);
+  el.classList.toggle('zoom-out', z < 11);
 }
 
 function addMarker(loc) {
