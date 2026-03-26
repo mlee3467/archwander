@@ -30,7 +30,10 @@ const LOCS_LONDON = [
     wiki:'https://en.wikipedia.org/wiki/30_St_Mary_Axe',
     tags:['Foster + Partners','Norman Foster','High-Tech','Diagrid','Swiss Re','Gherkin','Skyscraper','City of London','RIBA Stirling Prize'],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/30_St_Mary_Axe_from_Leadenhall_Street.jpg/800px-30_St_Mary_Axe_from_Leadenhall_Street.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/30_St_Mary_Axe_from_Leadenhall_Street.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/30_St_Mary_Axe%2C_%27Gherkin%27.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/30_St_Mary_Axe_-_The_Gherkin_from_Leadenhall_St_-_Nov_2006.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/London_MMB_41_30_St_Mary_Ax.jpg?width=800'
     ],
     drawings:[]
   },
@@ -57,7 +60,10 @@ const LOCS_LONDON = [
     wiki:'https://en.wikipedia.org/wiki/Bloomberg_London',
     tags:['Foster + Partners','Bloomberg','BREEAM','Sustainable','Mithraeum','Roman','City of London','RIBA Stirling Prize 2018'],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Bloomberg_London.jpg/800px-Bloomberg_London.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Bloomberg_London_exterior_-_Cannon_Street%2C_Walbrook.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Bloomberg_London_central_ramp_-_2.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Bloomberg_London_central_ramp_-_3.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Bloomberg_London_lobby_-_3.jpg?width=800'
     ],
     drawings:[]
   },
@@ -84,7 +90,10 @@ const LOCS_LONDON = [
     wiki:'https://en.wikipedia.org/wiki/Queen_Elizabeth_II_Great_Court',
     tags:['Foster + Partners','Gridshell','Glass Roof','British Museum','Free','Bloomsbury','Parametric','Reading Room'],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/British_Museum_Great_Court_roof.jpg/800px-British_Museum_Great_Court_roof.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/British_Museum_Dome.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/British_Museum_Great_Court_roof.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/London_-_Great_Russell_Street_-_British_Museum_-_Great_Court_-_View_NNW_II.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Britmuseum.jpg?width=800'
     ],
     drawings:[]
   },
@@ -111,7 +120,10 @@ const LOCS_LONDON = [
     wiki:'https://en.wikipedia.org/wiki/Canary_Wharf_tube_station',
     tags:['Foster + Partners','Jubilee Line','Infrastructure','Underground','Canary Wharf','Concrete','1999'],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Canary_Wharf_tube_station_2012.jpg/800px-Canary_Wharf_tube_station_2012.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Canary_Wharf_Wide_View%2C_London_-_July_2009.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Canary_Wharf_Tube_Station_-_July_2009.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/The_elevators_leaving_-_entering_Canary_Wharf_Underground_Station_-_geograph.org.uk_-_1128533.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/CanaryWharfTubeA.JPG?width=800'
     ],
     drawings:[]
   },
@@ -138,7 +150,10 @@ const LOCS_LONDON = [
     wiki:'https://en.wikipedia.org/wiki/City_Hall,_London',
     tags:['Foster + Partners','GLA','South Bank','Sustainable','Globe','Spiral Ramp','Thames'],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/The_scoop_and_city_hall_2.jpg/800px-The_scoop_and_city_hall_2.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/London_-_City_Hall_%284%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/City_Hall%2C_South_Bank_-_geograph.org.uk_-_1281903.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/London_-_City_Hall_%283%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/GLA_Chamber.jpg?width=800'
     ],
     drawings:[]
   },
@@ -165,7 +180,10 @@ const LOCS_LONDON = [
     wiki:'https://en.wikipedia.org/wiki/Millennium_Bridge,_London',
     tags:['Foster + Partners','Arup','Bridge','Pedestrian','Thames','Millennium','Wobbly Bridge','Free','St Paul\'s'],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Millennium_Bridge_from_Tate_Modern.jpg/800px-Millennium_Bridge_from_Tate_Modern.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/London_Millenium_Bridge.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Under_the_Millennium_Bridge%2C_London_%28geograph_4907090%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Bridge_horiz_mode_shock.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Bridge_vert_mode_shock.jpg?width=800'
     ],
     drawings:[]
   },
@@ -192,7 +210,7 @@ const LOCS_LONDON = [
     wiki:'https://en.wikipedia.org/wiki/HSBC_UK_Building,_London',
     tags:['Foster + Partners','HSBC','Canary Wharf','Skyscraper','High-Tech','Office','Docklands'],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/8_Canada_Square.jpg/800px-8_Canada_Square.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/HSBC_HQ.jpg?width=800'
     ],
     drawings:[]
   },
@@ -219,7 +237,10 @@ const LOCS_LONDON = [
     wiki:'https://en.wikipedia.org/wiki/Wembley_Stadium',
     tags:['Foster + Partners','HOK Sport','Stadium','Arch','Football','National Stadium','Wembley'],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Wembley_Stadium_-_May_2011.jpg/800px-Wembley_Stadium_-_May_2011.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/London_Wembley.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/London_2012_Olympic_Stadium_%2813_July_2012%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/%22Wemberley.......Wemberley%22_-_geograph.org.uk_-_1770078.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/BVB-Fans_in_Wembley.jpg?width=800'
     ],
     drawings:[]
   },
@@ -248,7 +269,10 @@ const LOCS_LONDON = [
     wiki:"https://en.wikipedia.org/wiki/Lloyd%27s_of_London_(building)",
     tags:['Richard Rogers','High-Tech','Inside-Out','Insurance','City of London','Grade I Listed','1986','Stainless Steel'],
     photos:[
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Lloyds_of_london_2012.jpg/800px-Lloyds_of_london_2012.jpg"
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Lloyd%27s_insurance_exterior_at_night.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Lloyd%27s_Building_-_Atrium_11th_floor_looking_at_the_Walkie-Talkie.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Lloyd%27s_Building_-_Atrium_roof.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Lloyd%27s_Building_-_Escalators_fisheye.jpg?width=800'
     ],
     drawings:[]
   },
@@ -275,7 +299,10 @@ const LOCS_LONDON = [
     wiki:'https://en.wikipedia.org/wiki/Leadenhall_Building',
     tags:['Rogers Stirk Harbour + Partners','Richard Rogers','Cheesegrater','Skyscraper','High-Tech','Megaframe','City of London','St Paul\'s View'],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Leadenhall_Building_from_Gracechurch_Street_2014.jpg/800px-Leadenhall_Building_from_Gracechurch_Street_2014.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Cheesegrater_and_Gherkin.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/122_Leadenhall_Street_-_geograph-3968154-by-Julian-Osley.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/London_-_Leadenhall_Building_%281%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Gherkin_Cheesegrater_Abstract.jpg?width=800'
     ],
     drawings:[]
   },
@@ -302,7 +329,10 @@ const LOCS_LONDON = [
     wiki:'https://en.wikipedia.org/wiki/The_O2_Arena',
     tags:['Richard Rogers','Millennium Dome','O2','Tensile Structure','High-Tech','Greenwich','Masts','Entertainment'],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/The_O2%2C_London_2012.jpg/800px-The_O2%2C_London_2012.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/London_MMB_V9_Millennium_Dome.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/London_MMB_W7_Millennium_Dome.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Basket_Ball_at_the_O2_Arena.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/London_2012_Olympic_Stadium_%2813_July_2012%29.jpg?width=800'
     ],
     drawings:[]
   },
@@ -356,7 +386,10 @@ const LOCS_LONDON = [
     wiki:'https://en.wikipedia.org/wiki/One_Hyde_Park',
     tags:['Rogers Stirk Harbour + Partners','Richard Rogers','Luxury Residential','Knightsbridge','Hyde Park','World\'s Most Expensive'],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/One_Hyde_Park_from_Knightsbridge.jpg/800px-One_Hyde_Park_from_Knightsbridge.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/No_1_Hyde_Park%2C_London.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/One_Hyde_Park_under_construction_in_May_2010.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/One_Hyde_Park_-_Edinburgh_Gate%2C_Knightsbridge_-_liftshaft.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/One_Hyde_Park_%2843969329645%29.jpg?width=800'
     ],
     drawings:[]
   },
@@ -382,7 +415,12 @@ const LOCS_LONDON = [
     archdaily:'https://www.archdaily.com/tag/88-wood-street',
     wiki:'https://en.wikipedia.org/wiki/88_Wood_Street',
     tags:['Rogers Stirk Harbour + Partners','Richard Rogers','High-Tech','City of London','Office','Cylindrical Tower'],
-    photos:[],
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/88_Wood_St%2C_London.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Vents_88_London_Wall_Richard_Rogers.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/88_Wood_Street%2C_London.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Lift_at_London_Wall_-_geograph.org.uk_-_643165.jpg?width=800'
+    ],
     drawings:[]
   },
 
@@ -407,7 +445,12 @@ const LOCS_LONDON = [
     archdaily:'https://www.archdaily.com/tag/neo-bankside',
     wiki:'https://en.wikipedia.org/wiki/Neo_Bankside',
     tags:['Rogers Stirk Harbour + Partners','Richard Rogers','Residential','Bankside','South Bank','Transparency','Tate Modern'],
-    photos:[],
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/NEO_Bankside%2C_London.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Neo_Bankside.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Neo_Bankside_apartment_buildings%2C_London.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Neo_Bankside_apartment_buildings%2C_London_%28side_view%29.jpg?width=800'
+    ],
     drawings:[]
   },
 
@@ -485,7 +528,10 @@ const LOCS_LONDON = [
     wiki:'https://en.wikipedia.org/wiki/The_Shard',
     tags:['Renzo Piano','Shard','Skyscraper','Western Europe Tallest','London Bridge','Viewing Gallery','Mixed Use'],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/The_Shard_from_the_Sky_Garden.jpg/800px-The_Shard_from_the_Sky_Garden.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/London_01_2013_the_Shard_London_Bridge_5205.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Construction_in_April_2012.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Shard_London_Bridge_July_2010.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Shard_London_Bridge_4.jpg?width=800'
     ],
     drawings:[]
   },
@@ -516,6 +562,39 @@ const LOCS_LONDON = [
     ],
     drawings:[]
   }
-
+,
+  {
+    id: 'va-east-storehouse',
+    name: 'V&A East Storehouse',
+    cat: 'Museums & Culture',
+    cc: 'c-mus',
+    styleGroup: 'Contemporary',
+    era: '2000–Present',
+    city: 'london',
+    arch: 'Diller Scofidio + Renfro',
+    archs: ['Diller Scofidio + Renfro'],
+    yr: 2025,
+    access: 'Free Admission',
+    style: 'Contemporary',
+    lat: 51.5508,
+    lng: -0.0127,
+    addr: 'Here East, Queen Elizabeth Olympic Park, London E20 3BS',
+    hood: 'Stratford / Olympic Park',
+    desc: "V&A East Storehouse is a major new museum building by Diller Scofidio + Renfro, forming part of the V&A's expansion into east London. Located within the former Olympic broadcast centre at Here East, it creates vast open gallery spaces displaying approximately 250,000 objects from the V&A's collection in a visible storage model. Opened in May 2025, it democratises access to items rarely seen in traditional museum settings.",
+    hours: 'Wed–Sun 10am–6pm',
+    lastEntry: '5:30pm',
+    admission: 'Free',
+    tourOk: true,
+    tourInfo: 'Free entry. Group tours and community programmes available.',
+    web: 'https://www.vam.ac.uk/east',
+    transit: 'Elizabeth line / Central / Jubilee / DLR — Stratford',
+    walkFrom: 'Stratford International: 10 min · Olympic Park: 5 min',
+    gmaps: 'https://maps.google.com/?q=V%26A+East+Storehouse+London',
+    archdaily: 'https://www.archdaily.com/tag/v-and-a-east',
+    wiki: 'https://en.wikipedia.org/wiki/V%26A_East',
+    tags: ['Diller Scofidio + Renfro', 'Museum', 'Visible Storage', 'Olympic Park', 'Industrial Conversion', 'East London'],
+    photos: [],
+    drawings: []
+  }
 ];
 /* DATA_END */
