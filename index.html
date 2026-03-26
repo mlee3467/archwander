@@ -1040,7 +1040,7 @@
 
 <header>
   <div class="header-top-row">
-    <div class="logo">
+    <div class="logo" onclick="location.reload()" style="cursor:pointer" title="Reload">
       <img src="img/Logo_small.png" alt="ArchWander" class="logo-img">
     </div>
     <div class="search-wrap">
@@ -1305,9 +1305,9 @@ let svMiniMap = null;
 
 function initMap() {
   map = L.map('map', { center:[40.745,-73.990], zoom:13, zoomControl:false });
-  streetLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-    attribution:'© <a href="https://openstreetmap.org">OpenStreetMap</a> contributors © <a href="https://carto.com/attributions">CARTO</a>',
-    subdomains:'abcd', maxZoom:19
+  streetLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+    attribution:'Tiles © <a href="https://www.esri.com">Esri</a>',
+    maxZoom:19
   }).addTo(map);
   satLayer = L.tileLayer(
     'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
@@ -1552,7 +1552,7 @@ function renderList() {
   wrap.innerHTML = list.map(loc => `
     <div class="loc-card${activeLoc?.id === loc.id ? ' active' : ''}" onclick="openLocById('${loc.id}')">
       ${loc.photos && loc.photos[0]
-          ? `<img class="card-img" src="${photoUrl(loc.photos[0], true, 'card')}" alt="${loc.name}" loading="lazy" onerror="this.onerror=null;this.style.background='#E0E0DC';this.removeAttribute('src')">`
+          ? `<img class="card-img" src="${photoUrl(loc.photos[0], true, 'card')}" alt="${loc.name}" loading="lazy" onerror="this.onerror=null;this.src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';this.style.background='#e8e8e4'">`
           : `<div class="card-img" style="background:#e8e8e4;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>`}
       <div class="card-body">
         <div class="card-name">${loc.name}</div>
@@ -1799,7 +1799,7 @@ function initSvMiniMap(loc) {
   if (svMiniMap) { svMiniMap.remove(); svMiniMap = null; }
   setTimeout(() => {
     svMiniMap = L.map(el, { zoomControl:false, dragging:false, scrollWheelZoom:false, center:[loc.lat, loc.lng], zoom:17 });
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', { subdomains:'abcd', maxZoom:19 }).addTo(svMiniMap);
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', { maxZoom:19 }).addTo(svMiniMap);
     L.circleMarker([loc.lat, loc.lng], { radius:8, fillColor: CAT_COLORS[loc.cat]||'#111', fillOpacity:1, color:'white', weight:2.5 }).addTo(svMiniMap);
   }, 50);
 }
