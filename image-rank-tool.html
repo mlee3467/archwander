@@ -209,10 +209,24 @@ function makePhotoUrl(filename, width=800) {
   return `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(filename).replace(/%20/g,'_')}?width=${width}`;
 }
 
+// photo-tool과 동일: CDN URL에서 파일명을 추출 → Special:FilePath URL 생성
+// (썸네일 prefix "400px-" 제거, 특수문자 인코딩 안정성 확보)
+function makeFilepathUrl(cdnUrl, width=800) {
+  let filename;
+  if (cdnUrl.includes('/thumb/')) {
+    const parts = cdnUrl.split('/');
+    filename = parts[parts.length - 1].replace(/^\d+px-/, '');
+  } else {
+    filename = cdnUrl.split('/').pop().split('?')[0];
+  }
+  return 'https://commons.wikimedia.org/wiki/Special:FilePath/' + filename + '?width=' + width;
+}
+
 // ── Image Filtering ──────────────────────────────────────────────────
 function isArchitecturalPhoto(filename) {
   const n = filename.toLowerCase();
-  if (/\.(svg|gif|png)$/i.test(n)) return false;
+  // SVG·GIF만 제외 — PNG는 허용 (건축 사진 다수가 PNG)
+  if (/\.(svg|gif)$/i.test(n)) return false;
   const skipWords = ['flag_','_flag.','icon','logo','_map.','map_','coat_of','seal_of',
     'location','locator','emblem','symbol','diagram','plan','layout','route',
     'coa_','_coa.','heraldry'];
@@ -244,18 +258,19 @@ async function getWikipediaArticleImages(wikiUrl) {
     const titles = batch.map(n => 'File:'+n).join('|');
     const infoP  = new URLSearchParams({
       action:'query', titles, prop:'imageinfo',
-      iiprop:'url|size|mime', iiurlwidth:800, format:'json', origin:'*'
+      iiprop:'url|thumburl|size|mime', iiurlwidth:400, format:'json', origin:'*'
     });
     try {
       const r = await fetch(`${WIKI_API}?${infoP}`);
       const d = await r.json();
       for (const p of Object.values(d.query?.pages||{})) {
         const info = p.imageinfo?.[0];
-        if (!info) continue;
-        if (info.mime && !info.mime.startsWith('image/jpeg') && !info.mime.startsWith('image/webp')) continue;
+        if (!info || !info.url) continue;
+        // jpg/jpeg/png/webp만 허용 (photo-tool과 동일 기준)
+        if (!/\.(jpg|jpeg|png|webp)/i.test(info.url)) continue;
         if (info.width < 400 || info.height < 300) continue;
         const fn = p.title.replace('File:','');
-        images.push({ filename:fn, url:makePhotoUrl(fn), source:'wikipedia' });
+        images.push({ filename:fn, url:makeFilepathUrl(info.url), source:'wikipedia' });
       }
     } catch(e) { /* skip batch */ }
     await sleep(80);
@@ -268,7 +283,7 @@ async function searchWikiImages(name, city) {
   const query = `${name} ${city}`;
   const params = new URLSearchParams({
     action:'query', list:'search', srsearch:query,
-    srnamespace:6, srlimit:12, format:'json', origin:'*'
+    srnamespace:6, srlimit:30, format:'json', origin:'*'  // photo-tool과 동일: 30개
   });
   try {
     const r    = await fetch(`${COMMONS_API}?${params}`);
@@ -278,19 +293,19 @@ async function searchWikiImages(name, city) {
     const titles = data.query.search.map(s => s.title).join('|');
     const infoP  = new URLSearchParams({
       action:'query', titles, prop:'imageinfo',
-      iiprop:'url|size|mime', iiurlwidth:800, format:'json', origin:'*'
+      iiprop:'url|thumburl|extmetadata', iiurlwidth:400, format:'json', origin:'*'
     });
     const infoR = await fetch(`${COMMONS_API}?${infoP}`);
     const infoD = await infoR.json();
     const images = [];
     for (const page of Object.values(infoD.query?.pages||{})) {
       const info = page.imageinfo?.[0];
-      if (!info) continue;
+      if (!info || !info.url) continue;
       const fn = page.title.replace('File:','');
       if (!isArchitecturalPhoto(fn)) continue;
-      if (info.mime && !info.mime.startsWith('image/')) continue;
-      if (info.width < 400 || info.height < 300) continue;
-      images.push({ filename:fn, url:makePhotoUrl(fn), source:'search' });
+      // photo-tool과 동일: jpg/jpeg/png/webp만 허용
+      if (!/\.(jpg|jpeg|png|webp)/i.test(info.url)) continue;
+      images.push({ filename:fn, url:makeFilepathUrl(info.url), source:'search' });
     }
     return images;
   } catch(e) { return []; }
