@@ -111,6 +111,20 @@
     .sb-clear.show { display: block; }
     .sb-clear:hover { background: #EEF2FF; }
 
+    /* ── Street View reopen bar (global — must be outside @media) ── */
+    .sv-reopen-bar {
+      display: none; align-items: center; gap: 6px;
+      width: 100%; padding: 9px 14px; cursor: pointer;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
+      text-transform: uppercase; color: var(--text-secondary);
+      background: var(--surface); border: none;
+      border-bottom: 1px solid var(--border);
+      user-select: none; transition: background 0.12s; text-align: left;
+    }
+    .sv-reopen-bar:hover { background: var(--bg); color: var(--text-primary); }
+    .sv-reopen-bar .sv-reopen-arr { margin-left: auto; font-size: 9px; color: #999; }
+    .sv-reopen-bar.visible { display: flex; }
+
     /* Filter sections */
     .fsec { border-bottom: 1px solid var(--border); }
     .fsec-hdr {
@@ -1529,9 +1543,9 @@ function renderList() {
   }
   wrap.innerHTML = list.map(loc => `
     <div class="loc-card${activeLoc?.id === loc.id ? ' active' : ''}" onclick="openLocById('${loc.id}')">
-      <img class="card-img" src="${photoUrl(loc.photos[0], true, 'card')}" alt="${loc.name}"
-           loading="lazy"
-           onerror="this.style.background='#E0E0DC';this.src='data:image/svg+xml,<svg/>'">
+      ${loc.photos && loc.photos[0]
+          ? `<img class="card-img" src="${photoUrl(loc.photos[0], true, 'card')}" alt="${loc.name}" loading="lazy" onerror="this.onerror=null;this.style.background='#E0E0DC';this.removeAttribute('src')">`
+          : `<div class="card-img" style="background:#E0E0DC"></div>`}
       <div class="card-body">
         <div class="card-name">${loc.name}</div>
         <div class="card-meta">${loc.arch}</div>
@@ -2593,3 +2607,4 @@ function exportDataJS() {
   </script>
 </body>
 </html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
