@@ -24,8 +24,10 @@ const LOCS_NEW_YORK = [
     wiki:'https://en.wikipedia.org/wiki/Empire_State_Building',
     tags:['Observatory','Art Deco','Landmark','Midtown'],
     photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Empire_State_Building_From_Rooftop_2019-10-05_19-11.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/View_of_Empire_State_Building_from_Rockefeller_Center_New_York_City_dllu.jpg?width=800'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/EmpireStateBuildingCU.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/ESBandDowntown2015.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Empire_State_Building_86th_floor.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Old_timer_structural_worker2.jpg?width=800'
     ],
     drawings:[
       { type:'Historic Illustration', caption:'Art Deco spire detail, 1931', src:'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/EmpireStateBldg.jpg/600px-EmpireStateBldg.jpg' }
@@ -49,8 +51,10 @@ const LOCS_NEW_YORK = [
     wiki:'https://en.wikipedia.org/wiki/Chrysler_Building',
     tags:['Art Deco','Eagle Gargoyles','Free Lobby','Midtown East'],
     photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Chrysler_Building_NYC-20090519-RM-094845.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Chrysler_Building_New_York_City_in_Fog_by_PaulPangaro.jpg?width=800'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Chrysler_Building_spire%2C_Manhattan%2C_by_Carol_Highsmith_%28LOC_highsm.04444%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Chrysler_Building_2005_4.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Chrysler_Building_Nov_2021.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Chrysler_Building_Lobby_2.jpg?width=800'
     ],
     drawings:[]
   },
@@ -73,10 +77,10 @@ const LOCS_NEW_YORK = [
     wiki:'https://en.wikipedia.org/wiki/One_World_Trade_Center',
     tags:['Observatory','Memorial','Lower Manhattan','1,776 ft'],
     photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/View_to_One_World_Trade_Center.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/One_World_Trade_Center_%28low-angle%29.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/One_World_Trade_Center_2025.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/New_York_City_%28New_York%2C_USA%29%2C_One_World_Trade_Center_--_2012_--_6566.jpg?width=800'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Lower_Manhattan_from_Jersey_City_November_2014_panorama_3_cropped.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/1WorldTradeCenterEntrance.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/One_World_Observatory_-_SkyPortal.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/OneWTC-Construction-Feb2009.jpg?width=800'
     ],
     drawings:[]
   },
@@ -98,9 +102,10 @@ const LOCS_NEW_YORK = [
     wiki:'https://en.wikipedia.org/wiki/Flatiron_Building',
     tags:['Beaux-Arts','Triangular','Chicago School','Free'],
     photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Flatiron_Building_3618433845_5745ebc1b9.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Edificio_Fuller_%28Flatiron%29_en_2010_desde_el_Empire_State_crop_boxin.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Flatiron-Building-NYC-September-2014.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Panorama_of_Madison_Square%2C_New_York_City_%28Flatiron_building%29_c1910-1915.jpg?width=800'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Typical_floor_of_the_Flatiron_Building.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Flatiron_Building_Construction%2C_New_York_Times_-_Library_of_Congress%2C_1901-1902_crop.JPG?width=800'
     ],
     drawings:[]
   },
@@ -151,10 +156,10 @@ const LOCS_NEW_YORK = [
     wiki:'https://en.wikipedia.org/wiki/Brooklyn_Bridge',
     tags:['Gothic Revival','Suspension Bridge','Free Access','East River'],
     photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Brooklyn_Bridge_from_60_water.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Pont_de_Brooklyn_de_nuit_-_Octobre_2008_edit.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Brooklyn_Bridge_promenade%2C_New_York_City%2C_20231005_0933_2156.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Currier_and_Ives_Brooklyn_Bridge2.jpg?width=800'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Brooklyn_Bridge_Manhattan.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/BrooklynBridgeWalkwayCrowd.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/1883_Frank_Leslie%27s_Illustrated_Newspaper_Brooklyn_Bridge_New_York_City.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/BrooklynBridgeSchematic.jpg?width=800'
     ],
     drawings:[
       { type:'Original Engineering Drawing', caption:'John Roebling\'s original design elevation, 1869', src:'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Brooklyn_Bridge_section_Roebling.jpg/800px-Brooklyn_Bridge_section_Roebling.jpg' }
@@ -263,11 +268,10 @@ const LOCS_NEW_YORK = [
     wiki:'https://en.wikipedia.org/wiki/Vessel_(structure)',
     tags:['Heatherwick','Sculptural','Hudson Yards','Free'],
     photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Hudson_Yards_Plaza_March_2019_18.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/At_New_York_City_2023_021.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/The_Vessel_at_Night_2021.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/The_Vessel_in_New_York_from_inside.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Inside_Vessel_NYC.jpg?width=800'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Hudson_Yards_Plaza_March_2019_53.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Hudson_Yards_Plaza_March_2019_27.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/The_Vessel_%28top-down_view%29%2C_Hudson_Yards%2C_New_York_City%2C_July_2019.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/The_Vessel%2C_Hudson_Yards%2C_New_York_City%2C_June_2019.jpg?width=800'
     ],
     drawings:[]
   },
@@ -338,8 +342,10 @@ const LOCS_NEW_YORK = [
     wiki:'https://en.wikipedia.org/wiki/New_York_Public_Library',
     tags:['Beaux-Arts','Free Entry','Rose Reading Room','Bryant Park'],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/NewYorkPublicLibrary-Oct2008.jpg/800px-NewYorkPublicLibrary-Oct2008.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/NYPL_Main_Reading_Room_Patience_and_Fortitude.jpg/800px-NYPL_Main_Reading_Room_Patience_and_Fortitude.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Public_Building_Library.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/NYPL_portals.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Main_Reading_Room_of_the_New_York_City_Public_Library_on_5th_Avenue_ca%2C_1910-1920.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/New_York_Public_Library_1908c.jpg?width=800'
     ],
     drawings:[]
   },
@@ -362,8 +368,10 @@ const LOCS_NEW_YORK = [
     wiki:'https://en.wikipedia.org/wiki/41_Cooper_Square',
     tags:['Morphosis','Deconstructivist','LEED Gold','Education'],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Cooper_Union_41_Cooper_Square.jpg/800px-Cooper_Union_41_Cooper_Square.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/41_Cooper_Square_at_Night.jpg/800px-41_Cooper_Square_at_Night.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Cooper_Union_-_Cooper_Union_Academic_Building_%2848072701728%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Cooper_Union_New_Academic_Bldg_from_south.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Atrium_and_Staircase_Interior.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/The_Cooper_Union_-_Cooper_Union_Academic_Building_Entrance_%2848072760147%29.jpg?width=800'
     ],
     drawings:[]
   },
@@ -386,8 +394,10 @@ const LOCS_NEW_YORK = [
     wiki:'https://en.wikipedia.org/wiki/Central_Park',
     tags:['Olmsted & Vaux','Landscape','843 Acres','Free Access'],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Central_Park_New_York_City_Aerial_Photography_2016.jpg/800px-Central_Park_New_York_City_Aerial_Photography_2016.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Bethesda_Fountain%2C_Central_Park.jpg/800px-Bethesda_Fountain%2C_Central_Park.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/3015-Central_Park-Sheep_Meadow.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Angel_of_the_Waters_Fountain_and_Bethesda_Terrace%2C_Central_Park%2C_NYC.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Belvedere_Castle%2C_Central_Park.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/1816mcgowanspass.jpg?width=800'
     ],
     drawings:[
       { type:'Original Plan', caption:'Olmsted & Vaux "Greensward Plan" competition entry, 1858', src:'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Greensward_plan.jpg/800px-Greensward_plan.jpg' }
@@ -412,8 +422,10 @@ const LOCS_NEW_YORK = [
     wiki:'https://en.wikipedia.org/wiki/30_Rockefeller_Plaza',
     tags:['Art Deco','Observatory','NBC Studios','Rockefeller Center'],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/30_Rockefeller_Plaza.jpg/800px-30_Rockefeller_Plaza.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Rockefeller_Center_NBC_Studios.jpg/800px-Rockefeller_Center_NBC_Studios.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/GE_Building_by_David_Shankbone.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/30_Rockefeller_Plaza.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Rockefeller_Center%2C_December_1933.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Lunch_atop_a_Skyscraper_-_Charles_Clyde_Ebbets.jpg?width=800'
     ],
     drawings:[]
   },
@@ -436,8 +448,10 @@ const LOCS_NEW_YORK = [
     wiki:'https://en.wikipedia.org/wiki/Seagram_Building',
     tags:['Mies van der Rohe','International Style','Bronze Glass','Plaza'],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Seagram_Building%2C_NYC.jpg/800px-Seagram_Building%2C_NYC.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Seagram_Building_lobby.jpg/800px-Seagram_Building_lobby.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Seagram_Building_%2835098307116%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/270_Park_Avenue.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Seagram_Building_Nov_2025_19.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Seagram_Building_Floor_Plan.png?width=800'
     ],
     drawings:[]
   },
@@ -459,8 +473,10 @@ const LOCS_NEW_YORK = [
     wiki:'https://en.wikipedia.org/wiki/Lever_House',
     tags:['SOM','Glass Curtain Wall','International Style','Park Avenue'],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Lever_House_-_panoramio.jpg/800px-Lever_House_-_panoramio.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Lever_House_3_%28cropped%29.jpg/800px-Lever_House_3_%28cropped%29.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Lever_House_390_Park_Avenue.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Park_Av_53_St_Mar_2021_70.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Lever_House_Nov_2025_34.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Lever_House_Courtyard.JPG?width=800'
     ],
     drawings:[]
   },
@@ -483,8 +499,10 @@ const LOCS_NEW_YORK = [
     wiki:'https://en.wikipedia.org/wiki/Hearst_Tower_(Manhattan)',
     tags:['Norman Foster','Diagrid','LEED Gold','Art Deco Base'],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/HearstTowerNYC.jpg/800px-HearstTowerNYC.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Hearst_Tower_base.jpg/800px-Hearst_Tower_base.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Hearst_Tower_%28August_2024%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Nueva_York7042.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/W_57th_St_Nov_2020_160.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Hearst_Tower_Lobby_October_2006.jpg?width=800'
     ],
     drawings:[]
   },
@@ -508,8 +526,7 @@ const LOCS_NEW_YORK = [
     wiki:'https://en.wikipedia.org/wiki/New_Museum',
     tags:['SANAA','Aluminum Mesh','Contemporary Art','Bowery'],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/New_Museum_NYC.jpg/800px-New_Museum_NYC.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/New_Museum_-_Bowery.jpg/800px-New_Museum_-_Bowery.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/New_Museum_in_New_York_City_2015.JPG?width=800'
     ],
     drawings:[]
   },
@@ -531,8 +548,8 @@ const LOCS_NEW_YORK = [
     wiki:'https://en.wikipedia.org/wiki/IAC_Building',
     tags:['Frank Gehry','Deconstructivist','Undulating Glass','Chelsea'],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/IAC_Building.jpg/800px-IAC_Building.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Frank_Gehry_IAC_Building_NYC.jpg/800px-Frank_Gehry_IAC_Building_NYC.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Gehry_IAC_and_Nouvel_100_11th_Ave.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/IAC_night_jeh.jpg?width=800'
     ],
     drawings:[]
   },
@@ -554,8 +571,8 @@ const LOCS_NEW_YORK = [
     wiki:'https://en.wikipedia.org/wiki/56_Leonard_Street',
     tags:['Herzog & de Meuron','Jenga Tower','Tribeca','Anish Kapoor'],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/56_Leonard_St%2C_Manhattan%2C_NY_10013%2C_USA_-_panoramio.jpg/800px-56_Leonard_St%2C_Manhattan%2C_NY_10013%2C_USA_-_panoramio.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/56_Leonard_Street_NYC.jpg/800px-56_Leonard_Street_NYC.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/56_Leonard_Street_%2824249%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/View_of_56_Leonard_Street_apartment_building_from_Franklin_St_in_Tribeca.jpg?width=800'
     ],
     drawings:[]
   },
@@ -577,8 +594,10 @@ const LOCS_NEW_YORK = [
     wiki:'https://en.wikipedia.org/wiki/432_Park_Avenue',
     tags:['Rafael Viñoly','Supertall','Slender Tower','Midtown Skyline'],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/432_Park_Avenue_2022.jpg/800px-432_Park_Avenue_2022.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/432ParkAvenueJan2014.jpg/800px-432ParkAvenueJan2014.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/432_Park_Avenue%2C_NY_%28cropped%292.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/432ParkNov2017.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Park_Av_Nov_2021_13.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/432_Park_Avenue_from_Top_of_the_Rock.jpg?width=800'
     ],
     drawings:[]
   },
@@ -602,8 +621,10 @@ const LOCS_NEW_YORK = [
     wiki:'https://en.wikipedia.org/wiki/National_September_11_Memorial_%26_Museum',
     tags:['Memorial','Reflecting Pools','Lower Manhattan','Free Plaza'],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/9-11_Memorial_reflecting_pool.jpg/800px-9-11_Memorial_reflecting_pool.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/National_September_11_Memorial_reflecting_pool_and_surrounding_area_2011.jpg/800px-National_September_11_Memorial_reflecting_pool_and_surrounding_area_2011.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/9-11_Memorial_and_Museum_%2828815276064%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/12.6.11BerryBerensonPanelN-76ByLuigiNovi4.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/One_WTC_From_W_Hotel_7-28-10.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/11_Memorial_Museum_-_steel_beams_in_foundation.jpg?width=800'
     ],
     drawings:[]
   },
@@ -672,8 +693,10 @@ const LOCS_NEW_YORK = [
     wiki:'https://en.wikipedia.org/wiki/Museum_of_Modern_Art',
     tags:['Yoshio Taniguchi','Modern Art','Sculpture Garden','Midtown'],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/MoMA_2022.jpg/800px-MoMA_2022.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/MoMA_Abby_Aldrich_Rockefeller_Sculpture_Garden.jpg/800px-MoMA_Abby_Aldrich_Rockefeller_Sculpture_Garden.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/MoMa_NY_USA_1.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/MoMA_Museum_shop_%281%29_2021_jeh.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Museum_of_Modern_Art_%28MoMA%29_%2851395759113%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Paul_Gauguin_-_Te_aa_no_areois_-_Google_Art_Project.jpg?width=800'
     ],
     drawings:[]
   },
@@ -695,8 +718,10 @@ const LOCS_NEW_YORK = [
     wiki:'https://en.wikipedia.org/wiki/Woolworth_Building',
     tags:['Cass Gilbert','Gothic Revival','Cathedral of Commerce','Gilded Lobby'],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Woolworth_Building_2015.jpg/800px-Woolworth_Building_2015.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Woolworth_Building_lobby.jpg/800px-Woolworth_Building_lobby.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/The_Woolworth_Building_in_New_York_City_LCCN2013650474.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Municipal_Building_-_New_York_City.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/WTM3_PAT_M_IN_NYC_0021.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Woolworth_bldg._ironwork%2C_made_April_4th%2C_1912_LCCN90715771.jpg?width=800'
     ],
     drawings:[]
   },
@@ -790,8 +815,10 @@ const LOCS_NEW_YORK = [
     wiki:'https://en.wikipedia.org/wiki/Citigroup_Center',
     tags:['Hugh Stubbins','Corner Stilts','Engineering Crisis','High-Tech'],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Citicorp_Center.jpg/800px-Citicorp_Center.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/601_Lexington_at_night.jpg/800px-601_Lexington_at_night.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/53rd_St_Lex_Av_td_08_-_Citigroup_Center.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Citigroup_center.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/53rd_St_Lex_Av_td_10_-_Citigroup_Center.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/St_Peter%27s_Lutheran_Church_Manhattan.jpg?width=800'
     ],
     drawings:[]
   },
@@ -813,8 +840,10 @@ const LOCS_NEW_YORK = [
     wiki:'https://en.wikipedia.org/wiki/One_Vanderbilt',
     tags:['KPF','Supertall','SUMMIT Observatory','Grand Central'],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/One_Vanderbilt_2021.jpg/800px-One_Vanderbilt_2021.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/One_Vanderbilt_from_the_south%2C_2020.jpg/800px-One_Vanderbilt_from_the_south%2C_2020.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/One_Vanderbilt_April_2023.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/One_Vanderbilt_facade_2.7.19.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/2022-0402-NYC-Summit_One_Vanderbilt-01.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/One_Vanderbilt_Progress_.jpg?width=800'
     ],
     drawings:[]
   },
@@ -861,8 +890,10 @@ const LOCS_NEW_YORK = [
     wiki:'https://en.wikipedia.org/wiki/Prospect_Park_(Brooklyn)',
     tags:['Olmsted & Vaux','Brooklyn','Natural Forest','Long Meadow'],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/ProspectParkBrooklynNY.jpg/800px-ProspectParkBrooklynNY.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Prospect_Park_Boathouse.jpg/800px-Prospect_Park_Boathouse.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/A_walk_in_the_park_%2849086734093%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Grecian_Shelter_shade_jeh.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/1996.164.10-31a_glass_IMLS_SL2.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/1996.164.10-32_glass_IMLS_SL2.jpg?width=800'
     ],
     drawings:[]
   },
@@ -903,9 +934,11 @@ const LOCS_NEW_YORK = [
         'Queens'
       ],
     photos:[
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/TWA_Flight_Center_JFK_Airport_-_panoramio.jpg/800px-TWA_Flight_Center_JFK_Airport_-_panoramio.jpg',
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/TWA_Flight_Center_interior.jpg/800px-TWA_Flight_Center_interior.jpg'
-      ],
+      'https://commons.wikimedia.org/wiki/Special:FilePath/JFK_T5_May_2019_06.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Interior_TWA_Terminal_at_JFK_International_Airport.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Ambassadors_Club%2C_TWA_Flight_Center%2C_John_F._Kennedy_International_Airport%2C_Jamaica%2C_Queens%2C_New_York_City%2C_NY_%2848589082067%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Departures_Board%2C_TWA_Flight_Center%2C_John_F._Kennedy_International_Airport%2C_Jamaica%2C_Queens%2C_New_York_City%2C_NY_%2848589187066%29.jpg?width=800'
+    ],
     drawings:[
         { type:'Historic Illustration', caption:'TWA Flight Center — Eero Saarinen, 1962', src:'https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/TWA_Flight_Center_JFK_Airport_-_panoramio.jpg/600px-TWA_Flight_Center_JFK_Airport_-_panoramio.jpg' }
       ]
@@ -948,9 +981,11 @@ const LOCS_NEW_YORK = [
         '24/7'
       ],
     photos:[
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Apple_5thAvenue.jpg/800px-Apple_5thAvenue.jpg',
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Apple_Fifth_Avenue_Inside_angle_%282%29.jpg/800px-Apple_Fifth_Avenue_Inside_angle_%282%29.jpg'
-      ],
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Apple_Store_-_Fifth_Avenue_%287181848534%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/New_York_City_Snow_Day%2C_Christmas_Day_2008_%283136571405%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Apple_Store_5th_Avenue_2024.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Apple_Store_Fifth_Avenue%2C_showing_the_patented_glass-staircase_%287181853588%29.jpg?width=800'
+    ],
     drawings:[]
   },
   {
@@ -990,8 +1025,9 @@ const LOCS_NEW_YORK = [
         'Bjarke Ingels'
       ],
     photos:[
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/VIA_57_West_-_2017_%2837135068454%29.jpg/800px-VIA_57_West_-_2017_%2837135068454%29.jpg'
-      ],
+      'https://commons.wikimedia.org/wiki/Special:FilePath/VIA_57_West_-_exterior.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/625_West_57th_Street_2015-07_jeh.jpg?width=800'
+    ],
     drawings:[]
   },
   {
@@ -1073,8 +1109,9 @@ const LOCS_NEW_YORK = [
         'Straddle'
       ],
     photos:[
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Standard_Hotel_NYC.jpg/800px-Standard_Hotel_NYC.jpg'
-      ],
+      'https://commons.wikimedia.org/wiki/Special:FilePath/The_Standard_High_Line_%2824245%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/The_Standard_NYC_4255367163_fffef9e487_crop.jpg?width=800'
+    ],
     drawings:[]
   },
   {
@@ -1114,9 +1151,11 @@ const LOCS_NEW_YORK = [
         'Pacific Park'
       ],
     photos:[
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Barclays_Center_August_2012.jpg/800px-Barclays_Center_August_2012.jpg',
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Barclays_Center_Interior_2012.jpg/800px-Barclays_Center_Interior_2012.jpg'
-      ],
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Barclays_Center_western_side.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Barclays_Center_Oculus.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Atlantic_Terminal_td_%282019-03-30%29_020_-_Barclays_Center.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Barclays-Center-6-19-11.jpg?width=800'
+    ],
     drawings:[]
   },
   {
@@ -1157,8 +1196,9 @@ const LOCS_NEW_YORK = [
         'SHoP'
       ],
     photos:[
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Domino_Sugar_refinery_from_Manhattan_Bridge.jpg/800px-Domino_Sugar_refinery_from_Manhattan_Bridge.jpg'
-      ],
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Domino_Sugar_Refinery%2C_New_York_City%2C_20231001_1133_1047.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Historic_Domino_Sugar_Refinery.jpg?width=800'
+    ],
     drawings:[]
   },
   {
@@ -1199,8 +1239,11 @@ const LOCS_NEW_YORK = [
         'Solar'
       ],
     photos:[
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Cornell_Tech_2019_aerial.jpg/800px-Cornell_Tech_2019_aerial.jpg'
-      ],
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Tata_Innovation_Center_with_Lights_Inside.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Cornell_Tech_buildings_%2841991%29_crop.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/The_Bridge_at_Cornell_Tech_10.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Cornell_Tech_-_View_from_Roof.jpg?width=800'
+    ],
     drawings:[]
   },
   {
@@ -1322,9 +1365,11 @@ const LOCS_NEW_YORK = [
         'Midtown West'
       ],
     photos:[
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Hudson_Yards_aerial.jpg/800px-Hudson_Yards_aerial.jpg',
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Hudson_Yards_-_New_York_City.jpg/800px-Hudson_Yards_-_New_York_City.jpg'
-      ],
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Midtown_Manhattan_from_Weehawken_September_2021_HDR.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/30th_St_staging_for_Hudson_Yards_contruction_2014_jeh.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Hudson_Yards_Real_Estate_Development_Update-_April_16%2C_2015_%2816992354740%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Manhattan_W_Feb_2017_3.jpg?width=800'
+    ],
     drawings:[]
   },
   {
@@ -1449,8 +1494,10 @@ const LOCS_NEW_YORK = [
         'Palm Trees'
     ],
     photos:[
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Winter_Garden_Atrium_Feb_2018.jpg/800px-Winter_Garden_Atrium_Feb_2018.jpg',
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Brookfield_Place_NYC.jpg/800px-Brookfield_Place_NYC.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/World_Financial_Center_Evening.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/World_Financial_Center_Winter_Garden_200706.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/3_World_Financial_Center.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/World_Financial_Center_from_the_Windows_on_the_World_restaurant.jpg?width=800'
     ],
     drawings:[]
   },
