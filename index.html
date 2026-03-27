@@ -1250,7 +1250,6 @@
         </button>
         <div class="fsec-body arch-list" id="body-arch"></div>
       </div>
-      <div class="drag-h-sec" id="dh-sec-arch" title="Drag to resize Architect"></div>
 
     </div><!-- /sb-filters -->
 
@@ -1325,10 +1324,21 @@
 // ══════════════════════════════════════════════════════════════════
 // STATE
 // ══════════════════════════════════════════════════════════════════
-// Load from localStorage (admin edits) or fall back to hardcoded defaults
+// Load from localStorage (admin edits) or fall back to hardcoded defaults.
+// If the JS data files have grown since the last localStorage snapshot,
+// merge in any new entries so newly added locations always appear.
 function _loadLocsFromStorage() {
-  try { const d = localStorage.getItem('archwander_locs_v1'); return d ? JSON.parse(d) : null; }
-  catch(e) { return null; }
+  try {
+    const d = localStorage.getItem('archwander_locs_v1');
+    if (!d) return null;
+    const stored = JSON.parse(d);
+    if (LOCS_DEFAULT.length > stored.length) {
+      const storedIds = new Set(stored.map(l => l.id));
+      const fresh = LOCS_DEFAULT.filter(l => !storedIds.has(l.id)).map(l => ({...l}));
+      return [...stored, ...fresh];
+    }
+    return stored;
+  } catch(e) { return null; }
 }
 let LOCS = _loadLocsFromStorage() || LOCS_DEFAULT.map(l => ({...l}));
 
@@ -2790,7 +2800,6 @@ window.addEventListener('load', function() {
   setupBodyDrag('dh-sec-style', 'body-style', 30, 220);
   setupBodyDrag('dh-sec-era',    'body-era',    30, 220);
   setupBodyDrag('dh-sec-access', 'body-access', 30, 180);
-  setupBodyDrag('dh-sec-arch',  'body-arch',  50, 320);
 });
 
 // ══════════════════════════════════════════════════════════════════
