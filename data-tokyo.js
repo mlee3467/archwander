@@ -174,32 +174,6 @@ const LOCS_TOKYO = [
     drawings:[]
   },
 
-  {
-    id:'national-art-center-tokyo',
-    name:'The National Art Center, Tokyo',
-    cat:'Cultural', cc:'c-cul', styleGroup:'Contemporary',
-    era:'2000–Present', city:'tokyo',
-    arch:'SANAA', archs:['SANAA','Kisho Kurokawa (original concept)'],
-    yr:2007, access:'Free Admission', style:'Contemporary',
-    lat:35.6656, lng:139.7268,
-    addr:'7-22-2 Roppongi, Minato-ku, Tokyo 106-8558', hood:'Roppongi',
-    desc:'The National Art Center in Roppongi, completed in 2007 and the largest exhibition space in Japan at 50,000 sq m, was designed by the late Kisho Kurokawa but its final realisation reflects close collaboration with SANAA. The building\'s most distinctive feature is its undulating glass facade of alternating concave and convex curves that runs the entire 200-metre length of the building, creating a shimmering, continuously shifting surface of glass that appears to breathe. The interior is equally dramatic: two inverted concrete cones rise from the ground floor like enormous funnel forms, serving as restaurants. The building has no permanent collection — it is entirely a rental exhibition space, hosting major rotating shows from Japanese and international institutions. Its scale, central Roppongi location, and free-admission public floors make it one of the most visited art venues in Japan.',
-    hours:'Wed–Mon 10:00 AM – 6:00 PM (Fri–Sat to 8:00 PM) · Closed Tuesday', lastEntry:'30 min before closing',
-    admission:'Free (most areas) · Special exhibitions ticketed',
-    tourOk:true, tourInfo:'The lobby, public floors, and restaurant are freely accessible. Special exhibition tickets vary. Located in Roppongi Art Triangle with Mori Art Museum and Suntory Museum of Art.',
-    web:'https://www.nact.jp/english',
-    transit:'Hibiya Oedo → Roppongi (Exit 4A, 5 min)',
-    walkFrom:'Roppongi Hills (Mori Tower): 6 min · 21_21 Design Sight (Ando): 5 min',
-    gmaps:'https://maps.google.com/?q=National+Art+Center+Tokyo+Roppongi',
-    archdaily:'https://www.archdaily.com/tag/national-art-center-tokyo',
-    wiki:'https://en.wikipedia.org/wiki/The_National_Art_Center,_Tokyo',
-    tags:['SANAA','National Art Center','Roppongi','Undulating Glass','Exhibition','Free'],
-    photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/National_Art_Center_Tokyo.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/National_Art_Center_Tokyo_interior.jpg?width=800'
-    ],
-    drawings:[]
-  },
 
   // ── SHIGERU BAN ───────────────────────────────────────────────
 
@@ -520,7 +494,7 @@ const LOCS_TOKYO = [
     tourOk:true, tourInfo:'Curated temporary design exhibitions rotate 2–3 times per year. The garden and exterior are freely accessible in the Midtown park. The annual "design sight" programme features talks and events.',
     web:'https://www.2121designsight.jp/en',
     transit:'Hibiya Oedo → Roppongi (Exit 8, 5 min)',
-    walkFrom:'National Art Center (SANAA): 5 min · Mori Art Museum: 5 min · Suntory Museum of Art: 2 min',
+    walkFrom:'National Art Center (Kurokawa): 5 min · Mori Art Museum: 5 min · Suntory Museum of Art: 2 min',
     gmaps:'https://maps.google.com/?q=21_21+Design+Sight+Tokyo+Midtown',
     archdaily:'https://www.archdaily.com/tag/21-21-design-sight',
     wiki:'https://en.wikipedia.org/wiki/21_21_Design_Sight',
@@ -555,6 +529,386 @@ const LOCS_TOKYO = [
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Collezione_Aoyama_Ando.jpg?width=800'
     ],
+    drawings:[]
+  },
+
+  // ── KISHO KUROKAWA ─────────────────────────────────────────────
+
+  {
+    id:'nakagin-capsule-tower',
+    name:'Nakagin Capsule Tower',
+    cat:'Historic', cc:'c-his', styleGroup:'Modernist',
+    era:'1970–1999', city:'tokyo',
+    arch:'Kisho Kurokawa', archs:['Kisho Kurokawa'],
+    yr:1972, access:'Open to Public', style:'Metabolism',
+    lat:35.6659, lng:139.7594,
+    addr:'8-16-10 Ginza, Chuo-ku, Tokyo (site)', hood:'Shimbashi / Ginza',
+    desc:'The defining built statement of Japanese Metabolism, the Nakagin Capsule Tower comprised 140 prefabricated steel pods — each 2.3 × 3.8 m — bolted onto two reinforced concrete cores. Every capsule was conceived as a replaceable, interchangeable unit: a cell that could be unplugged, shipped away, and exchanged as the city evolved like a living organism. Kisho Kurokawa designed the tower as both a manifesto and a home, each capsule fitted with a circular porthole window, a built-in reel-to-reel deck, and a fold-down bed. Demolished in April 2022 despite sustained preservation campaigns, the tower survives in fragments — individual capsules now in the collections of MoMA New York, the Neue Nationalgalerie Berlin, and multiple Japanese institutions — ensuring that its argument about architecture as metabolic process remains unresolved.',
+    hours:'Site demolished (April 2022). Preserved capsules on display at various museums worldwide.', lastEntry:'',
+    admission:'N/A (site only)',
+    tourOk:false, tourInfo:'The building was demolished in 2022. The site is accessible. Preserved capsules are exhibited at MoMA (New York), M+ (Hong Kong), and Japanese venues.',
+    web:'https://nakagincapsuletower.com',
+    transit:'JR Yamanote / Tokaido → Shimbashi (5 min walk); Ginza Line → Shimbashi (4 min walk)',
+    walkFrom:'Shiodome (Nihon TV Tower): 5 min · Ginza district: 8 min',
+    gmaps:'https://maps.google.com/?q=35.6659,139.7594',
+    archdaily:'https://www.archdaily.com/tag/nakagin-capsule-tower',
+    wiki:'https://en.wikipedia.org/wiki/Nakagin_Capsule_Tower',
+    tags:['Kisho Kurokawa','Metabolism','Capsule','Prefab','Demolished','Shimbashi','Icon','1972'],
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Nakagin.jpg?width=800'
+    ],
+    drawings:[]
+  },
+
+  {
+    id:'national-art-center-tokyo',
+    name:'National Art Center Tokyo',
+    cat:'Cultural', cc:'c-cul', styleGroup:'Contemporary',
+    era:'2000–Present', city:'tokyo',
+    arch:'Kisho Kurokawa', archs:['Kisho Kurokawa'],
+    yr:2007, access:'Open to Public', style:'Contemporary',
+    lat:35.6650, lng:139.7274,
+    addr:'7-22-2 Roppongi, Minato-ku, Tokyo 106-8558', hood:'Roppongi',
+    desc:'The National Art Center Tokyo (国立新美術館) is Kisho Kurokawa\'s final major work and the largest exhibition space in Japan. The undulating glass façade — 200 m long, sculpted into a continuous series of concave and convex curves — filters natural light into the interior in a way that changes through the day and season. The building contains no permanent collection: its 14 galleries are dedicated entirely to temporary exhibitions, positioning the NACT as a civic platform rather than an institutional repository. Two inverted concrete cones rise through the atrium — tapering upward to cafés cantilevered high above the lobby — creating one of Tokyo\'s most theatrical public interiors. Completed the year of Kurokawa\'s death, it stands as his meditation on light, transparency, and the public life of art.',
+    hours:'Wed–Mon 10:00–18:00 (Fri–Sat until 20:00). Closed Tue.', lastEntry:'30 min before closing',
+    admission:'Free (galleries may charge for exhibitions)',
+    tourOk:false, tourInfo:'The building is freely accessible. Individual exhibitions may require tickets.',
+    web:'https://www.nact.jp',
+    transit:'Chiyoda → Nogizaka (Exit 6, directly connected); Hibiya / Oedo → Roppongi (7 min walk)',
+    walkFrom:'21_21 Design Sight (Ando): 8 min · Mori Art Museum: 10 min',
+    gmaps:'https://maps.google.com/?q=National+Art+Center+Tokyo',
+    archdaily:'https://www.archdaily.com/tag/national-art-center-tokyo',
+    wiki:'https://en.wikipedia.org/wiki/National_Art_Center,_Tokyo',
+    tags:['Kisho Kurokawa','Roppongi','Glass Facade','Exhibition','Museum','2007','National'],
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/National_Art_Center_Tokyo_2010.jpg?width=800'
+    ],
+    drawings:[]
+  },
+
+  // ── KUNIO MAEKAWA ───────────────────────────────────────────────
+
+  {
+    id:'tokyo-bunka-kaikan',
+    name:'Tokyo Bunka Kaikan',
+    cat:'Cultural', cc:'c-cul', styleGroup:'Modernist',
+    era:'1930–1969', city:'tokyo',
+    arch:'Kunio Maekawa', archs:['Kunio Maekawa'],
+    yr:1961, access:'Open to Public', style:'Japanese Modernism',
+    lat:35.7148, lng:139.7749,
+    addr:'5-45 Ueno Koen, Taito-ku, Tokyo 110-8716', hood:'Ueno',
+    desc:'Standing at the northern edge of Ueno Park opposite the Tokyo National Museum, the Tokyo Bunka Kaikan (Tokyo Metropolitan Festival Hall) is the defining work of Kunio Maekawa — Le Corbusier\'s most devoted Japanese apprentice, and the man most responsible for transplanting the language of European modernism into postwar Japan. The building\'s muscular concrete form — pilotis-raised, with a dramatically upswept roof canopy and deeply textured tile-clad facades — translates Corbusian principles into a scale and materiality appropriate to the Japanese city. Its 2,303-seat main hall is one of the country\'s finest concert spaces. Designated an Important Cultural Property in 2003, it remains proof that fidelity to a master need not preclude genuine invention.',
+    hours:'Lobby: open on performance days. Box office: 10:00–18:00 (closed Mon unless event).', lastEntry:'',
+    admission:'Varies by event',
+    tourOk:false, tourInfo:'The lobby and exterior are freely accessible on performance days. Interior tours not regularly offered.',
+    web:'https://www.t-bunka.jp',
+    transit:'JR Yamanote / Keihin-Tohoku → Ueno (Park Exit, 5 min walk)',
+    walkFrom:'Tokyo National Museum: 5 min · Shinobazu Pond: 8 min',
+    gmaps:'https://maps.google.com/?q=Tokyo+Bunka+Kaikan+Ueno',
+    archdaily:'https://www.archdaily.com/tag/tokyo-bunka-kaikan',
+    wiki:'https://en.wikipedia.org/wiki/Tokyo_Bunka_Kaikan',
+    tags:['Kunio Maekawa','Ueno','Concert Hall','Brutalism','Japanese Modernism','Le Corbusier','1961','Important Cultural Property'],
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Tokyo_bunka_kaikan01s3200.jpg?width=800'
+    ],
+    drawings:[]
+  },
+
+  // ── JUNZO SAKAKURA ──────────────────────────────────────────────
+
+  {
+    id:'harumi-apartments',
+    name:'Harumi Apartment Complex',
+    cat:'Historic', cc:'c-his', styleGroup:'Modernist',
+    era:'1930–1969', city:'tokyo',
+    arch:'Junzo Sakakura', archs:['Junzo Sakakura'],
+    yr:1958, access:'Open to Public', style:'Corbusian Modernism',
+    lat:35.6546, lng:139.7808,
+    addr:'4-chome Harumi, Chuo-ku, Tokyo', hood:'Harumi',
+    desc:'Designed by Junzo Sakakura — who spent eight years in Le Corbusier\'s Paris atelier before returning to Japan — the Harumi Apartment Complex introduced the unité d\'habitation typology to Japanese public housing. Four slab blocks rise on pilotis above open landscaped ground in Harumi, a postwar reclaimed waterfront district of Chuo Ward. Commissioned by the Japan Housing Corporation as a model for modern collective living, the project set compositional and social standards that influenced a generation of public housing in Japan. Sakakura\'s use of the pilotis, roof garden, and free façade — all Corbusian principles — was understood at the time as a serious statement about what a democratic urban life could be. The surviving blocks are now protected as Important Cultural Properties.',
+    hours:'Exterior freely visible. Interior: residential, private.', lastEntry:'',
+    admission:'Free (exterior)',
+    tourOk:false, tourInfo:'The exterior and grounds are accessible. The buildings are active residences and interiors are private.',
+    web:'',
+    transit:'Tokyo Metro Yurakucho / Toei Oedo → Tsukishima (15 min walk); Bus: Harumi 4-chome',
+    walkFrom:'Tsukishima (monjayaki district): 15 min · Harumi waterfront: 5 min',
+    gmaps:'https://maps.google.com/?q=Harumi+Apartments+Tokyo',
+    archdaily:'',
+    wiki:'https://en.wikipedia.org/wiki/Harumi_Flats',
+    tags:['Junzo Sakakura','Le Corbusier','Public Housing','Modernism','Harumi','Important Cultural Property','1958'],
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Harumi_apartments.jpg?width=800'
+    ],
+    drawings:[]
+  },
+
+  // ── JUNZO YOSHIMURA ─────────────────────────────────────────────
+
+  {
+    id:'international-house-of-japan',
+    name:'International House of Japan',
+    cat:'Cultural', cc:'c-cul', styleGroup:'Modernist',
+    era:'1930–1969', city:'tokyo',
+    arch:'Junzo Yoshimura, Junzo Sakakura & Kunio Maekawa', archs:['Junzo Yoshimura','Junzo Sakakura','Kunio Maekawa'],
+    yr:1955, access:'Open to Public', style:'Japanese Modernism',
+    lat:35.6602, lng:139.7357,
+    addr:'5-11-16 Roppongi, Minato-ku, Tokyo 106-0032', hood:'Roppongi',
+    desc:'Commissioned to rebuild Japan\'s connections with the international scholarly community after the war, the International House of Japan was a joint work by three architects who collectively defined the first generation of Japanese modernism: Junzo Yoshimura, Junzo Sakakura, and Kunio Maekawa — all formed in the orbit of Le Corbusier. Yoshimura\'s sensibility is most legible in the building\'s unhurried dialogue with its classical Japanese garden: corridors open onto verandahs, the garden folds into the building\'s geometry, and the boundary between inside and outside is allowed to dissolve. A rare modern building that absorbs traditional spatial culture rather than displacing it, the complex remains in active use as a cultural and academic institution.',
+    hours:'Garden open to members and guests. Café/restaurant open to public: 11:00–22:00.', lastEntry:'',
+    admission:'Café/restaurant: open to public (free entry). Events: varies.',
+    tourOk:false, tourInfo:'The garden is primarily for members. The café, restaurant, and ground floor public areas are accessible to all.',
+    web:'https://www.i-house.or.jp',
+    transit:'Tokyo Metro Namboku → Roppongi-itchome (Exit 1, 3 min walk)',
+    walkFrom:'Ark Hills: 5 min · Roppongi Hills: 10 min',
+    gmaps:'https://maps.google.com/?q=International+House+of+Japan+Roppongi',
+    archdaily:'',
+    wiki:'https://en.wikipedia.org/wiki/International_House_of_Japan',
+    tags:['Junzo Yoshimura','Junzo Sakakura','Kunio Maekawa','Roppongi','Japanese Modernism','Garden','1955','Cultural Exchange'],
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/International_House_of_Japan.jpg?width=800'
+    ],
+    drawings:[]
+  },
+
+  // ── ARAKAWA + MADELINE GINS ─────────────────────────────────────
+
+  {
+    id:'reversible-destiny-lofts-mitaka',
+    name:'Reversible Destiny Lofts Mitaka',
+    cat:'Residential', cc:'c-res', styleGroup:'Contemporary',
+    era:'2000–Present', city:'tokyo',
+    arch:'Arakawa + Madeline Gins', archs:['Arakawa','Madeline Gins'],
+    yr:2005, access:'Paid Ticket', style:'Experimental',
+    lat:35.6836, lng:139.5528,
+    addr:'2-2-8 Osawa, Mitaka-shi, Tokyo 181-0015', hood:'Mitaka',
+    desc:'Built on the conviction that habituated perception leads to physical decline and death, artist Shusaku Arakawa and philosopher Madeline Gins designed these nine apartments to permanently disorient their occupants. Floors pitch and undulate; ceiling heights shift without warning from 1.4 m to 3.5 m; spherical recesses punctuate surfaces; primary colors collide against each other without resolution. Every spatial convention — level floor, neutral wall, readable threshold — is systematically refused. The Mitaka lofts are the most fully realized expression of their "reversible destiny" thesis: that architecture designed to resist the body\'s expectations can slow, and perhaps reverse, the process of aging. Available for overnight stays and weekend tours, they remain the world\'s most inhabitable philosophical argument.',
+    hours:'Tours: Sat–Sun 11:00–16:00 (reservation required). Overnight stays: bookable.', lastEntry:'',
+    admission:'Guided tour: ¥1,500. Overnight stay: from ¥5,000/person.',
+    tourOk:true, tourInfo:'Weekend guided tours available by reservation. The lofts can be rented overnight for a full sensory experience.',
+    web:'https://www.rdloftsmitaka.com',
+    transit:'JR Chuo Line → Mitaka (20 min walk or bus to Osawa 3-chome)',
+    walkFrom:'Ghibli Museum: 20 min on foot',
+    gmaps:'https://maps.google.com/?q=Reversible+Destiny+Lofts+Mitaka',
+    archdaily:'https://www.archdaily.com/tag/reversible-destiny-lofts',
+    wiki:'https://en.wikipedia.org/wiki/Reversible_Destiny_Lofts',
+    tags:['Arakawa','Madeline Gins','Experimental','Mitaka','Residential','Philosophy','Anti-Gravity','2005'],
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Reversible_Destiny_Lofts.jpg?width=800'
+    ],
+    drawings:[]
+  },
+
+  // ── WONDERWALL (MASAMICHI KATAYAMA) ─────────────────────────────
+
+  {
+    id:'uniqlo-ginza-flagship',
+    name:'Uniqlo Ginza Flagship',
+    cat:'Retail', cc:'c-ret', styleGroup:'Contemporary',
+    era:'2000–Present', city:'tokyo',
+    arch:'Wonderwall (Masamichi Katayama)', archs:['Wonderwall','Masamichi Katayama'],
+    yr:2012, access:'Open to Public', style:'Concept Retail Design',
+    lat:35.6698, lng:139.7641,
+    addr:'6-9-5 Ginza, Chuo-ku, Tokyo 104-0061', hood:'Ginza',
+    desc:'Masamichi Katayama of Wonderwall is the architect most responsible for defining what Tokyo retail design became in the 2000s and 2010s — a discipline in which spatial branding is indistinguishable from cultural identity. The Uniqlo Ginza flagship, occupying twelve floors of a Ginza tower, is among his most ambitious spatial works: a vertical cascade of experience in which each floor is distinguished by a different material palette, proportion, and lighting condition, yet the whole reads as a single continuous spatial narrative. Katayama\'s influence extends from Harajuku streetwear boutiques (Bape, Neighborhood) to global fashion retail, but his Ginza work represents the maturation of his thinking into something genuinely architectural.',
+    hours:'Daily 11:00–21:00', lastEntry:'',
+    admission:'Free',
+    tourOk:false, tourInfo:'The store is freely accessible during opening hours.',
+    web:'https://www.uniqlo.com/jp/store/list/ginza.html',
+    transit:'Tokyo Metro Ginza / Hibiya / Marunouchi → Ginza (Exit A2, 2 min walk)',
+    walkFrom:'Ginza Six: 5 min · Itoya Stationery: 3 min',
+    gmaps:'https://maps.google.com/?q=Uniqlo+Ginza+Flagship',
+    archdaily:'',
+    wiki:'',
+    tags:['Wonderwall','Masamichi Katayama','Ginza','Retail Design','Uniqlo','2012','Interior','Flagship'],
+    photos:[],
+    drawings:[]
+  },
+
+  // ── KLEIN DYTHAM ARCHITECTURE ───────────────────────────────────
+
+  {
+    id:'daikanyama-t-site',
+    name:'Daikanyama T-Site',
+    cat:'Cultural', cc:'c-cul', styleGroup:'Contemporary',
+    era:'2000–Present', city:'tokyo',
+    arch:'Klein Dytham Architecture', archs:['Klein Dytham Architecture'],
+    yr:2011, access:'Open to Public', style:'Contemporary',
+    lat:35.6481, lng:139.7027,
+    addr:'17-5 Sarugakucho, Shibuya-ku, Tokyo 150-0033', hood:'Daikanyama',
+    desc:'Designed by Klein Dytham Architecture (KDa) for Tsutaya Books, Daikanyama T-Site reimagined the bookstore as a forest retreat for thoughtful adults. Three low-rise volumes — clad in a laser-cut T-pattern screen that shifts between transparency and opacity with the light — are connected by elevated walkways through a canopy of mature camphor trees. The result is less a retail complex than a micro-district: books, music, film, café, and curated lifestyle objects arranged in an unhurried sequence that rewards slow movement. It immediately became a globally cited model for experience-led retail and a defining landmark of Daikanyama\'s identity as Tokyo\'s most refined neighborhood for slow urban living.',
+    hours:'7:00–26:00 (2 AM) daily', lastEntry:'',
+    admission:'Free',
+    tourOk:false, tourInfo:'Freely accessible during opening hours. Lounge membership available for the second-floor Anjin magazine library.',
+    web:'https://store.tsite.jp/daikanyama/',
+    transit:'Tokyu Toyoko Line → Daikanyama (5 min walk)',
+    walkFrom:'Log Road Daikanyama: 3 min · Hillside Terrace (Maki): 5 min',
+    gmaps:'https://maps.google.com/?q=Daikanyama+T-Site+Tokyo',
+    archdaily:'https://www.archdaily.com/285103/daikanyama-t-site-klein-dytham-architecture',
+    wiki:'https://en.wikipedia.org/wiki/Daikanyama_T-Site',
+    tags:['Klein Dytham','Daikanyama','Tsutaya','Bookstore','Retail','Forest','2011','Lifestyle'],
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Daikanyama_Tsutaya_Books.jpg?width=800'
+    ],
+    drawings:[]
+  },
+
+  // ── ATELIER BOW-WOW ─────────────────────────────────────────────
+
+  {
+    id:'atelier-bow-wow-tower-machiya',
+    name:'Tower Machiya',
+    cat:'Residential', cc:'c-res', styleGroup:'Contemporary',
+    era:'2000–Present', city:'tokyo',
+    arch:'Atelier Bow-Wow', archs:['Atelier Bow-Wow'],
+    yr:2005, access:'Private', style:'Tokyo Pet Architecture',
+    lat:35.6059, lng:139.6561,
+    addr:'Ookayama, Meguro-ku, Tokyo', hood:'Ookayama',
+    desc:'Tower Machiya is one of the most lucid expressions of the design philosophy that Atelier Bow-Wow (Momoyo Kaijima and Yoshiharu Tsukamoto) developed through their landmark survey "Made in Tokyo": the conviction that the city\'s tightest, most irregular, most constrained sites are precisely where the richest spatial invention becomes possible — that limitation is the precondition of character. Rising on a narrow urban plot, the building stacks machiya (traditional townhouse) spatial logic vertically: intimate rooms with low ceilings alternate with double-height volumes; the staircase becomes the building\'s primary spatial event; the section negotiates privacy and light with an ingenuity no plan alone could achieve. It is both a home and a manifesto.',
+    hours:'Private residence. Exterior view only.', lastEntry:'',
+    admission:'N/A',
+    tourOk:false, tourInfo:'Private residential building. Exterior visible from the street.',
+    web:'https://bow-wow.jp',
+    transit:'Tokyu Meguro / Oimachi Lines → Ookayama',
+    walkFrom:'Tokyo Institute of Technology campus: 5 min',
+    gmaps:'https://maps.google.com/?q=Ookayama+Meguro+Tokyo',
+    archdaily:'https://www.archdaily.com/tag/atelier-bow-wow',
+    wiki:'https://en.wikipedia.org/wiki/Atelier_Bow-Wow',
+    tags:['Atelier Bow-Wow','Pet Architecture','Machiya','Residential','Tokyo','Narrow Lot','2005'],
+    photos:[],
+    drawings:[]
+  },
+
+  // ── JUNYA ISHIGAMI ──────────────────────────────────────────────
+
+  {
+    id:'kait-workshop',
+    name:'KAIT Workshop',
+    cat:'Academic / Institution', cc:'c-edu', styleGroup:'Contemporary',
+    era:'2000–Present', city:'tokyo',
+    arch:'Junya Ishigami', archs:['Junya Ishigami'],
+    yr:2008, access:'Open to Public', style:'Structural Minimalism',
+    lat:35.5042, lng:139.3614,
+    addr:'1030 Shimo-Ogino, Atsugi-shi, Kanagawa (near Tokyo)', hood:'Atsugi / Kanagawa',
+    desc:'The KAIT Workshop at Kanagawa Institute of Technology is Junya Ishigami\'s breakthrough built work — a single-storey glass pavilion covering 2,000 sqm whose structural system defies immediate comprehension. Three hundred and five slender steel columns, each of a different cross-section and set at a subtly varying angle, carry the flat roof in an arrangement that resembles a forest more than an engineered grid. No column is redundant; each carries a precise load in a precisely calibrated direction; together they produce a space without hierarchy, without emphasis, without beginning or end. The workshop accommodates student making across its open floor — welding, woodworking, ceramics — dissolving the boundary between workshop and landscape. Junya Ishigami was awarded the Pritzker Prize in 2024.',
+    hours:'Open during Kanagawa Institute of Technology campus hours (term time).', lastEntry:'',
+    admission:'Free with campus access',
+    tourOk:false, tourInfo:'The building is on the KIT campus and accessible during university hours. No formal tours offered.',
+    web:'https://www.jnyi.jp',
+    transit:'Odakyu Odawara Line → Atsugi; bus to Kanagawa Institute of Technology (40 min from Shinjuku)',
+    walkFrom:'KIT main campus buildings: adjacent',
+    gmaps:'https://maps.google.com/?q=Kanagawa+Institute+of+Technology+KAIT+Workshop',
+    archdaily:'https://www.archdaily.com/13953/kait-workshop-junya-ishigami',
+    wiki:'https://en.wikipedia.org/wiki/KAIT_Workshop',
+    tags:['Junya Ishigami','KAIT','Pritzker 2024','Columns','Structural','Minimalism','Workshop','Kanagawa','2008'],
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/KAIT_workshop.jpg?width=800'
+    ],
+    drawings:[]
+  },
+
+  // ── HIROSHI NAKAMURA & NAP ──────────────────────────────────────
+
+  {
+    id:'nakamura-nap-dance-trees',
+    name:'Dancing Trees, Singing Birds',
+    cat:'Cultural', cc:'c-cul', styleGroup:'Contemporary',
+    era:'2000–Present', city:'tokyo',
+    arch:'Hiroshi Nakamura & NAP', archs:['Hiroshi Nakamura'],
+    yr:2009, access:'Open to Public', style:'Organic Contemporary',
+    lat:35.3256, lng:139.4843,
+    addr:'5-2-35 Tsujido Motomachi, Fujisawa-shi, Kanagawa (greater Tokyo area)', hood:'Fujisawa / Shonan',
+    desc:'Hiroshi Nakamura & NAP Architects are among the most consistently inventive practices in contemporary Japanese architecture, working at the intersection of sensory experience, material research, and landscape. Dancing Trees, Singing Birds — a childcare facility in Fujisawa — is one of the studio\'s most celebrated early works. The building\'s irregular roof mimics the branching canopy of the surrounding forest, its curved profile generated by tracing the shadow patterns cast by existing trees onto the site. Interior light filters through skylights at the same angles and rhythms as the foliage above, making the building a literal instrument of the natural environment. NAP\'s Tokyo residential and commercial commissions continue this inquiry into architecture as perceptual event.',
+    hours:'Not open to general public (childcare facility).', lastEntry:'',
+    admission:'N/A',
+    tourOk:false, tourInfo:'Private childcare facility. Exterior visible from street.',
+    web:'https://www.nap-archi.com',
+    transit:'JR Tokaido Line → Tsujido (10 min walk)',
+    walkFrom:'Shonan coast: 15 min',
+    gmaps:'https://maps.google.com/?q=Dancing+Trees+Singing+Birds+Fujisawa',
+    archdaily:'https://www.archdaily.com/152972/dancing-trees-singing-birds-nap-architects',
+    wiki:'',
+    tags:['Hiroshi Nakamura','NAP','Organic','Childcare','Fujisawa','Forest','Roof','2009'],
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Dancing_Trees_Singing_Birds.jpg?width=800'
+    ],
+    drawings:[]
+  },
+
+  // ── YOSHIHIRO SATO ──────────────────────────────────────────────
+
+  {
+    id:'yoshihiro-sato-sakuradai-court',
+    name:'Sakuradai Court Village',
+    cat:'Residential', cc:'c-res', styleGroup:'Contemporary',
+    era:'2000–Present', city:'tokyo',
+    arch:'Yoshihiro Sato', archs:['Yoshihiro Sato'],
+    yr:2007, access:'Open to Public', style:'Urban Housing',
+    lat:35.7307, lng:139.6553,
+    addr:'Sakuradai, Nerima-ku, Tokyo', hood:'Nerima',
+    desc:'Yoshihiro Sato is among the Tokyo architects who have approached housing not as a typological problem but as an urban design challenge — asking how collective residential buildings can produce street life, shared space, and spatial variety at the scale of the neighbourhood. The Sakuradai Court Village project in Nerima Ward is a notable example of this approach: a complex of housing units arranged to create internal courtyards and semi-public passages that invert the typical relationship between the residential block and the street, producing an interior neighbourhood of its own.',
+    hours:'Exterior freely visible. Residential interior: private.', lastEntry:'',
+    admission:'Free (exterior)',
+    tourOk:false, tourInfo:'Residential complex. Exterior and shared walkways may be accessible.',
+    web:'',
+    transit:'Seibu Ikebukuro Line → Sakuradai',
+    walkFrom:'Nerima ward local area',
+    gmaps:'https://maps.google.com/?q=Sakuradai+Nerima+Tokyo',
+    archdaily:'',
+    wiki:'',
+    tags:['Yoshihiro Sato','Nerima','Housing','Courtyard','Residential','Tokyo','2007'],
+    photos:[],
+    drawings:[]
+  },
+
+  // ── TAKASHI YAMAGUCHI ───────────────────────────────────────────
+
+  {
+    id:'takashi-yamaguchi-gallery',
+    name:'Mujin-to Production Gallery',
+    cat:'Cultural', cc:'c-cul', styleGroup:'Contemporary',
+    era:'2000–Present', city:'tokyo',
+    arch:'Takashi Yamaguchi & Associates', archs:['Takashi Yamaguchi'],
+    yr:2005, access:'Open to Public', style:'Minimalism',
+    lat:35.7060, lng:139.6564,
+    addr:'2-3-20 Koenji-Kita, Suginami-ku, Tokyo', hood:'Koenji',
+    desc:'Takashi Yamaguchi & Associates have built a singular body of work around white monochromatic space — galleries, chapels, and institutions where the suppression of material incident allows architecture to become pure spatial experience. Their Tokyo gallery works extend the studio\'s Osaka-rooted practice of extreme material reduction: walls, floors, and ceilings rendered in a consistent white ground that shifts tonally only with the movement of natural light. In the tradition of Japanese ma (negative space), emptiness is treated as the primary architectural material, and the human body and the art placed within become the only events the building acknowledges.',
+    hours:'Tue–Sat 12:00–19:00. Closed Sun–Mon.', lastEntry:'',
+    admission:'Free',
+    tourOk:false, tourInfo:'Gallery open to public during exhibition periods.',
+    web:'',
+    transit:'JR Chuo / Sobu Line → Koenji (North Exit, 5 min walk)',
+    walkFrom:'Koenji shopping streets: 5 min',
+    gmaps:'https://maps.google.com/?q=Koenji+Suginami+Tokyo',
+    archdaily:'',
+    wiki:'',
+    tags:['Takashi Yamaguchi','Minimalism','Gallery','White','Koenji','Tokyo','Spatial'],
+    photos:[],
+    drawings:[]
+  },
+
+  // ── YUICHIRO HIGUCHI ────────────────────────────────────────────
+
+  {
+    id:'yuichiro-higuchi-residence',
+    name:'House in Komazawa',
+    cat:'Residential', cc:'c-res', styleGroup:'Contemporary',
+    era:'2000–Present', city:'tokyo',
+    arch:'Yuichiro Higuchi', archs:['Yuichiro Higuchi'],
+    yr:2010, access:'Private', style:'Contemporary',
+    lat:35.6400, lng:139.6630,
+    addr:'Komazawa, Setagaya-ku, Tokyo', hood:'Komazawa',
+    desc:'Yuichiro Higuchi works within the long tradition of experimental residential architecture that has made Tokyo\'s urban fabric a laboratory of domestic invention. Operating at the scale of the individual house — the scale at which Japanese architects have historically been freest to speculate — Higuchi\'s residential work explores the relationship between programme, section, and light in the constrained conditions of the Tokyo plot. The house in Komazawa is representative of a generation of Tokyo practitioners who inherited the formal intensity of the 1990s Atelier movement and redirected it toward a more nuanced engagement with the textures of everyday urban life.',
+    hours:'Private residence. Not open to public.', lastEntry:'',
+    admission:'N/A',
+    tourOk:false, tourInfo:'Private residential building.',
+    web:'',
+    transit:'Tokyu Den-en-toshi Line → Komazawa-Daigaku',
+    walkFrom:'Komazawa Olympic Park: 10 min',
+    gmaps:'https://maps.google.com/?q=Komazawa+Setagaya+Tokyo',
+    archdaily:'',
+    wiki:'',
+    tags:['Yuichiro Higuchi','Residential','Komazawa','Setagaya','Tokyo','Contemporary'],
+    photos:[],
     drawings:[]
   }
 
