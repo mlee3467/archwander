@@ -82,6 +82,20 @@
     #gps-btn:hover { border-color: #111; }
     #gps-btn.locating { border-color: #4F46E5; color: #4F46E5; }
     #gps-btn.located  { border-color: #15803D; color: #15803D; }
+
+    /* Language toggle */
+    #lang-btn {
+      display: flex; align-items: center; gap: 4px;
+      padding: 5px 11px; border: 1px solid var(--border);
+      border-radius: 20px; background: var(--surface);
+      color: var(--text-secondary); font-size: 11px; font-weight: 600;
+      cursor: pointer; letter-spacing: 0.03em; white-space: nowrap;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    #lang-btn:hover { border-color: var(--accent); color: var(--accent); }
+    #lang-btn .lang-active { color: var(--text-primary); font-weight: 700; }
+    #lang-btn .lang-sep { opacity: 0.35; font-weight: 400; }
+
     #menu-btn {
       display: none; width: 34px; height: 34px;
       border: 1px solid var(--border); border-radius: 8px;
@@ -1123,6 +1137,11 @@
       <button class="city-tab" id="city-lon" onclick="selectCity('lon')">🎡 London</button>
       <button class="city-tab" id="city-tky" onclick="selectCity('tky')">🏯 Tokyo</button>
     </div>
+    <button id="lang-btn" onclick="toggleLang()" title="Switch language / 언어 변경">
+      <span id="lang-en-label" class="lang-active">EN</span>
+      <span class="lang-sep">|</span>
+      <span id="lang-ko-label">한국어</span>
+    </button>
     <button id="menu-btn" onclick="toggleSidebar()">&#9776;</button>
   </div>
 </header>
@@ -1388,6 +1407,151 @@ const MAPILLARY_TOKEN = 'YOUR_MAPILLARY_TOKEN_HERE';
 const YOUTUBE_API_KEY = 'AIzaSyD5QJKfu5LgdgJlfmJSFu8r8V6bdGaqR14';
 
 // ══════════════════════════════════════════════════════════════════
+// LANGUAGE  (EN default · KO optional)
+// ══════════════════════════════════════════════════════════════════
+let LANG = localStorage.getItem('archwander_lang') || 'en';
+
+const T = {
+  en: {
+    search_ph:    'Search buildings, architects, styles…',
+    street:       'Street',       satellite:    'Satellite',
+    my_location:  'My Location',
+    filters:      'Filters',      clear_all:    '✕ Clear all',   clear: '✕ Clear',
+    category:     'Category',     style:        'Style',          era:   'Era',
+    access:       'Access',       architect:    'Architect',
+    sort_default: 'Default order',sort_oldest:  'Oldest first',
+    sort_newest:  'Newest first', sort_az:      'Name A–Z',
+    tab_overview: 'Overview',     tab_visit:    'Visit',
+    tab_here:     'Directions',   tab_videos:   'Videos',         tab_reviews: 'Reviews',
+    neighborhood: 'Neighborhood', address:      'Address',
+    arch_label:   'Architect',    completed:    'Completed',
+    style_label:  'Style',        access_label: 'Access',
+    hours:        'Hours',        last_entry:   'Last Entry',     admission: 'Admission',
+    guided_tour:  'Guided Tour',  tour_yes:     '✓ Available',   tour_no:   '✗ Not available',
+    tour_info:    'Tour Info',    visit_website:'Visit Official Website ↗',
+    subway:       'Subway',       nearby:       'Nearby',
+    open_gmaps:   'Open in Google Maps ↗',
+    sv_gmaps:     'Street View (Google Maps) ↗',
+    vid_loading:  'Searching YouTube…',
+    vid_timeout:  'Request timed out',
+    vid_search_yt:'▶ Search on YouTube',
+    vid_no_key:   'Add a <code>YOUTUBE_API_KEY</code> in <code>index.html</code><br>to show related videos here.',
+    vid_fail:     'Could not load videos.',
+    vid_direct:   'Search directly on YouTube below.',
+    no_results:   'No locations match.<br>Try adjusting your filters.',
+    loc_count:    n => `${n} location${n !== 1 ? 's' : ''}`,
+  },
+  ko: {
+    search_ph:    '건물, 건축가, 스타일 검색…',
+    street:       '지도',         satellite:    '위성',
+    my_location:  '내 위치',
+    filters:      '필터',         clear_all:    '✕ 전체 초기화', clear: '✕ 초기화',
+    category:     '카테고리',     style:        '스타일',         era:   '시대',
+    access:       '접근성',       architect:    '건축가',
+    sort_default: '기본 순서',    sort_oldest:  '오래된순',
+    sort_newest:  '최신순',       sort_az:      '이름 A–Z',
+    tab_overview: '개요',         tab_visit:    '방문',
+    tab_here:     '오시는 길',    tab_videos:   '영상',           tab_reviews: '리뷰',
+    neighborhood: '지역',         address:      '주소',
+    arch_label:   '건축가',       completed:    '완공',
+    style_label:  '스타일',       access_label: '접근성',
+    hours:        '운영시간',     last_entry:   '마지막 입장',    admission: '입장료',
+    guided_tour:  '가이드 투어',  tour_yes:     '✓ 가능',        tour_no:   '✗ 불가',
+    tour_info:    '투어 정보',    visit_website:'공식 웹사이트 ↗',
+    subway:       '지하철',       nearby:       '주변',
+    open_gmaps:   'Google Maps에서 열기 ↗',
+    sv_gmaps:     'Street View (Google Maps) ↗',
+    vid_loading:  'YouTube 검색 중…',
+    vid_timeout:  '요청 시간 초과',
+    vid_search_yt:'▶ YouTube에서 검색',
+    vid_no_key:   '<code>index.html</code>에 <code>YOUTUBE_API_KEY</code>를 추가하면<br>관련 영상을 바로 볼 수 있어요.',
+    vid_fail:     '영상을 불러오지 못했습니다.',
+    vid_direct:   '아래 버튼으로 직접 검색하세요.',
+    no_results:   '조건에 맞는 장소가 없습니다.<br>필터를 조정해 보세요.',
+    loc_count:    n => `${n}개 장소`,
+  }
+};
+
+function t(key) {
+  const map = T[LANG] || T.en;
+  return key in map ? map[key] : (T.en[key] ?? key);
+}
+
+function toggleLang() {
+  LANG = LANG === 'en' ? 'ko' : 'en';
+  localStorage.setItem('archwander_lang', LANG);
+  setMapLang();
+  applyLang();
+}
+
+function setMapLang() {
+  const isKo = LANG === 'ko';
+  const url  = isKo
+    ? 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+    : 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+  const attr = isKo
+    ? '© <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+    : '© <a href="https://openstreetmap.org">OpenStreetMap</a> contributors © <a href="https://carto.com/attributions">CARTO</a>';
+  if (map && map.hasLayer(streetLayer)) {
+    map.removeLayer(streetLayer);
+    streetLayer = L.tileLayer(url, { attribution: attr, subdomains: isKo ? 'abc' : 'abcd', maxZoom: 19 });
+    streetLayer.addTo(map);
+  }
+}
+
+function applyLang() {
+  // Search placeholder
+  const searchEl = document.getElementById('search');
+  if (searchEl) searchEl.placeholder = t('search_ph');
+  // Header buttons
+  const btnS = document.getElementById('btn-street');  if (btnS) btnS.textContent = t('street');
+  const btnSat = document.getElementById('btn-sat');   if (btnSat) btnSat.textContent = t('satellite');
+  const gpsSpan = document.querySelector('#gps-btn span');
+  if (gpsSpan) gpsSpan.textContent = t('my_location');
+  // Sidebar filter header
+  const sbLabel = document.querySelector('.sb-top-label');
+  if (sbLabel) sbLabel.textContent = t('filters');
+  const sbClear = document.getElementById('sb-clear');
+  if (sbClear) sbClear.textContent = t('clear_all');
+  // Filter section labels + clear buttons
+  const fsecMap = { cat:'category', style:'style', era:'era', access:'access', arch:'architect' };
+  Object.entries(fsecMap).forEach(([id, key]) => {
+    const lbl = document.querySelector(`#fsec-${id} .fsec-hdr > span:first-child`);
+    if (lbl) lbl.textContent = t(key);
+    const rst = document.querySelector(`#reset-${id}`);
+    if (rst) rst.textContent = t('clear');
+  });
+  // Sort dropdown options
+  const sortSel = document.getElementById('sort-sel');
+  if (sortSel) {
+    const keys = ['sort_default','sort_oldest','sort_newest','sort_az'];
+    [...sortSel.options].forEach((opt, i) => { if (keys[i]) opt.textContent = t(keys[i]); });
+  }
+  // Panel tabs
+  const tabMap = { overview:'tab_overview', visit:'tab_visit', here:'tab_here', videos:'tab_videos', reviews:'tab_reviews' };
+  Object.entries(tabMap).forEach(([tab, key]) => {
+    const el = document.querySelector(`.tab[data-tab="${tab}"]`);
+    if (el) el.textContent = t(key);
+  });
+  // Lang toggle labels
+  const enLbl = document.getElementById('lang-en-label');
+  const koLbl = document.getElementById('lang-ko-label');
+  if (enLbl) enLbl.className = LANG === 'en' ? 'lang-active' : '';
+  if (koLbl) koLbl.className = LANG === 'ko' ? 'lang-active' : '';
+  // Rebuild dynamic content
+  buildFilters();
+  renderList();
+  if (activeLoc) {
+    document.getElementById('pane-overview').innerHTML = buildOverviewTab(activeLoc);
+    document.getElementById('pane-visit').innerHTML    = buildVisitTab(activeLoc);
+    document.getElementById('pane-here').innerHTML     = buildDirectionsTab(activeLoc);
+    const vc = document.getElementById('videos-content');
+    if (vc) delete vc.dataset.loaded;
+    document.getElementById('pane-videos').innerHTML   = buildVideosTab(activeLoc);
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════
 // MAP
 // ══════════════════════════════════════════════════════════════════
 let map, streetLayer, satLayer, markers = [], userMarker = null;
@@ -1412,6 +1576,7 @@ function initMap() {
   initLocs.forEach(addMarker);
   buildFilters();
   renderList();
+  applyLang();
   // Update badge with city-specific count
   const badge = document.getElementById('pilot-badge');
   if (badge) badge.textContent = `🗺 ArchWander · Pilot v0.1 · ${initLocs.length} Locations`;
@@ -1641,12 +1806,11 @@ function cardThumb(loc) {
 
 function renderList() {
   const list = getFiltered();
-  document.getElementById('list-meta').textContent =
-    `${list.length} location${list.length !== 1 ? 's' : ''}`;
+  document.getElementById('list-meta').textContent = t('loc_count')(list.length);
 
   const wrap = document.getElementById('loc-list');
   if (!list.length) {
-    wrap.innerHTML = '<div class="no-results">No locations match.<br>Try adjusting your filters.</div>';
+    wrap.innerHTML = `<div class="no-results">${t('no_results')}</div>`;
     return;
   }
   wrap.innerHTML = list.map(loc => `
@@ -1776,42 +1940,42 @@ function closePanel() {
 function buildOverviewTab(loc) {
   return `
     <p class="desc">${loc.desc}</p>
-    <div class="info-row"><span class="info-label">Neighborhood</span><span class="info-val">${loc.hood}</span></div>
-    <div class="info-row"><span class="info-label">Address</span><span class="info-val">${loc.addr}</span></div>
-    <div class="info-row"><span class="info-label">Architect</span><span class="info-val">${loc.arch}</span></div>
-    <div class="info-row"><span class="info-label">Completed</span><span class="info-val">${loc.yr}</span></div>
-    <div class="info-row"><span class="info-label">Style</span><span class="info-val">${loc.style}</span></div>
-    ${loc.access ? `<div class="info-row"><span class="info-label">Access</span><span class="info-val"><span class="access-badge ${ACCESS_META[loc.access]?.cls||''}">${ACCESS_META[loc.access]?.icon||''} ${loc.access}</span></span></div>` : ''}
+    <div class="info-row"><span class="info-label">${t('neighborhood')}</span><span class="info-val">${loc.hood}</span></div>
+    <div class="info-row"><span class="info-label">${t('address')}</span><span class="info-val">${loc.addr}</span></div>
+    <div class="info-row"><span class="info-label">${t('arch_label')}</span><span class="info-val">${loc.arch}</span></div>
+    <div class="info-row"><span class="info-label">${t('completed')}</span><span class="info-val">${loc.yr}</span></div>
+    <div class="info-row"><span class="info-label">${t('style_label')}</span><span class="info-val">${loc.style}</span></div>
+    ${loc.access ? `<div class="info-row"><span class="info-label">${t('access_label')}</span><span class="info-val"><span class="access-badge ${ACCESS_META[loc.access]?.cls||''}">${ACCESS_META[loc.access]?.icon||''} ${loc.access}</span></span></div>` : ''}
   `;
 }
 
 function buildVisitTab(loc) {
   return `
-    <div class="info-row"><span class="info-label">Hours</span><span class="info-val">${loc.hours}</span></div>
-    ${loc.lastEntry && loc.lastEntry !== 'N/A' ? `<div class="info-row"><span class="info-label">Last Entry</span><span class="info-val">${loc.lastEntry}</span></div>` : ''}
-    <div class="info-row"><span class="info-label">Admission</span><span class="info-val">${loc.admission}</span></div>
+    <div class="info-row"><span class="info-label">${t('hours')}</span><span class="info-val">${loc.hours}</span></div>
+    ${loc.lastEntry && loc.lastEntry !== 'N/A' ? `<div class="info-row"><span class="info-label">${t('last_entry')}</span><span class="info-val">${loc.lastEntry}</span></div>` : ''}
+    <div class="info-row"><span class="info-label">${t('admission')}</span><span class="info-val">${loc.admission}</span></div>
     <div class="info-row">
-      <span class="info-label">Guided Tour</span>
-      <span class="info-val"><span class="tour-badge ${loc.tourOk ? 'tour-yes' : 'tour-no'}">${loc.tourOk ? '✓ Available' : '✗ Not available'}</span></span>
+      <span class="info-label">${t('guided_tour')}</span>
+      <span class="info-val"><span class="tour-badge ${loc.tourOk ? 'tour-yes' : 'tour-no'}">${loc.tourOk ? t('tour_yes') : t('tour_no')}</span></span>
     </div>
-    ${loc.tourInfo ? `<div class="info-row"><span class="info-label">Tour Info</span><span class="info-val">${loc.tourInfo}</span></div>` : ''}
-    ${loc.web ? `<div class="btns"><a href="${loc.web}" target="_blank" rel="noopener" class="btn-p">Visit Official Website ↗</a></div>` : ''}
+    ${loc.tourInfo ? `<div class="info-row"><span class="info-label">${t('tour_info')}</span><span class="info-val">${loc.tourInfo}</span></div>` : ''}
+    ${loc.web ? `<div class="btns"><a href="${loc.web}" target="_blank" rel="noopener" class="btn-p">${t('visit_website')}</a></div>` : ''}
   `;
 }
 
 function buildDirectionsTab(loc) {
   return `
-    <div class="info-row"><span class="info-label">Subway</span><span class="info-val">${loc.transit}</span></div>
-    ${loc.walkFrom ? `<div class="info-row"><span class="info-label">Nearby</span><span class="info-val">${loc.walkFrom}</span></div>` : ''}
+    <div class="info-row"><span class="info-label">${t('subway')}</span><span class="info-val">${loc.transit}</span></div>
+    ${loc.walkFrom ? `<div class="info-row"><span class="info-label">${t('nearby')}</span><span class="info-val">${loc.walkFrom}</span></div>` : ''}
     <div class="btns" style="margin-top:18px">
-      <a href="${loc.gmaps}" target="_blank" rel="noopener" class="btn-p">Open in Google Maps ↗</a>
-      <a href="https://maps.google.com/?q=${encodeURIComponent(loc.addr)}&layer=c" target="_blank" rel="noopener" class="btn-s">Street View (Google Maps) ↗</a>
+      <a href="${loc.gmaps}" target="_blank" rel="noopener" class="btn-p">${t('open_gmaps')}</a>
+      <a href="https://maps.google.com/?q=${encodeURIComponent(loc.addr)}&layer=c" target="_blank" rel="noopener" class="btn-s">${t('sv_gmaps')}</a>
     </div>
   `;
 }
 
 function buildVideosTab(loc) {
-  return `<div id="videos-content"><div class="vid-loading"><div class="vid-spinner"></div><p>Searching YouTube…</p></div></div>`;
+  return `<div id="videos-content"><div class="vid-loading"><div class="vid-spinner"></div><p>${t('vid_loading')}</p></div></div>`;
 }
 
 async function loadVideosForTab(loc) {
@@ -1832,8 +1996,8 @@ async function loadVideosForTab(loc) {
   // No API key configured — show direct YouTube search link
   if (!YOUTUBE_API_KEY) {
     el.innerHTML = `<div class="vid-fallback">
-      <p style="margin-bottom:10px">Add a <code>YOUTUBE_API_KEY</code> in <code>index.html</code><br>to show related videos here.</p>
-      <a class="vid-yt-link" href="${ytSearchUrl}" target="_blank" rel="noopener">▶ Search on YouTube</a>
+      <p style="margin-bottom:10px">${t('vid_no_key')}</p>
+      <a class="vid-yt-link" href="${ytSearchUrl}" target="_blank" rel="noopener">${t('vid_search_yt')}</a>
     </div>`;
     return;
   }
@@ -1893,10 +2057,10 @@ async function loadVideosForTab(loc) {
     scored.sort((a, b) => b.score - a.score);
     el.innerHTML = `<div class="vid-list">${renderVideoCards(scored.slice(0, 3))}</div>`;
   } catch(e) {
-    const msg = e.name === 'AbortError' ? 'Request timed out' : e.message;
+    const msg = e.name === 'AbortError' ? t('vid_timeout') : e.message;
     el.innerHTML = `<div class="vid-fallback">
-      <p>Could not load videos. (${msg})<br>Search directly on YouTube below.</p>
-      <a class="vid-yt-link" href="${ytSearchUrl}" target="_blank" rel="noopener">▶ Search on YouTube</a>
+      <p>${t('vid_fail')} (${msg})<br>${t('vid_direct')}</p>
+      <a class="vid-yt-link" href="${ytSearchUrl}" target="_blank" rel="noopener">${t('vid_search_yt')}</a>
     </div>`;
   }
 }
