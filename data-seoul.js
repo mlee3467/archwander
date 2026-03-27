@@ -8,7 +8,7 @@ const LOCS_SEOUL = [
   {
     id:'dongdaemun-design-plaza',
     name:'Dongdaemun Design Plaza (DDP)',
-    cat:'Museums & Culture', cc:'c-mus', styleGroup:'Parametric Design',
+    cat:'Cultural', cc:'c-cul', styleGroup:'Parametric Design',
     era:'2000–Present', city:'seoul',
     arch:'Zaha Hadid Architects', archs:['Zaha Hadid Architects'],
     yr:2014, access:'Free Admission', style:'Neo-Futurism',
@@ -34,7 +34,7 @@ const LOCS_SEOUL = [
   {
     id:'seoul-city-hall',
     name:'Seoul City Hall (New)',
-    cat:'Modern Architecture', cc:'c-mod', styleGroup:'Contemporary',
+    cat:'Public', cc:'c-pub', styleGroup:'Contemporary',
     era:'2000–Present', city:'seoul',
     arch:'iARC Architects (Yoo-Hyun Rhee)', archs:['iARC Architects'],
     yr:2012, access:'Free Admission', style:'Contemporary',
@@ -86,7 +86,7 @@ const LOCS_SEOUL = [
   {
     id:'mmca-seoul',
     name:'MMCA Seoul (국립현대미술관 서울관)',
-    cat:'Museums & Culture', cc:'c-mus', styleGroup:'Contemporary',
+    cat:'Cultural', cc:'c-cul', styleGroup:'Contemporary',
     era:'2000–Present', city:'seoul',
     arch:'Hyun-Jun Mihn / mp_art architects', archs:['Hyun-Jun Mihn / mp_art architects'],
     yr:2013, access:'Paid Ticket', style:'Contemporary',
@@ -110,7 +110,7 @@ const LOCS_SEOUL = [
   {
     id:'ewha-campus-complex',
     name:'Ewha Womans University Campus Complex',
-    cat:'Universities & Research', cc:'c-uni', styleGroup:'Contemporary',
+    cat:'Academic / Institution', cc:'c-aca', styleGroup:'Contemporary',
     era:'2000–Present', city:'seoul',
     arch:'Dominique Perrault Architecture', archs:['Dominique Perrault Architecture'],
     yr:2008, access:'Free Admission', style:'Contemporary / Landscape Architecture',
@@ -136,7 +136,7 @@ const LOCS_SEOUL = [
   {
     id:'dayangsanghoi',
     name:'Dayangsanghoi',
-    cat:'Modern Architecture', cc:'c-mod', styleGroup:'Contemporary',
+    cat:'Cultural', cc:'c-cul', styleGroup:'Contemporary',
     era:'2000–Present', city:'seoul',
     arch:'TUNEplanning', archs:['TUNEplanning'],
     yr:2013, access:'Private (Exterior Viewable)', style:'Contemporary',
@@ -160,7 +160,7 @@ const LOCS_SEOUL = [
   {
     id:'saemoonan-church',
     name:'Saemoonan Church',
-    cat:'Religious Architecture', cc:'c-rel', styleGroup:'Contemporary',
+    cat:'Religious', cc:'c-rel', styleGroup:'Contemporary',
     era:'2000–Present', city:'seoul',
     arch:'Seoinn Design Group + Lee Eunseok', archs:['Seoinn Design Group'],
     yr:2019, access:'Free Admission', style:'Contemporary / Sacred',
@@ -184,7 +184,7 @@ const LOCS_SEOUL = [
   {
     id:'seoul-floating-islands',
     name:'Seoul Floating Islands (Some Sevit)',
-    cat:'Parks & Public Spaces', cc:'c-park', styleGroup:'Contemporary',
+    cat:'Landmarks', cc:'c-lmk', styleGroup:'Contemporary',
     era:'2000–Present', city:'seoul',
     arch:'Haeahn Architecture + H Architecture', archs:['Haeahn Architecture'],
     yr:2014, access:'Free Admission', style:'Contemporary',
@@ -208,7 +208,7 @@ const LOCS_SEOUL = [
   {
     id:'kring-kumho',
     name:'KRING Kumho Cultural Complex',
-    cat:'Museums & Culture', cc:'c-mus', styleGroup:'Contemporary',
+    cat:'Cultural', cc:'c-cul', styleGroup:'Contemporary',
     era:'2000–Present', city:'seoul',
     arch:'Unsangdong Architects', archs:['Unsangdong Architects'],
     yr:2008, access:'Free Admission', style:'Contemporary',
@@ -232,7 +232,7 @@ const LOCS_SEOUL = [
   {
     id:'su-o-jae',
     name:'Su-o-jae (Eunpyeong)',
-    cat:'Modern Architecture', cc:'c-mod', styleGroup:'Contemporary',
+    cat:'Residential', cc:'c-res', styleGroup:'Contemporary',
     era:'2000–Present', city:'seoul',
     arch:'studio_GAON', archs:['studio_GAON'],
     yr:2017, access:'Private (Exterior Viewable)', style:'Contemporary / Vernacular',
@@ -256,7 +256,7 @@ const LOCS_SEOUL = [
   {
     id:'shinhan-expace',
     name:'Shinhan EX:PACE',
-    cat:'Modern Architecture', cc:'c-mod', styleGroup:'Contemporary',
+    cat:'Retail', cc:'c-ret', styleGroup:'Contemporary',
     era:'2000–Present', city:'seoul',
     arch:'Atelier KI JUN KIM + Studio in Loco', archs:['Atelier KI JUN KIM'],
     yr:2021, access:'Free Admission', style:'Contemporary',
@@ -280,7 +280,7 @@ const LOCS_SEOUL = [
   {
     id:'communique-hq',
     name:'Communique Headquarters',
-    cat:'Modern Architecture', cc:'c-mod', styleGroup:'Contemporary',
+    cat:'Landmarks', cc:'c-lmk', styleGroup:'Contemporary',
     era:'2000–Present', city:'seoul',
     arch:'DaeWha Kang Design', archs:['DaeWha Kang Design'],
     yr:2015, access:'Private (Exterior Viewable)', style:'Contemporary / Adaptive Reuse',
@@ -304,7 +304,7 @@ const LOCS_SEOUL = [
   {
     id:'hankook-technoplex',
     name:'Hankook Technoplex',
-    cat:'Modern Architecture', cc:'c-mod', styleGroup:'High-Tech',
+    cat:'Academic / Institution', cc:'c-aca', styleGroup:'High-Tech',
     era:'2000–Present', city:'seoul',
     arch:'Foster + Partners', archs:['Foster + Partners'],
     yr:2020, access:'Private (Exterior Viewable)', style:'High-Tech',
@@ -328,7 +328,7 @@ const LOCS_SEOUL = [
   {
     id:'la-cucina',
     name:'La Cucina (Myeongborang)',
-    cat:'Modern Architecture', cc:'c-mod', styleGroup:'Contemporary',
+    cat:'Retail', cc:'c-ret', styleGroup:'Contemporary',
     era:'2000–Present', city:'seoul',
     arch:'Choon Choi Architects', archs:['Choon Choi Architects'],
     yr:2019, access:'Restaurant / Commercial', style:'Contemporary',
@@ -352,7 +352,7 @@ const LOCS_SEOUL = [
   {
     id:'pino-familia',
     name:'Pino Familia',
-    cat:'Museums & Culture', cc:'c-mus', styleGroup:'Expressive',
+    cat:'Cultural', cc:'c-cul', styleGroup:'Expressive',
     era:'2000–Present', city:'seoul',
     arch:'Moon Hoon', archs:['Moon Hoon'],
     yr:2016, access:'Paid Ticket', style:'Expressive / Narrative',
@@ -376,7 +376,7 @@ const LOCS_SEOUL = [
   {
     id:'dance-of-light',
     name:'Dance of Light Installation',
-    cat:'Parks & Public Spaces', cc:'c-park', styleGroup:'Contemporary',
+    cat:'Cultural', cc:'c-cul', styleGroup:'Contemporary',
     era:'2000–Present', city:'seoul',
     arch:'Naruse Inokuma Architects + a round architects', archs:['Naruse Inokuma Architects'],
     yr:2019, access:'Free Admission', style:'Public Art / Installation',
@@ -400,7 +400,7 @@ const LOCS_SEOUL = [
   {
     id:'juunj-flagship',
     name:'Juun.J Flagship Store',
-    cat:'Modern Architecture', cc:'c-mod', styleGroup:'Contemporary',
+    cat:'Retail', cc:'c-ret', styleGroup:'Contemporary',
     era:'2000–Present', city:'seoul',
     arch:'WGNB', archs:['WGNB'],
     yr:2019, access:'Free Admission', style:'Contemporary',
@@ -424,7 +424,7 @@ const LOCS_SEOUL = [
   {
     id:'dr-jart-flagship',
     name:'Dr. Jart+ Filter Space',
-    cat:'Modern Architecture', cc:'c-mod', styleGroup:'Contemporary',
+    cat:'Retail', cc:'c-ret', styleGroup:'Contemporary',
     era:'2000–Present', city:'seoul',
     arch:'Betwin Space Design', archs:['Betwin Space Design'],
     yr:2016, access:'Free Admission', style:'Contemporary',
@@ -448,7 +448,7 @@ const LOCS_SEOUL = [
   {
     id:'hicc-hq',
     name:'HiCC Entertainment HQ',
-    cat:'Modern Architecture', cc:'c-mod', styleGroup:'Contemporary',
+    cat:'Landmarks', cc:'c-lmk', styleGroup:'Contemporary',
     era:'2000–Present', city:'seoul',
     arch:'LESS Architects', archs:['LESS Architects'],
     yr:2018, access:'Private (Exterior Viewable)', style:'Contemporary',
@@ -472,7 +472,7 @@ const LOCS_SEOUL = [
   {
     id:'kolon-one-only-tower',
     name:'Kolon One & Only Tower',
-    cat:'Modern Architecture', cc:'c-mod', styleGroup:'High-Tech',
+    cat:'Skyscrapers', cc:'c-sky', styleGroup:'High-Tech',
     era:'2000–Present', city:'seoul',
     arch:'Morphosis (Thom Mayne)', archs:['Morphosis'],
     yr:2018, access:'Private (Exterior Viewable)', style:'High-Tech / Parametric',
@@ -496,7 +496,7 @@ const LOCS_SEOUL = [
   {
     id:'wap-art-space',
     name:'WAP Art Space',
-    cat:'Museums & Culture', cc:'c-mus', styleGroup:'Contemporary',
+    cat:'Cultural', cc:'c-cul', styleGroup:'Contemporary',
     era:'2000–Present', city:'seoul',
     arch:'Davide Macullo Architects', archs:['Davide Macullo Architects'],
     yr:2017, access:'Free Admission', style:'Contemporary',
@@ -520,7 +520,7 @@ const LOCS_SEOUL = [
   {
     id:'mc-building',
     name:'M.C. Building',
-    cat:'Modern Architecture', cc:'c-mod', styleGroup:'Contemporary',
+    cat:'Landmarks', cc:'c-lmk', styleGroup:'Contemporary',
     era:'2000–Present', city:'seoul',
     arch:'URCODE Architecture', archs:['URCODE Architecture'],
     yr:2018, access:'Private (Exterior Viewable)', style:'Contemporary',
@@ -544,7 +544,7 @@ const LOCS_SEOUL = [
   {
     id:'samsung-seocho',
     name:'Samsung Seocho Building',
-    cat:'Modern Architecture', cc:'c-mod', styleGroup:'Contemporary',
+    cat:'Skyscrapers', cc:'c-sky', styleGroup:'Contemporary',
     era:'2000–Present', city:'seoul',
     arch:'KPF (Kohn Pedersen Fox) + Samoo Architects', archs:['KPF (Kohn Pedersen Fox)'],
     yr:2017, access:'Private (Exterior Viewable)', style:'Contemporary',
@@ -568,7 +568,7 @@ const LOCS_SEOUL = [
   {
     id:'seoul-coffee',
     name:'Seoul Coffee',
-    cat:'Modern Architecture', cc:'c-mod', styleGroup:'Contemporary',
+    cat:'Retail', cc:'c-ret', styleGroup:'Contemporary',
     era:'2000–Present', city:'seoul',
     arch:'LABOTORY', archs:['LABOTORY'],
     yr:2018, access:'Free Admission', style:'Contemporary / Adaptive Reuse',
@@ -592,7 +592,7 @@ const LOCS_SEOUL = [
   {
     id:'yuhan-technos-hq',
     name:'Yuhan Technos HQ',
-    cat:'Modern Architecture', cc:'c-mod', styleGroup:'Contemporary',
+    cat:'Landmarks', cc:'c-lmk', styleGroup:'Contemporary',
     era:'2000–Present', city:'seoul',
     arch:'MMKM Associates', archs:['MMKM Associates'],
     yr:2017, access:'Private (Exterior Viewable)', style:'Contemporary',
@@ -616,7 +616,7 @@ const LOCS_SEOUL = [
   {
     id:'925-building',
     name:'925 Building',
-    cat:'Modern Architecture', cc:'c-mod', styleGroup:'Contemporary',
+    cat:'Landmarks', cc:'c-lmk', styleGroup:'Contemporary',
     era:'2000–Present', city:'seoul',
     arch:'JHW IROJE architects & planners', archs:['JHW IROJE architects & planners'],
     yr:2015, access:'Private (Exterior Viewable)', style:'Contemporary',
@@ -640,7 +640,7 @@ const LOCS_SEOUL = [
   {
     id:'atelier-chaeyeon',
     name:'Atelier Chaeyeon',
-    cat:'Modern Architecture', cc:'c-mod', styleGroup:'Contemporary',
+    cat:'Cultural', cc:'c-cul', styleGroup:'Contemporary',
     era:'2000–Present', city:'seoul',
     arch:"L'eau Design + Dongjin Kim", archs:["L'eau Design"],
     yr:2015, access:'Private (Exterior Viewable)', style:'Contemporary',
@@ -664,7 +664,7 @@ const LOCS_SEOUL = [
   {
     id:'micro-cosmos-soyul',
     name:'Micro-Cosmos Soyul',
-    cat:'Museums & Culture', cc:'c-mus', styleGroup:'Contemporary',
+    cat:'Cultural', cc:'c-cul', styleGroup:'Contemporary',
     era:'2000–Present', city:'seoul',
     arch:'KYWC Architects + Kim Seunghoy', archs:['KYWC Architects'],
     yr:2014, access:'Free Admission', style:'Contemporary',
@@ -688,7 +688,7 @@ const LOCS_SEOUL = [
   {
     id:'seoullo-7017',
     name:'SEOULLO 7017 Skygarden',
-    cat:'Parks & Public Spaces', cc:'c-park', styleGroup:'Contemporary',
+    cat:'Infrastructure', cc:'c-inf', styleGroup:'Contemporary',
     era:'2000–Present', city:'seoul',
     arch:'MVRDV', archs:['MVRDV'],
     yr:2017, access:'Free Admission', style:'Landscape / Adaptive Reuse',
@@ -714,7 +714,7 @@ const LOCS_SEOUL = [
   {
     id:'xyz-formula',
     name:'XYZ Formula',
-    cat:'Modern Architecture', cc:'c-mod', styleGroup:'Contemporary',
+    cat:'Retail', cc:'c-ret', styleGroup:'Contemporary',
     era:'2000–Present', city:'seoul',
     arch:'WGNB', archs:['WGNB'],
     yr:2017, access:'Free Admission', style:'Contemporary',
@@ -738,7 +738,7 @@ const LOCS_SEOUL = [
   {
     id:'leeum-museum',
     name:'Leeum Samsung Museum of Art',
-    cat:'Museums & Culture', cc:'c-mus', styleGroup:'Contemporary',
+    cat:'Cultural', cc:'c-cul', styleGroup:'Contemporary',
     era:'2000–Present', city:'seoul',
     arch:'Mario Botta · Jean Nouvel · Rem Koolhaas', archs:['Mario Botta','Jean Nouvel','Rem Koolhaas'],
     yr:2004, access:'Free Admission', style:'Contemporary',
@@ -764,7 +764,7 @@ const LOCS_SEOUL = [
   {
     id:'ssamziegil',
     name:'Ssamziegil',
-    cat:'Modern Architecture', cc:'c-mod', styleGroup:'Contemporary',
+    cat:'Retail', cc:'c-ret', styleGroup:'Contemporary',
     era:'2000\u2013Present', city:'seoul',
     arch:'GA.A Architects', archs:['GA.A Architects'],
     yr:2004, access:'Free Admission', style:'Contemporary / Commercial',
@@ -812,7 +812,7 @@ const LOCS_SEOUL = [
   {
     id:'kukje-gallery-k3',
     name:'Kukje Gallery K3',
-    cat:'Museums & Culture', cc:'c-mus', styleGroup:'Contemporary',
+    cat:'Cultural', cc:'c-cul', styleGroup:'Contemporary',
     era:'2000\u2013Present', city:'seoul',
     arch:'SO\u2013IL', archs:['SO\u2013IL','Florian Idenburg','Jing Liu'],
     yr:2012, access:'Free Admission', style:'Contemporary',
@@ -836,7 +836,7 @@ const LOCS_SEOUL = [
   {
     id:'chungha-building',
     name:'Chungha Building',
-    cat:'Modern Architecture', cc:'c-mod', styleGroup:'Contemporary',
+    cat:'Landmarks', cc:'c-lmk', styleGroup:'Contemporary',
     era:'2000\u2013Present', city:'seoul',
     arch:'MVRDV', archs:['MVRDV'],
     yr:2013, access:'Free Admission', style:'Contemporary',
@@ -860,7 +860,7 @@ const LOCS_SEOUL = [
   {
     id:'boutique-monaco',
     name:'Boutique Monaco',
-    cat:'Skyscrapers', cc:'c-sky', styleGroup:'Contemporary',
+    cat:'Residential', cc:'c-res', styleGroup:'Contemporary',
     era:'2000\u2013Present', city:'seoul',
     arch:'Mass Studies', archs:['Mass Studies','Minsuk Cho','Kisu Park'],
     yr:2007, access:'Private (Exterior Viewable)', style:'Contemporary / Residential',
@@ -934,7 +934,7 @@ const LOCS_SEOUL = [
   {
     id:'seongdong-cultural-center',
     name:'Seongdong Cultural & Welfare Center',
-    cat:'Museums & Culture', cc:'c-mus', styleGroup:'Contemporary',
+    cat:'Cultural', cc:'c-cul', styleGroup:'Contemporary',
     era:'2000\u2013Present', city:'seoul',
     arch:'UnSangDong Architects', archs:['UnSangDong Architects','Jang Yoon Gyoo'],
     yr:2012, access:'Free Admission', style:'Contemporary',
@@ -958,7 +958,7 @@ const LOCS_SEOUL = [
   {
     id:'amorepacific-hq',
     name:'Amorepacific Headquarters',
-    cat:'Modern Architecture', cc:'c-mod', styleGroup:'Contemporary',
+    cat:'Skyscrapers', cc:'c-sky', styleGroup:'Contemporary',
     era:'2000\u2013Present', city:'seoul',
     arch:'David Chipperfield Architects', archs:['David Chipperfield Architects'],
     yr:2017, access:'Lobby & Atrium (Free)', style:'Contemporary',
@@ -982,7 +982,7 @@ const LOCS_SEOUL = [
   {
     id:'gyeongbokgung-palace',
     name:'Gyeongbokgung Palace',
-    cat:'Historic Buildings', cc:'c-his', styleGroup:'Traditional Korean',
+    cat:'Historic', cc:'c-his', styleGroup:'Traditional Korean',
     era:'Pre-1900', city:'seoul',
     arch:'Traditional Korean (Joseon Dynasty)', archs:['Traditional Korean'],
     yr:1395, access:'Paid Admission', style:'Traditional Korean Palace Architecture',
@@ -1008,7 +1008,7 @@ const LOCS_SEOUL = [
   {
     id:'changdeokgung-palace',
     name:'Changdeokgung Palace',
-    cat:'Historic Buildings', cc:'c-his', styleGroup:'Traditional Korean',
+    cat:'Historic', cc:'c-his', styleGroup:'Traditional Korean',
     era:'Pre-1900', city:'seoul',
     arch:'Traditional Korean (Joseon Dynasty)', archs:['Traditional Korean'],
     yr:1405, access:'Paid Admission', style:'Traditional Korean Palace Architecture',
@@ -1034,7 +1034,7 @@ const LOCS_SEOUL = [
   {
     id:'jongmyo-shrine',
     name:'Jongmyo Shrine',
-    cat:'Religious Architecture', cc:'c-rel', styleGroup:'Traditional Korean',
+    cat:'Historic', cc:'c-his', styleGroup:'Traditional Korean',
     era:'Pre-1900', city:'seoul',
     arch:'Traditional Korean (Joseon Dynasty)', archs:['Traditional Korean'],
     yr:1395, access:'Paid Admission', style:'Confucian Ritual Architecture',
@@ -1060,7 +1060,7 @@ const LOCS_SEOUL = [
   {
     id:'bukchon-hanok-village',
     name:'Bukchon Hanok Village',
-    cat:'Historic Buildings', cc:'c-his', styleGroup:'Traditional Korean',
+    cat:'Historic', cc:'c-his', styleGroup:'Traditional Korean',
     era:'Pre-1930', city:'seoul',
     arch:'Traditional Korean (Hanok)', archs:['Traditional Korean'],
     yr:1920, access:'Free Admission', style:'Traditional Korean Residential (Hanok)',
@@ -1086,7 +1086,7 @@ const LOCS_SEOUL = [
   {
     id:'jogyesa-temple',
     name:'Jogyesa Temple',
-    cat:'Religious Architecture', cc:'c-rel', styleGroup:'Traditional Korean',
+    cat:'Religious', cc:'c-rel', styleGroup:'Traditional Korean',
     era:'1930\u20131969', city:'seoul',
     arch:'Traditional Korean Buddhist', archs:['Traditional Korean'],
     yr:1938, access:'Free Admission', style:'Traditional Korean Buddhist',
@@ -1110,7 +1110,7 @@ const LOCS_SEOUL = [
   {
     id:'n-seoul-tower',
     name:'N Seoul Tower',
-    cat:'Skyscrapers', cc:'c-sky', styleGroup:'Modernist',
+    cat:'Landmarks', cc:'c-lmk', styleGroup:'Modernist',
     era:'1970\u20131999', city:'seoul',
     arch:'Korean Broadcasting System (KBS)', archs:['Korean Broadcasting System'],
     yr:1975, access:'Paid Admission (Observatory)', style:'Modernist',
@@ -1136,7 +1136,7 @@ const LOCS_SEOUL = [
   {
     id:'national-museum-korea',
     name:'National Museum of Korea',
-    cat:'Museums & Culture', cc:'c-mus', styleGroup:'Contemporary',
+    cat:'Cultural', cc:'c-cul', styleGroup:'Contemporary',
     era:'2000\u2013Present', city:'seoul',
     arch:'Samoo Architects + Junglim Architecture', archs:['Samoo Architects','Junglim Architecture'],
     yr:2005, access:'Free Admission', style:'Contemporary',

@@ -41,7 +41,7 @@ const LOCS_LONDON = [
   {
     id:'bloomberg-hq-london',
     name:'Bloomberg European HQ',
-    cat:'Modern Architecture', cc:'c-mod', styleGroup:'Contemporary',
+    cat:'Landmarks', cc:'c-lmk', styleGroup:'Contemporary',
     era:'2000–Present', city:'london',
     arch:'Foster + Partners', archs:['Foster + Partners'],
     yr:2017, access:'Free Admission', style:'Contemporary',
@@ -71,7 +71,7 @@ const LOCS_LONDON = [
   {
     id:'great-court-british-museum',
     name:'Great Court, British Museum',
-    cat:'Museums & Culture', cc:'c-mus', styleGroup:'Contemporary',
+    cat:'Cultural', cc:'c-cul', styleGroup:'Contemporary',
     era:'2000–Present', city:'london',
     arch:'Foster + Partners', archs:['Foster + Partners'],
     yr:2000, access:'Free Admission', style:'Contemporary',
@@ -131,7 +131,7 @@ const LOCS_LONDON = [
   {
     id:'city-hall-london',
     name:'City Hall (GLA Building)',
-    cat:'Modern Architecture', cc:'c-mod', styleGroup:'Contemporary',
+    cat:'Public', cc:'c-pub', styleGroup:'Contemporary',
     era:'2000–Present', city:'london',
     arch:'Foster + Partners', archs:['Foster + Partners'],
     yr:2002, access:'Free Admission', style:'Contemporary',
@@ -218,7 +218,7 @@ const LOCS_LONDON = [
   {
     id:'wembley-stadium',
     name:'Wembley Stadium',
-    cat:'Modern Architecture', cc:'c-mod', styleGroup:'Contemporary',
+    cat:'Public', cc:'c-pub', styleGroup:'Contemporary',
     era:'2000–Present', city:'london',
     arch:'Foster + Partners', archs:['Foster + Partners', 'HOK Sport'],
     yr:2007, access:'Paid Ticket', style:'Contemporary',
@@ -250,7 +250,7 @@ const LOCS_LONDON = [
   {
     id:'lloyds-of-london',
     name:"Lloyd's of London",
-    cat:'Modern Architecture', cc:'c-mod', styleGroup:'High-Tech',
+    cat:'Historic', cc:'c-his', styleGroup:'High-Tech',
     era:'1970–1999', city:'london',
     arch:'Richard Rogers Partnership', archs:['Richard Rogers Partnership'],
     yr:1986, access:'Private', style:'High-Tech',
@@ -310,7 +310,7 @@ const LOCS_LONDON = [
   {
     id:'o2-arena',
     name:'The O2 Arena (Millennium Dome)',
-    cat:'Modern Architecture', cc:'c-mod', styleGroup:'High-Tech',
+    cat:'Public', cc:'c-pub', styleGroup:'High-Tech',
     era:'2000–Present', city:'london',
     arch:'Richard Rogers Partnership', archs:['Richard Rogers Partnership', 'Buro Happold'],
     yr:2000, access:'Paid Ticket', style:'High-Tech',
@@ -367,7 +367,7 @@ const LOCS_LONDON = [
   {
     id:'one-hyde-park',
     name:'One Hyde Park',
-    cat:'Modern Architecture', cc:'c-mod', styleGroup:'Contemporary',
+    cat:'Residential', cc:'c-res', styleGroup:'Contemporary',
     era:'2000–Present', city:'london',
     arch:'Rogers Stirk Harbour + Partners', archs:['Rogers Stirk Harbour + Partners'],
     yr:2011, access:'Private', style:'Contemporary',
@@ -397,7 +397,7 @@ const LOCS_LONDON = [
   {
     id:'88-wood-street',
     name:'88 Wood Street',
-    cat:'Modern Architecture', cc:'c-mod', styleGroup:'High-Tech',
+    cat:'Landmarks', cc:'c-lmk', styleGroup:'High-Tech',
     era:'2000–Present', city:'london',
     arch:'Rogers Stirk Harbour + Partners', archs:['Rogers Stirk Harbour + Partners'],
     yr:2000, access:'Private', style:'High-Tech',
@@ -427,7 +427,7 @@ const LOCS_LONDON = [
   {
     id:'neo-bankside',
     name:'Neo Bankside',
-    cat:'Modern Architecture', cc:'c-mod', styleGroup:'Contemporary',
+    cat:'Residential', cc:'c-res', styleGroup:'Contemporary',
     era:'2000–Present', city:'london',
     arch:'Rogers Stirk Harbour + Partners', archs:['Rogers Stirk Harbour + Partners'],
     yr:2012, access:'Private', style:'Contemporary',
@@ -457,7 +457,7 @@ const LOCS_LONDON = [
   {
     id:'montevetro',
     name:'Montevetro',
-    cat:'Modern Architecture', cc:'c-mod', styleGroup:'Contemporary',
+    cat:'Residential', cc:'c-res', styleGroup:'Contemporary',
     era:'1970–1999', city:'london',
     arch:'Richard Rogers Partnership', archs:['Richard Rogers Partnership'],
     yr:1999, access:'Private', style:'Contemporary',
@@ -482,7 +482,7 @@ const LOCS_LONDON = [
   {
     id:'chiswick-business-park',
     name:'Chiswick Business Park',
-    cat:'Modern Architecture', cc:'c-mod', styleGroup:'Contemporary',
+    cat:'Landmarks', cc:'c-lmk', styleGroup:'Contemporary',
     era:'2000–Present', city:'london',
     arch:'Richard Rogers Partnership', archs:['Richard Rogers Partnership'],
     yr:2000, access:'Free Admission', style:'Contemporary',
@@ -539,7 +539,7 @@ const LOCS_LONDON = [
   {
     id:'central-st-giles',
     name:'Central Saint Giles',
-    cat:'Modern Architecture', cc:'c-mod', styleGroup:'Contemporary',
+    cat:'Landmarks', cc:'c-lmk', styleGroup:'Contemporary',
     era:'2000–Present', city:'london',
     arch:'Renzo Piano Building Workshop', archs:['Renzo Piano Building Workshop'],
     yr:2010, access:'Free Admission', style:'Contemporary',

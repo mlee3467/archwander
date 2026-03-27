@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Ranker — ArchWander</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: #f8f8f6; color: #1a1a1a; font-size: 14px; }
+  header { background: #fff; border-bottom: 1px solid #e8e8e4; padding: 14px 20px; display: flex; align-items: center; gap: 14px; position: sticky; top: 0; z-index: 100; }
+  header h1 { font-size: 16px; font-weight: 600; }
+  header span { color: #888; font-size: 12px; }
+  .controls { background: #fff; border-bottom: 1px solid #e8e8e4; padding: 14px 20px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  select, input[type=text], input[type=password], input[type=number] {
+    border: 1px solid #d8d8d4; border-radius: 6px; padding: 6px 10px; font-size: 13px; background: #fff;
+  }
+  button { border: none; border-radius: 6px; padding: 7px 14px; font-size: 13px; cursor: pointer; font-family: inherit; transition: background 0.15s; }
+  .btn-primary { background: #1a1a1a; color: #fff; }
+  .btn-primary:hover:not(:disabled) { background: #333; }
+  .btn-primary:disabled { background: #aaa; cursor: not-allowed; }
+  .btn-secondary { background: #f0f0ee; color: #333; }
+  .btn-secondary:hover:not(:disabled) { background: #e4e4e0; }
+  .btn-secondary:disabled { opacity: 0.45; cursor: not-allowed; }
+  .btn-small { padding: 4px 10px; font-size: 12px; }
+  .btn-green { background: #1a6e3a; color: #fff; }
+  .btn-green:hover:not(:disabled) { background: #145a2e; }
+  .btn-green:disabled { background: #aaa; cursor: not-allowed; }
+  .btn-export { background: #2a6e3f; color: #fff; }
+  .btn-export:hover:not(:disabled) { background: #1e5530; }
+  .btn-export:disabled { background: #aaa; cursor: not-allowed; }
+
+  /* Selection toolbar */
+  .sel-bar {
+    display: none; align-items: center; gap: 10px; flex-wrap: wrap;
+    background: #f4f4f2; border-bottom: 1px solid #e8e8e4;
+    padding: 8px 20px; font-size: 12px; color: #555;
+  }
+  .sel-bar.visible { display: flex; }
+  .sel-count { font-weight: 600; color: #1a1a1a; min-width: 80px; }
+  .sel-hint { color: #999; font-size: 11px; }
+
+  .progress-bar { height: 3px; background: #e8e8e4; }
+  .progress-fill { height: 100%; background: #1a1a1a; transition: width 0.3s; width: 0%; }
+  .status { padding: 10px 20px; font-size: 12px; color: #666; background: #f0f0ee; border-bottom: 1px solid #e8e8e4; min-height: 36px; }
+
+  .location-grid { padding: 16px 20px; display: flex; flex-direction: column; gap: 12px; }
+
+  .loc-card { background: #fff; border: 1.5px solid #e8e8e4; border-radius: 10px; overflow: hidden; transition: border-color 0.15s; }
+  .loc-card.selected { border-color: #1a1a1a; }
+  .loc-header {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px; background: #fafaf8; border-bottom: 1px solid #f0f0ee;
+    cursor: pointer; user-select: none;
+  }
+  .loc-chk { width: 16px; height: 16px; cursor: pointer; accent-color: #1a1a1a; flex-shrink: 0; }
+  .loc-name { font-weight: 600; font-size: 13px; flex: 1; }
+  .loc-badge { font-size: 11px; padding: 2px 8px; border-radius: 20px; background: #e8e8e4; color: #555; white-space: nowrap; }
+  .loc-badge.ok       { background: #d4edda; color: #155724; }
+  .loc-badge.searching{ background: #fff3cd; color: #856404; }
+  .loc-badge.error    { background: #f8d7da; color: #721c24; }
+  .loc-badge.done     { background: #cce5ff; color: #004085; }
+  .loc-badge.kept     { background: #f3e5f5; color: #6a1b9a; }
+
+  .photos-row { display: flex; gap: 8px; padding: 12px 14px; overflow-x: auto; min-height: 120px; align-items: flex-start; }
+  .photo-item { position: relative; flex-shrink: 0; }
+  .photo-img { width: 100px; height: 75px; object-fit: cover; border-radius: 6px; display: block; border: 2px solid transparent; }
+  .photo-img.top { border-color: #2a6e3f; }
+  .photo-rank { position: absolute; top: 3px; left: 3px; background: rgba(0,0,0,0.7); color: #fff; font-size: 10px; font-weight: 700; padding: 1px 5px; border-radius: 4px; }
+  .photo-rank.gold { background: #b8860b; }
+  .photo-count { font-size: 10px; color: #666; text-align: center; margin-top: 3px; max-width: 100px; }
+  .photo-src { font-size: 10px; color: #999; text-align: center; }
+  .photo-src.new { color: #2a6e3f; font-weight: 600; }
+  .photo-src.wikipedia { color: #1565c0; font-weight: 600; }
+
+  .export-section { margin: 16px 20px; background: #fff; border: 1px solid #e8e8e4; border-radius: 10px; padding: 16px; }
+  .export-section h3 { font-size: 14px; margin-bottom: 10px; }
+  textarea { width: 100%; height: 300px; font-family: monospace; font-size: 11px; border: 1px solid #d8d8d4; border-radius: 6px; padding: 10px; resize: vertical; }
+
+  .mode-info { font-size: 11px; color: #666; background: #f8f8f6; border: 1px solid #e8e8e4; border-radius: 6px; padding: 8px 12px; flex: 1; min-width: 0; }
+  .token-input { font-size: 12px; width: 260px; font-family: monospace; }
+
+  .empty { color: #aaa; font-size: 12px; padding: 20px; text-align: center; }
+  .legend { display: flex; gap: 12px; font-size: 11px; color: #666; padding: 10px 20px 0; flex-wrap: wrap; }
+  .legend-item { display: flex; align-items: center; gap: 4px; }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header>
+  <h1>🖼 Image Ranker</h1>
+  <span>Wikimedia popularity auto-selection for ArchWander</span>
+</header>
+
+<!-- Row 1: City / Mode / Top-N / Stop / Export / Push -->
+<div class="controls">
+  <select id="city-select">
+    <option value="nyc">New York (data-new-york.js)</option>
+    <option value="sel">Seoul (data-seoul.js)</option>
+    <option value="lon">London (data-london.js)</option>
+  </select>
+
+  <select id="mode-select">
+    <option value="wikipedia" selected>Wikipedia article images (권장)</option>
+    <option value="search">Commons text search</option>
+    <option value="both">Both (Wikipedia + Commons)</option>
+    <option value="rank">Rank existing photos only</option>
+  </select>
+
+  <input id="top-n" type="number" value="4" min="1" max="20" style="width:60px" title="Top N photos" oninput="refreshTopNVisuals()">
+  <span style="font-size:12px;color:#888">photos / location</span>
+
+  <button class="btn-secondary" id="stop-btn" onclick="stopProcessing()" disabled>⏹ Stop</button>
+  <button class="btn-export"    onclick="exportData()"    id="export-btn" style="margin-left:auto" disabled>⬇ Export JS</button>
+  <button class="btn-green"     onclick="pushToGitHub()"  id="push-btn"   disabled>🚀 Push to GitHub</button>
+</div>
+
+<!-- Row 2: Token / Load button / Status info -->
+<div class="controls" style="padding-top:8px;padding-bottom:8px;gap:8px">
+  <label style="font-size:12px;color:#666;white-space:nowrap">GitHub token:</label>
+  <input class="token-input" id="token-input" type="password" placeholder="ghp_...">
+  <button class="btn-primary" onclick="loadData()" id="load-btn">⬇ Load &amp; Rank All</button>
+  <div class="mode-info" id="mode-info">City와 token을 선택 후 Load &amp; Rank All을 누르면 모든 location의 이미지를 자동 랭킹합니다.</div>
+</div>
+
+<!-- Selection bar — appears after processing completes -->
+<div class="sel-bar" id="sel-bar">
+  <button class="btn-secondary btn-small" onclick="selectAll()">☑ Select All</button>
+  <button class="btn-secondary btn-small" onclick="deselectAll()">☐ Deselect All</button>
+  <span style="color:#ccc">|</span>
+  <span class="sel-count" id="sel-count">0 selected</span>
+  <span class="sel-hint">— 체크된 location의 사진이 push/export 시 업데이트됩니다 (기존 사진 override)</span>
+</div>
+
+<div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+<div class="status" id="status">Waiting…</div>
+
+<div class="legend">
+  <span style="font-weight:600;font-size:11px;margin-right:4px">Legend:</span>
+  <div class="legend-item"><div class="legend-dot" style="background:#2a6e3f"></div> Top N 선택됨</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#b8860b"></div> #1 ranked</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#1565c0"></div> Wikipedia 이미지</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#2a6e3f"></div> Commons 검색</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#aaa"></div> 기존 이미지</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#6a1b9a"></div> Wikimedia 없음 (기존 유지)</div>
+</div>
+
+<div class="location-grid" id="location-grid">
+  <div class="empty">← Load &amp; Rank All 버튼을 눌러 시작하세요.</div>
+</div>
+
+<div class="export-section" id="export-section" style="display:none">
+  <h3>📋 Updated Data (copy to data file)</h3>
+  <textarea id="export-output" readonly></textarea>
+  <div style="display:flex;gap:8px;margin-top:8px;align-items:center">
+    <button class="btn-primary btn-small" onclick="copyExport()">Copy All</button>
+    <button class="btn-secondary btn-small" onclick="downloadExport()">Download .js</button>
+    <span id="copy-msg" style="font-size:12px;color:#2a6e3f"></span>
+  </div>
+</div>
+
+<script>
+// ── Config ───────────────────────────────────────────────────────────
+const WIKI_API      = 'https://en.wikipedia.org/w/api.php';
+const COMMONS_API   = 'https://commons.wikimedia.org/w/api.php';
+const MEDIA_REQ_API = 'https://wikimedia.org/api/rest_v1/metrics/mediarequests/per-file/commons.wikimedia.org';
+const GH_API        = 'https://api.github.com/repos/mlee3467/ArchWander/contents';
+
+const FILE_MAP = {
+  nyc: { file: 'data-new-york.js', varName: 'LOCS_NEW_YORK', city: 'New York' },
+  sel: { file: 'data-seoul.js',    varName: 'LOCS_SEOUL',    city: 'Seoul'    },
+  lon: { file: 'data-london.js',   varName: 'LOCS_LONDON',   city: 'London'   }
+};
+
+let allLocs   = [];
+let rawSrc    = '';   // original JS source — for targeted export
+let results   = {};   // { loc.id: [{ filename, url, requests, source }] }
+let fileSha   = '';   // GitHub blob SHA — required for PUT API
+let isRunning = false;
+let stopFlag  = false;
+
+// ── Utilities ────────────────────────────────────────────────────────
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+function setStatus(msg)  { document.getElementById('status').textContent = msg; }
+function setProgress(pct){ document.getElementById('progress').style.width = pct + '%'; }
+
+function formatRequests(n) {
+  if (!n) return '0';
+  if (n >= 1000000) return (n/1000000).toFixed(1)+'M';
+  if (n >= 1000)    return (n/1000).toFixed(1)+'k';
+  return String(n);
+}
+
+function extractFilename(url) {
+  if (!url) return null;
+  let m = url.match(/Special:FilePath\/(.+?)(?:\?|$)/);
+  if (m) return decodeURIComponent(m[1]).replace(/\+/g, ' ');
+  m = url.match(/\/thumb\/[a-f0-9]+\/[a-f0-9]{2}\/(.+?)\//);
+  if (m) return decodeURIComponent(m[1]).replace(/\+/g, ' ');
+  m = url.match(/\/commons\/[a-f0-9]+\/[a-f0-9]{2}\/(.+?)(?:\?|$)/);
+  if (m) return decodeURIComponent(m[1]).replace(/\+/g, ' ');
+  return null;
+}
+
+function makePhotoUrl(filename, width=800) {
+  return `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(filename).replace(/%20/g,'_')}?width=${width}`;
+}
+
+// ── Image Filtering ──────────────────────────────────────────────────
+function isArchitecturalPhoto(filename) {
+  const n = filename.toLowerCase();
+  if (/\.(svg|gif|png)$/i.test(n)) return false;
+  const skipWords = ['flag_','_flag.','icon','logo','_map.','map_','coat_of','seal_of',
+    'location','locator','emblem','symbol','diagram','plan','layout','route',
+    'coa_','_coa.','heraldry'];
+  return !skipWords.some(w => n.includes(w));
+}
+
+// ── Wikipedia Article Images ─────────────────────────────────────────
+async function getWikipediaArticleImages(wikiUrl) {
+  const m = wikiUrl.match(/en\.wikipedia\.org\/wiki\/(.+)$/);
+  if (!m) return [];
+  const title = decodeURIComponent(m[1]);
+  await sleep(100);
+
+  const params = new URLSearchParams({
+    action:'query', titles:title, prop:'images',
+    imlimit:50, format:'json', origin:'*'
+  });
+  let imageNames = [];
+  try {
+    const r    = await fetch(`${WIKI_API}?${params}`);
+    const data = await r.json();
+    const page = Object.values(data.query?.pages||{})[0];
+    imageNames = (page?.images||[]).map(img => img.title.replace('File:','')).filter(isArchitecturalPhoto);
+  } catch(e) { return []; }
+
+  const images = [];
+  for (let i = 0; i < imageNames.length; i += 20) {
+    const batch  = imageNames.slice(i, i+20);
+    const titles = batch.map(n => 'File:'+n).join('|');
+    const infoP  = new URLSearchParams({
+      action:'query', titles, prop:'imageinfo',
+      iiprop:'url|size|mime', iiurlwidth:800, format:'json', origin:'*'
+    });
+    try {
+      const r = await fetch(`${WIKI_API}?${infoP}`);
+      const d = await r.json();
+      for (const p of Object.values(d.query?.pages||{})) {
+        const info = p.imageinfo?.[0];
+        if (!info) continue;
+        if (info.mime && !info.mime.startsWith('image/jpeg') && !info.mime.startsWith('image/webp')) continue;
+        if (info.width < 400 || info.height < 300) continue;
+        const fn = p.title.replace('File:','');
+        images.push({ filename:fn, url:makePhotoUrl(fn), source:'wikipedia' });
+      }
+    } catch(e) { /* skip batch */ }
+    await sleep(80);
+  }
+  return images;
+}
+
+// ── Commons Search ───────────────────────────────────────────────────
+async function searchWikiImages(name, city) {
+  const query = `${name} ${city}`;
+  const params = new URLSearchParams({
+    action:'query', list:'search', srsearch:query,
+    srnamespace:6, srlimit:12, format:'json', origin:'*'
+  });
+  try {
+    const r    = await fetch(`${COMMONS_API}?${params}`);
+    const data = await r.json();
+    if (!data.query?.search?.length) return [];
+
+    const titles = data.query.search.map(s => s.title).join('|');
+    const infoP  = new URLSearchParams({
+      action:'query', titles, prop:'imageinfo',
+      iiprop:'url|size|mime', iiurlwidth:800, format:'json', origin:'*'
+    });
+    const infoR = await fetch(`${COMMONS_API}?${infoP}`);
+    const infoD = await infoR.json();
+    const images = [];
+    for (const page of Object.values(infoD.query?.pages||{})) {
+      const info = page.imageinfo?.[0];
+      if (!info) continue;
+      const fn = page.title.replace('File:','');
+      if (!isArchitecturalPhoto(fn)) continue;
+      if (info.mime && !info.mime.startsWith('image/')) continue;
+      if (info.width < 400 || info.height < 300) continue;
+      images.push({ filename:fn, url:makePhotoUrl(fn), source:'search' });
+    }
+    return images;
+  } catch(e) { return []; }
+}
+
+// ── Media Requests ───────────────────────────────────────────────────
+async function getMediaRequests(filename) {
+  const now  = new Date();
+  const past = new Date(now); past.setFullYear(past.getFullYear()-1);
+  const fn    = filename.replace(/ /g,'_');
+  const start = past.toISOString().slice(0,7).replace('-','');
+  const end   = now.toISOString().slice(0,7).replace('-','');
+  try {
+    const url = `${MEDIA_REQ_API}/${encodeURIComponent(fn)}/monthly/${start}/${end}`;
+    const r   = await fetch(url);
+    const d   = await r.json();
+    return (d.items||[]).reduce((s,x) => s+(x['total.requests']||0), 0);
+  } catch(e) { return 0; }
+}
+
+// ── Candidate Gathering ──────────────────────────────────────────────
+async function getCandidates(loc, city, mode) {
+  const seen = new Set(), candidates = [];
+
+  if (mode === 'wikipedia' || mode === 'both') {
+    if (loc.wiki) {
+      const imgs = await getWikipediaArticleImages(loc.wiki);
+      for (const img of imgs)
+        if (!seen.has(img.filename)) { seen.add(img.filename); candidates.push(img); }
+    }
+  }
+  if (mode === 'search' || mode === 'both') {
+    const found = await searchWikiImages(loc.name, city);
+    await sleep(150);
+    for (const img of found)
+      if (!seen.has(img.filename)) { seen.add(img.filename); candidates.push(img); }
+  }
+  if (mode === 'rank') {
+    for (const url of (loc.photos||[])) {
+      const fn = extractFilename(url);
+      if (fn && !seen.has(fn)) {
+        seen.add(fn);
+        candidates.push({ filename:fn, url:makePhotoUrl(fn), source:'existing' });
+      }
+    }
+  }
+  return candidates;
+}
+
+// ── Data Loading + Auto-Processing ──────────────────────────────────
+async function loadData() {
+  const token   = document.getElementById('token-input').value.trim();
+  const cityKey = document.getElementById('city-select').value;
+  const cfg     = FILE_MAP[cityKey];
+
+  // Disable controls during run
+  document.getElementById('load-btn').disabled   = true;
+  document.getElementById('export-btn').disabled = true;
+  document.getElementById('push-btn').disabled   = true;
+  document.getElementById('sel-bar').classList.remove('visible');
+  setProgress(0);
+  setStatus(`${cfg.file} 로딩 중...`);
+
+  let src;
+  try {
+    const headers = token ? { Authorization:'token '+token } : {};
+    const r = await fetch(`${GH_API}/${cfg.file}`, { headers });
+    const d = await r.json();
+    if (!d.content) throw new Error(d.message || 'No content');
+    const bytes = Uint8Array.from(atob(d.content.replace(/\n/g,'')), c => c.charCodeAt(0));
+    src     = new TextDecoder().decode(bytes);
+    fileSha = d.sha || '';
+  } catch(e) {
+    setStatus(`⚠ Load 실패: ${e.message}`);
+    document.getElementById('load-btn').disabled = false;
+    return;
+  }
+
+  rawSrc  = src;
+  allLocs = parseLocsFromSrc(src, cfg.varName);
+  results = {};
+
+  document.getElementById('mode-info').textContent =
+    `✓ ${allLocs.length}개 location 로드 완료 (${cfg.file}) — 이미지 랭킹 시작...`;
+  renderGrid();
+  await startProcessing();
+}
+
+function parseLocsFromSrc(src) {
+  try {
+    const s = src.replace(/const\s+\w+\s*=/, 'window.__tmpLocs =');
+    eval(s);
+    const locs = window.__tmpLocs || [];
+    delete window.__tmpLocs;
+    return locs;
+  } catch(e) {
+    const locs = [], re = /id:\s*['"]([^'"]+)['"]/g;
+    let m;
+    while ((m = re.exec(src))) locs.push({ id:m[1], name:m[1], photos:[], wiki:'' });
+    return locs;
+  }
+}
+
+// ── Processing ───────────────────────────────────────────────────────
+async function startProcessing() {
+  isRunning = true; stopFlag = false;
+  document.getElementById('stop-btn').disabled = false;
+
+  const mode  = document.getElementById('mode-select').value;
+  const topN  = parseInt(document.getElementById('top-n').value) || 4;
+  const city  = FILE_MAP[document.getElementById('city-select').value].city;
+  const total = allLocs.length;
+  let doneCount = 0, keptCount = 0;
+
+  for (let i = 0; i < allLocs.length; i++) {
+    if (stopFlag) break;
+    const loc = allLocs[i];
+    setProgress((i / total) * 100);
+    setStatus(`[${i+1}/${total}] ${loc.name} 이미지 검색 중...`);
+    updateLocBadge(i, 'searching', '검색 중...');
+
+    try {
+      const candidates = await getCandidates(loc, city, mode);
+
+      if (!candidates.length) {
+        // No Wikimedia images → keep existing, uncheck
+        results[loc.id] = [];
+        updateLocBadge(i, 'kept', 'Wikimedia 없음 · 기존 유지');
+        setLocChecked(i, false);
+        keptCount++;
+      } else {
+        // Fetch load counts and sort
+        for (const c of candidates) {
+          if (stopFlag) break;
+          c.requests = await getMediaRequests(c.filename);
+          await sleep(100);
+        }
+        candidates.sort((a,b) => b.requests - a.requests);
+        results[loc.id] = candidates;
+        updateLocCard(i, loc, candidates, topN);
+        updateLocBadge(i, 'done', `${Math.min(candidates.length,topN)}장 선택 / ${candidates.length}개 후보`);
+        setLocChecked(i, true);   // auto-check: has Wikimedia images
+        doneCount++;
+      }
+    } catch(e) {
+      updateLocBadge(i, 'error', 'Error');
+      console.error(loc.name, e);
+    }
+    updateSelCount();
+    await sleep(60);
+  }
+
+  setProgress(100);
+  const msg = stopFlag
+    ? `⏹ 중단됨 — ${doneCount}개 업데이트 가능, ${keptCount}개 기존 유지`
+    : `✓ 완료! ${doneCount}개 업데이트 가능, ${keptCount}개 기존 유지 — 체크박스로 선택 후 Push 하세요.`;
+  setStatus(msg);
+  document.getElementById('mode-info').textContent =
+    `✓ 랭킹 완료: ${doneCount}개 업데이트 가능, ${keptCount}개 기존 유지 (${FILE_MAP[document.getElementById('city-select').value].file})`;
+
+  isRunning = false;
+  document.getElementById('stop-btn').disabled   = true;
+  document.getElementById('load-btn').disabled   = false;
+  document.getElementById('export-btn').disabled = false;
+  document.getElementById('push-btn').disabled   = false;
+  document.getElementById('sel-bar').classList.add('visible');
+  updateSelCount();
+}
+
+function stopProcessing() { stopFlag = true; }
+
+// ── Checkbox helpers ─────────────────────────────────────────────────
+function setLocChecked(i, checked) {
+  const chk  = document.getElementById(`chk-${i}`);
+  const card = document.getElementById(`loc-card-${i}`);
+  if (!chk) return;
+  chk.checked = checked;
+  chk.disabled = false;
+  card?.classList.toggle('selected', checked);
+}
+
+function getCheckedIds() {
+  const ids = new Set();
+  allLocs.forEach((loc, i) => {
+    const chk = document.getElementById(`chk-${i}`);
+    if (chk?.checked) ids.add(loc.id);
+  });
+  return ids;
+}
+
+function onCheckChange(i, ev) {
+  ev?.stopPropagation();
+  const chk  = document.getElementById(`chk-${i}`);
+  const card = document.getElementById(`loc-card-${i}`);
+  card?.classList.toggle('selected', chk?.checked);
+  updateSelCount();
+}
+
+function toggleCard(i) {
+  const chk = document.getElementById(`chk-${i}`);
+  if (!chk || chk.disabled) return;
+  chk.checked = !chk.checked;
+  document.getElementById(`loc-card-${i}`)?.classList.toggle('selected', chk.checked);
+  updateSelCount();
+}
+
+function selectAll()   { allLocs.forEach((_,i) => setLocChecked(i, true));  updateSelCount(); }
+function deselectAll() { allLocs.forEach((_,i) => setLocChecked(i, false)); updateSelCount(); }
+
+function updateSelCount() {
+  const n = getCheckedIds().size;
+  const el = document.getElementById('sel-count');
+  if (el) el.textContent = `${n} / ${allLocs.length} selected`;
+}
+
+// ── Rendering ────────────────────────────────────────────────────────
+function renderGrid() {
+  const grid = document.getElementById('location-grid');
+  grid.innerHTML = '';
+  allLocs.forEach((loc, i) => {
+    const card = document.createElement('div');
+    card.className = 'loc-card'; card.id = `loc-card-${i}`;
+
+    const hasWiki  = !!loc.wiki;
+    const nPhotos  = (loc.photos||[]).length;
+    const badgeTxt = hasWiki ? `wiki 있음 · 사진 ${nPhotos}장` : `wiki 없음 · 사진 ${nPhotos}장`;
+    const badgeCls = hasWiki ? 'ok' : '';
+
+    // Click on header row toggles checkbox (excluding the checkbox itself)
+    card.innerHTML = `
+      <div class="loc-header" onclick="toggleCard(${i})">
+        <input type="checkbox" class="loc-chk" id="chk-${i}"
+          onclick="onCheckChange(${i}, event)" disabled>
+        <span class="loc-name">${loc.name||'(unnamed)'}</span>
+        <span class="loc-badge ${badgeCls}" id="badge-${i}">${badgeTxt}</span>
+      </div>
+      <div class="photos-row" id="photos-${i}">
+        ${(loc.photos||[]).slice(0,8).map(url=>`
+          <div class="photo-item">
+            <img class="photo-img" src="${url.replace(/\?width=\d+/,'?width=200')}"
+              onerror="this.style.display='none'" loading="lazy">
+            <div class="photo-src">existing</div>
+          </div>`).join('') || '<div class="empty">사진 없음</div>'}
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+function updateLocBadge(i, type, text) {
+  const b = document.getElementById(`badge-${i}`);
+  if (b) { b.className=`loc-badge ${type}`; b.textContent=text; }
+}
+
+function updateLocCard(i, loc, ranked, topN) {
+  const row = document.getElementById(`photos-${i}`);
+  if (!row) return;
+  const show = ranked.slice(0, Math.max(topN + 3, 8));
+  row.innerHTML = show.map((c, idx) => {
+    const isTop  = idx < topN;
+    const rnkCls = idx===0 ? 'gold' : '';
+    const srcCls = c.source==='wikipedia' ? 'wikipedia' : c.source==='search' ? 'new' : '';
+    const srcLbl = c.source==='wikipedia' ? 'wiki' : c.source==='search' ? 'search' : 'existing';
+    return `
+      <div class="photo-item">
+        <img class="photo-img ${isTop?'top':''}"
+          src="${c.url.replace(/\?width=\d+/,'?width=200')}"
+          onerror="this.style.display='none'" loading="lazy" title="${c.filename}">
+        <div class="photo-rank ${rnkCls}">#${idx+1}</div>
+        <div class="photo-count">${formatRequests(c.requests)}/yr</div>
+        <div class="photo-src ${srcCls}">${srcLbl}</div>
+      </div>`;
+  }).join('');
+}
+
+// Live top-N visual refresh (no re-fetch, just update borders)
+function refreshTopNVisuals() {
+  const topN = parseInt(document.getElementById('top-n').value) || 4;
+  allLocs.forEach((loc, i) => {
+    const ranked = results[loc.id];
+    if (ranked && ranked.length) updateLocCard(i, loc, ranked, topN);
+  });
+}
+
+// ── Smart Export (targeted photos:[] replacement) ────────────────────
+function replacePhotosInSrc(src, locId, newPhotos) {
+  const idMarker    = `id:'${locId}'`;
+  const idPos       = src.indexOf(idMarker);
+  if (idPos === -1) return src;
+
+  const nextIdPos   = src.indexOf(`id:'`, idPos + idMarker.length);
+  const photosStart = src.indexOf('photos:[', idPos);
+  if (photosStart === -1) return src;
+  if (nextIdPos !== -1 && photosStart > nextIdPos) return src;
+
+  const bracketOpen = photosStart + 'photos:'.length;
+  let depth = 0, endPos = -1;
+  for (let i = bracketOpen; i < src.length; i++) {
+    if      (src[i]==='[') depth++;
+    else if (src[i]===']') { depth--; if (depth===0) { endPos=i; break; } }
+  }
+  if (endPos === -1) return src;
+
+  const photosStr = newPhotos.length === 0
+    ? 'photos:[]'
+    : 'photos:[\n      ' + newPhotos.map(u=>`'${u}'`).join(',\n      ') + '\n    ]';
+
+  return src.slice(0, photosStart) + photosStr + src.slice(endPos+1);
+}
+
+// Build the updated source — respects checkbox selection
+function buildExportSrc() {
+  const topN       = parseInt(document.getElementById('top-n').value) || 4;
+  const checkedIds = getCheckedIds();
+  let exportSrc = rawSrc;
+  let updated = 0, kept = 0;
+
+  for (const loc of allLocs) {
+    if (!checkedIds.has(loc.id)) { kept++; continue; }     // unchecked → keep existing
+    const ranked = results[loc.id];
+    if (!ranked || !ranked.length) { kept++; continue; }   // no Wikimedia images → keep
+    const newPhotos = ranked.slice(0, topN).map(c => c.url);
+    exportSrc = replacePhotosInSrc(exportSrc, loc.id, newPhotos);
+    updated++;
+  }
+  return { exportSrc, updated, kept };
+}
+
+function exportData() {
+  if (!rawSrc) { alert('소스가 없습니다. Load & Rank All을 다시 실행하세요.'); return; }
+  const checkedIds = getCheckedIds();
+  if (!checkedIds.size) { alert('업데이트할 location을 하나 이상 선택하세요.'); return; }
+
+  const { exportSrc, updated, kept } = buildExportSrc();
+  document.getElementById('export-output').value = exportSrc;
+  document.getElementById('export-section').style.display = 'block';
+  document.getElementById('export-section').scrollIntoView({ behavior:'smooth' });
+  setStatus(`✓ Export 완료: ${updated}개 업데이트, ${kept}개 기존 유지`);
+}
+
+function copyExport() {
+  const ta = document.getElementById('export-output');
+  ta.select();
+  navigator.clipboard.writeText(ta.value);
+  document.getElementById('copy-msg').textContent = '✓ 복사됨!';
+  setTimeout(() => document.getElementById('copy-msg').textContent='', 2000);
+}
+
+function downloadExport() {
+  const cfg  = FILE_MAP[document.getElementById('city-select').value];
+  const blob = new Blob([document.getElementById('export-output').value], { type:'text/javascript' });
+  const a    = document.createElement('a');
+  a.href     = URL.createObjectURL(blob);
+  a.download = cfg.file; a.click();
+}
+
+// ── GitHub Push ──────────────────────────────────────────────────────
+function utf8ToBase64(str) {
+  const bytes = new TextEncoder().encode(str);
+  let bin = '';
+  bytes.forEach(b => bin += String.fromCharCode(b));
+  return btoa(bin);
+}
+
+async function pushToGitHub() {
+  const token = document.getElementById('token-input').value.trim();
+  if (!token)   { alert('GitHub token을 입력해 주세요.'); return; }
+  if (!rawSrc)  { alert('Load & Rank All을 먼저 실행하세요.'); return; }
+  if (!fileSha) { alert('fileSha 없음 — Load & Rank All을 다시 실행하세요.'); return; }
+
+  const checkedIds = getCheckedIds();
+  if (!checkedIds.size) { alert('업데이트할 location을 하나 이상 체크하세요.'); return; }
+
+  const cityKey              = document.getElementById('city-select').value;
+  const cfg                  = FILE_MAP[cityKey];
+  const { exportSrc, updated, kept } = buildExportSrc();
+
+  const pushBtn = document.getElementById('push-btn');
+  pushBtn.disabled    = true;
+  pushBtn.textContent = '⏳ Pushing...';
+  setStatus(`GitHub에 업로드 중... (${updated}개 업데이트, ${kept}개 유지)`);
+
+  try {
+    const body = {
+      message: `image-rank-tool: update ${updated} locations' photos (${cfg.city})`,
+      content: utf8ToBase64(exportSrc),
+      sha:     fileSha
+    };
+    const resp = await fetch(`${GH_API}/${cfg.file}`, {
+      method:  'PUT',
+      headers: { Authorization:'token '+token, 'Content-Type':'application/json' },
+      body:    JSON.stringify(body)
+    });
+    const data = await resp.json();
+    if (!resp.ok) throw new Error(data.message || resp.statusText);
+
+    fileSha = data.content?.sha || fileSha;
+    setStatus(`✅ GitHub push 완료! ${updated}개 location 업데이트됨 (${cfg.file})`);
+    pushBtn.textContent = '✅ Pushed!';
+    setTimeout(() => { pushBtn.textContent = '🚀 Push to GitHub'; pushBtn.disabled = false; }, 3000);
+  } catch(e) {
+    setStatus(`⚠ Push 실패: ${e.message}`);
+    pushBtn.textContent = '🚀 Push to GitHub';
+    pushBtn.disabled    = false;
+  }
+}
+
+// ── Init ─────────────────────────────────────────────────────────────
+window.addEventListener('load', () => {
+  if (window._token) document.getElementById('token-input').value = window._token;
+});
+</script>
+</body>
+</html>

@@ -429,14 +429,17 @@
     .ext-link:hover { border-color: #999; background: var(--bg); }
 
     /* ── CATEGORY COLORS ─────────────────────── */
-    .c-sky  { background: #EEF2FF; color: #4338CA; }
-    .c-his  { background: #FFF7ED; color: #C2410C; }
-    .c-mus  { background: #FDF4FF; color: #9333EA; }
-    .c-park { background: #F0FDF4; color: #166534; }
-    .c-mod  { background: #F0F9FF; color: #0369A1; }
-    .c-rel  { background: #FFFBEB; color: #B45309; }
-    .c-uni  { background: #EFF6FF; color: #1D4ED8; }
-    .c-inf  { background: #F8FAFC; color: #475569; }
+    .c-sky  { background: #EEF2FF; color: #4338CA; }  /* Skyscrapers     — indigo  */
+    .c-his  { background: #FFF7ED; color: #C2410C; }  /* Historic         — orange  */
+    .c-inf  { background: #F8FAFC; color: #475569; }  /* Infrastructure   — slate   */
+    .c-cul  { background: #FDF4FF; color: #9333EA; }  /* Cultural         — purple  */
+    .c-park { background: #F0FDF4; color: #166534; }  /* Parks            — green   */
+    .c-rel  { background: #FFFBEB; color: #B45309; }  /* Religious        — amber   */
+    .c-aca  { background: #EFF6FF; color: #1D4ED8; }  /* Academic / Inst. — blue    */
+    .c-res  { background: #F0FDFA; color: #0F766E; }  /* Residential      — teal    */
+    .c-lmk  { background: #F0F9FF; color: #0369A1; }  /* Landmarks        — sky     */
+    .c-pub  { background: #F9FAFB; color: #6B7280; }  /* Public           — gray    */
+    .c-ret  { background: #FFF1F2; color: #BE185D; }  /* Retail           — pink    */
 
     /* ── REVIEWS ─────────────────────────────────────────── */
     .star-selector { display: flex; gap: 2px; }
@@ -956,10 +959,17 @@
         <div class="af-field">
           <label>Category</label>
           <select id="af-cat">
-            <option>Skyscrapers</option><option>Historic Buildings</option>
-            <option>Museums & Culture</option><option>Parks & Public Spaces</option>
-            <option>Modern Architecture</option><option>Religious Architecture</option>
-            <option>Universities & Research</option><option>Infrastructure</option>
+            <option>Skyscrapers</option>
+            <option>Historic</option>
+            <option>Infrastructure</option>
+            <option>Cultural</option>
+            <option>Parks</option>
+            <option>Religious</option>
+            <option>Academic / Institution</option>
+            <option>Residential</option>
+            <option>Landmarks</option>
+            <option>Public</option>
+            <option>Retail</option>
           </select>
         </div>
         <div class="af-field">
@@ -1268,9 +1278,17 @@ const state = { cat:'All', style:'All', era:'All', access:'All', arch:'All', sor
 // CONFIG
 // ══════════════════════════════════════════════════════════════════
 const CAT_COLORS = {
-  'Skyscrapers':'#4338CA','Historic Buildings':'#C2410C','Museums & Culture':'#9333EA',
-  'Parks & Public Spaces':'#166534','Modern Architecture':'#0369A1',
-  'Religious Architecture':'#B45309','Universities & Research':'#1D4ED8','Infrastructure':'#475569'
+  'Skyscrapers':           '#4338CA',
+  'Historic':              '#C2410C',
+  'Infrastructure':        '#475569',
+  'Cultural':              '#9333EA',
+  'Parks':                 '#166534',
+  'Religious':             '#B45309',
+  'Academic / Institution':'#1D4ED8',
+  'Residential':           '#0F766E',
+  'Landmarks':             '#0369A1',
+  'Public':                '#6B7280',
+  'Retail':                '#BE185D',
 };
 const STYLES = ['Art Deco','Beaux-Arts','Neoclassical','Gothic Revival','Modernist','Expressionist Modernism','Postmodern','Contemporary','Adaptive Reuse','Landscape'];
 const ERAS   = ['Pre-1900','Pre-1930','1930–1969','1970–1999','2000–Present'];
@@ -2421,9 +2439,17 @@ window.addEventListener('load', function() {
 // ADMIN PANEL
 // ══════════════════════════════════════════════════════════════════
 const CAT_CC_MAP = {
-  'Skyscrapers':'c-sky','Historic Buildings':'c-his','Museums & Culture':'c-mus',
-  'Parks & Public Spaces':'c-park','Modern Architecture':'c-mod',
-  'Religious Architecture':'c-rel','Universities & Research':'c-uni','Infrastructure':'c-inf'
+  'Skyscrapers':           'c-sky',
+  'Historic':              'c-his',
+  'Infrastructure':        'c-inf',
+  'Cultural':              'c-cul',
+  'Parks':                 'c-park',
+  'Religious':             'c-rel',
+  'Academic / Institution':'c-aca',
+  'Residential':           'c-res',
+  'Landmarks':             'c-lmk',
+  'Public':                'c-pub',
+  'Retail':                'c-ret',
 };
 
 // Open with Ctrl+Shift+A
@@ -2487,7 +2513,7 @@ function _clearAdmForm() {
     if (el) el.value = '';
   });
   document.getElementById('af-tourOk').checked = false;
-  document.getElementById('af-cat').value    = 'Modern Architecture';
+  document.getElementById('af-cat').value    = 'Landmarks';
   document.getElementById('af-access').value = 'Open to Public';
   document.getElementById('af-era').value    = '2000–Present';
   document.getElementById('af-city').value   = activeCityKey || 'new-york';
@@ -2515,7 +2541,7 @@ function _fillAdmForm(loc) {
   sv('af-tags',       (loc.tags || []).join(', '));
   sv('af-photos',     (loc.photos || []).join('\n'));
   document.getElementById('af-tourOk').checked = !!loc.tourOk;
-  document.getElementById('af-cat').value    = loc.cat    || 'Modern Architecture';
+  document.getElementById('af-cat').value    = loc.cat    || 'Landmarks';
   document.getElementById('af-access').value = loc.access || 'Open to Public';
   document.getElementById('af-era').value    = loc.era    || '2000–Present';
   document.getElementById('af-city').value   = loc.city   || 'new-york';
@@ -2529,12 +2555,12 @@ function saveAdmForm() {
   if (!name)           { alert('Name is required.'); return; }
   if (isNaN(lat)||isNaN(lng)) { alert('Valid Latitude and Longitude are required.'); return; }
 
-  const cat = fv('af-cat') || 'Modern Architecture';
+  const cat = fv('af-cat') || 'Landmarks';
   const loc = {
     id:         _admEditId || name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'') + '-' + Date.now(),
     name,       arch:       fv('af-arch') || 'Unknown',
     yr:         parseInt(fv('af-yr')) || new Date().getFullYear(),
-    cat,        cc:         CAT_CC_MAP[cat] || 'c-mod',
+    cat,        cc:         CAT_CC_MAP[cat] || 'c-lmk',
     style:      fv('af-style'),
     styleGroup: fv('af-styleGroup') || 'Contemporary',
     era:        fv('af-era') || '2000–Present',

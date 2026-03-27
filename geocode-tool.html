@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Coordinate Geocoder — ArchWander</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,sans-serif;background:#f5f5f0;color:#1a1a1a;font-size:14px}
+header{background:#1a1a1a;color:#fff;padding:18px 28px}
+header h1{font-size:17px;font-weight:600}
+header p{font-size:12px;opacity:.5;margin-top:3px}
+.wrap{max-width:1080px;margin:0 auto;padding:24px 20px}
+.card{background:#fff;border-radius:10px;padding:20px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+#prog-label{font-size:13px;color:#444;margin-bottom:10px}
+#prog-bg{background:#eee;border-radius:99px;height:8px;overflow:hidden}
+#prog-fill{background:#1a1a1a;height:100%;width:0;transition:width .3s;border-radius:99px}
+#prog-sub{font-size:11px;color:#aaa;margin-top:7px;min-height:14px}
+.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+button{padding:9px 18px;border-radius:7px;border:none;cursor:pointer;font-size:13px;font-weight:500;transition:.15s all}
+#btn-run{background:#1a1a1a;color:#fff}
+#btn-run:hover:not(:disabled){background:#333}
+#btn-run:disabled{opacity:.4;cursor:default}
+#btn-dl{background:#16a34a;color:#fff}
+#btn-dl:hover:not(:disabled){background:#15803d}
+#btn-dl:disabled{opacity:.35;cursor:default}
+.sec{background:#fff;border:1px solid #ddd;color:#444}
+.sec:hover:not(:disabled){background:#f5f5f5}
+.sec:disabled{opacity:.35;cursor:default}
+.thr{margin-left:auto;display:flex;align-items:center;gap:6px;font-size:12px;color:#666}
+.thr input{width:55px;padding:5px 7px;border:1px solid #ddd;border-radius:5px;font-size:12px}
+.stats{display:none;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.stat{background:#fff;border-radius:8px;padding:14px 18px;flex:1;min-width:110px;box-shadow:0 1px 3px rgba(0,0,0,.07)}
+.stat .n{font-size:26px;font-weight:700}
+.stat .l{font-size:11px;color:#999;margin-top:2px}
+.red .n{color:#dc2626}.amber .n{color:#d97706}.green .n{color:#16a34a}
+#tbl-wrap{background:#fff;border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,.08);overflow:auto}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{background:#f8f8f6;padding:9px 12px;text-align:left;font-weight:600;color:#555;border-bottom:1px solid #eee;white-space:nowrap}
+td{padding:8px 12px;border-bottom:1px solid #f2f2f2;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+.fix td{background:#fefce8}.big td{background:#fef2f2}
+.badge{display:inline-block;padding:2px 7px;border-radius:99px;font-size:10px;font-weight:700}
+.ok{background:#dcfce7;color:#15803d}.med{background:#fef3c7;color:#b45309}
+.err{background:#fee2e2;color:#b91c1c}.fail{background:#f1f5f9;color:#94a3b8}
+td.mono{font-family:monospace;font-size:11px}
+#empty{text-align:center;padding:40px;color:#aaa;font-size:13px}
+#note{display:none;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:14px 18px;margin-bottom:16px;font-size:13px;color:#166534}
+</style>
+</head>
+<body>
+<header>
+  <h1>📍 Coordinate Geocoder — ArchWander</h1>
+  <p>Load your <code>data.js</code>, then batch-verify all locations via Nominatim / OpenStreetMap · Works offline (open directly, no server needed)</p>
+</header>
+
+<div class="wrap">
+
+  <!-- Step 0: Load city data file -->
+  <div class="card" id="load-card">
+    <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+      <div style="flex:1;min-width:200px">
+        <div style="font-weight:600;font-size:14px;margin-bottom:4px">Step 1 — Load a city data file</div>
+        <div style="font-size:12px;color:#666">Select a city file from your project folder — e.g. <code>data-new-york.js</code> or <code>data-seoul.js</code>. The tool will parse all locations automatically.</div>
+      </div>
+      <label style="display:inline-block;padding:9px 18px;background:#1a1a1a;color:#fff;border-radius:7px;cursor:pointer;font-size:13px;font-weight:500;white-space:nowrap">
+        📂 Choose city file
+        <input type="file" accept=".js" onchange="loadFile(event)" style="display:none">
+      </label>
+    </div>
+    <div id="load-status" style="margin-top:10px;font-size:12px;color:#aaa">No file loaded yet.</div>
+  </div>
+
+  <!-- Progress -->
+  <div class="card">
+    <div id="prog-label">Click <strong>Start Geocoding</strong> to verify all coordinates against Nominatim</div>
+    <div id="prog-bg"><div id="prog-fill"></div></div>
+    <div id="prog-sub">&nbsp;</div>
+  </div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <button id="btn-run" onclick="runGeocoding()" disabled>▶ Start Geocoding</button>
+    <button class="sec" id="btn-all" disabled onclick="setAll(true)">✓ Select All Fixes</button>
+    <button class="sec" id="btn-none" disabled onclick="setAll(false)">✗ Deselect All</button>
+    <button id="btn-dl" disabled onclick="download()">⬇ Download corrected file</button>
+    <div class="thr">Show errors &gt; <input type="number" id="thr" value="100" min="0" max="9999" onchange="refilter()"> m</div>
+  </div>
+
+  <div id="note"></div>
+
+  <!-- Stats -->
+  <div class="stats" id="stats">
+    <div class="stat"><div class="n" id="s0">—</div><div class="l">Total</div></div>
+    <div class="stat red"><div class="n" id="s1">—</div><div class="l">Error &gt;300m</div></div>
+    <div class="stat amber"><div class="n" id="s2">—</div><div class="l">Error 100–300m</div></div>
+    <div class="stat green"><div class="n" id="s3">—</div><div class="l">OK (&lt;100m)</div></div>
+    <div class="stat"><div class="n" id="s4">—</div><div class="l">Failed</div></div>
+  </div>
+
+  <!-- Results table -->
+  <div id="tbl-wrap">
+    <div id="empty">Geocoding results will appear here after you click Start Geocoding.</div>
+    <table id="tbl" style="display:none">
+      <thead><tr>
+        <th>Apply</th><th>ID</th><th>Address</th><th>Error</th>
+        <th>Current coords</th><th>Nominatim coords</th>
+      </tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+/* ── Embedded location list (id / addr / lat / lng only) ── */
+let LOCS = [];          // populated by loadFile()
+let rawDataJs = null;   // text of loaded city file
+let loadedFileName = 'data.js';  // original filename for download
+
+
+/* ── State ─────────────────────────────────────────────── */
+let results = [];
+let running = false;
+
+/* ── Helpers ────────────────────────────────────────────── */
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+/* ── Parse data.js text → LOCS array (id/addr/lat/lng) ─── */
+function parseDataJs(text) {
+  const out = [];
+  // Match each location block: from `id:'xxx'` to the next `},` at top level
+  // Strategy: find all id occurrences, extract addr/lat/lng nearby
+  const idRe = /id\s*:\s*['"]([^'"]+)['"]/g;
+  let m;
+  while ((m = idRe.exec(text)) !== null) {
+    const id = m[1];
+    const chunk = text.slice(m.index, m.index + 3000);
+    const addrM = chunk.match(/addr\s*:\s*['"]([^'"]+)['"]/);
+    const latM  = chunk.match(/lat\s*:\s*([-\d.]+)/);
+    const lngM  = chunk.match(/lng\s*:\s*([-\d.]+)/);
+    if (addrM && latM && lngM) {
+      out.push({
+        id,
+        addr: addrM[1],
+        lat:  parseFloat(latM[1]),
+        lng:  parseFloat(lngM[1])
+      });
+    }
+  }
+  return out;
+}
+
+/* ── Load city file from disk via FileReader ────────────── */
+function loadFile(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  loadedFileName = file.name;
+  const status = document.getElementById('load-status');
+  status.style.color = '#aaa';
+  status.textContent = 'Reading ' + file.name + '…';
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    rawDataJs = e.target.result;
+    LOCS = parseDataJs(rawDataJs);
+
+    if (LOCS.length === 0) {
+      status.style.color = '#dc2626';
+      status.textContent = '⚠ Could not parse any locations from this file. Make sure it is a valid data.js.';
+      document.getElementById('btn-run').disabled = true;
+      return;
+    }
+
+    status.style.color = '#16a34a';
+    status.textContent = '✅ Loaded ' + file.name + ' — ' + LOCS.length + ' locations found. Click Start Geocoding.';
+    document.getElementById('prog-label').innerHTML =
+      'Click <strong>Start Geocoding</strong> to verify all ' + LOCS.length + ' coordinates against Nominatim';
+    document.getElementById('btn-run').disabled = false;
+  };
+  reader.onerror = function() {
+    status.style.color = '#dc2626';
+    status.textContent = '⚠ Failed to read file.';
+  };
+  reader.readAsText(file, 'utf-8');
+}
+
+function haversine(la1, lo1, la2, lo2) {
+  const R = 6371000;
+  const p1 = la1 * Math.PI / 180, p2 = la2 * Math.PI / 180;
+  const dp = (la2 - la1) * Math.PI / 180, dl = (lo2 - lo1) * Math.PI / 180;
+  const a = Math.sin(dp/2)**2 + Math.cos(p1) * Math.cos(p2) * Math.sin(dl/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+async function nominatim(addr) {
+  // ── Country code detection ──────────────────────────────────────
+  // Extended Korean keyword list covers all districts, road suffixes, and
+  // well-known neighbourhood names used in the data set.
+  const KR_RE = /seoul|busan|incheon|daegu|gwangju|daejeon|ulsan|gyeonggi|jeju|seongnam|pangyo|bundang|\bgu[,\s]|daero|dong[,\s]|\bro[,\s]|-ro[,\s]|-gil[,\s]|jongno|gangnam|yongsan|mapo|seongdong|seongsu|nowon|songpa|seocho|gangseo|eunpyeong|itaewon|myeongdong|insadong|hongdae|sinchon|yeouido|apgujeong|hannam|hanam|ichon|huam|magok/i;
+  const NY_RE = /new york|brooklyn|manhattan|bronx|queens|staten island|\bnyc\b/i;
+  const cc = KR_RE.test(addr) ? '&countrycodes=kr'
+           : NY_RE.test(addr) ? '&countrycodes=us'
+           : '';
+
+  // ── Address cleaning ────────────────────────────────────────────
+  // Strip parenthetical noise:  "432 Toegye-ro, Jung-gu, Seoul (overpass)" → clean
+  // Strip slash-separated extras:  "Gangnam-gu, Seoul (Garosu-gil / Dosan-daero area)" → clean
+  function clean(a) {
+    return a.replace(/\s*\([^)]*\)/g, '').replace(/\s{2,}/g, ' ').trim();
+  }
+
+  // ── Build tiered fallback queries ───────────────────────────────
+  // Tier 1 : cleaned full address           "281 Euljiro, Jung-gu, Seoul"
+  // Tier 2 : drop street number prefix      "Euljiro, Jung-gu, Seoul"
+  // Tier 3 : last 2 comma-parts only        "Jung-gu, Seoul"
+  const base   = clean(addr);
+  const noNum  = base.replace(/^\d[\d\-]*\s+/, '');   // strip leading number
+  const parts  = base.split(',').map(s => s.trim());
+  const simple = parts.length >= 3 ? parts.slice(-2).join(', ') : null;
+
+  const queries = [base];
+  if (noNum !== base) queries.push(noNum);
+  if (simple && simple !== base && simple !== noNum) queries.push(simple);
+
+  // ── Query loop with per-fallback rate limiting ─────────────────
+  for (let i = 0; i < queries.length; i++) {
+    if (i > 0) await sleep(1100);   // Nominatim: max 1 req/sec
+    const url = 'https://nominatim.openstreetmap.org/search?q='
+      + encodeURIComponent(queries[i]) + '&format=json&limit=1' + cc;
+    try {
+      const resp = await fetch(url, {
+        headers: {
+          'User-Agent':      'ArchWander/1.0 coord-checker',
+          'Accept-Language': 'en'
+        }
+      });
+      const data = await resp.json();
+      if (data && data.length > 0)
+        return { lat: parseFloat(data[0].lat), lng: parseFloat(data[0].lon) };
+    } catch(e) {
+      console.warn('Nominatim error for', queries[i], e);
+    }
+  }
+  return null;
+}
+
+/* ── Main geocoding loop ────────────────────────────────── */
+async function runGeocoding() {
+  if (running) return;
+  running = true;
+
+  const btnRun = document.getElementById('btn-run');
+  const btnDl  = document.getElementById('btn-dl');
+  const btnAll = document.getElementById('btn-all');
+  const btnNone= document.getElementById('btn-none');
+
+  btnRun.disabled = true;
+  btnRun.textContent = '⏳ Running…';
+  btnDl.disabled = true;
+  btnAll.disabled = true;
+  btnNone.disabled = true;
+
+  results = [];
+  document.getElementById('tbody').innerHTML = '';
+  document.getElementById('tbl').style.display = 'none';
+  document.getElementById('empty').style.display = '';
+  document.getElementById('stats').style.display = 'none';
+  document.getElementById('note').style.display = 'none';
+
+  for (let i = 0; i < LOCS.length; i++) {
+    const loc = LOCS[i];
+    const pct = Math.round(i / LOCS.length * 100);
+    document.getElementById('prog-fill').style.width = pct + '%';
+    document.getElementById('prog-label').innerHTML =
+      `Geocoding <strong>${loc.id}</strong> (${i + 1} / ${LOCS.length})`;
+    document.getElementById('prog-sub').textContent =
+      pct + '% complete · Nominatim rate limit: 1 req/sec';
+
+    const geo = await nominatim(loc.addr);
+    await sleep(1150);   // respect Nominatim 1 req/s policy
+
+    const d = geo ? haversine(loc.lat, loc.lng, geo.lat, geo.lng) : null;
+    const row = { id: loc.id, addr: loc.addr,
+                   oLat: loc.lat, oLng: loc.lng,
+                   nLat: geo?.lat, nLng: geo?.lng,
+                   dist: d, failed: !geo };
+    results.push(row);
+    appendRow(row, i);
+  }
+
+  document.getElementById('prog-fill').style.width = '100%';
+  document.getElementById('prog-label').innerHTML =
+    `✅ Done — ${LOCS.length} locations verified`;
+  document.getElementById('prog-sub').textContent = '';
+
+  updateStats();
+  document.getElementById('stats').style.display = 'flex';
+
+  btnRun.textContent  = '↺ Re-run';
+  btnRun.disabled     = false;
+  btnDl.disabled      = false;
+  btnAll.disabled     = false;
+  btnNone.disabled    = false;
+  running = false;
+}
+
+/* ── Append one result row ──────────────────────────────── */
+function appendRow(r, idx) {
+  const thr   = parseInt(document.getElementById('thr').value) || 100;
+  const tbody = document.getElementById('tbody');
+  const tbl   = document.getElementById('tbl');
+  const empty = document.getElementById('empty');
+  tbl.style.display = '';
+  empty.style.display = 'none';
+
+  const hide    = r.failed || (r.dist !== null && r.dist < thr);
+  const checked = !r.failed && r.dist !== null && r.dist >= thr;
+
+  let dc = 'fail', rc = '';
+  if (!r.failed && r.dist !== null) {
+    if      (r.dist < 100)  { dc = 'ok'; }
+    else if (r.dist < 300)  { dc = 'med'; rc = 'fix'; }
+    else                    { dc = 'err'; rc = 'big'; }
+  }
+
+  const distLabel = r.failed
+    ? '? failed'
+    : Math.round(r.dist) + ' m';
+  const newCoord = r.failed
+    ? '—'
+    : r.nLat.toFixed(5) + ', ' + r.nLng.toFixed(5);
+
+  const tr = document.createElement('tr');
+  tr.className  = rc;
+  tr.dataset.i  = idx;
+  tr.style.display = hide ? 'none' : '';
+  tr.innerHTML = `
+    <td style="text-align:center">
+      <input type="checkbox" id="c${idx}"
+        ${checked ? 'checked' : ''}
+        ${r.failed ? 'disabled' : ''}>
+    </td>
+    <td><code>${r.id}</code></td>
+    <td style="max-width:230px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"
+        title="${r.addr}">${r.addr}</td>
+    <td><span class="badge ${dc}">${distLabel}</span></td>
+    <td class="mono">${r.oLat}, ${r.oLng}</td>
+    <td class="mono">${newCoord}</td>`;
+  tbody.appendChild(tr);
+}
+
+/* ── Re-filter by threshold ─────────────────────────────── */
+function refilter() {
+  const thr = parseInt(document.getElementById('thr').value) || 100;
+  results.forEach((r, i) => {
+    const tr = document.querySelector(`tr[data-i="${i}"]`);
+    if (!tr) return;
+    tr.style.display =
+      (r.failed || (r.dist !== null && r.dist < thr)) ? 'none' : '';
+  });
+}
+
+/* ── Stats ──────────────────────────────────────────────── */
+function updateStats() {
+  document.getElementById('s0').textContent = results.length;
+  document.getElementById('s1').textContent = results.filter(r => !r.failed && r.dist >= 300).length;
+  document.getElementById('s2').textContent = results.filter(r => !r.failed && r.dist >= 100 && r.dist < 300).length;
+  document.getElementById('s3').textContent = results.filter(r => !r.failed && r.dist < 100).length;
+  document.getElementById('s4').textContent = results.filter(r => r.failed).length;
+}
+
+/* ── Select / deselect all ──────────────────────────────── */
+function setAll(v) {
+  results.forEach((_, i) => {
+    const c = document.getElementById('c' + i);
+    if (c && !c.disabled) c.checked = v;
+  });
+}
+
+/* ── Download corrected data.js ─────────────────────────── */
+function download() {
+  // Collect checked fixes
+  const fixes = {};
+  results.forEach((r, idx) => {
+    const c = document.getElementById('c' + idx);
+    if (c && c.checked && !r.failed && r.nLat != null) {
+      fixes[r.id] = { lat: r.nLat, lng: r.nLng };
+    }
+  });
+
+  const n = Object.keys(fixes).length;
+  if (n === 0) { alert('No fixes selected — check at least one row first.'); return; }
+
+  if (!rawDataJs) { alert('No data.js loaded. Please load the file first.'); return; }
+
+  // Patch lat / lng for each selected location
+  let raw = rawDataJs;
+  for (const [id, {lat, lng}] of Object.entries(fixes)) {
+    const safeId = id.replace(/-/g, '[\-]');
+    const re = new RegExp(
+      "(id\\s*:\\s*'" + safeId + "')" +
+      "([\\s\\S]{1,2500}?)" +
+      "(\\blat\\s*:\\s*)[\\d.\\-]+" +
+      "([\\s\\S]{1,400}?)" +
+      "(\\blng\\s*:\\s*)[\\d.\\-]+"
+    );
+    raw = raw.replace(re, (m, p1, p2, p3, p4, p5) =>
+      p1 + p2 + p3 + lat + p4 + p5 + lng
+    );
+  }
+
+  const blob = new Blob([raw], { type: 'application/javascript' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = loadedFileName;  // preserve original city filename
+  a.click();
+
+  const note = document.getElementById('note');
+  note.style.display = '';
+  note.innerHTML = '✅ <strong>' + n + ' coordinate(s) corrected.</strong> '
+    + 'Replace your existing <code>' + loadedFileName + '</code> with the downloaded file, then redeploy.';
+}
+</script>
+</body>
+</html>
