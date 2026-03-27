@@ -1164,3 +1164,243 @@ const LOCS_SEOUL = [
 
 ];
 /* DATA_END */
+// ── ADDITIONS ─────────────────────────────────────────────────
+
+LOCS_SEOUL.push(
+
+  // ── MASS STUDIES (Minsuk Cho) ──────────────────────────────
+
+  {
+    id:'boutique-monaco-seoul',
+    name:'Boutique Monaco',
+    cat:'Residential', cc:'c-res', styleGroup:'Contemporary',
+    era:'2000–Present', city:'seoul',
+    arch:'Mass Studies', archs:['Mass Studies','Minsuk Cho'],
+    yr:2006, access:'Exterior Only', style:'Contemporary',
+    lat:37.5671, lng:126.9910,
+    addr:'272 Toegye-ro, Jung-gu, Seoul', hood:'Dongdaemun / Jung-gu',
+    desc:'Boutique Monaco (2006) is one of Mass Studies\' most recognised early works — a mixed-use residential tower in Seoul\'s dense urban fabric that directly challenges the dominant typology of the Korean apartment block. Rather than a uniform extruded slab, Minsuk Cho designed 85 individual unit volumes of varying sizes, orientations, and programmatic types — studios, lofts, duplexes, and penthouses — that are stacked and offset to create a richly fragmented, asymmetric tower silhouette. Each unit\'s window configuration and balcony depth responds to its specific orientation and programme. The resulting building has no two identical floors and reads as a three-dimensional collage of domestic interiors rather than a repetitive stack. Boutique Monaco established Mass Studies\' signature approach: using individual domestic diversity as the generator of collective architectural form.',
+    hours:'Private residential building · Exterior viewable', lastEntry:'',
+    admission:'Private',
+    tourOk:false, tourInfo:'',
+    web:'https://massstudies.com/project/boutique-monaco',
+    transit:'Line 2 4 → Dongdaemun History & Culture Park',
+    walkFrom:'DDP (Hadid): 5 min · Dongdaemun Market: 5 min',
+    gmaps:'https://maps.google.com/?q=Boutique+Monaco+Seoul+Dongdaemun',
+    archdaily:'https://www.archdaily.com/tag/boutique-monaco',
+    wiki:'https://en.wikipedia.org/wiki/Boutique_Monaco',
+    tags:['Mass Studies','Minsuk Cho','Residential','Dongdaemun','Mixed-Use Tower','Fragmented Facade'],
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Boutique_Monaco_Seoul_Mass_Studies.jpg?width=800'
+    ],
+    drawings:[]
+  },
+
+  {
+    id:'ann-demeulemeester-shop-seoul',
+    name:'Ann Demeulemeester Shop Seoul',
+    cat:'Landmarks', cc:'c-lmk', styleGroup:'Contemporary',
+    era:'2000–Present', city:'seoul',
+    arch:'Mass Studies', archs:['Mass Studies','Minsuk Cho'],
+    yr:2007, access:'Open to Public', style:'Contemporary',
+    lat:37.5240, lng:126.9892,
+    addr:'640-22 Sinsa-dong, Gangnam-gu, Seoul', hood:'Hannam-dong / Gangnam',
+    desc:'The Ann Demeulemeester flagship boutique in Seoul, designed by Mass Studies in 2007, is a powerful example of Minsuk Cho\'s approach to retail architecture: the building is conceived as a single monolithic concrete object, largely windowless from the exterior, that sits in its residential neighbourhood like a fallen stone. The exterior is covered in rough black concrete panels with a surface texture that evokes volcanic rock or burnt timber. A narrow slot opening at the facade draws visitors into a dramatically compressed entry sequence that opens into a surprisingly spacious and luminous interior. The contrast between the forbidding exterior and the airy interior space — lit by a hidden skylight — reflects the character of Ann Demeulemeester\'s design aesthetic. The project received wide international attention as a rare example of couture-level retail architecture in Seoul.',
+    hours:'Mon–Sun 11:00 AM – 8:00 PM', lastEntry:'',
+    admission:'Free (retail)',
+    tourOk:false, tourInfo:'Freely accessible as a luxury fashion boutique.',
+    web:'https://massstudies.com/project/ann-demeulemeester',
+    transit:'Line 6 → Itaewon or Hannam',
+    walkFrom:'Leeum Samsung Museum of Art: 8 min',
+    gmaps:'https://maps.google.com/?q=Ann+Demeulemeester+Seoul+Gangnam',
+    archdaily:'https://www.archdaily.com/tag/ann-demeulemeester-shop',
+    wiki:'',
+    tags:['Mass Studies','Minsuk Cho','Retail','Concrete','Gangnam','Monolithic','Ann Demeulemeester'],
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Ann_Demeulemeester_Seoul.jpg?width=800'
+    ],
+    drawings:[]
+  },
+
+  {
+    id:'missing-matrix-seoul',
+    name:'Missing Matrix',
+    cat:'Residential', cc:'c-res', styleGroup:'Contemporary',
+    era:'2000–Present', city:'seoul',
+    arch:'Mass Studies', archs:['Mass Studies','Minsuk Cho'],
+    yr:2011, access:'Exterior Only', style:'Contemporary',
+    lat:37.5289, lng:126.9741,
+    addr:'Yongsan-gu, Seoul', hood:'Yongsan',
+    desc:'Missing Matrix (2011) by Mass Studies is a housing project that explores the spatial and social implications of selective density in the Korean housing block. The building is conceived as a complete 8×6 matrix of residential cells — but with approximately one third of the cells deliberately removed and replaced with open voids. The resulting structure is a three-dimensional grid of inhabitable volumes and empty spaces, in which the gaps between cells become balconies, sky gardens, and shared outdoor terraces. The project challenges the conventional Korean apartment typology — which maximises built area per site — by proposing that absence and open space are as important as built mass. Missing Matrix is one of Mass Studies\' most explicit urban research projects, and an important contribution to the discourse around density and liveability in Korean housing.',
+    hours:'Private residential building · Exterior viewable', lastEntry:'',
+    admission:'Private',
+    tourOk:false, tourInfo:'',
+    web:'https://massstudies.com/project/missing-matrix',
+    transit:'Line 1 4 → Seoul Station or Yongsan',
+    walkFrom:'',
+    gmaps:'https://maps.google.com/?q=Missing+Matrix+Mass+Studies+Yongsan+Seoul',
+    archdaily:'https://www.archdaily.com/tag/missing-matrix',
+    wiki:'',
+    tags:['Mass Studies','Minsuk Cho','Residential','Housing','Yongsan','Grid','Voids'],
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Missing_Matrix_Seoul.jpg?width=800'
+    ],
+    drawings:[]
+  },
+
+  {
+    id:'k-style-hub-seoul',
+    name:'K-Style Hub',
+    cat:'Cultural', cc:'c-cul', styleGroup:'Contemporary',
+    era:'2000–Present', city:'seoul',
+    arch:'Mass Studies', archs:['Mass Studies','Minsuk Cho'],
+    yr:2014, access:'Free Admission', style:'Contemporary',
+    lat:37.5706, lng:126.9779,
+    addr:'40 Cheonggyecheon-ro, Jongno-gu, Seoul', hood:'Jongno / Cheonggyecheon',
+    desc:'K-Style Hub, designed by Mass Studies and opened in 2014, is a government tourism promotion facility located adjacent to the Cheonggyecheon stream restoration in Jongno-gu. The building\'s facade is composed of a deep, pixelated screen of white aluminum fins that wraps the building in a three-dimensional texture of varying depths, creating a surface that changes appearance dramatically with light and viewpoint. At night, the fins become a medium for light installations. The facility houses Korean tourism information, cultural experience programmes, and a Korean food demonstration centre across seven floors. Mass Studies\' design transforms a bureaucratic brief — a government visitor centre — into a bold urban object that anchors the Cheonggyecheon waterfront.',
+    hours:'Tue–Sun 9:00 AM – 9:00 PM · Closed Monday', lastEntry:'8:30 PM',
+    admission:'Free',
+    tourOk:true, tourInfo:'Free cultural programmes including traditional craft and food experiences. Multilingual staff.',
+    web:'https://kstylehub.or.kr',
+    transit:'Line 1 → Jonggak (3 min walk)',
+    walkFrom:'Cheonggyecheon Stream: 1 min · Gwanghwamun: 10 min',
+    gmaps:'https://maps.google.com/?q=K-Style+Hub+Seoul+Cheonggyecheon',
+    archdaily:'https://www.archdaily.com/tag/k-style-hub',
+    wiki:'',
+    tags:['Mass Studies','Minsuk Cho','Tourism','Cultural','Jongno','Aluminum Fins','Cheonggyecheon','Free'],
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/K-Style_Hub_Seoul.jpg?width=800'
+    ],
+    drawings:[]
+  },
+
+  // ── IROJE KHM ARCHITECTS (Seung H-Sang) ────────────────────
+
+  {
+    id:'mins-club-seoul',
+    name:'Min\'s Club',
+    cat:'Cultural', cc:'c-cul', styleGroup:'Contemporary',
+    era:'2000–Present', city:'seoul',
+    arch:'Iroje KHM Architects', archs:['Iroje KHM Architects','Seung H-Sang'],
+    yr:2004, access:'Open to Public', style:'Contemporary',
+    lat:37.5784, lng:126.9862,
+    addr:'156 Gyedong-gil, Jongno-gu, Seoul', hood:'Insa-dong / Gye-dong',
+    desc:'Min\'s Club in the Gye-dong neighbourhood of Jongno-gu is one of Seung H-Sang\'s most discussed urban interventions and a landmark in the discourse of "Landscaping Architecture" (조경건축) that has defined much of his career. The project transforms a cluster of existing low-rise hanok (traditional Korean courtyard houses) in a protected conservation district into a connected cultural venue: a restaurant, gallery, and event space that operates as a network of interiors and open-air courtyards linked by covered passageways. Seung H-Sang preserved the scale, materiality, and spatial typology of the hanok while introducing new concrete and glass insertions that define the contemporary interventions. The project is widely cited as a model for sensitive urban infill in Seoul\'s traditional residential fabric — a counter-proposal to both wholesale demolition and superficial historicist restoration.',
+    hours:'Restaurant: Tue–Sun 12PM–10PM · Gallery: Tue–Sun 11AM–7PM', lastEntry:'',
+    admission:'Free (gallery) · Restaurant ticketed',
+    tourOk:false, tourInfo:'',
+    web:'https://minsclub.co.kr',
+    transit:'Line 3 → Anguk (Exit 2, 8 min)',
+    walkFrom:'Bukchon Hanok Village: 5 min · Changdeokgung Palace: 8 min · Insa-dong: 5 min',
+    gmaps:'https://maps.google.com/?q=Min%27s+Club+Seoul+Gye-dong',
+    archdaily:'https://www.archdaily.com/tag/min-s-club',
+    wiki:'',
+    tags:['Iroje','Seung H-Sang','Hanok','Adaptive Reuse','Insa-dong','Traditional','Courtyard','Jongno'],
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Min%27s_Club_Seoul_Iroje.jpg?width=800'
+    ],
+    drawings:[]
+  },
+
+  {
+    id:'suyoojae-seoul',
+    name:'Suyoojae (수유재)',
+    cat:'Residential', cc:'c-res', styleGroup:'Contemporary',
+    era:'2000–Present', city:'seoul',
+    arch:'Iroje KHM Architects', archs:['Iroje KHM Architects','Seung H-Sang'],
+    yr:2002, access:'Exterior Only', style:'Contemporary',
+    lat:37.6516, lng:127.0215,
+    addr:'Suyu-dong, Gangbuk-gu, Seoul', hood:'Suyu-dong / Gangbuk',
+    desc:'Suyoojae (수유재, meaning "a house gathering water") is Seung H-Sang\'s own residence and studio in the northern foothills of Seoul, and one of the most thoughtfully documented works of contemporary Korean domestic architecture. Built in 2002 on a steeply sloped site in Suyu-dong, the house is organised around the idea of the Korean madang (마당) — the traditional central courtyard — adapted to a sloped site by terracing the ground plane into a sequence of outdoor rooms. The building\'s materials — weathered concrete, raw timber, and corrugated steel — are deliberately ordinary, reflecting Seung\'s commitment to architecture that grows from and speaks to the lived reality of its neighbourhood rather than aspirational global aesthetics. The house is published extensively in Seung H-Sang\'s own writings on the concept of "Landscaping Architecture" and has become one of the touchstone works of contemporary Korean residential architecture.',
+    hours:'Private residence · Exterior viewable from street', lastEntry:'',
+    admission:'Private residential building',
+    tourOk:false, tourInfo:'',
+    web:'https://irojekm.com',
+    transit:'Line 4 → Suyu (15 min walk)',
+    walkFrom:'',
+    gmaps:'https://maps.google.com/?q=Suyoojae+Seung+H-Sang+Suyu-dong+Seoul',
+    archdaily:'https://www.archdaily.com/tag/suyoojae',
+    wiki:'',
+    tags:['Iroje','Seung H-Sang','Residential','Courtyard','Madang','Gangbuk','Concrete','Private House'],
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Suyoojae_Seung_H-Sang.jpg?width=800'
+    ],
+    drawings:[]
+  },
+
+  {
+    id:'supoville-seoul',
+    name:'Supoville',
+    cat:'Residential', cc:'c-res', styleGroup:'Contemporary',
+    era:'2000–Present', city:'seoul',
+    arch:'Iroje KHM Architects', archs:['Iroje KHM Architects','Seung H-Sang'],
+    yr:2009, access:'Exterior Only', style:'Contemporary',
+    lat:37.5621, lng:126.9310,
+    addr:'Mapo-gu, Seoul', hood:'Mapo',
+    desc:'Supoville (2009) is a small multi-unit residential building by Iroje KHM Architects in Mapo-gu, Seoul. The project responds to Seung H-Sang\'s critique of the Korean apartment block typology by proposing a small-scale alternative: a building with only nine units, each given its own distinctive volume, window configuration, and outdoor terrace, creating a richly differentiated facade that looks more like a collection of individual houses than a multi-family building. The exterior is clad in exposed brick and concrete, with each unit\'s protruding balcony and window articulated individually to express the domestic diversity within. Supoville demonstrates Iroje\'s recurring argument that architecture at the scale of the individual unit can generate collective urban character: a small building that nonetheless makes a specific and considered contribution to its neighbourhood street.',
+    hours:'Private residential building · Exterior viewable', lastEntry:'',
+    admission:'Private',
+    tourOk:false, tourInfo:'',
+    web:'https://irojekm.com',
+    transit:'Line 2 6 → Hapjeong',
+    walkFrom:'',
+    gmaps:'https://maps.google.com/?q=Supoville+Iroje+Mapo+Seoul',
+    archdaily:'https://www.archdaily.com/tag/supoville',
+    wiki:'',
+    tags:['Iroje','Seung H-Sang','Residential','Mapo','Brick','Individual Units','Small-Scale'],
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Supoville_Iroje_Seoul.jpg?width=800'
+    ],
+    drawings:[]
+  },
+
+  {
+    id:'won-buddhist-temple-iroje',
+    name:'Won Buddhist Temple Headquarters',
+    cat:'Religious', cc:'c-rel', styleGroup:'Contemporary',
+    era:'2000–Present', city:'seoul',
+    arch:'Iroje KHM Architects', archs:['Iroje KHM Architects','Seung H-Sang'],
+    yr:2012, access:'Open to Public', style:'Contemporary',
+    lat:37.5199, lng:126.9282,
+    addr:'391 Sinjeong-dong, Yangcheon-gu, Seoul', hood:'Sinjeong-dong / Yangcheon',
+    desc:'The Won Buddhist Temple Headquarters in Yangcheon-gu, designed by Iroje KHM Architects and completed in 2012, is one of Seung H-Sang\'s most significant institutional works. Won Buddhism (원불교) is a modern Korean religion founded in 1916 that does not follow traditional Buddhist temple typology, giving the architects freedom to develop a new spatial language for contemporary Korean spiritual practice. The complex is organised around a sequence of open courts and semi-covered transitional spaces that guide worshippers through a progression from the city to the sacred interior. The buildings are clad in simple exposed concrete and natural stone, with a restrained palette that emphasises stillness and light. The project received the AIA Korea Architecture Award and is widely cited as an important example of religious architecture in contemporary Korea.',
+    hours:'Temple: daily 6AM–9PM · Public areas freely accessible', lastEntry:'',
+    admission:'Free',
+    tourOk:false, tourInfo:'',
+    web:'https://irojekm.com',
+    transit:'Line 2 → Sindorim or Line 5 → Sinjeong',
+    walkFrom:'',
+    gmaps:'https://maps.google.com/?q=Won+Buddhist+Temple+Yangcheon+Seoul',
+    archdaily:'https://www.archdaily.com/tag/won-buddhist-temple',
+    wiki:'https://en.wikipedia.org/wiki/Won_Buddhism',
+    tags:['Iroje','Seung H-Sang','Temple','Religious','Won Buddhism','Yangcheon','Concrete','Courtyard'],
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Won_Buddhist_Temple_Seoul_Iroje.jpg?width=800'
+    ],
+    drawings:[]
+  },
+  {
+    id:'hyehwa-welfare-center-iroje',
+    name:'Hyehwa-dong Education & Welfare Center',
+    cat:'Cultural', cc:'c-cul', styleGroup:'Contemporary',
+    era:'2000\u2013Present', city:'seoul',
+    arch:'Iroje KHM Architects', archs:['Iroje KHM Architects','Seung H-Sang'],
+    yr:2006, access:'Open to Public', style:'Contemporary',
+    lat:37.5812, lng:127.0028,
+    addr:'Hyehwa-dong, Jongno-gu, Seoul', hood:'Hyehwa / Daehangno',
+    desc:'The Hyehwa-dong Education and Welfare Center by Iroje KHM Architects (2006) is a community facility in the Daehangno district of Jongno-gu. The building serves as a neighbourhood resource containing educational classrooms, a library, community meeting spaces, and a small performance hall. Seung H-Sang\'s design responds to the sloped topography by stepping the building mass down the hillside in terraced volumes, each with its own roof garden or open terrace. The exterior of weathered brick and concrete integrates with the scale and material character of the existing residential neighbourhood. A representative example of Iroje\'s consistent commitment to community-facing architecture that earns its place in the city through contextual humility.',
+    hours:'Mon\u2013Fri 9AM\u20136PM \u00b7 Sat 9AM\u20131PM', lastEntry:'',
+    admission:'Free (community facility)',
+    tourOk:false, tourInfo:'',
+    web:'https://irojekm.com',
+    transit:'Line 4 \u2192 Hyehwa (Exit 2)',
+    walkFrom:'Marronnier Park: 5 min \u00b7 Naksan Park: 8 min',
+    gmaps:'https://maps.google.com/?q=Hyehwa+Education+Welfare+Center+Seoul',
+    archdaily:'https://www.archdaily.com/tag/hyehwa-welfare-center',
+    wiki:'',
+    tags:['Iroje','Seung H-Sang','Community','Education','Hyehwa','Daehangno','Welfare','Jongno'],
+    photos:[],
+    drawings:[]
+  }
+
+);

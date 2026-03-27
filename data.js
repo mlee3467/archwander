@@ -12,4 +12,5 @@ const LOCS_DEFAULT = [
   ...LOCS_NEW_YORK,
   ...LOCS_SEOUL,
   ...LOCS_LONDON,
+  ...LOCS_TOKYO,
 ];

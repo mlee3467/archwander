@@ -1084,7 +1084,7 @@
       <button class="city-tab active" id="city-nyc" onclick="selectCity('nyc')">🗽 New York</button>
       <button class="city-tab" id="city-sel" onclick="selectCity('sel')">🏙 Seoul</button>
       <button class="city-tab" id="city-lon" onclick="selectCity('lon')">🎡 London</button>
-      <button class="city-tab soon" id="city-tky" onclick="selectCity('tky')" title="Coming soon">🏯 Tokyo <span class="city-soon-badge">Soon</span></button>
+      <button class="city-tab" id="city-tky" onclick="selectCity('tky')">🏯 Tokyo</button>
     </div>
     <button id="menu-btn" onclick="toggleSidebar()">&#9776;</button>
   </div>
@@ -1258,6 +1258,7 @@
 <script src="data-new-york.js"></script>
 <script src="data-seoul.js"></script>
 <script src="data-london.js"></script>
+<script src="data-tokyo.js"></script>
 <script src="data.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mapillary-js@4/dist/mapillary.min.js"></script>
 <script>
@@ -2646,37 +2647,4 @@ function confirmResetStorage() {
   renderAdminTable();
 }
 
-function exportDataJS() {
-  const btn = document.querySelector('.adm-hbtn.adm-hbtn-export');
-  if (btn) { btn.textContent = '⏳ Generating…'; btn.disabled = true; }
-
-  const newLocs = `const LOCS_DEFAULT = ${JSON.stringify(LOCS, null, 2)};`;
-  const output = `// ArchWander — Location Data\n// Edit this file to add, remove, or update locations.\n// Deploy alongside index.html (Netlify, etc.)\n// ─────────────────────────────────────────────────\n/* DATA_START */\n${newLocs}\n/* DATA_END */\n`;
-
-  const blob = new Blob([output], {type: 'application/javascript;charset=utf-8'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'data.js';
-  document.body.appendChild(a); a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(a.href);
-
-  if (btn) { btn.textContent = '⬇ Export data.js'; btn.disabled = false; }
-}
-</script>
-
-  <script>
-  // sidebar-backdrop-script
-  (function(){
-    var bd = document.getElementById('sidebar-backdrop');
-    if (!bd) return;
-    bd.addEventListener('click', function() {
-      var sb = document.getElementById('sidebar');
-      if (sb) sb.classList.remove('open');
-      bd.classList.remove('visible');
-    });
-  })();
-  </script>
-</body>
-</html>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+function export
