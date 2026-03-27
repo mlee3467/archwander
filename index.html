@@ -228,8 +228,10 @@
       width: 52px; height: 52px; border-radius: 7px;
       object-fit: cover; flex-shrink: 0; background: var(--border);
     }
-    .card-img.cat-icon {
-      object-fit: contain; padding: 10px;
+    .card-thumb-icon {
+      width: 52px; height: 52px; border-radius: 7px; flex-shrink: 0;
+      background-size: 62%; background-repeat: no-repeat; background-position: center;
+      background-blend-mode: multiply;
     }
     .card-body { flex: 1; min-width: 0; }
     .card-name {
@@ -1590,7 +1592,7 @@ function cardThumb(loc) {
   const icon = CAT_ICON[loc.cat];
   if (icon) {
     const bg = CAT_BG[loc.cat] || '#F3F4F6';
-    return `<img class="card-img cat-icon" src="${icon}" alt="${loc.cat}" style="background:${bg}" loading="lazy">`;
+    return `<div class="card-thumb-icon" style="background-image:url('${icon}');background-color:${bg}" title="${loc.cat}"></div>`;
   }
   return `<img class="card-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="background:#e8e8e4">`;
 }
