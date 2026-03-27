@@ -1464,7 +1464,7 @@ const MAPILLARY_TOKEN = 'YOUR_MAPILLARY_TOKEN_HERE';
 // EN → romanized labels everywhere; KO → Korean labels everywhere (도쿄, 런던 etc.)
 // Free tier: 50,000 tiles/month. Sign up at jawg.io → Access tokens → copy token.
 // Leave empty to use CartoDB (EN) / OSM (KO) fallback (shows local scripts).
-const JAWG_TOKEN = '';
+const JAWG_TOKEN = 'MhfNo1NsDkQzMLRuqYXy9M9XrrpPP1AzXqLH4TxBzTk3SY0Yvg8lI76zN2i7IFjz';
 
 // DeepL API (optional) — translates location descriptions, hours, directions etc.
 // Free tier: 500,000 characters/month.
@@ -1578,6 +1578,8 @@ function setLang(lang) {
   applyLang();
   // Re-translate active location if switching to Korean
   if (LANG === 'ko' && activeLoc) applyLocTranslation(activeLoc);
+  // Warm cache for remaining locations in background
+  if (LANG === 'ko') setTimeout(prefetchTranslations, 1000);
 }
 
 // Close lang dropdown when clicking outside
@@ -1587,9 +1589,21 @@ document.addEventListener('click', function(e) {
 });
 
 // ── Translation helpers ────────────────────────────────────────────
+// Single MyMemory request — parallel-safe
+async function _myMemoryOne(text) {
+  try {
+    const r = await fetch(
+      `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text.slice(0, 500))}&langpair=en|ko`
+    );
+    const d = await r.json();
+    return (d.responseStatus === 200 && d.responseData) ? d.responseData.translatedText : text;
+  } catch(e) { return text; }
+}
+
+// Translates an array of strings — all requests fire in parallel
 async function translateTexts(texts) {
   if (!texts || !texts.length) return [];
-  // Try DeepL Free API first (if key is configured)
+  // DeepL: single batch request (fastest — ~200ms)
   if (DEEPL_API_KEY) {
     try {
       const res = await fetch('https://api-free.deepl.com/v2/translate', {
@@ -1604,29 +1618,27 @@ async function translateTexts(texts) {
         const data = await res.json();
         return data.translations.map(tr => tr.text);
       }
-    } catch(e) { /* fall through to MyMemory */ }
+    } catch(e) { /* fall through */ }
   }
-  // MyMemory fallback (free, no key, ~5K chars/day limit)
-  const results = [];
-  for (const text of texts) {
-    try {
-      const r = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text.slice(0, 500))}&langpair=en|ko`);
-      const d = await r.json();
-      results.push((d.responseStatus === 200 && d.responseData) ? d.responseData.translatedText : text);
-    } catch(e) { results.push(text); }
-    await new Promise(resolve => setTimeout(resolve, 150)); // gentle rate limit
-  }
-  return results;
+  // MyMemory fallback — fire all requests in parallel (~500ms total vs 4-6s sequential)
+  return Promise.all(texts.map(t => _myMemoryOne(t)));
 }
 
-async function getLocTranslation(loc) {
+// Priority fields shown in the first visible tab; rest deferred
+const TRANS_PRIORITY = ['desc', 'hood', 'addr'];
+const TRANS_DEFERRED = ['hours', 'admission', 'transit', 'lastEntry', 'tourInfo', 'walkFrom'];
+
+async function getLocTranslation(loc, onlyPriority = false) {
   const cacheKey = `archwander_trans_ko_${loc.id}`;
   try {
     const cached = localStorage.getItem(cacheKey);
-    if (cached) return JSON.parse(cached);
+    if (cached) {
+      const parsed = JSON.parse(cached);
+      // If full cache exists, return it; if we only need priority, return early
+      if (!onlyPriority || TRANS_PRIORITY.every(k => parsed[k] || !loc[k])) return parsed;
+    }
   } catch(e) {}
-  // Fields to translate (values only — labels are already i18n'd via t())
-  const fieldKeys = ['desc','hood','hours','admission','transit','lastEntry','tourInfo','walkFrom','addr'];
+  const fieldKeys = onlyPriority ? TRANS_PRIORITY : [...TRANS_PRIORITY, ...TRANS_DEFERRED];
   const toTranslate = {};
   fieldKeys.forEach(k => { if (loc[k] && loc[k] !== 'N/A' && loc[k] !== '-') toTranslate[k] = loc[k]; });
   const keys = Object.keys(toTranslate);
@@ -1635,20 +1647,44 @@ async function getLocTranslation(loc) {
   const translated = await translateTexts(vals);
   const result = {};
   keys.forEach((k, i) => { result[k] = translated[i] || toTranslate[k]; });
-  try { localStorage.setItem(cacheKey, JSON.stringify(result)); } catch(e) {}
+  if (!onlyPriority) {
+    try { localStorage.setItem(cacheKey, JSON.stringify(result)); } catch(e) {}
+  }
   return result;
 }
 
+// Two-phase translation: render priority fields instantly, then update with full translation
 async function applyLocTranslation(loc) {
-  const trans = await getLocTranslation(loc);
-  // Only apply if this location is still the active one and we're in Korean
-  if (!activeLoc || activeLoc.id !== loc.id || LANG !== 'ko') return;
+  const guard = () => activeLoc && activeLoc.id === loc.id && LANG === 'ko';
+  if (!guard()) return;
+
+  // Phase 1 — priority fields (desc, hood, addr): ~300-500ms
+  const priTrans = await getLocTranslation(loc, true);
+  if (!guard()) return;
   const ovPane = document.getElementById('pane-overview');
   const viPane = document.getElementById('pane-visit');
   const hrPane = document.getElementById('pane-here');
-  if (ovPane) ovPane.innerHTML = buildOverviewTab(loc, trans);
-  if (viPane) viPane.innerHTML = buildVisitTab(loc, trans);
-  if (hrPane) hrPane.innerHTML = buildDirectionsTab(loc, trans);
+  if (ovPane) ovPane.innerHTML = buildOverviewTab(loc, priTrans);
+
+  // Phase 2 — all fields (parallel): fires while user reads overview
+  const fullTrans = await getLocTranslation(loc, false);
+  if (!guard()) return;
+  if (ovPane) ovPane.innerHTML = buildOverviewTab(loc, fullTrans);
+  if (viPane) viPane.innerHTML = buildVisitTab(loc, fullTrans);
+  if (hrPane) hrPane.innerHTML = buildDirectionsTab(loc, fullTrans);
+}
+
+// Background prefetch — quietly warm the cache for all LOCS when in Korean
+let _prefetchStarted = false;
+async function prefetchTranslations() {
+  if (_prefetchStarted || LANG !== 'ko') return;
+  _prefetchStarted = true;
+  const uncached = LOCS.filter(l => !localStorage.getItem(`archwander_trans_ko_${l.id}`));
+  for (let i = 0; i < uncached.length; i++) {
+    await getLocTranslation(uncached[i], false);
+    // Small pause between locations to avoid rate limits on MyMemory
+    await new Promise(r => setTimeout(r, 400));
+  }
 }
 
 function setMapLang() {
@@ -1763,6 +1799,8 @@ function initMap() {
   buildFilters();
   renderList();
   applyLang();
+  // Warm translation cache if starting in Korean
+  if (LANG === 'ko') setTimeout(prefetchTranslations, 2000);
   // Update badge with city-specific count
   const badge = document.getElementById('pilot-badge');
   if (badge) badge.textContent = `🗺 ArchWander · Pilot v0.1 · ${initLocs.length} Locations`;
