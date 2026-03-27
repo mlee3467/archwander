@@ -1381,6 +1381,12 @@ const GOOGLE_MAPS_KEY = 'AIzaSyCg3_F1ra7cLs6Vw-Df5_kUWlyZtyEY598';
 // https://www.mapillary.com/developer → Register app → copy Client Token
 const MAPILLARY_TOKEN = 'YOUR_MAPILLARY_TOKEN_HERE';
 
+// YouTube Data API v3 — free (10,000 req/day). Get key at:
+// console.cloud.google.com → Enable "YouTube Data API v3" → Create API key
+// Restrict key to HTTP referrers (your domain) for security.
+// Leave empty ('') to show YouTube search link instead of embedded results.
+const YOUTUBE_API_KEY = 'AIzaSyD5QJKfu5LgdgJlfmJSFu8r8V6bdGaqR14';
+
 // ══════════════════════════════════════════════════════════════════
 // MAP
 // ══════════════════════════════════════════════════════════════════
@@ -1812,42 +1818,62 @@ async function loadVideosForTab(loc) {
   const el = document.getElementById('videos-content');
   if (!el || el.dataset.loaded === loc.id) return;
   el.dataset.loaded = loc.id;
-  const cityMap = {'nyc':'New York','new-york':'New York','sel':'Seoul','seoul':'Seoul','lon':'London','london':'London','tky':'Tokyo','tokyo':'Tokyo'};
+
+  const cityMap = {'nyc':'New York','sel':'Seoul','lon':'London','tky':'Tokyo'};
   const city = cityMap[loc.city] || '';
-  const q = encodeURIComponent(loc.name + (city ? ' ' + city : '') + ' architecture');
-  const instances = [
-    `https://iv.ggtyler.dev/api/v1/search?q=${q}&sort_by=views&type=video`,
-    `https://invidious.tiekoetter.com/api/v1/search?q=${q}&sort_by=views&type=video`,
-    `https://yt.artemislena.eu/api/v1/search?q=${q}&sort_by=views&type=video`,
-  ];
-  let videos = null;
-  for (const url of instances) {
-    try {
-      const res = await fetch(url, {mode:'cors', credentials:'omit', signal:AbortSignal.timeout(8000)});
-      if (!res.ok) continue;
-      const data = await res.json();
-      videos = (Array.isArray(data) ? data : []).filter(v => v.type === 'video').slice(0, 3);
-      if (videos.length) break;
-    } catch(e) { continue; }
+  const query = loc.name + (city ? ' ' + city : '') + ' architecture';
+  const q = encodeURIComponent(query);
+  const ytSearchUrl = `https://www.youtube.com/results?search_query=${q}&sp=CAM%253D`;
+
+  // No API key configured — show direct YouTube search link
+  if (!YOUTUBE_API_KEY) {
+    el.innerHTML = `<div class="vid-fallback">
+      <p style="margin-bottom:10px">YouTube API 키를 <code>index.html</code>에 추가하면<br>조회수 상위 영상을 바로 볼 수 있어요.</p>
+      <a class="vid-yt-link" href="${ytSearchUrl}" target="_blank" rel="noopener">▶ YouTube에서 검색 (조회수순)</a>
+    </div>`;
+    return;
   }
-  if (videos && videos.length) {
-    el.innerHTML = `<div class="vid-list">${renderVideoCards(videos)}</div>`;
-  } else {
-    el.innerHTML = `<div class="vid-fallback"><p>YouTube 검색 결과를 불러오지 못했습니다.<br>아래 버튼으로 직접 검색하세요.</p><a class="vid-yt-link" href="https://www.youtube.com/results?search_query=${q}&sp=CAM%253D" target="_blank" rel="noopener">▶ YouTube에서 검색 (조회수순)</a></div>`;
+
+  try {
+    // YouTube Data API v3: search ordered by view count
+    const apiUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${q}&order=viewCount&type=video&maxResults=3&key=${YOUTUBE_API_KEY}`;
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 10000);
+    const res = await fetch(apiUrl, {signal: controller.signal});
+    clearTimeout(timer);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    if (data.error) throw new Error(data.error.message);
+    const items = (data.items || []).filter(it => it.id && it.id.videoId);
+    if (!items.length) throw new Error('결과 없음');
+
+    const cards = items.map(it => ({
+      videoId: it.id.videoId,
+      title:   it.snippet.title,
+      author:  it.snippet.channelTitle,
+      thumb:   (it.snippet.thumbnails.medium || it.snippet.thumbnails.default || {}).url || '',
+    }));
+    el.innerHTML = `<div class="vid-list">${renderVideoCards(cards)}</div>`;
+  } catch(e) {
+    const msg = e.name === 'AbortError' ? '요청 시간 초과' : e.message;
+    el.innerHTML = `<div class="vid-fallback">
+      <p>영상을 불러오지 못했습니다. (${msg})<br>아래 버튼으로 직접 검색하세요.</p>
+      <a class="vid-yt-link" href="${ytSearchUrl}" target="_blank" rel="noopener">▶ YouTube에서 검색 (조회수순)</a>
+    </div>`;
   }
 }
 
 function renderVideoCards(videos) {
   const ranks = ['#1','#2','#3'];
   return videos.map((v, i) => {
-    const views = v.viewCount ? formatViews(v.viewCount) : (v.viewCountText || '');
-    const ytUrl = `https://www.youtube.com/watch?v=${v.videoId}`;
+    const ytUrl  = `https://www.youtube.com/watch?v=${v.videoId}`;
+    const imgUrl = v.thumb || `https://img.youtube.com/vi/${v.videoId}/mqdefault.jpg`;
     return `<a class="vid-card" href="${ytUrl}" target="_blank" rel="noopener">
-      <div class="vid-thumb" style="background-image:url('https://img.youtube.com/vi/${v.videoId}/mqdefault.jpg')"></div>
+      <div class="vid-thumb" style="background-image:url('${imgUrl}')"></div>
       <div class="vid-info">
         <div class="vid-rank">${ranks[i]} · Most Viewed</div>
         <div class="vid-title">${v.title}</div>
-        <div class="vid-meta"><span class="vid-views">${views} views</span> · ${v.author}</div>
+        <div class="vid-meta">${v.author}</div>
       </div>
       <span class="vid-arrow">↗</span>
     </a>`;
