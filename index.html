@@ -1464,7 +1464,7 @@ const MAPILLARY_TOKEN = 'YOUR_MAPILLARY_TOKEN_HERE';
 // EN → romanized labels everywhere; KO → Korean labels everywhere (도쿄, 런던 etc.)
 // Free tier: 50,000 tiles/month. Sign up at jawg.io → Access tokens → copy token.
 // Leave empty to use CartoDB (EN) / OSM (KO) fallback (shows local scripts).
-const JAWG_TOKEN = 'MhfNo1NsDkQzMLRuqYXy9M9XrrpPP1AzXqLH4TxBzTk3SY0Yvg8lI76zN2i7IFjz';
+const JAWG_TOKEN = ''; // disabled — using CartoDB Voyager
 
 // DeepL API (optional) — translates location descriptions, hours, directions etc.
 // Free tier: 500,000 characters/month.
@@ -1688,25 +1688,12 @@ async function prefetchTranslations() {
 }
 
 function setMapLang() {
-  const isKo = LANG === 'ko';
-  let url, attr, opts = { maxZoom: 19 };
-  if (JAWG_TOKEN) {
-    // Jawg Maps: supports lang= param for global label language
-    const lang = isKo ? 'ko' : 'en';
-    url  = `https://tile.jawg.io/jawg-streets/{z}/{x}/{y}{r}.png?access-token=${JAWG_TOKEN}&lang=${lang}`;
-    attr = '© <a href="https://jawg.io" title="Jawg Maps">Jawg Maps</a> © <a href="https://openstreetmap.org">OpenStreetMap</a>';
-  } else if (isKo) {
-    url  = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-    attr = '© <a href="https://openstreetmap.org">OpenStreetMap</a> contributors';
-    opts.subdomains = 'abc';
-  } else {
-    url  = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
-    attr = '© <a href="https://openstreetmap.org">OpenStreetMap</a> contributors © <a href="https://carto.com/attributions">CARTO</a>';
-    opts.subdomains = 'abcd';
-  }
+  // Always use CartoDB Voyager — fast, clean, consistent across all languages
+  const url  = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+  const attr = '© <a href="https://openstreetmap.org">OpenStreetMap</a> contributors © <a href="https://carto.com/attributions">CARTO</a>';
   if (map && map.hasLayer(streetLayer)) {
     map.removeLayer(streetLayer);
-    streetLayer = L.tileLayer(url, { ...opts, attribution: attr });
+    streetLayer = L.tileLayer(url, { attribution: attr, subdomains: 'abcd', maxZoom: 19 });
     streetLayer.addTo(map);
   }
 }
