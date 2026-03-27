@@ -1821,59 +1821,96 @@ async function loadVideosForTab(loc) {
 
   const cityMap = {'nyc':'New York','sel':'Seoul','lon':'London','tky':'Tokyo'};
   const city = cityMap[loc.city] || '';
-  const query = loc.name + (city ? ' ' + city : '') + ' architecture';
+
+  // Specific query: building name + primary architect + city
+  const archShort = loc.arch ? loc.arch.split(/[,(+&]/)[0].trim() : '';
+  const queryParts = [loc.name, archShort, city, 'architecture'].filter(Boolean);
+  const query = queryParts.join(' ');
   const q = encodeURIComponent(query);
-  const ytSearchUrl = `https://www.youtube.com/results?search_query=${q}&sp=CAM%253D`;
+  const ytSearchUrl = `https://www.youtube.com/results?search_query=${q}`;
 
   // No API key configured — show direct YouTube search link
   if (!YOUTUBE_API_KEY) {
     el.innerHTML = `<div class="vid-fallback">
-      <p style="margin-bottom:10px">YouTube API 키를 <code>index.html</code>에 추가하면<br>조회수 상위 영상을 바로 볼 수 있어요.</p>
-      <a class="vid-yt-link" href="${ytSearchUrl}" target="_blank" rel="noopener">▶ YouTube에서 검색 (조회수순)</a>
+      <p style="margin-bottom:10px">YouTube API 키를 <code>index.html</code>에 추가하면<br>관련 영상을 바로 볼 수 있어요.</p>
+      <a class="vid-yt-link" href="${ytSearchUrl}" target="_blank" rel="noopener">▶ YouTube에서 검색</a>
     </div>`;
     return;
   }
 
+  function abortFetch(ms) {
+    const c = new AbortController();
+    setTimeout(() => c.abort(), ms);
+    return c;
+  }
+
   try {
-    // YouTube Data API v3: search ordered by view count
-    const apiUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${q}&order=viewCount&type=video&maxResults=3&key=${YOUTUBE_API_KEY}`;
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 10000);
-    const res = await fetch(apiUrl, {signal: controller.signal});
-    clearTimeout(timer);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
-    if (data.error) throw new Error(data.error.message);
-    const items = (data.items || []).filter(it => it.id && it.id.videoId);
+    // Stage 1: relevance-ordered search, fetch 10 candidates
+    const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${q}&order=relevance&type=video&maxResults=10&key=${YOUTUBE_API_KEY}`;
+    const sr = await fetch(searchUrl, {signal: abortFetch(10000).signal});
+    if (!sr.ok) throw new Error(`HTTP ${sr.status}`);
+    const sd = await sr.json();
+    if (sd.error) throw new Error(sd.error.message);
+    const items = (sd.items || []).filter(it => it.id?.videoId);
     if (!items.length) throw new Error('결과 없음');
 
-    const cards = items.map(it => ({
-      videoId: it.id.videoId,
-      title:   it.snippet.title,
-      author:  it.snippet.channelTitle,
-      thumb:   (it.snippet.thumbnails.medium || it.snippet.thumbnails.default || {}).url || '',
-    }));
-    el.innerHTML = `<div class="vid-list">${renderVideoCards(cards)}</div>`;
+    // Stage 2: batch-fetch view counts for all candidates
+    const ids = items.map(it => it.id.videoId).join(',');
+    const statsUrl = `https://www.googleapis.com/youtube/v3/videos?part=statistics&id=${ids}&key=${YOUTUBE_API_KEY}`;
+    const vr = await fetch(statsUrl, {signal: abortFetch(10000).signal});
+    const vd = vr.ok ? await vr.json() : {items:[]};
+    const statsMap = {};
+    (vd.items || []).forEach(v => { statsMap[v.id] = parseInt(v.statistics?.viewCount || '0'); });
+
+    // Stage 3: hybrid scoring — title keyword match (weighted high) + log10(views)
+    // This keeps YouTube's relevance as the primary filter while rewarding
+    // videos whose titles explicitly mention the building name / architect / city.
+    const keywords = [
+      loc.name,
+      ...loc.name.split(/\s+/),
+      archShort,
+      ...archShort.split(/\s+/),
+      city,
+    ].map(k => k.toLowerCase()).filter(k => k.length > 2);
+
+    const scored = items.map((it, rank) => {
+      const vid   = it.id.videoId;
+      const title = it.snippet.title.toLowerCase();
+      const views = statsMap[vid] || 0;
+      const kwHits = keywords.reduce((n, kw) => n + (title.includes(kw) ? 1 : 0), 0);
+      // keyword match dominates; view count breaks ties; relevance rank as tiebreaker
+      const score = kwHits * 20 + Math.log10(views + 1) - rank * 0.1;
+      return {
+        videoId: vid,
+        title:   it.snippet.title,
+        author:  it.snippet.channelTitle,
+        thumb:   (it.snippet.thumbnails.medium || it.snippet.thumbnails.default || {}).url || '',
+        views,
+        score,
+      };
+    });
+
+    scored.sort((a, b) => b.score - a.score);
+    el.innerHTML = `<div class="vid-list">${renderVideoCards(scored.slice(0, 3))}</div>`;
   } catch(e) {
     const msg = e.name === 'AbortError' ? '요청 시간 초과' : e.message;
     el.innerHTML = `<div class="vid-fallback">
       <p>영상을 불러오지 못했습니다. (${msg})<br>아래 버튼으로 직접 검색하세요.</p>
-      <a class="vid-yt-link" href="${ytSearchUrl}" target="_blank" rel="noopener">▶ YouTube에서 검색 (조회수순)</a>
+      <a class="vid-yt-link" href="${ytSearchUrl}" target="_blank" rel="noopener">▶ YouTube에서 검색</a>
     </div>`;
   }
 }
 
 function renderVideoCards(videos) {
-  const ranks = ['#1','#2','#3'];
   return videos.map((v, i) => {
     const ytUrl  = `https://www.youtube.com/watch?v=${v.videoId}`;
     const imgUrl = v.thumb || `https://img.youtube.com/vi/${v.videoId}/mqdefault.jpg`;
+    const viewsText = v.views ? formatViews(v.views) + ' views · ' : '';
     return `<a class="vid-card" href="${ytUrl}" target="_blank" rel="noopener">
       <div class="vid-thumb" style="background-image:url('${imgUrl}')"></div>
       <div class="vid-info">
-        <div class="vid-rank">${ranks[i]} · Most Viewed</div>
         <div class="vid-title">${v.title}</div>
-        <div class="vid-meta">${v.author}</div>
+        <div class="vid-meta">${viewsText}${v.author}</div>
       </div>
       <span class="vid-arrow">↗</span>
     </a>`;
