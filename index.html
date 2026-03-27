@@ -390,18 +390,55 @@
     .sv-map-mini { height: 130px; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); margin-bottom: 14px; }
 
     /* ── DRAWINGS TAB ────────────────────────── */
-    .dw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
-    .dw-item { cursor: pointer; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); background: #f5f5f3; transition: border-color 0.15s; }
-    .dw-item:hover { border-color: #aaa; }
-    .dw-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; }
-    .dw-caption { font-size: 10px; color: var(--text-secondary); padding: 6px 8px; line-height: 1.4; }
-    .dw-type { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; color: #888; }
-    .dw-placeholder {
-      text-align: center; padding: 24px 12px;
-      border: 1px dashed var(--border); border-radius: 10px; margin-bottom: 16px;
+    /* Videos tab */
+    .vid-list { display: flex; flex-direction: column; gap: 10px; }
+    .vid-card {
+      display: flex; gap: 11px; align-items: flex-start;
+      text-decoration: none; color: inherit;
+      border: 1px solid var(--border); border-radius: 10px;
+      padding: 10px; background: var(--surface);
+      transition: border-color 0.15s, background 0.12s;
     }
-    .dw-placeholder .dw-icon { font-size: 32px; margin-bottom: 8px; }
-    .dw-placeholder p { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
+    .vid-card:hover { border-color: #bbb; background: var(--bg); }
+    .vid-thumb {
+      width: 108px; height: 62px; flex-shrink: 0;
+      border-radius: 6px; background: #e0e0dd center/cover no-repeat;
+      position: relative; overflow: hidden;
+    }
+    .vid-thumb::after {
+      content: '▶'; position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; color: rgba(255,255,255,0.85);
+      text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+    }
+    .vid-info { flex: 1; min-width: 0; }
+    .vid-rank { font-size: 9px; font-weight: 700; color: #E63737; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 3px; }
+    .vid-title { font-size: 12px; font-weight: 600; line-height: 1.4; margin-bottom: 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .vid-meta { font-size: 10.5px; color: var(--text-secondary); }
+    .vid-views { font-weight: 600; color: #555; }
+    .vid-arrow { color: #bbb; font-size: 13px; flex-shrink: 0; align-self: center; }
+    .vid-loading {
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; padding: 36px 0; gap: 10px;
+      color: var(--text-secondary); font-size: 12px;
+    }
+    .vid-spinner {
+      width: 22px; height: 22px; border-radius: 50%;
+      border: 2.5px solid var(--border); border-top-color: #555;
+      animation: vid-spin 0.7s linear infinite;
+    }
+    @keyframes vid-spin { to { transform: rotate(360deg); } }
+    .vid-fallback {
+      text-align: center; padding: 20px 12px;
+      border: 1px dashed var(--border); border-radius: 10px;
+    }
+    .vid-fallback p { font-size: 12px; color: var(--text-secondary); margin-bottom: 12px; line-height: 1.5; }
+    .vid-yt-link {
+      display: inline-block; font-size: 12px; padding: 7px 16px;
+      background: #FF0000; color: white; border-radius: 20px;
+      text-decoration: none; font-weight: 600;
+    }
+    .vid-yt-link:hover { background: #cc0000; }
     /* Lightbox */
     .lightbox {
       display: none; position: fixed; inset: 0;
@@ -1239,15 +1276,13 @@
         <div class="tab active" data-tab="overview" onclick="switchTab('overview')">Overview</div>
         <div class="tab" data-tab="visit" onclick="switchTab('visit')">Visit</div>
         <div class="tab" data-tab="here" onclick="switchTab('here')">Directions</div>
-        <div class="tab" data-tab="sv" onclick="switchTab('sv')">Street View</div>
-        <div class="tab" data-tab="dw" onclick="switchTab('dw')">Drawings</div>
+        <div class="tab" data-tab="videos" onclick="switchTab('videos')">Videos</div>
         <div class="tab" data-tab="reviews" onclick="switchTab('reviews')">Reviews</div>
       </div>
       <div class="tab-pane active" id="pane-overview"></div>
       <div class="tab-pane" id="pane-visit"></div>
       <div class="tab-pane" id="pane-here"></div>
-      <div class="tab-pane" id="pane-sv"></div>
-      <div class="tab-pane" id="pane-dw"></div>
+      <div class="tab-pane" id="pane-videos"></div>
       <div class="tab-pane" id="pane-reviews"></div>
     </div>
   </div>
@@ -1707,8 +1742,7 @@ function openLoc(loc) {
   document.getElementById('pane-overview').innerHTML = buildOverviewTab(loc);
   document.getElementById('pane-visit').innerHTML    = buildVisitTab(loc);
   document.getElementById('pane-here').innerHTML     = buildDirectionsTab(loc);
-  document.getElementById('pane-sv').innerHTML       = buildStreetViewTab(loc);
-  document.getElementById('pane-dw').innerHTML       = buildDrawingsTab(loc);
+  document.getElementById('pane-videos').innerHTML   = buildVideosTab(loc);
   document.getElementById('pane-reviews').innerHTML  = buildReviewsTab(loc);
 
   switchTab('overview');
@@ -1768,6 +1802,64 @@ function buildDirectionsTab(loc) {
       <a href="https://maps.google.com/?q=${encodeURIComponent(loc.addr)}&layer=c" target="_blank" rel="noopener" class="btn-s">Street View (Google Maps) ↗</a>
     </div>
   `;
+}
+
+function buildVideosTab(loc) {
+  return `<div id="videos-content"><div class="vid-loading"><div class="vid-spinner"></div><p>Searching YouTube…</p></div></div>`;
+}
+
+async function loadVideosForTab(loc) {
+  const el = document.getElementById('videos-content');
+  if (!el || el.dataset.loaded === loc.id) return;
+  el.dataset.loaded = loc.id;
+  const cityMap = {'nyc':'New York','new-york':'New York','sel':'Seoul','seoul':'Seoul','lon':'London','london':'London','tky':'Tokyo','tokyo':'Tokyo'};
+  const city = cityMap[loc.city] || '';
+  const q = encodeURIComponent(loc.name + (city ? ' ' + city : '') + ' architecture');
+  const instances = [
+    `https://iv.ggtyler.dev/api/v1/search?q=${q}&sort_by=views&type=video`,
+    `https://invidious.tiekoetter.com/api/v1/search?q=${q}&sort_by=views&type=video`,
+    `https://yt.artemislena.eu/api/v1/search?q=${q}&sort_by=views&type=video`,
+  ];
+  let videos = null;
+  for (const url of instances) {
+    try {
+      const res = await fetch(url, {mode:'cors', credentials:'omit', signal:AbortSignal.timeout(8000)});
+      if (!res.ok) continue;
+      const data = await res.json();
+      videos = (Array.isArray(data) ? data : []).filter(v => v.type === 'video').slice(0, 3);
+      if (videos.length) break;
+    } catch(e) { continue; }
+  }
+  if (videos && videos.length) {
+    el.innerHTML = `<div class="vid-list">${renderVideoCards(videos)}</div>`;
+  } else {
+    el.innerHTML = `<div class="vid-fallback"><p>YouTube 검색 결과를 불러오지 못했습니다.<br>아래 버튼으로 직접 검색하세요.</p><a class="vid-yt-link" href="https://www.youtube.com/results?search_query=${q}&sp=CAM%253D" target="_blank" rel="noopener">▶ YouTube에서 검색 (조회수순)</a></div>`;
+  }
+}
+
+function renderVideoCards(videos) {
+  const ranks = ['#1','#2','#3'];
+  return videos.map((v, i) => {
+    const views = v.viewCount ? formatViews(v.viewCount) : (v.viewCountText || '');
+    const ytUrl = `https://www.youtube.com/watch?v=${v.videoId}`;
+    return `<a class="vid-card" href="${ytUrl}" target="_blank" rel="noopener">
+      <div class="vid-thumb" style="background-image:url('https://img.youtube.com/vi/${v.videoId}/mqdefault.jpg')"></div>
+      <div class="vid-info">
+        <div class="vid-rank">${ranks[i]} · Most Viewed</div>
+        <div class="vid-title">${v.title}</div>
+        <div class="vid-meta"><span class="vid-views">${views} views</span> · ${v.author}</div>
+      </div>
+      <span class="vid-arrow">↗</span>
+    </a>`;
+  }).join('');
+}
+
+function formatViews(n) {
+  if (n >= 1e8) return (n/1e6).toFixed(0)+'M';
+  if (n >= 1e6) return (n/1e6).toFixed(1)+'M';
+  if (n >= 1e4) return (n/1e3).toFixed(0)+'K';
+  if (n >= 1e3) return (n/1e3).toFixed(1)+'K';
+  return n.toLocaleString();
 }
 
 function buildStreetViewTab(loc) {
@@ -1867,7 +1959,7 @@ function initSvMiniMap(loc) {
 function switchTab(id) {
   document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === id));
   document.querySelectorAll('.tab-pane').forEach(p => p.classList.toggle('active', p.id === 'pane-' + id));
-  if (id === 'sv' && activeLoc) initSvMiniMap(activeLoc);
+  if (id === 'videos' && activeLoc) loadVideosForTab(activeLoc);
 }
 
 // ══════════════════════════════════════════════════════════════════
