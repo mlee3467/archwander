@@ -1460,11 +1460,13 @@ const GOOGLE_MAPS_KEY = 'AIzaSyCg3_F1ra7cLs6Vw-Df5_kUWlyZtyEY598';
 // https://www.mapillary.com/developer → Register app → copy Client Token
 const MAPILLARY_TOKEN = 'YOUR_MAPILLARY_TOKEN_HERE';
 
-// Jawg Maps (optional) — enables proper language switching on the map.
-// EN → romanized labels everywhere; KO → Korean labels everywhere (도쿄, 런던 etc.)
-// Free tier: 50,000 tiles/month. Sign up at jawg.io → Access tokens → copy token.
-// Leave empty to use CartoDB (EN) / OSM (KO) fallback (shows local scripts).
-const JAWG_TOKEN = ''; // disabled — using CartoDB Voyager
+// Thunderforest (optional) — bilingual map tiles: shows local name + English name simultaneously.
+// e.g. 도쿄 / Tokyo, 서울 / Seoul on the same label. Free: 150,000 tiles/month.
+// Sign up at thunderforest.com → Hobby Project (free) → copy API key.
+// Style options: 'transport' (clean road map), 'cycle' (+ cycling routes), 'atlas' (road atlas).
+// Leave empty to use CartoDB Voyager (local language only, faster cold-start).
+const THUNDERFOREST_API_KEY = '';
+const THUNDERFOREST_STYLE   = 'transport'; // 'transport' | 'cycle' | 'atlas'
 
 // DeepL API (optional) — translates location descriptions, hours, directions etc.
 // Free tier: 500,000 characters/month.
@@ -1688,12 +1690,9 @@ async function prefetchTranslations() {
 }
 
 function setMapLang() {
-  // Always use CartoDB Voyager — fast, clean, consistent across all languages
-  const url  = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
-  const attr = '© <a href="https://openstreetmap.org">OpenStreetMap</a> contributors © <a href="https://carto.com/attributions">CARTO</a>';
   if (map && map.hasLayer(streetLayer)) {
     map.removeLayer(streetLayer);
-    streetLayer = L.tileLayer(url, { attribution: attr, subdomains: 'abcd', maxZoom: 19 });
+    streetLayer = _makeStreetLayer();
     streetLayer.addTo(map);
   }
 }
@@ -1767,12 +1766,26 @@ let map, streetLayer, satLayer, markers = [], userMarker = null;
 let clusterGroup = null;   // Leaflet.markercluster group
 let svMiniMap = null;
 
+function _makeStreetLayer() {
+  if (THUNDERFOREST_API_KEY) {
+    // Thunderforest: bilingual labels (local name + English name simultaneously)
+    return L.tileLayer(
+      `https://{s}.tile.thunderforest.com/${THUNDERFOREST_STYLE}/{z}/{x}/{y}.png?apikey=${THUNDERFOREST_API_KEY}`,
+      { attribution: 'Maps © <a href="https://www.thunderforest.com">Thunderforest</a>, Data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        subdomains: 'abc', maxZoom: 19 }
+    );
+  }
+  // Default: CartoDB Voyager (fast, local language labels)
+  return L.tileLayer(
+    'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+    { attribution: '© <a href="https://openstreetmap.org">OpenStreetMap</a> contributors © <a href="https://carto.com/attributions">CARTO</a>',
+      subdomains: 'abcd', maxZoom: 19 }
+  );
+}
+
 function initMap() {
   map = L.map('map', { center:[40.745,-73.990], zoom:13, zoomControl:false });
-  streetLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-    attribution:'© <a href="https://openstreetmap.org">OpenStreetMap</a> contributors © <a href="https://carto.com/attributions">CARTO</a>',
-    subdomains:'abcd', maxZoom:19
-  }).addTo(map);
+  streetLayer = _makeStreetLayer().addTo(map);
   satLayer = L.tileLayer(
     'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
     { attribution:'© Esri / DigitalGlobe', maxZoom:18 }
