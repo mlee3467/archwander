@@ -228,6 +228,9 @@
       width: 52px; height: 52px; border-radius: 7px;
       object-fit: cover; flex-shrink: 0; background: var(--border);
     }
+    .card-img.cat-icon {
+      object-fit: contain; padding: 10px;
+    }
     .card-body { flex: 1; min-width: 0; }
     .card-name {
       font-size: 13px; font-weight: 500;
@@ -1290,6 +1293,32 @@ const CAT_COLORS = {
   'Public':                '#6B7280',
   'Retail':                '#BE185D',
 };
+const CAT_ICON = {
+  'Skyscrapers':            'img/icon_skyscraper.png',
+  'Historic':               'img/icon_historic.png',
+  'Infrastructure':         'img/icon_infra.png',
+  'Cultural':               'img/icon_cultural.png',
+  'Parks':                  'img/icon_park.png',
+  'Religious':              'img/icon_religious.png',
+  'Academic / Institution': 'img/icon_academic.png',
+  'Residential':            'img/icon_resi.png',
+  'Landmarks':              'img/icon_landmark.png',
+  'Public':                 'img/icon_public.png',
+  'Retail':                 'img/icon_retail.png',
+};
+const CAT_BG = {
+  'Skyscrapers':            '#EEF2FF',
+  'Historic':               '#FFF7ED',
+  'Infrastructure':         '#F8FAFC',
+  'Cultural':               '#FDF4FF',
+  'Parks':                  '#F0FDF4',
+  'Religious':              '#FFFBEB',
+  'Academic / Institution': '#EFF6FF',
+  'Residential':            '#F0FDFA',
+  'Landmarks':              '#F0F9FF',
+  'Public':                 '#F9FAFB',
+  'Retail':                 '#FFF1F2',
+};
 const STYLES = ['Art Deco','Beaux-Arts','Neoclassical','Gothic Revival','Modernist','Expressionist Modernism','Postmodern','Contemporary','Adaptive Reuse','Landscape'];
 const ERAS   = ['Pre-1900','Pre-1930','1930–1969','1970–1999','2000–Present'];
 const ACCESS = ['All', 'Open to Public', 'Paid Ticket', 'Private'];
@@ -1557,6 +1586,15 @@ document.getElementById('search').addEventListener('input', function() {
 // ══════════════════════════════════════════════════════════════════
 let activeLoc = null;
 
+function cardThumb(loc) {
+  const icon = CAT_ICON[loc.cat];
+  if (icon) {
+    const bg = CAT_BG[loc.cat] || '#F3F4F6';
+    return `<img class="card-img cat-icon" src="${icon}" alt="${loc.cat}" style="background:${bg}" loading="lazy">`;
+  }
+  return `<img class="card-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="background:#e8e8e4">`;
+}
+
 function renderList() {
   const list = getFiltered();
   document.getElementById('list-meta').textContent =
@@ -1569,9 +1607,7 @@ function renderList() {
   }
   wrap.innerHTML = list.map(loc => `
     <div class="loc-card${activeLoc?.id === loc.id ? ' active' : ''}" onclick="openLocById('${loc.id}')">
-      ${loc.photos && loc.photos[0]
-          ? `<img class="card-img" src="${photoUrl(loc.photos[0], true, 'card')}" alt="${loc.name}" loading="lazy" onerror="this.onerror=null;this.src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';this.style.background='#e8e8e4'">`
-          : `<img class="card-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="background:#e8e8e4">`}
+      ${cardThumb(loc)}
       <div class="card-body">
         <div class="card-name">${loc.name}</div>
         <div class="card-meta">${loc.arch}</div>
