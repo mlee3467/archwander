@@ -1767,13 +1767,24 @@ function _hideTransBar() {
 }
 
 // On-demand translation with localStorage cache
-// Cache hit  → instant, no loading bar shown
-// Cache miss → loading bar shown, API called, cache saved for all future opens
+// Priority: LOCS_KO (static) → localStorage cache → API (MyMemory/DeepL)
 async function applyLocTranslation(loc) {
   const guard = () => activeLoc && activeLoc.id === loc.id && LANG === 'ko';
   if (!guard()) return;
 
-  // ── Fast path: full cache hit ───────────────────────────────────
+  // ── Highest priority: static translations from data-ko-*.js ────
+  if (typeof LOCS_KO !== 'undefined' && LOCS_KO[loc.id]) {
+    const trans = LOCS_KO[loc.id];
+    const ovPane = document.getElementById('pane-overview');
+    const viPane = document.getElementById('pane-visit');
+    const hrPane = document.getElementById('pane-here');
+    if (ovPane) ovPane.innerHTML = buildOverviewTab(loc, trans);
+    if (viPane) viPane.innerHTML = buildVisitTab(loc, trans);
+    if (hrPane) hrPane.innerHTML = buildDirectionsTab(loc, trans);
+    return;
+  }
+
+  // ── Fast path: full localStorage cache hit ──────────────────────
   const cacheKey = `archwander_trans_ko_${loc.id}`;
   const _tryCache = () => {
     try { const c = localStorage.getItem(cacheKey); return c ? JSON.parse(c) : null; } catch(e) { return null; }
@@ -1858,9 +1869,13 @@ function applyLang() {
     const el = document.querySelector(`.tab[data-tab="${tab}"]`);
     if (el) el.textContent = t(key);
   });
-  // Lang dropdown: update label + checkmarks
+  // Lang dropdown: update label + checkmarks (use short label on mobile)
   const langCur = document.getElementById('lang-current');
-  if (langCur) langCur.textContent = LANG === 'ko' ? '한국어' : 'EN';
+  if (langCur) {
+    const isMobile = window.innerWidth <= 900;
+    if (LANG === 'ko') langCur.textContent = isMobile ? 'KO' : '한국어';
+    else langCur.textContent = 'EN';
+  }
   const chkEn = document.getElementById('check-en');
   const chkKo = document.getElementById('check-ko');
   if (chkEn) chkEn.textContent = LANG === 'en' ? '✓' : '';
