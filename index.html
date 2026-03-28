@@ -642,6 +642,75 @@
       background: #111; color: white; padding: 1px 7px; border-radius: 8px; margin-left: 6px;
     }
 
+    /* Report tab button */
+    .tab-report-btn {
+      margin-left: auto; padding: 10px 0 10px 14px;
+      font-size: 12px; cursor: pointer; color: var(--text-secondary);
+      background: white; border: none; font-family: inherit;
+      white-space: nowrap; flex-shrink: 0;
+      position: sticky; right: 0;
+      display: flex; align-items: center; gap: 4px;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s;
+    }
+    .tab-report-btn:hover { color: #EF4444; }
+
+    /* Report modal */
+    .report-modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.45);
+      z-index: 9000; display: none; align-items: center; justify-content: center;
+    }
+    .report-modal-overlay.open { display: flex; }
+    .report-modal-box {
+      background: white; border-radius: 14px; width: 360px; max-width: 92vw;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.18); overflow: hidden;
+    }
+    .report-modal-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 18px 14px; border-bottom: 1px solid var(--border);
+    }
+    .report-modal-title { font-size: 14px; font-weight: 600; }
+    .report-modal-close {
+      background: none; border: none; font-size: 20px; color: var(--text-secondary);
+      cursor: pointer; line-height: 1; padding: 0 2px;
+    }
+    .report-modal-close:hover { color: #111; }
+    .report-modal-body { padding: 16px 18px 20px; }
+    .report-loc-label {
+      font-size: 11px; font-weight: 500; color: var(--text-secondary);
+      text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;
+    }
+    .report-loc-name {
+      font-size: 13px; font-weight: 600; color: #111; margin-bottom: 14px;
+      padding: 8px 10px; background: #F5F5F5; border-radius: 6px;
+    }
+    .report-field-label {
+      font-size: 11px; font-weight: 500; color: var(--text-secondary);
+      margin-bottom: 5px; margin-top: 10px;
+    }
+    .report-select {
+      width: 100%; padding: 8px 10px; font-size: 12.5px; font-family: inherit;
+      border: 1px solid #DDD; border-radius: 7px; background: white;
+      color: #111; outline: none; cursor: pointer;
+    }
+    .report-select:focus { border-color: #999; }
+    .report-textarea {
+      width: 100%; padding: 8px 10px; font-size: 12.5px; font-family: inherit;
+      border: 1px solid #DDD; border-radius: 7px; resize: vertical;
+      min-height: 80px; outline: none; box-sizing: border-box; color: #111;
+    }
+    .report-textarea:focus { border-color: #999; }
+    .report-submit {
+      width: 100%; padding: 9px; margin-top: 12px;
+      background: #EF4444; color: white; border: none; border-radius: 8px;
+      font-size: 13px; font-weight: 600; font-family: inherit; cursor: pointer;
+    }
+    .report-submit:hover { background: #DC2626; }
+    .report-success {
+      text-align: center; padding: 20px 0 8px;
+      font-size: 13px; color: #16A34A; font-weight: 500;
+    }
+
     /* Scrollbar */
     ::-webkit-scrollbar { width: 3px; height: 3px; }
     ::-webkit-scrollbar-thumb { background: #DDD; border-radius: 2px; }
@@ -1417,6 +1486,34 @@
 
   </aside>
 <div id="sidebar-backdrop" onclick="closeSidebar()"></div>
+<!-- Report Issue Modal -->
+<div class="report-modal-overlay" id="report-modal-overlay" onclick="handleReportOverlayClick(event)">
+  <div class="report-modal-box" onclick="event.stopPropagation()">
+    <div class="report-modal-header">
+      <span class="report-modal-title">🚩 Report an Issue</span>
+      <button class="report-modal-close" onclick="closeReportModal()">×</button>
+    </div>
+    <div class="report-modal-body" id="report-modal-body">
+      <div class="report-loc-label">Location</div>
+      <div class="report-loc-name" id="report-loc-display">—</div>
+      <div class="report-field-label">Issue type *</div>
+      <select id="report-type" class="report-select">
+        <option value="">Select issue type…</option>
+        <option value="wrong_info">Wrong information in description</option>
+        <option value="wrong_coords">Wrong map location / coordinates</option>
+        <option value="wrong_hours">Wrong hours or admission info</option>
+        <option value="missing_info">Missing important information</option>
+        <option value="photo_issue">Photo issue</option>
+        <option value="closed">Place is permanently closed</option>
+        <option value="other">Other</option>
+      </select>
+      <div class="report-field-label">Details</div>
+      <textarea id="report-desc" class="report-textarea" placeholder="Describe the issue in detail…"></textarea>
+      <button class="report-submit" onclick="submitReport()">Submit Report</button>
+    </div>
+  </div>
+</div>
+
 <div id="panel-backdrop" onclick="closePanel()"></div>
 
   <div id="map"></div>
@@ -1443,6 +1540,7 @@
         <div class="tab" data-tab="here" onclick="switchTab('here')">Directions</div>
         <div class="tab" data-tab="videos" onclick="switchTab('videos')">Videos</div>
         <div class="tab" data-tab="reviews" onclick="switchTab('reviews')">Reviews</div>
+        <button class="tab-report-btn" onclick="openReportModal()" id="tab-report-btn" title="Report incorrect information">🚩 Report</button>
       </div>
       <div class="tab-pane active" id="pane-overview"></div>
       <div class="tab-pane" id="pane-visit"></div>
@@ -1641,7 +1739,7 @@ const T = {
     sort_default: 'Default order',sort_oldest:  'Oldest first',
     sort_newest:  'Newest first', sort_az:      'Name A–Z',
     tab_overview: 'Overview',     tab_visit:    'Visit',
-    tab_here:     'Directions',   tab_videos:   'Videos',         tab_reviews: 'Reviews',
+    tab_here:     'Directions',   tab_videos:   'Videos',         tab_reviews: 'Reviews',    tab_report: 'Report',
     neighborhood: 'Neighborhood', address:      'Address',
     arch_label:   'Architect',    completed:    'Completed',
     style_label:  'Style',        access_label: 'Access',
@@ -1670,7 +1768,7 @@ const T = {
     sort_default: '기본 순서',    sort_oldest:  '오래된순',
     sort_newest:  '최신순',       sort_az:      '이름 A–Z',
     tab_overview: '개요',         tab_visit:    '방문',
-    tab_here:     '오시는 길',    tab_videos:   '영상',           tab_reviews: '리뷰',
+    tab_here:     '오시는 길',    tab_videos:   '영상',           tab_reviews: '리뷰',        tab_report: '오류신고',
     neighborhood: '지역',         address:      '주소',
     arch_label:   '건축가',       completed:    '완공',
     style_label:  '스타일',       access_label: '접근성',
@@ -1922,6 +2020,7 @@ function applyLang() {
     const el = document.querySelector(`.tab[data-tab="${tab}"]`);
     if (el) el.textContent = t(key);
   });
+  updateReportBtnLabel();
   // Lang dropdown: update label + checkmarks (use short label on mobile)
   const langCur = document.getElementById('lang-current');
   if (langCur) {
@@ -3189,6 +3288,115 @@ function submitReview(locId) {
   }
   // Refresh sidebar card rating badge
   renderList();
+}
+
+// ══════════════════════════════════════════════════════════════════
+// REPORT ISSUE
+// ══════════════════════════════════════════════════════════════════
+const REPORTS_KEY = 'archwander_reports_v1';
+
+function loadReports() {
+  try { return JSON.parse(localStorage.getItem(REPORTS_KEY) || '[]'); } catch(e) { return []; }
+}
+
+function saveReport(report) {
+  try {
+    const reports = loadReports();
+    reports.unshift(report);
+    localStorage.setItem(REPORTS_KEY, JSON.stringify(reports));
+  } catch(e) { console.warn('Report save failed', e); }
+}
+
+function openReportModal() {
+  if (!activeLoc) return;
+  const overlay = document.getElementById('report-modal-overlay');
+  const locDisplay = document.getElementById('report-loc-display');
+  const typeEl = document.getElementById('report-type');
+  const descEl = document.getElementById('report-desc');
+  const body = document.getElementById('report-modal-body');
+
+  // Reset form
+  locDisplay.textContent = activeLoc.name;
+  if (typeEl) typeEl.value = '';
+  if (descEl) descEl.value = '';
+  // Restore form if it was in success state
+  body.innerHTML = `
+    <div class="report-loc-label">Location</div>
+    <div class="report-loc-name" id="report-loc-display">${activeLoc.name}</div>
+    <div class="report-field-label">Issue type *</div>
+    <select id="report-type" class="report-select">
+      <option value="">${LANG === 'ko' ? '이슈 유형 선택…' : 'Select issue type…'}</option>
+      <option value="wrong_info">${LANG === 'ko' ? '설명에 잘못된 정보' : 'Wrong information in description'}</option>
+      <option value="wrong_coords">${LANG === 'ko' ? '지도 위치 오류' : 'Wrong map location / coordinates'}</option>
+      <option value="wrong_hours">${LANG === 'ko' ? '운영시간 또는 입장료 오류' : 'Wrong hours or admission info'}</option>
+      <option value="missing_info">${LANG === 'ko' ? '중요 정보 누락' : 'Missing important information'}</option>
+      <option value="photo_issue">${LANG === 'ko' ? '사진 문제' : 'Photo issue'}</option>
+      <option value="closed">${LANG === 'ko' ? '영구 폐쇄된 장소' : 'Place is permanently closed'}</option>
+      <option value="other">${LANG === 'ko' ? '기타' : 'Other'}</option>
+    </select>
+    <div class="report-field-label">${LANG === 'ko' ? '상세 내용' : 'Details'}</div>
+    <textarea id="report-desc" class="report-textarea"
+      placeholder="${LANG === 'ko' ? '문제를 자세히 설명해주세요…' : 'Describe the issue in detail…'}"></textarea>
+    <button class="report-submit" onclick="submitReport()">${LANG === 'ko' ? '신고 제출' : 'Submit Report'}</button>
+  `;
+
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeReportModal() {
+  document.getElementById('report-modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function handleReportOverlayClick(e) {
+  if (e.target === document.getElementById('report-modal-overlay')) closeReportModal();
+}
+
+function submitReport() {
+  const typeEl = document.getElementById('report-type');
+  const descEl = document.getElementById('report-desc');
+  const type = typeEl?.value;
+  const desc = descEl?.value.trim() || '';
+
+  if (!type) {
+    typeEl.style.borderColor = '#EF4444';
+    setTimeout(() => { if (typeEl) typeEl.style.borderColor = ''; }, 1500);
+    return;
+  }
+
+  const issueLabels = {
+    wrong_info: 'Wrong information', wrong_coords: 'Wrong coordinates',
+    wrong_hours: 'Wrong hours/admission', missing_info: 'Missing info',
+    photo_issue: 'Photo issue', closed: 'Permanently closed', other: 'Other'
+  };
+
+  saveReport({
+    id: Date.now(),
+    locId: activeLoc.id,
+    locName: activeLoc.name,
+    city: activeLoc.city,
+    type,
+    typeLabel: issueLabels[type] || type,
+    desc,
+    lang: LANG,
+    date: new Date().toISOString(),
+    status: 'new'
+  });
+
+  // Show success
+  document.getElementById('report-modal-body').innerHTML = `
+    <div class="report-success">
+      ✅ ${LANG === 'ko' ? '신고가 접수되었습니다. 감사합니다!' : 'Report submitted. Thank you!'}
+    </div>
+  `;
+  setTimeout(() => closeReportModal(), 2000);
+}
+
+// Update Report button label on language change
+function updateReportBtnLabel() {
+  const btn = document.getElementById('tab-report-btn');
+  if (btn) btn.innerHTML = `🚩 ${t('tab_report')}`;
 }
 
 // ══════════════════════════════════════════════════════════════════
