@@ -1267,7 +1267,7 @@
   </button>
   <span class="walk-bar-sep"></span>
   <!-- Walking distance slider -->
-  <img src="img/icon_figure.png" style="height:22px;width:auto;object-fit:contain;flex-shrink:0;opacity:0.75" draggable="false">
+  <span style="font-size:20px;line-height:1;flex-shrink:0;opacity:0.85;user-select:none">🚶︎</span>
   <span id="walk-label">15 min</span>
   <input type="range" id="walk-slider" min="1" max="60" step="1" value="15">
   <span class="walk-desc">walking radius</span>
@@ -3152,19 +3152,18 @@ function startPinDrop() {
 }
 
 // Shared person-on-dot icon for GPS + Pin markers.
-// Uses img/icon_figure.png (100×190 source) at 2× the original size.
+// Uses pedestrian Unicode character (U+1F6B6 + text variation selector) above a red dot.
 function _personMarkerIcon() {
   return L.divIcon({
     html: '<div style="display:flex;flex-direction:column;align-items:center;pointer-events:none">' +
-            '<img src="img/icon_figure.png" ' +
-              'style="width:44px;height:84px;object-fit:contain;display:block;' +
-              'filter:drop-shadow(0 2px 4px rgba(0,0,0,0.45))" draggable="false">' +
+            '<span style="font-size:60px;line-height:1;display:block;text-align:center;' +
+              'filter:drop-shadow(0 2px 4px rgba(0,0,0,0.45));user-select:none">🚶︎</span>' +
             '<div style="width:26px;height:26px;background:#EF4444;border:4px solid white;' +
               'border-radius:50%;box-shadow:0 3px 8px rgba(0,0,0,0.4);margin-top:-6px"></div>' +
           '</div>',
     className: '',
-    iconSize:  [48, 110],
-    iconAnchor:[24, 110]  // anchor = centre of the dot at bottom
+    iconSize:  [64, 90],
+    iconAnchor:[32, 90]  // anchor = centre of the dot at bottom
   });
 }
 
