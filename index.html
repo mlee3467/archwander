@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>ArchWander</title>
+  <link rel="icon" type="image/png" href="img/Logo_small.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"/>
@@ -75,14 +76,14 @@
     /* ── Near Me button (header) ───────────────────────── */
     #near-me-btn {
       height: 34px; padding: 0 13px;
-      border: 1px solid #0000CC; border-radius: 8px;
-      font-size: 12px; font-family: inherit; background: #0000FF;
+      border: 1px solid #A5B4FC; border-radius: 8px;
+      font-size: 12px; font-family: inherit; background: white;
       cursor: pointer; display: flex; align-items: center; gap: 6px;
       white-space: nowrap; flex-shrink: 0; transition: all 0.2s;
-      color: white; font-weight: 700;
+      color: #4338CA; font-weight: 600;
     }
-    #near-me-btn:hover { background: #0000CC; border-color: #000099; }
-    #near-me-btn.active { background: #000099; border-color: #000066; }
+    #near-me-btn:hover { border-color: #4F46E5; color: #4F46E5; }
+    #near-me-btn.active { background: #4F46E5; border-color: #4F46E5; color: white; }
     @keyframes pulse-border { 0%,100%{opacity:1} 50%{opacity:0.5} }
     /* ── Walk bar (below header) ───────────────────────── */
     #walk-bar {
@@ -3241,7 +3242,7 @@ function startPinDrop() {
 function _personMarkerIcon() {
   return L.divIcon({
     html: '<div style="display:flex;flex-direction:column;align-items:center;pointer-events:none">' +
-            '<span style="font-size:40px;line-height:1;display:block;text-align:center;user-select:none">🚶🏻‍➡️</span>' +
+            '<span style="font-size:40px;line-height:1;display:block;text-align:center;filter:grayscale(1) brightness(0);user-select:none">🚶🏻‍➡️</span>' +
             '<div style="width:22px;height:22px;background:#EF4444;border:3px solid white;' +
               'border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,0.4);margin-top:-2px"></div>' +
           '</div>',
