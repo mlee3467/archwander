@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>ArchWander</title>
-  <link rel="icon" type="image/png" href="img/Logo_small.png">
+  <link rel="icon" type="image/png" href="img/Logo_favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"/>
@@ -642,15 +642,12 @@
       background: #111; color: white; padding: 1px 7px; border-radius: 8px; margin-left: 6px;
     }
 
-    /* Report tab button */
+    /* Report tab button — sits inline right after Reviews tab */
     .tab-report-btn {
-      margin-left: auto; padding: 10px 0 10px 14px;
+      padding: 10px 2px; margin-right: 16px;
       font-size: 12px; cursor: pointer; color: var(--text-secondary);
-      background: white; border: none; font-family: inherit;
-      white-space: nowrap; flex-shrink: 0;
-      position: sticky; right: 0;
-      display: flex; align-items: center; gap: 4px;
-      border-bottom: 2px solid transparent;
+      background: none; border: none; border-bottom: 2px solid transparent;
+      font-family: inherit; white-space: nowrap; flex-shrink: 0;
       transition: color 0.15s;
     }
     .tab-report-btn:hover { color: #EF4444; }
