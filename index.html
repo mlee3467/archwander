@@ -3152,18 +3152,19 @@ function startPinDrop() {
 }
 
 // Shared person-on-dot icon for GPS + Pin markers.
-// Uses a single emoji character (🧍) — zero image memory, system-rendered.
+// Uses img/icon_figure.png (100×190 source) at 2× the original size.
 function _personMarkerIcon() {
   return L.divIcon({
     html: '<div style="display:flex;flex-direction:column;align-items:center;pointer-events:none">' +
-            '<span style="font-size:22px;line-height:1;display:block;' +
-              'filter:drop-shadow(0 1px 3px rgba(0,0,0,0.4));user-select:none">🧍</span>' +
-            '<div style="width:13px;height:13px;background:#EF4444;border:2.5px solid white;' +
-              'border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,0.4);margin-top:-3px"></div>' +
+            '<img src="img/icon_figure.png" ' +
+              'style="width:44px;height:84px;object-fit:contain;display:block;' +
+              'filter:drop-shadow(0 2px 4px rgba(0,0,0,0.45))" draggable="false">' +
+            '<div style="width:26px;height:26px;background:#EF4444;border:4px solid white;' +
+              'border-radius:50%;box-shadow:0 3px 8px rgba(0,0,0,0.4);margin-top:-6px"></div>' +
           '</div>',
     className: '',
-    iconSize:  [24, 38],
-    iconAnchor:[12, 38]   // anchor = centre of the dot at bottom
+    iconSize:  [48, 110],
+    iconAnchor:[24, 110]  // anchor = centre of the dot at bottom
   });
 }
 
@@ -3272,7 +3273,7 @@ function _drawWalkOverlay() {
     interactive: false,
     icon: L.divIcon({
       html: `<div style="
-        transform:translate(-50%,14px);
+        transform:translate(-50%,28px);
         display:inline-block;
         background:${zero ? 'rgba(107,114,128,0.92)' : 'rgba(239,68,68,0.92)'};
         color:white;font-size:12px;font-weight:700;
