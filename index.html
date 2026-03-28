@@ -1447,10 +1447,15 @@
 <script src="data-london.js"></script>
 <script src="data-tokyo.js"></script>
 <script src="data.js"></script>
+<script src="data-ko-new-york.js"></script>
+<script src="data-ko-seoul.js"></script>
+<script src="data-ko-london.js"></script>
+<script src="data-ko-tokyo.js"></script>
+<script src="data-ko.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mapillary-js@4/dist/mapillary.min.js"></script>
 <script>
-// Translation is fully on-demand via API + localStorage cache.
-// data-ko.js is no longer used.
+// Translation priority: LOCS_KO (static, data-ko-*.js) → localStorage cache → API (MyMemory/DeepL)
+// data-ko.js combines city-specific data-ko-{city}.js files (same pattern as data.js).
 
 // ══════════════════════════════════════════════════════════════════
 // DATA
@@ -1716,6 +1721,11 @@ const TRANS_PRIORITY = ['desc', 'hood', 'addr'];
 const TRANS_DEFERRED = ['hours', 'admission', 'transit', 'lastEntry', 'tourInfo', 'walkFrom'];
 
 async function getLocTranslation(loc, onlyPriority = false) {
+  // ── Static translations (data-ko-*.js) — instant, no API needed ─
+  if (typeof LOCS_KO !== 'undefined' && LOCS_KO[loc.id]) {
+    return LOCS_KO[loc.id];
+  }
+
   const cacheKey = `archwander_trans_ko_${loc.id}`;
   try {
     const cached = localStorage.getItem(cacheKey);

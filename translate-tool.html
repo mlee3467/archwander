@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ArchWander – Translate Tool</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, sans-serif; background: #f4f4f5; color: #18181b; }
+  header { background: #18181b; color: #fff; padding: 14px 24px; display: flex; align-items: center; gap: 12px; }
+  header h1 { font-size: 16px; font-weight: 600; }
+  header span { font-size: 13px; color: #a1a1aa; }
+  .container { max-width: 900px; margin: 24px auto; padding: 0 16px; }
+  .card { background: #fff; border-radius: 10px; border: 1px solid #e4e4e7; padding: 20px; margin-bottom: 16px; }
+  .card h2 { font-size: 14px; font-weight: 600; margin-bottom: 12px; color: #52525b; text-transform: uppercase; letter-spacing: .04em; }
+  label { font-size: 13px; color: #52525b; display: block; margin-bottom: 4px; }
+  select, input[type=text], input[type=password] {
+    width: 100%; padding: 8px 10px; border: 1px solid #d4d4d8; border-radius: 6px;
+    font-size: 13px; background: #fafafa; margin-bottom: 12px;
+  }
+  .row { display: flex; gap: 12px; align-items: flex-end; }
+  .row > * { flex: 1; }
+  button {
+    padding: 8px 16px; border-radius: 6px; border: none; cursor: pointer;
+    font-size: 13px; font-weight: 500; transition: opacity .15s;
+  }
+  button:disabled { opacity: .45; cursor: default; }
+  .btn-primary { background: #18181b; color: #fff; }
+  .btn-primary:hover:not(:disabled) { background: #3f3f46; }
+  .btn-success { background: #16a34a; color: #fff; }
+  .btn-success:hover:not(:disabled) { background: #15803d; }
+  .btn-outline { background: #fff; color: #18181b; border: 1px solid #d4d4d8; }
+  .btn-outline:hover:not(:disabled) { background: #f4f4f5; }
+  .progress-bar { height: 6px; background: #e4e4e7; border-radius: 3px; overflow: hidden; margin: 8px 0; }
+  .progress-fill { height: 100%; background: #16a34a; transition: width .3s; width: 0; }
+  #status { font-size: 13px; color: #52525b; margin-top: 8px; min-height: 20px; }
+  #status.error { color: #dc2626; }
+  #status.ok { color: #16a34a; }
+  .loc-list { max-height: 320px; overflow-y: auto; border: 1px solid #e4e4e7; border-radius: 6px; }
+  .loc-item { padding: 10px 14px; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; gap: 10px; font-size: 13px; }
+  .loc-item:last-child { border-bottom: none; }
+  .loc-item .badge { padding: 2px 8px; border-radius: 99px; font-size: 11px; font-weight: 500; flex-shrink: 0; }
+  .badge-ok { background: #dcfce7; color: #166534; }
+  .badge-miss { background: #fef9c3; color: #854d0e; }
+  .badge-none { background: #fee2e2; color: #991b1b; }
+  .loc-item .loc-name { flex: 1; font-weight: 500; }
+  .loc-item .loc-fields { color: #71717a; font-size: 11px; }
+  textarea { width: 100%; height: 260px; font-family: monospace; font-size: 12px; padding: 10px; border: 1px solid #d4d4d8; border-radius: 6px; background: #fafafa; resize: vertical; }
+  .section-row { display: flex; gap: 10px; margin-bottom: 10px; align-items: center; }
+  .copy-btn { padding: 5px 12px; font-size: 12px; }
+  .info { font-size: 12px; color: #71717a; margin-top: 6px; line-height: 1.5; }
+  .tabs { display: flex; gap: 2px; margin-bottom: 16px; }
+  .tab { padding: 7px 16px; border-radius: 6px; font-size: 13px; cursor: pointer; border: 1px solid #d4d4d8; background: #fff; }
+  .tab.active { background: #18181b; color: #fff; border-color: #18181b; }
+  #push-section { display: none; }
+  #push-section.visible { display: block; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>ArchWander · Translate Tool</h1>
+  <span>Generates city-specific data-ko-{city}.js files</span>
+</header>
+
+<div class="container">
+
+  <!-- Step 1: Setup -->
+  <div class="card">
+    <h2>1 · Setup</h2>
+    <div class="row">
+      <div>
+        <label>City</label>
+        <select id="city-select">
+          <option value="new-york">New York (data-new-york.js → data-ko-new-york.js)</option>
+          <option value="seoul">Seoul (data-seoul.js → data-ko-seoul.js)</option>
+          <option value="london">London (data-london.js → data-ko-london.js)</option>
+          <option value="tokyo">Tokyo (data-tokyo.js → data-ko-tokyo.js)</option>
+        </select>
+      </div>
+      <div>
+        <label>Translation API</label>
+        <select id="api-select">
+          <option value="mymemory">MyMemory (free, 5K chars/day)</option>
+          <option value="deepl">DeepL Free (500K chars/month — recommended)</option>
+        </select>
+      </div>
+    </div>
+    <div id="deepl-key-row" style="display:none">
+      <label>DeepL API Key (ends with :fx)</label>
+      <input type="password" id="deepl-key" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx:fx">
+      <p class="info">Get a free key at <a href="https://www.deepl.com/pro-api" target="_blank">deepl.com/pro-api</a> (Free plan, 500K chars/month)</p>
+    </div>
+    <label>data-{city}.js file</label>
+    <input type="file" id="src-file" accept=".js" style="margin-bottom:12px">
+    <div style="display:flex; gap:8px">
+      <button class="btn-primary" onclick="loadFile()">Load &amp; Analyse</button>
+    </div>
+  </div>
+
+  <!-- Step 2: Analysis -->
+  <div class="card" id="analysis-card" style="display:none">
+    <h2>2 · Analysis</h2>
+    <div id="analysis-summary" style="font-size:13px; margin-bottom:12px; color:#52525b;"></div>
+    <div class="tabs">
+      <div class="tab active" onclick="showTab('all')">All</div>
+      <div class="tab" onclick="showTab('missing')">Missing / Partial</div>
+    </div>
+    <div class="loc-list" id="loc-list"></div>
+    <div style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap;">
+      <button class="btn-primary" id="translate-btn" onclick="startTranslation()">Translate All → Korean</button>
+      <button class="btn-outline" id="translate-missing-btn" onclick="startTranslation(true)">Translate Missing Only</button>
+    </div>
+  </div>
+
+  <!-- Step 3: Progress -->
+  <div class="card" id="progress-card" style="display:none">
+    <h2>3 · Translating</h2>
+    <div class="progress-bar"><div class="progress-fill" id="prog-fill"></div></div>
+    <div id="status"></div>
+  </div>
+
+  <!-- Step 4: Output -->
+  <div class="card" id="output-card" style="display:none">
+    <h2>4 · Output — data-ko-<span id="out-city-name"></span>.js</h2>
+    <div class="section-row">
+      <button class="btn-outline copy-btn" onclick="copyOutput()">Copy</button>
+      <button class="btn-success" onclick="downloadOutput()">⬇ Download</button>
+      <button class="btn-outline copy-btn" onclick="togglePush()">GitHub Push ▾</button>
+    </div>
+    <textarea id="output-area" readonly></textarea>
+
+    <div id="push-section">
+      <div style="height:1px; background:#e4e4e7; margin:16px 0;"></div>
+      <h2 style="margin-bottom:12px;">GitHub Push</h2>
+      <label>GitHub Token (repo scope)</label>
+      <input type="password" id="gh-token" placeholder="ghp_...">
+      <label>Repo (owner/repo)</label>
+      <input type="text" id="gh-repo" value="mlee3467/ArchWander">
+      <label>Branch</label>
+      <input type="text" id="gh-branch" value="main">
+      <label>Commit message</label>
+      <input type="text" id="gh-msg" value="">
+      <button class="btn-success" onclick="pushToGitHub()">Push to GitHub</button>
+      <div id="push-status" style="font-size:13px; margin-top:8px; min-height:18px;"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ── State ──────────────────────────────────────────────────────────
+let LOCS = [];
+let EXISTING_KO = {};
+let citySlug = 'new-york';
+let cityConst = 'NEW_YORK';
+let translatedKO = {};
+let currentTab = 'all';
+
+const TRANS_FIELDS = ['desc','hood','hours','lastEntry','admission','tourInfo','transit','walkFrom'];
+
+// ── UI helpers ─────────────────────────────────────────────────────
+document.getElementById('api-select').addEventListener('change', function() {
+  document.getElementById('deepl-key-row').style.display = this.value === 'deepl' ? 'block' : 'none';
+});
+
+document.getElementById('city-select').addEventListener('change', function() {
+  citySlug = this.value;
+  cityConst = citySlug.toUpperCase().replace(/-/g, '_');
+  document.getElementById('gh-msg').value = `Update Korean translations: ${citySlug}`;
+});
+
+function showTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active', ['all','missing'][i] === tab));
+  renderLocList();
+}
+
+// ── File loading ───────────────────────────────────────────────────
+function loadFile() {
+  const f = document.getElementById('src-file').files[0];
+  if (!f) { alert('Please select a data-{city}.js file.'); return; }
+  citySlug = document.getElementById('city-select').value;
+  cityConst = citySlug.toUpperCase().replace(/-/g, '_');
+  document.getElementById('gh-msg').value = `Update Korean translations: ${citySlug}`;
+
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const src = e.target.result;
+      // Extract the array from const LOCS_XYZ = [...]
+      const match = src.match(/const\s+LOCS_\w+\s*=\s*(\[[\s\S]*\]);?\s*$/m);
+      if (!match) throw new Error('Could not find LOCS_* array in file.');
+      LOCS = eval(match[1]);
+      translatedKO = {};
+      renderAnalysis();
+    } catch(err) {
+      alert('Error parsing file: ' + err.message);
+    }
+  };
+  reader.readAsText(f);
+}
+
+// ── Analysis ───────────────────────────────────────────────────────
+function getFieldStatus(loc) {
+  const present = TRANS_FIELDS.filter(k => loc[k] && loc[k] !== 'N/A' && loc[k] !== '-');
+  const translated = present.filter(k => translatedKO[loc.id] && translatedKO[loc.id][k]);
+  return { present, translated };
+}
+
+function renderAnalysis() {
+  document.getElementById('analysis-card').style.display = 'block';
+  const total = LOCS.length;
+  const fullyDone = LOCS.filter(l => {
+    const {present, translated} = getFieldStatus(l);
+    return present.length > 0 && translated.length === present.length;
+  }).length;
+  document.getElementById('analysis-summary').textContent =
+    `${total} locations · ${fullyDone} fully translated · ${total - fullyDone} need translation`;
+  renderLocList();
+}
+
+function renderLocList() {
+  const list = document.getElementById('loc-list');
+  const items = currentTab === 'missing'
+    ? LOCS.filter(l => { const {present,translated} = getFieldStatus(l); return translated.length < present.length; })
+    : LOCS;
+  list.innerHTML = items.map(loc => {
+    const {present, translated} = getFieldStatus(loc);
+    let badge, badgeClass;
+    if (present.length === 0) { badge = 'No fields'; badgeClass = 'badge-none'; }
+    else if (translated.length === present.length) { badge = '✓ Done'; badgeClass = 'badge-ok'; }
+    else if (translated.length > 0) { badge = `${translated.length}/${present.length}`; badgeClass = 'badge-miss'; }
+    else { badge = 'Untranslated'; badgeClass = 'badge-miss'; }
+    return `<div class="loc-item">
+      <span class="loc-name">${loc.name}</span>
+      <span class="loc-fields">${present.join(', ')}</span>
+      <span class="badge ${badgeClass}">${badge}</span>
+    </div>`;
+  }).join('');
+}
+
+// ── Translation ────────────────────────────────────────────────────
+async function startTranslation(missingOnly = false) {
+  document.getElementById('progress-card').style.display = 'block';
+  document.getElementById('translate-btn').disabled = true;
+  document.getElementById('translate-missing-btn').disabled = true;
+
+  const apiMode = document.getElementById('api-select').value;
+  const deeplKey = document.getElementById('deepl-key').value.trim();
+
+  const locsToProcess = missingOnly
+    ? LOCS.filter(l => { const {present,translated} = getFieldStatus(l); return translated.length < present.length; })
+    : LOCS;
+
+  const total = locsToProcess.length;
+  let done = 0;
+
+  for (const loc of locsToProcess) {
+    setStatus(`Translating: ${loc.name} (${done+1}/${total})…`);
+    const toTrans = {};
+    TRANS_FIELDS.forEach(k => {
+      if (loc[k] && loc[k] !== 'N/A' && loc[k] !== '-') toTrans[k] = loc[k];
+    });
+    if (Object.keys(toTrans).length === 0) { done++; setProgress(done/total); continue; }
+
+    try {
+      const translated = await translateBatch(Object.values(toTrans), apiMode, deeplKey);
+      const result = {};
+      Object.keys(toTrans).forEach((k, i) => { result[k] = translated[i] || toTrans[k]; });
+      translatedKO[loc.id] = { ...(translatedKO[loc.id] || {}), ...result };
+    } catch(e) {
+      console.warn('Translation failed for', loc.id, e);
+    }
+
+    done++;
+    setProgress(done / total);
+    await sleep(apiMode === 'mymemory' ? 300 : 50);
+  }
+
+  setStatus('✓ Translation complete!', 'ok');
+  renderAnalysis();
+  showOutput();
+  document.getElementById('translate-btn').disabled = false;
+  document.getElementById('translate-missing-btn').disabled = false;
+}
+
+async function translateBatch(texts, mode, deeplKey) {
+  if (mode === 'deepl' && deeplKey) {
+    const res = await fetch('https://api-free.deepl.com/v2/translate', {
+      method: 'POST',
+      headers: { 'Authorization': `DeepL-Auth-Key ${deeplKey}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: texts, target_lang: 'KO', source_lang: 'EN' })
+    });
+    if (res.ok) {
+      const data = await res.json();
+      return data.translations.map(t => t.text);
+    }
+  }
+  // MyMemory fallback — parallel
+  return Promise.all(texts.map(t => myMemoryOne(t)));
+}
+
+async function myMemoryOne(text) {
+  try {
+    const r = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text.slice(0,500))}&langpair=en|ko`);
+    const d = await r.json();
+    return (d.responseStatus === 200 && d.responseData) ? d.responseData.translatedText : text;
+  } catch(e) { return text; }
+}
+
+// ── Output generation ──────────────────────────────────────────────
+function showOutput() {
+  const js = buildOutputJS();
+  document.getElementById('output-area').value = js;
+  document.getElementById('out-city-name').textContent = citySlug;
+  document.getElementById('output-card').style.display = 'block';
+}
+
+function buildOutputJS() {
+  const varName = `LOCS_KO_${cityConst}`;
+  const cityLabel = citySlug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+  let lines = [
+    `// ArchWander — Korean Translations: ${cityLabel}`,
+    `// Generated by translate-tool.html on ${new Date().toISOString().slice(0,10)}`,
+    `// Re-run this tool to update translations.`,
+    `const ${varName} = {`,
+  ];
+  for (const loc of LOCS) {
+    const ko = translatedKO[loc.id];
+    if (!ko || Object.keys(ko).length === 0) continue;
+    lines.push(`  '${loc.id}': {`);
+    TRANS_FIELDS.forEach(k => {
+      if (ko[k]) {
+        const val = ko[k].replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\$/g, '\\$');
+        lines.push(`    ${k}: \`${val}\`,`);
+      }
+    });
+    lines.push(`  },`);
+  }
+  lines.push(`};`);
+  return lines.join('\n');
+}
+
+function copyOutput() {
+  navigator.clipboard.writeText(document.getElementById('output-area').value);
+  alert('Copied!');
+}
+
+function downloadOutput() {
+  const blob = new Blob([document.getElementById('output-area').value], { type: 'text/javascript' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = `data-ko-${citySlug}.js`; a.click();
+}
+
+function togglePush() {
+  const el = document.getElementById('push-section');
+  el.classList.toggle('visible');
+}
+
+// ── GitHub Push ────────────────────────────────────────────────────
+async function pushToGitHub() {
+  const token  = document.getElementById('gh-token').value.trim();
+  const repo   = document.getElementById('gh-repo').value.trim();
+  const branch = document.getElementById('gh-branch').value.trim();
+  const msg    = document.getElementById('gh-msg').value.trim() || `Update Korean translations: ${citySlug}`;
+  const path   = `data-ko-${citySlug}.js`;
+  const content = btoa(unescape(encodeURIComponent(document.getElementById('output-area').value)));
+
+  if (!token) { alert('Enter a GitHub token.'); return; }
+
+  const ps = document.getElementById('push-status');
+  ps.textContent = 'Checking existing file…'; ps.className = '';
+
+  const headers = { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' };
+  const base = `https://api.github.com/repos/${repo}/contents/${path}`;
+
+  let sha = '';
+  try {
+    const r = await fetch(`${base}?ref=${branch}`, { headers });
+    if (r.ok) { const d = await r.json(); sha = d.sha; }
+  } catch(e) {}
+
+  ps.textContent = 'Pushing…';
+  const body = { message: msg, content, branch };
+  if (sha) body.sha = sha;
+
+  const res = await fetch(base, { method: 'PUT', headers, body: JSON.stringify(body) });
+  if (res.ok) {
+    ps.textContent = `✓ Pushed to ${repo}/${path}`; ps.className = 'ok';
+  } else {
+    const err = await res.json();
+    ps.textContent = `✗ Error: ${err.message}`; ps.className = 'error';
+  }
+}
+
+// ── Helpers ────────────────────────────────────────────────────────
+function setStatus(msg, cls='') {
+  const el = document.getElementById('status');
+  el.textContent = msg; el.className = cls;
+}
+function setProgress(ratio) {
+  document.getElementById('prog-fill').style.width = (ratio * 100) + '%';
+}
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+// Init
+citySlug = document.getElementById('city-select').value;
+cityConst = citySlug.toUpperCase().replace(/-/g, '_');
+document.getElementById('gh-msg').value = `Update Korean translations: ${citySlug}`;
+</script>
+</body>
+</html>
