@@ -685,7 +685,7 @@ const LOCS_KO_NEW_YORK = {
 
   // ── Additional entries (appended) ──
   '10-hudson-yards': {
-    name: '10 허드슨 야드',      desc: `Hudson Yards 개발의 첫 번째로 완성된 건물로, KPF(Kohn Pedersen Fox)가 설계한 130만 평방피트의 혼합용도 타워다. 52층 규모의 이 건물은 2020년에 입주했으며 사무실, 소매점, 레스토랑 공간을 포함한다. 흰색 금속 클래딩과 유리로 마감된 파사드는 세월에 따라 자연스럽게 변할 수 있도록 설계되었다.`,
+    name: '10 허드슨 야드',      desc: `Hudson Yards 개발의 첫 번째로 완성된 건물로, KPF(Kohn Pedersen Fox)가 설계한 130만 평방피트의 혼합용도 타워다. 52층 규모의 이 건물은 2020년에 입주했으며 사무실, 소매점, 레스토랑 공간을 포함합니다. 흰색 금속 클래딩과 유리로 마감된 파사드는 세월에 따라 자연스럽게 변할 수 있도록 설계되었습니다.`,
       hood: 'Hudson Yards',
       transit: '7번 → 34 St–Hudson Yards',
       admission: '상업용 건물 · 1층 소매점 및 공개 공간',
@@ -693,35 +693,35 @@ const LOCS_KO_NEW_YORK = {
   
     '1228-madison': {
     name: '1228 매디슨 애비뉴',
-      desc: `Carnegie Hill에 위치한 RAMSA(Robert A.M. Stern Architects)가 설계한 16층 부티크 주거 건물로 2018년 완공되었다. 하얀색 석회석 파사드와 세련된 비율의 창문 배치는 비뢰스-아르 양식의 우아한 전통을 현대적으로 해석했다. 12개 단위로 구성되어 있다.`,
+      desc: `Carnegie Hill에 위치한 RAMSA(Robert A.M. Stern Architects)가 설계한 16층 부티크 주거 건물로 2018년 완공되었습니다. 하얀색 석회석 파사드와 세련된 비율의 창문 배치는 비뢰스-아르 양식의 우아한 전통을 현대적으로 해석했다. 12개 단위로 구성되어 있습니다.`,
       hood: 'Upper East Side / Carnegie Hill',
       transit: '4,5,6번 → 86 St',
     },
   
     '130-william': {
     name: '130 윌리엄 스트릿',
-      desc: `Adjaye Associates가 설계하고 2021년 완공된 66층, 800피트의 혼합용도 마천루로, Lower Manhattan의 역사적 조적 맥락에 대응하는 벽돌과 청동 클래딩 시스템이 특징이다. 미묘한 톤 변화를 통해 건축학적 깊이를 더한다. 소매, 사무, 주거 공간을 포함한다.`,
+      desc: `Adjaye Associates가 설계하고 2021년 완공된 66층, 800피트의 혼합용도 마천루로, Lower Manhattan의 역사적 조적 맥락에 대응하는 벽돌과 청동 클래딩 시스템이 특징입니다. 미묘한 톤 변화를 통해 건축학적 깊이를 더합니다. 소매, 사무, 주거 공간을 포함합니다.`,
       hood: 'Financial District',
       transit: '2,3번 → Park Pl · J,Z번 → Fulton St',
     },
   
     '15-cpw': {
     name: '15 센트럴 파크 웨스트',
-      desc: `전 세계에서 건축적, 상업적으로 가장 영향력 있고 성공한 럭셔리 주거 건물 중 하나로, Robert A.M. Stern Architects가 설계한 60층 950피트 타워로 2008년 완공되었다. 특유의 기하학적 계단식 왕관과 강력한 매스감으로 현대 주거 설계의 아이콘이 되었다.`,
+      desc: `전 세계에서 건축적, 상업적으로 가장 영향력 있고 성공한 럭셔리 주거 건물 중 하나로, Robert A.M. Stern Architects가 설계한 60층 950피트 타워로 2008년 완공되었습니다. 특유의 기하학적 계단식 왕관과 강력한 매스감으로 현대 주거 설계의 아이콘이 되었습니다.`,
       hood: 'Upper West Side',
       transit: '1,A,B,C번 → 59 St–Columbus Circle',
     },
   
     '150-east-78th': {
     name: '150 이스트 78 스트릿',
-      desc: `Robert A.M. Stern Architects(RAMSA)가 2020년 완공한 22층 부티크 석회석 주거 건물이다. 벽돌, 석회석, 구리 디테일을 결합한 설계로 주변 Upper East Side 역사지구와의 조화를 이루면서도 현대적 주거 프로그램을 제시한다.`,
+      desc: `Robert A.M. Stern Architects(RAMSA)가 2020년 완공한 22층 부티크 석회석 주거 건물입니다. 벽돌, 석회석, 구리 디테일을 결합한 설계로 주변 Upper East Side 역사지구와의 조화를 이루면서도 현대적 주거 프로그램을 제시합니다.`,
       hood: 'Upper East Side',
       transit: '4,5,6번 → 86 St',
     },
   
     '152-elizabeth': {
     name: '152 엘리자베스 스트릿',
-      desc: `Tadao Ando의 첫 번째 뉴욕시 주거 건물로 2018년 완공된 7층, 7개 단위 부티크 콘도로, Nolita의 좁은 부지에 위치한다. Ando의 시그니처 판재 흔적이 남은 노출 콘크리트로 완전히 마감되었으며, 수평 음영선이 파사드에 조각적 깊이를 더한다.`,
+      desc: `Tadao Ando의 첫 번째 뉴욕시 주거 건물로 2018년 완공된 7층, 7개 단위 부티크 콘도로, Nolita의 좁은 부지에 위치합니다. Ando의 시그니처 판재 흔적이 남은 노출 콘크리트로 완전히 마감되었으며, 수평 음영선이 파사드에 조각적 깊이를 더합니다.`,
       hood: 'Nolita',
       transit: '6번 → Spring St · J,Z번 → Bowery · B,D번 → Grand St',
       admission: '개인 건물',
@@ -729,7 +729,7 @@ const LOCS_KO_NEW_YORK = {
   
     '152-elizabeth-street': {
     name: '152 엘리자베스 스트릿',
-      desc: `Tadao Ando의 첫 번째 뉴욕시 주거 건물로 2018년 완공된 7층, 7개 단위 부티크 콘도로, Nolita의 좁은 부지에 위치한다. Ando의 시그니처 판재 흔적이 남은 노출 콘크리트로 완전히 마감되었으며, 수평 음영선이 파사드에 조각적 깊이를 더한다.`,
+      desc: `Tadao Ando의 첫 번째 뉴욕시 주거 건물로 2018년 완공된 7층, 7개 단위 부티크 콘도로, Nolita의 좁은 부지에 위치합니다. Ando의 시그니처 판재 흔적이 남은 노출 콘크리트로 완전히 마감되었으며, 수평 음영선이 파사드에 조각적 깊이를 더합니다.`,
       hood: 'Nolita',
       transit: '6번 → Spring St · J,Z번 → Bowery · B,D번 → Grand St',
       admission: '개인 건물',
@@ -737,49 +737,49 @@ const LOCS_KO_NEW_YORK = {
   
     '160-leroy-street': {
     name: '160 르로이 스트릿',
-      desc: `Herzog & de Meuron이 2015년 완공한 West Village의 12층 럭셔리 주거 건물로, 특유의 헤링본 벽돌 패턴과 하얀색 석재 디테일이 역사적인 거리에 구별되는 특징을 부여한다. 16개 콘도 단위를 포함하며 역사적 담배 상인의 집 파사드를 통합했다.`,
+      desc: `Herzog & de Meuron이 2015년 완공한 West Village의 12층 럭셔리 주거 건물로, 특유의 헤링본 벽돌 패턴과 하얀색 석재 디테일이 역사적인 거리에 구별되는 특징을 부여합니다. 16개 콘도 단위를 포함하며 역사적 담배 상인의 집 파사드를 통합했다.`,
       hood: 'West Village',
       transit: '1번 → Christopher St–Sheridan Sq',
     },
   
     '20-east-end-ave': {
     name: '20 이스트 엔드 애비뉴',
-      desc: `Robert A.M. Stern Architects(RAMSA)가 2017년 완공한 Upper East Side의 부티크 16층 석회석 주거 건물로, 하얀색 석회석 파사드와 전통적 비율의 세심한 창문 배치가 주변 역사적 맥락을 존중한다.`,
+      desc: `Robert A.M. Stern Architects(RAMSA)가 2017년 완공한 Upper East Side의 부티크 16층 석회석 주거 건물로, 하얀색 석회석 파사드와 전통적 비율의 세심한 창문 배치가 주변 역사적 맥락을 존중합니다.`,
       hood: 'Yorkville / Carnegie Hill',
       transit: '4,5,6번 → 86 St',
     },
   
     '200-east-83rd': {
     name: '200 이스트 83 스트릿',
-      desc: `RAMSA(Robert A.M. Stern Architects)가 2022년 완공한 34층 석회석 주거 타워로 Neue Galerie와 Museum Mile 근처에 위치한다. 판석 마무리 석회석 파사드와 신중한 비율의 세트백이 주변 Upper East Side 역사지구의 높이와 특성에 대응한다.`,
+      desc: `RAMSA(Robert A.M. Stern Architects)가 2022년 완공한 34층 석회석 주거 타워로 Neue Galerie와 Museum Mile 근처에 위치합니다. 판석 마무리 석회석 파사드와 신중한 비율의 세트백이 주변 Upper East Side 역사지구의 높이와 특성에 대응합니다.`,
       hood: 'Upper East Side',
       transit: '4,5,6번 → 86 St',
     },
   
     '220-central-park-south': {
     name: '220 센트럴 파크 사우스',
-      desc: `Robert A.M. Stern Architects(RAMSA)가 2019년 완공한 65층 석회석 슈퍼톨로, 뉴욕시 역사상 가장 비싼 건물이 되었다. 우아한 석회석 파사드와 세심한 비율의 설계가 비뢰스-아르 선례를 참고하면서도 초럭셔리 주거를 제공한다.`,
+      desc: `Robert A.M. Stern Architects(RAMSA)가 2019년 완공한 65층 석회석 슈퍼톨로, 뉴욕시 역사상 가장 비싼 건물이 되었습니다. 우아한 석회석 파사드와 세심한 비율의 설계가 비뢰스-아르 선례를 참고하면서도 초럭셔리 주거를 제공합니다.`,
       hood: 'Midtown West',
       transit: '1,A,B,C,D번 → 59 St–Columbus Circle',
     },
   
     '242-broome-essex-crossing': {
     name: '242 브룸 에섹스 크로싱',
-      desc: `SHoP Architects가 Lower East Side의 Essex Crossing 혼합용도 개발의 일부로 설계한 14층 55개 단위 럭셔리 콘도로, 벽돌과 유리 파사드가 동네의 주철 유산을 참고하면서도 현대적 주거 프로그램을 구현한다.`,
+      desc: `SHoP Architects가 Lower East Side의 Essex Crossing 혼합용도 개발의 일부로 설계한 14층 55개 단위 럭셔리 콘도로, 벽돌과 유리 파사드가 동네의 주철 유산을 참고하면서도 현대적 주거 프로그램을 구현합니다.`,
       hood: 'Lower East Side',
       transit: 'J,Z번 → Essex St',
     },
   
     '255-east-77th': {
     name: '255 이스트 77 스트릿',
-      desc: `Robert A.M. Stern Architects(RAMSA)가 2020년 완공한 Upper East Side의 18층 럭셔리 주거 건물로, 석회석 파사드와 세심한 비율의 창문 배치가 동네의 역사적 특성을 존중하면서도 현대적 주거 내부를 제공한다.`,
+      desc: `Robert A.M. Stern Architects(RAMSA)가 2020년 완공한 Upper East Side의 18층 럭셔리 주거 건물로, 석회석 파사드와 세심한 비율의 창문 배치가 동네의 역사적 특성을 존중하면서도 현대적 주거 내부를 제공합니다.`,
       hood: 'Upper East Side',
       transit: '4,5,6번 → 77 St',
     },
   
     '270-park-avenue': {
     name: '270 파크 애비뉴',
-      desc: `JPMorgan Chase의 새로운 글로벌 본사로, Skidmore, Owings & Merrill(SOM)의 David Childs가 설계한 60층 1,401피트 사무용 타워로 2023년 완공되었다. 유리와 스테인리스 스틸 파사드가 Lever House와 Seagram Building을 참고하면서도 Park Avenue의 새로운 사무용 건축 원형을 수립한다.`,
+      desc: `JPMorgan Chase의 새로운 글로벌 본사로, Skidmore, Owings & Merrill(SOM)의 David Childs가 설계한 60층 1,401피트 사무용 타워로 2023년 완공되었습니다. 유리와 스테인리스 스틸 파사드가 Lever House와 Seagram Building을 참고하면서도 Park Avenue의 새로운 사무용 건축 원형을 수립합니다.`,
       hood: 'Midtown East / Park Avenue',
       transit: '4,5,6번 → 42 St–Grand Central',
       admission: '상업용 사무 건물',
@@ -787,14 +787,14 @@ const LOCS_KO_NEW_YORK = {
   
     '28-liberty': {
     name: '28 리버티 스트릿',
-      desc: `원래 One Chase Manhattan Plaza로 알려진 28 Liberty Street는 Skidmore, Owings & Merrill의 Gordon Bunshaft가 설계한 60층 813피트 사무용 타워로 1961년 완공되었다. 광장의 함몰된 공개 중정과 Isamu Noguchi 분수는 기업 건축과 공개 공간의 관계를 혁명적으로 변화시켰다.`,
+      desc: `원래 One Chase Manhattan Plaza로 알려진 28 Liberty Street는 Skidmore, Owings & Merrill의 Gordon Bunshaft가 설계한 60층 813피트 사무용 타워로 1961년 완공되었습니다. 광장의 함몰된 공개 중정과 Isamu Noguchi 분수는 기업 건축과 공개 공간의 관계를 혁명적으로 변화시켰다.`,
       hood: 'Financial District',
       transit: '2,3번 → Park Pl · J,Z번 → Fulton St',
     },
   
     '3-wtc': {
     name: '3 월드 트레이드 센터',
-      desc: `Rogers Stirk Harbour + Partners의 Richard Rogers가 설계한 80층 1,079피트 사무용 타워로 2018년 완공되었다. 특유의 대각선 교차 보강재가 있는 날렵한 결정형 형태가 재건된 World Trade Center 부지에서 구별되는 특징을 보여준다.`,
+      desc: `Rogers Stirk Harbour + Partners의 Richard Rogers가 설계한 80층 1,079피트 사무용 타워로 2018년 완공되었습니다. 특유의 대각선 교차 보강재가 있는 날렵한 결정형 형태가 재건된 World Trade Center 부지에서 구별되는 특징을 보여줍니다.`,
       hood: 'Financial District / World Trade Center',
       transit: 'E번 → World Trade Center · 2,3번 → Park Pl',
       admission: '상업용 사무 건물',
@@ -802,21 +802,21 @@ const LOCS_KO_NEW_YORK = {
   
     '30-park-place': {
     name: '30 파크 플레이스',
-      desc: `Robert A.M. Stern Architects(RAMSA)가 설계한 82층 926피트 슈퍼톨로, 4층부터 36층까지는 Four Seasons Hotel이, 37층 이상은 주거용으로 구성되어 있으며 2020년 완공되었다. 우아한 석회석 파사드와 세트백, 테라스가 Tribeca의 역사적 기하학에 대응하면서도 Lower Manhattan 스카이라인의 새로운 아이콘을 수립한다.`,
+      desc: `Robert A.M. Stern Architects(RAMSA)가 설계한 82층 926피트 슈퍼톨로, 4층부터 36층까지는 Four Seasons Hotel이, 37층 이상은 주거용으로 구성되어 있으며 2020년 완공되었습니다. 우아한 석회석 파사드와 세트백, 테라스가 Tribeca의 역사적 기하학에 대응하면서도 Lower Manhattan 스카이라인의 새로운 아이콘을 수립합니다.`,
       hood: 'Tribeca / Financial District',
       transit: 'A,C,2,3번 → Chambers St',
     },
   
     '325-kent-williamsburg': {
     name: '325 켄트 윌리엄스버그',
-      desc: `SHoP Architects가 Williamsburg의 Domino Waterfront 개발의 주요 주거 요소로 설계한 16층 522개 단위 주거 건물로, 벽돌과 테라코타 파사드가 동네의 산업 건물을 참고하면서도 현대적 주거 설계를 구현한다.`,
+      desc: `SHoP Architects가 Williamsburg의 Domino Waterfront 개발의 주요 주거 요소로 설계한 16층 522개 단위 주거 건물로, 벽돌과 테라코타 파사드가 동네의 산업 건물을 참고하면서도 현대적 주거 설계를 구현합니다.`,
       hood: 'Williamsburg, Brooklyn',
       transit: 'L번 → Bedford Ave',
     },
   
     '35-hudson-yards': {
     name: '35 허드슨 야드',
-      desc: `Skidmore, Owings & Merrill(SOM)이 Hudson Yards 개발에서 가장 야심 찬 타워로, 68층 1,111피트 사무용 타워로 2018년 완공되었다. 특유의 셰브론 교차 보강 유리 파사드와 웅장한 비율이 개발의 중심에 강력한 존재감을 드러낸다.`,
+      desc: `Skidmore, Owings & Merrill(SOM)이 Hudson Yards 개발에서 가장 야심 찬 타워로, 68층 1,111피트 사무용 타워로 2018년 완공되었습니다. 특유의 셰브론 교차 보강 유리 파사드와 웅장한 비율이 개발의 중심에 강력한 존재감을 드러냅니다.`,
       hood: 'Hudson Yards',
       transit: '7번 → 34 St–Hudson Yards',
       admission: '상업용 사무 건물',
@@ -824,7 +824,7 @@ const LOCS_KO_NEW_YORK = {
   
     '383-madison-avenue': {
     name: '383 매디슨 애비뉴',
-      desc: `Skidmore, Owings & Merrill의 David Childs가 설계한 47층 755피트 사무용 타워로 1986년 완공되었다. 피라미드형 왕관과 화강암 클래딩의 포스트모던 설계가 1980년대 Park Avenue 상업 건축의 독특한 시점을 대표한다.`,
+      desc: `Skidmore, Owings & Merrill의 David Childs가 설계한 47층 755피트 사무용 타워로 1986년 완공되었습니다. 피라미드형 왕관과 화강암 클래딩의 포스트모던 설계가 1980년대 Park Avenue 상업 건축의 독특한 시점을 대표합니다.`,
       hood: 'Midtown East / Park Avenue',
       transit: '4,5,6번 → 42 St–Grand Central',
       admission: '상업용 사무 건물',
@@ -832,7 +832,7 @@ const LOCS_KO_NEW_YORK = {
   
     '4-wtc': {
     name: '4 월드 트레이드 센터',
-      desc: `Fumihiko Maki가 설계한 72층 977피트 사무용 타워로 2013년 완공되었다. 결정형 유리 형태와 웅장한 비율이 재건된 World Trade Center 부지에서 구별되는 특징을 드러낸다. 광범위한 지속 가능 설계 요소를 포함한다.`,
+      desc: `Fumihiko Maki가 설계한 72층 977피트 사무용 타워로 2013년 완공되었습니다. 결정형 유리 형태와 웅장한 비율이 재건된 World Trade Center 부지에서 구별되는 특징을 드러냅니다. 광범위한 지속 가능 설계 요소를 포함합니다.`,
       hood: 'Financial District / World Trade Center',
       transit: 'E번 → World Trade Center · 2,3번 → Park Pl',
       admission: '상업용 사무 건물',
@@ -840,14 +840,14 @@ const LOCS_KO_NEW_YORK = {
   
     '40-bond-street': {
     name: '40 본드 스트릿',
-      desc: `Herzog & de Meuron이 큐레이터 Ian Schrager를 위해 NoHo에 설계한 럭셔리 주거 건물로 2007년 완공되었다. 건물의 미니멀한 유리 파사드와 세련된 디테일이 lower Manhattan 주거 설계의 새로운 원형을 수립했다.`,
+      desc: `Herzog & de Meuron이 큐레이터 Ian Schrager를 위해 NoHo에 설계한 럭셔리 주거 건물로 2007년 완공되었습니다. 건물의 미니멀한 유리 파사드와 세련된 디테일이 lower Manhattan 주거 설계의 새로운 원형을 수립했다.`,
       hood: 'NoHo',
       transit: '6번 → Broadway–Lafayette',
     },
   
     '425-park-avenue': {
     name: '425 파크 애비뉴',
-      desc: `Skidmore, Owings & Merrill(SOM)의 David Childs가 설계하고 2020년 완공된 Park Avenue의 50년 만에 처음 지어진 풀블록 사무용 타워다. 특유의 주열식 파사드와 운율적 표현이 강력한 존재감을 드러내면서도 역사적 Park Avenue 거리벽을 존중한다.`,
+      desc: `Skidmore, Owings & Merrill(SOM)의 David Childs가 설계하고 2020년 완공된 Park Avenue의 50년 만에 처음 지어진 풀블록 사무용 타워다. 특유의 주열식 파사드와 운율적 표현이 강력한 존재감을 드러내면서도 역사적 Park Avenue 거리벽을 존중합니다.`,
       hood: 'Midtown East / Park Avenue',
       transit: '4,5,6번 → 42 St–Grand Central',
       admission: '상업용 사무 건물',
@@ -855,7 +855,7 @@ const LOCS_KO_NEW_YORK = {
   
     '50-hudson-yards': {
     name: '50 허드슨 야드',
-      desc: `Foster + Partners가 설계한 58층 1,011피트 슈퍼톨 사무용 타워로 2021년 완공되었다. 날렵한 비율과 유리 파사드가 Hudson Yards 마스터플랜의 중심에 세련된 존재감을 드러낸다. 기반부에 공개 광장을 포함하며 새 세대 지속 가능 사무 건축을 대표한다.`,
+      desc: `Foster + Partners가 설계한 58층 1,011피트 슈퍼톨 사무용 타워로 2021년 완공되었습니다. 날렵한 비율과 유리 파사드가 Hudson Yards 마스터플랜의 중심에 세련된 존재감을 드러냅니다. 기반부에 공개 광장을 포함하며 새 세대 지속 가능 사무 건축을 대표합니다.`,
       hood: 'Hudson Yards',
       transit: '7번 → 34 St–Hudson Yards',
       admission: '상업용 사무 건물',
@@ -863,7 +863,7 @@ const LOCS_KO_NEW_YORK = {
   
     '520-park-avenue': {
     name: '520 파크 애비뉴',
-      desc: `Robert A.M. Stern Architects(RAMSA)가 Park Avenue와 60th Street 모서리에 설계한 54층 780피트 슈퍼톨로, 석회석 파사드와 세심한 비율의 세트백이 Park Avenue의 역사적 특성에 대응하면서 초럭셔리 주거를 제공한다.`,
+      desc: `Robert A.M. Stern Architects(RAMSA)가 Park Avenue와 60th Street 모서리에 설계한 54층 780피트 슈퍼톨로, 석회석 파사드와 세심한 비율의 세트백이 Park Avenue의 역사적 특성에 대응하면서 초럭셔리 주거를 제공합니다.`,
       hood: 'Lenox Hill / Upper East Side',
       transit: '4,5,6번 → 59 St',
     },
@@ -877,14 +877,14 @@ const LOCS_KO_NEW_YORK = {
   
     '53w53': {
     name: '53W53 (MoMA 타워)',
-      desc: `53rd Street에 MoMA 인접한 82층 1,050피트 주거 슈퍼톨로, 특유의 대각선 격자 보강재와 역동적인 형태가 Midtown Manhattan의 새로운 문화 앵커 역할을 한다.`,
+      desc: `53rd Street에 MoMA 인접한 82층 1,050피트 주거 슈퍼톨로, 특유의 대각선 격자 보강재와 역동적인 형태가 Midtown Manhattan의 새로운 문화 앵커 역할을 합니다.`,
       hood: 'Midtown Manhattan',
       transit: 'E,M번 → 5 Av/53 St',
     },
   
     '55-hudson-yards': {
     name: '55 허드슨 야드',
-      desc: `Kohn Pedersen Fox(KPF)가 설계한 51층 780피트 사무용 타워로 2019년 완공되었다. 결정형 유리 파사드와 웅장한 비율이 Hudson Yards 개발의 중심에 강력한 존재감을 드러낸다. 기반부에 광범위한 공개 편의시설을 포함한다.`,
+      desc: `Kohn Pedersen Fox(KPF)가 설계한 51층 780피트 사무용 타워로 2019년 완공되었습니다. 결정형 유리 파사드와 웅장한 비율이 Hudson Yards 개발의 중심에 강력한 존재감을 드러냅니다. 기반부에 광범위한 공개 편의시설을 포함합니다.`,
       hood: 'Hudson Yards',
       transit: '7번 → 34 St–Hudson Yards',
       admission: '상업용 사무 건물',
@@ -900,7 +900,7 @@ const LOCS_KO_NEW_YORK = {
   
     '611-west-56th': {
     name: '611 웨스트 56 스트릿',
-      desc: `Herzog & de Meuron이 Hell\'s Kitchen에 설계한 럭셔리 주거 건물로 2018년 완공되었다. 특유의 파사드와 세심한 비율 설계가 West Side의 빠르게 변화하는 특성에 대응한다.`,
+      desc: `Herzog & de Meuron이 Hell\'s Kitchen에 설계한 럭셔리 주거 건물로 2018년 완공되었습니다. 특유의 파사드와 세심한 비율 설계가 West Side의 빠르게 변화하는 특성에 대응합니다.`,
       hood: 'Hell\'s Kitchen',
       transit: 'A,C,E번 → 42 St–Port Authority',
     },
@@ -915,14 +915,14 @@ const LOCS_KO_NEW_YORK = {
   
     '70-vestry': {
     name: '70 베스트리 스트릿',
-      desc: `Robert A.M. Stern Architects(RAMSA)가 2018년 완공한 Tribeca의 14층 수변 주거 건물로, 하얀색 벽돌 파사드와 세심한 창문 배치가 동네의 로프트 지구 특성을 존중하면서 강변 전망의 현대적 럭셔리 주거를 제공한다.`,
+      desc: `Robert A.M. Stern Architects(RAMSA)가 2018년 완공한 Tribeca의 14층 수변 주거 건물로, 하얀색 벽돌 파사드와 세심한 창문 배치가 동네의 로프트 지구 특성을 존중하면서 강변 전망의 현대적 럭셔리 주거를 제공합니다.`,
       hood: 'Tribeca',
       transit: '1번 → Franklin St',
     },
   
     '8-spruce-street': {
     name: '8 스프루스 스트릿',
-      desc: `Frank Gehry가 설계한 76층 870피트 주거 타워로 2011년 완공되어 "New York by Gehry"로 마케팅되었다. 특유의 스테인리스 스틸 메시 파사드와 조각적 형태가 lower Manhattan에서 아이콘적 존재감을 드러낸다.`,
+      desc: `Frank Gehry가 설계한 76층 870피트 주거 타워로 2011년 완공되어 "New York by Gehry"로 마케팅되었습니다. 특유의 스테인리스 스틸 메시 파사드와 조각적 형태가 lower Manhattan에서 아이콘적 존재감을 드러냅니다.`,
       hood: 'Financial District',
       transit: '2,3번 → Park Pl · J,Z번 → Fulton St',
       admission: '주거 건물 · 외관 24시간 관찰 가능',
@@ -955,35 +955,35 @@ const LOCS_KO_NEW_YORK = {
   
     'bellemont': {
     name: '더 벨레몬트',
-      desc: `Robert A.M. Stern Architects(RAMSA)가 2022년 완공한 1165 Madison Avenue의 혼합용도 건물로 럭셔리 주거와 1층 소매점 및 문화 공간을 결합한다. 석회석 파사드와 세심한 세트백이 Upper East Side 역사적 맥락에 대응한다.`,
+      desc: `Robert A.M. Stern Architects(RAMSA)가 2022년 완공한 1165 Madison Avenue의 혼합용도 건물로 럭셔리 주거와 1층 소매점 및 문화 공간을 결합합니다. 석회석 파사드와 세심한 세트백이 Upper East Side 역사적 맥락에 대응합니다.`,
       hood: 'Upper East Side / Carnegie Hill',
       transit: '4,5,6번 → 86 St',
     },
   
     'brompton': {
     name: '더 브롬튼',
-      desc: `Robert A.M. Stern Architects(RAMSA)가 2005년 완공한 24층 럭셔리 주거 건물로, 적색 벽돌과 석회석 디테일이 Upper East Side의 세련된 주거 구성을 이룬다.`,
+      desc: `Robert A.M. Stern Architects(RAMSA)가 2005년 완공한 24층 럭셔리 주거 건물로, 적색 벽돌과 석회석 디테일이 Upper East Side의 세련된 주거 구성을 이룹니다.`,
       hood: 'Upper East Side',
       transit: '4,5,6번 → 86 St',
     },
   
     'brooklyn-point': {
     name: '더 브루클린 포인트',
-      desc: `Kohn Pedersen Fox(KPF)가 설계한 68층 720피트 주거 마천루로 2021년 완공되었다. 우아한 매스감과 세트백, 테라스가 Downtown Brooklyn에서 구별되는 존재감을 드러낸다.`,
+      desc: `Kohn Pedersen Fox(KPF)가 설계한 68층 720피트 주거 마천루로 2021년 완공되었습니다. 우아한 매스감과 세트백, 테라스가 Downtown Brooklyn에서 구별되는 존재감을 드러냅니다.`,
       hood: 'Downtown Brooklyn',
       transit: 'A,C,F,R번 → Jay St–MetroTech',
     },
   
     'brooklyn-tower': {
     name: '더 브루클린 타워',
-      desc: `SHoP Architects가 설계한 93층 1,066피트 주거 타워로 2020년 완공되어 Brooklyn 최초의 슈퍼톨 마천루다. 특유의 아치형 왕관과 결정형 유리 파사드가 Downtown Brooklyn 스카이라인에 아이콘적 존재감을 드러낸다.`,
+      desc: `SHoP Architects가 설계한 93층 1,066피트 주거 타워로 2020년 완공되어 Brooklyn 최초의 슈퍼톨 마천루다. 특유의 아치형 왕관과 결정형 유리 파사드가 Downtown Brooklyn 스카이라인에 아이콘적 존재감을 드러냅니다.`,
       hood: 'Downtown Brooklyn',
       transit: 'A,C,F,R번 → Jay St–MetroTech',
     },
   
     'campbell-sports-center': {
     name: '캠벨 스포츠 센터',
-      desc: `Steven Holl이 2022년 완공한 Columbia University Baker Athletics Complex의 Inwood 캠퍼스의 Campbell Sports Center로, 흰색 콘크리트의 폴딩 형태 파사드가 Holl의 프로그램과 부지 맥락에 대한 특성 있는 접근을 반영한다.`,
+      desc: `Steven Holl이 2022년 완공한 Columbia University Baker Athletics Complex의 Inwood 캠퍼스의 Campbell Sports Center로, 흰색 콘크리트의 폴딩 형태 파사드가 Holl의 프로그램과 부지 맥락에 대한 특성 있는 접근을 반영합니다.`,
       hood: 'Inwood, Manhattan',
       transit: 'A번 → 181 St',
       admission: 'Columbia University 운동 시설',
@@ -991,14 +991,14 @@ const LOCS_KO_NEW_YORK = {
   
     'chatham-65th': {
     name: '더 챗뜸',
-      desc: `Robert A.M. Stern Architects(RAMSA)의 초기 주요 럭셔리 주거 건물 중 하나로 2001년 완공되었다. 석회석 파사드와 세심한 비율이 Upper East Side 역사적 특성을 존중하면서 현대적 주거 프로그램을 도입한다.`,
+      desc: `Robert A.M. Stern Architects(RAMSA)의 초기 주요 럭셔리 주거 건물 중 하나로 2001년 완공되었습니다. 석회석 파사드와 세심한 비율이 Upper East Side 역사적 특성을 존중하면서 현대적 주거 프로그램을 도입합니다.`,
       hood: 'Upper East Side',
       transit: '6번 → 68 St–Hunter College',
     },
   
     'fit-joyce-brown-building': {
     name: '조이스 F 브라운 학술 빌딩',
-      desc: `Skidmore, Owings & Merrill(SOM)이 2021년 완공한 Fashion Institute of Technology의 종합 신규 학사 건물로, 유리와 스틸 파사드가 Fashion District에서 현대적 존재감을 드러낸다.`,
+      desc: `Skidmore, Owings & Merrill(SOM)이 2021년 완공한 Fashion Institute of Technology의 종합 신규 학사 건물로, 유리와 스틸 파사드가 Fashion District에서 현대적 존재감을 드러냅니다.`,
       hood: 'Chelsea / Fashion District',
       transit: 'A,C,E번 → 14 St',
       admission: '학사 건물 · 제한된 공개 접근',
@@ -1006,7 +1006,7 @@ const LOCS_KO_NEW_YORK = {
   
     'frederic-malle': {
     name: '에디션 드 파퓨 프레데릭 말',
-      desc: `Steven Holl이 2008년 완공한 SoHo West Broadway의 Frédéric Malle 부티크로, 스토어프론트의 미니멀 유리와 대리석 구성이 거리와 내부 갤러리 공간 사이 절묘한 인터페이스를 창조한다.`,
+      desc: `Steven Holl이 2008년 완공한 SoHo West Broadway의 Frédéric Malle 부티크로, 스토어프론트의 미니멀 유리와 대리석 구성이 거리와 내부 갤러리 공간 사이 절묘한 인터페이스를 창조합니다.`,
       hood: 'SoHo',
       transit: 'C,E번 → Spring St',
       admission: '소매 부티크 · 업무 시간 중 개방',
@@ -1014,7 +1014,7 @@ const LOCS_KO_NEW_YORK = {
   
     'grand-concourse': {
     name: '그랜드 콩코스 역사 지구',
-      desc: `Champs-Élysées를 모델로 한 Bronx의 4.5마일 대로로 국내에서 손꼽히는 Art Deco 건물 집중지가 있다. Louis J. Heintz의 비전으로 1909년에서 1950년 사이에 완공되었으며, 나무가 심어진 중앙 분리대와 주거 타워가 20세기 초 도시 계획의 주요 성취를 나타낸다.`,
+      desc: `Champs-Élysées를 모델로 한 Bronx의 4.5마일 대로로 국내에서 손꼽히는 Art Deco 건물 집중지가 있습니다. Louis J. Heintz의 비전으로 1909년에서 1950년 사이에 완공되었으며, 나무가 심어진 중앙 분리대와 주거 타워가 20세기 초 도시 계획의 주요 성취를 나타냅니다.`,
       hood: 'Grand Concourse, Bronx',
       transit: '2,5번 → Grand Concourse–149 St',
       admission: '공개 역사지구 · 외관 관찰 가능',
@@ -1022,7 +1022,7 @@ const LOCS_KO_NEW_YORK = {
   
     'higgins-hall': {
     name: '히긴스 홀',
-      desc: `Steven Holl Architects이 2021년 완공한 Pratt Institute의 역사적 Higgins Hall 내부 삽입으로, 하얀색 콘크리트와 유리 파사드가 역사적 브루탈리즘 구조와 대화를 이루면서 새로운 스튜디오와 강의실 공간을 제공한다.`,
+      desc: `Steven Holl Architects이 2021년 완공한 Pratt Institute의 역사적 Higgins Hall 내부 삽입으로, 하얀색 콘크리트와 유리 파사드가 역사적 브루탈리즘 구조와 대화를 이루면서 새로운 스튜디오와 강의실 공간을 제공합니다.`,
       hood: 'Clinton Hill, Brooklyn',
       transit: 'G번 → Clinton–Washington Aves',
       admission: '학사 건물 · 외관 관찰 가능',
@@ -1030,7 +1030,7 @@ const LOCS_KO_NEW_YORK = {
   
     'hunters-point-library': {
     name: '헌터스 포인트 커뮤니티 라이브러리',
-      desc: `Steven Holl이 2019년 완공한 Long Island City의 Hunters Point의 공개 도서관으로, 구리 클래딩 파사드와 내부 공간 특성에 따라 변하는 개구부가 수변에서 아이콘적 존재감을 드러낸다.`,
+      desc: `Steven Holl이 2019년 완공한 Long Island City의 Hunters Point의 공개 도서관으로, 구리 클래딩 파사드와 내부 공간 특성에 따라 변하는 개구부가 수변에서 아이콘적 존재감을 드러냅니다.`,
       hood: 'Hunters Point, Long Island City, Queens',
       transit: 'N,W번 → Queensboro Plaza',
       admission: '공개 도서관 · 무료',
@@ -1038,7 +1038,7 @@ const LOCS_KO_NEW_YORK = {
   
     'kips-bay-towers': {
     name: '킵스 베이 타워',
-      desc: `I.M. Pei와 S. Ogden이 설계하고 1965년 완공한 21층 철근 콘크리트 주거 슬래브 쌍으로, 특유의 캔틸레버 요소가 East River 수변에서 랜드마크 구성을 드러낸다.`,
+      desc: `I.M. Pei와 S. Ogden이 설계하고 1965년 완공한 21층 철근 콘크리트 주거 슬래브 쌍으로, 특유의 캔틸레버 요소가 East River 수변에서 랜드마크 구성을 드러냅니다.`,
       hood: 'Kips Bay',
       transit: '4,5,6번 → 33 St',
       admission: '주거 건물 · 외관 관찰 가능',
@@ -1046,7 +1046,7 @@ const LOCS_KO_NEW_YORK = {
   
     'little-island': {
     name: '리틀 아일랜드',
-      desc: `Heatherwick Studio와 MNLA(Mathews Nielsen Landscape Architects)가 설계하고 2021년 5월 완공한 former Pier 55 부지의 Hudson River 떠있는 공개 공원으로, 높이와 폭이 다양한 132개의 튤립 모양 콘크리트 기둥 위에 부드럽게 파도치는 식재 지형이 떠 있다.`,
+      desc: `Heatherwick Studio와 MNLA(Mathews Nielsen Landscape Architects)가 설계하고 2021년 5월 완공한 former Pier 55 부지의 Hudson River 떠있는 공개 공원으로, 높이와 폭이 다양한 132개의 튤립 모양 콘크리트 기둥 위에 부드럽게 파도치는 식재 지형이 떠 있습니다.`,
       hood: 'Meatpacking District / West Village',
       transit: 'A,C,E,L번 → 14 St (8 Ave or 8 St) · Path → 14 St',
       hours: '매일 오전 6시~오후 11시 (계절별 변동)',
@@ -1055,7 +1055,7 @@ const LOCS_KO_NEW_YORK = {
   
     'lvmh-tower': {
     name: 'LVMH 타워',
-      desc: `Peter Marino가 설계하고 2012년 완공한 19 East 57th Street의 LVMH 타워로 Louis Vuitton 뉴욕 플래그십과 럭셔리 소매, 사무, 주거 공간을 혼합한다. 극적인 유리 파사드와 건축 규모가 57th Street에서 강력한 존재감을 드러낸다.`,
+      desc: `Peter Marino가 설계하고 2012년 완공한 19 East 57th Street의 LVMH 타워로 Louis Vuitton 뉴욕 플래그십과 럭셔리 소매, 사무, 주거 공간을 혼합합니다. 극적인 유리 파사드와 건축 규모가 57th Street에서 강력한 존재감을 드러냅니다.`,
       hood: 'Midtown Manhattan',
       transit: 'F,M번 → 57 St',
       admission: '소매 및 상업 건물',
@@ -1063,21 +1063,21 @@ const LOCS_KO_NEW_YORK = {
   
     'madison-square-park-tower': {
     name: '매디슨 스퀘어 파크 타워',
-      desc: `Rafael Viñoly가 설계한 65층 777피트 주거 마천루로 2021년 완공되었다. 우아한 비율과 특유의 삼각형 형태가 Madison Square Park 근처에서 세련된 존재감을 드러낸다.`,
+      desc: `Rafael Viñoly가 설계한 65층 777피트 주거 마천루로 2021년 완공되었습니다. 우아한 비율과 특유의 삼각형 형태가 Madison Square Park 근처에서 세련된 존재감을 드러냅니다.`,
       hood: 'Flatiron / Gramercy',
       transit: 'N,R,W번 → 23 St',
     },
   
     'metal-shutter-houses': {
     name: '메탈 셔터 하우스',
-      desc: `Herzog & de Meuron이 2012년 완공한 150 Eleventh Avenue의 12층 럭셔리 주거 건물로, 특유의 금속 셔터 파사드가 West Chelsea의 High Line을 따라 동적 시각 존재감을 창조한다.`,
+      desc: `Herzog & de Meuron이 2012년 완공한 150 Eleventh Avenue의 12층 럭셔리 주거 건물로, 특유의 금속 셔터 파사드가 West Chelsea의 High Line을 따라 동적 시각 존재감을 창조합니다.`,
       hood: 'West Chelsea',
       transit: 'A,C,E,L번 → 14 St',
     },
   
     'morgan-library': {
     name: '모건 라이브러리 & 뮤지엄',
-      desc: `은행가 J.P. Morgan을 위해 1902년에 지어진 희귀 도서, 원고, 구거장 그림의 세계적 저장소로, 2006년에 Renzo Piano가 새로운 현대 유리 파빌리온과 경사로로 확장하여 역사적 건물과 현대 요소의 무결한 통합을 이룬다.`,
+      desc: `은행가 J.P. Morgan을 위해 1902년에 지어진 희귀 도서, 원고, 구거장 그림의 세계적 저장소로, 2006년에 Renzo Piano가 새로운 현대 유리 파빌리온과 경사로로 확장하여 역사적 건물과 현대 요소의 무결한 통합을 이룹니다.`,
       hood: 'Murray Hill / Midtown',
       transit: '4,5,6번 → 33 St',
       hours: '화~금 오전 10시 30분~오후 5시 · 토 오전 10시~오후 6시 · 일 정오~오후 6시 · 월 휴무',
@@ -1094,14 +1094,14 @@ const LOCS_KO_NEW_YORK = {
   
     'mulberry-house': {
     name: '290 멀베리 스트릿',
-      desc: `SHoP Architects가 2019년 완공한 NoLita의 290 Mulberry Street의 12층 렌탈 타워로, 벽돌과 테라코타 파사드가 동네의 역사적 특성을 참고하면서 현대적 주거 설계를 구현한다.`,
+      desc: `SHoP Architects가 2019년 완공한 NoLita의 290 Mulberry Street의 12층 렌탈 타워로, 벽돌과 테라코타 파사드가 동네의 역사적 특성을 참고하면서 현대적 주거 설계를 구현합니다.`,
       hood: 'NoLita',
       transit: '6번 → Spring St',
     },
   
     'one-manhattan-west': {
     name: '원 맨해튼 웨스트',
-      desc: `Skidmore, Owings & Merrill(SOM)이 설계한 67층 995피트 사무용 슈퍼톨로 2020년 완공되었다. 날렵한 비율과 혁신적 파사드 시스템이 Hudson Yards로의 관문에서 강력한 존재감을 드러낸다.`,
+      desc: `Skidmore, Owings & Merrill(SOM)이 설계한 67층 995피트 사무용 슈퍼톨로 2020년 완공되었습니다. 날렵한 비율과 혁신적 파사드 시스템이 Hudson Yards로의 관문에서 강력한 존재감을 드러냅니다.`,
       hood: 'Hudson Yards / Midtown West',
       transit: 'A,C,E번 → 42 St–Port Authority',
       admission: '상업용 사무 건물',
@@ -1109,7 +1109,7 @@ const LOCS_KO_NEW_YORK = {
   
     'perry-street-towers': {
     name: '페리 스트릿 타워',
-      desc: `Herzog & de Meuron이 2002년에서 2014년 사이 West Village에 설계한 일련의 모든 유리와 하얀색 패널 주거 건물로, 미니멀한 미학과 세심한 비율이 Hudson River 수변을 따라 세련된 구성을 이룬다.`,
+      desc: `Herzog & de Meuron이 2002년에서 2014년 사이 West Village에 설계한 일련의 모든 유리와 하얀색 패널 주거 건물로, 미니멀한 미학과 세심한 비율이 Hudson River 수변을 따라 세련된 구성을 이룹니다.`,
       hood: 'West Village',
       transit: '1번 → Christopher St–Sheridan Sq',
     },
@@ -1131,7 +1131,7 @@ const LOCS_KO_NEW_YORK = {
   
     'prada-epicenter': {
     name: '프라다 에피센터 소호',
-      desc: `OMA(Rem Koolhaas)가 설계하고 2001년 개장한 SoHo의 Prada Epicenter로 럭셔리 소매와 브랜드 플래그십 공간을 위한 새로운 원형을 수립했다. 스토어프론트의 파동 유리 파사드와 극적 이층 높이 내부가 Koolhaas의 상업 설계에 대한 급진적 접근을 대표한다.`,
+      desc: `OMA(Rem Koolhaas)가 설계하고 2001년 개장한 SoHo의 Prada Epicenter로 럭셔리 소매와 브랜드 플래그십 공간을 위한 새로운 원형을 수립했다. 스토어프론트의 파동 유리 파사드와 극적 이층 높이 내부가 Koolhaas의 상업 설계에 대한 급진적 접근을 대표합니다.`,
       hood: 'SoHo',
       transit: 'N,R,W번 → Prince St',
       admission: '소매 부티크 · 업무 시간 중 개방',
@@ -1139,7 +1139,7 @@ const LOCS_KO_NEW_YORK = {
   
     'public-hotel': {
     name: 'PUBLIC 호텔',
-      desc: `Herzog & de Meuron이 Ian Schrager를 위해 Lower East Side에 설계한 367실 호텔로 2020년 완공되었다. 특유의 유리와 황동 파사드와 혁신적 내부 공간이 contemporary 호스피탈리티 설계의 새로운 모델을 수립한다.`,
+      desc: `Herzog & de Meuron이 Ian Schrager를 위해 Lower East Side에 설계한 367실 호텔로 2020년 완공되었습니다. 특유의 유리와 황동 파사드와 혁신적 내부 공간이 contemporary 호스피탈리티 설계의 새로운 모델을 수립합니다.`,
       hood: 'Lower East Side',
       transit: 'F,M번 → 2 Av',
       admission: '호텔 · 객실 및 1층 다이닝/소매',
@@ -1147,7 +1147,7 @@ const LOCS_KO_NEW_YORK = {
   
     'silver-towers': {
     name: '실버 타워',
-      desc: `I.M. Pei가 1965년 완공한 세 개의 30층 타워 복합으로 New York University의 주거 복합체로, 모더니즘 설계와 특유의 조각적 형태 및 주요 공개 광장을 특징으로 한다.`,
+      desc: `I.M. Pei가 1965년 완공한 세 개의 30층 타워 복합으로 New York University의 주거 복합체로, 모더니즘 설계와 특유의 조각적 형태 및 주요 공개 광장을 특징으로 합니다.`,
       hood: 'Greenwich Village / NoHo',
       transit: '6번 → Broadway–Lafayette',
     },
@@ -1162,14 +1162,14 @@ const LOCS_KO_NEW_YORK = {
   
     'steinway-tower': {
     name: '스타인웨이 타워',
-      desc: `111 West 57th Street의 Steinway Tower는 20대1의 높이 대 폭 비율을 가진 세계에서 가장 가느다란 슈퍼톨 마천루로 SOM이 설계하고 2020년 완공되었다. 극도의 날렵함과 혁신적 엔지니어링이 슈퍼톨 주거 설계의 새로운 원형을 수립한다.`,
+      desc: `111 West 57th Street의 Steinway Tower는 20대1의 높이 대 폭 비율을 가진 세계에서 가장 가느다란 슈퍼톨 마천루로 SOM이 설계하고 2020년 완공되었습니다. 극도의 날렵함과 혁신적 엔지니어링이 슈퍼톨 주거 설계의 새로운 원형을 수립합니다.`,
       hood: 'Midtown / Billionaires\' Row',
       transit: 'A,B,C,D번 → 59 St–Columbus Circle',
     },
   
     'storefront-art-arch': {
     name: '스토어프론트 포 아트 앤 아키텍처',
-      desc: `Steven Holl이 1993년에 완전히 개조한 1920년대 역사적 스토어프론트 내의 뉴욕의 가장 사랑받는 소규모 현대 미술 갤러리로, 갤러리의 회전 유리와 스틸 파사드가 거리와 내부 갤러리 공간 사이 고유한 임계값을 창조한다.`,
+      desc: `Steven Holl이 1993년에 완전히 개조한 1920년대 역사적 스토어프론트 내의 뉴욕의 가장 사랑받는 소규모 현대 미술 갤러리로, 갤러리의 회전 유리와 스틸 파사드가 거리와 내부 갤러리 공간 사이 고유한 임계값을 창조합니다.`,
       hood: 'Nolita / SoHo',
       transit: '6번 → Spring St',
       admission: '갤러리 · 무료 입장',
@@ -1177,7 +1177,7 @@ const LOCS_KO_NEW_YORK = {
   
     'sugar-hill-museum': {
     name: '슈거 힐 아이 뮤지엄',
-      desc: `Harlem의 1881년 Victorian Jumel Terrace 저택의 1층과 지층을 차지하는 Sugar Hill Children\'s Museum of Art and Storytelling으로 아프리카계 미국인 유산과 스토리텔링 전통을 기념하는 대화형 미술 설치와 문화 프로그래밍을 특징으로 한다.`,
+      desc: `Harlem의 1881년 Victorian Jumel Terrace 저택의 1층과 지층을 차지하는 Sugar Hill Children\'s Museum of Art and Storytelling으로 아프리카계 미국인 유산과 스토리텔링 전통을 기념하는 대화형 미술 설치와 문화 프로그래밍을 특징으로 합니다.`,
       hood: 'Sugar Hill, Harlem',
       transit: '1,A번 → 145 St',
       hours: '목~금 오후 3시~오후 6시 · 토~일 오전 10시~오후 5시',
@@ -1186,21 +1186,21 @@ const LOCS_KO_NEW_YORK = {
   
     'superior-ink': {
     name: '수페리어 잉크',
-      desc: `Robert A.M. Stern Architects(RAMSA)가 2010년 완공한 former Superior Ink Factory 부지의 West Village 혼합소득 주거 복합으로 럭셔리 콘도와 저가격 단위를 결합하고 역사적 산업 구조의 복원 요소를 포함한다.`,
+      desc: `Robert A.M. Stern Architects(RAMSA)가 2010년 완공한 former Superior Ink Factory 부지의 West Village 혼합소득 주거 복합으로 럭셔리 콘도와 저가격 단위를 결합하고 역사적 산업 구조의 복원 요소를 포함합니다.`,
       hood: 'West Village',
       transit: '1번 → 14 St',
     },
   
     'two-waterline-square': {
     name: '투 워터라인 스퀘어',
-      desc: `Kohn Pedersen Fox(KPF)가 설계한 37층 럭셔리 주거 타워로 2020년 완공되었다. Upper West Side의 Riverside South 개발 일부이며 테라스 세트백과 강 전망을 가진 지속 가능 설계를 특징으로 한다.`,
+      desc: `Kohn Pedersen Fox(KPF)가 설계한 37층 럭셔리 주거 타워로 2020년 완공되었습니다. Upper West Side의 Riverside South 개발 일부이며 테라스 세트백과 강 전망을 가진 지속 가능 설계를 특징으로 합니다.`,
       hood: 'Upper West Side / Riverside Center',
       transit: '1,A,B,C번 → 59 St–Columbus Circle',
     },
   
     'urban-glass-house': {
     name: '어반 글래스 하우스',
-      desc: `Hudson Square의 Philip Johnson의 뉴욕시 마지막 완공 작품으로 Debra Berke의 복원과 확장으로 2017년 완공되었다. 미니멀 유리와 스틸 구성이 Johnson의 후기 모더니스트 미학을 보여주며 예술가 레지던스로 활용된다.`,
+      desc: `Hudson Square의 Philip Johnson의 뉴욕시 마지막 완공 작품으로 Debra Berke의 복원과 확장으로 2017년 완공되었습니다. 미니멀 유리와 스틸 구성이 Johnson의 후기 모더니스트 미학을 보여주며 예술가 레지던스로 활용됩니다.`,
       hood: 'Hudson Square',
       transit: '1번 → Canal St',
       admission: '개인 예술가 레지던스 · 외관 관찰 가능',
@@ -1208,7 +1208,7 @@ const LOCS_KO_NEW_YORK = {
   
     'vessel-hudson-yards': {
     name: 'vessel-hudson-yards',
-      desc: `Thomas Heatherwick가 설계하고 2019년 3월 완공한 Hudson Yards 중심부의 16층 공개 등반 가능 구조로, 154개의 맞물린 계단—2,500 계단과 80 플랫폼—이 중앙 욕실 주위에 배열되어 풍화 강철의 벌집 같은 격자를 형성한다.`,
+      desc: `Thomas Heatherwick가 설계하고 2019년 3월 완공한 Hudson Yards 중심부의 16층 공개 등반 가능 구조로, 154개의 맞물린 계단—2,500 계단과 80 플랫폼—이 중앙 욕실 주위에 배열되어 풍화 강철의 벌집 같은 격자를 형성합니다.`,
       hood: 'Hudson Yards, West Side',
       transit: '7번 → 34 St–Hudson Yards',
       hours: '매일 오전 10시~오후 8시 (마지막 입장 오후 7시 15분)',
@@ -1217,7 +1217,7 @@ const LOCS_KO_NEW_YORK = {
   
     'via-verde': {
     name: '비아 베르데',
-      desc: `Grimshaw Architects와 Dattner Architects가 설계한 South Bronx의 222개 단위 저가 주택 개발로, 2006년 New Housing New York Legacy Project 경쟁 우승작으로, 북쪽의 20층 타워에서 남쪽의 6층 도보 블록으로 내려가는 설계로 각 테라스 수준이 거주자에게 접근 가능한 생산성 지붕 정원을 지원한다.`,
+      desc: `Grimshaw Architects와 Dattner Architects가 설계한 South Bronx의 222개 단위 저가 주택 개발로, 2006년 New Housing New York Legacy Project 경쟁 우승작으로, 북쪽의 20층 타워에서 남쪽의 6층 도보 블록으로 내려가는 설계로 각 테라스 수준이 거주자에게 접근 가능한 생산성 지붕 정원을 지원합니다.`,
       hood: 'South Bronx',
       transit: '6번 → Brook Ave · 2,3번 → 149 St–Grand Concourse',
       hours: '외부 및 공동 정원: 낮시간',
@@ -1226,7 +1226,7 @@ const LOCS_KO_NEW_YORK = {
   
     'wave-hill': {
     name: '웨이브 힐',
-      desc: `Palisades의 광범위한 전망을 가진 Hudson River 위에 높이 솟은 28에이커 공개 정원으로 Theodore Roosevelt와 다른 저명 가족의 former 개인 저택이며 현재 전시, 공연, 원예 교육을 제공하는 선도적 문화 기관이다.`,
+      desc: `Palisades의 광범위한 전망을 가진 Hudson River 위에 높이 솟은 28에이커 공개 정원으로 Theodore Roosevelt와 다른 저명 가족의 former 개인 저택이며 현재 전시, 공연, 원예 교육을 제공하는 선도적 문화 기관입니다.`,
       hood: 'Riverdale, Bronx',
       transit: 'A번 → 207 St · 1번 → 231 St (then walk or bus)',
       hours: '화~일 오전 9시~오후 5시 30분 · 월 휴무',
