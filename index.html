@@ -3237,18 +3237,17 @@ function startPinDrop() {
   document.getElementById('walk-gps-btn').classList.remove('active', 'locating');
 }
 
-// Shared person-on-dot icon for GPS + Pin markers.
-// Uses pedestrian Unicode character (U+1F6B6 + text variation selector) above a red dot.
+// Shared person-on-pin icon for GPS + Pin markers.
+// 𖨆 (Bamum figure) above 📍 pin emoji. iconAnchor = tip of 📍 = bottom-center of div.
 function _personMarkerIcon() {
   return L.divIcon({
-    html: '<div style="display:flex;flex-direction:column;align-items:center;pointer-events:none">' +
-            '<span style="font-size:40px;line-height:1;display:block;text-align:center;filter:grayscale(1) brightness(0);user-select:none">🚶🏻‍➡️</span>' +
-            '<div style="width:22px;height:22px;background:#EF4444;border:3px solid white;' +
-              'border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,0.4);margin-top:-2px"></div>' +
+    html: '<div style="display:flex;flex-direction:column;align-items:center;pointer-events:none;line-height:1">' +
+            '<span style="font-size:36px;display:block;text-align:center;filter:grayscale(1) brightness(0);user-select:none">𖨆</span>' +
+            '<span style="font-size:28px;display:block;text-align:center;line-height:1;user-select:none">📍</span>' +
           '</div>',
     className: '',
-    iconSize:  [44, 62],
-    iconAnchor:[22, 62]  // anchor = bottom of dot
+    iconSize:  [36, 64],
+    iconAnchor:[18, 64]  // anchor = tip of 📍 pin = bottom-center
   });
 }
 
