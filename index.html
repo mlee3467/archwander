@@ -2437,10 +2437,10 @@ function buildDirectionsTab(loc, trans = {}) {
   const walkFrom = trans.walkFrom || loc.walkFrom;
   const showWalkBtn = nearMeActive && walkOrigin;
   return `
-    <div class="info-row"><span class="info-label">${t('subway')}</span><span class="info-val">${transit}</span></div>
-    ${loc.walkFrom ? `<div class="info-row"><span class="info-label">${t('nearby')}</span><span class="info-val">${walkFrom}</span></div>` : ''}
     ${showWalkBtn ? `<button class="btn-walk-route" onclick="triggerWalkingRoute()">🚶 Walking Path</button>` : ''}
-    <div class="btns" style="margin-top:${showWalkBtn ? '8' : '18'}px">
+    <div class="info-row" style="margin-top:${showWalkBtn ? '12' : '0'}px"><span class="info-label">${t('subway')}</span><span class="info-val">${transit}</span></div>
+    ${loc.walkFrom ? `<div class="info-row"><span class="info-label">${t('nearby')}</span><span class="info-val">${walkFrom}</span></div>` : ''}
+    <div class="btns" style="margin-top:18px">
       <a href="${loc.gmaps}" target="_blank" rel="noopener" class="btn-p">${t('open_gmaps')}</a>
       <a href="https://maps.google.com/?q=${encodeURIComponent(loc.addr)}&layer=c" target="_blank" rel="noopener" class="btn-s">${t('sv_gmaps')}</a>
     </div>
@@ -3264,10 +3264,12 @@ function startPinDrop() {
 // Shared pin icon for GPS + Pin markers. Person emoji with red dot at feet.
 function _personMarkerIcon() {
   return L.divIcon({
-    html: '<span style="font-size:36px;line-height:1;display:block;text-align:center;pointer-events:none;user-select:none;filter:drop-shadow(0 2px 5px rgba(0,0,0,0.35))">📍</span>',
+    html: '<div style="position:relative;width:36px;height:40px;pointer-events:none;user-select:none">' +
+          '<span style="position:absolute;bottom:4px;left:0;right:0;text-align:center;font-size:36px;line-height:1;filter:drop-shadow(0 2px 5px rgba(0,0,0,0.35))">📍</span>' +
+          '</div>',
     className: '',
-    iconSize:  [36, 36],
-    iconAnchor:[18, 36]  // anchor = pin tip (bottom-center)
+    iconSize:  [36, 40],
+    iconAnchor:[18, 40]  // anchor = container bottom = pin tip
   });
 }
 
@@ -3437,6 +3439,11 @@ async function triggerWalkingRoute() {
   if (window.innerWidth <= 900 && result) {
     walkPathMode = true;
     document.getElementById('panel').classList.add('walk-path-mode');
+  }
+  // Fit map to show both pin origin and full route
+  if (result && walkRouteLine && walkOrigin) {
+    const bounds = walkRouteLine.getBounds().extend([walkOrigin.lat, walkOrigin.lng]);
+    map.fitBounds(bounds, { padding: [80, 80] });
   }
 }
 
