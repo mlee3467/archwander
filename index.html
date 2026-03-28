@@ -75,16 +75,15 @@
     /* ── Near Me button (header) ───────────────────────── */
     #near-me-btn {
       height: 34px; padding: 0 13px;
-      border: 1px solid var(--border); border-radius: 8px;
-      font-size: 12px; font-family: inherit; background: white;
+      border: 1px solid #3730A3; border-radius: 8px;
+      font-size: 12px; font-family: inherit; background: #4F46E5;
       cursor: pointer; display: flex; align-items: center; gap: 6px;
       white-space: nowrap; flex-shrink: 0; transition: all 0.2s;
-      color: var(--text-primary);
+      color: white; font-weight: 700;
     }
-    #near-me-btn:hover { border-color: #4F46E5; color: #4F46E5; }
-    #near-me-btn.active {
-      background: #4F46E5; border-color: #4F46E5; color: white;
-    }
+    #near-me-btn:hover { background: #4338CA; border-color: #312E81; }
+    #near-me-btn.active { background: #3730A3; border-color: #1e1b4b; }
+    .near-icon-mob { display: none; }
     @keyframes pulse-border { 0%,100%{opacity:1} 50%{opacity:0.5} }
     /* ── Walk bar (below header) ───────────────────────── */
     #walk-bar {
@@ -862,7 +861,10 @@
       header { height: 52px; padding: 0 12px; gap: 8px; }
       .logo-img { height: 32px; }
       .search-wrap { max-width: none; }
-      #near-me-btn span { display: none; } /* icon-only on mobile */
+      #near-me-btn .near-text { display: none; }  /* hide text on mobile */
+      #near-me-btn .near-icon-desk { display: none; } /* hide svg on mobile */
+      .near-icon-mob { display: inline; font-size: 17px; line-height: 1; font-weight: 700; } /* show ⊕ icon */
+      #near-me-btn { padding: 0 10px; gap: 0; } /* compact on mobile */
       #menu-btn { display: flex; order: -1; }
       #city-select-mobile { display: block; flex-shrink: 0; max-width: 110px; }
 
@@ -1217,10 +1219,11 @@
       <button id="btn-sat" onclick="setMapType('satellite')">Satellite</button>
     </div>
     <button id="near-me-btn" onclick="toggleNearMe()" title="Find architecture near a location">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="flex-shrink:0">
+      <svg class="near-icon-desk" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="flex-shrink:0">
         <circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>
       </svg>
-      <span>Find Near Me</span>
+      <span class="near-icon-mob">⊕</span>
+      <span class="near-text">Find Near Me</span>
     </button>
     <select id="city-select-mobile" onchange="selectCity(this.value)">
       <option value="nyc">New York</option>
@@ -1485,6 +1488,46 @@ function _loadLocsFromStorage() {
 let LOCS = _loadLocsFromStorage() || LOCS_DEFAULT.map(l => ({...l}));
 
 const state = { cat:'All', style:'All', era:'All', access:'All', arch:'All', sort:'default', query:'' };
+
+// ══════════════════════════════════════════════════════════════════
+// WIKIMEDIA LICENSE UTILITIES
+// ══════════════════════════════════════════════════════════════════
+const _wikiLicCache = {};
+function _wikiFilename(url) {
+  const m = url.match(/Special:FilePath\/([^?#]+)/);
+  if (m) return decodeURIComponent(m[1]);
+  const parts = url.split('/');
+  return decodeURIComponent(parts[parts.length - 1].replace(/^\d+px-/, ''));
+}
+async function fetchWikiLicense(url) {
+  const fn = _wikiFilename(url);
+  if (_wikiLicCache[fn]) return _wikiLicCache[fn];
+  try {
+    const res = await fetch(
+      `https://commons.wikimedia.org/w/api.php?action=query&titles=File:${encodeURIComponent(fn)}&prop=imageinfo&iiprop=extmetadata&format=json&origin=*`,
+      { mode: 'cors' }
+    );
+    const data = await res.json();
+    const page = Object.values(data.query?.pages || {})[0];
+    const meta = page?.imageinfo?.[0]?.extmetadata || {};
+    const license = meta.LicenseShortName?.value || '';
+    const artist = (meta.Artist?.value || meta.Credit?.value || '').replace(/<[^>]*>/g, '').trim().slice(0, 60);
+    const needsAttrib = /CC[ -]BY/i.test(license);
+    const result = { license, artist, needsAttrib };
+    _wikiLicCache[fn] = result;
+    return result;
+  } catch(e) { return { license: '?', artist: '', needsAttrib: false }; }
+}
+function _licBadgeHtml(lic) {
+  if (!lic || lic === '?') return '';
+  const u = lic.toUpperCase();
+  let bg, color;
+  if (/CC0|PUBLIC.?DOMAIN/i.test(u))     { bg='#dcfce7'; color='#166534'; }
+  else if (/CC.BY.SA|CC.BY-SA/i.test(u)) { bg='#fef3c7'; color='#92400e'; }
+  else if (/CC.BY/i.test(u))              { bg='#fee2e2'; color='#991b1b'; }
+  else                                     { bg='#f1f5f9'; color='#64748b'; }
+  return `<span style="display:inline-block;font-size:9px;font-weight:700;color:${color};background:${bg};padding:1px 5px;border-radius:3px;line-height:1.6;white-space:nowrap">${lic}</span>`;
+}
 
 // ══════════════════════════════════════════════════════════════════
 // CONFIG
@@ -2290,6 +2333,7 @@ function openLoc(loc) {
   loc.photos.forEach((src, i) => {
     const img = document.createElement('img');
     img.alt = loc.name;
+    img.dataset.photoUrl = src;
     if (i === 0) {
       // Load first image immediately
       img.src = photoUrl(src, isMob, 'gallery');
@@ -2305,6 +2349,7 @@ function openLoc(loc) {
   document.getElementById('g-dots').innerHTML =
     loc.photos.map((_, i) => `<div class="g-dot${i===0?' active':''}" onclick="gotoPhoto(${i})"></div>`).join('');
   updateGLabel();
+  applyPhotoAttribution(gallery, loc.photos);
 
   // Header
   const color = CAT_COLORS[loc.cat] || '#111';
@@ -2631,6 +2676,31 @@ function updateGLabel() {
 }
 function prevPhoto() { if (activeLoc) gotoPhoto((photoIdx - 1 + activeLoc.photos.length) % activeLoc.photos.length); }
 function nextPhoto() { if (activeLoc) gotoPhoto((photoIdx + 1) % activeLoc.photos.length); }
+async function applyPhotoAttribution(galleryEl, photos) {
+  if (!galleryEl || !photos) return;
+  const imgs = Array.from(galleryEl.querySelectorAll('img'));
+  for (let i = 0; i < imgs.length; i++) {
+    const img = imgs[i];
+    const url = img.dataset.photoUrl;
+    if (!url) continue;
+    try {
+      const lic = await fetchWikiLicense(url);
+      if (lic.needsAttrib && lic.artist) {
+        const container = img.parentElement || img;
+        if (container.style.position !== 'absolute' && container.style.position !== 'relative') {
+          container.style.position = 'relative';
+        }
+        const attribDiv = document.createElement('div');
+        attribDiv.className = 'photo-attrib';
+        attribDiv.style.cssText = 'position:absolute;bottom:4px;right:6px;background:rgba(0,0,0,0.45);color:#fff;font-size:9px;padding:2px 5px;border-radius:3px;pointer-events:none;max-width:70%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.5;z-index:10';
+        attribDiv.textContent = `© ${lic.artist.slice(0, 30)} · ${lic.license}`;
+        container.appendChild(attribDiv);
+      }
+    } catch(e) {
+      // Silently ignore fetch errors
+    }
+  }
+}
 
 // ══════════════════════════════════════════════════════════════════
 // LIGHTBOX
@@ -3181,8 +3251,8 @@ function startPinDrop() {
 function _personMarkerIcon() {
   return L.divIcon({
     html: '<div style="display:flex;flex-direction:column;align-items:center;pointer-events:none">' +
-            '<span style="font-size:60px;line-height:1;display:block;text-align:center;' +
-              'filter:drop-shadow(0 2px 4px rgba(0,0,0,0.45));user-select:none">🚶︎</span>' +
+            '<span style="font-size:40px;line-height:1;display:block;text-align:center;' +
+              'filter:grayscale(1) brightness(0) drop-shadow(0 1px 3px rgba(0,0,0,0.3));user-select:none">🚶︎</span>' +
             '<div style="width:26px;height:26px;background:#EF4444;border:4px solid white;' +
               'border-radius:50%;box-shadow:0 3px 8px rgba(0,0,0,0.4);margin-top:-6px"></div>' +
           '</div>',
