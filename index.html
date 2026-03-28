@@ -2222,6 +2222,7 @@ function buildFilters() {
 
   // Architect — scrollable list
   const archWrap = document.getElementById('body-arch');
+  archWrap.innerHTML = '';
   ['All', ...ARCHITECTS].forEach(a => {
     const b = document.createElement('button');
     b.className = 'arch-item' + (a === 'All' ? ' active' : '');
@@ -2234,6 +2235,7 @@ function buildFilters() {
 
 function buildChipGroup(containerId, items, key, labelFn, valueFn) {
   const wrap = document.getElementById(containerId);
+  wrap.innerHTML = '';
   items.forEach(item => {
     const b = document.createElement('button');
     b.className = 'chip' + (item === 'All' ? ' active' : '');
