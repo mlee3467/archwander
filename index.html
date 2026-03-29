@@ -2781,6 +2781,86 @@ let _agUtter    = null;
 let _agPlaying  = false;
 let _agPaused   = false;
 let _agLoaded   = null; // id of location whose script is rendered
+
+/* ── Background playback support ───────────────────────────────────────
+   Mobile browsers kill speechSynthesis when the screen turns off.
+   Three defenses:
+   1. Wake Lock API  — prevents auto-sleep while audio plays
+   2. Silent <audio> — maintains browser audio session in background
+   3. visibilitychange — detects interrupted speech and auto-resumes
+   ──────────────────────────────────────────────────────────────────── */
+
+// 1. Wake Lock — keeps screen on during playback
+let _agWakeLock = null;
+async function _agRequestWakeLock() {
+  if (!('wakeLock' in navigator)) return;
+  try { _agWakeLock = await navigator.wakeLock.request('screen'); }
+  catch(e) { /* user denied or not supported */ }
+}
+function _agReleaseWakeLock() {
+  if (_agWakeLock) { _agWakeLock.release().catch(()=>{}); _agWakeLock = null; }
+}
+
+// 2. Silent audio keepalive — a looping ~1s silent WAV via data-URI
+//    Keeps the browser audio session alive so OS doesn't suspend the tab
+let _agKeepAlive = null;
+function _agStartKeepAlive() {
+  if (_agKeepAlive) return;
+  // Minimal WAV: 1 second of silence, 8kHz mono 8-bit
+  const silentWav = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAABCxAgABAAgAZGF0YQAAAAA=';
+  _agKeepAlive = new Audio(silentWav);
+  _agKeepAlive.loop = true;
+  _agKeepAlive.volume = 0.01; // near-silent
+  _agKeepAlive.play().catch(()=>{});
+}
+function _agStopKeepAlive() {
+  if (_agKeepAlive) { _agKeepAlive.pause(); _agKeepAlive = null; }
+}
+
+// 3. Visibility change — detect when page returns from background
+//    If speech was playing but got killed by OS, auto-resume from last sentence
+let _agBgSentIdx = 0; // sentence index when page went to background
+document.addEventListener('visibilitychange', () => {
+  if (!_agPlaying) return;
+  if (document.hidden) {
+    // Going to background — save current position
+    _agBgSentIdx = _agSentIdx;
+    // Chrome workaround: periodically nudge speechSynthesis to prevent timeout
+    _agStartBgNudge();
+  } else {
+    // Returning from background
+    _agStopBgNudge();
+    // Re-acquire wake lock (released when screen turns off)
+    _agRequestWakeLock();
+    // Check if speech was killed while in background
+    if (_agSynth && !_agSynth.speaking && !_agSynth.paused && _agPlaying && !_agPaused) {
+      // Speech was interrupted by OS — restart from saved position
+      console.log('[AudioGuide] Resuming from sentence', _agBgSentIdx);
+      _agStartPlayback(_agBgSentIdx);
+    } else if (_agSynth && _agSynth.paused && _agPaused) {
+      // Was properly paused — try resume
+      try { _agSynth.resume(); } catch(e) {
+        // Resume failed — restart from current position
+        _agStartPlayback(_agSentIdx);
+      }
+    }
+  }
+});
+
+// Chrome background nudge — prevents Chrome's ~15s speechSynthesis timeout
+let _agBgNudgeTimer = null;
+function _agStartBgNudge() {
+  _agStopBgNudge();
+  _agBgNudgeTimer = setInterval(() => {
+    if (_agSynth && _agSynth.speaking && !_agSynth.paused) {
+      _agSynth.pause();
+      _agSynth.resume();
+    }
+  }, 10000); // nudge every 10s
+}
+function _agStopBgNudge() {
+  if (_agBgNudgeTimer) { clearInterval(_agBgNudgeTimer); _agBgNudgeTimer = null; }
+}
 const _agSpeeds   = [0.75, 1, 1.25, 1.5];
 const _AG_SPEED_KEY    = 'aw_audio_speed';
 const _AG_AUTOPLAY_KEY = 'aw_audio_autoplay';
@@ -2985,11 +3065,18 @@ function agToggle() {
     _agPaused = true;
     _agSetPlayIcon(false);
     _agStopProgressTimer();
+    // Keep wake lock + keepalive alive while paused (user may resume soon)
   } else if (_agPaused) {
-    _agSynth.resume();
-    _agPaused = false;
-    _agSetPlayIcon(true);
-    _agStartProgressTimer();
+    // Check if speechSynthesis was killed while paused (mobile OS does this)
+    if (!_agSynth.paused && !_agSynth.speaking) {
+      // Speech was killed — restart from current sentence
+      _agStartPlayback(_agSentIdx);
+    } else {
+      _agSynth.resume();
+      _agPaused = false;
+      _agSetPlayIcon(true);
+      _agStartProgressTimer();
+    }
   } else {
     _agStartPlayback(_agSentIdx);
   }
@@ -3004,6 +3091,9 @@ function agStop() {
   _agSetPlayIcon(false);
   _agUpdateTimeline(0);
   _agClearHighlight();
+  _agStopBgNudge();
+  _agStopKeepAlive();
+  _agReleaseWakeLock();
 }
 
 function agToggleSpeedMenu(e) {
@@ -3129,6 +3219,10 @@ function _agStartPlayback(fromIdx) {
 
   let idx = fromIdx;
 
+  // Activate background playback protection
+  _agStartKeepAlive();
+  _agRequestWakeLock();
+
   function speakNext() {
     if (idx >= _agSentences.length) {
       if (_agRepeat) { idx = 0; speakNext(); return; } // loop
@@ -3138,6 +3232,9 @@ function _agStartPlayback(fromIdx) {
       _agStopProgressTimer();
       _agUpdateTimeline(0);
       _agClearHighlight();
+      _agStopBgNudge();
+      _agStopKeepAlive();
+      _agReleaseWakeLock();
       return;
     }
     _agSentIdx = idx;
