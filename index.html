@@ -4692,26 +4692,24 @@ function _refreshMarkerIcon(id) {
 
 function _buildLocIcon(loc) {
   const color = CAT_COLORS[_pCat(loc)] || '#111';
-  if (isFav(loc.id)) {
-    // Favorite: star marker
+  const fav = isFav(loc.id);
+  const vis = isVisited(loc.id);
+  // Star overlay for favorites (sits inside the existing pin)
+  const starOverlay = fav
+    ? '<span style="position:absolute;top:1px;left:0;right:0;text-align:center;font-size:11px;line-height:24px;color:#fbbf24;filter:drop-shadow(0 0 1px rgba(0,0,0,0.5));transform:rotate(45deg)">★</span>'
+    : '';
+  if (vis && !fav) {
+    // Visited: hollow style — white fill, black outline, same shape
     return L.divIcon({
       className: '',
-      html: `<div class="m-pin-wrap"><div style="width:26px;height:26px;background:#f59e0b;border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:2.5px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center"><span style="transform:rotate(45deg);font-size:13px;line-height:1;color:white">★</span></div></div>`,
-      iconSize: [26, 26], iconAnchor: [13, 26]
-    });
-  }
-  if (isVisited(loc.id)) {
-    // Visited: hollow style — white fill, black outline
-    return L.divIcon({
-      className: '',
-      html: `<div class="m-pin-wrap"><div style="width:24px;height:24px;background:white;border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:2.5px solid #333;box-shadow:0 2px 8px rgba(0,0,0,0.15)"></div></div>`,
+      html: `<div class="m-pin-wrap"><div style="position:relative;width:24px;height:24px;background:white;border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:2.5px solid #333;box-shadow:0 2px 8px rgba(0,0,0,0.15)">${starOverlay}</div></div>`,
       iconSize: [24, 24], iconAnchor: [12, 24]
     });
   }
-  // Default marker
+  // Default (or favorite) marker — original category color, star overlaid if fav
   return L.divIcon({
     className: '',
-    html: `<div class="m-pin-wrap"><div style="width:24px;height:24px;background:${color};border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:2.5px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.3)"></div></div>`,
+    html: `<div class="m-pin-wrap"><div style="position:relative;width:24px;height:24px;background:${color};border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:2.5px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.3)">${starOverlay}</div></div>`,
     iconSize: [24, 24], iconAnchor: [12, 24]
   });
 }
