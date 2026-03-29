@@ -4045,10 +4045,10 @@ function switchTab(id) {
   if (id !== 'here' && walkRouteLine) _clearWalkRoute();
   // Stop audio when leaving audio tab
   if (id !== 'audio') agStop();
-  // Hide photo gallery when Audio tab is active — gives more space for script
+  // Hide photo gallery when Audio tab is active on mobile — more space for script
   const gallery = document.getElementById('gallery');
   if (gallery) {
-    gallery.style.display = (id === 'audio') ? 'none' : '';
+    gallery.style.display = (id === 'audio' && window.innerWidth <= 900) ? 'none' : '';
   }
 }
 
