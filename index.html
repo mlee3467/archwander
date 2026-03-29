@@ -1254,6 +1254,42 @@
       cursor: pointer; font-family: inherit; margin-right: auto;
     }
     .adm-reset-btn:hover { background: #FEE2E2; }
+
+    /* Admin filter bar */
+    .adm-filter-bar {
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+      padding: 10px 16px; border-bottom: 1px solid var(--border);
+      background: var(--bg); flex-shrink: 0;
+    }
+    .adm-filter-bar input[type=search] {
+      flex: 1; min-width: 140px; padding: 5px 10px;
+      border: 1px solid var(--border); border-radius: 6px;
+      font-size: 12px; font-family: inherit; background: white; outline: none;
+    }
+    .adm-filter-bar input[type=search]:focus { border-color: #4F46E5; }
+    .adm-filter-select {
+      padding: 5px 8px; border: 1px solid var(--border); border-radius: 6px;
+      font-size: 12px; font-family: inherit; background: white; cursor: pointer;
+      color: var(--text-primary); outline: none;
+    }
+    .adm-filter-select:focus { border-color: #4F46E5; }
+    .adm-filter-label {
+      font-size: 10px; font-weight: 600; color: var(--text-secondary);
+      text-transform: uppercase; letter-spacing: 0.4px; white-space: nowrap;
+    }
+    .adm-filter-sep { width: 1px; height: 18px; background: var(--border); flex-shrink: 0; }
+    .adm-filter-reset {
+      padding: 5px 10px; border-radius: 6px; border: 1px solid var(--border);
+      background: white; font-size: 11px; cursor: pointer; font-family: inherit;
+      color: var(--text-secondary); white-space: nowrap;
+    }
+    .adm-filter-reset:hover { border-color: #999; color: #111; }
+    /* Sortable column headers */
+    .admin-table th.sortable { cursor: pointer; user-select: none; }
+    .admin-table th.sortable:hover { color: #111; }
+    .adm-sort-icon { margin-left: 3px; opacity: 0.4; font-size: 9px; }
+    .admin-table th.sort-asc .adm-sort-icon,
+    .admin-table th.sort-desc .adm-sort-icon { opacity: 1; color: #4F46E5; }
   </style>
 </head>
 <body>
@@ -1270,15 +1306,50 @@
     </div>
   </div>
   <div class="admin-body">
+    <!-- Filter bar -->
+    <div class="adm-filter-bar" id="adm-filter-bar">
+      <input type="search" id="adm-q" placeholder="Search name / architect…"
+             oninput="admSetFilter('query', this.value)">
+      <div class="adm-filter-sep"></div>
+      <span class="adm-filter-label">City</span>
+      <select class="adm-filter-select" id="adm-f-city" onchange="admSetFilter('city', this.value)">
+        <option value="All">All Cities</option>
+      </select>
+      <span class="adm-filter-label">Category</span>
+      <select class="adm-filter-select" id="adm-f-cat" onchange="admSetFilter('cat', this.value)">
+        <option value="All">All Categories</option>
+        <option>Skyscrapers</option>
+        <option>Historic</option>
+        <option>Infrastructure</option>
+        <option>Cultural</option>
+        <option>Parks</option>
+        <option>Religious</option>
+        <option>Academic / Institution</option>
+        <option>Residential</option>
+        <option>Landmarks</option>
+        <option>Public</option>
+        <option>Retail</option>
+      </select>
+      <span class="adm-filter-label">Access</span>
+      <select class="adm-filter-select" id="adm-f-access" onchange="admSetFilter('access', this.value)">
+        <option value="All">All Access</option>
+        <option>Open to Public</option>
+        <option>Paid Ticket</option>
+        <option>Private</option>
+      </select>
+      <div class="adm-filter-sep"></div>
+      <button class="adm-filter-reset" id="adm-filter-reset-btn" onclick="admResetFilters()" style="display:none">✕ Reset</button>
+    </div>
     <table class="admin-table">
       <thead>
         <tr>
           <th style="width:36px">#</th>
-          <th>Name</th>
+          <th class="sortable" onclick="admSetSort('name')">Name <span class="adm-sort-icon" id="adm-si-name">↕</span></th>
           <th>Architect</th>
-          <th style="width:60px">Year</th>
+          <th class="sortable" style="width:60px" onclick="admSetSort('yr')">Year <span class="adm-sort-icon" id="adm-si-yr">↕</span></th>
           <th>Category</th>
           <th>Access</th>
+          <th class="sortable" onclick="admSetSort('city')">City <span class="adm-sort-icon" id="adm-si-city">↕</span></th>
           <th style="width:110px">Actions</th>
         </tr>
       </thead>
@@ -3068,7 +3139,7 @@ function _agRenderPlayer(entry) {
       <!-- Timeline slider -->
       <div class="ag-timeline-wrap">
         <input type="range" class="ag-timeline" id="ag-timeline"
-          min="0" max="${_agSentences.length - 1}" value="0" step="1"
+          min="0" max="1000" value="0" step="1"
           oninput="_agOnSeek(this.value)"
           onchange="_agOnSeekEnd(this.value)"
           style="--pct:0%;--border-color:#e5e5e0">
@@ -3267,15 +3338,17 @@ function agSetAutoPlay(checked) {
 
 /* -- Timeline seek (drag) ---------------------------------------------- */
 function _agOnSeek(val) {
-  // Live update display while dragging — don't restart speech yet
-  const pct = parseInt(val) / Math.max(1, _agSentences.length - 1);
+  // val is 0–1000; convert to 0–1 pct, then to sentence index
+  const pct = parseInt(val) / 1000;
+  const sentIdx = Math.round(pct * Math.max(0, _agSentences.length - 1));
   _agUpdateTimeline(pct);
-  _agHighlight(parseInt(val));
-  _agUpdateTimeDisplay(parseInt(val));
+  _agHighlight(sentIdx);
+  _agUpdateTimeDisplay(sentIdx);
 }
 
 function _agOnSeekEnd(val) {
-  const target = parseInt(val);
+  const pct = parseInt(val) / 1000;
+  const target = Math.round(pct * Math.max(0, _agSentences.length - 1));
   const wasPlaying = _agPlaying && !_agPaused;
   [_agAudioA, _agAudioB].forEach(a => { if(a){a.pause(); a.onended=null; a.onerror=null;} });
   if (_agSynth) _agSynth.cancel();
@@ -3485,12 +3558,11 @@ function _agSetPlayIcon(playing) {
 }
 
 function _agUpdateTimeline(pct) {
-  // Update range input value + CSS gradient fill
+  // pct is 0–1; map to 0–1000 for smooth thumb position (no sentence-boundary snapping)
   const tl = document.getElementById('ag-timeline');
   if (!tl) return;
-  const sentIdx = Math.round(pct * (_agSentences.length - 1));
-  tl.value = sentIdx;
-  tl.style.setProperty('--pct', (pct * 100).toFixed(1) + '%');
+  tl.value = Math.round(pct * 1000);
+  tl.style.setProperty('--pct', (pct * 100).toFixed(2) + '%');
 }
 
 function _agUpdateTimeDisplay(sentIdx, smoothPct) {
@@ -4803,11 +4875,99 @@ function closeAdmin() {
   document.getElementById('admin-panel').classList.remove('open');
 }
 
+/* ── Admin filter/sort state ──────────────────────────── */
+const admState = { city: 'All', cat: 'All', access: 'All', query: '', sort: '', sortDir: 1 };
+
+function admSetFilter(key, val) {
+  admState[key] = val;
+  _admSyncResetBtn();
+  renderAdminTable();
+}
+
+function admSetSort(col) {
+  if (admState.sort === col) {
+    admState.sortDir *= -1;
+  } else {
+    admState.sort = col;
+    admState.sortDir = 1;
+  }
+  renderAdminTable();
+}
+
+function admResetFilters() {
+  admState.city = 'All'; admState.cat = 'All';
+  admState.access = 'All'; admState.query = '';
+  admState.sort = ''; admState.sortDir = 1;
+  document.getElementById('adm-q').value = '';
+  document.getElementById('adm-f-city').value = 'All';
+  document.getElementById('adm-f-cat').value = 'All';
+  document.getElementById('adm-f-access').value = 'All';
+  _admSyncResetBtn();
+  renderAdminTable();
+}
+
+function _admSyncResetBtn() {
+  const active = admState.city !== 'All' || admState.cat !== 'All'
+               || admState.access !== 'All' || admState.query !== '';
+  document.getElementById('adm-filter-reset-btn').style.display = active ? 'block' : 'none';
+}
+
+function _admPopulateCities() {
+  const sel = document.getElementById('adm-f-city');
+  const cities = [...new Set(LOCS.map(l => l.city).filter(Boolean))].sort();
+  // keep first "All Cities" option, rebuild the rest
+  while (sel.options.length > 1) sel.remove(1);
+  cities.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c; opt.textContent = c.replace(/-/g,' ').replace(/\b\w/g,x=>x.toUpperCase());
+    sel.appendChild(opt);
+  });
+}
+
 function renderAdminTable() {
-  document.getElementById('admin-count').textContent = `${LOCS.length} locations`;
+  _admPopulateCities();
   const saved = localStorage.getItem('archwander_locs_v1');
   document.getElementById('adm-reset-storage').style.display = saved ? 'block' : 'none';
-  document.getElementById('admin-tbody').innerHTML = LOCS.map((loc, i) => `
+
+  // ── filter ──
+  const q = admState.query.toLowerCase().trim();
+  let filtered = LOCS.filter(loc => {
+    if (admState.city !== 'All' && loc.city !== admState.city) return false;
+    if (admState.cat  !== 'All' && !_allCats(loc).includes(admState.cat)) return false;
+    if (admState.access !== 'All' && loc.access !== admState.access) return false;
+    if (q && !(loc.name||'').toLowerCase().includes(q)
+           && !(loc.arch||'').toLowerCase().includes(q)) return false;
+    return true;
+  });
+
+  // ── sort ──
+  if (admState.sort) {
+    const d = admState.sortDir;
+    filtered = [...filtered].sort((a, b) => {
+      let av = a[admState.sort] || '', bv = b[admState.sort] || '';
+      if (admState.sort === 'yr') { av = parseInt(av)||0; bv = parseInt(bv)||0; }
+      else { av = String(av).toLowerCase(); bv = String(bv).toLowerCase(); }
+      return av < bv ? -d : av > bv ? d : 0;
+    });
+  }
+
+  // ── sort icon update ──
+  ['name','yr','city'].forEach(col => {
+    const el = document.getElementById(`adm-si-${col}`);
+    if (!el) return;
+    if (admState.sort === col) {
+      el.textContent = admState.sortDir === 1 ? '↑' : '↓';
+      el.style.opacity = '1';
+    } else {
+      el.textContent = '↕'; el.style.opacity = '0.4';
+    }
+  });
+
+  document.getElementById('admin-count').textContent =
+    filtered.length === LOCS.length ? `${LOCS.length} locations`
+    : `${filtered.length} / ${LOCS.length} locations`;
+
+  document.getElementById('admin-tbody').innerHTML = filtered.map((loc, i) => `
     <tr>
       <td style="color:var(--text-secondary)">${i+1}</td>
       <td class="td-name">${loc.name}</td>
@@ -4815,6 +4975,7 @@ function renderAdminTable() {
       <td style="color:var(--text-secondary)">${loc.yr}</td>
       <td>${_allCats(loc).map(c => `<span class="cat-badge ${CAT_CC_MAP[c]||'c-lmk'}" style="font-size:10px">${c}</span>`).join(' ')}</td>
       <td>${loc.access ? `<span class="access-badge ${ACCESS_META[loc.access]?.cls||''}" style="font-size:10px">${ACCESS_META[loc.access]?.icon||''} ${loc.access}</span>` : '—'}</td>
+      <td style="color:var(--text-secondary)">${(loc.city||'').replace(/-/g,' ').replace(/\b\w/g,x=>x.toUpperCase())}</td>
       <td>
         <button class="adm-btn adm-edit" onclick="openEditForm('${loc.id}')">Edit</button>
         <button class="adm-btn adm-del"  onclick="confirmDeleteLoc('${loc.id}')">Delete</button>
