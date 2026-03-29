@@ -3637,9 +3637,19 @@ function _agStartPlayback(fromIdx) {
   function playViaAudio() {
     _agMode = 'audio';
     _agUpdateModeLabel('audio');
+    let _audioErrors = 0; // consecutive errors across all endpoints
 
     // Kick off lookahead prefetch for upcoming sentences
     _agPrefetchAhead(idx);
+
+    // ★ Emergency fallback: if TTS audio keeps failing, switch to speechSynthesis
+    function _fallbackToSynth() {
+      console.warn('[ArchWander] All TTS endpoints failed during playback → falling back to speechSynthesis');
+      [_agAudioA, _agAudioB].forEach(a => { if(a){a.pause(); a.onended=null; a.onerror=null; a.src='';} });
+      _agClearBlobCache();
+      _agShowSynthWarning();
+      playViaSynth();
+    }
 
     function playSentence() {
       if (idx >= _agSentences.length) {
@@ -3663,7 +3673,7 @@ function _agStartPlayback(fromIdx) {
       _agPrefetchAhead(idx + 1);
 
       function playChunk() {
-        if (ci >= chunks.length) { idx++; playSentence(); return; }
+        if (ci >= chunks.length) { idx++; _audioErrors = 0; playSentence(); return; }
         _agChunkIdx = ci;
 
         const active  = _agGetActive();
@@ -3692,24 +3702,32 @@ function _agStartPlayback(fromIdx) {
         active.src = playUrl;
         active.playbackRate = _agSpeeds[_agSpeedIdx];
         _agAudio = active; // for progress tracking
-        active.onended = () => { _agSwapAudio(); ci++; playChunk(); };
+        active.onended = () => { _audioErrors = 0; _agSwapAudio(); ci++; playChunk(); };
         active.onerror = () => {
-          console.warn('[ArchWander] TTS chunk error, sent:', idx, 'chunk:', ci, 'ep:', _agTtsEndpoints[_agTtsEndpointIdx].id);
-          // Runtime fallback: try next endpoint for this chunk
+          _audioErrors++;
+          console.warn('[ArchWander] TTS chunk error #' + _audioErrors, 'sent:', idx, 'chunk:', ci, 'ep:', _agTtsEndpoints[_agTtsEndpointIdx].id);
+          // Runtime fallback: try next TTS endpoint for this same chunk
           const nextEp = _agTtsEndpointIdx + 1;
           if (nextEp < _agTtsEndpoints.length) {
-            console.log('[ArchWander] Trying fallback endpoint:', _agTtsEndpoints[nextEp].id);
+            console.log('[ArchWander] Trying next endpoint:', _agTtsEndpoints[nextEp].id);
             _agTtsEndpointIdx = nextEp;
             _agUpdateModeLabel('audio');
-            _agBlobCache.clear(); // clear stale cache from old endpoint
+            _agBlobCache.clear();
             const fallbackUrl = _agTtsUrl(chunks[ci], LANG);
             active.src = fallbackUrl;
-            active.play().catch(() => { ci++; playChunk(); });
+            active.play().catch(() => {
+              _audioErrors++;
+              if (_audioErrors >= 3) { _fallbackToSynth(); } else { ci++; playChunk(); }
+            });
           } else {
-            ci++; playChunk(); // all endpoints exhausted, skip chunk
+            // All TTS endpoints exhausted → fall back to speechSynthesis
+            _fallbackToSynth();
           }
         };
-        active.play().catch(() => { ci++; playChunk(); });
+        active.play().catch(() => {
+          _audioErrors++;
+          if (_audioErrors >= 3) { _fallbackToSynth(); } else { ci++; playChunk(); }
+        });
       }
       playChunk();
     }
