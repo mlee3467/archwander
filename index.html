@@ -2690,6 +2690,7 @@ function openLoc(loc) {
 }
 
 function closePanel() {
+  if (typeof agStop === 'function') agStop();
   _clearWalkRoute();
   document.getElementById('panel').classList.remove('open');
   const _pb2 = document.getElementById('panel-backdrop'); if (_pb2) _pb2.classList.remove('visible');
@@ -4851,119 +4852,4 @@ function _fillAdmForm(loc) {
   sv('af-addr',       loc.addr);
   sv('af-hood',       loc.hood);
   sv('af-desc',       loc.desc);
-  sv('af-hours',      loc.hours);
-  sv('af-admission',  loc.admission);
-  sv('af-web',        loc.web);
-  sv('af-gmaps',      loc.gmaps);
-  sv('af-wiki',       loc.wiki);
-  sv('af-archdaily',  loc.archdaily);
-  sv('af-tourInfo',   loc.tourInfo);
-  sv('af-tags',       (loc.tags || []).join(', '));
-  sv('af-photos',     (loc.photos || []).join('\n'));
-  document.getElementById('af-tourOk').checked = !!loc.tourOk;
-  document.getElementById('af-cat').value    = _allCats(loc).join(', ') || 'Landmarks';
-  document.getElementById('af-access').value = loc.access || 'Open to Public';
-  document.getElementById('af-era').value    = loc.era    || '2000–Present';
-  document.getElementById('af-city').value   = loc.city   || 'new-york';
-}
-
-function saveAdmForm() {
-  const fv = id => (document.getElementById(id)?.value || '').trim();
-  const name = fv('af-name');
-  const lat  = parseFloat(fv('af-lat'));
-  const lng  = parseFloat(fv('af-lng'));
-  if (!name)           { alert('Name is required.'); return; }
-  if (isNaN(lat)||isNaN(lng)) { alert('Valid Latitude and Longitude are required.'); return; }
-
-  const catsRaw = fv('af-cat') || 'Landmarks';
-  const cats = catsRaw.split(',').map(s => s.trim()).filter(Boolean);
-  const pCat = cats[0];
-  const sgsRaw = fv('af-styleGroup') || 'Contemporary';
-  const styleGroups = sgsRaw.split(',').map(s => s.trim()).filter(Boolean);
-  const loc = {
-    id:         _admEditId || name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'') + '-' + Date.now(),
-    name,       arch:       fv('af-arch') || 'Unknown',
-    yr:         parseInt(fv('af-yr')) || new Date().getFullYear(),
-    cats,       cc:         CAT_CC_MAP[pCat] || 'c-lmk',
-    cat: pCat,
-    style:      fv('af-style'),
-    styleGroups,
-    styleGroup: styleGroups[0],
-    era:        fv('af-era') || '2000–Present',
-    access:     fv('af-access') || 'Open to Public',
-    city:       fv('af-city') || 'new-york',
-    lat, lng,
-    addr:       fv('af-addr'),   hood:     fv('af-hood'),
-    desc:       fv('af-desc'),   hours:    fv('af-hours'),
-    lastEntry:  '',              admission: fv('af-admission'),
-    tourOk:     document.getElementById('af-tourOk').checked,
-    tourInfo:   fv('af-tourInfo'), web:    fv('af-web'),
-    gmaps:      fv('af-gmaps'),  wiki:     fv('af-wiki'),
-    archdaily:  fv('af-archdaily'),
-    tags:       fv('af-tags').split(',').map(t=>t.trim()).filter(Boolean),
-    photos:     fv('af-photos').split('\n').map(s=>s.trim()).filter(Boolean),
-    drawings:   _admEditId ? (LOCS.find(l=>l.id===_admEditId)?.drawings||[]) : []
-  };
-
-  if (_admEditId) {
-    const idx = LOCS.findIndex(l => l.id === _admEditId);
-    if (idx >= 0) LOCS[idx] = loc;
-  } else {
-    LOCS.push(loc);
-  }
-  try { localStorage.setItem('archwander_locs_v1', JSON.stringify(LOCS)); } catch(e) {}
-  refreshApp();
-  closeAdmModal();
-  renderAdminTable();
-}
-
-function confirmDeleteLoc(id) {
-  const loc = LOCS.find(l => l.id === id);
-  if (!loc || !confirm(`"${loc.name}"을(를) 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.`)) return;
-  LOCS.splice(LOCS.findIndex(l => l.id === id), 1);
-  try { localStorage.setItem('archwander_locs_v1', JSON.stringify(LOCS)); } catch(e) {}
-  refreshApp();
-  renderAdminTable();
-}
-
-function confirmResetStorage() {
-  if (!confirm('모든 변경사항을 삭제하고 기본 데이터로 초기화하시겠습니까?')) return;
-  localStorage.removeItem('archwander_locs_v1');
-  LOCS = LOCS_DEFAULT.map(l => ({...l}));
-  refreshApp();
-  renderAdminTable();
-}
-
-function exportDataJS() {
-  const btn = document.querySelector('.adm-hbtn.adm-hbtn-export');
-  if (btn) { btn.textContent = '⏳ Generating…'; btn.disabled = true; }
-
-  const newLocs = `const LOCS_DEFAULT = ${JSON.stringify(LOCS, null, 2)};`;
-  const output = `// ArchWander — Location Data\n// Edit this file to add, remove, or update locations.\n// Deploy alongside index.html (Netlify, etc.)\n// ─────────────────────────────────────────────────\n/* DATA_START */\n${newLocs}\n/* DATA_END */\n`;
-
-  const blob = new Blob([output], {type: 'application/javascript;charset=utf-8'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'data.js';
-  document.body.appendChild(a); a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(a.href);
-
-  if (btn) { btn.textContent = '⬇ Export data.js'; btn.disabled = false; }
-}
-</script>
-
-  <script>
-  // sidebar-backdrop-script
-  (function(){
-    var bd = document.getElementById('sidebar-backdrop');
-    if (!bd) return;
-    bd.addEventListener('click', function() {
-      var sb = document.getElementById('sidebar');
-      if (sb) sb.classList.remove('open');
-      bd.classList.remove('visible');
-    });
-  })();
-  </script>
-</body>
-</html>
+  sv('af-hours',      loc
