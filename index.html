@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>ArchWander</title>
   <link rel="icon" type="image/png" href="img/Logo_favicon.png">
+  <!-- PWA manifest — enables "Add to Home Screen" for background audio on iOS/Android -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="ArchWander">
+  <link rel="apple-touch-icon" href="img/logo_large.png">
+  <meta name="theme-color" content="#111111">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"/>
@@ -3306,7 +3314,7 @@ function _agUpdateModeLabel(mode) {
   el.textContent = mode === 'audio' ? 'TTS Audio' : mode === 'synth' ? 'Web Speech' : '';
 }
 
-async function _agStartPlayback(fromIdx) {
+function _agStartPlayback(fromIdx) {
   fromIdx = (fromIdx === undefined) ? 0 : Math.max(0, Math.min(fromIdx, _agSentences.length - 1));
   if (!_agSentences.length) return;
 
@@ -3324,20 +3332,21 @@ async function _agStartPlayback(fromIdx) {
   _agRequestWakeLock();
   _agSetMediaSession(_agTitle);
 
-  let idx = fromIdx;
+  // ★ ALWAYS start keepalive immediately — this call is within the user gesture
+  //   window, so audio.play() succeeds and establishes the mobile audio session.
+  //   Without this, any async wait (TTS test etc.) expires the gesture context
+  //   and subsequent audio.play() calls are silently blocked by the OS.
+  _agStartKeepAlive();
 
-  // Test if Google TTS is reachable (only on first call per session)
-  if (_agStartPlayback._ttsOk === undefined) {
-    console.log('[ArchWander] Testing Google TTS availability...');
-    _agStartPlayback._ttsOk = await _agTestTts();
-    console.log('[ArchWander] TTS available:', _agStartPlayback._ttsOk);
-  }
+  let idx = fromIdx;
 
   _agStartSmoothProgress();
 
-  if (_agStartPlayback._ttsOk) {
+  // Use pre-tested TTS result (tested on page load, not here)
+  if (_agTtsAvailable === true) {
     playViaAudio();
   } else {
+    // TTS unavailable or still testing → use synth (keepalive keeps session alive)
     playViaSynth();
   }
 
@@ -3537,6 +3546,14 @@ function _agStartSmoothProgress() {
 function _agStopSmoothProgress() {
   if (_agRafId) { cancelAnimationFrame(_agRafId); _agRafId = null; }
 }
+
+// Pre-test Google TTS on page load — result is ready before user taps play
+// (Never run this inside a play gesture — the async wait kills the gesture context)
+let _agTtsAvailable = null;  // null=testing, true=ok, false=unavailable
+_agTestTts().then(ok => {
+  _agTtsAvailable = ok;
+  console.log('[ArchWander] TTS pre-test:', ok ? '✓ available' : '✗ unavailable');
+});
 
 // Pre-load voices (Chrome async)
 if (_agSynth && _agSynth.onvoiceschanged !== undefined) {
@@ -4964,6 +4981,43 @@ function exportDataJS() {
       if (sb) sb.classList.remove('open');
       bd.classList.remove('visible');
     });
+  })();
+  </script>
+
+  <script>
+  // ── Service Worker registration (PWA — enables background audio) ──────
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js').then(reg => {
+        console.log('[ArchWander] SW registered:', reg.scope);
+      }).catch(err => {
+        console.warn('[ArchWander] SW registration failed:', err);
+      });
+    });
+  }
+
+  // ── iOS "Add to Home Screen" banner (shown once, dismissed on tap) ─────
+  //    iOS Safari blocks background audio for regular tabs.
+  //    Installing as PWA via "Add to Home Screen" enables background audio.
+  (function() {
+    const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
+    const isInStandalone = ('standalone' in navigator) && navigator.standalone;
+    const dismissed = localStorage.getItem('aw_pwa_banner_dismissed');
+    if (!isIos || isInStandalone || dismissed) return;
+
+    const banner = document.createElement('div');
+    banner.id = 'aw-pwa-banner';
+    banner.innerHTML = `
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 16px;
+        background:#111;color:#fff;font-size:12px;line-height:1.5;
+        position:fixed;bottom:0;left:0;right:0;z-index:9999;
+        box-shadow:0 -2px 12px rgba(0,0,0,0.3);">
+        <span style="font-size:20px">🔊</span>
+        <span style="flex:1"><strong>백그라운드 오디오</strong>를 사용하려면 Safari 공유 버튼(<strong>□↑</strong>)을 탭한 후 <strong>"홈 화면에 추가"</strong>로 앱을 설치하세요.</span>
+        <button onclick="document.getElementById('aw-pwa-banner').remove();localStorage.setItem('aw_pwa_banner_dismissed','1')"
+          style="background:none;border:none;color:#fff;font-size:18px;cursor:pointer;padding:4px;flex-shrink:0">✕</button>
+      </div>`;
+    document.body.appendChild(banner);
   })();
   </script>
 </body>
