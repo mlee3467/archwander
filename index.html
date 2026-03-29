@@ -1930,6 +1930,9 @@ function setLang(lang) {
   applyLang();
   // Re-translate active location if switching to Korean
   if (LANG === 'ko' && activeLoc) applyLocTranslation(activeLoc);
+  // Reset audio tab so it reloads in the new language
+  if (typeof agStop === 'function') agStop();
+  if (typeof _agLoaded !== 'undefined') _agLoaded = null;
 }
 
 // Close lang dropdown when clicking outside
@@ -2747,13 +2750,31 @@ function buildDirectionsTab(loc, trans = {}) {
 // ══════════════════════════════════════════════════════════════════
 
 // Audio data registry — populated on demand via dynamic <script> load
-// AUDIO_EN_NYC is defined in data-audio-en-new-york.js (lazy-loaded)
+// Each city has EN and KO variants; the correct one is chosen by LANG at load time
 const _AUDIO_CITY_MAP = {
-  'new-york': { varName: 'AUDIO_EN_NYC', file: 'data-audio-en-new-york.js' },
-  'seoul':    { varName: 'AUDIO_EN_SEL', file: 'data-audio-en-seoul.js'    },
-  'london':   { varName: 'AUDIO_EN_LON', file: 'data-audio-en-london.js'   },
-  'tokyo':    { varName: 'AUDIO_EN_TKY', file: 'data-audio-en-tokyo.js'    },
+  'new-york': {
+    en: { varName: 'AUDIO_EN_NYC', file: 'data-audio-en-new-york.js' },
+    ko: { varName: 'AUDIO_KO_NYC', file: 'data-audio-ko-new-york.js' },
+  },
+  'seoul': {
+    en: { varName: 'AUDIO_EN_SEL', file: 'data-audio-en-seoul.js' },
+    ko: { varName: 'AUDIO_KO_SEL', file: 'data-audio-ko-seoul.js' },
+  },
+  'london': {
+    en: { varName: 'AUDIO_EN_LON', file: 'data-audio-en-london.js' },
+    ko: { varName: 'AUDIO_KO_LON', file: 'data-audio-ko-london.js' },
+  },
+  'tokyo': {
+    en: { varName: 'AUDIO_EN_TKY', file: 'data-audio-en-tokyo.js' },
+    ko: { varName: 'AUDIO_KO_TKY', file: 'data-audio-ko-tokyo.js' },
+  },
 };
+// Helper: get the audio meta for current language (fallback to 'en')
+function _agMeta(city) {
+  const cityMap = _AUDIO_CITY_MAP[city];
+  if (!cityMap) return null;
+  return cityMap[LANG] || cityMap['en'] || null;
+}
 const _agLoadedCities = new Set(); // tracks which city files are already in DOM
 let _agSynth    = window.speechSynthesis || null;
 let _agUtter    = null;
@@ -2791,11 +2812,12 @@ function buildAudioGuideShell() {
 /* -- Dynamic lazy-load of city audio data file -------------------------- */
 function _agLoadCityFile(city) {
   return new Promise((resolve) => {
-    const meta = _AUDIO_CITY_MAP[city];
-    if (!meta) return resolve(false); // city not yet supported
+    const meta = _agMeta(city);
+    if (!meta) return resolve(false); // city/lang not yet supported
+    const cacheKey = city + ':' + LANG; // track per city+lang
     // Already loaded?
-    if (_agLoadedCities.has(city) || window[meta.varName]) {
-      _agLoadedCities.add(city);
+    if (_agLoadedCities.has(cacheKey) || window[meta.varName]) {
+      _agLoadedCities.add(cacheKey);
       return resolve(true);
     }
     // Remove any previous failed script tag for this file
@@ -2807,7 +2829,7 @@ function _agLoadCityFile(city) {
     s.onload = () => {
       // window[meta.varName] must be set by the file (as window.X = {...})
       if (window[meta.varName]) {
-        _agLoadedCities.add(city);
+        _agLoadedCities.add(cacheKey);
         resolve(true);
       } else {
         console.warn('[AudioGuide] File loaded but variable not found:', meta.varName);
@@ -2824,13 +2846,18 @@ function _agLoadCityFile(city) {
 
 /* -- Returns the audio data object for the current city --------------- */
 function _agGetData(city) {
-  const meta = _AUDIO_CITY_MAP[city];
+  const meta = _agMeta(city);
   if (!meta) return null;
   return window[meta.varName] || null;
 }
 
 /* -- Estimate listening time (avg 130 wpm) ----------------------------- */
 function _agEstMin(text) {
+  if (LANG === 'ko') {
+    // Korean: estimate by character count (~200 chars/min for TTS)
+    const chars = text.replace(/\s+/g, '').length;
+    return Math.max(1, Math.round(chars / 200));
+  }
   const words = text.trim().split(/\s+/).length;
   return Math.max(1, Math.round(words / 130));
 }
@@ -2865,7 +2892,7 @@ function _agRenderPlayer(entry) {
       <div class="ag-player-top-row">
         <div>
           <div class="ag-player-title">🎧 ${entry.title}</div>
-          <div class="ag-player-sub">${minText} · English · Web Speech</div>
+          <div class="ag-player-sub">${minText} · ${LANG === 'ko' ? '한국어' : 'English'} · Web Speech</div>
         </div>
         <label class="ag-autoplay-label" title="Auto-play when Audio tab opens">
           <input type="checkbox" id="ag-autoplay-chk"
@@ -3071,28 +3098,34 @@ function _agStartPlayback(fromIdx) {
   if (!_agSynth || !_agSentences.length) return;
   _agSynth.cancel();
 
-  // Pick best English voice — prefer high-quality neural voices
+  // Pick best voice for the current language — prefer neural voices
   const voices = _agSynth.getVoices();
-  // Priority list: specific neural/natural voices known to sound human-like
-  const _agVoicePriority = [
-    'Google US English',          // Chrome: clear, natural
-    'Microsoft Aria Online',      // Edge: neural, warm narrator tone
-    'Microsoft Guy Online',       // Edge: neural, male
-    'Microsoft Jenny Online',     // Edge: neural, female
-    'Samantha',                   // macOS/iOS: high-quality default
-    'Daniel',                     // macOS: British English, polished
-    'Karen',                      // macOS: Australian English
+  const isKo = (LANG === 'ko');
+  const _agVoicePriority = isKo ? [
+    'Google 한국의',                   // Chrome Korean
+    'Microsoft SunHi Online',         // Edge: Korean neural female
+    'Microsoft InJoon Online',        // Edge: Korean neural male
+    'Yuna',                           // macOS Korean
+  ] : [
+    'Google US English',              // Chrome: clear, natural
+    'Microsoft Aria Online',          // Edge: neural, warm narrator tone
+    'Microsoft Guy Online',           // Edge: neural, male
+    'Microsoft Jenny Online',         // Edge: neural, female
+    'Samantha',                       // macOS/iOS: high-quality default
+    'Daniel',                         // macOS: British English, polished
+    'Karen',                          // macOS: Australian English
   ];
+  const langPrefix = isKo ? 'ko' : 'en';
   let preferred = null;
   for (const name of _agVoicePriority) {
     const v = voices.find(v => v.name === name);
     if (v) { preferred = v; break; }
   }
-  // Fallback: any en-US with neural/natural/premium keyword
+  // Fallback: any voice matching current language with neural/natural keyword
   if (!preferred) preferred =
-    voices.find(v => v.lang === 'en-US' && /neural|natural|premium|enhanced|online/i.test(v.name)) ||
-    voices.find(v => v.lang === 'en-US') ||
-    voices.find(v => /en[-_]/i.test(v.lang)) || null;
+    voices.find(v => v.lang.startsWith(langPrefix) && /neural|natural|premium|enhanced|online/i.test(v.name)) ||
+    voices.find(v => v.lang.startsWith(langPrefix)) ||
+    (isKo ? voices.find(v => /ko[-_]/i.test(v.lang)) : voices.find(v => /en[-_]/i.test(v.lang))) || null;
 
   let idx = fromIdx;
 
@@ -3112,7 +3145,7 @@ function _agStartPlayback(fromIdx) {
     _agScrollToSentence(idx);
 
     const u = new SpeechSynthesisUtterance(_agSentences[idx].trim());
-    u.lang = 'en-US';
+    u.lang = isKo ? 'ko-KR' : 'en-US';
     u.rate = _agSpeeds[_agSpeedIdx];
     if (preferred) u.voice = preferred;
     u.onend   = () => { idx++; speakNext(); };
