@@ -1,6 +1,6 @@
 // ArchWander Service Worker
 // Enables PWA installation → background audio on iOS/Android
-const CACHE = 'archwander-v1';
+const CACHE = 'archwander-v3';
 const PRECACHE = [
   '/ArchWander/',
   '/ArchWander/index.html',
@@ -15,7 +15,12 @@ self.addEventListener('install', e => {
 });
 
 self.addEventListener('activate', e => {
-  e.waitUntil(clients.claim());
+  // Delete ALL old caches so users always get fresh HTML/JS on SW update
+  e.waitUntil(
+    caches.keys().then(keys =>
+      Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))
+    ).then(() => clients.claim())
+  );
 });
 
 self.addEventListener('fetch', e => {
@@ -24,6 +29,22 @@ self.addEventListener('fetch', e => {
   const url = new URL(e.request.url);
   if (url.origin !== self.location.origin) return;
 
+  // HTML documents: Network First → always serve latest version
+  const isHTML = url.pathname.endsWith('.html') || url.pathname.endsWith('/');
+  if (isHTML) {
+    e.respondWith(
+      fetch(e.request).then(res => {
+        if (res && res.status === 200) {
+          const clone = res.clone();
+          caches.open(CACHE).then(c => c.put(e.request, clone));
+        }
+        return res;
+      }).catch(() => caches.match(e.request))
+    );
+    return;
+  }
+
+  // Other assets (JS, CSS, images): Cache First → fast load, offline support
   e.respondWith(
     caches.match(e.request).then(r => r || fetch(e.request).then(res => {
       if (res && res.status === 200) {
