@@ -2951,32 +2951,61 @@ function _agGetActive()  { return _agPong ? _agAudioB : _agAudioA; }
 function _agGetStandby() { return _agPong ? _agAudioA : _agAudioB; }
 function _agSwapAudio()  { _agPong = !_agPong; _agAudio = _agGetActive(); }
 
-// Google Translate TTS → returns real MP3 via <audio> element
+// ── Multi-endpoint TTS system ────────────────────────────────────────
+// Tries multiple Google TTS endpoints + StreamElements fallback.
+// Whichever works first on the page-load pre-test is used for playback.
+const _agTtsEndpoints = [
+  { id: 'tw-ob', make: (text, tl) =>
+      'https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=' + tl + '&q=' + encodeURIComponent(text) },
+  { id: 'gtx', make: (text, tl) =>
+      'https://translate.google.com/translate_tts?ie=UTF-8&client=gtx&tl=' + tl + '&q=' + encodeURIComponent(text) },
+  { id: 'streamelement', make: (text, tl) => {
+      const voice = tl === 'ko' ? 'Seoyeon' : 'Brian';
+      return 'https://api.streamelements.com/kappa/v2/speech?voice=' + voice + '&text=' + encodeURIComponent(text);
+    }
+  }
+];
+let _agTtsEndpointIdx = 0; // index into _agTtsEndpoints — set by pre-test
+
 function _agTtsUrl(text, lang) {
   const tl = lang === 'ko' ? 'ko' : 'en';
-  return 'https://translate.google.com/translate_tts?ie=UTF-8&client=gtx'
-       + '&tl=' + tl + '&q=' + encodeURIComponent(text);
+  return _agTtsEndpoints[_agTtsEndpointIdx].make(text, tl);
 }
 
-// Test if TTS URL is reachable (returns promise → true/false)
-function _agTestTtsOnce() {
+// Build a TTS URL with a specific endpoint index (for testing)
+function _agTtsUrlWith(text, lang, epIdx) {
+  const tl = lang === 'ko' ? 'ko' : 'en';
+  return _agTtsEndpoints[epIdx].make(text, tl);
+}
+
+// Test a single TTS endpoint (returns promise → true/false)
+function _agTestOneEndpoint(epIdx) {
   return new Promise(resolve => {
     const a = new Audio();
-    const url = _agTtsUrl('ok', 'en');
-    const timer = setTimeout(() => { a.src = ''; resolve(false); }, 4000);
+    a.crossOrigin = 'anonymous';
+    const url = _agTtsUrlWith('hello', 'en', epIdx);
+    const timer = setTimeout(() => { a.src = ''; resolve(false); }, 5000);
     a.oncanplaythrough = () => { clearTimeout(timer); a.src = ''; resolve(true); };
     a.onerror = () => { clearTimeout(timer); resolve(false); };
     a.src = url;
     a.load();
   });
 }
-// Retry TTS test up to 3 times (network may be slow on first load)
+
+// Test all endpoints in order — return index of first working one, or -1
 async function _agTestTts() {
-  for (let i = 0; i < 3; i++) {
-    if (await _agTestTtsOnce()) return true;
-    if (i < 2) await new Promise(r => setTimeout(r, 1500)); // wait between retries
+  for (let ep = 0; ep < _agTtsEndpoints.length; ep++) {
+    // Try each endpoint up to 2 times
+    for (let retry = 0; retry < 2; retry++) {
+      if (await _agTestOneEndpoint(ep)) {
+        console.log('[ArchWander] TTS endpoint OK:', _agTtsEndpoints[ep].id, '(attempt', retry + 1 + ')');
+        return ep;
+      }
+      if (retry < 1) await new Promise(r => setTimeout(r, 800));
+    }
+    console.log('[ArchWander] TTS endpoint FAIL:', _agTtsEndpoints[ep].id);
   }
-  return false;
+  return -1; // all failed
 }
 
 /* ── Prefetch TTS audio as blob URLs ─────────────────────────────────
@@ -2991,11 +3020,19 @@ function _agPrefetchChunk(text, lang) {
   const ttsUrl = _agTtsUrl(text, lang);
   if (_agBlobCache.has(ttsUrl)) return Promise.resolve(_agBlobCache.get(ttsUrl));
   const signal = _agPrefetchAbort ? _agPrefetchAbort.signal : undefined;
-  return fetch(ttsUrl, { signal }).then(r => r.blob()).then(blob => {
-    const blobUrl = URL.createObjectURL(blob);
-    _agBlobCache.set(ttsUrl, blobUrl);
-    return blobUrl;
-  }).catch(() => ttsUrl); // fallback to streaming URL on error
+  // StreamElements supports CORS; Google TTS may not — try fetch, fall back to direct URL
+  return fetch(ttsUrl, { mode: 'cors', signal })
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.blob(); })
+    .then(blob => {
+      const blobUrl = URL.createObjectURL(blob);
+      _agBlobCache.set(ttsUrl, blobUrl);
+      return blobUrl;
+    })
+    .catch(() => {
+      // CORS or network error — use no-cors opaque fetch to warm browser cache,
+      // then return the raw URL for <audio>.src (which ignores CORS)
+      return fetch(ttsUrl, { mode: 'no-cors', signal }).catch(() => {}).then(() => ttsUrl);
+    });
 }
 
 // Prefetch all chunks for a sentence (returns array of blob/streaming URLs)
@@ -3540,7 +3577,14 @@ function _onPlaybackDone() {
 function _agUpdateModeLabel(mode) {
   const el = document.getElementById('ag-mode-label');
   if (!el) return;
-  el.textContent = mode === 'audio' ? 'TTS Audio' : mode === 'synth' ? 'Web Speech' : '';
+  if (mode === 'audio') {
+    const epName = _agTtsEndpoints[_agTtsEndpointIdx].id;
+    el.textContent = 'TTS (' + epName + ')';
+  } else if (mode === 'synth') {
+    el.textContent = 'Web Speech';
+  } else {
+    el.textContent = '';
+  }
 }
 
 function _agStartPlayback(fromIdx) {
@@ -3647,8 +3691,20 @@ function _agStartPlayback(fromIdx) {
         _agAudio = active; // for progress tracking
         active.onended = () => { _agSwapAudio(); ci++; playChunk(); };
         active.onerror = () => {
-          console.warn('[ArchWander] TTS chunk error, sent:', idx, 'chunk:', ci);
-          ci++; playChunk();
+          console.warn('[ArchWander] TTS chunk error, sent:', idx, 'chunk:', ci, 'ep:', _agTtsEndpoints[_agTtsEndpointIdx].id);
+          // Runtime fallback: try next endpoint for this chunk
+          const nextEp = _agTtsEndpointIdx + 1;
+          if (nextEp < _agTtsEndpoints.length) {
+            console.log('[ArchWander] Trying fallback endpoint:', _agTtsEndpoints[nextEp].id);
+            _agTtsEndpointIdx = nextEp;
+            _agUpdateModeLabel('audio');
+            _agBlobCache.clear(); // clear stale cache from old endpoint
+            const fallbackUrl = _agTtsUrl(chunks[ci], LANG);
+            active.src = fallbackUrl;
+            active.play().catch(() => { ci++; playChunk(); });
+          } else {
+            ci++; playChunk(); // all endpoints exhausted, skip chunk
+          }
         };
         active.play().catch(() => { ci++; playChunk(); });
       }
@@ -3848,13 +3904,19 @@ function _agStopSmoothProgress() {
   if (_agRafId) { cancelAnimationFrame(_agRafId); _agRafId = null; }
 }
 
-// Pre-test Google TTS on page load — result is ready before user taps play
+// Pre-test TTS endpoints on page load — result is ready before user taps play
 // (Never run this inside a play gesture — the async wait kills the gesture context)
-// Now retries up to 3 times with 1.5s delay between attempts.
+// Tests all endpoints in order; first working one becomes the default.
 let _agTtsAvailable = null;  // null=testing, true=ok, false=unavailable
-_agTestTts().then(ok => {
-  _agTtsAvailable = ok;
-  console.log('[ArchWander] TTS pre-test:', ok ? '✓ available' : '✗ unavailable (after 3 retries)');
+_agTestTts().then(epIdx => {
+  if (epIdx >= 0) {
+    _agTtsEndpointIdx = epIdx;
+    _agTtsAvailable = true;
+    console.log('[ArchWander] TTS pre-test: ✓ using', _agTtsEndpoints[epIdx].id);
+  } else {
+    _agTtsAvailable = false;
+    console.log('[ArchWander] TTS pre-test: ✗ all endpoints failed → speechSynthesis fallback');
+  }
 });
 
 // Pre-load voices (Chrome async)
@@ -3983,6 +4045,11 @@ function switchTab(id) {
   if (id !== 'here' && walkRouteLine) _clearWalkRoute();
   // Stop audio when leaving audio tab
   if (id !== 'audio') agStop();
+  // Hide photo gallery when Audio tab is active — gives more space for script
+  const gallery = document.getElementById('gallery');
+  if (gallery) {
+    gallery.style.display = (id === 'audio') ? 'none' : '';
+  }
 }
 
 // ══════════════════════════════════════════════════════════════════
@@ -4926,6 +4993,10 @@ function toggleWalkPathMode() {
 }
 
 function toggleSidebar() {
+  // Mobile: if location panel is open, close it first and open sidebar
+  if (window.innerWidth <= 900 && activeLoc) {
+    closePanel();
+  }
   const side = document.getElementById('sidebar');
   const bd = document.getElementById('sidebar-backdrop');
   const isOpen = side.classList.toggle('open');
