@@ -2254,7 +2254,13 @@ function applyLang() {
   if (gpsSpan) gpsSpan.textContent = t('my_location');
   // Sidebar filter header
   const sbLabel = document.querySelector('.sb-top-label');
-  if (sbLabel) sbLabel.textContent = t('filters');
+  if (sbLabel) {
+    // Preserve the SVG icon — only replace the text node after it
+    const svg = sbLabel.querySelector('svg');
+    sbLabel.textContent = '';
+    if (svg) sbLabel.prepend(svg);
+    sbLabel.append(' ' + t('filters'));
+  }
   const sbClear = document.getElementById('sb-clear');
   if (sbClear) sbClear.textContent = t('clear_all');
   // Filter section labels + clear buttons
@@ -4830,25 +4836,33 @@ async function _loadKoreanFont() {
   _koreanFontB64 = btoa(parts.join(''));
 }
 
-// Returns { dataUrl, w, h } or null. Uses <img> + canvas for reliable CORS + jsPDF compat.
+// Returns { dataUrl, w, h } or null.
+// Strategy: fetch() → blob → objectURL → <img> → canvas → dataURL
+// fetch() handles CORS redirects (Special:FilePath 302) correctly;
+// objectURL avoids canvas taint since the image source is local.
 async function _fetchImgForPdf(url, timeout) {
   try {
-    return await new Promise((resolve) => {
+    const ctl = new AbortController();
+    const tm = setTimeout(() => ctl.abort(), timeout || 12000);
+    const resp = await fetch(url, { mode: 'cors', credentials: 'omit', signal: ctl.signal });
+    clearTimeout(tm);
+    if (!resp.ok) return null;
+    const blob = await resp.blob();
+    if (!blob.type.startsWith('image/')) return null;
+    const objUrl = URL.createObjectURL(blob);
+    return await new Promise(resolve => {
       const img = new Image();
-      img.crossOrigin = 'anonymous';
-      const tm = setTimeout(() => { img.src = ''; resolve(null); }, timeout || 10000);
       img.onload = () => {
-        clearTimeout(tm);
         try {
           const c = document.createElement('canvas');
-          c.width  = img.naturalWidth;
-          c.height = img.naturalHeight;
+          c.width = img.naturalWidth; c.height = img.naturalHeight;
           c.getContext('2d').drawImage(img, 0, 0);
+          URL.revokeObjectURL(objUrl);
           resolve({ dataUrl: c.toDataURL('image/jpeg', 0.85), w: c.width, h: c.height });
-        } catch(e) { resolve(null); }
+        } catch(e) { URL.revokeObjectURL(objUrl); resolve(null); }
       };
-      img.onerror = () => { clearTimeout(tm); resolve(null); };
-      img.src = url;
+      img.onerror = () => { URL.revokeObjectURL(objUrl); resolve(null); };
+      img.src = objUrl;
     });
   } catch { return null; }
 }
