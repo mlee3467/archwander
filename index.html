@@ -4759,18 +4759,41 @@ function _initCityByGPS() {
 }
 
 // ══════════════════════════════════════════════════════════════════
-// EXPORT PDF
+// EXPORT PDF  (jsPDF + jsPDF-AutoTable — no html2canvas dependency)
 // ══════════════════════════════════════════════════════════════════
-let _html2pdfLoaded = false;
-function _loadHtml2Pdf() {
-  if (_html2pdfLoaded) return Promise.resolve();
+let _jspdfReady = false;
+function _loadJsPdf() {
+  if (_jspdfReady) return Promise.resolve();
   return new Promise((resolve, reject) => {
-    const s = document.createElement('script');
-    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
-    s.onload = () => { _html2pdfLoaded = true; resolve(); };
-    s.onerror = () => reject(new Error('Failed to load html2pdf.js'));
-    document.head.appendChild(s);
+    const s1 = document.createElement('script');
+    s1.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+    s1.onload = () => {
+      const s2 = document.createElement('script');
+      s2.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js';
+      s2.onload = () => { _jspdfReady = true; resolve(); };
+      s2.onerror = () => reject(new Error('Failed to load jsPDF-AutoTable'));
+      document.head.appendChild(s2);
+    };
+    s1.onerror = () => reject(new Error('Failed to load jsPDF'));
+    document.head.appendChild(s1);
   });
+}
+
+// Fetch image as data URL for PDF embedding
+async function _fetchImgDataUrl(url, timeout) {
+  try {
+    const ctl = new AbortController();
+    const tm = setTimeout(() => ctl.abort(), timeout || 8000);
+    const resp = await fetch(url, { mode: 'cors', signal: ctl.signal });
+    clearTimeout(tm);
+    const blob = await resp.blob();
+    return await new Promise(resolve => {
+      const r = new FileReader();
+      r.onloadend = () => resolve(r.result);
+      r.onerror   = () => resolve(null);
+      r.readAsDataURL(blob);
+    });
+  } catch { return null; }
 }
 
 async function exportPDF() {
@@ -4789,75 +4812,110 @@ async function exportPDF() {
   btn.disabled = true;
 
   try {
-    await _loadHtml2Pdf();
+    await _loadJsPdf();
 
-    const cityName = CITY_META[activeCity]?.name || activeCity;
-    const walkMin  = parseInt(document.getElementById('walk-slider').value, 10);
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
+    const W = 210, H = 297, M = 14; // A4 dimensions & margin
+    const pw = W - M * 2; // printable width
 
-    // ── Helper: get translated field ──
+    const cityLabel = CITY_META[activeCity]?.label?.replace(/^.+\s/, '') || activeCity;
+    const walkMin = parseInt(document.getElementById('walk-slider').value, 10);
+
+    // Helper: translated field
     function _tf(loc, field) {
       if (LANG === 'ko' && typeof LOCS_KO !== 'undefined' && LOCS_KO[loc.id]?.[field])
         return LOCS_KO[loc.id][field];
       return loc[field] || '';
     }
 
-    // ── Build HTML ──
-    let html = `<div style="font-family:'Inter','Noto Sans KR','Malgun Gothic',sans-serif;color:#111;line-height:1.6">`;
+    // ═══════════════════════════════════════════
+    // PAGE 1 — COVER + SUMMARY TABLE
+    // ═══════════════════════════════════════════
 
-    // Cover
-    html += `<div style="text-align:center;padding:80px 0 40px">
-      <div style="font-size:36px;font-weight:700;letter-spacing:-0.5px;color:rgb(0,0,255)">ArchWander</div>
-      <div style="font-size:16px;color:#333;margin:12px 0 4px;font-weight:600">${cityName}</div>
-      <div style="font-size:12px;color:#888">${locs.length} ${t('pdf_locations')} · ${walkMin} min ${t('pdf_walking')}</div>
-      <div style="font-size:11px;color:#aaa;margin-top:6px">${new Date().toLocaleDateString()}</div>
-    </div>`;
+    // Cover header
+    doc.setFontSize(28); doc.setTextColor(0, 0, 255); doc.setFont('helvetica', 'bold');
+    doc.text('ArchWander', W / 2, 45, { align: 'center' });
 
-    // Summary table
-    html += `<div style="margin:0 0 10px;font-size:13px;font-weight:600;color:#333">${t('pdf_summary')}</div>`;
-    html += `<table style="width:100%;border-collapse:collapse;font-size:9.5px;margin-bottom:20px">
-      <thead><tr style="background:rgb(0,0,255);color:white">
-        <th style="padding:5px 6px;text-align:left;border:1px solid rgb(0,0,255)">#</th>
-        <th style="padding:5px 6px;text-align:left;border:1px solid rgb(0,0,255)">${t('pdf_name')}</th>
-        <th style="padding:5px 6px;text-align:left;border:1px solid rgb(0,0,255)">${t('pdf_architect')}</th>
-        <th style="padding:5px 6px;text-align:left;border:1px solid rgb(0,0,255)">${t('pdf_year')}</th>
-        <th style="padding:5px 6px;text-align:left;border:1px solid rgb(0,0,255)">${t('pdf_style')}</th>
-      </tr></thead><tbody>`;
+    doc.setFontSize(14); doc.setTextColor(50); doc.setFont('helvetica', 'bold');
+    doc.text(cityLabel, W / 2, 56, { align: 'center' });
 
-    locs.forEach((loc, i) => {
-      const bg = i % 2 === 0 ? '#f9f9ff' : 'white';
-      html += `<tr style="background:${bg}">
-        <td style="padding:4px 6px;border:1px solid #ddd">${i + 1}</td>
-        <td style="padding:4px 6px;border:1px solid #ddd;font-weight:500">${_tf(loc, 'name') || loc.name}</td>
-        <td style="padding:4px 6px;border:1px solid #ddd">${loc.arch || ''}</td>
-        <td style="padding:4px 6px;border:1px solid #ddd">${loc.yr || ''}</td>
-        <td style="padding:4px 6px;border:1px solid #ddd">${loc.style || ''}</td>
-      </tr>`;
+    doc.setFontSize(9); doc.setTextColor(130); doc.setFont('helvetica', 'normal');
+    doc.text(`${locs.length} ${t('pdf_locations')}  ·  ${walkMin} min ${t('pdf_walking')}  ·  ${new Date().toLocaleDateString()}`, W / 2, 64, { align: 'center' });
+
+    // Divider line
+    doc.setDrawColor(200); doc.setLineWidth(0.3);
+    doc.line(M, 70, W - M, 70);
+
+    // Summary table label
+    doc.setFontSize(11); doc.setTextColor(30); doc.setFont('helvetica', 'bold');
+    doc.text(t('pdf_summary'), M, 78);
+
+    // Summary table via AutoTable
+    const summaryHead = [['#', t('pdf_name'), t('pdf_architect'), t('pdf_year'), t('pdf_style')]];
+    const summaryBody = locs.map((loc, i) => [
+      String(i + 1),
+      _tf(loc, 'name') || loc.name,
+      loc.arch || '',
+      String(loc.yr || ''),
+      loc.style || ''
+    ]);
+
+    doc.autoTable({
+      startY: 82,
+      margin: { left: M, right: M },
+      head: summaryHead,
+      body: summaryBody,
+      styles: { fontSize: 7.5, cellPadding: 2.5, overflow: 'linebreak', font: 'helvetica' },
+      headStyles: { fillColor: [0, 0, 255], textColor: 255, fontStyle: 'bold', fontSize: 7.5 },
+      alternateRowStyles: { fillColor: [245, 245, 255] },
+      columnStyles: {
+        0: { cellWidth: 8 },
+        1: { cellWidth: 52, fontStyle: 'bold' },
+        2: { cellWidth: 48 },
+        3: { cellWidth: 16, halign: 'center' },
+        4: { cellWidth: pw - 8 - 52 - 48 - 16 }
+      }
     });
-    html += `</tbody></table>`;
 
-    // Detail pages
+    // ═══════════════════════════════════════════
+    // DETAIL PAGES — one per location
+    // ═══════════════════════════════════════════
     for (let i = 0; i < locs.length; i++) {
       const loc = locs[i];
       const name = _tf(loc, 'name') || loc.name;
       const desc = _tf(loc, 'desc');
       const cats = _allCats(loc).join(', ');
 
-      html += `<div style="page-break-before:always;padding-top:24px">`;
+      doc.addPage();
+      let y = M;
 
-      // Photo
+      // ── Photo ──
       if (loc.photos?.length) {
-        html += `<div style="text-align:center;margin-bottom:14px">
-          <img src="${loc.photos[0]}" crossorigin="anonymous"
-               style="max-width:100%;max-height:280px;border-radius:8px;object-fit:cover"
-               onerror="this.style.display='none'">
-        </div>`;
+        const dataUrl = await _fetchImgDataUrl(loc.photos[0]);
+        if (dataUrl) {
+          try {
+            const imgProps = doc.getImageProperties(dataUrl);
+            const maxW = pw, maxH = 80;
+            let imgW = maxW, imgH = (imgProps.height / imgProps.width) * maxW;
+            if (imgH > maxH) { imgH = maxH; imgW = (imgProps.width / imgProps.height) * maxH; }
+            const imgX = M + (pw - imgW) / 2;
+            doc.addImage(dataUrl, 'JPEG', imgX, y, imgW, imgH);
+            y += imgH + 6;
+          } catch { /* skip bad image */ }
+        }
       }
 
-      // Header
-      html += `<div style="font-size:18px;font-weight:700;margin:0 0 3px">${name}</div>`;
-      html += `<div style="font-size:11px;color:#666;margin-bottom:14px">${loc.arch || ''} · ${loc.yr || ''}</div>`;
+      // ── Name + Architect/Year ──
+      doc.setFontSize(16); doc.setTextColor(17); doc.setFont('helvetica', 'bold');
+      doc.text(name, M, y + 5);
+      y += 9;
 
-      // Info table
+      doc.setFontSize(9); doc.setTextColor(100); doc.setFont('helvetica', 'normal');
+      doc.text(`${loc.arch || ''}  ·  ${loc.yr || ''}`, M, y + 2);
+      y += 8;
+
+      // ── Info table ──
       const fields = [];
       if (loc.style)  fields.push([t('pdf_style'), loc.style]);
       if (cats)       fields.push([t('pdf_category'), cats]);
@@ -4874,61 +4932,45 @@ async function exportPDF() {
       if (transit)   fields.push([t('pdf_transit'), transit]);
 
       if (fields.length) {
-        html += `<table style="width:100%;font-size:10.5px;border-collapse:collapse;margin-bottom:14px">`;
-        fields.forEach(([k, v]) => {
-          html += `<tr>
-            <td style="padding:4px 8px;font-weight:600;color:#555;width:90px;vertical-align:top;border-bottom:1px solid #eee">${k}</td>
-            <td style="padding:4px 8px;border-bottom:1px solid #eee">${v}</td>
-          </tr>`;
+        doc.autoTable({
+          startY: y,
+          margin: { left: M, right: M },
+          body: fields.map(([k, v]) => [k, v]),
+          styles: { fontSize: 8, cellPadding: 2.5, overflow: 'linebreak', font: 'helvetica' },
+          columnStyles: {
+            0: { cellWidth: 32, fontStyle: 'bold', textColor: [100, 100, 100] },
+            1: { cellWidth: pw - 32 }
+          },
+          theme: 'plain',
+          didDrawCell: (data) => {
+            // bottom border per row
+            if (data.column.index === 1) {
+              doc.setDrawColor(230);
+              doc.setLineWidth(0.2);
+              doc.line(M, data.cell.y + data.cell.height, W - M, data.cell.y + data.cell.height);
+            }
+          }
         });
-        html += `</table>`;
+        y = doc.lastAutoTable.finalY + 6;
       }
 
-      // Description
+      // ── Description ──
       if (desc) {
-        html += `<div style="font-size:10.5px;line-height:1.75;color:#333">${desc}</div>`;
+        doc.setFontSize(8); doc.setTextColor(60); doc.setFont('helvetica', 'normal');
+        const lines = doc.splitTextToSize(desc, pw);
+        // Check if we need a new page
+        const lineH = 3.5;
+        if (y + lines.length * lineH > H - M) {
+          doc.addPage();
+          y = M;
+        }
+        doc.text(lines, M, y);
       }
-
-      html += `</div>`;
     }
 
-    html += `</div>`;
-
-    // ── Create temp container ──
-    const container = document.createElement('div');
-    container.style.cssText = 'position:fixed;left:-9999px;top:0;width:210mm;';
-    container.innerHTML = html;
-    document.body.appendChild(container);
-
-    // ── Pre-fetch images as data URLs (CORS) ──
-    const imgs = container.querySelectorAll('img');
-    await Promise.all([...imgs].map(async (img) => {
-      try {
-        const resp = await fetch(img.src, { mode: 'cors' });
-        const blob = await resp.blob();
-        const dataUrl = await new Promise((resolve, reject) => {
-          const r = new FileReader();
-          r.onloadend = () => resolve(r.result);
-          r.onerror   = reject;
-          r.readAsDataURL(blob);
-        });
-        img.src = dataUrl;
-      } catch { img.style.display = 'none'; }
-    }));
-
-    // ── Generate PDF ──
-    const filename = `ArchWander_${cityName.replace(/\s+/g, '_')}_${new Date().toISOString().slice(0, 10)}.pdf`;
-
-    await html2pdf().set({
-      margin:     [12, 12, 12, 12],
-      filename,
-      image:      { type: 'jpeg', quality: 0.85 },
-      html2canvas:{ scale: 2, useCORS: true, logging: false },
-      jsPDF:      { unit: 'mm', format: 'a4', orientation: 'portrait' },
-      pagebreak:  { mode: ['css'] }
-    }).from(container).save();
-
-    document.body.removeChild(container);
+    // ── Save ──
+    const filename = `ArchWander_${cityLabel.replace(/\s+/g, '_')}_${new Date().toISOString().slice(0, 10)}.pdf`;
+    doc.save(filename);
 
   } catch (err) {
     console.error('PDF export failed:', err);
