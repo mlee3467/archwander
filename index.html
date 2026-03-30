@@ -552,30 +552,6 @@
     }
     .btn-s:hover { background: var(--bg); }
 
-    /* ── STREET VIEW TAB ─────────────────────── */
-    .sv-intro {
-      font-size: 12px; color: var(--text-secondary);
-      line-height: 1.6; margin-bottom: 16px;
-    }
-    .sv-services { display: flex; flex-direction: column; gap: 9px; }
-    .sv-card {
-      display: flex; align-items: center; gap: 12px;
-      padding: 12px 14px;
-      border: 1px solid var(--border); border-radius: 10px;
-      text-decoration: none; color: inherit;
-      transition: all 0.15s; background: white;
-    }
-    .sv-card:hover { border-color: #bbb; background: var(--bg); }
-    .sv-icon {
-      width: 38px; height: 38px; border-radius: 9px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px; flex-shrink: 0;
-    }
-    .sv-info { flex: 1; min-width: 0; }
-    .sv-name { font-size: 13px; font-weight: 500; margin-bottom: 2px; }
-    .sv-desc { font-size: 11px; color: var(--text-secondary); }
-    .sv-arrow { color: var(--text-secondary); font-size: 14px; }
-
     /* ── AUDIO GUIDE TAB ────────────────────────── */
     .ag-wrap { display: flex; flex-direction: column; gap: 0; }
 
@@ -726,25 +702,6 @@
       text-align: center; margin-top: 14px;
       display: flex; align-items: center; justify-content: center; gap: 5px;
     }
-    /* Lightbox */
-    .lightbox {
-      display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,0.9); z-index: 9999;
-      align-items: center; justify-content: center;
-    }
-    .lightbox.show { display: flex; }
-    .lightbox img { max-width: 90vw; max-height: 67vh; object-fit: contain; border-radius: 4px; }
-    .lb-close {
-      position: absolute; top: 16px; right: 18px;
-      font-size: 28px; color: white; cursor: pointer; line-height: 1;
-      background: none; border: none; opacity: 0.8;
-    }
-    .lb-close:hover { opacity: 1; }
-    .lb-caption {
-      position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
-      color: rgba(255,255,255,0.8); font-size: 12px; white-space: nowrap;
-    }
-
     /* External resources */
     .ext-resources { margin-top: 4px; }
     .ext-title { font-size: 11px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 8px; }
@@ -1440,13 +1397,6 @@
   </div>
 </div>
 
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox" onclick="closeLightbox()">
-  <button class="lb-close" onclick="closeLightbox()">&#215;</button>
-  <img id="lb-img" src="" alt="">
-  <div class="lb-caption" id="lb-cap"></div>
-</div>
-
 <header>
   <!-- Desktop: single row via display:contents -->
   <!-- Mobile: CSS Grid 2-row layout, logo spans both rows -->
@@ -1814,17 +1764,6 @@ async function fetchWikiLicense(url) {
     return result;
   } catch(e) { return { license: '?', artist: '', needsAttrib: false }; }
 }
-function _licBadgeHtml(lic) {
-  if (!lic || lic === '?') return '';
-  const u = lic.toUpperCase();
-  let bg, color;
-  if (/CC0|PUBLIC.?DOMAIN/i.test(u))     { bg='#dcfce7'; color='#166534'; }
-  else if (/CC.BY.SA|CC.BY-SA/i.test(u)) { bg='#fef3c7'; color='#92400e'; }
-  else if (/CC.BY/i.test(u))              { bg='#fee2e2'; color='#991b1b'; }
-  else                                     { bg='#f1f5f9'; color='#64748b'; }
-  return `<span style="display:inline-block;font-size:9px;font-weight:700;color:${color};background:${bg};padding:1px 5px;border-radius:3px;line-height:1.6;white-space:nowrap">${lic}</span>`;
-}
-
 // ══════════════════════════════════════════════════════════════════
 // CONFIG
 // ══════════════════════════════════════════════════════════════════
@@ -1906,8 +1845,6 @@ const THUNDERFOREST_STYLE   = 'atlas'; // 'transport' | 'cycle' | 'atlas'
 // Sign up at deepl.com/pro-api → Free plan → copy Auth Key (ends with :fx).
 // Leave empty to use MyMemory (free, no key, lower quality, 5K chars/day).
 const DEEPL_API_KEY = '';
-
-// (YouTube API removed — replaced by Audio Guide)
 
 // ══════════════════════════════════════════════════════════════════
 // LANGUAGE  (EN default · KO optional)
@@ -2820,25 +2757,15 @@ function openLoc(loc) {
   loc.photos.forEach((src, i) => {
     const img = document.createElement('img');
     img.alt = loc.name;
-    img.crossOrigin = 'anonymous';      // CORS-cache for PDF export reuse
     img.dataset.photoUrl = src;
     if (i === 0) {
-      // Load first image immediately
       img.src = photoUrl(src, isMob, 'gallery');
       img.classList.add('active');
     } else {
-      // Defer remaining images until actually needed
       img.dataset.src = photoUrl(src, isMob, 'gallery');
       img.loading = 'lazy';
     }
-    img.onload = function() {
-      if (this.crossOrigin && this.naturalWidth > 0) _cachePhoto(src, this);
-    };
-    img.onerror = function() {
-      // If CORS load fails, retry without crossOrigin for display only
-      if (this.crossOrigin) { this.crossOrigin = ''; this.src = this.src; return; }
-      this.style.display = 'none';
-    };
+    img.onerror = function() { this.style.display = 'none'; };
     gallery.insertBefore(img, gallery.querySelector('.g-btn'));
   });
   document.getElementById('g-dots').innerHTML =
@@ -3603,93 +3530,6 @@ document.addEventListener('click', () => {
   if (btn)  btn.classList.remove('open');
 });
 
-function formatViews(n) {
-  if (n >= 1e8) return (n/1e6).toFixed(0)+'M';
-  if (n >= 1e6) return (n/1e6).toFixed(1)+'M';
-  if (n >= 1e4) return (n/1e3).toFixed(0)+'K';
-  if (n >= 1e3) return (n/1e3).toFixed(1)+'K';
-  return n.toLocaleString();
-}
-
-function buildStreetViewTab(loc) {
-  const mUrl  = `https://www.mapillary.com/app/?lat=${loc.lat}&lng=${loc.lng}&z=17&focus=photo`;
-  const kvUrl = `https://kartaview.org/map/@${loc.lat},${loc.lng},17z`;
-  const gmUrl = `https://maps.google.com/?q=${encodeURIComponent(loc.addr)}&layer=c`;
-  return `
-    <p class="sv-intro">Explore <strong>${loc.name}</strong> at street level using open-source and community-powered imagery services.</p>
-    <div class="sv-services">
-      <a class="sv-card" href="${mUrl}" target="_blank" rel="noopener">
-        <div class="sv-icon" style="background:#EEF2FF">🗺</div>
-        <div class="sv-info">
-          <div class="sv-name">Mapillary</div>
-          <div class="sv-desc">Open-source street-level imagery · Community + AI labels</div>
-        </div>
-        <span class="sv-arrow">↗</span>
-      </a>
-      <a class="sv-card" href="${kvUrl}" target="_blank" rel="noopener">
-        <div class="sv-icon" style="background:#F0FDF4">📍</div>
-        <div class="sv-info">
-          <div class="sv-name">KartaView</div>
-          <div class="sv-desc">Community-driven street view · Open data by OSM contributors</div>
-        </div>
-        <span class="sv-arrow">↗</span>
-      </a>
-      <a class="sv-card" href="${gmUrl}" target="_blank" rel="noopener">
-        <div class="sv-icon" style="background:#FFF7ED">🔭</div>
-        <div class="sv-info">
-          <div class="sv-name">Google Street View</div>
-          <div class="sv-desc">Most comprehensive coverage · 360° photo spheres</div>
-        </div>
-        <span class="sv-arrow">↗</span>
-      </a>
-    </div>
-  `;
-}
-
-function buildDrawingsTab(loc) {
-  let html = '';
-
-  if (loc.drawings && loc.drawings.length > 0) {
-    html += '<div class="dw-grid">';
-    loc.drawings.forEach((dw, i) => {
-      html += `
-        <div class="dw-item" onclick="openLightbox('${dw.src}','${dw.caption}')">
-          <img class="dw-img" src="${dw.src}" alt="${dw.type}"
-               loading="lazy"
-               onerror="this.closest('.dw-item').style.display='none'">
-          <div class="dw-caption">
-            <div class="dw-type">${dw.type}</div>
-            ${dw.caption}
-          </div>
-        </div>`;
-    });
-    html += '</div>';
-  } else {
-    html += `
-      <div class="dw-placeholder">
-        <div class="dw-icon">📐</div>
-        <p>Architectural drawings and diagrams for <strong>${loc.name}</strong> will be added in future updates.</p>
-      </div>`;
-  }
-
-  html += `
-    <div class="ext-resources">
-      <div class="ext-title">Explore Architectural Resources</div>
-      <div class="ext-links">
-        <a class="ext-link" href="${loc.archdaily}" target="_blank" rel="noopener">ArchDaily ↗</a>
-        <a class="ext-link" href="${loc.wiki}" target="_blank" rel="noopener">Wikipedia ↗</a>
-        <a class="ext-link" href="https://www.ctbuh.org/buildings?search=${encodeURIComponent(loc.name)}" target="_blank" rel="noopener">CTBUH ↗</a>
-        <a class="ext-link" href="https://commons.wikimedia.org/w/index.php?search=${encodeURIComponent(loc.name+' drawing plan')}" target="_blank" rel="noopener">Wikimedia Commons ↗</a>
-      </div>
-    </div>
-  `;
-  return html;
-}
-
-// ══════════════════════════════════════════════════════════════════
-// MINI MAP (Street View tab)
-// ══════════════════════════════════════════════════════════════════
-
 // ══════════════════════════════════════════════════════════════════
 // TABS
 // ══════════════════════════════════════════════════════════════════
@@ -3767,15 +3607,6 @@ async function applyPhotoAttribution(galleryEl, photos) {
 }
 
 // ══════════════════════════════════════════════════════════════════
-// LIGHTBOX
-// ══════════════════════════════════════════════════════════════════
-function openLightbox(src, caption) {
-  document.getElementById('lb-img').src = src;
-  document.getElementById('lb-cap').textContent = caption;
-  document.getElementById('lightbox').classList.add('show');
-}
-function closeLightbox() { document.getElementById('lightbox').classList.remove('show'); }
-
 // ══════════════════════════════════════════════════════════════════
 // SIDEBAR DRAG RESIZE
 // ══════════════════════════════════════════════════════════════════
@@ -3885,8 +3716,6 @@ function setupHDragLeft(handleId, targetId, minW, maxW) {
   document.addEventListener('touchend', end);
 }
 
-// ══════════════════════════════════════════════════════════════════
-// (Street View panel removed — links kept in Directions tab)
 // ══════════════════════════════════════════════════════════════════
 
 
@@ -4718,7 +4547,7 @@ function _cityLocalLang(loc) {
 // Get a field value in the city's local language (from LOCS_KO or loc.local* fields)
 function _localField(loc, field) {
   const ll = _cityLocalLang(loc);
-  if (ll === 'en') return '';                                  // English city — no local alt
+  if (ll === 'en') return loc[field] || '';                    // English city — original English value
   if (ll === 'ko') return (typeof LOCS_KO !== 'undefined' && LOCS_KO[loc.id]?.[field]) || '';
   // ja, fr, etc. — stored in data file as localName, localAddr, localHood
   const key = 'local' + field.charAt(0).toUpperCase() + field.slice(1);
@@ -4778,7 +4607,7 @@ document.addEventListener('keydown', e => {
       document.getElementById('walk-pin-btn').classList.remove('locating');
       return;
     }
-    closeLightbox() || closePanel();
+    closePanel();
   }
 });
 
@@ -4822,18 +4651,48 @@ function _loadScript(src) {
   });
 }
 
-// Photo cache: gallery images captured as base64 for PDF reuse
-// Key = original Wikimedia URL (loc.photos entry), Value = { dataUrl, w, h, fmt }
+// PDF photo cache: Key = original URL, Value = { dataUrl, w, h, fmt }
 const _photoCache = new Map();
-function _cachePhoto(origUrl, imgEl) {
-  if (_photoCache.has(origUrl)) return;
-  try {
-    const c = document.createElement('canvas');
-    c.width = imgEl.naturalWidth; c.height = imgEl.naturalHeight;
-    c.getContext('2d').drawImage(imgEl, 0, 0);
-    const dataUrl = c.toDataURL('image/jpeg', 0.85);
-    _photoCache.set(origUrl, { dataUrl, w: c.width, h: c.height, fmt: 'JPEG' });
-  } catch(e) { /* CORS tainted — skip */ }
+// Map: Special:FilePath URL → CORS-friendly upload.wikimedia.org thumb URL
+const _resolvedUrls = new Map();
+
+// Resolve Special:FilePath URLs to CORS-friendly upload.wikimedia.org thumb URLs
+// Uses Wikimedia API (batch of up to 50 titles per request)
+async function _resolveWikiUrls(urls, thumbWidth) {
+  const w = thumbWidth || 700;
+  const toResolve = urls.filter(u => u.includes('Special:FilePath') && !_resolvedUrls.has(u));
+  if (!toResolve.length) return;
+
+  // Extract filenames from Special:FilePath URLs
+  const fileMap = {};
+  toResolve.forEach(u => {
+    const m = u.match(/Special:FilePath\/([^?]+)/);
+    if (m) fileMap[decodeURIComponent(m[1])] = u;
+  });
+
+  const filenames = Object.keys(fileMap);
+  // API allows max 50 titles per request
+  for (let i = 0; i < filenames.length; i += 50) {
+    const batch = filenames.slice(i, i + 50);
+    const titles = batch.map(f => 'File:' + f).join('|');
+    try {
+      const resp = await fetch(
+        `https://commons.wikimedia.org/w/api.php?action=query&titles=${encodeURIComponent(titles)}&prop=imageinfo&iiprop=url&iiurlwidth=${w}&format=json&origin=*`,
+        { credentials: 'omit' }
+      );
+      if (!resp.ok) continue;
+      const data = await resp.json();
+      const pages = data.query?.pages || {};
+      Object.values(pages).forEach(page => {
+        const thumbUrl = page.imageinfo?.[0]?.thumburl;
+        if (!thumbUrl) return;
+        // Find original Special:FilePath URL for this file
+        const title = page.title?.replace(/^File:/, '') || '';
+        const origUrl = fileMap[title];
+        if (origUrl) _resolvedUrls.set(origUrl, thumbUrl);
+      });
+    } catch { /* skip batch on network error */ }
+  }
 }
 
 async function _loadPdfLibs() {
@@ -4858,41 +4717,32 @@ async function _loadKoreanFont() {
   _koreanFontB64 = btoa(parts.join(''));
 }
 
-// Load image via <img> tag with timeout. Returns { dataUrl, w, h, fmt } or null.
-// Uses crossOrigin='anonymous' for CORS canvas access.
-// If CORS load fails, retries without CORS (display-only) and captures via offscreen trick.
+// Load a CORS-friendly image URL → canvas → base64 for PDF embedding.
+// origUrl = loc.photos entry; uses _resolvedUrls for Special:FilePath → upload.wikimedia.org
 async function _fetchImgForPdf(origUrl, timeout) {
   const tmout = timeout || 12000;
-  // Use same gallery-size URL so browser HTTP cache is a hit
-  const loadUrl = photoUrl(origUrl, window.innerWidth < 768, 'gallery');
+  // For Special:FilePath, use resolved CORS-friendly URL; otherwise use original
+  const corsUrl = _resolvedUrls.get(origUrl) || origUrl;
 
-  // ── <img crossOrigin='anonymous'> → canvas, with retry ──
-  for (let att = 0; att < 2; att++) {
-    const result = await new Promise(resolve => {
-      const img = new Image();
-      img.crossOrigin = 'anonymous';
-      const tm = setTimeout(() => { img.src = ''; resolve(null); }, att === 0 ? 6000 : tmout);
-      img.onload = () => {
-        clearTimeout(tm);
-        try {
-          const c = document.createElement('canvas');
-          c.width = img.naturalWidth; c.height = img.naturalHeight;
-          c.getContext('2d').drawImage(img, 0, 0);
-          const dataUrl = c.toDataURL('image/jpeg', 0.85);
-          resolve({ dataUrl, w: c.width, h: c.height, fmt: 'JPEG' });
-        } catch { resolve(null); }
-      };
-      img.onerror = () => { clearTimeout(tm); resolve(null); };
-      img.src = loadUrl;
-    });
-    if (result) {
-      _photoCache.set(origUrl, result);  // cache by original URL key
-      return result;
-    }
-    // Brief delay before retry
-    if (att === 0) await new Promise(r => setTimeout(r, 1500));
-  }
-  return null;
+  const result = await new Promise(resolve => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    const tm = setTimeout(() => { img.src = ''; resolve(null); }, tmout);
+    img.onload = () => {
+      clearTimeout(tm);
+      try {
+        const c = document.createElement('canvas');
+        c.width = img.naturalWidth; c.height = img.naturalHeight;
+        c.getContext('2d').drawImage(img, 0, 0);
+        const dataUrl = c.toDataURL('image/jpeg', 0.85);
+        resolve({ dataUrl, w: c.width, h: c.height, fmt: 'JPEG' });
+      } catch { resolve(null); }
+    };
+    img.onerror = () => { clearTimeout(tm); resolve(null); };
+    img.src = corsUrl;
+  });
+  if (result) _photoCache.set(origUrl, result);
+  return result;
 }
 
 async function _reverseGeocode(lat, lng) {
@@ -4972,20 +4822,20 @@ async function exportPDF() {
       return `${idx + 1}. ${_displayName(loc)}`;
     }
 
-    // ── Collect photos: use gallery cache first, fetch only uncached ──
+    // ── Resolve Special:FilePath URLs to CORS-friendly URLs (batch API) ──
+    _pdfProgress(6, LANG==='ko'?'이미지 URL 변환 중…':'Resolving image URLs…');
+    const allPhotoUrls = locs.flatMap(l => (l.photos || []).slice(0, 4));
+    await _resolveWikiUrls(allPhotoUrls, 700);
+
+    // ── Fetch photos: use cache first, then CORS <img> with resolved URLs ──
     const photoMap = {};
     for (let li = 0; li < locs.length; li++) {
       const loc = locs[li];
       if (!loc.photos?.length) continue;
-      const cached = loc.photos.slice(0, 4).filter(u => _photoCache.has(u)).length;
-      const total  = Math.min(loc.photos.length, 4);
-      const detail = cached === total
-        ? `${li+1} / ${locs.length} (${LANG==='ko'?'캐시':'cached'})`
-        : `${li+1} / ${locs.length}`;
-      _pdfProgress(5 + (li / locs.length) * 55, LANG==='ko'?'사진 준비 중…':'Preparing photos…', detail);
+      _pdfProgress(8 + (li / locs.length) * 52, LANG==='ko'?'사진 다운로드 중…':'Downloading photos…', `${li+1} / ${locs.length}`);
       const results = [];
       for (const url of loc.photos.slice(0, 4)) {
-        // 1) Gallery cache hit — instant
+        // 1) Cache hit — instant
         const c = _photoCache.get(url);
         if (c) { results.push(c); continue; }
         // 2) Fallback — fetch with retry
