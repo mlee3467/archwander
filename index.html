@@ -4759,9 +4759,11 @@ function _initCityByGPS() {
 }
 
 // ══════════════════════════════════════════════════════════════════
-// EXPORT PDF  (page-by-page html2canvas → jsPDF, Korean via browser font)
+// EXPORT PDF  (pure jsPDF + NotoSansKR TTF → vector text, real images)
 // ══════════════════════════════════════════════════════════════════
-let _h2cReady = false, _jspdfReady = false;
+let _pdfLibReady = false;
+let _koreanFontB64 = null;
+
 function _loadScript(src) {
   return new Promise((resolve, reject) => {
     const s = document.createElement('script');
@@ -4771,30 +4773,27 @@ function _loadScript(src) {
     document.head.appendChild(s);
   });
 }
-function _loadH2cAndJsPdf() {
-  const tasks = [];
-  if (!_jspdfReady) tasks.push(
-    _loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js')
-      .then(() => { _jspdfReady = true; })
-  );
-  if (!_h2cReady) tasks.push(
-    _loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js')
-      .then(() => { _h2cReady = true; })
-  );
-  return Promise.all(tasks);
+
+async function _loadPdfLibs() {
+  if (_pdfLibReady) return;
+  // AutoTable must load AFTER jsPDF so it can patch the prototype
+  await _loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
+  await _loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js');
+  _pdfLibReady = true;
 }
 
-let _notoFontLoaded = false;
-function _loadNotoSansKR() {
-  if (_notoFontLoaded) return Promise.resolve();
-  return new Promise(resolve => {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap';
-    link.onload = () => { _notoFontLoaded = true; setTimeout(resolve, 300); };
-    link.onerror = () => { _notoFontLoaded = true; resolve(); };
-    document.head.appendChild(link);
-  });
+async function _loadKoreanFont() {
+  if (_koreanFontB64) return;
+  const resp = await fetch('NotoSansKR-Regular.ttf');
+  if (!resp.ok) throw new Error('NotoSansKR-Regular.ttf not found (' + resp.status + ')');
+  const buf = await resp.arrayBuffer();
+  // Convert ArrayBuffer → base64 in chunks to avoid stack overflow
+  const bytes = new Uint8Array(buf);
+  const CHUNK = 65536;
+  const parts = [];
+  for (let i = 0; i < bytes.length; i += CHUNK)
+    parts.push(String.fromCharCode.apply(null, bytes.subarray(i, i + CHUNK)));
+  _koreanFontB64 = btoa(parts.join(''));
 }
 
 async function _fetchImgDataUrl(url, timeout) {
@@ -4803,6 +4802,7 @@ async function _fetchImgDataUrl(url, timeout) {
     const tm = setTimeout(() => ctl.abort(), timeout || 8000);
     const resp = await fetch(url, { mode: 'cors', signal: ctl.signal });
     clearTimeout(tm);
+    if (!resp.ok) return null;
     const blob = await resp.blob();
     return await new Promise(resolve => {
       const r = new FileReader();
@@ -4835,7 +4835,6 @@ async function exportPDF() {
   btn.innerHTML = `<span>${t('pdf_generating')}</span>`;
   btn.disabled = true;
 
-  // Full-screen overlay while generating
   const overlay = document.createElement('div');
   overlay.id = 'pdf-overlay';
   overlay.style.cssText = 'position:fixed;inset:0;z-index:99998;background:white;display:flex;align-items:center;justify-content:center;font-family:Inter,sans-serif;font-size:15px;color:#555;';
@@ -4844,16 +4843,20 @@ async function exportPDF() {
   const progressEl = document.getElementById('pdf-progress');
 
   try {
-    // ── Load everything in parallel ──
-    const pinAddrP = _reverseGeocode(walkOrigin.lat, walkOrigin.lng);
-    const loadTasks = [_loadH2cAndJsPdf(), _loadNotoSansKR(), pinAddrP];
+    // ── Load libs + font + reverse-geocode in parallel ──
+    const [,, pinAddress] = await Promise.all([
+      _loadPdfLibs(),
+      _loadKoreanFont(),
+      _reverseGeocode(walkOrigin.lat, walkOrigin.lng)
+    ]);
+
+    // ── Load audio data ──
     const audioCityKey = CITY_META[activeCity]?.key;
-    if (audioCityKey) loadTasks.push(_agLoadCityFile(audioCityKey));
-    const results = await Promise.all(loadTasks);
-    const pinAddress = results[2];
+    if (audioCityKey) await _agLoadCityFile(audioCityKey);
     const audioData = audioCityKey ? _agGetData(audioCityKey) : null;
+
     const cityLabel = CITY_META[activeCity]?.label?.replace(/^\S+\s/, '') || activeCity;
-    const walkMin = parseInt(document.getElementById('walk-slider').value, 10);
+    const walkMin   = parseInt(document.getElementById('walk-slider').value, 10);
 
     // ── Helpers ──
     function _tf(loc, field) {
@@ -4868,182 +4871,279 @@ async function exportPDF() {
       return '';
     }
     function _biName(loc, idx) {
-      const en = loc.name, lo = _localName(loc), num = `${idx + 1}. `;
-      if (lo && lo !== en) return `${num}${en} / ${lo}`;
-      return `${num}${(_tf(loc, 'name') || en)}`;
+      const en = loc.name, lo = _localName(loc);
+      const title = (lo && lo !== en) ? `${en} / ${lo}` : (_tf(loc, 'name') || en);
+      return `${idx + 1}. ${title}`;
     }
-    function _esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
 
-    // ── Pre-fetch ALL photos ──
+    // ── Pre-fetch photos with natural dimensions ──
     progressEl.textContent = LANG === 'ko' ? '\uc0ac\uc9c4 \ub85c\ub529 \uc911\u2026' : 'Loading photos\u2026';
     const photoMap = {};
     await Promise.all(locs.map(async loc => {
-      if (loc.photos?.length) {
-        const fetched = await Promise.all(loc.photos.slice(0, 4).map(u => _fetchImgDataUrl(u, 10000)));
-        const valid = fetched.filter(Boolean);
-        if (valid.length) photoMap[loc.id] = valid;
-      }
+      if (!loc.photos?.length) return;
+      const results = await Promise.all(loc.photos.slice(0, 4).map(async url => {
+        const dataUrl = await _fetchImgDataUrl(url, 10000);
+        if (!dataUrl) return null;
+        return new Promise(res => {
+          const img = new Image();
+          img.onload  = () => res({ dataUrl, w: img.naturalWidth, h: img.naturalHeight });
+          img.onerror = () => res(null);
+          img.src = dataUrl;
+        });
+      }));
+      const valid = results.filter(Boolean);
+      if (valid.length) photoMap[loc.id] = valid;
     }));
 
-    // ── Shared style constants ──
-    const CW = 710; // container width px (matches A4 printable 190mm)
-    const ff = "'Noto Sans KR','Noto Sans JP','Inter',Arial,sans-serif";
-    const now = new Date();
-    const dtStr = now.toLocaleDateString(LANG==='ko'?'ko-KR':'en-US',{year:'numeric',month:'long',day:'numeric'})
-      +'  '+now.toLocaleTimeString(LANG==='ko'?'ko-KR':'en-US',{hour:'2-digit',minute:'2-digit'});
-
-    // ═══════════════════════════════════════════
-    // BUILD PAGE HTML ARRAYS (cover + details separately)
-    // ═══════════════════════════════════════════
-    // Cover page HTML
-    let coverHTML = `<div style="font-family:${ff};padding:30px 8px 10px;text-align:center;box-sizing:border-box;color:#000;">`;
-    coverHTML += `<div style="font-size:28px;font-weight:700;color:rgb(0,0,255);margin-bottom:8px;">ArchWander<sup style="font-size:10px;vertical-align:super">\u2122</sup></div>`;
-    coverHTML += `<div style="font-size:14px;font-weight:700;margin-bottom:5px;">${_esc(cityLabel)}</div>`;
-    coverHTML += `<div style="font-size:10px;margin-bottom:3px;">${locs.length} ${_esc(t('pdf_locations'))} \u00b7 ${walkMin} min ${_esc(t('pdf_walking'))}</div>`;
-    coverHTML += `<div style="font-size:8px;color:#444;margin-bottom:3px;">${_esc(pinAddress)}</div>`;
-    coverHTML += `<div style="font-size:8px;color:#444;margin-bottom:12px;">${_esc(dtStr)}</div>`;
-    coverHTML += `<hr style="border:none;border-top:1px solid #ccc;margin:0 0 10px">`;
-    coverHTML += `<div style="text-align:left;font-size:11px;font-weight:700;margin-bottom:6px;">${_esc(t('pdf_summary'))}</div>`;
-    coverHTML += `<table style="width:100%;border-collapse:collapse;font-size:8px;text-align:left;table-layout:fixed">`;
-    coverHTML += `<thead><tr style="background:rgb(0,0,255);color:#fff">`;
-    coverHTML += `<th style="padding:4px 3px;width:5%">#</th><th style="padding:4px 3px;width:32%">${_esc(t('pdf_name'))}</th>`;
-    coverHTML += `<th style="padding:4px 3px;width:26%">${_esc(t('pdf_architect'))}</th>`;
-    coverHTML += `<th style="padding:4px 3px;width:8%;text-align:center">${_esc(t('pdf_year'))}</th>`;
-    coverHTML += `<th style="padding:4px 3px;width:29%">${_esc(t('pdf_category'))}</th></tr></thead><tbody>`;
-    locs.forEach((loc, i) => {
-      const bg = i%2===1?'background:#f5f5ff;':'';
-      const nm = _biName(loc,i).replace(/^\d+\.\s/,'');
-      coverHTML += `<tr style="${bg}"><td style="padding:3px">${i+1}</td>`;
-      coverHTML += `<td style="padding:3px;font-weight:700;word-break:break-word">${_esc(nm)}</td>`;
-      coverHTML += `<td style="padding:3px;word-break:break-word">${_esc(loc.arch||'')}</td>`;
-      coverHTML += `<td style="padding:3px;text-align:center">${loc.yr||''}</td>`;
-      coverHTML += `<td style="padding:3px;word-break:break-word">${_esc(_allCats(loc).join(', '))}</td></tr>`;
-    });
-    coverHTML += '</tbody></table></div>';
-
-    // Detail page HTMLs (one per location)
-    const detailHTMLs = locs.map((loc, i) => {
-      const displayName = _biName(loc, i);
-      const desc = _tf(loc, 'desc');
-      const cats = _allCats(loc).join(', ');
-      let h = `<div style="font-family:${ff};padding:12px 8px;box-sizing:border-box;color:#000">`;
-      // Photos
-      if (photoMap[loc.id]?.length) {
-        const ph = photoMap[loc.id];
-        const w = Math.floor(100/ph.length)-1;
-        h += `<div style="margin-bottom:8px;height:150px;overflow:hidden;white-space:nowrap;font-size:0">`;
-        ph.forEach((du,pi) => { h += `<img src="${du}" style="display:inline-block;height:150px;width:${w}%;vertical-align:top;border-radius:3px;${pi>0?'margin-left:4px;':''}">`; });
-        h += '</div>';
-      }
-      h += `<div style="font-size:15px;font-weight:700;margin-bottom:2px">${_esc(displayName)}</div>`;
-      h += `<div style="font-size:9px;color:#333;margin-bottom:8px">${_esc(loc.arch||'')} \u00b7 ${loc.yr||''}</div>`;
-      // Info table
-      const f = [];
-      if (loc.style) f.push([t('pdf_style'),loc.style]);
-      if (cats) f.push([t('pdf_category'),cats]);
-      if (loc.access) f.push([t('pdf_access'),loc.access]);
-      const addr=_tf(loc,'addr'), hood=_tf(loc,'hood'), hours=_tf(loc,'hours');
-      const admission=_tf(loc,'admission'), transit=_tf(loc,'transit');
-      if (addr) {
-        const la=(LANG==='en'&&typeof LOCS_KO!=='undefined'&&LOCS_KO[loc.id]?.addr)?LOCS_KO[loc.id].addr:'';
-        f.push([t('pdf_address'), la&&la!==addr?`${addr} / ${la}`:addr]);
-      }
-      if (hood) {
-        const lh=(LANG==='en'&&typeof LOCS_KO!=='undefined'&&LOCS_KO[loc.id]?.hood)?LOCS_KO[loc.id].hood:'';
-        f.push([t('pdf_neighborhood'), lh&&lh!==hood?`${hood} / ${lh}`:hood]);
-      }
-      if (hours) f.push([t('pdf_hours'),hours]);
-      if (admission) f.push([t('pdf_admission'),admission]);
-      if (transit) f.push([t('pdf_transit'),transit]);
-      if (f.length) {
-        h += `<table style="width:100%;border-collapse:collapse;font-size:8.5px;margin-bottom:6px;table-layout:fixed">`;
-        f.forEach(([k,v]) => { h += `<tr style="border-bottom:1px solid #ddd"><td style="padding:3px 4px;width:22%;font-weight:700;vertical-align:top;word-break:break-word">${_esc(k)}</td><td style="padding:3px 4px;word-break:break-word">${_esc(v)}</td></tr>`; });
-        h += '</table>';
-      }
-      if (desc) h += `<div style="font-size:8.5px;line-height:1.6;margin-bottom:4px">${_esc(desc)}</div>`;
-      if (audioData&&audioData[loc.id]?.script) {
-        h += `<div style="margin-top:4px;padding:6px 8px;background:#f5f5ff;border-left:3px solid rgb(0,0,255);border-radius:2px">`;
-        h += `<div style="font-size:7.5px;font-weight:700;color:rgb(0,0,255);margin-bottom:3px">\ud83c\udfa7 ${LANG==='ko'?'\uc624\ub514\uc624 \uac00\uc774\ub4dc':'Audio Guide'}</div>`;
-        h += `<div style="font-size:7.5px;line-height:1.5">${_esc(audioData[loc.id].script)}</div></div>`;
-      }
-      h += '</div>';
-      return h;
-    });
-
-    // ═══════════════════════════════════════════
-    // PAGE-BY-PAGE RENDERING (avoids canvas size limit)
-    // ═══════════════════════════════════════════
+    // ── Create jsPDF document ──
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
-    const PW = 190; // printable width mm
-    const PH = 277; // printable height mm (297 - 10 top - 10 bottom)
-    let isFirstPage = true;
 
-    async function _renderChunk(htmlStr, label) {
-      if (label) progressEl.textContent = label;
+    // Register NotoSansKR for both normal and bold (prevents Helvetica fallback)
+    doc.addFileToVFS('NotoSansKR-Regular.ttf', _koreanFontB64);
+    doc.addFont('NotoSansKR-Regular.ttf', 'NKR', 'normal');
+    doc.addFont('NotoSansKR-Regular.ttf', 'NKR', 'bold');
+    const F = 'NKR';
 
-      // Create temp container as in-flow element (under overlay)
-      const el = document.createElement('div');
-      el.style.cssText = `width:${CW}px;background:white;position:relative;overflow:hidden;box-sizing:border-box;`;
-      el.innerHTML = htmlStr;
-      document.body.appendChild(el);
+    const ML = 10, MR = 10, MT = 12, MBOT = 14;
+    const PW = 210 - ML - MR; // 190mm printable width
+    const PAGE_H = 297;
+    const BLUE  = [0, 0, 255];
+    const BLACK = [0, 0, 0];
+    const GRAY  = [80, 80, 80];
+    const LGRAY = [200, 200, 200];
 
-      // Wait for images to decode + font
-      const elImgs = el.querySelectorAll('img');
-      await Promise.all([...elImgs].map(img => img.decode ? img.decode().catch(()=>{}) : Promise.resolve()));
-      await new Promise(r => setTimeout(r, 80));
+    // Add page if insufficient space; returns updated y
+    function _chkY(y, needed) {
+      if (y + needed > PAGE_H - MBOT) { doc.addPage(); return MT; }
+      return y;
+    }
 
-      // Capture with html2canvas
-      const canvas = await html2canvas(el, {
-        scale: 2, useCORS: true, logging: false,
-        width: CW, windowWidth: CW, scrollX: 0, scrollY: 0,
-        backgroundColor: '#ffffff'
-      });
-      el.remove();
+    const now = new Date();
+    const dtStr = now.toLocaleDateString(LANG==='ko'?'ko-KR':'en-US',{year:'numeric',month:'long',day:'numeric'})
+      + '  ' + now.toLocaleTimeString(LANG==='ko'?'ko-KR':'en-US',{hour:'2-digit',minute:'2-digit'});
 
-      // Calculate scaling
-      const pxPerMm = canvas.width / PW;
-      const pageHpx = Math.floor(PH * pxPerMm);
+    // ══════════════════════════════════════════
+    // COVER PAGE
+    // ══════════════════════════════════════════
+    progressEl.textContent = LANG==='ko' ? '\ud45c\uc9c0 \uc0dd\uc131 \uc911\u2026' : 'Generating cover\u2026';
+    let y = MT;
 
-      // Slice canvas into page-sized chunks and add to jsPDF
-      let srcY = 0;
-      while (srcY < canvas.height) {
-        if (!isFirstPage) doc.addPage();
-        isFirstPage = false;
+    // ArchWander™
+    doc.setFont(F, 'bold');
+    doc.setFontSize(28);
+    doc.setTextColor(...BLUE);
+    doc.text('ArchWander', ML, y);
+    const awW = doc.getTextWidth('ArchWander');
+    doc.setFontSize(9);
+    doc.text('\u2122', ML + awW + 0.5, y - 5);
+    y += 12;
 
-        const sliceH = Math.min(pageHpx, canvas.height - srcY);
-        const sliceCanvas = document.createElement('canvas');
-        sliceCanvas.width = canvas.width;
-        sliceCanvas.height = Math.ceil(sliceH);
-        const ctx = sliceCanvas.getContext('2d');
-        ctx.fillStyle = '#ffffff';
-        ctx.fillRect(0, 0, sliceCanvas.width, sliceCanvas.height);
-        ctx.drawImage(canvas, 0, srcY, canvas.width, sliceH, 0, 0, canvas.width, Math.ceil(sliceH));
+    // City
+    doc.setFont(F, 'bold');
+    doc.setFontSize(14);
+    doc.setTextColor(...BLACK);
+    doc.text(cityLabel, ML, y);
+    y += 7;
 
-        const sliceMmH = sliceH / pxPerMm;
-        doc.addImage(sliceCanvas.toDataURL('image/jpeg', 0.92), 'JPEG', 10, 10, PW, sliceMmH);
-        srcY += pageHpx;
+    // Stats
+    doc.setFont(F, 'normal');
+    doc.setFontSize(10);
+    doc.setTextColor(...GRAY);
+    doc.text(`${locs.length} ${t('pdf_locations')} \u00b7 ${walkMin} min ${t('pdf_walking')}`, ML, y);
+    y += 5;
+
+    // Pin address
+    doc.setFontSize(9);
+    const addrLines = doc.splitTextToSize(pinAddress, PW);
+    doc.text(addrLines, ML, y);
+    y += addrLines.length * 4.5;
+
+    // Date / time
+    doc.setFontSize(9);
+    doc.text(dtStr, ML, y);
+    y += 7;
+
+    // Divider
+    doc.setDrawColor(...LGRAY);
+    doc.setLineWidth(0.3);
+    doc.line(ML, y, 210 - MR, y);
+    y += 5;
+
+    // Summary heading
+    doc.setFont(F, 'bold');
+    doc.setFontSize(11);
+    doc.setTextColor(...BLACK);
+    doc.text(t('pdf_summary'), ML, y);
+    y += 4;
+
+    // Summary table
+    doc.autoTable({
+      startY: y,
+      margin: { left: ML, right: MR },
+      styles: { font: F, fontSize: 8, textColor: BLACK, cellPadding: 2 },
+      headStyles: { fillColor: BLUE, textColor: [255,255,255], fontStyle: 'bold' },
+      alternateRowStyles: { fillColor: [245,245,255] },
+      columnStyles: {
+        0: { cellWidth: 8 },
+        1: { cellWidth: 52 },
+        2: { cellWidth: 50 },
+        3: { cellWidth: 16, halign: 'center' },
+        4: { cellWidth: PW - 8 - 52 - 50 - 16 }
+      },
+      head: [['#', t('pdf_name'), t('pdf_architect'), t('pdf_year'), t('pdf_category')]],
+      body: locs.map((loc, i) => [
+        i + 1,
+        _biName(loc, i).replace(/^\d+\.\s/, ''),
+        loc.arch || '',
+        loc.yr   || '',
+        _allCats(loc).join(', ')
+      ])
+    });
+
+    // ══════════════════════════════════════════
+    // DETAIL PAGES — one per location
+    // ══════════════════════════════════════════
+    for (let i = 0; i < locs.length; i++) {
+      const loc = locs[i];
+      progressEl.textContent = `${LANG==='ko'?'\ud398\uc774\uc9c0':'Page'} ${i+1} / ${locs.length}\u2026`;
+
+      doc.addPage();
+      y = MT;
+
+      // ── Photos (up to 4, aspect-ratio preserved, uniform height) ──
+      const photos = photoMap[loc.id] || [];
+      if (photos.length) {
+        const MAX_H = 45, GAP = 2;
+        const totalAspect = photos.reduce((s, p) => s + p.w / p.h, 0);
+        const rawW  = MAX_H * totalAspect + GAP * (photos.length - 1);
+        const scale = PW / rawW;
+        const imgH  = MAX_H * scale;
+        let xOff = ML;
+        photos.forEach(p => {
+          const imgW = MAX_H * (p.w / p.h) * scale;
+          const fmt  = p.dataUrl.startsWith('data:image/png') ? 'PNG' : 'JPEG';
+          try { doc.addImage(p.dataUrl, fmt, xOff, y, imgW, imgH); } catch(e) { /* skip bad image */ }
+          xOff += imgW + GAP;
+        });
+        y += imgH + 4;
+      }
+
+      // ── Numbered / bilingual title ──
+      doc.setFont(F, 'bold');
+      doc.setFontSize(15);
+      doc.setTextColor(...BLACK);
+      const titleLines = doc.splitTextToSize(_biName(loc, i), PW);
+      y = _chkY(y, titleLines.length * 7 + 2);
+      doc.text(titleLines, ML, y);
+      y += titleLines.length * 7 + 1;
+
+      // ── Architect · Year ──
+      doc.setFont(F, 'normal');
+      doc.setFontSize(9);
+      doc.setTextColor(...GRAY);
+      y = _chkY(y, 6);
+      doc.text(`${loc.arch || ''} \u00b7 ${loc.yr || ''}`, ML, y);
+      y += 6;
+
+      // ── Info table ──
+      const fields = [];
+      if (loc.style) fields.push([t('pdf_style'), loc.style]);
+      const cats = _allCats(loc).join(', ');
+      if (cats) fields.push([t('pdf_category'), cats]);
+      if (loc.access) fields.push([t('pdf_access'), loc.access]);
+      const addr = _tf(loc,'addr'), hood = _tf(loc,'hood'),
+            hours = _tf(loc,'hours'), admission = _tf(loc,'admission'), transit = _tf(loc,'transit');
+      if (addr) {
+        const la = (LANG==='en' && typeof LOCS_KO!=='undefined' && LOCS_KO[loc.id]?.addr) ? LOCS_KO[loc.id].addr : '';
+        fields.push([t('pdf_address'), la && la !== addr ? `${addr} / ${la}` : addr]);
+      }
+      if (hood) {
+        const lh = (LANG==='en' && typeof LOCS_KO!=='undefined' && LOCS_KO[loc.id]?.hood) ? LOCS_KO[loc.id].hood : '';
+        fields.push([t('pdf_neighborhood'), lh && lh !== hood ? `${hood} / ${lh}` : hood]);
+      }
+      if (hours)     fields.push([t('pdf_hours'),     hours]);
+      if (admission) fields.push([t('pdf_admission'), admission]);
+      if (transit)   fields.push([t('pdf_transit'),   transit]);
+
+      if (fields.length) {
+        doc.autoTable({
+          startY: y,
+          margin: { left: ML, right: MR },
+          styles: { font: F, fontSize: 8.5, textColor: BLACK, cellPadding: 2 },
+          columnStyles: {
+            0: { cellWidth: 35, fontStyle: 'bold', fillColor: [248,248,248] },
+            1: { cellWidth: PW - 35 }
+          },
+          body: fields,
+          theme: 'grid',
+          tableLineColor: LGRAY,
+          tableLineWidth: 0.1
+        });
+        y = doc.lastAutoTable.finalY + 4;
+      }
+
+      // ── Description (multi-page safe) ──
+      const desc = _tf(loc, 'desc');
+      if (desc) {
+        const descLines = doc.splitTextToSize(desc, PW);
+        const LH = 4.5;
+        let li = 0;
+        while (li < descLines.length) {
+          y = _chkY(y, LH);
+          doc.setFont(F, 'normal');
+          doc.setFontSize(8.5);
+          doc.setTextColor(...BLACK);
+          const avail = Math.max(1, Math.floor((PAGE_H - MBOT - y) / LH));
+          const chunk = descLines.slice(li, li + avail);
+          doc.text(chunk, ML, y);
+          y += chunk.length * LH;
+          li += avail;
+        }
+        y += 4;
+      }
+
+      // ── Audio script ──
+      if (audioData && audioData[loc.id]?.script) {
+        const script = audioData[loc.id].script;
+        const sLines = doc.splitTextToSize(script, PW - 8);
+        const LH2    = 4.2;
+        const boxH   = sLines.length * LH2 + 10;
+        y = _chkY(y, boxH);
+
+        // Background + blue left border
+        doc.setFillColor(245, 245, 255);
+        doc.rect(ML, y, PW, boxH, 'F');
+        doc.setDrawColor(...BLUE);
+        doc.setLineWidth(1.5);
+        doc.line(ML, y, ML, y + boxH);
+        doc.setLineWidth(0.1);
+
+        // Label
+        doc.setFont(F, 'bold');
+        doc.setFontSize(7.5);
+        doc.setTextColor(...BLUE);
+        doc.text('\u266a ' + (LANG==='ko' ? '\uc624\ub514\uc624 \uac00\uc774\ub4dc' : 'Audio Guide'), ML + 4, y + 4.5);
+
+        // Script text
+        doc.setFont(F, 'normal');
+        doc.setFontSize(7.5);
+        doc.setTextColor(...BLACK);
+        doc.text(sLines, ML + 4, y + 9);
+        y += boxH + 4;
       }
     }
 
-    // ── Render cover page ──
-    await _renderChunk(coverHTML, LANG==='ko'?'\uc694\uc57d \ud398\uc774\uc9c0 \uc0dd\uc131 \uc911\u2026':'Generating summary\u2026');
-
-    // ── Render each detail page ──
-    for (let i = 0; i < detailHTMLs.length; i++) {
-      await _renderChunk(detailHTMLs[i], `${LANG==='ko'?'\ud398\uc774\uc9c0':'Page'} ${i+1} / ${detailHTMLs.length}\u2026`);
-    }
-
-    // ── Add page numbers ──
+    // ── Page numbers on all pages ──
     const totalPages = doc.internal.getNumberOfPages();
     for (let p = 1; p <= totalPages; p++) {
       doc.setPage(p);
+      doc.setFont(F, 'normal');
       doc.setFontSize(8);
-      doc.setTextColor(150);
+      doc.setTextColor(150, 150, 150);
       doc.text(`${p} / ${totalPages}`, 105, 291, { align: 'center' });
     }
 
-    // ── Save ──
     const filename = `ArchWander_${cityLabel.replace(/\s+/g,'_')}_${new Date().toISOString().slice(0,10)}.pdf`;
     doc.save(filename);
 
