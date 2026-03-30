@@ -120,6 +120,56 @@
     .p-action-btn.vis-active { background: #10b981; color: #fff; }
     .p-action-btn.vis-active:hover { background: #059669; }
     @keyframes pulse-border { 0%,100%{opacity:1} 50%{opacity:0.5} }
+    /* ── Fav Export/Import bar (below header, desktop only) ── */
+    #fav-io-bar {
+      display: none; min-height: 40px; background: #FFF7ED;
+      border-bottom: 1px solid #FED7AA; padding: 0 18px;
+      align-items: center; gap: 10px; font-size: 12px; color: #9a3412;
+      flex-shrink: 0; z-index: 999;
+    }
+    #fav-io-bar.visible { display: flex; }
+    .fav-io-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: #c2410c; margin-right: 2px; }
+    .fav-io-btn {
+      height: 28px; padding: 0 12px; border-radius: 6px; border: 1px solid #FDBA74;
+      background: white; font-size: 11px; font-family: inherit; cursor: pointer;
+      display: flex; align-items: center; gap: 5px; color: #9a3412;
+      transition: all 0.15s; white-space: nowrap; flex-shrink: 0; font-weight: 500;
+    }
+    .fav-io-btn:hover { border-color: #f97316; color: #c2410c; background: #fff2e6; }
+    .fav-io-sep { width: 1px; height: 20px; background: #FED7AA; flex-shrink: 0; }
+    .fav-io-close {
+      margin-left: auto; width: 22px; height: 22px; border-radius: 50%;
+      background: transparent; border: none; color: #9a3412; cursor: pointer;
+      font-size: 13px; display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s;
+    }
+    .fav-io-close:hover { background: rgba(0,0,0,0.08); }
+    /* Import modal overlay */
+    .fav-import-overlay {
+      display: none; position: fixed; inset: 0; z-index: 9999;
+      background: rgba(0,0,0,0.45); align-items: center; justify-content: center;
+    }
+    .fav-import-overlay.visible { display: flex; }
+    .fav-import-box {
+      background: white; border-radius: 14px; padding: 28px 32px 24px;
+      width: 340px; max-width: 90vw; box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+    .fav-import-title { font-size: 15px; font-weight: 700; margin-bottom: 6px; color: #111; }
+    .fav-import-desc { font-size: 12px; color: #666; margin-bottom: 20px; line-height: 1.5; }
+    .fav-import-btns { display: flex; gap: 10px; justify-content: center; }
+    .fav-import-opt {
+      flex: 1; padding: 10px 0; border-radius: 8px; border: 1px solid var(--border);
+      background: white; font-size: 12px; font-family: inherit; font-weight: 600;
+      cursor: pointer; transition: all 0.15s; color: #333;
+    }
+    .fav-import-opt:hover { border-color: #f5905d; background: #FFF7ED; color: #c2410c; }
+    .fav-import-cancel {
+      margin-top: 14px; font-size: 11px; color: #999; background: none; border: none;
+      cursor: pointer; font-family: inherit;
+    }
+    .fav-import-cancel:hover { color: #666; }
+
     /* ── Walk bar (below header) ───────────────────────── */
     #walk-bar {
       display: none; min-height: 44px; background: #EEF2FF;
@@ -988,6 +1038,7 @@
       #near-me-btn { padding: 0 8px; height: 28px; font-size: 11px; }
       #fav-btn .fav-text { display: none; }
       #fav-btn { padding: 0 8px; height: 28px; font-size: 13px; }
+      #fav-io-bar { display: none !important; }
       #menu-btn { display: flex; }
       #city-select-mobile { max-width: 110px; font-size: 11px; height: 28px; }
       #lang-btn { height: 28px; font-size: 11px; padding: 0 8px; }
@@ -1474,6 +1525,36 @@
   <button id="walk-close-btn" onclick="_fullDeactivate()" title="Close Near Me">✕ Close</button>
 </div>
 
+<!-- Fav Export/Import bar — desktop only -->
+<div id="fav-io-bar">
+  <span class="fav-io-label" id="fav-io-label">Favorites Data</span>
+  <button class="fav-io-btn" onclick="favExportJSON()">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    <span id="fav-io-export-label">Export</span>
+  </button>
+  <button class="fav-io-btn" onclick="favImportJSON()">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+    <span id="fav-io-import-label">Import</span>
+  </button>
+  <button class="fav-io-close" onclick="closeFavIOBar()" title="Close">✕</button>
+</div>
+
+<!-- Import mode selector modal -->
+<div class="fav-import-overlay" id="fav-import-overlay" onclick="if(event.target===this)closeFavImportModal()">
+  <div class="fav-import-box">
+    <div class="fav-import-title" id="fav-import-title">Import Favorites</div>
+    <div class="fav-import-desc" id="fav-import-desc">Choose how to merge the imported data with your current favorites and visited locations.</div>
+    <div class="fav-import-btns">
+      <button class="fav-import-opt" onclick="favDoImport('overwrite')" id="fav-import-overwrite">Overwrite</button>
+      <button class="fav-import-opt" onclick="favDoImport('append')" id="fav-import-append">Append</button>
+    </div>
+    <button class="fav-import-cancel" onclick="closeFavImportModal()" id="fav-import-cancel">Cancel</button>
+  </div>
+</div>
+
+<!-- Hidden file input for JSON import -->
+<input type="file" id="fav-import-file" accept=".json" style="display:none" onchange="_handleFavFileSelected(event)">
+
 <div class="app">
   <aside class="sidebar" id="sidebar">
 
@@ -1882,6 +1963,17 @@ const T = {
     pdf_transit:  'Transit',
     pdf_locations:'locations',
     pdf_walking:  'walking radius from pin',
+    fav_io_label: 'Favorites Data',
+    fav_io_export:'Export',
+    fav_io_import:'Import',
+    fav_imp_title:'Import Favorites',
+    fav_imp_desc: 'Choose how to merge the imported data with your current favorites and visited locations.',
+    fav_imp_overwrite:'Overwrite',
+    fav_imp_append:'Append',
+    fav_imp_cancel:'Cancel',
+    fav_imp_success:'Favorites imported successfully!',
+    fav_imp_invalid:'Invalid file format. Please select a valid ArchWander favorites JSON file.',
+    fav_exp_empty:'No favorites or visited locations to export.',
   },
   ko: {
     search_ph:    '건물, 건축가, 스타일 검색…',
@@ -1934,6 +2026,17 @@ const T = {
     pdf_transit:  '교통편',
     pdf_locations:'개 장소',
     pdf_walking:  '도보 반경',
+    fav_io_label: '즐겨찾기 데이터',
+    fav_io_export:'내보내기',
+    fav_io_import:'가져오기',
+    fav_imp_title:'즐겨찾기 가져오기',
+    fav_imp_desc: '가져온 데이터를 현재 즐겨찾기 및 방문 기록과 어떻게 병합할지 선택해 주세요.',
+    fav_imp_overwrite:'덮어쓰기',
+    fav_imp_append:'추가',
+    fav_imp_cancel:'취소',
+    fav_imp_success:'즐겨찾기를 성공적으로 가져왔습니다!',
+    fav_imp_invalid:'잘못된 파일 형식입니다. ArchWander 즐겨찾기 JSON 파일을 선택해 주세요.',
+    fav_exp_empty:'내보낼 즐겨찾기 또는 방문 기록이 없습니다.',
   }
 };
 
@@ -2177,6 +2280,15 @@ function applyLang() {
   const favText = document.querySelector('#fav-btn .fav-text');
   if (favText) favText.textContent = t('favorites');
   updateReportBtnLabel();
+  // Fav export/import bar + modal
+  const fioLbl = document.getElementById('fav-io-label');       if (fioLbl) fioLbl.textContent = t('fav_io_label');
+  const fioExp = document.getElementById('fav-io-export-label');if (fioExp) fioExp.textContent = t('fav_io_export');
+  const fioImp = document.getElementById('fav-io-import-label');if (fioImp) fioImp.textContent = t('fav_io_import');
+  const fimTtl = document.getElementById('fav-import-title');   if (fimTtl) fimTtl.textContent = t('fav_imp_title');
+  const fimDsc = document.getElementById('fav-import-desc');    if (fimDsc) fimDsc.textContent = t('fav_imp_desc');
+  const fimOvr = document.getElementById('fav-import-overwrite');if(fimOvr) fimOvr.textContent = t('fav_imp_overwrite');
+  const fimApp = document.getElementById('fav-import-append');  if (fimApp) fimApp.textContent = t('fav_imp_append');
+  const fimCnl = document.getElementById('fav-import-cancel');  if (fimCnl) fimCnl.textContent = t('fav_imp_cancel');
   // Lang dropdown: update label + checkmarks (use short label on mobile)
   const langCur = document.getElementById('lang-current');
   if (langCur) {
@@ -4434,7 +4546,15 @@ function _buildLocIcon(loc) {
 function toggleFavFilter() {
   _favFilterActive = !_favFilterActive;
   document.getElementById('fav-btn').classList.toggle('active', _favFilterActive);
+  // Desktop only: show/hide export-import bar
+  if (window.innerWidth > 900) {
+    document.getElementById('fav-io-bar').classList.toggle('visible', _favFilterActive);
+  }
   _applyFavFilter();
+}
+
+function closeFavIOBar() {
+  document.getElementById('fav-io-bar').classList.remove('visible');
 }
 
 function _applyFavFilter() {
@@ -4443,12 +4563,88 @@ function _applyFavFilter() {
   markers.forEach(({ loc, m }) => {
     if (loc.city !== activeCityKey) return;
     if (_favFilterActive && !favVisIds.has(loc.id)) {
-      // Dim non-fav markers: reduce opacity
       m.setOpacity(0.34);
     } else {
       m.setOpacity(1);
     }
   });
+}
+
+// ── Fav Export / Import (desktop only) ──────────────────────────
+function favExportJSON() {
+  if (!_favSet.size && !_visSet.size) {
+    alert(t('fav_exp_empty'));
+    return;
+  }
+  const data = {
+    _format: 'archwander-favs-v1',
+    exported: new Date().toISOString(),
+    favorites: [..._favSet],
+    visited:   [..._visSet]
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href     = url;
+  a.download = `ArchWander_favorites_${new Date().toISOString().slice(0,10)}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+let _favImportMode = null; // 'overwrite' | 'append'
+
+function favImportJSON() {
+  // Show mode selection modal
+  document.getElementById('fav-import-overlay').classList.add('visible');
+}
+
+function closeFavImportModal() {
+  document.getElementById('fav-import-overlay').classList.remove('visible');
+  _favImportMode = null;
+}
+
+function favDoImport(mode) {
+  _favImportMode = mode;
+  closeFavImportModal();
+  // Trigger file picker
+  document.getElementById('fav-import-file').value = '';
+  document.getElementById('fav-import-file').click();
+}
+
+function _handleFavFileSelected(event) {
+  const file = event.target.files?.[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (data._format !== 'archwander-favs-v1' || !Array.isArray(data.favorites) || !Array.isArray(data.visited)) {
+        alert(t('fav_imp_invalid'));
+        return;
+      }
+      if (_favImportMode === 'overwrite') {
+        _favSet = new Set(data.favorites);
+        _visSet = new Set(data.visited);
+      } else {
+        // append
+        data.favorites.forEach(id => _favSet.add(id));
+        data.visited.forEach(id   => _visSet.add(id));
+      }
+      // Persist to localStorage
+      localStorage.setItem(_FAV_KEY, JSON.stringify([..._favSet]));
+      localStorage.setItem(_VIS_KEY, JSON.stringify([..._visSet]));
+      // Refresh markers
+      markers.forEach(({ loc, m }) => m.setIcon(_buildLocIcon(loc)));
+      _applyFavFilter();
+      renderList();
+      alert(t('fav_imp_success'));
+    } catch {
+      alert(t('fav_imp_invalid'));
+    }
+  };
+  reader.readAsText(file);
 }
 
 // ══════════════════════════════════════════════════════════════════
