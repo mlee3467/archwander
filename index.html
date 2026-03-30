@@ -2459,7 +2459,7 @@ function createClusterGroup() {
 function addMarker(loc) {
   const icon = _buildLocIcon(loc);
   const m = L.marker([loc.lat, loc.lng], { icon })
-    .bindTooltip(loc.name, { direction:'top', offset:[0,-26], opacity:0.94 })
+    .bindTooltip(_displayName(loc), { direction:'top', offset:[0,-26], opacity:0.94 })
     .on('click', () => openLoc(loc));
   clusterGroup.addLayer(m);
   markers.push({ loc, m });
@@ -2745,7 +2745,7 @@ function renderList() {
     <div class="loc-card${activeLoc?.id === loc.id ? ' active' : ''}" onclick="openLocById('${loc.id}')">
       ${cardThumb(loc)}
       <div class="card-body">
-        <div class="card-name">${(LANG === 'ko' && typeof LOCS_KO !== 'undefined' && LOCS_KO[loc.id]?.name) ? LOCS_KO[loc.id].name : loc.name}</div>
+        <div class="card-name">${_displayName(loc)}</div>
         <div class="card-meta">${loc.arch}</div>
         <div class="card-row">
           ${_allCats(loc).map((c,i) => `<span class="cat-badge ${i===0 ? _pCC(loc) : (CAT_CC_MAP[c]||'c-lmk')}">${c}</span>`).join(' ')}
@@ -2834,11 +2834,11 @@ function openLoc(loc) {
 
   // Header
   const color = CAT_COLORS[_pCat(loc)] || '#111';
-  const koName = (LANG === 'ko' && typeof LOCS_KO !== 'undefined' && LOCS_KO[loc.id]?.name) ? LOCS_KO[loc.id].name : loc.name;
+  const biName = _displayName(loc);
   const catBadges = _allCats(loc).map(c => `<span class="cat-badge ${CAT_CC_MAP[c]||'c-lmk'}" style="font-size:11px;margin-right:4px">${c}</span>`).join('');
   document.getElementById('panel-head').innerHTML = `
     <div class="p-cat">${catBadges}</div>
-    <div class="p-title">${koName}</div>
+    <div class="p-title">${biName}</div>
     <div class="p-sub">${loc.arch} &nbsp;·&nbsp; ${loc.yr}</div>
     <div class="p-tags">${loc.tags.map(t=>`<span class="p-tag">${t}</span>`).join('')}</div>
     <div class="p-action-row">
@@ -2883,12 +2883,10 @@ function closePanel() {
 // ══════════════════════════════════════════════════════════════════
 function buildOverviewTab(loc, trans = {}) {
   const desc = trans.desc || loc.desc;
-  const hood = trans.hood || loc.hood;
-  const addr = trans.addr || loc.addr;
   return `
     <p class="desc">${desc}</p>
-    <div class="info-row"><span class="info-label">${t('neighborhood')}</span><span class="info-val">${hood}</span></div>
-    <div class="info-row"><span class="info-label">${t('address')}</span><span class="info-val">${addr}</span></div>
+    <div class="info-row"><span class="info-label">${t('neighborhood')}</span><span class="info-val">${_displayHood(loc, trans.hood)}</span></div>
+    <div class="info-row"><span class="info-label">${t('address')}</span><span class="info-val">${_displayAddr(loc, trans.addr)}</span></div>
     <div class="info-row"><span class="info-label">${t('arch_label')}</span><span class="info-val">${loc.arch}</span></div>
     <div class="info-row"><span class="info-label">${t('completed')}</span><span class="info-val">${loc.yr}</span></div>
     <div class="info-row"><span class="info-label">${t('style_label')}</span><span class="info-val">${loc.style}</span></div>
@@ -4690,11 +4688,47 @@ function _handleFavFileSelected(event) {
 // CITY SELECTOR
 // ══════════════════════════════════════════════════════════════════
 const CITY_META = {
-  nyc: { key: 'new-york', label: '🗽 New York', lat: 40.7549, lng: -73.9840, zoom: 13 },
-  sel: { key: 'seoul',    label: '🏙 Seoul',    lat: 37.5665, lng: 126.9780, zoom: 13 },
-  lon: { key: 'london',   label: '🎡 London',   lat: 51.5074, lng: -0.1278,  zoom: 13 },
-  tky: { key: 'tokyo',    label: '🏯 Tokyo',    lat: 35.6762, lng: 139.6503, zoom: 13 }
+  nyc: { key: 'new-york', label: '🗽 New York', localLang: 'en', lat: 40.7549, lng: -73.9840, zoom: 13 },
+  sel: { key: 'seoul',    label: '🏙 Seoul',    localLang: 'ko', lat: 37.5665, lng: 126.9780, zoom: 13 },
+  lon: { key: 'london',   label: '🎡 London',   localLang: 'en', lat: 51.5074, lng: -0.1278,  zoom: 13 },
+  tky: { key: 'tokyo',    label: '🏯 Tokyo',    localLang: 'ja', lat: 35.6762, lng: 139.6503, zoom: 13 }
 };
+
+// ── Bilingual name / address helpers ──────────────────────────
+// Returns the city's local language code for a given location
+function _cityLocalLang(loc) {
+  for (const m of Object.values(CITY_META)) if (m.key === loc.city) return m.localLang;
+  return 'en';
+}
+
+// Get a field value in the city's local language (from LOCS_KO or loc.local* fields)
+function _localField(loc, field) {
+  const ll = _cityLocalLang(loc);
+  if (ll === 'en') return '';                                  // English city — no local alt
+  if (ll === 'ko') return (typeof LOCS_KO !== 'undefined' && LOCS_KO[loc.id]?.[field]) || '';
+  // ja, fr, etc. — stored in data file as localName, localAddr, localHood
+  const key = 'local' + field.charAt(0).toUpperCase() + field.slice(1);
+  return loc[key] || '';
+}
+
+// Generic bilingual field:  uiValue / localValue  (when UI lang ≠ city local lang)
+// transVal = optional pre-computed UI-language value (from runtime translation system)
+function _biField(loc, field, transVal) {
+  const ll = _cityLocalLang(loc);
+  // UI-language value: trans > LOCS_KO > raw English
+  const ui = transVal
+    || ((LANG === 'ko' && typeof LOCS_KO !== 'undefined' && LOCS_KO[loc.id]?.[field]) ? LOCS_KO[loc.id][field] : '')
+    || loc[field] || '';
+  if (LANG === ll) return ui;                                  // same language → single value
+  const local = _localField(loc, field);
+  if (!local || local === ui) return ui;
+  return `${ui} / ${local}`;
+}
+
+// Convenience wrappers
+function _displayName(loc, transName) { return _biField(loc, 'name', transName); }
+function _displayAddr(loc, transAddr) { return _biField(loc, 'addr', transAddr); }
+function _displayHood(loc, transHood) { return _biField(loc, 'hood', transHood); }
 let activeCity    = 'nyc';   // default — overridden by GPS in boot
 let activeCityKey = 'new-york';
 
@@ -4864,22 +4898,14 @@ async function exportPDF() {
     const cityLabel = CITY_META[activeCity]?.label?.replace(/^\S+\s/, '') || activeCity;
     const walkMin   = parseInt(document.getElementById('walk-slider').value, 10);
 
-    // ── Helpers ──
+    // ── Helpers (reuse global _displayName/_displayAddr/_displayHood) ──
     function _tf(loc, field) {
       if (LANG === 'ko' && typeof LOCS_KO !== 'undefined' && LOCS_KO[loc.id]?.[field])
         return LOCS_KO[loc.id][field];
       return loc[field] || '';
     }
-    function _localName(loc) {
-      if (LANG !== 'en') return '';
-      if (loc.city === 'seoul' && typeof LOCS_KO !== 'undefined' && LOCS_KO[loc.id]?.name)
-        return LOCS_KO[loc.id].name;
-      return '';
-    }
     function _biName(loc, idx) {
-      const en = loc.name, lo = _localName(loc);
-      const title = (lo && lo !== en) ? `${en} / ${lo}` : (_tf(loc, 'name') || en);
-      return `${idx + 1}. ${title}`;
+      return `${idx + 1}. ${_displayName(loc)}`;
     }
 
     // ── Pre-fetch photos (img + canvas → dataUrl with dimensions) ──
@@ -5049,16 +5075,9 @@ async function exportPDF() {
       const cats = _allCats(loc).join(', ');
       if (cats) fields.push([t('pdf_category'), cats]);
       if (loc.access) fields.push([t('pdf_access'), loc.access]);
-      const addr = _tf(loc,'addr'), hood = _tf(loc,'hood'),
-            hours = _tf(loc,'hours'), admission = _tf(loc,'admission'), transit = _tf(loc,'transit');
-      if (addr) {
-        const la = (LANG==='en' && loc.city==='seoul' && typeof LOCS_KO!=='undefined' && LOCS_KO[loc.id]?.addr) ? LOCS_KO[loc.id].addr : '';
-        fields.push([t('pdf_address'), la && la !== addr ? `${addr} / ${la}` : addr]);
-      }
-      if (hood) {
-        const lh = (LANG==='en' && loc.city==='seoul' && typeof LOCS_KO!=='undefined' && LOCS_KO[loc.id]?.hood) ? LOCS_KO[loc.id].hood : '';
-        fields.push([t('pdf_neighborhood'), lh && lh !== hood ? `${hood} / ${lh}` : hood]);
-      }
+      const hours = _tf(loc,'hours'), admission = _tf(loc,'admission'), transit = _tf(loc,'transit');
+      if (loc.addr) fields.push([t('pdf_address'),      _displayAddr(loc)]);
+      if (loc.hood) fields.push([t('pdf_neighborhood'), _displayHood(loc)]);
       if (hours)     fields.push([t('pdf_hours'),     hours]);
       if (admission) fields.push([t('pdf_admission'), admission]);
       if (transit)   fields.push([t('pdf_transit'),   transit]);
