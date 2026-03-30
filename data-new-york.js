@@ -4954,4 +4954,132 @@ LOCS_NEW_YORK.push(
     arch:'Louis Kahn', archs:['Louis Kahn'],
     yr:2012, access:'Open to Public', style:'Modernist',
     lat:40.7506707, lng:-73.9604974,
-    addr:'1 FDR Four 
+    addr:'1 FDR Four Freedoms Park, Roosevelt Island, NY 10044', hood:'Roosevelt Island',
+    desc:'FDR Four Freedoms Park is the only built work of Louis Kahn in New York City — and one of his most poignant. Kahn designed the memorial in 1973 for the southern tip of Roosevelt Island, dedicating it to President Franklin D. Roosevelt and the Four Freedoms he proclaimed in 1941. Kahn died in 1974, three months after completing the drawings, and the project lay unrealised for nearly four decades. It was finally built to his original plans and opened on 17 October 2012. The park is composed of a long grass allée flanked by linden trees that terminates in a granite "room" open to the sky — a minimal, monumental enclosure framing the East River and the Manhattan skyline. At the centre of the room stands a bronze bust of FDR by Jo Davidson. The project is a rare example of a posthumous realisation of a complete architectural vision, executed with the same materials and dimensions Kahn specified.',
+    hours:'Wed–Sun 9:00 AM – 7:00 PM (May–Oct) · 9:00 AM – 5:00 PM (Nov–Apr)', lastEntry:'30 min before closing',
+    admission:'Free',
+    tourOk:true, tourInfo:'Free guided tours on weekends. Accessible via Roosevelt Island tram (from 59th St & 2nd Ave) or subway F train to Roosevelt Island.',
+    web:'https://fdrfourfreedomspark.org',
+    transit:'F → Roosevelt Island · Tram from 59 St & 2 Ave',
+    walkFrom:'Roosevelt Island Tram: 10 min walk south along waterfront',
+    gmaps:'https://maps.google.com/?q=FDR+Four+Freedoms+Park+Roosevelt+Island+New+York',
+    archdaily:'https://www.archdaily.com/286816/four-freedoms-park-louis-i-kahn',
+    wiki:'https://en.wikipedia.org/wiki/FDR_Four_Freedoms_Park',
+    tags:['Louis Kahn','Memorial','FDR','Roosevelt Island','Modernism','East River','Posthumous'],
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/FDR_Four_Freedoms_Park_room.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/FDR_Four_Freedoms_Park_aerial.jpg?width=800'
+    ],
+    drawings:[]
+  },
+
+  // ── TADAO ANDO — NEW YORK ────────────────────────────────────
+
+  {
+    id:'nyc-0140',
+    name:'152 Elizabeth Street',
+    cat:'Residential', cats:['Residential','Landmarks'], cc:'c-res', styleGroup:'Contemporary', styleGroups:['Contemporary'],
+    era:'2000–Present', city:'new-york',
+    arch:'Tadao Ando', archs:['Tadao Ando'],
+    yr:2018, access:'Open to Public', style:'Contemporary',
+    lat:40.7196, lng:-73.9949,
+    addr:'152 Elizabeth St, New York, NY 10012', hood:'Nolita',
+    desc:'152 Elizabeth Street is Tadao Ando\'s first residential building in New York City, completed in 2018. The 7-story, 7-unit boutique condominium occupies a narrow lot in Nolita and is clad entirely in Ando\'s signature board-formed exposed concrete — a material almost entirely absent from Manhattan\'s residential architecture. The building\'s facade is articulated by deep horizontal shadow lines created by the plank formwork, and the street-level planting softens its monolithic presence. Each floor houses a single full-floor unit with interiors finished in concrete, stone, and warm timber, bringing Ando\'s characteristic spatial discipline and tactile austerity to the New York market. The project reflects Ando\'s consistent philosophy: geometry, natural light, and the poetic use of concrete regardless of programme or scale.',
+    hours:'Private residential building · Exterior viewable 24/7', lastEntry:'',
+    admission:'Private building',
+    tourOk:false, tourInfo:'',
+    web:'https://152elizabethnyc.com',
+    transit:'6 → Spring St · J Z → Bowery · B D → Grand St',
+    walkFrom:'New Museum: 5 min · SoHo: 5 min',
+    gmaps:'https://maps.google.com/?q=152+Elizabeth+Street+New+York+NY',
+    archdaily:'https://www.archdaily.com/tag/152-elizabeth-street',
+    wiki:'https://en.wikipedia.org/wiki/152_Elizabeth_Street',
+    tags:['Tadao Ando','Concrete','Residential','Nolita','Boutique Condo'],
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/152_Elizabeth_Street_NYC_Tadao_Ando.jpg?width=800'
+    ],
+    drawings:[]
+  },
+
+  {
+    id:'nyc-0141',
+    name:'The Residences at 565 Broome SoHo',
+    cat:'Residential', cats:['Residential','Landmarks'], cc:'c-res', styleGroup:'Contemporary', styleGroups:['Contemporary'],
+    era:'2000–Present', city:'new-york',
+    arch:'Tadao Ando', archs:['Tadao Ando'],
+    yr:2019, access:'Open to Public', style:'Contemporary',
+    lat:40.7237, lng:-74.0041,
+    addr:'565 Broome St, New York, NY 10013', hood:'SoHo / Hudson Square',
+    desc:'The Residences at 565 Broome SoHo, completed in 2019, is Tadao Ando\'s second New York City project and his largest residential commission in the city. The 30-story, 115-unit luxury condominium tower rises above the low cast-iron roofscape of SoHo with two curved, convex forms of poured concrete and glass that taper toward each other as they rise. The curved facades maximise natural light and view angles while the cantilevered base — supported on a minimal ground-floor column grid — creates a covered public arcade and reveals a double-height lobby of Ando\'s trademark rough-shuttered concrete. The tower\'s curvature is unusual within Ando\'s typically rectilinear vocabulary, yet the material palette and spatial rigour are unmistakably his. The project marks his most prominent contribution to the New York skyline.',
+    hours:'Private residential building · Public lobby atrium visible from street', lastEntry:'',
+    admission:'Private building',
+    tourOk:false, tourInfo:'',
+    web:'https://565broome.com',
+    transit:'1 → Houston St · C E → Spring St',
+    walkFrom:'SoHo Cast Iron District: 3 min · Hudson River Park: 5 min',
+    gmaps:'https://maps.google.com/?q=565+Broome+Street+New+York+NY',
+    archdaily:'https://www.archdaily.com/tag/565-broome',
+    wiki:'https://en.wikipedia.org/wiki/565_Broome_SoHo',
+    tags:['Tadao Ando','Concrete','Residential','SoHo','Luxury','Curved Facade'],
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/565_Broome_SoHo_Ando.jpg?width=800'
+    ],
+    drawings:[]
+  },
+
+  // ── THOMAS HEATHERWICK — NEW YORK ───────────────────────────
+
+  {
+    id:'nyc-0142',
+    name:'Vessel',
+    cat:'Landmarks', cats:['Landmarks','Public'], cc:'c-lmk', styleGroup:'Contemporary', styleGroups:['Contemporary','Parametric Design'],
+    era:'2000–Present', city:'new-york',
+    arch:'Heatherwick Studio', archs:['Heatherwick Studio'],
+    yr:2019, access:'Open to Public', style:'Contemporary',
+    lat:40.7540, lng:-74.0019,
+    addr:'Hudson Yards, New York, NY 10001', hood:'Hudson Yards, West Side',
+    desc:'Vessel is a 16-story public climbable structure at the centre of Hudson Yards, designed by Thomas Heatherwick and completed in March 2019. The structure comprises 154 interlocking staircases — 2,500 steps and 80 landings — arranged around a central atrium to create a honeycomb-like lattice of weathering steel that rises 46 meters from the ground. No two levels are the same; the geometry shifts as the form tapers inward and outward, creating a three-dimensional network that allows visitors to observe each other from multiple angles simultaneously. Heatherwick described the design as "a different kind of public space" — more interactive than a sculpture, more architectural than a monument. The structure has become one of New York\'s most recognisable new landmarks and a focal point of the Hudson Yards public square.',
+    hours:'Daily 10:00 AM – 8:00 PM (last entry 7:15 PM)', lastEntry:'7:15 PM',
+    admission:'Free reservation required (timed entry tickets)',
+    tourOk:false, tourInfo:'Free timed-entry tickets must be reserved in advance at hudsonyardsnewyork.com. Stroller and wheelchair accessible.',
+    web:'https://www.hudsonyardsnewyork.com/discover/vessel',
+    transit:'7 → 34 St–Hudson Yards',
+    walkFrom:'High Line (south end): 5 min · The Edge observation deck: 2 min',
+    gmaps:'https://maps.google.com/?q=Vessel+Hudson+Yards+New+York',
+    archdaily:'https://www.archdaily.com/914093/vessel-heatherwick-studio',
+    wiki:'https://en.wikipedia.org/wiki/Vessel_(structure)',
+    tags:['Heatherwick Studio','Thomas Heatherwick','Hudson Yards','Landmark','Interactive','Weathering Steel'],
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Vessel_2019.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Hudson_Yards_New_York_City_-_Vessel.jpg?width=800'
+    ],
+    drawings:[]
+  },
+
+  {
+    id:'nyc-0143',
+    name:'Little Island',
+    cat:'Parks', cats:['Parks','Landmarks'], cc:'c-park', styleGroup:'Contemporary', styleGroups:['Contemporary','Landscape'],
+    era:'2000–Present', city:'new-york',
+    arch:'Heatherwick Studio', archs:['Heatherwick Studio','MNLA (Mathews Nielsen Landscape Architects)'],
+    yr:2021, access:'Open to Public', style:'Contemporary',
+    lat:40.7468, lng:-74.0106,
+    addr:'Pier 55 at Hudson River Park, New York, NY 10014', hood:'Meatpacking District / West Village',
+    desc:'Little Island is a 2.4-acre public park floating on the Hudson River at the site of the former Pier 55, designed by Heatherwick Studio with landscape architects MNLA and completed in May 2021. The park rests on 132 tulip-shaped concrete piers of varying heights and widths — each one different — that rise from the river and support a gently undulating planted landscape above. From the waterfront, the park reads as an island of rolling topography; from within, the varied terrain creates a series of distinct gardens, lawns, and an open-air amphitheatre seating 700. The park was funded by the Diller-von Furstenberg Family Foundation and replaced a deteriorated 19th-century pier structure. It has become one of New York\'s most popular public spaces and a landmark of contemporary park design.',
+    hours:'Daily 6:00 AM – 11:00 PM (seasonal variations)', lastEntry:'',
+    admission:'Free · Timed-entry tickets required on weekends in peak season',
+    tourOk:false, tourInfo:'Walk-in entry available on weekdays. Weekend and holiday timed-entry tickets bookable at littleisland.org.',
+    web:'https://littleisland.org',
+    transit:'A C E L → 14 St (8 Ave or 8 St) · Path → 14 St',
+    walkFrom:'High Line (north end): 5 min · Whitney Museum: 8 min · The Standard Hotel: 4 min',
+    gmaps:'https://maps.google.com/?q=Little+Island+New+York',
+    archdaily:'https://www.archdaily.com/961830/little-island-heatherwick-studio',
+    wiki:'https://en.wikipedia.org/wiki/Little_Island_(park)',
+    tags:['Heatherwick Studio','Thomas Heatherwick','Public Park','Hudson River','Pier 55','Meatpacking District','Landscape'],
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Little_Island_NYC_aerial.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Little_Island_park_Hudson_River.jpg?width=800'
+    ],
+    drawings:[]
+  }
+);

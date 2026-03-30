@@ -717,7 +717,7 @@ const LOCS_KO_NEW_YORK = {
     admission: '주거 건물 · 외관 관찰 가능',
   },
 
-  'little-island': {
+  'nyc-0143': {
     name: '리틀 아일랜드',
     desc: 'Heatherwick Studio와 MNLA(Mathews Nielsen Landscape Architects)가 설계하고 2021년 5월 완공한 former Pier 55 부지의 Hudson River 떠있는 공개 공원입니다. 높이와 폭이 다양한 132개의 튤립 모양 콘크리트 기둥 위에 부드럽게 파도치는 식재 지형이 떠 있습니다.',
     hood: 'Meatpacking District / West Village',
@@ -1431,7 +1431,7 @@ const LOCS_KO_NEW_YORK = {
     walkFrom: 'Broadway: 1분 · SoHo 갤러리: 인접',
   },
 
-  'vessel-hudson-yards': {
+  'nyc-0142': {
     name: 'Vessel at Hudson Yards',
     desc: 'Thomas Heatherwick가 설계한 Vessel은 Hudson Yards의 상징적 공공 미술 구조입니다. 154개의 연결된 계단과 계단식 구조는 등반과 커뮤니티 모임을 초청하는 대화형 조각품입니다.',
     hood: 'Midtown West / Hudson Yards',
