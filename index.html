@@ -4761,17 +4761,27 @@ function _initCityByGPS() {
 // ══════════════════════════════════════════════════════════════════
 // EXPORT PDF  (page-by-page html2canvas → jsPDF, Korean via browser font)
 // ══════════════════════════════════════════════════════════════════
-let _h2cReady = false;
-function _loadH2cAndJsPdf() {
-  if (_h2cReady) return Promise.resolve();
-  // html2pdf.js bundle includes both html2canvas AND jsPDF
+let _h2cReady = false, _jspdfReady = false;
+function _loadScript(src) {
   return new Promise((resolve, reject) => {
     const s = document.createElement('script');
-    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js';
-    s.onload = () => { _h2cReady = true; resolve(); };
-    s.onerror = () => reject(new Error('Failed to load html2pdf bundle'));
+    s.src = src;
+    s.onload = resolve;
+    s.onerror = () => reject(new Error('Failed to load: ' + src));
     document.head.appendChild(s);
   });
+}
+function _loadH2cAndJsPdf() {
+  const tasks = [];
+  if (!_jspdfReady) tasks.push(
+    _loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js')
+      .then(() => { _jspdfReady = true; })
+  );
+  if (!_h2cReady) tasks.push(
+    _loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js')
+      .then(() => { _h2cReady = true; })
+  );
+  return Promise.all(tasks);
 }
 
 let _notoFontLoaded = false;
