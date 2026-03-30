@@ -4651,13 +4651,42 @@ function _loadScript(src) {
   });
 }
 
-// PDF photo cache: Key = original URL, Value = { dataUrl, w, h, fmt }
+// PDF photo cache: Key = original URL, Value = { data (Uint8Array), w, h, fmt }
 const _photoCache = new Map();
 // Map: Special:FilePath URL → CORS-friendly upload.wikimedia.org thumb URL
 const _resolvedUrls = new Map();
 
+async function _loadHtml2Canvas() {
+  if (window.html2canvas) return;
+  await _loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js');
+}
+
+// Capture the map container (with tile images + markers) as a JPEG data URL
+async function _captureMapSnapshot() {
+  try {
+    await _loadHtml2Canvas();
+    // Invalidate Leaflet tile sizes before capture
+    map.invalidateSize();
+    await new Promise(r => setTimeout(r, 500)); // wait for tiles to settle
+    const mapEl = document.getElementById('map');
+    const canvas = await html2canvas(mapEl, {
+      useCORS: true,
+      allowTaint: false,
+      scale: 1.5,                       // higher-res capture
+      backgroundColor: '#f2f2f0',
+      logging: false,
+      ignoreElements: el => {
+        // Skip Leaflet zoom controls and attribution for cleaner snapshot
+        return el.classList?.contains('leaflet-control-zoom')
+            || el.classList?.contains('leaflet-control-attribution');
+      }
+    });
+    return canvas.toDataURL('image/jpeg', 0.9);
+  } catch(e) { console.warn('[PDF] Map capture failed:', e); return null; }
+}
+
 // Resolve Special:FilePath URLs → upload.wikimedia.org thumb URLs (CORS-safe)
-// Uses Wikimedia imageinfo API, batches up to 50 titles per request
+// Uses Wikimedia imageinfo API. Small batches (10) to keep URL length safe.
 async function _resolveWikiUrls(urls, thumbWidth) {
   const w = thumbWidth || 300;
   const toResolve = urls.filter(u => u.includes('Special:FilePath') && !_resolvedUrls.has(u));
@@ -4673,15 +4702,16 @@ async function _resolveWikiUrls(urls, thumbWidth) {
       rawNames.push(raw);
     }
   });
-  for (let i = 0; i < rawNames.length; i += 50) {
-    const batch = rawNames.slice(i, i + 50);
+  // Batch size 10 to avoid URL-too-long errors (encoded filenames can be very long)
+  for (let i = 0; i < rawNames.length; i += 10) {
+    const batch = rawNames.slice(i, i + 10);
     const titles = batch.map(f => 'File:' + f).join('|');
     try {
       const resp = await fetch(
         `https://commons.wikimedia.org/w/api.php?action=query&titles=${encodeURIComponent(titles)}&prop=imageinfo&iiprop=url&iiurlwidth=${w}&format=json&origin=*`,
         { credentials: 'omit' }
       );
-      if (!resp.ok) continue;
+      if (!resp.ok) { console.warn('[PDF] Wiki API batch failed:', resp.status); continue; }
       const data = await resp.json();
       const pages = data.query?.pages || {};
       Object.values(pages).forEach(page => {
@@ -4691,7 +4721,9 @@ async function _resolveWikiUrls(urls, thumbWidth) {
         const origUrl = fileMap[title];
         if (origUrl) _resolvedUrls.set(origUrl, thumbUrl);
       });
-    } catch { /* skip */ }
+    } catch(e) { console.warn('[PDF] Wiki API error:', e); }
+    // Small delay between API batches
+    if (i + 10 < rawNames.length) await new Promise(r => setTimeout(r, 100));
   }
 }
 
@@ -4717,44 +4749,48 @@ async function _loadKoreanFont() {
   _koreanFontB64 = btoa(parts.join(''));
 }
 
-// Fetch image for PDF: resolved URL → fetch blob → canvas → base64 dataUrl.
-// Uses _resolvedUrls (upload.wikimedia.org) which have CORS headers.
+// Fetch image for PDF: resolved URL → raw bytes (Uint8Array) + dimensions.
+// Passes raw bytes directly to jsPDF — NO canvas involved (avoids taint issues).
 async function _fetchImgForPdf(origUrl, timeout) {
   const tmout = timeout || 15000;
-  // Use CORS-friendly resolved URL; resize thumb to 300px
   let imgUrl = _resolvedUrls.get(origUrl) || origUrl;
   imgUrl = imgUrl.replace(/\/(\d+)px-([^/]+)$/, '/300px-$2');
 
+  // Skip unresolved Special:FilePath URLs — they don't have CORS headers
+  if (imgUrl.includes('Special:FilePath')) {
+    console.warn('[PDF] Unresolved URL skipped:', origUrl);
+    return null;
+  }
+
   try {
-    // Fetch as blob (works because upload.wikimedia.org sends Access-Control-Allow-Origin: *)
     const ctl = new AbortController();
     const tm = setTimeout(() => ctl.abort(), tmout);
     const resp = await fetch(imgUrl, { signal: ctl.signal, credentials: 'omit' });
     clearTimeout(tm);
-    if (!resp.ok) return null;
-    const blob = await resp.blob();
-    if (!blob.size) return null;
+    if (!resp.ok) { console.warn('[PDF] Fetch', resp.status, imgUrl); return null; }
 
-    // blob → objectURL → Image → canvas → base64
+    const ct = resp.headers.get('Content-Type') || '';
+    const fmt = ct.includes('png') ? 'PNG' : 'JPEG';
+    const buf = await resp.arrayBuffer();
+    if (!buf.byteLength) return null;
+
+    // Get dimensions by loading blob into Image (no crossOrigin needed — just for w/h)
+    const blob = new Blob([buf], { type: ct || 'image/jpeg' });
     const objUrl = URL.createObjectURL(blob);
-    const result = await new Promise(resolve => {
+    const dims = await new Promise(resolve => {
       const img = new Image();
-      img.onload = () => {
-        try {
-          const c = document.createElement('canvas');
-          c.width = img.naturalWidth; c.height = img.naturalHeight;
-          c.getContext('2d').drawImage(img, 0, 0);
-          const dataUrl = c.toDataURL('image/jpeg', 0.85);
-          resolve({ dataUrl, w: c.width, h: c.height, fmt: 'JPEG' });
-        } catch { resolve(null); }
-        URL.revokeObjectURL(objUrl);
-      };
-      img.onerror = () => { URL.revokeObjectURL(objUrl); resolve(null); };
+      img.onload = () => resolve({ w: img.naturalWidth, h: img.naturalHeight });
+      img.onerror = () => resolve(null);
       img.src = objUrl;
     });
-    if (result) _photoCache.set(origUrl, result);
+    URL.revokeObjectURL(objUrl);
+    if (!dims || !dims.w) return null;
+
+    // Store raw bytes — jsPDF addImage() accepts Uint8Array directly
+    const result = { data: new Uint8Array(buf), w: dims.w, h: dims.h, fmt };
+    _photoCache.set(origUrl, result);
     return result;
-  } catch { return null; }
+  } catch(e) { console.warn('[PDF] Error:', e); return null; }
 }
 
 async function _reverseGeocode(lat, lng) {
@@ -4834,8 +4870,12 @@ async function exportPDF() {
       return `${idx + 1}. ${_displayName(loc)}`;
     }
 
+    // ── Capture map snapshot (before any DOM changes) ──
+    _pdfProgress(4, LANG==='ko'?'지도 캡처 중…':'Capturing map…');
+    const mapSnapshot = await _captureMapSnapshot();
+
     // ── Resolve Special:FilePath → CORS-friendly upload.wikimedia.org URLs ──
-    _pdfProgress(6, LANG==='ko'?'이미지 URL 변환 중…':'Resolving image URLs…');
+    _pdfProgress(8, LANG==='ko'?'이미지 URL 변환 중…':'Resolving image URLs…');
     const allPhotoUrls = locs.flatMap(l => (l.photos || []).slice(0, 4));
     await _resolveWikiUrls(allPhotoUrls, 300);
 
@@ -4845,7 +4885,7 @@ async function exportPDF() {
     for (let li = 0; li < locs.length; li++) {
       const loc = locs[li];
       if (!loc.photos?.length) continue;
-      _pdfProgress(8 + (li / locs.length) * 52, LANG==='ko'?'사진 다운로드 중…':'Downloading photos…', `${li+1} / ${locs.length}`);
+      _pdfProgress(10 + (li / locs.length) * 50, LANG==='ko'?'사진 다운로드 중…':'Downloading photos…', `${li+1} / ${locs.length}`);
       const results = [];
       for (const url of loc.photos.slice(0, 4)) {
         // 1) Cache hit — instant
@@ -4929,6 +4969,21 @@ async function exportPDF() {
     doc.text(dtStr, ML, y);
     y += 7;
 
+    // Map snapshot
+    if (mapSnapshot) {
+      const mapImg = new Image();
+      mapImg.src = mapSnapshot;
+      await new Promise(r => { mapImg.onload = r; mapImg.onerror = r; });
+      if (mapImg.naturalWidth) {
+        const mapAspect = mapImg.naturalWidth / mapImg.naturalHeight;
+        const mapW = PW;
+        const mapH = Math.min(mapW / mapAspect, 100); // max 100mm tall
+        y = _chkY(y, mapH + 4);
+        try { doc.addImage(mapSnapshot, 'JPEG', ML, y, mapW, mapH); } catch(e) {}
+        y += mapH + 4;
+      }
+    }
+
     // Divider
     doc.setDrawColor(...LGRAY);
     doc.setLineWidth(0.3);
@@ -4987,7 +5042,7 @@ async function exportPDF() {
         let xOff = ML;
         photos.forEach(p => {
           const imgW = MAX_H * (p.w / p.h) * scale;
-          try { doc.addImage(p.dataUrl, p.fmt || 'JPEG', xOff, y, imgW, imgH); } catch(e) { /* skip bad image */ }
+          try { doc.addImage(p.data, p.fmt || 'JPEG', xOff, y, imgW, imgH); } catch(e) { /* skip bad image */ }
           xOff += imgW + GAP;
         });
         y += imgH + 8;
