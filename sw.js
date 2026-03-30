@@ -1,6 +1,8 @@
 // ArchWander Service Worker
 // Enables PWA installation → background audio on iOS/Android
-const CACHE = 'archwander-v6';
+// Also acts as CORS image proxy for PDF export (wikimedia images)
+const CACHE = 'archwander-v7';
+const IMG_CACHE = 'archwander-img';
 const PRECACHE = [
   '/ArchWander/',
   '/ArchWander/index.html',
@@ -15,21 +17,51 @@ self.addEventListener('install', e => {
 });
 
 self.addEventListener('activate', e => {
-  // Delete ALL old caches so users always get fresh HTML/JS on SW update
+  // Delete ALL old caches except current ones
   e.waitUntil(
     caches.keys().then(keys =>
-      Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))
+      Promise.all(keys.filter(k => k !== CACHE && k !== IMG_CACHE).map(k => caches.delete(k)))
     ).then(() => clients.claim())
   );
 });
 
 self.addEventListener('fetch', e => {
-  // Only handle same-origin GET requests
   if (e.request.method !== 'GET') return;
   const url = new URL(e.request.url);
+
+  // ── Image proxy: /__imgproxy__/?url=<encoded-url> ──
+  // Page requests images through this path; SW fetches cross-origin,
+  // wraps response as same-origin so page can use canvas without taint.
+  if (url.pathname === '/ArchWander/__imgproxy__/') {
+    const imgUrl = url.searchParams.get('url');
+    if (!imgUrl) { e.respondWith(new Response('missing url', { status: 400 })); return; }
+    e.respondWith(
+      caches.open(IMG_CACHE).then(cache =>
+        cache.match(imgUrl).then(cached => {
+          if (cached) return cached;
+          return fetch(imgUrl).then(res => {
+            if (!res.ok) return new Response('', { status: res.status });
+            // Clone body into a new same-origin Response with CORS-safe headers
+            const headers = new Headers({
+              'Content-Type': res.headers.get('Content-Type') || 'image/jpeg',
+              'Cache-Control': 'public, max-age=86400'
+            });
+            return res.arrayBuffer().then(buf => {
+              const resp = new Response(buf, { status: 200, headers });
+              cache.put(imgUrl, resp.clone());
+              return resp;
+            });
+          }).catch(() => new Response('', { status: 502 }));
+        })
+      )
+    );
+    return;
+  }
+
+  // ── Same-origin only for everything else ──
   if (url.origin !== self.location.origin) return;
 
-  // HTML documents: Network First → always serve latest version
+  // HTML documents: Network First
   const isHTML = url.pathname.endsWith('.html') || url.pathname.endsWith('/');
   if (isHTML) {
     e.respondWith(
@@ -44,7 +76,7 @@ self.addEventListener('fetch', e => {
     return;
   }
 
-  // Other assets (JS, CSS, images): Cache First → fast load, offline support
+  // Other assets: Cache First
   e.respondWith(
     caches.match(e.request).then(r => r || fetch(e.request).then(res => {
       if (res && res.status === 200) {
