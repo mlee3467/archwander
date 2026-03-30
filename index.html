@@ -1417,7 +1417,6 @@
       <option value="lon">London</option>
       <option value="tky">Tokyo</option>
     </select>
-    </div>
     <div id="lang-overlay" class="lang-overlay" onclick="closeLangMenu()"></div>
     <div class="lang-dropdown" id="lang-dropdown">
       <button id="lang-btn" onclick="toggleLangMenu()" title="Language / 언어">
@@ -4066,6 +4065,8 @@ function clearWalkFilter() { _fullDeactivate(); }
 
 function locateUserGPS() {
   if (!navigator.geolocation) { alert('Geolocation not supported.'); return; }
+  // Mobile: minimize sidebar so map is fully visible
+  if (window.innerWidth <= 900) closeSidebar();
   const gpsBtn = document.getElementById('walk-gps-btn');
   const pinBtn = document.getElementById('walk-pin-btn');
   gpsBtn.classList.add('locating');
@@ -4085,6 +4086,8 @@ function locateUserGPS() {
 function startPinDrop() {
   pinDropMode = true;
   map.getContainer().style.cursor = 'crosshair';
+  // Mobile: minimize sidebar so user can tap the map
+  if (window.innerWidth <= 900) closeSidebar();
   document.getElementById('walk-pin-btn').classList.add('locating');
   document.getElementById('walk-gps-btn').classList.remove('active', 'locating');
 }
@@ -4650,6 +4653,47 @@ function _loadScript(src) {
 
 // PDF photo cache: Key = original URL, Value = { dataUrl, w, h, fmt }
 const _photoCache = new Map();
+// Map: Special:FilePath URL → CORS-friendly upload.wikimedia.org thumb URL
+const _resolvedUrls = new Map();
+
+// Resolve Special:FilePath URLs → upload.wikimedia.org thumb URLs (CORS-safe)
+// Uses Wikimedia imageinfo API, batches up to 50 titles per request
+async function _resolveWikiUrls(urls, thumbWidth) {
+  const w = thumbWidth || 300;
+  const toResolve = urls.filter(u => u.includes('Special:FilePath') && !_resolvedUrls.has(u));
+  if (!toResolve.length) return;
+  const norm = s => s.replace(/_/g, ' ');
+  const fileMap = {};
+  const rawNames = [];
+  toResolve.forEach(u => {
+    const m = u.match(/Special:FilePath\/([^?]+)/);
+    if (m) {
+      const raw = decodeURIComponent(m[1]);
+      fileMap[norm(raw)] = u;
+      rawNames.push(raw);
+    }
+  });
+  for (let i = 0; i < rawNames.length; i += 50) {
+    const batch = rawNames.slice(i, i + 50);
+    const titles = batch.map(f => 'File:' + f).join('|');
+    try {
+      const resp = await fetch(
+        `https://commons.wikimedia.org/w/api.php?action=query&titles=${encodeURIComponent(titles)}&prop=imageinfo&iiprop=url&iiurlwidth=${w}&format=json&origin=*`,
+        { credentials: 'omit' }
+      );
+      if (!resp.ok) continue;
+      const data = await resp.json();
+      const pages = data.query?.pages || {};
+      Object.values(pages).forEach(page => {
+        const thumbUrl = page.imageinfo?.[0]?.thumburl;
+        if (!thumbUrl) return;
+        const title = norm((page.title || '').replace(/^File:/, ''));
+        const origUrl = fileMap[title];
+        if (origUrl) _resolvedUrls.set(origUrl, thumbUrl);
+      });
+    } catch { /* skip */ }
+  }
+}
 
 async function _loadPdfLibs() {
   if (_pdfLibReady) return;
@@ -4673,33 +4717,25 @@ async function _loadKoreanFont() {
   _koreanFontB64 = btoa(parts.join(''));
 }
 
-// Load image via SW CORS proxy → blob → canvas → base64 for PDF embedding.
-// The Service Worker intercepts /__imgproxy__/?url=<encoded> and fetches
-// cross-origin images in its own context, returning a same-origin Response.
+// Fetch image for PDF: resolved URL → fetch blob → canvas → base64 dataUrl.
+// Uses _resolvedUrls (upload.wikimedia.org) which have CORS headers.
 async function _fetchImgForPdf(origUrl, timeout) {
   const tmout = timeout || 15000;
-  // Build a small thumbnail URL (~300px) from the original photo URL
-  let imgUrl = origUrl;
-  if (imgUrl.includes('Special:FilePath')) {
-    imgUrl = imgUrl.includes('?width=')
-      ? imgUrl.replace(/\?width=\d+/, '?width=300')
-      : imgUrl + (imgUrl.includes('?') ? '&' : '?') + 'width=300';
-  } else {
-    imgUrl = imgUrl.replace(/\/(\d+)px-([^/]+)$/, '/300px-$2');
-  }
+  // Use CORS-friendly resolved URL; resize thumb to 300px
+  let imgUrl = _resolvedUrls.get(origUrl) || origUrl;
+  imgUrl = imgUrl.replace(/\/(\d+)px-([^/]+)$/, '/300px-$2');
 
   try {
-    // Route through the SW image proxy to bypass CORS restrictions
-    const proxyUrl = '__imgproxy__/?url=' + encodeURIComponent(imgUrl);
+    // Fetch as blob (works because upload.wikimedia.org sends Access-Control-Allow-Origin: *)
     const ctl = new AbortController();
     const tm = setTimeout(() => ctl.abort(), tmout);
-    const resp = await fetch(proxyUrl, { signal: ctl.signal });
+    const resp = await fetch(imgUrl, { signal: ctl.signal, credentials: 'omit' });
     clearTimeout(tm);
     if (!resp.ok) return null;
     const blob = await resp.blob();
     if (!blob.size) return null;
 
-    // blob → objectURL → Image → canvas → base64 dataUrl
+    // blob → objectURL → Image → canvas → base64
     const objUrl = URL.createObjectURL(blob);
     const result = await new Promise(resolve => {
       const img = new Image();
@@ -4798,20 +4834,28 @@ async function exportPDF() {
       return `${idx + 1}. ${_displayName(loc)}`;
     }
 
-    // ── Fetch photos via SW proxy (bypasses CORS) ──
+    // ── Resolve Special:FilePath → CORS-friendly upload.wikimedia.org URLs ──
+    _pdfProgress(6, LANG==='ko'?'이미지 URL 변환 중…':'Resolving image URLs…');
+    const allPhotoUrls = locs.flatMap(l => (l.photos || []).slice(0, 4));
+    await _resolveWikiUrls(allPhotoUrls, 300);
+
+    // ── Fetch photos with throttling to avoid Wikimedia 429 rate-limit ──
     const photoMap = {};
+    let fetchCount = 0;
     for (let li = 0; li < locs.length; li++) {
       const loc = locs[li];
       if (!loc.photos?.length) continue;
-      _pdfProgress(6 + (li / locs.length) * 54, LANG==='ko'?'사진 다운로드 중…':'Downloading photos…', `${li+1} / ${locs.length}`);
+      _pdfProgress(8 + (li / locs.length) * 52, LANG==='ko'?'사진 다운로드 중…':'Downloading photos…', `${li+1} / ${locs.length}`);
       const results = [];
       for (const url of loc.photos.slice(0, 4)) {
         // 1) Cache hit — instant
         const c = _photoCache.get(url);
         if (c) { results.push(c); continue; }
-        // 2) Fetch via SW proxy
+        // 2) Throttle: 200ms gap between network fetches to avoid 429
+        if (fetchCount > 0) await new Promise(r => setTimeout(r, 200));
         const r = await _fetchImgForPdf(url, 15000);
         if (r) results.push(r);
+        fetchCount++;
       }
       if (results.length) photoMap[loc.id] = results;
     }
