@@ -237,13 +237,14 @@
     /* Sidebar top: filter active indicator */
     .sb-top {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 10px 14px 8px;
+      padding: 9px 14px 8px;
       border-bottom: 1px solid var(--border);
+      background: #3b3b3b;
     }
-    .sb-top-label { font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-secondary); }
-    .sb-clear { font-size: 11px; color: #4F46E5; background: none; border: none; cursor: pointer; padding: 2px 6px; border-radius: 4px; display: none; }
+    .sb-top-label { font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: #ffffff; }
+    .sb-clear { font-size: 11px; color: #aab4ff; background: none; border: none; cursor: pointer; padding: 2px 6px; border-radius: 4px; display: none; }
     .sb-clear.show { display: block; }
-    .sb-clear:hover { background: #EEF2FF; }
+    .sb-clear:hover { background: rgba(255,255,255,0.15); }
 
     /* Filter sections */
     .fsec { border-bottom: 1px solid var(--border); }
@@ -1525,7 +1526,7 @@
       <div class="drag-h-sec" id="dh-sec-access" style="display:none" title="Drag to resize Access"></div>
 
       <!-- Architect -->
-      <div class="fsec open" id="fsec-arch">
+      <div class="fsec" id="fsec-arch">
         <button class="fsec-hdr" onclick="toggleFsec('arch')">
           <span>Architect</span>
           <span class="fsec-dot" id="dot-arch"></span>
@@ -3596,7 +3597,8 @@ function setupVDrag(handleId, targetId, minH, maxH) {
   };
   const move = y => {
     if (!dragging) return;
-    target.style.height = Math.max(minH, Math.min(maxH, startH + y - startY)) + 'px';
+    const _min = typeof minH === 'function' ? minH() : minH;
+    target.style.height = Math.max(_min, Math.min(maxH, startH + y - startY)) + 'px';
   };
   const end = () => {
     if (!dragging) return;
@@ -4519,7 +4521,12 @@ window.addEventListener('load', function() {
     if (walkActive) _runWalkFilter();
   });
   // Sidebar macro drag-resize
-  setupVDrag('dh-fl', 'sb-filters', 50, 480);
+  setupVDrag('dh-fl', 'sb-filters', () => {
+    const fav = document.getElementById('fsec-fav');
+    if (!fav) return 50;
+    const hdr = fav.querySelector('.fsec-hdr');
+    return fav.offsetTop + (hdr ? hdr.offsetHeight : 36) + 6;
+  }, 480);
   setupHDrag('sb-resize', 'sidebar', 220, 700);
   setupHDragLeft('panel-resize', 'panel', 300, 900);
 
