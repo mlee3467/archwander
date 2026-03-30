@@ -4656,38 +4656,61 @@ const _photoCache = new Map();
 // Map: Special:FilePath URL → CORS-friendly upload.wikimedia.org thumb URL
 const _resolvedUrls = new Map();
 
-async function _loadHtml2Canvas() {
-  if (window.html2canvas) return;
-  await _loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js');
-}
+// Generate a static map image for a single location using Carto CDN tiles.
+// Tiles from basemaps.cartocdn.com support CORS → canvas is not tainted.
+async function _staticMapForLoc(lat, lng, zoomLevel) {
+  const zoom = zoomLevel || 16;
+  const TILE = 512; // @2x tile pixel size
+  const n = Math.pow(2, zoom);
 
-// Capture the map container (with tile images + markers) as a JPEG data URL
-async function _captureMapSnapshot() {
-  try {
-    await _loadHtml2Canvas();
-    // Invalidate Leaflet tile sizes before capture
-    map.invalidateSize();
-    await new Promise(r => setTimeout(r, 500)); // wait for tiles to settle
-    const mapEl = document.getElementById('map');
-    const canvas = await html2canvas(mapEl, {
-      useCORS: true,
-      allowTaint: false,
-      scale: 1.5,                       // higher-res capture
-      backgroundColor: '#f2f2f0',
-      logging: false,
-      ignoreElements: el => {
-        // Skip Leaflet zoom controls and attribution for cleaner snapshot
-        return el.classList?.contains('leaflet-control-zoom')
-            || el.classList?.contains('leaflet-control-attribution');
-      }
-    });
-    return canvas.toDataURL('image/jpeg', 0.9);
-  } catch(e) { console.warn('[PDF] Map capture failed:', e); return null; }
+  // Precise floating-point tile coordinates
+  const xf = (lng + 180) / 360 * n;
+  const latRad = lat * Math.PI / 180;
+  const yf = (1 - Math.log(Math.tan(latRad) + 1 / Math.cos(latRad)) / Math.PI) / 2 * n;
+  const tileX = Math.floor(xf);
+  const tileY = Math.floor(yf);
+  const offX = (xf - tileX) * TILE;
+  const offY = (yf - tileY) * TILE;
+
+  // Fetch 3×3 tile grid
+  const big = document.createElement('canvas');
+  big.width = TILE * 3; big.height = TILE * 3;
+  const bCtx = big.getContext('2d');
+  const proms = [];
+  for (let dy = -1; dy <= 1; dy++) {
+    for (let dx = -1; dx <= 1; dx++) {
+      const url = `https://basemaps.cartocdn.com/rastertiles/voyager/${zoom}/${tileX + dx}/${tileY + dy}@2x.png`;
+      proms.push(
+        fetch(url, { credentials: 'omit' })
+          .then(r => r.blob()).then(b => createImageBitmap(b))
+          .then(bmp => bCtx.drawImage(bmp, (dx + 1) * TILE, (dy + 1) * TILE))
+          .catch(() => {})
+      );
+    }
+  }
+  await Promise.all(proms);
+
+  // Crop to center the target lat/lng, wide landscape aspect
+  const outW = Math.round(TILE * 2.6);
+  const outH = Math.round(TILE * 0.9);
+  const cx = TILE + offX, cy = TILE + offY;
+  const out = document.createElement('canvas');
+  out.width = outW; out.height = outH;
+  const oCtx = out.getContext('2d');
+  oCtx.drawImage(big, cx - outW / 2, cy - outH / 2, outW, outH, 0, 0, outW, outH);
+
+  // Draw marker pin at center
+  oCtx.font = '48px serif';
+  oCtx.textAlign = 'center';
+  oCtx.textBaseline = 'bottom';
+  oCtx.fillText('\ud83d\udccd', outW / 2, outH / 2 + 10);
+
+  return { dataUrl: out.toDataURL('image/jpeg', 0.88), w: outW, h: outH };
 }
 
 // Resolve Special:FilePath URLs → upload.wikimedia.org thumb URLs (CORS-safe)
-// Uses Wikimedia imageinfo API. Small batches (10) to keep URL length safe.
-async function _resolveWikiUrls(urls, thumbWidth) {
+// Uses Wikimedia imageinfo API with POST to avoid URL-length limits.
+async function _resolveWikiUrls(urls, thumbWidth, progressFn) {
   const w = thumbWidth || 300;
   const toResolve = urls.filter(u => u.includes('Special:FilePath') && !_resolvedUrls.has(u));
   if (!toResolve.length) return;
@@ -4702,15 +4725,17 @@ async function _resolveWikiUrls(urls, thumbWidth) {
       rawNames.push(raw);
     }
   });
-  // Batch size 10 to avoid URL-too-long errors (encoded filenames can be very long)
-  for (let i = 0; i < rawNames.length; i += 10) {
-    const batch = rawNames.slice(i, i + 10);
+  // POST in batches of 20 (safe payload, avoids GET URL-length limits)
+  for (let i = 0; i < rawNames.length; i += 20) {
+    const batch = rawNames.slice(i, i + 20);
     const titles = batch.map(f => 'File:' + f).join('|');
     try {
-      const resp = await fetch(
-        `https://commons.wikimedia.org/w/api.php?action=query&titles=${encodeURIComponent(titles)}&prop=imageinfo&iiprop=url&iiurlwidth=${w}&format=json&origin=*`,
-        { credentials: 'omit' }
-      );
+      const resp = await fetch('https://commons.wikimedia.org/w/api.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `action=query&titles=${encodeURIComponent(titles)}&prop=imageinfo&iiprop=url&iiurlwidth=${w}&format=json&origin=*`,
+        credentials: 'omit'
+      });
       if (!resp.ok) { console.warn('[PDF] Wiki API batch failed:', resp.status); continue; }
       const data = await resp.json();
       const pages = data.query?.pages || {};
@@ -4722,8 +4747,8 @@ async function _resolveWikiUrls(urls, thumbWidth) {
         if (origUrl) _resolvedUrls.set(origUrl, thumbUrl);
       });
     } catch(e) { console.warn('[PDF] Wiki API error:', e); }
-    // Small delay between API batches
-    if (i + 10 < rawNames.length) await new Promise(r => setTimeout(r, 100));
+    if (progressFn) progressFn(i + batch.length, rawNames.length);
+    if (i + 20 < rawNames.length) await new Promise(r => setTimeout(r, 80));
   }
 }
 
@@ -4852,11 +4877,6 @@ async function exportPDF() {
     ]);
     _pdfProgress(5, LANG==='ko'?'데이터 준비 중…':'Loading data…');
 
-    // ── Load audio data ──
-    const audioCityKey = CITY_META[activeCity]?.key;
-    if (audioCityKey) await _agLoadCityFile(audioCityKey);
-    const audioData = audioCityKey ? _agGetData(audioCityKey) : null;
-
     const cityLabel = CITY_META[activeCity]?.label?.replace(/^\S+\s/, '') || activeCity;
     const walkMin   = parseInt(document.getElementById('walk-slider').value, 10);
 
@@ -4870,14 +4890,12 @@ async function exportPDF() {
       return `${idx + 1}. ${_displayName(loc)}`;
     }
 
-    // ── Capture map snapshot (before any DOM changes) ──
-    _pdfProgress(4, LANG==='ko'?'지도 캡처 중…':'Capturing map…');
-    const mapSnapshot = await _captureMapSnapshot();
-
     // ── Resolve Special:FilePath → CORS-friendly upload.wikimedia.org URLs ──
-    _pdfProgress(8, LANG==='ko'?'이미지 URL 변환 중…':'Resolving image URLs…');
     const allPhotoUrls = locs.flatMap(l => (l.photos || []).slice(0, 4));
-    await _resolveWikiUrls(allPhotoUrls, 300);
+    await _resolveWikiUrls(allPhotoUrls, 300, (done, total) => {
+      _pdfProgress(4 + (done / total) * 6, LANG==='ko'?'이미지 URL 변환 중…':'Resolving image URLs…', `${done} / ${total}`);
+    });
+    _pdfProgress(10, LANG==='ko'?`URL 변환 완료 (${_resolvedUrls.size}개)`:'URLs resolved (' + _resolvedUrls.size + ')', `${_resolvedUrls.size} / ${allPhotoUrls.length}`);
 
     // ── Fetch photos with throttling to avoid Wikimedia 429 rate-limit ──
     const photoMap = {};
@@ -4969,21 +4987,6 @@ async function exportPDF() {
     doc.text(dtStr, ML, y);
     y += 7;
 
-    // Map snapshot
-    if (mapSnapshot) {
-      const mapImg = new Image();
-      mapImg.src = mapSnapshot;
-      await new Promise(r => { mapImg.onload = r; mapImg.onerror = r; });
-      if (mapImg.naturalWidth) {
-        const mapAspect = mapImg.naturalWidth / mapImg.naturalHeight;
-        const mapW = PW;
-        const mapH = Math.min(mapW / mapAspect, 100); // max 100mm tall
-        y = _chkY(y, mapH + 4);
-        try { doc.addImage(mapSnapshot, 'JPEG', ML, y, mapW, mapH); } catch(e) {}
-        y += mapH + 4;
-      }
-    }
-
     // Divider
     doc.setDrawColor(...LGRAY);
     doc.setLineWidth(0.3);
@@ -5024,36 +5027,21 @@ async function exportPDF() {
     // ══════════════════════════════════════════
     // DETAIL PAGES — one per location
     // ══════════════════════════════════════════
+    const MAP_MAX_H = PAGE_H / 5;   // max 1/5 of A4 height (~59mm)
+    const PHOTO_MAX_H = PAGE_H / 5; // max 1/5 of A4 height
+
     for (let i = 0; i < locs.length; i++) {
       const loc = locs[i];
-      _pdfProgress(65 + (i / locs.length) * 33, LANG==='ko'?'페이지 생성 중…':'Building pages…', `${i+1} / ${locs.length}`);
+      _pdfProgress(62 + (i / locs.length) * 30, LANG==='ko'?'페이지 생성 중…':'Building pages…', `${i+1} / ${locs.length}`);
 
       doc.addPage();
       y = MT;
-
-      // ── Photos (up to 4, aspect-ratio preserved, uniform height) ──
-      const photos = photoMap[loc.id] || [];
-      if (photos.length) {
-        const MAX_H = 45, GAP = 2;
-        const totalAspect = photos.reduce((s, p) => s + p.w / p.h, 0);
-        const rawW  = MAX_H * totalAspect + GAP * (photos.length - 1);
-        const scale = PW / rawW;
-        const imgH  = MAX_H * scale;
-        let xOff = ML;
-        photos.forEach(p => {
-          const imgW = MAX_H * (p.w / p.h) * scale;
-          try { doc.addImage(p.data, p.fmt || 'JPEG', xOff, y, imgW, imgH); } catch(e) { /* skip bad image */ }
-          xOff += imgW + GAP;
-        });
-        y += imgH + 8;
-      }
 
       // ── Numbered / bilingual title ──
       doc.setFont(F, 'bold');
       doc.setFontSize(15);
       doc.setTextColor(...BLACK);
       const titleLines = doc.splitTextToSize(_biName(loc, i), PW);
-      y = _chkY(y, titleLines.length * 7 + 2);
       doc.text(titleLines, ML, y);
       y += titleLines.length * 7 + 1;
 
@@ -5061,9 +5049,23 @@ async function exportPDF() {
       doc.setFont(F, 'normal');
       doc.setFontSize(9);
       doc.setTextColor(...GRAY);
-      y = _chkY(y, 6);
       doc.text(`${loc.arch || ''} \u00b7 ${loc.yr || ''}`, ML, y);
       y += 6;
+
+      // ── Photos (up to 4, left-aligned, fixed max height, aspect-ratio preserved) ──
+      const photos = photoMap[loc.id] || [];
+      if (photos.length) {
+        const GAP = 2;
+        let xOff = ML;
+        photos.forEach(p => {
+          const imgH = Math.min(PHOTO_MAX_H, 45);
+          const imgW = imgH * (p.w / p.h);
+          if (xOff + imgW > 210 - MR) return; // skip if overflows page width
+          try { doc.addImage(p.data, p.fmt || 'JPEG', xOff, y, imgW, imgH); } catch(e) {}
+          xOff += imgW + GAP;
+        });
+        y += Math.min(PHOTO_MAX_H, 45) + 4;
+      }
 
       // ── Info table ──
       const fields = [];
@@ -5116,34 +5118,17 @@ async function exportPDF() {
         y += 4;
       }
 
-      // ── Audio script ──
-      if (audioData && audioData[loc.id]?.script) {
-        const script = audioData[loc.id].script;
-        const sLines = doc.splitTextToSize(script, PW - 8);
-        const LH2    = 4.2;
-        const boxH   = sLines.length * LH2 + 10;
-        y = _chkY(y, boxH);
-
-        // Background + blue left border
-        doc.setFillColor(245, 245, 255);
-        doc.rect(ML, y, PW, boxH, 'F');
-        doc.setDrawColor(...BLUE);
-        doc.setLineWidth(1.5);
-        doc.line(ML, y, ML, y + boxH);
-        doc.setLineWidth(0.1);
-
-        // Label
-        doc.setFont(F, 'bold');
-        doc.setFontSize(7.5);
-        doc.setTextColor(...BLUE);
-        doc.text('\u266a ' + (LANG==='ko' ? '\uc624\ub514\uc624 \uac00\uc774\ub4dc' : 'Audio Guide'), ML + 4, y + 4.5);
-
-        // Script text
-        doc.setFont(F, 'normal');
-        doc.setFontSize(7.5);
-        doc.setTextColor(...BLACK);
-        doc.text(sLines, ML + 4, y + 9);
-        y += boxH + 4;
+      // ── Per-location map (static tiles, marker at centre) ──
+      if (loc.lat && loc.lng) {
+        const mapData = await _staticMapForLoc(loc.lat, loc.lng, 16);
+        if (mapData) {
+          const mapAspect = mapData.w / mapData.h;
+          const mapW = PW;
+          const mapH = Math.min(mapW / mapAspect, MAP_MAX_H);
+          y = _chkY(y, mapH + 2);
+          try { doc.addImage(mapData.dataUrl, 'JPEG', ML, y, mapW, mapH); } catch(e) {}
+          y += mapH + 2;
+        }
       }
     }
 
