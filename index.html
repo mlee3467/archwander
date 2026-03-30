@@ -1882,6 +1882,7 @@ const T = {
     pdf_hours:    'Hours',
     pdf_admission:'Admission',
     pdf_transit:  'Transit',
+    pdf_tags:     'Tags',
     pdf_locations:'locations',
     pdf_walking:  'walking radius from pin',
     fav_io_label: 'Favorites Data',
@@ -1945,6 +1946,7 @@ const T = {
     pdf_hours:    '운영시간',
     pdf_admission:'입장료',
     pdf_transit:  '교통편',
+    pdf_tags:     '태그',
     pdf_locations:'개 장소',
     pdf_walking:  '도보 반경',
     fav_io_label: '즐겨찾기 데이터',
@@ -1965,6 +1967,28 @@ function t(key) {
   const map = T[LANG] || T.en;
   return key in map ? map[key] : (T.en[key] ?? key);
 }
+
+// Korean translations for category, access, and common style terms
+const _KO_CAT = {
+  'Academic / Institution':'학술/기관', 'Commercial':'상업', 'Cultural':'문화',
+  'Historic':'역사', 'Infrastructure':'인프라', 'Landmarks':'랜드마크',
+  'Parks':'공원', 'Public':'공공', 'Religious':'종교',
+  'Residential':'주거', 'Retail':'소매/상업', 'Skyscrapers':'초고층'
+};
+const _KO_ACCESS = {
+  'Free Admission':'무료 입장', 'Paid Admission':'유료 입장', 'Paid Ticket':'유료 입장권',
+  'Paid Admission (Observatory)':'유료 (전망대)', 'Ticketed':'유료',
+  'Open to Public':'일반 공개', 'Open to Public (Ground Floor)':'일반 공개 (1층)',
+  'Open to Public (Lobby)':'일반 공개 (로비)', 'Open to Public (Plaza)':'일반 공개 (광장)',
+  'Open to Public (ICP Museum)':'일반 공개 (ICP 미술관)',
+  'Lobby & Atrium (Free)':'로비 & 아트리움 (무료)', 'Lobby Viewable':'로비 관람 가능',
+  'Private':'비공개', 'Private (Exterior Viewable)':'비공개 (외부 관람 가능)',
+  'Private (Lobby Viewable)':'비공개 (로비 관람 가능)',
+  'Exterior Only':'외부만 관람 가능', 'Campus Access (Exterior Viewable)':'캠퍼스 접근 (외부 관람)',
+  'Restaurant / Commercial':'레스토랑 / 상업시설'
+};
+function _tCat(cat) { return LANG === 'ko' ? (_KO_CAT[cat] || cat) : cat; }
+function _tAccess(acc) { return LANG === 'ko' ? (_KO_ACCESS[acc] || acc) : acc; }
 
 function toggleLangMenu() {
   const menu = document.getElementById('lang-menu');
@@ -4632,21 +4656,26 @@ const _resolvedUrls = new Map();
 // Resolve Special:FilePath URLs to CORS-friendly upload.wikimedia.org thumb URLs
 // Uses Wikimedia API (batch of up to 50 titles per request)
 async function _resolveWikiUrls(urls, thumbWidth) {
-  const w = thumbWidth || 700;
+  const w = thumbWidth || 300;
   const toResolve = urls.filter(u => u.includes('Special:FilePath') && !_resolvedUrls.has(u));
   if (!toResolve.length) return;
 
-  // Extract filenames from Special:FilePath URLs
-  const fileMap = {};
+  // Extract filenames; normalise underscores→spaces (Wikimedia canonical form)
+  const norm = s => s.replace(/_/g, ' ');
+  const fileMap = {};       // normalisedName → original URL
+  const rawNames = [];      // original (un-normalised) names for API query
   toResolve.forEach(u => {
     const m = u.match(/Special:FilePath\/([^?]+)/);
-    if (m) fileMap[decodeURIComponent(m[1])] = u;
+    if (m) {
+      const raw = decodeURIComponent(m[1]);
+      fileMap[norm(raw)] = u;
+      rawNames.push(raw);
+    }
   });
 
-  const filenames = Object.keys(fileMap);
   // API allows max 50 titles per request
-  for (let i = 0; i < filenames.length; i += 50) {
-    const batch = filenames.slice(i, i + 50);
+  for (let i = 0; i < rawNames.length; i += 50) {
+    const batch = rawNames.slice(i, i + 50);
     const titles = batch.map(f => 'File:' + f).join('|');
     try {
       const resp = await fetch(
@@ -4659,8 +4688,8 @@ async function _resolveWikiUrls(urls, thumbWidth) {
       Object.values(pages).forEach(page => {
         const thumbUrl = page.imageinfo?.[0]?.thumburl;
         if (!thumbUrl) return;
-        // Find original Special:FilePath URL for this file
-        const title = page.title?.replace(/^File:/, '') || '';
+        // API returns title with spaces; normalise to match fileMap key
+        const title = norm((page.title || '').replace(/^File:/, ''));
         const origUrl = fileMap[title];
         if (origUrl) _resolvedUrls.set(origUrl, thumbUrl);
       });
@@ -4694,8 +4723,10 @@ async function _loadKoreanFont() {
 // origUrl = loc.photos entry; uses _resolvedUrls for Special:FilePath → upload.wikimedia.org
 async function _fetchImgForPdf(origUrl, timeout) {
   const tmout = timeout || 12000;
-  // For Special:FilePath, use resolved CORS-friendly URL; otherwise use original
-  const corsUrl = _resolvedUrls.get(origUrl) || origUrl;
+  // For Special:FilePath, use resolved CORS-friendly URL; for upload.wikimedia thumb, resize to 300px
+  let corsUrl = _resolvedUrls.get(origUrl) || origUrl;
+  // Shrink upload.wikimedia.org thumb to 300px for PDF (smaller file, faster load)
+  corsUrl = corsUrl.replace(/\/(\d+)px-([^/]+)$/, '/300px-$2');
 
   const result = await new Promise(resolve => {
     const img = new Image();
@@ -4798,7 +4829,7 @@ async function exportPDF() {
     // ── Resolve Special:FilePath URLs to CORS-friendly URLs (batch API) ──
     _pdfProgress(6, LANG==='ko'?'이미지 URL 변환 중…':'Resolving image URLs…');
     const allPhotoUrls = locs.flatMap(l => (l.photos || []).slice(0, 4));
-    await _resolveWikiUrls(allPhotoUrls, 700);
+    await _resolveWikiUrls(allPhotoUrls, 300);
 
     // ── Fetch photos: use cache first, then CORS <img> with resolved URLs ──
     const photoMap = {};
@@ -4920,7 +4951,7 @@ async function exportPDF() {
         _biName(loc, i).replace(/^\d+\.\s/, ''),
         loc.arch || '',
         loc.yr   || '',
-        _allCats(loc).join(', ')
+        _allCats(loc).map(c => _tCat(c)).join(', ')
       ])
     });
 
@@ -4948,7 +4979,7 @@ async function exportPDF() {
           try { doc.addImage(p.dataUrl, p.fmt || 'JPEG', xOff, y, imgW, imgH); } catch(e) { /* skip bad image */ }
           xOff += imgW + GAP;
         });
-        y += imgH + 4;
+        y += imgH + 8;
       }
 
       // ── Numbered / bilingual title ──
@@ -4971,15 +5002,16 @@ async function exportPDF() {
       // ── Info table ──
       const fields = [];
       if (loc.style) fields.push([t('pdf_style'), loc.style]);
-      const cats = _allCats(loc).join(', ');
+      const cats = _allCats(loc).map(c => _tCat(c)).join(', ');
       if (cats) fields.push([t('pdf_category'), cats]);
-      if (loc.access) fields.push([t('pdf_access'), loc.access]);
+      if (loc.access) fields.push([t('pdf_access'), _tAccess(loc.access)]);
       const hours = _tf(loc,'hours'), admission = _tf(loc,'admission'), transit = _tf(loc,'transit');
       if (loc.addr) fields.push([t('pdf_address'),      _displayAddr(loc)]);
       if (loc.hood) fields.push([t('pdf_neighborhood'), _displayHood(loc)]);
       if (hours)     fields.push([t('pdf_hours'),     hours]);
       if (admission) fields.push([t('pdf_admission'), admission]);
       if (transit)   fields.push([t('pdf_transit'),   transit]);
+      if (loc.tags?.length) fields.push([t('pdf_tags'), loc.tags.join(', ')]);
 
       if (fields.length) {
         doc.autoTable({
