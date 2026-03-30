@@ -4759,23 +4759,30 @@ function _initCityByGPS() {
 }
 
 // ══════════════════════════════════════════════════════════════════
-// EXPORT PDF  (jsPDF + jsPDF-AutoTable — no html2canvas dependency)
+// EXPORT PDF  (html2pdf.js — Korean/CJK text support via browser rendering)
 // ══════════════════════════════════════════════════════════════════
-let _jspdfReady = false;
-function _loadJsPdf() {
-  if (_jspdfReady) return Promise.resolve();
+let _html2pdfReady = false;
+function _loadHtml2Pdf() {
+  if (_html2pdfReady) return Promise.resolve();
   return new Promise((resolve, reject) => {
-    const s1 = document.createElement('script');
-    s1.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
-    s1.onload = () => {
-      const s2 = document.createElement('script');
-      s2.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js';
-      s2.onload = () => { _jspdfReady = true; resolve(); };
-      s2.onerror = () => reject(new Error('Failed to load jsPDF-AutoTable'));
-      document.head.appendChild(s2);
-    };
-    s1.onerror = () => reject(new Error('Failed to load jsPDF'));
-    document.head.appendChild(s1);
+    const s = document.createElement('script');
+    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js';
+    s.onload = () => { _html2pdfReady = true; resolve(); };
+    s.onerror = () => reject(new Error('Failed to load html2pdf'));
+    document.head.appendChild(s);
+  });
+}
+
+let _notoFontLoaded = false;
+function _loadNotoSansKR() {
+  if (_notoFontLoaded) return Promise.resolve();
+  return new Promise(resolve => {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap';
+    link.onload = () => { _notoFontLoaded = true; setTimeout(resolve, 300); };
+    link.onerror = () => { _notoFontLoaded = true; resolve(); };
+    document.head.appendChild(link);
   });
 }
 
@@ -4796,6 +4803,19 @@ async function _fetchImgDataUrl(url, timeout) {
   } catch { return null; }
 }
 
+// Reverse geocode pin coordinates to physical address via Nominatim
+async function _reverseGeocode(lat, lng) {
+  try {
+    const ctl = new AbortController();
+    const tm = setTimeout(() => ctl.abort(), 5000);
+    const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&addressdetails=1&accept-language=${LANG === 'ko' ? 'ko' : 'en'}`;
+    const resp = await fetch(url, { signal: ctl.signal, headers: { 'User-Agent': 'ArchWander/1.0' } });
+    clearTimeout(tm);
+    const data = await resp.json();
+    return data.display_name || `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+  } catch { return `${lat.toFixed(5)}, ${lng.toFixed(5)}`; }
+}
+
 async function exportPDF() {
   // ── Gate: require Near Me pin ──
   if (!nearMeActive || !walkOrigin) {
@@ -4812,14 +4832,22 @@ async function exportPDF() {
   btn.disabled = true;
 
   try {
-    await _loadJsPdf();
+    // Load libs, font, reverse-geocode pin, and load audio data in parallel
+    const pinAddr = _reverseGeocode(walkOrigin.lat, walkOrigin.lng);
+    const loadTasks = [_loadHtml2Pdf(), _loadNotoSansKR(), pinAddr];
 
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
-    const W = 210, H = 297, M = 14; // A4 dimensions & margin
-    const pw = W - M * 2; // printable width
+    // Lazy-load audio script data for current city
+    const audioCityKey = CITY_META[activeCity]?.key;
+    if (audioCityKey) loadTasks.push(_agLoadCityFile(audioCityKey));
 
-    const cityLabel = CITY_META[activeCity]?.label?.replace(/^.+\s/, '') || activeCity;
+    const results = await Promise.all(loadTasks);
+    const pinAddress = results[2]; // resolved address string
+
+    // Get audio data object (may be null if not loaded)
+    const audioData = audioCityKey ? _agGetData(audioCityKey) : null;
+
+    // Fix: strip only the leading emoji, not the whole prefix
+    const cityLabel = CITY_META[activeCity]?.label?.replace(/^\S+\s/, '') || activeCity;
     const walkMin = parseInt(document.getElementById('walk-slider').value, 10);
 
     // Helper: translated field
@@ -4829,93 +4857,111 @@ async function exportPDF() {
       return loc[field] || '';
     }
 
+    // Helper: get local-language name for bilingual display (EN report only)
+    // Seoul → Korean name from LOCS_KO, Tokyo → Japanese name from LOCS_KO_TOKYO (if available)
+    function _localName(loc) {
+      if (LANG !== 'en') return ''; // bilingual only in EN mode
+      if (loc.city === 'seoul' && typeof LOCS_KO !== 'undefined' && LOCS_KO[loc.id]?.name)
+        return LOCS_KO[loc.id].name;
+      // Tokyo: no Japanese translation data yet — return empty
+      return '';
+    }
+
+    // Helper: bilingual display string
+    function _bilingualName(loc, idx) {
+      const enName = loc.name;
+      const localN = _localName(loc);
+      const num = `${idx + 1}. `;
+      if (localN && localN !== enName) return `${num}${enName} / ${localN}`;
+      const displayName = _tf(loc, 'name') || enName;
+      return `${num}${displayName}`;
+    }
+
+    // Escape HTML
+    function _esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+    // ── Pre-fetch ALL photos (up to 4) as data URLs ──
+    const photoMap = {}; // { locId: [dataUrl, ...] }
+    const photoPromises = locs.map(async loc => {
+      if (loc.photos?.length) {
+        const urls = loc.photos.slice(0, 4);
+        const fetched = await Promise.all(urls.map(u => _fetchImgDataUrl(u, 6000)));
+        const valid = fetched.filter(Boolean);
+        if (valid.length) photoMap[loc.id] = valid;
+      }
+    });
+    await Promise.all(photoPromises);
+
+    // ── Build HTML content ──
+    const fontFamily = "'Noto Sans KR', 'Noto Sans JP', 'Inter', Arial, sans-serif";
+    const now = new Date();
+    const dateTimeStr = now.toLocaleDateString(LANG === 'ko' ? 'ko-KR' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+      + '  ' + now.toLocaleTimeString(LANG === 'ko' ? 'ko-KR' : 'en-US', { hour: '2-digit', minute: '2-digit' });
+    let html = '';
+
     // ═══════════════════════════════════════════
     // PAGE 1 — COVER + SUMMARY TABLE
     // ═══════════════════════════════════════════
+    html += `<div style="font-family:${fontFamily};padding:40px 20px 20px;text-align:center;">`;
+    html += `<div style="font-size:32px;font-weight:700;color:rgb(0,0,255);margin-bottom:8px;">ArchWander<sup style="font-size:11px;vertical-align:super;color:rgb(0,0,255);">\u2122</sup></div>`;
+    html += `<div style="font-size:16px;font-weight:700;color:#333;margin-bottom:6px;">${_esc(cityLabel)}</div>`;
+    html += `<div style="font-size:10px;color:#888;margin-bottom:4px;">${locs.length} ${_esc(t('pdf_locations'))}  \u00b7  ${walkMin} min ${_esc(t('pdf_walking'))}</div>`;
+    html += `<div style="font-size:9px;color:#aaa;margin-bottom:4px;">${_esc(pinAddress)}</div>`;
+    html += `<div style="font-size:9px;color:#aaa;margin-bottom:16px;">${_esc(dateTimeStr)}</div>`;
+    html += `<hr style="border:none;border-top:1px solid #ccc;margin:0 0 14px;">`;
+    html += `<div style="text-align:left;font-size:12px;font-weight:700;color:#222;margin-bottom:8px;">${_esc(t('pdf_summary'))}</div>`;
 
-    // Cover header
-    doc.setFontSize(28); doc.setTextColor(0, 0, 255); doc.setFont('helvetica', 'bold');
-    doc.text('ArchWander', W / 2, 45, { align: 'center' });
-
-    doc.setFontSize(14); doc.setTextColor(50); doc.setFont('helvetica', 'bold');
-    doc.text(cityLabel, W / 2, 56, { align: 'center' });
-
-    doc.setFontSize(9); doc.setTextColor(130); doc.setFont('helvetica', 'normal');
-    doc.text(`${locs.length} ${t('pdf_locations')}  ·  ${walkMin} min ${t('pdf_walking')}  ·  ${new Date().toLocaleDateString()}`, W / 2, 64, { align: 'center' });
-
-    // Divider line
-    doc.setDrawColor(200); doc.setLineWidth(0.3);
-    doc.line(M, 70, W - M, 70);
-
-    // Summary table label
-    doc.setFontSize(11); doc.setTextColor(30); doc.setFont('helvetica', 'bold');
-    doc.text(t('pdf_summary'), M, 78);
-
-    // Summary table via AutoTable
-    const summaryHead = [['#', t('pdf_name'), t('pdf_architect'), t('pdf_year'), t('pdf_style')]];
-    const summaryBody = locs.map((loc, i) => [
-      String(i + 1),
-      _tf(loc, 'name') || loc.name,
-      loc.arch || '',
-      String(loc.yr || ''),
-      loc.style || ''
-    ]);
-
-    doc.autoTable({
-      startY: 82,
-      margin: { left: M, right: M },
-      head: summaryHead,
-      body: summaryBody,
-      styles: { fontSize: 7.5, cellPadding: 2.5, overflow: 'linebreak', font: 'helvetica' },
-      headStyles: { fillColor: [0, 0, 255], textColor: 255, fontStyle: 'bold', fontSize: 7.5 },
-      alternateRowStyles: { fillColor: [245, 245, 255] },
-      columnStyles: {
-        0: { cellWidth: 8 },
-        1: { cellWidth: 52, fontStyle: 'bold' },
-        2: { cellWidth: 48 },
-        3: { cellWidth: 16, halign: 'center' },
-        4: { cellWidth: pw - 8 - 52 - 48 - 16 }
-      }
+    // Summary table — Style column replaced with Category
+    html += `<table style="width:100%;border-collapse:collapse;font-size:8.5px;text-align:left;">`;
+    html += `<thead><tr style="background:rgb(0,0,255);color:white;">`;
+    html += `<th style="padding:5px 4px;width:6%;">#</th>`;
+    html += `<th style="padding:5px 4px;width:30%;">${_esc(t('pdf_name'))}</th>`;
+    html += `<th style="padding:5px 4px;width:28%;">${_esc(t('pdf_architect'))}</th>`;
+    html += `<th style="padding:5px 4px;width:10%;text-align:center;">${_esc(t('pdf_year'))}</th>`;
+    html += `<th style="padding:5px 4px;width:26%;">${_esc(t('pdf_category'))}</th>`;
+    html += `</tr></thead><tbody>`;
+    locs.forEach((loc, i) => {
+      const bg = i % 2 === 1 ? 'background:#f5f5ff;' : '';
+      const summaryName = _bilingualName(loc, i);
+      html += `<tr style="${bg}">`;
+      html += `<td style="padding:4px;">${i + 1}</td>`;
+      html += `<td style="padding:4px;font-weight:700;">${_esc(summaryName.replace(/^\d+\.\s/, ''))}</td>`;
+      html += `<td style="padding:4px;">${_esc(loc.arch || '')}</td>`;
+      html += `<td style="padding:4px;text-align:center;">${loc.yr || ''}</td>`;
+      html += `<td style="padding:4px;">${_esc(_allCats(loc).join(', '))}</td>`;
+      html += `</tr>`;
     });
+    html += `</tbody></table></div>`;
 
     // ═══════════════════════════════════════════
     // DETAIL PAGES — one per location
     // ═══════════════════════════════════════════
     for (let i = 0; i < locs.length; i++) {
       const loc = locs[i];
-      const name = _tf(loc, 'name') || loc.name;
+      const displayName = _bilingualName(loc, i);
       const desc = _tf(loc, 'desc');
       const cats = _allCats(loc).join(', ');
 
-      doc.addPage();
-      let y = M;
+      html += `<div style="font-family:${fontFamily};padding:20px;page-break-before:always;">`;
 
-      // ── Photo ──
-      if (loc.photos?.length) {
-        const dataUrl = await _fetchImgDataUrl(loc.photos[0]);
-        if (dataUrl) {
-          try {
-            const imgProps = doc.getImageProperties(dataUrl);
-            const maxW = pw, maxH = 80;
-            let imgW = maxW, imgH = (imgProps.height / imgProps.width) * maxW;
-            if (imgH > maxH) { imgH = maxH; imgW = (imgProps.width / imgProps.height) * maxH; }
-            const imgX = M + (pw - imgW) / 2;
-            doc.addImage(dataUrl, 'JPEG', imgX, y, imgW, imgH);
-            y += imgH + 6;
-          } catch { /* skip bad image */ }
-        }
+      // Photos — all (up to 4) in a single row with fixed height
+      if (photoMap[loc.id]?.length) {
+        const photos = photoMap[loc.id];
+        html += `<div style="display:flex;gap:4px;margin-bottom:10px;height:160px;overflow:hidden;">`;
+        photos.forEach(du => {
+          html += `<img src="${du}" style="height:160px;width:${Math.floor(100 / photos.length)}%;object-fit:cover;border-radius:3px;flex-shrink:0;">`;
+        });
+        html += `</div>`;
       }
 
-      // ── Name + Architect/Year ──
-      doc.setFontSize(16); doc.setTextColor(17); doc.setFont('helvetica', 'bold');
-      doc.text(name, M, y + 5);
-      y += 9;
+      // Name (numbered + bilingual) + Architect/Year
+      html += `<div style="font-size:17px;font-weight:700;color:#111;margin-bottom:3px;">${_esc(displayName)}</div>`;
 
-      doc.setFontSize(9); doc.setTextColor(100); doc.setFont('helvetica', 'normal');
-      doc.text(`${loc.arch || ''}  ·  ${loc.yr || ''}`, M, y + 2);
-      y += 8;
+      // Bilingual info fields for EN mode — local language for key info
+      let archLine = _esc(loc.arch || '');
+      html += `<div style="font-size:10px;color:#666;margin-bottom:10px;">${archLine}  \u00b7  ${loc.yr || ''}</div>`;
 
-      // ── Info table ──
+      // Info table
       const fields = [];
       if (loc.style)  fields.push([t('pdf_style'), loc.style]);
       if (cats)       fields.push([t('pdf_category'), cats]);
@@ -4925,56 +4971,97 @@ async function exportPDF() {
       const hours = _tf(loc, 'hours');
       const admission = _tf(loc, 'admission');
       const transit = _tf(loc, 'transit');
-      if (addr)      fields.push([t('pdf_address'), addr]);
-      if (hood)      fields.push([t('pdf_neighborhood'), hood]);
+
+      // Bilingual address/neighborhood for EN mode
+      if (addr) {
+        const localAddr = (LANG === 'en' && typeof LOCS_KO !== 'undefined' && LOCS_KO[loc.id]?.addr) ? LOCS_KO[loc.id].addr : '';
+        fields.push([t('pdf_address'), localAddr && localAddr !== addr ? `${addr} / ${localAddr}` : addr]);
+      }
+      if (hood) {
+        const localHood = (LANG === 'en' && typeof LOCS_KO !== 'undefined' && LOCS_KO[loc.id]?.hood) ? LOCS_KO[loc.id].hood : '';
+        fields.push([t('pdf_neighborhood'), localHood && localHood !== hood ? `${hood} / ${localHood}` : hood]);
+      }
       if (hours)     fields.push([t('pdf_hours'), hours]);
       if (admission) fields.push([t('pdf_admission'), admission]);
+      // Transit — render with Unicode-safe escaping (arrows/dots preserved via _esc)
       if (transit)   fields.push([t('pdf_transit'), transit]);
 
       if (fields.length) {
-        doc.autoTable({
-          startY: y,
-          margin: { left: M, right: M },
-          body: fields.map(([k, v]) => [k, v]),
-          styles: { fontSize: 8, cellPadding: 2.5, overflow: 'linebreak', font: 'helvetica' },
-          columnStyles: {
-            0: { cellWidth: 32, fontStyle: 'bold', textColor: [100, 100, 100] },
-            1: { cellWidth: pw - 32 }
-          },
-          theme: 'plain',
-          didDrawCell: (data) => {
-            // bottom border per row
-            if (data.column.index === 1) {
-              doc.setDrawColor(230);
-              doc.setLineWidth(0.2);
-              doc.line(M, data.cell.y + data.cell.height, W - M, data.cell.y + data.cell.height);
-            }
-          }
+        html += `<table style="width:100%;border-collapse:collapse;font-size:9px;margin-bottom:10px;">`;
+        fields.forEach(([k, v]) => {
+          html += `<tr style="border-bottom:1px solid #e8e8e8;">`;
+          html += `<td style="padding:4px 6px;width:25%;font-weight:700;color:#666;vertical-align:top;">${_esc(k)}</td>`;
+          html += `<td style="padding:4px 6px;color:#222;">${_esc(v)}</td>`;
+          html += `</tr>`;
         });
-        y = doc.lastAutoTable.finalY + 6;
+        html += `</table>`;
       }
 
-      // ── Description ──
+      // Description
       if (desc) {
-        doc.setFontSize(8); doc.setTextColor(60); doc.setFont('helvetica', 'normal');
-        const lines = doc.splitTextToSize(desc, pw);
-        // Check if we need a new page
-        const lineH = 3.5;
-        if (y + lines.length * lineH > H - M) {
-          doc.addPage();
-          y = M;
-        }
-        doc.text(lines, M, y);
+        html += `<div style="font-size:9px;color:#444;line-height:1.6;margin-bottom:6px;">${_esc(desc)}</div>`;
       }
+
+      // Audio Script (if available) — appended below description
+      if (audioData && audioData[loc.id]?.script) {
+        const script = audioData[loc.id].script;
+        html += `<div style="margin-top:8px;padding:8px 10px;background:#f8f8f6;border-left:3px solid rgb(0,0,255);border-radius:2px;">`;
+        html += `<div style="font-size:8px;font-weight:700;color:rgb(0,0,255);margin-bottom:4px;">\ud83c\udfa7 ${LANG === 'ko' ? '\uc624\ub514\uc624 \uac00\uc774\ub4dc' : 'Audio Guide'}</div>`;
+        html += `<div style="font-size:8px;color:#555;line-height:1.55;">${_esc(script)}</div>`;
+        html += `</div>`;
+      }
+
+      html += `</div>`;
     }
 
-    // ── Save ──
+    // ── Create visible container with overlay ──
+    const overlay = document.createElement('div');
+    overlay.id = 'pdf-overlay';
+    overlay.style.cssText = 'position:fixed;inset:0;z-index:99998;background:white;display:flex;align-items:center;justify-content:center;font-family:Inter,sans-serif;font-size:15px;color:#555;';
+    overlay.innerHTML = `<div style="text-align:center;"><div style="font-size:28px;margin-bottom:12px;">\ud83d\udcc4</div><div>${_esc(t('pdf_generating'))}\u2026</div></div>`;
+    document.body.appendChild(overlay);
+
+    const container = document.createElement('div');
+    container.id = 'pdf-render-container';
+    container.style.cssText = 'position:fixed;left:0;top:0;width:794px;z-index:99997;background:white;';
+    container.innerHTML = html;
+    document.body.appendChild(container);
+
+    // Wait for images and font rendering
+    await new Promise(r => setTimeout(r, 600));
+
+    // ── Generate PDF with page numbers ──
     const filename = `ArchWander_${cityLabel.replace(/\s+/g, '_')}_${new Date().toISOString().slice(0, 10)}.pdf`;
-    doc.save(filename);
+    await html2pdf().set({
+      margin: [10, 10, 16, 10], // extra bottom margin for page number
+      filename: filename,
+      image: { type: 'jpeg', quality: 0.92 },
+      html2canvas: { scale: 2, useCORS: true, logging: false, scrollY: 0 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+      pagebreak: { mode: ['css', 'legacy'], avoid: ['tr', 'td'] }
+    }).from(container).toPdf().get('pdf').then(pdf => {
+      // Add page numbers to every page
+      const totalPages = pdf.internal.getNumberOfPages();
+      for (let p = 1; p <= totalPages; p++) {
+        pdf.setPage(p);
+        pdf.setFontSize(8);
+        pdf.setTextColor(160);
+        pdf.text(`${p} / ${totalPages}`, 105, 290, { align: 'center' });
+      }
+    }).save();
+
+    // Cleanup
+    document.body.removeChild(container);
+    document.body.removeChild(overlay);
 
   } catch (err) {
     console.error('PDF export failed:', err);
     alert('PDF export failed: ' + err.message);
+    // Cleanup on error
+    const c = document.getElementById('pdf-render-container');
+    const o = document.getElementById('pdf-overlay');
+    if (c) c.remove();
+    if (o) o.remove();
   } finally {
     btn.innerHTML = origHTML;
     btn.disabled = false;
