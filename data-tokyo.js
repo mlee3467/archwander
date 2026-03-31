@@ -36,8 +36,11 @@ const LOCS_TOKYO = [
     wiki:'https://en.wikipedia.org/wiki/Yoyogi_National_Gymnasium',
     tags:['Kenzo Tange','1964 Olympics','Metabolism','Suspended Roof','Shibuya','National Monument'],
     photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Yoyogi_National_Stadium_1964.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Yoyogi_National_First_Gymnasium.jpg?width=800'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Yoyogi_National_Gymnasium_2013.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Kokuritsu_Yoyogi_Ky%C5%8Dgij%C5%8D_1.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Da-iCE_MUSi-aM_10th_anniversary_arena_tour_2024%2C_at_Yoyogi_National_Stadium.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Found_Photo_-_Japan_-_Tokyo_-_Yoyogi_National_Stadium.tif_%2834176173641%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Aerial_view_of_Yoyogi_National_Gymnasium.20191101.jpg?width=800'
     ],
     drawings:[]
   },
@@ -68,8 +71,10 @@ const LOCS_TOKYO = [
     wiki:'https://en.wikipedia.org/wiki/Tokyo_Metropolitan_Government_Building',
     tags:['Kenzo Tange','Observatory','Free','Government','Shinjuku','Twin Tower','Panoramic View'],
     photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Tokyo_Metropolitan_Government_Building.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Tokyo_city_hall.jpg?width=800'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Tokyo_Metropolitan_Government_Building_Morning1.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Tokyo_Metropolitan_Government_Building_2012.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Projection_show_at_the_Tokyo_Metropolitan_Government_Building.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Westward_view_from_Tokyo_Metropolitan_Government_Building_2024-09-05.jpg?width=800'
     ],
     drawings:[]
   },
@@ -100,8 +105,13 @@ const LOCS_TOKYO = [
     wiki:'https://en.wikipedia.org/wiki/Tokyo_Cathedral',
     tags:['Kenzo Tange','Cathedral','Hyperbolic Paraboloid','Stainless Steel','Bunkyo','Religious'],
     photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/St._Mary%27s_Cathedral_Tokyo_1.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/St._Mary_Cathedral%2C_Tokyo.jpg?width=800'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/20030702_2_July_2003_Tokyo_Cathedorale_1_Tange_Kenzou_Sekiguchi_Tokyo_Japan_b.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/2018_St._Mary%27s_Cathedral%2C_Tokyo_3.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/2018_St._Mary%27s_Cathedral%2C_Tokyo_2.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/20030702_2_July_2003_Tokyo_Cathedorale_4_Tange_Kenzou_Sekiguchi_Tokyo_Japan.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/20030702_2_July_2003_Tokyo_Cathedorale_door_Tange_Kenzou_Sekiguchi_Tokyo_Japan.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/20030702_2_July_2003_Tokyo_Cathedorale_Metal_1_Tange_Kenzou_Sekiguchi_Tokyo_Japan.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/StMary%27sCathedral-Tokyo-01.jpg?width=800'
     ],
     drawings:[]
   },
@@ -134,8 +144,8 @@ const LOCS_TOKYO = [
     wiki:'https://en.wikipedia.org/wiki/Tod%27s_Omotesando_Building',
     tags:['Toyo Ito','Omotesando','Concrete Tree Structure','Retail','Facade','Shibuya'],
     photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Tod%27s_Omotesando_Building.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Tods_Omotesando_Toyo_Ito.jpg?width=800'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/%E3%83%92%E3%83%A5%E3%83%BC%E3%82%B4%E3%83%9C%E3%82%B9%E8%A1%A8%E5%8F%82%E9%81%93%E5%BA%97_May_30%2C_2019.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Tod%27s_at_Omotesando.jpg?width=800'
     ],
     drawings:[]
   },
@@ -166,7 +176,9 @@ const LOCS_TOKYO = [
     wiki:'https://en.wikipedia.org/wiki/Mikimoto_Ginza_2',
     tags:['Toyo Ito','Ginza','Perforated Steel','Retail','Structural Facade','Pink'],
     photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Mikimoto_Ginza_2_Building_by_Toyo_Ito.jpg?width=800'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Mikimoto_Ginza2.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Japan_2010_1000000379_1_%285372872502%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Le_magasin_Mikimoto_Ginza_2_%28Tokyo%2C_Japon%29_%2841990094114%29.jpg?width=800'
     ],
     drawings:[]
   },
@@ -199,7 +211,9 @@ const LOCS_TOKYO = [
     wiki:'https://en.wikipedia.org/wiki/Dior_building,_Omotesando',
     tags:['SANAA','Kazuyo Sejima','Ryue Nishizawa','Omotesando','Acrylic Curtain Wall','Retail','Transparent'],
     photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Dior_Aoyama_SANAA.jpg?width=800'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Christian_Dior_Omotesando_Tokyo_2016.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Le_magasin_Dior_Omotesando_%28Tokyo%29_%2842066222724%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Christian_Dior_Omotesando_Tokyo_2015.JPG?width=800'
     ],
     drawings:[]
   },
@@ -264,7 +278,10 @@ const LOCS_TOKYO = [
     wiki:'https://en.wikipedia.org/wiki/Nicolas_G._Hayek_Center',
     tags:['Shigeru Ban','Ginza','Sliding Facade','Green Wall','Retail','Swatch','Transparency'],
     photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Nicolas_G_Hayek_Center_Ginza.jpg?width=800'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Nicolas_G._Hayek_Center_2.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Nicolas_G._Hayek_Center_1.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Le_%22Nicolas_G._Hayek_Center%22_%28Tokyo%2C_Japon%29_%2828825954958%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Le_centre_Nicolas_G._Hayek_%28Tokyo%2C_Japon%29_%2842700044401%29.jpg?width=800'
     ],
     drawings:[]
   },
@@ -297,8 +314,12 @@ const LOCS_TOKYO = [
     wiki:'https://en.wikipedia.org/wiki/Nezu_Museum',
     tags:['Kengo Kuma','Museum','Japanese Art','Bamboo Roof','Garden','Minami-Aoyama','Tea House'],
     photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Nezu_Museum_Tokyo.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Nezu_Museum_garden.jpg?width=800'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Nezu_museum_entrance_tokyo_2014.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Nezu_Museum_Garten-20091020-RM-112901.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Nezu_Museum_Laterne-20091020-RM-113122.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Nezu_Museum_Garten-20091020-RM-115433.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Nezu_Museum_Garten-20091020-RM-113550.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Nezu_Museum_P5091729.jpg?width=800'
     ],
     drawings:[]
   },
@@ -329,8 +350,10 @@ const LOCS_TOKYO = [
     wiki:'https://en.wikipedia.org/wiki/Asakusa_Culture_Tourist_Information_Center',
     tags:['Kengo Kuma','Asakusa','Stacked Roofs','Tourist Center','Traditional','Wood','Free'],
     photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Asakusa_Culture_Tourist_Information_Center.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Asakusa_info_center_Kengo_Kuma.jpg?width=800'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Asakusa_Culture_Tourist_Information_Center_dllu.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Asakusa_Culture_Tourist_Information_Center_%40_Asakusa_%2811752068094%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Asakusa_Culture_Tourism_Center.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Asakusa_Culture_Tourist_Information_Center_%2853081289999%29.jpg?width=800'
     ],
     drawings:[]
   },
@@ -361,8 +384,11 @@ const LOCS_TOKYO = [
     wiki:'https://en.wikipedia.org/wiki/Japan_National_Stadium',
     tags:['Kengo Kuma','Olympic Stadium','Wood Louvres','2020 Olympics','Shinjuku','National Stadium'],
     photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Japan_National_Stadium_2019.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Japan_National_Stadium_interior.jpg?width=800'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/View_of_the_new_National_Stadium_for_the_Olympics_%2849376747462%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/New_national_stadium_tokyo_1.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Japan_National_Stadium_Tokyo_2020_Olympics_%2851481561365%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/National_Olympic_Stadium_%2814151170157%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Japan_National_Stadium_2024_1.jpg?width=800'
     ],
     drawings:[]
   },
@@ -491,7 +517,13 @@ const LOCS_TOKYO = [
     wiki:'https://en.wikipedia.org/wiki/Hillside_Terrace',
     tags:['Fumihiko Maki','Daikanyama','Mixed-Use','Urban Quarter','Incremental','Shibuya','Low-rise'],
     photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Hillside_Terrace_Daikanyama.jpg?width=800'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Hillside_Terrace_C_2010.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Hillside_Terrace%2C_Building_C_20241020_%28III%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Hillside_Terrace%2C_Building_C_20241020_%28II%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Hillside_Terrace%2C_Building_C_20241020.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Hillside_Terrace_D_2010.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Hillside_Terrace_A_B_2010.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Hillside_Terrace_C.jpg?width=800'
     ],
     drawings:[]
   },
@@ -524,8 +556,10 @@ const LOCS_TOKYO = [
     wiki:'https://en.wikipedia.org/wiki/Gallery_of_H%C5%8Dry%C5%AB-ji_Treasures',
     tags:['Yoshio Taniguchi','Museum','Buddhist Art','Hōryū-ji','Ueno','Minimalism','Reflecting Pool'],
     photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Gallery_of_Horyuji_Treasures_Tokyo.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Horyuji_Treasures_Gallery_exterior.jpg?width=800'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/2018_The_Gallery_of_Horyuji_Treasures_02.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/2018_The_Gallery_of_Horyuji_Treasures_03.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/2018_The_Gallery_of_Horyuji_Treasures_04.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Tokyo_National_Museum_The_Gallery_of_Horyuji_Treasures_%2852504277325%29.jpg?width=800'
     ],
     drawings:[]
   },
@@ -558,8 +592,13 @@ const LOCS_TOKYO = [
     wiki:'https://en.wikipedia.org/wiki/Omotesando_Hills',
     tags:['Tadao Ando','Omotesando','Concrete','Spiral Atrium','Retail','Mixed-Use','Shibuya'],
     photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Omotesando_Hills_exterior.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Omotesando_Hills_interior_ramp.jpg?width=800'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Omotesando_Hills_2012.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Omotesando_Hills%2C_Tokyo.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/L%27int%C3%A9rieur_du_centre_commercial_Omotesando_Hills_%28Tokyo%2C_Japon%29_%2841893745325%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Omotemall.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Omotesando-Tokyo---2024-07-05_04.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Omotesando_Hills_Disney_Dream_Christmas_Illumination_2012_%288317268953%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/%E8%A1%A8%E5%8F%83%E9%81%93%E4%B9%8B%E4%B8%98_%2816201488181%29.jpg?width=800'
     ],
     drawings:[]
   },
@@ -590,8 +629,12 @@ const LOCS_TOKYO = [
     wiki:'https://en.wikipedia.org/wiki/21_21_Design_Sight',
     tags:['Tadao Ando','Design Museum','Roppongi','Tokyo Midtown','Steel Roof','Underground','Issey Miyake'],
     photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/21_21_Design_Sight_Tokyo.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/2121_Design_Sight_exterior.jpg?width=800'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Site2121.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/21_21_DESIGN_SIGHT.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/21_21_DESIGN_SIGHT_2018-3.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/21_21_DESIGN_SIGHT_Interior_2015.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/21_21_DESIGN_SIGHT_Gift_shop_2018.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/21_21_DESIGN_SIGHT%E6%A8%A1%E5%9E%8B.jpg?width=800'
     ],
     drawings:[]
   },
@@ -655,7 +698,13 @@ const LOCS_TOKYO = [
     wiki:'https://en.wikipedia.org/wiki/Nakagin_Capsule_Tower',
     tags:['Kisho Kurokawa','Metabolism','Capsule','Prefab','Demolished','Shimbashi','Icon','1972'],
     photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Nakagin.jpg?width=800'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Nakagin.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Nakagin_Capsule_Tower_02.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Nakagin_Capsule_Tower_%2851473998263%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Nakagin_Capsule_Tower_%2851474105123%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Nakagin_Capsule_Tower_03.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Nakagin_Capsule_Tower_%2851473893286%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Nakagin_Capsule_Tower_%2851473917286%29.jpg?width=800'
     ],
     drawings:[]
   },
@@ -686,7 +735,10 @@ const LOCS_TOKYO = [
     wiki:'https://en.wikipedia.org/wiki/National_Art_Center,_Tokyo',
     tags:['Kisho Kurokawa','Roppongi','Glass Facade','Exhibition','Museum','2007','National'],
     photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/National_Art_Center_Tokyo_2010.jpg?width=800'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/2018_National_Art_Center%2C_Tokyo_2.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/The_National_Art_Center_%2C_Tokyo_-_panoramio_%281%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/National_Art_Center%2C_Tokyo_-_DSC06720.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/National_Art_Center_%40_Tokyo_%2811495419793%29.jpg?width=800'
     ],
     drawings:[]
   },
@@ -719,7 +771,12 @@ const LOCS_TOKYO = [
     wiki:'https://en.wikipedia.org/wiki/Tokyo_Bunka_Kaikan',
     tags:['Kunio Maekawa','Ueno','Concert Hall','Brutalism','Japanese Modernism','Le Corbusier','1961','Important Cultural Property'],
     photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Tokyo_bunka_kaikan01s3200.jpg?width=800'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Wongwt_%E4%B8%8A%E9%87%8E%E5%85%AC%E5%9C%92_%2817284237285%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Tokyo_Bunka_Kaikan_kort_na_de_voorstelling_%E2%80%98Romeo_en_Julia%E2%80%99_van_het_Royal_Ballet%2C_-2_juli_2023_17%EF%BC%9A11.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Wongwt_%E6%9D%B1%E4%BA%AC%E6%96%87%E5%8C%96%E6%9C%83%E9%A4%A8_%2817098044799%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Ueno_20241013_171445.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Tokyu_Bunka_Kaikan_2006_Tokyo.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/View_of_Shibuya_circa_1960.jpg?width=800'
     ],
     drawings:[]
   },
@@ -850,7 +907,11 @@ const LOCS_TOKYO = [
     archdaily:'',
     wiki:'',
     tags:['Wonderwall','Masamichi Katayama','Ginza','Retail Design','Uniqlo','2012','Interior','Flagship'],
-    photos:[],
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/UNIQLO_Ginza_store.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Ginza_2017_%2838639131691%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/UNIQLO_Ginza._%2853187060408%29.jpg?width=800'
+    ],
     drawings:[]
   },
 
@@ -1103,7 +1164,12 @@ const LOCS_TOKYO = [
     wiki:'https://en.wikipedia.org/wiki/Tokyu_Plaza_Ginza',
     tags:['Nikken Sekkei','Edo Kiriko','Ginza','Retail','Rooftop Garden','Facade','2016'],
     photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Tokyu_Plaza_Ginza_2016.jpg?width=800'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Tokyu_Plaza_Ginza_20241021.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Tokyu_Plaza_Ginza_KIRIKO_TERRACE_Greenside_-_Nov_11%2C_2017.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Tokyu_Plaza_Ginza7.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Tokyu_Plaza_Ginza4.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Tokyu_Plaza_Ginza_at_night%2C_Tokyo_2016-10-17_1.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Tokyu_Plaza_in_Ginza.jpg?width=800'
     ],
     drawings:[]
   },
@@ -1163,7 +1229,8 @@ const LOCS_TOKYO = [
     wiki:'',
     tags:['Jun Aoki','Louis Vuitton','Matsuya','Ginza','Facade','LED','Monogram','Retail','2004'],
     photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Louis_Vuitton_Matsuya_Ginza.jpg?width=800'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Le_magasin_Louis_Vuitton_Matsuya_Ginza_%28Tokyo%29_%2828834352748%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Buildings_around_Ginza_%2866652%29.jpg?width=800'
     ],
     drawings:[]
   },
@@ -1192,7 +1259,7 @@ const LOCS_TOKYO = [
     wiki:'',
     tags:['Jun Aoki','Peter Marino','Louis Vuitton','Ginza','Damier','Retail','Facade','Namiki Dori','2004'],
     photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Louis_Vuitton_Ginza_Namiki_Tokyo.jpg?width=800'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Louis_Vuitton_Ginza_Namiki_20241021.jpg?width=800'
     ],
     drawings:[]
   },
@@ -1223,7 +1290,9 @@ const LOCS_TOKYO = [
     wiki:'',
     tags:['Jun Mitsui','De Beers','Ginza','Diamond','Faceted Glass','Retail','Jewelry','2005'],
     photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/De_Beers_Ginza_Tokyo.jpg?width=800'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/De_Beers_Ginza_Building_20241021.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/De_Beers_Diamond_Jewellers%2C_De_Beers_Ginza_Building_%282016-09-01_by_naobim_%40Pixabay_1648310%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/De_Beers_Ginza_Building%2C_Tokyo_-_Mar_22%2C_2015_%281%29.jpg?width=800'
     ],
     drawings:[]
   },
@@ -1254,7 +1323,10 @@ const LOCS_TOKYO = [
     wiki:'https://en.wikipedia.org/wiki/Shizuoka_Press_and_Broadcasting_Center',
     tags:['Kenzo Tange','Metabolism','Metabolist','Ginza','1967','Cantilever','Cylindrical Core','Historic','Important Cultural Property'],
     photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Shizuoka_Press_Building_Ginza_Kenzo_Tange.jpg?width=800'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/GINZA_SKY_WALK_2024_Shizuoka_Press_and_Broadcasting_Center_%2854534529867%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Shizuoka_Press_and_Broadcasting_Center_in_Tokyo3.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Shizuoka_Press_and_Broadcasting_Center%2C_Ginza%2C_Tokyo_-_Jan_19%2C_2023_%284%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Shizuoka_press_broadcasting_building_June_27_2019_details_etc_15_27_03_962000.jpeg?width=800'
     ],
     drawings:[]
   },
@@ -1285,8 +1357,14 @@ const LOCS_TOKYO = [
     wiki:'https://en.wikipedia.org/wiki/Tokyo_International_Forum',
     tags:['Rafael Viñoly','Marunouchi','Convention','Glass Atrium','Ship Hull','Public','Yurakucho','1997'],
     photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Tokyo_International_Forum.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Tokyo_International_Forum_interior.jpg?width=800'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Tokyo-International-Forum_Glass-Building_Outside.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Tokyo-International-Forum_Square.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Tokyo_International_Forum%2C_Tokyo%3B_April_2021_%2868%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Tokyo_International_Forum%2C_Tokyo%3B_April_2021_%2860%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Interior_of_the_Tokyo_International_Forum_Glass_Building%2C_Japan.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Interior_of_the_Tokyo_International_Forum_glass_building_with_roller_shades_in_Japan.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Tokyo_International_Forum%2C_Tokyo%3B_April_2021_%2804%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Tokyo_International_Forum_10.jpg?width=800'
     ],
     drawings:[]
   },
