@@ -14,7 +14,7 @@
      - Or ask Claude to re-translate data-{city}.js
    ============================================================ */
 
-const LOCS_KO = {
+var LOCS_KO = {
   ...LOCS_KO_NEW_YORK,
   ...LOCS_KO_SEOUL,
   ...LOCS_KO_LONDON,

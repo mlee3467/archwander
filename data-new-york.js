@@ -4,7 +4,7 @@
    Edit this file to add / modify New York City locations.
    ============================================================ */
 
-const LOCS_NEW_YORK = [
+var LOCS_NEW_YORK = [
   
   {
     id:'nyc-0001', name:'Empire State Building',

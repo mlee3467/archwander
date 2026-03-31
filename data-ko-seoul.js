@@ -1,7 +1,7 @@
 // ArchWander — Korean Translations: Seoul
 // Auto-translated by Claude. Re-run translate-tool to update.
 
-const LOCS_KO_SEOUL = {
+var LOCS_KO_SEOUL = {
   'sel-0001': {
     name: '동대문디자인플라자 (DDP)',    desc: '자하 하디드가 설계한 매개변수 건축의 랜드마크인 DDP는 역사적인 동대문 부지에서 솟아오른 거대한 철과 알루미늄의 형태이습니다. 2014년 완공되었으며, 조선시대 성곽의 터 위에 지어졌고, 갤러리, 디자인 박물관, 그리고 그 아래 24시간 운영하는 디자인 마켓을 포함한습니다. 85,320 m²의 구불거리는 외피 위에 방문객들을 맞이하고, 그 주변의 역사문화공원에는 현장에 전시된 발굴 고고학 유물이 있습니다.',
     hood: '동대문',

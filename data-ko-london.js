@@ -1,6 +1,6 @@
 // ArchWander — Korean Translations: London
 // Auto-translated by Claude. Re-run translate-tool to update.
-const LOCS_KO_LONDON = {
+var LOCS_KO_LONDON = {
   'lon-0001': {
     name: '30 세인트 메리 액스 (거킨)',    desc: 'Gherkin은 런던에서 가장 인지도 높은 고층빌딩으로, 180미터의 총알 모양 프로필이 런던 시티의 중세 도시 격자 위로 솟아 있습니습니다. Foster + Partners가 Swiss Re를 위해 설계하고 2003년에 완성한 다이아그리드 구조 골조는 내부 기둥을 없애고 전체 층판에 기둥이 없는 바닥을 만듭니습니다. 여섯 개의 빛 우물이 건물의 외부를 나선형으로 올라가며, 사무실을 통해 자연 환환기를 통로하고 기존의 밀폐된 타워 대비 약 절반의 에너지 소비를 줄입니습니다. 고층빌딩으로는 드물게도, 그 다이아몬드 패턴 유리 외장의 모든 패널은 평면이지만, 기하학은 연속적인 곡선의 착각을 만듭니습니다.',
     hood: '런던 시티',

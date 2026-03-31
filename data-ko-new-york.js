@@ -1,7 +1,7 @@
 // ArchWander — Korean Translations: New York City
 // Auto-translated by Claude. Re-run translate-tool to update.
 
-const LOCS_KO_NEW_YORK = {
+var LOCS_KO_NEW_YORK = {
   'nyc-0001': {
     name: '엠파이어 스테이트 빌딩',    desc: '거의 40년 동안 세계에서 가장 높은 건물로 서 있었던 102층 아르데코 걸작입니다. 상징적인 계단식 외형과 조명이 켜진 안테나는 뉴욕시의 대명사입니다. 대공황 중 단 410일 만에 지어졌으며 1986년 국립 역사 랜드마크로 지정되었고 연간 거의 400만 명의 방문객을 끌어 모으고 있습니다.',
     hood: '미드타운 맨해튼',
