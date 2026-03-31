@@ -4653,11 +4653,10 @@ function _loadScript(src) {
 
 // PDF photo cache: Key = original URL, Value = { data (Uint8Array), w, h, fmt }
 const _photoCache = new Map();
-// Map: Special:FilePath URL → CORS-friendly upload.wikimedia.org thumb URL
-const _resolvedUrls = new Map();
 
 // Generate a static map image for a single location using Carto CDN tiles.
-// Tiles from basemaps.cartocdn.com support CORS → canvas is not tainted.
+// Fetches a 5×5 tile grid (ensures full coverage even with offset), waits for
+// every tile to settle, then crops to a centred landscape view with pin marker.
 async function _staticMapForLoc(lat, lng, zoomLevel) {
   const zoom = zoomLevel || 16;
   const TILE = 512; // @2x tile pixel size
@@ -4672,89 +4671,47 @@ async function _staticMapForLoc(lat, lng, zoomLevel) {
   const offX = (xf - tileX) * TILE;
   const offY = (yf - tileY) * TILE;
 
-  // Fetch 3×3 tile grid
+  // Fetch 5×5 tile grid (wider coverage to avoid black edges)
+  const GRID = 5, HALF = 2;
   const big = document.createElement('canvas');
-  big.width = TILE * 3; big.height = TILE * 3;
+  big.width = TILE * GRID; big.height = TILE * GRID;
   const bCtx = big.getContext('2d');
-  const proms = [];
-  for (let dy = -1; dy <= 1; dy++) {
-    for (let dx = -1; dx <= 1; dx++) {
-      const url = `https://basemaps.cartocdn.com/rastertiles/voyager/${zoom}/${tileX + dx}/${tileY + dy}@2x.png`;
-      proms.push(
-        fetch(url, { credentials: 'omit' })
-          .then(r => r.blob()).then(b => createImageBitmap(b))
-          .then(bmp => bCtx.drawImage(bmp, (dx + 1) * TILE, (dy + 1) * TILE))
-          .catch(() => {})
-      );
-    }
-  }
-  await Promise.all(proms);
+  bCtx.fillStyle = '#e8e8e4'; bCtx.fillRect(0, 0, big.width, big.height); // fallback bg
 
-  // Crop to center the target lat/lng, wide landscape aspect
-  const outW = Math.round(TILE * 2.6);
-  const outH = Math.round(TILE * 0.9);
-  const cx = TILE + offX, cy = TILE + offY;
+  const fetchTile = (dx, dy) =>
+    fetch(`https://basemaps.cartocdn.com/rastertiles/voyager/${zoom}/${tileX + dx}/${tileY + dy}@2x.png`, { credentials: 'omit' })
+      .then(r => { if (!r.ok) throw 0; return r.blob(); })
+      .then(b => createImageBitmap(b))
+      .then(bmp => bCtx.drawImage(bmp, (dx + HALF) * TILE, (dy + HALF) * TILE))
+      .catch(() => {});
+
+  // Fire all tile fetches in parallel, then wait for ALL to finish
+  const fetches = [];
+  for (let dy = -HALF; dy <= HALF; dy++)
+    for (let dx = -HALF; dx <= HALF; dx++)
+      fetches.push(fetchTile(dx, dy));
+  await Promise.all(fetches);
+
+  // Crop: centre on target, landscape aspect (wider than tall)
+  const outW = Math.round(TILE * 3.2);
+  const outH = Math.round(TILE * 1.1);
+  const cx = HALF * TILE + offX, cy = HALF * TILE + offY;
   const out = document.createElement('canvas');
   out.width = outW; out.height = outH;
   const oCtx = out.getContext('2d');
   oCtx.drawImage(big, cx - outW / 2, cy - outH / 2, outW, outH, 0, 0, outW, outH);
 
-  // Draw marker pin at center
-  oCtx.font = '48px serif';
+  // Draw marker pin at centre — 1.5× larger
+  oCtx.font = '72px serif';
   oCtx.textAlign = 'center';
   oCtx.textBaseline = 'bottom';
-  oCtx.fillText('\ud83d\udccd', outW / 2, outH / 2 + 10);
+  oCtx.fillText('\ud83d\udccd', outW / 2, outH / 2 + 14);
 
   return { dataUrl: out.toDataURL('image/jpeg', 0.88), w: outW, h: outH };
 }
 
-// Resolve Special:FilePath URLs → upload.wikimedia.org thumb URLs (CORS-safe)
-// Uses Wikimedia imageinfo API with POST to avoid URL-length limits.
-async function _resolveWikiUrls(urls, thumbWidth, progressFn) {
-  const w = thumbWidth || 300;
-  const toResolve = urls.filter(u => u.includes('Special:FilePath') && !_resolvedUrls.has(u));
-  if (!toResolve.length) return;
-  const norm = s => s.replace(/_/g, ' ');
-  const fileMap = {};
-  const rawNames = [];
-  toResolve.forEach(u => {
-    const m = u.match(/Special:FilePath\/([^?]+)/);
-    if (m) {
-      const raw = decodeURIComponent(m[1]);
-      fileMap[norm(raw)] = u;
-      rawNames.push(raw);
-    }
-  });
-  // POST in batches of 20 (safe payload, avoids GET URL-length limits)
-  for (let i = 0; i < rawNames.length; i += 20) {
-    const batch = rawNames.slice(i, i + 20);
-    const titles = batch.map(f => 'File:' + f).join('|');
-    try {
-      const resp = await fetch('https://commons.wikimedia.org/w/api.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `action=query&titles=${encodeURIComponent(titles)}&prop=imageinfo&iiprop=url&iiurlwidth=${w}&format=json&origin=*`,
-        credentials: 'omit'
-      });
-      if (!resp.ok) { console.warn('[PDF] Wiki API batch failed:', resp.status); continue; }
-      const data = await resp.json();
-      const pages = data.query?.pages || {};
-      Object.values(pages).forEach(page => {
-        const thumbUrl = page.imageinfo?.[0]?.thumburl;
-        if (!thumbUrl) return;
-        const title = norm((page.title || '').replace(/^File:/, ''));
-        const origUrl = fileMap[title];
-        if (origUrl) _resolvedUrls.set(origUrl, thumbUrl);
-      });
-    } catch(e) { console.warn('[PDF] Wiki API error:', e); }
-    if (progressFn) progressFn(i + batch.length, rawNames.length);
-    if (i + 20 < rawNames.length) await new Promise(r => setTimeout(r, 80));
-  }
-}
-
 async function _loadPdfLibs() {
   if (_pdfLibReady) return;
-  // AutoTable must load AFTER jsPDF so it can patch the prototype
   await _loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
   await _loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js');
   _pdfLibReady = true;
@@ -4765,7 +4722,6 @@ async function _loadKoreanFont() {
   const resp = await fetch('NotoSansKR-Regular.ttf');
   if (!resp.ok) throw new Error('NotoSansKR-Regular.ttf not found (' + resp.status + ')');
   const buf = await resp.arrayBuffer();
-  // Convert ArrayBuffer → base64 in chunks to avoid stack overflow
   const bytes = new Uint8Array(buf);
   const CHUNK = 65536;
   const parts = [];
@@ -4774,33 +4730,27 @@ async function _loadKoreanFont() {
   _koreanFontB64 = btoa(parts.join(''));
 }
 
-// Fetch image for PDF: resolved URL → raw bytes (Uint8Array) + dimensions.
-// Passes raw bytes directly to jsPDF — NO canvas involved (avoids taint issues).
+// Fetch image for PDF via wsrv.nl CORS image proxy.
+// wsrv.nl follows redirects, adds Access-Control-Allow-Origin:*, resizes, and
+// converts to JPEG — works with ANY Wikimedia URL including Special:FilePath.
 async function _fetchImgForPdf(origUrl, timeout) {
-  const tmout = timeout || 15000;
-  let imgUrl = _resolvedUrls.get(origUrl) || origUrl;
-  imgUrl = imgUrl.replace(/\/(\d+)px-([^/]+)$/, '/300px-$2');
-
-  // Skip unresolved Special:FilePath URLs — they don't have CORS headers
-  if (imgUrl.includes('Special:FilePath')) {
-    console.warn('[PDF] Unresolved URL skipped:', origUrl);
-    return null;
-  }
+  if (_photoCache.has(origUrl)) return _photoCache.get(origUrl);
+  const tmout = timeout || 20000;
+  // wsrv.nl proxy: handles redirects, adds CORS, resizes to 400px wide JPEG
+  const proxyUrl = 'https://wsrv.nl/?url=' + encodeURIComponent(origUrl) + '&w=400&output=jpg&q=75';
 
   try {
     const ctl = new AbortController();
     const tm = setTimeout(() => ctl.abort(), tmout);
-    const resp = await fetch(imgUrl, { signal: ctl.signal, credentials: 'omit' });
+    const resp = await fetch(proxyUrl, { signal: ctl.signal });
     clearTimeout(tm);
-    if (!resp.ok) { console.warn('[PDF] Fetch', resp.status, imgUrl); return null; }
+    if (!resp.ok) { console.warn('[PDF] wsrv.nl', resp.status, origUrl); return null; }
 
-    const ct = resp.headers.get('Content-Type') || '';
-    const fmt = ct.includes('png') ? 'PNG' : 'JPEG';
     const buf = await resp.arrayBuffer();
-    if (!buf.byteLength) return null;
+    if (buf.byteLength < 200) return null; // too small = error page
 
-    // Get dimensions by loading blob into Image (no crossOrigin needed — just for w/h)
-    const blob = new Blob([buf], { type: ct || 'image/jpeg' });
+    // Get dimensions by loading blob (no crossOrigin needed)
+    const blob = new Blob([buf], { type: 'image/jpeg' });
     const objUrl = URL.createObjectURL(blob);
     const dims = await new Promise(resolve => {
       const img = new Image();
@@ -4811,11 +4761,10 @@ async function _fetchImgForPdf(origUrl, timeout) {
     URL.revokeObjectURL(objUrl);
     if (!dims || !dims.w) return null;
 
-    // Store raw bytes — jsPDF addImage() accepts Uint8Array directly
-    const result = { data: new Uint8Array(buf), w: dims.w, h: dims.h, fmt };
+    const result = { data: new Uint8Array(buf), w: dims.w, h: dims.h, fmt: 'JPEG' };
     _photoCache.set(origUrl, result);
     return result;
-  } catch(e) { console.warn('[PDF] Error:', e); return null; }
+  } catch(e) { console.warn('[PDF] Fetch error:', origUrl, e.message); return null; }
 }
 
 async function _reverseGeocode(lat, lng) {
@@ -4890,27 +4839,19 @@ async function exportPDF() {
       return `${idx + 1}. ${_displayName(loc)}`;
     }
 
-    // ── Resolve Special:FilePath → CORS-friendly upload.wikimedia.org URLs ──
-    const allPhotoUrls = locs.flatMap(l => (l.photos || []).slice(0, 4));
-    await _resolveWikiUrls(allPhotoUrls, 300, (done, total) => {
-      _pdfProgress(4 + (done / total) * 6, LANG==='ko'?'이미지 URL 변환 중…':'Resolving image URLs…', `${done} / ${total}`);
-    });
-    _pdfProgress(10, LANG==='ko'?`URL 변환 완료 (${_resolvedUrls.size}개)`:'URLs resolved (' + _resolvedUrls.size + ')', `${_resolvedUrls.size} / ${allPhotoUrls.length}`);
-
-    // ── Fetch photos with throttling to avoid Wikimedia 429 rate-limit ──
+    // ── Fetch photos via wsrv.nl proxy (handles CORS + redirects) ──
     const photoMap = {};
     let fetchCount = 0;
     for (let li = 0; li < locs.length; li++) {
       const loc = locs[li];
       if (!loc.photos?.length) continue;
-      _pdfProgress(10 + (li / locs.length) * 50, LANG==='ko'?'사진 다운로드 중…':'Downloading photos…', `${li+1} / ${locs.length}`);
+      _pdfProgress(6 + (li / locs.length) * 54, LANG==='ko'?'사진 다운로드 중…':'Downloading photos…', `${li+1} / ${locs.length}`);
       const results = [];
       for (const url of loc.photos.slice(0, 4)) {
-        // 1) Cache hit — instant
         const c = _photoCache.get(url);
         if (c) { results.push(c); continue; }
-        // 2) Throttle: 200ms gap between network fetches to avoid 429
-        if (fetchCount > 0) await new Promise(r => setTimeout(r, 200));
+        // 150ms throttle to be polite to proxy
+        if (fetchCount > 0) await new Promise(r => setTimeout(r, 150));
         const r = await _fetchImgForPdf(url, 15000);
         if (r) results.push(r);
         fetchCount++;
@@ -5027,8 +4968,8 @@ async function exportPDF() {
     // ══════════════════════════════════════════
     // DETAIL PAGES — one per location
     // ══════════════════════════════════════════
-    const MAP_MAX_H = PAGE_H / 5;   // max 1/5 of A4 height (~59mm)
-    const PHOTO_MAX_H = PAGE_H / 5; // max 1/5 of A4 height
+    const MAP_H  = 50;  // fixed 50mm map height
+    const PHOTO_H = 50; // fixed 50mm photo height
 
     for (let i = 0; i < locs.length; i++) {
       const loc = locs[i];
@@ -5051,21 +4992,6 @@ async function exportPDF() {
       doc.setTextColor(...GRAY);
       doc.text(`${loc.arch || ''} \u00b7 ${loc.yr || ''}`, ML, y);
       y += 6;
-
-      // ── Photos (up to 4, left-aligned, fixed max height, aspect-ratio preserved) ──
-      const photos = photoMap[loc.id] || [];
-      if (photos.length) {
-        const GAP = 2;
-        let xOff = ML;
-        photos.forEach(p => {
-          const imgH = Math.min(PHOTO_MAX_H, 45);
-          const imgW = imgH * (p.w / p.h);
-          if (xOff + imgW > 210 - MR) return; // skip if overflows page width
-          try { doc.addImage(p.data, p.fmt || 'JPEG', xOff, y, imgW, imgH); } catch(e) {}
-          xOff += imgW + GAP;
-        });
-        y += Math.min(PHOTO_MAX_H, 45) + 4;
-      }
 
       // ── Info table ──
       const fields = [];
@@ -5118,17 +5044,32 @@ async function exportPDF() {
         y += 4;
       }
 
-      // ── Per-location map (static tiles, marker at centre) ──
+      // ── Per-location map (static tiles, 50mm tall, marker at centre) ──
       if (loc.lat && loc.lng) {
         const mapData = await _staticMapForLoc(loc.lat, loc.lng, 16);
         if (mapData) {
           const mapAspect = mapData.w / mapData.h;
-          const mapW = PW;
-          const mapH = Math.min(mapW / mapAspect, MAP_MAX_H);
-          y = _chkY(y, mapH + 2);
-          try { doc.addImage(mapData.dataUrl, 'JPEG', ML, y, mapW, mapH); } catch(e) {}
-          y += mapH + 2;
+          const mapW = Math.min(PW, MAP_H * mapAspect); // full width or aspect-limited
+          y = _chkY(y, MAP_H + 5 + PHOTO_H + 4);       // ensure room for map+photos
+          try { doc.addImage(mapData.dataUrl, 'JPEG', ML, y, mapW, MAP_H); } catch(e) {}
+          y += MAP_H;
         }
+      }
+
+      // ── Photos (below map, 5mm gap, 50mm height, left-aligned, aspect-ratio) ──
+      const photos = photoMap[loc.id] || [];
+      if (photos.length) {
+        y += 5; // 5mm margin below map
+        y = _chkY(y, PHOTO_H + 2);
+        const GAP = 2;
+        let xOff = ML;
+        photos.forEach(p => {
+          const imgW = PHOTO_H * (p.w / p.h);
+          if (xOff + imgW > 210 - MR) return; // skip if overflows
+          try { doc.addImage(p.data, p.fmt || 'JPEG', xOff, y, imgW, PHOTO_H); } catch(e) {}
+          xOff += imgW + GAP;
+        });
+        y += PHOTO_H + 4;
       }
     }
 
