@@ -1,10 +1,22 @@
 // ArchWander Service Worker
 // Enables PWA installation → background audio on iOS/Android
-const CACHE = 'archwander-v9';
+const CACHE = 'archwander-v10';
 const PRECACHE = [
   '/archwander/',
   '/archwander/index.html',
-  '/archwander/data.js',
+  '/archwander/css/styles.css',
+  '/archwander/js/config.js',
+  '/archwander/js/i18n.js',
+  '/archwander/js/map.js',
+  '/archwander/js/filters.js',
+  '/archwander/js/core.js',
+  '/archwander/js/audio.js',
+  '/archwander/js/ui.js',
+  '/archwander/js/walk.js',
+  '/archwander/js/city.js',
+  '/archwander/js/route.js',
+  '/archwander/js/pdf.js',
+  '/archwander/js/init.js',
 ];
 
 self.addEventListener('install', e => {
@@ -47,9 +59,4 @@ self.addEventListener('fetch', e => {
     caches.match(e.request).then(r => r || fetch(e.request).then(res => {
       if (res && res.status === 200) {
         const clone = res.clone();
-        caches.open(CACHE).then(c => c.put(e.request, clone));
-      }
-      return res;
-    }))
-  );
-});
+        caches.open(CACHE).then(c => c.put(e.request, clo
