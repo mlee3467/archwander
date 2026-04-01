@@ -40,16 +40,7 @@ function haversineM(lat1, lng1, lat2, lng2) {
 }
 
 function _makeStreetLayer() {
-  // Priority: MapTiler raster → Thunderforest raster → CartoDB Voyager raster
-  if (MAPTILER_API_KEY) {
-    // MapTiler language param: 'en', 'ko', 'ja', 'local' etc.
-    var mapLang = LANG === 'ko' ? 'ko' : 'en';
-    return L.tileLayer(
-      'https://api.maptiler.com/maps/' + MAPTILER_STYLE + '/{z}/{x}/{y}.png?key=' + MAPTILER_API_KEY + '&language=' + mapLang,
-      { attribution: '© <a href="https://www.maptiler.com/copyright/">MapTiler</a> © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-        tileSize: 512, zoomOffset: -1, maxZoom: 20 }
-    );
-  }
+  // Priority: Thunderforest raster → CartoDB Voyager raster
   if (THUNDERFOREST_API_KEY) {
     return L.tileLayer(
       'https://{s}.tile.thunderforest.com/' + THUNDERFOREST_STYLE + '/{z}/{x}/{y}.png?apikey=' + THUNDERFOREST_API_KEY,

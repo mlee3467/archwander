@@ -127,15 +127,7 @@ var ARCHITECTS = [];
 // ══════════════════════════════════════════════════════════════════
 // CONFIGURATION
 // ══════════════════════════════════════════════════════════════════
-// MapTiler — vector tiles with multilingual labels, custom styling.
-// Free: 100,000 map loads/month. Sign up at maptiler.com → copy API key.
-// Style: 'streets-v2' (clean), 'basic-v2', 'topo-v2', 'dataviz', 'openstreetmap'
-// Leave empty to fall back to CartoDB Voyager raster tiles.
-var MAPTILER_API_KEY = '6zoIvJmOmVVyh7LnuSVp';
-var MAPTILER_STYLE   = 'basic-v2'; // 'streets-v2' | 'basic-v2' | 'topo-v2' | 'voyager' | 'toner' | 'topo-pastel'
-
-// Thunderforest (legacy fallback) — used only if MapTiler key is empty.
-// Bilingual raster labels (local name + English). Free: 150,000 tiles/month.
+// Thunderforest — bilingual raster labels (local name + English). Free: 150,000 tiles/month.
 var THUNDERFOREST_API_KEY = '078a67760db947a9803755fe3b7a4916';
 var THUNDERFOREST_STYLE   = 'atlas'; // 'transport' | 'cycle' | 'atlas'
 
