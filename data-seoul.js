@@ -76,80 +76,7 @@ var LOCS_SEOUL = [
     tags:["Foster + Partners","High-Tech","Pangyo","R&D","Biophilic","Corporate"],
     photos:[],
     drawings:[]
-  },
-  {
-    id:'sel-0014',
-    name:'La Cucina (Myeongborang)',
-    cat:'Retail', cats:["Retail","Skyscrapers","Cultural"], cc:'c-ret', styleGroup:'Contemporary', styleGroups:["Contemporary"],
-    era:'2000–Present', city:'seoul',
-    arch:'Choon Choi Architects', archs:["Choon Choi Architects"],
-    yr:2019, access:'Restaurant / Commercial', style:'Contemporary',
-    lat:37.5372, lng:127.0025,
-    addr:'Hannam-dong, Yongsan-gu, Seoul', hood:'Hannam-dong',
-    desc:'La Cucina Myeongborang, designed by Choon Choi Architects, occupies a commanding position at the highest point of Hannam-dong on the southern slopes of Namsan, with panoramic views from the Han River to N Seoul Tower. The building merges two distinct brand identities — Myeongborang, a boutique jewellery gallery founded in 1975, and La Cucina, an upscale Italian restaurant — within a single architectural envelope. The facade alternates between silver and champagne gold panels to express each brand\'s character while reading as a unified whole.',
-    hours:'Restaurant hours: Lunch 11:30 AM – 2:30 PM · Dinner 6:00 PM – 10:00 PM',
-    lastEntry:'',
-    admission:'Restaurant / Gallery',
-    tourOk:false, tourInfo:'',
-    web:'',
-    transit:'6 → Hangangjin (Exit 1, 10-min walk uphill)',
-    walkFrom:'Leeum Museum: 7 min · Itaewon: 12 min',
-    gmaps:'https://maps.google.com/?q=La+Cucina+Myeongborang+Hannam-dong+Seoul',
-    archdaily:'https://www.archdaily.com/939945/la-cucina-myeongborang-choon-choi-architects',
-    wiki:'',
-    tags:["Choon Choi Architects","Restaurant","Hannam-dong","Jewelry","Namsan View"],
-    photos:[],
-    drawings:[]
-  },
-  {
-    id:'sel-0015',
-    name:'Pino Familia',
-    cat:'Cultural', cats:["Cultural","Parks"], cc:'c-cul', styleGroup:'Expressive', styleGroups:["Expressive","Traditional Korean"],
-    era:'2000–Present', city:'seoul',
-    arch:'Moon Hoon', archs:["Moon Hoon"],
-    yr:2016, access:'Paid Ticket', style:'Expressive / Narrative',
-    lat:37.5405365, lng:126.9965029,
-    addr:'131-17 Junggye-ro, Nowon-gu, Seoul', hood:'Junggye-dong / Nowon',
-    desc:'Pino Familia is a private museum complex dedicated to a Pinocchio doll collection, designed by South Korean architect Moon Hoon and completed in 2016. Three distinct buildings — "Wave and Whale," "Whale Tale," and "The Nose Fountain" — are arranged around a central park with a large Pinocchio statue. Each structure responds to a specific Pinocchio narrative: the wave-shaped roof of the first building references the sea storm, while the nose fountain literalises the character\'s most iconic feature. The project is a signature work of Moon Hoon\'s playful, narrative-driven architecture.',
-    hours:'Tue–Sun 10:00 AM – 6:00 PM',
-    lastEntry:'5:00 PM',
-    admission:'From ₩5,000',
-    tourOk:false, tourInfo:'',
-    web:'',
-    transit:'7 → Junggye (Exit 4, 10-min walk)',
-    walkFrom:'Junggye Station: 10 min',
-    gmaps:'https://maps.google.com/?q=Pino+Familia+Nowon+Seoul',
-    archdaily:'https://www.archdaily.com/799660/pino-familia-moon-hoon',
-    wiki:'',
-    tags:["Moon Hoon","Museum","Pinocchio","Nowon","Narrative Architecture","Playful"],
-    photos:[],
-    drawings:[]
-  },
-  {
-    id:'sel-0016',
-    name:'Dance of Light Installation',
-    cat:'Cultural', cats:["Cultural","Skyscrapers","Parks"], cc:'c-cul', styleGroup:'Contemporary', styleGroups:["Contemporary"],
-    era:'2000–Present', city:'seoul',
-    arch:'Naruse Inokuma Architects + a round architects', archs:["Naruse Inokuma Architects"],
-    yr:2019, access:'Free Admission', style:'Public Art / Installation',
-    lat:37.65137, lng:127.0830148,
-    addr:'Noksapyeong Station, Itaewon-ro, Yongsan-gu, Seoul', hood:'Noksapyeong / Itaewon',
-    desc:'Dance of Light is a permanent public installation within Noksapyeong Station, created by Tokyo-based Naruse Inokuma Architects and local firm a round architects following a Seoul Metropolitan Government competition in 2016, completed in 2019. A 35-metre-deep main hall is transformed by a vast dome of expanded metal suspended in the atrium — the lattice catches and scatters sunlight filtering through the glass ceiling above, turning the underground space into a luminous canvas that changes with the hour. The installation was part of the wider revitalisation of Noksapyeong as a gateway to the neighbouring Bukchon Hangang Park.',
-    hours:'Station hours: approx 5:30 AM – midnight daily',
-    lastEntry:'',
-    admission:'Free (accessible with transit fare)',
-    tourOk:false, tourInfo:'Visible from the station concourse.',
-    web:'',
-    transit:'6 → Noksapyeong (Exit 2)',
-    walkFrom:'Itaewon: 5 min · Leeum Museum: 8 min',
-    gmaps:'https://maps.google.com/?q=Noksapyeong+Station+Seoul',
-    archdaily:'https://www.archdaily.com/930351/dance-of-light-installation-naruse-inokuma-architects-plus-a-round-architects',
-    wiki:'',
-    tags:["Naruse Inokuma","Public Art","Subway","Light","Installation","Free"],
-    photos:[],
-    drawings:[]
-  },
-  {
+  },{
     id:'sel-0017',
     name:'Juun.J Flagship Store',
     cat:'Retail', cats:["Retail","Parks"], cc:'c-ret', styleGroup:'Contemporary', styleGroups:["Contemporary","Traditional Korean"],
@@ -172,32 +99,7 @@ var LOCS_SEOUL = [
     tags:["WGNB","Fashion","Flagship Store","Sinsa-dong","All-Black","Dosan Park"],
     photos:[],
     drawings:[]
-  },
-  {
-    id:'sel-0018',
-    name:'Dr. Jart+ Filter Space',
-    cat:'Retail', cats:["Retail"], cc:'c-ret', styleGroup:'Contemporary', styleGroups:["Contemporary","Traditional Korean"],
-    era:'2000–Present', city:'seoul',
-    arch:'Betwin Space Design', archs:["Betwin Space Design"],
-    yr:2016, access:'Free Admission', style:'Contemporary',
-    lat:37.5257, lng:127.0287,
-    addr:'Dosan-daero, Sinsa-dong, Gangnam-gu, Seoul', hood:'Gangnam / Garosu-gil',
-    desc:'Filter Space is the global flagship for Korean beauty brand Dr. Jart+, designed by Betwin Space Design and opened in 2016 on Garosu-gil. The entire building is conceived as an enormous filtration device — a metaphor for the brand\'s purification philosophy. The structure is wrapped in punched stainless steel panels that read as a filter during the day, while at night the inner illuminated form is exposed through the perforations. A large air-conditioning system on the rooftop, designed with the same aesthetic rigour, extends the industrial filtration metaphor across the skyline.',
-    hours:'Daily 10:00 AM – 8:00 PM',
-    lastEntry:'',
-    admission:'Free',
-    tourOk:false, tourInfo:'',
-    web:'https://www.drjart.com',
-    transit:'3 → Sinsa (Exit 8, 8-min walk) · 9 → Sinnonhyeon (10-min walk)',
-    walkFrom:'Garosu-gil: directly on the street · Dosan Park: 5 min',
-    gmaps:'https://maps.google.com/?q=Dr+Jart+Filter+Space+Garosu-gil+Seoul',
-    archdaily:'https://www.archdaily.com/801738/dr-jart-plus-flagship-store-betwin-space-design',
-    wiki:'',
-    tags:["Betwin Space Design","Beauty","Flagship","Garosu-gil","Stainless Steel","Filter"],
-    photos:[],
-    drawings:[]
-  },
-  {
+  },{
     id:'sel-0019',
     name:'HiCC Entertainment HQ',
     cat:'Landmarks', cats:["Landmarks","Commercial"], cc:'c-lmk', styleGroup:'Contemporary', styleGroups:["Contemporary"],
@@ -554,7 +456,10 @@ var LOCS_SEOUL = [
     archdaily:'https://hiddenarchitecture.net/samsung-jong-no-tower/',
     wiki:'https://en.wikipedia.org/wiki/Jongno_Tower',
     tags:["Rafael Viñoly","SAMOO","Office Tower","High-Tech","CBD","Cantilever"],
-    photos:[],
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Jongno_Tower_Seoul_-_panoramio.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/WeWork_Jongno_Tower_-_Seoul%2C_South_Korea_07.jpg?width=800'
+    ],
     drawings:[]
   },
   {
@@ -650,7 +555,10 @@ var LOCS_SEOUL = [
     archdaily:'',
     wiki:'https://en.wikipedia.org/wiki/63_Building',
     tags:["SOM","Yeouido","Skyscraper","Gold Glass","Han River","Olympics","1988"],
-    photos:["https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/63building.jpg/800px-63building.jpg"],
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Cityscape_of_Yeouido_skyscrapers_and_Hangang_Railway_Bridge_20240501113854.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/63Building_Yeouido-dong_Seoul.jpg?width=800'
+    ],
     drawings:[]
   },
   {
@@ -746,7 +654,14 @@ var LOCS_SEOUL = [
     archdaily:'',
     wiki:'https://en.wikipedia.org/wiki/Gyeongbokgung',
     tags:["Joseon","Palace","Historic","UNESCO nominee","Hanok","Traditional","Free Tour"],
-    photos:["https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Geunjeongjeon.jpg/800px-Geunjeongjeon.jpg"],
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Front_view_of_the_Imperial_Throne_Hall_Geunjeongjeon_at_Gyeongbokgung_Palace_with_blue_sky_in_Seoul.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Gyeonghoeru_%28Royal_Banquet_Hall%29_at_Gyeongbokgung_Palace%2C_Seoul.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Finely_painted_wooden_ceiling_of_Jibokjae_Hall_seen_from_below_at_Gyeongbokgung_Palace_in_Seoul.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Gyeongbokgung_Mar_2025_131.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Gyeongbokgung_Mar_2025_138.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Hyangwonjeong_Pavilion_and_Chwihyanggyo_Bridge_at_Gyeongbokgung_Palace_with_blue_sky_in_Seoul.jpg?width=800'
+    ],
     drawings:[]
   },
   {
@@ -770,7 +685,14 @@ var LOCS_SEOUL = [
     archdaily:'',
     wiki:'https://en.wikipedia.org/wiki/Changdeokgung',
     tags:["Joseon","Palace","UNESCO","Secret Garden","Huwon","Historic","Traditional"],
-    photos:["https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Changdeokgung-aft.jpg/800px-Changdeokgung-aft.jpg"],
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Changdeokgung_Seoul_3.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Huijeongdang_Hall_interior_through_open_doors_at_Changdeokgung_Palace_in_Seoul.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Changdeokgung_Palace%2C_Seoul%2C_constructd_in_1405_%2890%29_%2826243116477%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Exterior_front_view_of_the_pavilion_Samsamwa_with_blue_sky_at_Changdeokgung_Palace_in_Seoul.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Korean_art-Donggwoldo-Changdeokgung_and_Changgyeonggung-Dong-A_University-01.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Changdeokgung_Palace%2C_Seoul%2C_constructd_in_1405_%2852%29_%2839306722020%29.jpg?width=800'
+    ],
     drawings:[]
   },
   {
@@ -794,7 +716,14 @@ var LOCS_SEOUL = [
     archdaily:'',
     wiki:'https://en.wikipedia.org/wiki/Jongmyo',
     tags:["Joseon","UNESCO","Confucian","Shrine","Ritual","Historic","Traditional","Intangible Heritage"],
-    photos:["https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Jongmyo_Jeongjeon.JPG/800px-Jongmyo_Jeongjeon.JPG"],
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Jeongjeon%2C_Jongmyo_%28Summer%2C_2013%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Jongmyo-Jeongjeon.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Jongmyo_Shrine%2C_Seoul_IMG_20160922_032431.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Jongmyo_Shrine%2C_Seoul_IMG_20160922_032238.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Jongmyo_Square_Park.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Jongmyo_Shrine_02.jpg?width=800'
+    ],
     drawings:[]
   },
   {
@@ -818,7 +747,14 @@ var LOCS_SEOUL = [
     archdaily:'',
     wiki:'https://en.wikipedia.org/wiki/Bukchon_Hanok_Village',
     tags:["Hanok","Traditional","Conservation","Joseon","Residential","Free","UNESCO candidate"],
-    photos:["https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Bukchon_Hanok_Village.jpg/800px-Bukchon_Hanok_Village.jpg"],
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Bukchon-ro_11-gil_street_with_hanok_houses_at_sunrise_in_Bukchon_Hanok_Village_Seoul.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Bukchon_Hanok_Village_01.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Bukchon_Hanok_Village_in_Seoul.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Traditional_hanok_house_with_wooden_doors_along_a_steeply_sloping_street_in_Bukchon_Hanok_Village_Seoul.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Wooden_gate_and_flowerpots_in_Bukchon_Hanok_Village_in_Seoul.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Traditional_hanok_houses_at_golden_hour_in_Bukchon_Hanok_Village_in_Seoul.jpg?width=800'
+    ],
     drawings:[]
   },
   {
@@ -842,7 +778,11 @@ var LOCS_SEOUL = [
     archdaily:'',
     wiki:'https://en.wikipedia.org/wiki/Jogyesa',
     tags:["Buddhist","Temple","Traditional","Free","Insadong","Lantern Festival","National Treasure"],
-    photos:[],
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Korea-Seoul-Jogyesa_Main_Hall_2188-06.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Jogyesa_Tempel_temple_S%C3%BCdkorea_South_Korea_Seoul_%2839852838105%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Korea-Seoul-Jogyesa_Brahma_Bell_Pavilion_2193-06.JPG?width=800'
+    ],
     drawings:[]
   },
   {
@@ -866,7 +806,15 @@ var LOCS_SEOUL = [
     archdaily:'',
     wiki:'https://en.wikipedia.org/wiki/N_Seoul_Tower',
     tags:["Namsan","Observation Tower","Broadcasting","City View","Cable Car","Love Locks"],
-    photos:["https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/N_Seoul_Tower_2.jpg/800px-N_Seoul_Tower_2.jpg"],
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Seoul_Aerial_Shot_08.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Namsan_Park_and_Seoul_Tower_%284615642044%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Seoul_tower_-_panoramio_-_yamarhythm.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/N_Seoul_Tower_complex_staircase.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/N_Seoul_Tower_view_south_wide.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Seoul_Wall_with_the_N_Seoul_Tower_in_the_Background.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/View_from_N_Seoul_Tower_at_night.jpg?width=800'
+    ],
     drawings:[]
   },
   {
@@ -890,7 +838,13 @@ var LOCS_SEOUL = [
     archdaily:'',
     wiki:'https://en.wikipedia.org/wiki/National_Museum_of_Korea',
     tags:["Museum","Free","Yongsan","National Museum","History","Korean Heritage","Permanent Collection"],
-    photos:["https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/National_Museum_of_Korea_at_night.jpg/800px-National_Museum_of_Korea_at_night.jpg","https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/National_Museum_of_Korea_2.jpg/800px-National_Museum_of_Korea_2.jpg","https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/National_Museum_of_Korea_-_panoramio.jpg/800px-National_Museum_of_Korea_-_panoramio.jpg"],
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Front_view_of_national_museum_of_korea.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Exterior_of_the_National_Museum_of_Korea_in_Seoul.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Korea_National_Museum_of_Korea.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Entrance_Hall_at_the_National_Museum_of_Korea.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/National_Museum_of_Korea%2C_Seoul_%281%29_%2841131659881%29.jpg?width=800'
+    ],
     drawings:[]
   }
 ];
