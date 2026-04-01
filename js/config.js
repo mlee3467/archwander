@@ -132,7 +132,7 @@ var ARCHITECTS = [];
 // Style: 'streets-v2' (clean), 'basic-v2', 'topo-v2', 'dataviz', 'openstreetmap'
 // Leave empty to fall back to CartoDB Voyager raster tiles.
 var MAPTILER_API_KEY = '6zoIvJmOmVVyh7LnuSVp';
-var MAPTILER_STYLE   = 'streets-v2'; // MapTiler style name
+var MAPTILER_STYLE   = 'voyager'; // 'streets-v2' | 'basic-v2' | 'topo-v2' | 'voyager'
 
 // Thunderforest (legacy fallback) — used only if MapTiler key is empty.
 // Bilingual raster labels (local name + English). Free: 150,000 tiles/month.
