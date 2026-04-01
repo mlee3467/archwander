@@ -127,7 +127,12 @@ var ARCHITECTS = [];
 // ══════════════════════════════════════════════════════════════════
 // CONFIGURATION
 // ══════════════════════════════════════════════════════════════════
-// Thunderforest — bilingual raster labels (local name + English). Free: 150,000 tiles/month.
+// MapTiler — raster tiles with multilingual labels. Free: 100k loads/month.
+// Secure with Allowed HTTP Origins in MapTiler dashboard.
+var MAPTILER_API_KEY = '6zoIvJmOmVVyh7LnuSVp';
+var MAPTILER_STYLE   = 'streets-v2'; // 'streets-v2' | 'basic-v2' | 'topo-v2' | 'voyager' | 'toner'
+
+// Thunderforest — fallback if MapTiler key is empty. Free: 150,000 tiles/month.
 var THUNDERFOREST_API_KEY = '078a67760db947a9803755fe3b7a4916';
 var THUNDERFOREST_STYLE   = 'atlas'; // 'transport' | 'cycle' | 'atlas'
 
