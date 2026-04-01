@@ -131,7 +131,7 @@ var ARCHITECTS = [];
 // Free: 100,000 map loads/month. Sign up at maptiler.com → copy API key.
 // Style: 'streets-v2' (clean), 'basic-v2', 'topo-v2', 'dataviz', 'openstreetmap'
 // Leave empty to fall back to CartoDB Voyager raster tiles.
-var MAPTILER_API_KEY = '';  // ← paste your key here
+var MAPTILER_API_KEY = '6zoIvJmOmVVyh7LnuSVp';
 var MAPTILER_STYLE   = 'streets-v2'; // MapTiler style name
 
 // Thunderforest (legacy fallback) — used only if MapTiler key is empty.
