@@ -102,36 +102,39 @@
     /* ── Near Me button (header) ───────────────────────── */
     #near-me-btn {
       height: 34px; padding: 0 13px;
-      border: 1px solid #A5B4FC; border-radius: 8px;
-      font-size: 12px; font-family: inherit; background: white;
+      border: none; border-radius: 8px;
+      font-size: 12px; font-family: inherit;
+      background: linear-gradient(135deg, #6366F1, #4F46E5);
       cursor: pointer; display: flex; align-items: center; gap: 6px;
       white-space: nowrap; flex-shrink: 0; transition: all 0.2s;
-      color: #4338CA; font-weight: 600;
+      color: white; font-weight: 600; box-shadow: 0 1px 3px rgba(79,70,229,0.3);
     }
-    #near-me-btn:hover { border-color: #4F46E5; color: #4F46E5; }
-    #near-me-btn.active { background: #4F46E5; border-color: #4F46E5; color: white; }
+    #near-me-btn:hover { background: linear-gradient(135deg, #7577F5, #5B54F0); box-shadow: 0 2px 6px rgba(79,70,229,0.4); }
+    #near-me-btn.active { background: linear-gradient(135deg, #4338CA, #3730A3); box-shadow: 0 2px 8px rgba(67,56,202,0.5); }
     /* ── Favorites button (header) ───────────────────── */
     #fav-btn {
       height: 34px; padding: 0 13px;
-      border: 1px solid #FF5F00; border-radius: 8px;
-      font-size: 12px; font-family: inherit; background: white;
+      border: none; border-radius: 8px;
+      font-size: 12px; font-family: inherit;
+      background: linear-gradient(135deg, #FF7A1A, #FF5F00);
       cursor: pointer; display: flex; align-items: center; gap: 5px;
       white-space: nowrap; flex-shrink: 0; transition: all 0.2s;
-      color: #CC4C00; font-weight: 600;
+      color: white; font-weight: 600; box-shadow: 0 1px 3px rgba(255,95,0,0.3);
     }
-    #fav-btn:hover { border-color: #CC4C00; background: #FFF3EB; }
-    #fav-btn.active { background: #FF5F00; border-color: #FF5F00; color: white; }
+    #fav-btn:hover { background: linear-gradient(135deg, #FF8C3A, #FF6B15); box-shadow: 0 2px 6px rgba(255,95,0,0.4); }
+    #fav-btn.active { background: linear-gradient(135deg, #E05400, #CC4C00); box-shadow: 0 2px 8px rgba(204,76,0,0.5); }
     /* ── Route Planner button (header) ─────────────────── */
     #route-btn {
       height: 34px; padding: 0 13px;
-      border: 1px solid #3B82F6; border-radius: 8px;
-      font-size: 12px; font-family: inherit; background: white;
+      border: none; border-radius: 8px;
+      font-size: 12px; font-family: inherit;
+      background: linear-gradient(135deg, #E052A0, #D946A8);
       cursor: pointer; display: flex; align-items: center; gap: 5px;
       white-space: nowrap; flex-shrink: 0; transition: all 0.2s;
-      color: #2563EB; font-weight: 600;
+      color: white; font-weight: 600; box-shadow: 0 1px 3px rgba(217,70,168,0.3);
     }
-    #route-btn:hover { border-color: #2563EB; background: #EFF6FF; }
-    #route-btn.active { background: #3B82F6; border-color: #3B82F6; color: white; }
+    #route-btn:hover { background: linear-gradient(135deg, #E86AB5, #DF58B2); box-shadow: 0 2px 6px rgba(217,70,168,0.4); }
+    #route-btn.active { background: linear-gradient(135deg, #C73D95, #B53588); box-shadow: 0 2px 8px rgba(181,53,136,0.5); }
     /* ── Fav/Visited action buttons inside panel header ── */
     .p-action-row { display: flex; gap: 7px; margin-top: 7px; }
     .p-action-btn {
