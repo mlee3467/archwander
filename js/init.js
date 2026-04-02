@@ -464,43 +464,51 @@ function _isStandalone() {
 // Chrome / Edge / Samsung / etc. — beforeinstallprompt
 window.addEventListener('beforeinstallprompt', function(e) {
   e.preventDefault();
-  if (_isStandalone()) return;  // Already installed — don't show prompt
+  if (_isStandalone()) return;
   _pwaEvent = e;
-  _showPwaPrompt();
+  // Delay 3 minutes from first use
+  setTimeout(function() { _showPwaPrompt(); }, 3 * 60 * 1000);
 });
 
 // iOS Safari — no beforeinstallprompt, detect manually
 window.addEventListener('load', function() {
-  if (_isStandalone()) return;  // Already installed — don't show prompt
+  if (_isStandalone()) return;
   var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
   var isSafari = /safari/i.test(navigator.userAgent) && !/chrome|crios|fxios/i.test(navigator.userAgent);
   if (isIOS && isSafari) {
-    setTimeout(function() { _showPwaPrompt(true); }, 3000);
+    setTimeout(function() { _showPwaPrompt(true); }, 3 * 60 * 1000);
   }
 });
 
 function _showPwaPrompt(isIOS) {
   // Don't show if already installed (standalone) or dismissed recently
   if (_isStandalone()) return;
+  // Check "don't show today" (1 day)
+  var dismissedToday = localStorage.getItem('aw_pwa_dismiss_today');
+  if (dismissedToday) {
+    var diff1 = Date.now() - parseInt(dismissedToday, 10);
+    if (diff1 < 24 * 60 * 60 * 1000) return;
+  }
+  // Check permanent dismiss (7 days — from ✕ close)
   var dismissed = localStorage.getItem('aw_pwa_dismiss');
   if (dismissed) {
     var diff = Date.now() - parseInt(dismissed, 10);
-    if (diff < 7 * 24 * 60 * 60 * 1000) return; // 7일간 재표시 안 함
+    if (diff < 7 * 24 * 60 * 60 * 1000) return;
   }
   var prompt = document.getElementById('pwa-prompt');
   if (!prompt) return;
   var desc = document.getElementById('pwa-desc');
   var btn = document.getElementById('pwa-install-btn');
+  var lang = (typeof currentLang !== 'undefined') ? currentLang : 'en';
+  var todayBtn = prompt.querySelector('.pwa-today-btn');
+  if (todayBtn) todayBtn.textContent = lang === 'ko' ? '오늘 하루 보지 않기' : 'Not today';
   if (isIOS) {
-    // iOS: guide to manual add
-    var lang = (typeof currentLang !== 'undefined') ? currentLang : 'en';
     if (desc) desc.textContent = lang === 'ko'
       ? '공유 버튼 → "홈 화면에 추가"를 눌러주세요'
       : 'Tap Share → "Add to Home Screen"';
     if (btn) btn.textContent = lang === 'ko' ? '확인' : 'OK';
     btn.onclick = function() { pwaDismiss(); };
   } else {
-    var lang = (typeof currentLang !== 'undefined') ? currentLang : 'en';
     if (desc) desc.textContent = lang === 'ko'
       ? '앱을 설치하면 더 편리하게 이용할 수 있어요'
       : 'Install the app for a better experience';
@@ -526,4 +534,10 @@ function pwaDismiss() {
   var prompt = document.getElementById('pwa-prompt');
   if (prompt) prompt.classList.remove('visible');
   localStorage.setItem('aw_pwa_dismiss', Date.now().toString());
+}
+
+function pwaDismissToday() {
+  var prompt = document.getElementById('pwa-prompt');
+  if (prompt) prompt.classList.remove('visible');
+  localStorage.setItem('aw_pwa_dismiss_today', Date.now().toString());
 }
