@@ -261,7 +261,7 @@
       background: white; cursor: pointer; align-items: center;
       justify-content: center; flex-shrink: 0; font-size: 16px;
     }
-    /* Mobile action bar: hidden on desktop */
+    /* Action bar: hidden on desktop */
     #mobile-action-bar { display: none; }
 
     /* ── LAYOUT ─────────────────────────────────────────── */
@@ -985,16 +985,18 @@
       }
       #mobile-action-bar.open { display: flex; }
       .mob-action-btn {
-        height: 30px;
-        padding: 0 12px;
-        border: 1px solid var(--border); border-radius: 8px;
-        background: white; cursor: pointer;
+        height: 30px; padding: 0 11px;
+        border-radius: 8px; background: white; cursor: pointer;
         display: flex; align-items: center; gap: 5px;
-        font-size: 12px; font-family: inherit; font-weight: 500;
-        color: var(--text-primary);
-        white-space: nowrap;
+        font-size: 11px; font-family: inherit; font-weight: 600;
+        white-space: nowrap; flex-shrink: 0; transition: all 0.2s;
       }
-      .mob-action-btn:active { background: #f0f0f0; }
+      #mob-near-btn { border: 1px solid #A5B4FC; color: #4338CA; }
+      #mob-near-btn:active { background: #4F46E5; border-color: #4F46E5; color: white; }
+      #mob-fav-btn { border: 1px solid #FF5F00; color: #CC4C00; }
+      #mob-fav-btn:active { background: #FF5F00; border-color: #FF5F00; color: white; }
+      #mob-route-btn { border: 1px solid #3B82F6; color: #2563EB; }
+      #mob-route-btn:active { background: #3B82F6; border-color: #3B82F6; color: white; }
 
       /* ── Sidebar overlay ── */
       .app { overflow: visible; }
