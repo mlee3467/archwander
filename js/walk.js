@@ -145,6 +145,8 @@ function _fullDeactivate() {
   document.getElementById('near-me-btn').classList.remove('active');
   document.getElementById('walk-gps-btn').classList.remove('active', 'locating');
   document.getElementById('walk-pin-btn').classList.remove('active', 'locating');
+  var wrb = document.getElementById('walk-route-btn');
+  if (wrb) wrb.style.display = 'none';
   renderList();
   syncMarkers();
   // Refresh route planner to show all locations again
@@ -248,6 +250,9 @@ function _setWalkOrigin(lat, lng, mode) {
   }
 
   _runWalkFilter();
+  // Show route button in walk bar
+  var wrb = document.getElementById('walk-route-btn');
+  if (wrb) wrb.style.display = '';
 }
 
 function _runWalkFilter() {

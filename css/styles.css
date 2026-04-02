@@ -87,14 +87,14 @@
     /* ── Route Planner button (header) ─────────────────── */
     #route-btn {
       height: 34px; padding: 0 13px;
-      border: 1px solid #3B82F6; border-radius: 8px;
+      border: 1px solid #D946A8; border-radius: 8px;
       font-size: 12px; font-family: inherit; background: white;
       cursor: pointer; display: flex; align-items: center; gap: 5px;
       white-space: nowrap; flex-shrink: 0; transition: all 0.2s;
-      color: #2563EB; font-weight: 600;
+      color: #B5348B; font-weight: 600;
     }
-    #route-btn:hover { border-color: #2563EB; background: #EFF6FF; }
-    #route-btn.active { background: #3B82F6; border-color: #3B82F6; color: white; }
+    #route-btn:hover { border-color: #B5348B; background: #FDF2F8; }
+    #route-btn.active { background: #D946A8; border-color: #D946A8; color: white; }
     /* ── Fav/Visited action buttons inside panel header ── */
     .p-action-row { display: flex; gap: 7px; margin-top: 7px; }
     .p-action-btn {
@@ -176,6 +176,8 @@
       transition: all 0.15s; white-space: nowrap; flex-shrink: 0;
     }
     .walk-loc-btn:hover { border-color: #4F46E5; color: #4F46E5; }
+    .walk-route-btn { border-color: #D946A8; color: #B5348B; }
+    .walk-route-btn:hover { border-color: #B5348B; color: #B5348B; }
     .walk-loc-btn.active  { background: #4F46E5; border-color: #4F46E5; color: white; }
     .walk-loc-btn.locating { border-color: #4F46E5; color: #4F46E5;
       animation: pulse-border 0.9s ease-in-out infinite; }
@@ -380,10 +382,25 @@
     .loc-card {
       padding: 12px 14px; border-bottom: 1px solid var(--border);
       cursor: pointer; display: flex; gap: 11px; align-items: flex-start;
-      transition: background 0.12s;
+      transition: background 0.12s; position: relative;
     }
     .loc-card:hover { background: var(--bg); }
     .loc-card.active { background: #F0F0EE; }
+    .card-fav-btns {
+      display: flex; flex-direction: column; gap: 4px;
+      flex-shrink: 0; align-self: center;
+    }
+    .card-fav-btn, .card-vis-btn {
+      width: 26px; height: 26px; border: 1px solid var(--border);
+      border-radius: 6px; background: white; cursor: pointer;
+      font-size: 13px; display: flex; align-items: center;
+      justify-content: center; color: #ccc; transition: all 0.15s;
+      padding: 0; line-height: 1;
+    }
+    .card-fav-btn:hover { border-color: #FF5F00; color: #FF5F00; }
+    .card-fav-btn.active { background: #FF5F00; border-color: #FF5F00; color: white; }
+    .card-vis-btn:hover { border-color: #10B981; color: #10B981; }
+    .card-vis-btn.active { background: #10B981; border-color: #10B981; color: white; }
     .card-img {
       width: 52px; height: 52px; border-radius: 7px;
       object-fit: cover; flex-shrink: 0; background: var(--border);
@@ -982,22 +999,23 @@
         gap: 8px;
         z-index: 999;
         box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        justify-content: center;
+        justify-content: flex-start;
       }
       #mobile-action-bar.open { display: flex; }
       .mob-action-btn {
         height: 30px; padding: 0 11px;
-        border-radius: 8px; background: white; cursor: pointer;
+        border-radius: 8px; border: none; cursor: pointer;
         display: flex; align-items: center; gap: 5px;
         font-size: 11px; font-family: inherit; font-weight: 600;
         white-space: nowrap; flex-shrink: 0; transition: all 0.2s;
+        color: white;
       }
-      #mob-near-btn { border: 1px solid #A5B4FC; color: #4338CA; }
-      #mob-near-btn:active { background: #4F46E5; border-color: #4F46E5; color: white; }
-      #mob-fav-btn { border: 1px solid #FF5F00; color: #CC4C00; }
-      #mob-fav-btn:active { background: #FF5F00; border-color: #FF5F00; color: white; }
-      #mob-route-btn { border: 1px solid #3B82F6; color: #2563EB; }
-      #mob-route-btn:active { background: #3B82F6; border-color: #3B82F6; color: white; }
+      #mob-near-btn { background: #4F46E5; }
+      #mob-near-btn:active { background: #3730A3; }
+      #mob-fav-btn { background: #FF5F00; }
+      #mob-fav-btn:active { background: #CC4C00; }
+      #mob-route-btn { background: #D946A8; }
+      #mob-route-btn:active { background: #B5348B; }
 
       /* ── Sidebar overlay ── */
       .app { overflow: visible; }
@@ -1334,6 +1352,11 @@
 .route-sel-remove:hover { color: #ef4444; background: #fef2f2; }
 
 /* Actions */
+.route-top-actions {
+  display: flex; gap: 8px; padding: 10px 14px;
+  border-bottom: 1px solid var(--border); background: #fdf2f8;
+  position: sticky; top: 0; z-index: 1;
+}
 .route-actions {
   display: flex; gap: 8px; margin-top: 10px;
 }
@@ -1342,8 +1365,8 @@
   font-size: 13px; font-weight: 600; cursor: pointer;
   font-family: Inter, sans-serif;
 }
-.route-btn-calc { background: #3B82F6; color: white; }
-.route-btn-calc:hover { background: #2563EB; }
+.route-btn-calc { background: #D946A8; color: white; }
+.route-btn-calc:hover { background: #B5348B; }
 .route-btn-clear { background: #f3f3f0; color: var(--text-secondary); }
 .route-btn-clear:hover { background: #e8e8e4; }
 .route-btn-pdf { background: #111; color: white; padding: 10px 16px; }

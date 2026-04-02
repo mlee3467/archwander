@@ -252,7 +252,7 @@
   </button>
   <button class="mob-action-btn" id="mob-fav-btn" onclick="toggleFavFilter(); closeMobileActions();">
     <span style="font-size:14px;line-height:1;flex-shrink:0">&#9734;</span>
-    <span class="mob-fav-text">Fav</span>
+    <span class="mob-fav-text">Favorites</span>
   </button>
   <button class="mob-action-btn" id="mob-route-btn" onclick="openRoutePanel(); closeMobileActions();">
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 17l6-6 4 4 8-8"/><path d="M17 7h4v4"/></svg>
@@ -270,6 +270,10 @@
   <button class="walk-loc-btn" id="walk-pin-btn" onclick="startPinDrop()" title="Click map to drop a pin">
     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" style="flex-shrink:0"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
     Drop Pin
+  </button>
+  <button class="walk-loc-btn walk-route-btn" id="walk-route-btn" onclick="openRoutePanel()" title="Plan route within walk radius" style="display:none">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" style="flex-shrink:0"><path d="M3 17l6-6 4 4 8-8"/><path d="M17 7h4v4"/></svg>
+    Route
   </button>
   <span class="walk-bar-sep"></span>
   <!-- Walking distance slider -->

@@ -37,7 +37,7 @@ var T = {
     near_me:      'Find Near Me',
     favorites:    'Favorites',
     mob_near:     'Find Near',
-    mob_fav:      'Fav',
+    mob_fav:      'Favorites',
     mob_route:    'Route',
     export_pdf:   'PDF',
     pdf_need_pin: 'Place a pin first using "Find Near Me" to export the nearby locations as PDF.',

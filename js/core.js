@@ -157,6 +157,14 @@ function renderList() {
           ${(()=>{ const rv=loadReviews(loc.id); return rv.length ? `<span style="font-size:10px;color:#F59E0B;letter-spacing:0.5px">★ ${(rv.reduce((s,r)=>s+r.stars,0)/rv.length).toFixed(1)}</span>` : ''; })()}
         </div>
       </div>
+      <div class="card-fav-btns" onclick="event.stopPropagation()">
+        <button class="card-fav-btn${isFav(loc.id)?' active':''}" onclick="toggleFav('${loc.id}');this.classList.toggle('active');this.textContent=this.classList.contains('active')?'★':'☆'" title="${t('fav_label')}">
+          ${isFav(loc.id)?'★':'☆'}
+        </button>
+        <button class="card-vis-btn${isVisited(loc.id)?' active':''}" onclick="toggleVisited('${loc.id}');this.classList.toggle('active');this.textContent=this.classList.contains('active')?'✓':'○'" title="${t('vis_label')}">
+          ${isVisited(loc.id)?'✓':'○'}
+        </button>
+      </div>
     </div>
   `).join('');
 }

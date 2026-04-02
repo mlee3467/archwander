@@ -47,17 +47,21 @@ function _createRoutePanel() {
   div.className = 'route-panel';
   div.innerHTML =
     '<div class="route-panel-hdr">' +
-      '<span class="route-panel-title">🗺 Route Planner</span>' +
+      '<span class="route-panel-title">🗺 ' + (LANG === 'ko' ? '루트 플래너' : 'Route Planner') + '</span>' +
       '<button class="route-panel-close" onclick="closeRoutePanel()">✕</button>' +
     '</div>' +
     '<div class="route-panel-body">' +
+      '<div class="route-top-actions" id="route-top-actions" style="display:none">' +
+        '<button class="route-btn route-btn-calc" onclick="calcRoute()">🚶 <span class="rt-calc-text">' + (LANG === 'ko' ? '경로 계산' : 'Calculate Route') + '</span></button>' +
+        '<button class="route-btn route-btn-clear" onclick="clearRouteSelection()">✕ <span class="rt-clear-text">' + (LANG === 'ko' ? '전체 삭제' : 'Clear Route') + '</span></button>' +
+      '</div>' +
       '<div class="route-hood-list" id="route-hood-list"></div>' +
       '<div class="route-selected" id="route-selected">' +
         '<div class="route-sel-title" id="route-sel-title">Selected Stops (0)</div>' +
         '<div class="route-sel-list" id="route-sel-list"></div>' +
         '<div class="route-actions" id="route-actions" style="display:none">' +
-          '<button class="route-btn route-btn-calc" onclick="calcRoute()">🚶 Calculate Route</button>' +
-          '<button class="route-btn route-btn-clear" onclick="clearRouteSelection()">✕ Clear</button>' +
+          '<button class="route-btn route-btn-calc" onclick="calcRoute()">🚶 <span class="rt-calc-text">' + (LANG === 'ko' ? '경로 계산' : 'Calculate Route') + '</span></button>' +
+          '<button class="route-btn route-btn-clear" onclick="clearRouteSelection()">✕ <span class="rt-clear-text">' + (LANG === 'ko' ? '전체 삭제' : 'Clear Route') + '</span></button>' +
         '</div>' +
       '</div>' +
       '<div class="route-result" id="route-result" style="display:none"></div>' +
@@ -113,7 +117,7 @@ function _renderRouteHoods(hoods, locs) {
           h.locs.map(function(loc) {
             var inRoute = routeLocations.some(function(r) { return r.id === loc.id; });
             return '<div class="route-loc-item' + (inRoute ? ' in-route' : '') + '" data-id="' + loc.id + '">' +
-              '<span class="route-loc-name">' + _escHtml(loc.name) + '</span>' +
+              '<span class="route-loc-name">' + _routeLocName(loc) + '</span>' +
               '<button class="route-loc-toggle" onclick="toggleRouteLocation(\'' + loc.id + '\')">' +
                 (inRoute ? '−' : '+') + '</button>' +
             '</div>';
@@ -121,6 +125,13 @@ function _renderRouteHoods(hoods, locs) {
         '</div>' +
       '</div>';
     }).join('');
+}
+
+function _routeLocName(loc) {
+  if (LANG === 'ko' && typeof LOCS_KO !== 'undefined' && LOCS_KO[loc.id] && LOCS_KO[loc.id].name) {
+    return LOCS_KO[loc.id].name + ' <span style="color:#999;font-size:0.85em">' + _escHtml(loc.name) + '</span>';
+  }
+  return _escHtml(loc.name);
 }
 
 function _escHtml(s) {
@@ -192,7 +203,7 @@ function _refreshRouteUI() {
       selList.innerHTML = routeLocations.map(function(loc, i) {
         return '<div class="route-sel-item" draggable="true" data-idx="' + i + '">' +
           '<span class="route-sel-num">' + (i + 1) + '</span>' +
-          '<span class="route-sel-name">' + _escHtml(loc.name) + '</span>' +
+          '<span class="route-sel-name">' + _routeLocName(loc) + '</span>' +
           '<button class="route-sel-remove" onclick="removeRouteStop(\'' + loc.id + '\')">✕</button>' +
         '</div>';
       }).join('');
@@ -200,6 +211,8 @@ function _refreshRouteUI() {
   }
 
   if (actions) actions.style.display = routeLocations.length >= 2 ? 'flex' : 'none';
+  var topActions = document.getElementById('route-top-actions');
+  if (topActions) topActions.style.display = routeLocations.length >= 1 ? 'flex' : 'none';
 
   // Update hood list item states
   var items = document.querySelectorAll('.route-loc-item');
@@ -244,12 +257,19 @@ function calcRoute() {
     .then(function(data) {
       if (!data.routes || !data.routes.length) throw new Error('No route found');
       _displayRoute(data.routes[0], ordered);
+      _minimizeRoutePanelMobile();
     })
     .catch(function(err) {
       console.warn('[route] OSRM failed:', err);
-      // Fallback: straight-line route
       _displayStraightRoute(ordered);
+      _minimizeRoutePanelMobile();
     });
+}
+
+function _minimizeRoutePanelMobile() {
+  if (window.innerWidth > 900) return;
+  var panel = document.getElementById('route-panel');
+  if (panel) panel.classList.remove('visible');
 }
 
 function _optimizeOrder(locs) {
@@ -277,14 +297,14 @@ function _displayRoute(route, ordered) {
   // Draw polyline
   var coords = route.geometry.coordinates.map(function(c) { return [c[1], c[0]]; });
   routeLine = L.polyline(coords, {
-    color: '#3B82F6', weight: 5, opacity: 0.85,
+    color: '#D946A8', weight: 5, opacity: 0.85,
     dashArray: '10,7', lineCap: 'round'
   }).addTo(map);
 
   // Add numbered markers
   ordered.forEach(function(loc, i) {
     var icon = L.divIcon({
-      html: '<div style="background:#3B82F6;color:white;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.3);font-family:Inter,sans-serif">' + (i + 1) + '</div>',
+      html: '<div style="background:#D946A8;color:white;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.3);font-family:Inter,sans-serif">' + (i + 1) + '</div>',
       className: '',
       iconSize: [24, 24],
       iconAnchor: [12, 12]
@@ -317,14 +337,14 @@ function _displayStraightRoute(ordered) {
   // Draw straight lines between stops
   var coords = ordered.map(function(loc) { return [loc.lat, loc.lng]; });
   routeLine = L.polyline(coords, {
-    color: '#3B82F6', weight: 4, opacity: 0.7,
+    color: '#D946A8', weight: 4, opacity: 0.7,
     dashArray: '6,8', lineCap: 'round'
   }).addTo(map);
 
   // Add numbered markers
   ordered.forEach(function(loc, i) {
     var icon = L.divIcon({
-      html: '<div style="background:#3B82F6;color:white;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.3);font-family:Inter,sans-serif">' + (i + 1) + '</div>',
+      html: '<div style="background:#D946A8;color:white;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.3);font-family:Inter,sans-serif">' + (i + 1) + '</div>',
       className: '',
       iconSize: [24, 24],
       iconAnchor: [12, 12]
@@ -394,7 +414,7 @@ function _renderRouteResult(data, ordered) {
     html += '<div class="route-stop">' +
       '<div class="route-stop-num">' + (i + 1) + '</div>' +
       '<div class="route-stop-info">' +
-        '<div class="route-stop-name">' + _escHtml(loc.name) + '</div>' +
+        '<div class="route-stop-name">' + _routeLocName(loc) + '</div>' +
         '<div class="route-stop-meta">' +
           '<span class="cat-badge ' + (CAT_CC_MAP[catBadge] || 'c-lmk') + '" style="font-size:10px">' + catBadge + '</span>' +
           (loc.hood ? ' · ' + _escHtml(loc.hood) : '') +
