@@ -228,9 +228,12 @@ function openLoc(loc) {
   if (gAttrib) { gAttrib.textContent = ''; gAttrib.style.display = 'none'; }
 
   var hasPhotos = loc.photos && loc.photos.length > 0;
+  var hasSV = typeof GOOGLE_MAPS_API_KEY === 'string' && GOOGLE_MAPS_API_KEY;
+  var photoCount = hasPhotos ? loc.photos.length : 0;
+  var totalSlides = photoCount + (hasSV ? 1 : 0); // photos + optional SV slide
 
+  // Add photo images
   if (hasPhotos) {
-    // Normal photo gallery
     loc.photos.forEach((src, i) => {
       const img = document.createElement('img');
       img.alt = loc.name;
@@ -245,13 +248,11 @@ function openLoc(loc) {
       img.onerror = function() { this.style.display = 'none'; };
       gallery.insertBefore(img, gallery.querySelector('.g-btn'));
     });
-    document.getElementById('g-dots').innerHTML =
-      loc.photos.map((_, i) => `<div class="g-dot${i===0?' active':''}" onclick="gotoPhoto(${i})"></div>`).join('');
-    updateGLabel();
     applyPhotoAttribution(gallery, loc.photos);
-  } else if (typeof GOOGLE_MAPS_API_KEY === 'string' && GOOGLE_MAPS_API_KEY) {
-    // Street View fallback for locations without photos
-    gallery.classList.add('sv-mode');
+  }
+
+  // Add Street View iframe as last slide (always, if API key exists)
+  if (hasSV) {
     var svIframe = document.createElement('iframe');
     svIframe.className = 'sv-fallback';
     svIframe.setAttribute('loading', 'lazy');
@@ -260,11 +261,24 @@ function openLoc(loc) {
     svIframe.src = 'https://www.google.com/maps/embed/v1/streetview?key=' +
       GOOGLE_MAPS_API_KEY + '&location=' + loc.lat + ',' + loc.lng +
       '&heading=210&pitch=10&fov=90';
+    // Hidden by default if photos exist; shown when navigated to
+    if (hasPhotos) svIframe.style.display = 'none';
     gallery.insertBefore(svIframe, gallery.querySelector('.g-btn'));
-    document.getElementById('g-dots').innerHTML = '';
-    document.getElementById('g-label').textContent = 'Street View';
+    // If no photos, show SV immediately
+    if (!hasPhotos) gallery.classList.add('sv-mode');
+  }
+
+  // Build dots for all slides (photos + SV)
+  if (totalSlides > 0) {
+    var dotsHtml = '';
+    for (var di = 0; di < totalSlides; di++) {
+      var isSvDot = di === photoCount && hasSV;
+      dotsHtml += '<div class="g-dot' + (di === 0 ? ' active' : '') +
+        (isSvDot ? ' sv-dot' : '') + '" onclick="gotoPhoto(' + di + ')"></div>';
+    }
+    document.getElementById('g-dots').innerHTML = dotsHtml;
+    updateGLabel();
   } else {
-    // No photos and no API key — show empty state
     document.getElementById('g-dots').innerHTML = '';
     document.getElementById('g-label').textContent = '0 / 0';
   }
@@ -359,9 +373,4 @@ function buildDirectionsTab(loc, trans = {}) {
     ${loc.walkFrom ? `<div class="info-row"><span class="info-label">${t('nearby')}</span><span class="info-val">${walkFrom}</span></div>` : ''}
     <div class="btns" style="margin-top:18px">
       <a href="${loc.gmaps}" target="_blank" rel="noopener" class="btn-p">${t('open_gmaps')}</a>
-      <a href="https://maps.google.com/?q=${encodeURIComponent(loc.addr)}&layer=c" target="_blank" rel="noopener" class="btn-s">${t('sv_gmaps')}</a>
-    </div>
-  `;
-}
-
-// ══════════════════════════════════════════════════════════════════
+      <a 

@@ -524,11 +524,13 @@
       width: 100%; height: 100%; border: none;
       position: absolute; top: 0; left: 0; z-index: 1;
     }
-    .gallery.sv-mode .g-btn { display: none; }
+    .gallery.sv-mode .g-btn { z-index: 6; background: rgba(0,0,0,0.5); }
     .gallery.sv-mode .g-label {
       background: rgba(0,0,0,0.5); padding: 2px 8px; border-radius: 8px;
-      font-size: 9px; color: rgba(255,255,255,0.8); z-index: 2;
+      font-size: 9px; color: rgba(255,255,255,0.8); z-index: 6;
     }
+    .g-dot.sv-dot { background: rgba(255,255,255,0.3); border: 1px solid rgba(255,255,255,0.5); width: 6px; height: 6px; }
+    .g-dot.sv-dot.active { background: white; }
 
     /* Panel scroll + header */
     .panel-scroll { flex: 1; overflow-y: auto; }

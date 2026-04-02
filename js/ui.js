@@ -22,33 +22,65 @@ function switchTab(id) {
 // ══════════════════════════════════════════════════════════════════
 // PHOTOS
 // ══════════════════════════════════════════════════════════════════
+function _gallerySlideCount() {
+  if (!activeLoc) return 0;
+  var n = activeLoc.photos ? activeLoc.photos.length : 0;
+  var hasSV = typeof GOOGLE_MAPS_API_KEY === 'string' && GOOGLE_MAPS_API_KEY;
+  return n + (hasSV ? 1 : 0);
+}
 function gotoPhoto(idx) {
-  const gallery = document.getElementById('gallery');
-  const imgs = Array.from(gallery.querySelectorAll('img'));
-  // Load current image if deferred
-  const cur = imgs[idx];
-  if (cur && cur.dataset.src) { cur.src = cur.dataset.src; delete cur.dataset.src; }
-  imgs.forEach((img, i) => img.classList.toggle('active', i === idx));
-  document.getElementById('g-dots').querySelectorAll('.g-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
+  var gallery = document.getElementById('gallery');
+  var imgs = Array.from(gallery.querySelectorAll('img'));
+  var svIframe = gallery.querySelector('.sv-fallback');
+  var photoCount = activeLoc && activeLoc.photos ? activeLoc.photos.length : 0;
+  var isSV = svIframe && idx === photoCount;
+
+  // Toggle images: hide all, show active photo (or none if SV)
+  imgs.forEach(function(img, i) { img.classList.toggle('active', !isSV && i === idx); });
+
+  // Toggle Street View iframe
+  if (svIframe) {
+    svIframe.style.display = isSV ? '' : 'none';
+    gallery.classList.toggle('sv-mode', isSV);
+  }
+
+  // Load deferred image
+  if (!isSV && imgs[idx]) {
+    var cur = imgs[idx];
+    if (cur.dataset.src) { cur.src = cur.dataset.src; delete cur.dataset.src; }
+  }
+
+  // Update dots
+  document.getElementById('g-dots').querySelectorAll('.g-dot').forEach(function(d, i) {
+    d.classList.toggle('active', i === idx);
+  });
+
   photoIdx = idx;
   updateGLabel();
-  // Show attribution for current photo only
-  const attribEl = document.getElementById('g-attrib');
+
+  // Attribution
+  var attribEl = document.getElementById('g-attrib');
   if (attribEl) {
-    const text = cur?.dataset.attrib || '';
+    var text = (!isSV && imgs[idx]) ? (imgs[idx].dataset.attrib || '') : '';
     attribEl.textContent = text;
     attribEl.style.display = text ? '' : 'none';
   }
-  // Preload next image in background
-  const next = imgs[idx + 1];
-  if (next && next.dataset.src) { next.src = next.dataset.src; delete next.dataset.src; }
+
+  // Preload next image
+  if (!isSV && imgs[idx + 1] && imgs[idx + 1].dataset.src) {
+    imgs[idx + 1].src = imgs[idx + 1].dataset.src;
+    delete imgs[idx + 1].dataset.src;
+  }
 }
 function updateGLabel() {
   if (!activeLoc) return;
-  document.getElementById('g-label').textContent = `${photoIdx + 1} / ${activeLoc.photos.length}`;
+  var total = _gallerySlideCount();
+  var photoCount = activeLoc.photos ? activeLoc.photos.length : 0;
+  var isSV = photoIdx === photoCount && typeof GOOGLE_MAPS_API_KEY === 'string' && GOOGLE_MAPS_API_KEY;
+  document.getElementById('g-label').textContent = isSV ? 'Street View' : (photoIdx + 1) + ' / ' + photoCount;
 }
-function prevPhoto() { if (activeLoc) gotoPhoto((photoIdx - 1 + activeLoc.photos.length) % activeLoc.photos.length); }
-function nextPhoto() { if (activeLoc) gotoPhoto((photoIdx + 1) % activeLoc.photos.length); }
+function prevPhoto() { if (activeLoc) { var t = _gallerySlideCount(); gotoPhoto((photoIdx - 1 + t) % t); } }
+function nextPhoto() { if (activeLoc) { var t = _gallerySlideCount(); gotoPhoto((photoIdx + 1) % t); } }
 async function applyPhotoAttribution(galleryEl, photos) {
   if (!galleryEl || !photos) return;
   const imgs = Array.from(galleryEl.querySelectorAll('img'));
