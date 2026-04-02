@@ -230,7 +230,7 @@ function openLoc(loc) {
   var hasPhotos = loc.photos && loc.photos.length > 0;
   var hasSV = typeof GOOGLE_MAPS_API_KEY === 'string' && GOOGLE_MAPS_API_KEY;
   var photoCount = hasPhotos ? loc.photos.length : 0;
-  var totalSlides = photoCount + (hasSV ? 1 : 0); // photos + optional SV slide
+  var totalSlides = photoCount + (hasSV ? 1 : 0);
 
   // Add photo images
   if (hasPhotos) {
@@ -261,14 +261,12 @@ function openLoc(loc) {
     svIframe.src = 'https://www.google.com/maps/embed/v1/streetview?key=' +
       GOOGLE_MAPS_API_KEY + '&location=' + loc.lat + ',' + loc.lng +
       '&heading=210&pitch=10&fov=90';
-    // Hidden by default if photos exist; shown when navigated to
     if (hasPhotos) svIframe.style.display = 'none';
     gallery.insertBefore(svIframe, gallery.querySelector('.g-btn'));
-    // If no photos, show SV immediately
     if (!hasPhotos) gallery.classList.add('sv-mode');
   }
 
-  // Build dots for all slides (photos + SV)
+  // Build dots for all slides
   if (totalSlides > 0) {
     var dotsHtml = '';
     for (var di = 0; di < totalSlides; di++) {
@@ -373,4 +371,9 @@ function buildDirectionsTab(loc, trans = {}) {
     ${loc.walkFrom ? `<div class="info-row"><span class="info-label">${t('nearby')}</span><span class="info-val">${walkFrom}</span></div>` : ''}
     <div class="btns" style="margin-top:18px">
       <a href="${loc.gmaps}" target="_blank" rel="noopener" class="btn-p">${t('open_gmaps')}</a>
-      <a 
+      <a href="https://maps.google.com/?q=${encodeURIComponent(loc.addr)}&layer=c" target="_blank" rel="noopener" class="btn-s">${t('sv_gmaps')}</a>
+    </div>
+  `;
+}
+
+// ══════════════════════════════════════════════════════════════════
