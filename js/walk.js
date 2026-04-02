@@ -432,11 +432,29 @@ function closeSidebar() {
 function toggleMobileActions() {
   var bar = document.getElementById('mobile-action-bar');
   if (!bar || window.innerWidth > 900) return toggleSidebar();
-  bar.classList.toggle('open');
+  // Close location panel first if open
+  if (activeLoc) closePanel();
+  var isOpen = bar.classList.toggle('open');
+  // Toggle sidebar together with action bar
+  var side = document.getElementById('sidebar');
+  var bd = document.getElementById('sidebar-backdrop');
+  if (isOpen) {
+    side.classList.add('open');
+    if (bd) bd.classList.add('visible');
+  } else {
+    side.classList.remove('open');
+    if (bd) bd.classList.remove('visible');
+  }
 }
 function closeMobileActions() {
   var bar = document.getElementById('mobile-action-bar');
   if (bar) bar.classList.remove('open');
+  // Also close sidebar
+  if (window.innerWidth <= 900) {
+    document.getElementById('sidebar').classList.remove('open');
+    var bd = document.getElementById('sidebar-backdrop');
+    if (bd) bd.classList.remove('visible');
+  }
 }
 
 // ══════════════════════════════════════════════════════════════════

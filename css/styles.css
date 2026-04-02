@@ -8,7 +8,7 @@
       --sidebar-w: 300px;
       --panel-w: 420px;
       --header-h: 80px;
-      --mob-header-h: 75px;
+      --mob-header-h: 80px;
       --safe-top: env(safe-area-inset-top, 0px);
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -1001,7 +1001,7 @@
       .sidebar {
         pointer-events: none;
         position: fixed; left: 0;
-        top: calc(var(--mob-header-h) + var(--safe-top));
+        top: calc(var(--mob-header-h) + var(--safe-top) + 43px);
         bottom: 0;
         transform: translateX(-100%);
         transition: transform 0.28s cubic-bezier(.4,0,.2,1);
