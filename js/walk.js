@@ -428,16 +428,4 @@ function closeSidebar() {
   if (bd) bd.classList.remove('visible');
 }
 
-// ── Mobile action bar toggle ──────────────────────────────────────
-function toggleMobileActions() {
-  var bar = document.getElementById('mobile-action-bar');
-  if (!bar) return toggleSidebar();          // fallback for desktop
-  if (window.innerWidth > 900) return toggleSidebar(); // desktop: open sidebar
-  bar.classList.toggle('open');
-}
-function closeMobileActions() {
-  var bar = document.getElementById('mobile-action-bar');
-  if (bar) bar.classList.remove('open');
-}
-
 // ══════════════════════════════════════════════════════════════════

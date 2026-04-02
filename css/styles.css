@@ -8,7 +8,7 @@
       --sidebar-w: 300px;
       --panel-w: 420px;
       --header-h: 80px;
-      --mob-header-h: 75px;
+      --mob-header-h: 70px;
       --safe-top: env(safe-area-inset-top, 0px);
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -261,10 +261,6 @@
       background: white; cursor: pointer; align-items: center;
       justify-content: center; flex-shrink: 0; font-size: 16px;
     }
-    /* Mobile action bar + mob-action-btn: hidden on desktop (overridden in @media ≤900) */
-    #mobile-action-bar { display: none; }
-    .mob-action-btn { display: none; }
-
     /* ── LAYOUT ─────────────────────────────────────────── */
     .app { display: flex; flex: 1; overflow: hidden; position: relative; }
 
@@ -930,14 +926,13 @@
       header {
         display: grid;
         grid-template-columns: auto 1fr;
-        grid-template-rows: 1fr auto;
+        grid-template-rows: 1fr 1fr;
         height: var(--mob-header-h);
         min-height: calc(var(--mob-header-h) + var(--safe-top));
-        padding: env(safe-area-inset-top, 0px) 10px 2px;
+        padding: env(safe-area-inset-top, 0px) 10px 0;
         gap: 0 8px;
         box-sizing: border-box;
         align-items: center;
-        overflow: hidden;
       }
       /* Logo: spans both rows, left column */
       .logo {
@@ -945,7 +940,7 @@
         grid-column: 1;
         align-self: center;
       }
-      .logo-img { height: 48px; }
+      .logo-img { height: 50px; }
       /* Row 1: menu + search */
       .header-row1 {
         grid-row: 1; grid-column: 2;
@@ -959,49 +954,19 @@
         min-width: 0;
       }
       .search-wrap { max-width: none; flex: 1; min-width: 0; }
-      /* Hide Near Me, Fav, Route from header-row2 on mobile */
-      #near-me-btn { display: none; }
-      #fav-btn { display: none; }
-      #route-btn { display: none; }
+      #near-me-btn .near-text { display: none; }
+      #near-me-btn { padding: 0 8px; height: 28px; font-size: 11px; }
+      #fav-btn .fav-text { display: none; }
+      #fav-btn { padding: 0 8px; height: 28px; font-size: 13px; }
+      #route-btn .route-text { display: none; }
+      #route-btn { padding: 0 8px; height: 28px; font-size: 11px; }
       #fav-io-bar.visible { display: flex; font-size: 11px; padding: 0 10px; min-height: 36px; gap: 6px; }
       #fav-io-bar .fav-io-label { font-size: 10px; }
       #fav-io-bar .fav-io-btn { height: 24px; padding: 0 8px; font-size: 10px; }
       #menu-btn { display: flex; }
-      #city-select-mobile { max-width: 130px; font-size: 12px; height: 28px; }
-      #lang-btn { height: 28px; font-size: 11px; padding: 0 6px; }
+      #city-select-mobile { max-width: 110px; font-size: 11px; height: 28px; }
+      #lang-btn { height: 28px; font-size: 11px; padding: 0 8px; }
       #search { height: 30px; font-size: 12px; }
-
-      /* ── Mobile action bar (toggled by menu btn) ── */
-      #mobile-action-bar {
-        display: none;
-        position: fixed;
-        top: calc(var(--mob-header-h) + var(--safe-top));
-        left: 0; right: 0;
-        background: var(--surface);
-        border-bottom: 1px solid var(--border);
-        padding: 8px 12px;
-        gap: 8px;
-        z-index: 999;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        flex-wrap: wrap;
-      }
-      #mobile-action-bar.open { display: flex; }
-      .mob-action-btn {
-        flex: 1 1 calc(50% - 4px);
-        height: 38px;
-        border: 1px solid var(--border); border-radius: 8px;
-        background: white; cursor: pointer;
-        display: flex; align-items: center; justify-content: center; gap: 6px;
-        font-size: 12.5px; font-family: inherit; font-weight: 600;
-        color: var(--text-primary);
-        transition: all 0.15s;
-        white-space: nowrap;
-      }
-      .mob-action-btn:active { background: #f0f0f0; }
-      #mob-near-btn { border-color: #A5B4FC; color: #4338CA; }
-      #mob-fav-btn { border-color: #FF5F00; color: #CC4C00; }
-      #mob-route-btn { border-color: #3B82F6; color: #2563EB; }
-      #mob-sidebar-btn { border-color: var(--border); color: var(--text-secondary); }
 
       /* ── Sidebar overlay ── */
       .app { overflow: visible; }
