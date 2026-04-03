@@ -265,9 +265,10 @@ function loadCityData(cityCode) {
     return Promise.resolve();
   }
 
-  // Otherwise load script dynamically
-  var dataFile = 'data-' + meta.key + '.js';
-  var koFile   = 'data-ko-' + meta.key + '.js';
+  // Otherwise load script dynamically (cache-bust with timestamp)
+  var cb = '?_=' + Date.now();
+  var dataFile = 'data-' + meta.key + '.js' + cb;
+  var koFile   = 'data-ko-' + meta.key + '.js' + cb;
   return _loadScript(dataFile).then(function() {
     _mergeCityLocs(cityCode, meta);
     return _loadScript(koFile).then(function() {
