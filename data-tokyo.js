@@ -120,7 +120,7 @@ var LOCS_TOKYO = [
 
   {
     id:'tok-0004',
-    name:'Tod\'s Omotesando Building',
+    name:'Tod Omotesando's Omotesando Building',
     cat:'Landmarks', cc:'c-lmk', styleGroup:'Contemporary',
     cats:['Landmarks','Retail'],
     styleGroups:['Contemporary'],
@@ -641,7 +641,7 @@ var LOCS_TOKYO = [
 
   {
     id:'tok-0019',
-    name:'Collezione',
+    name:'LA COLLEZIONE',
     cat:'Landmarks', cc:'c-lmk', styleGroup:'Contemporary',
     cats:['Landmarks','Skyscrapers'],
     styleGroups:['Contemporary'],
@@ -783,37 +783,6 @@ var LOCS_TOKYO = [
 
   // ── JUNZO SAKAKURA ──────────────────────────────────────────────
 
-  {
-    id:'tok-0023',
-    name:'Harumi Apartment Complex',
-    cat:'Historic', cc:'c-his', styleGroup:'Modernist',
-    cats:['Historic','Residential'],
-    styleGroups:['Modernist'],
-    era:'1930–1969', city:'tokyo',
-    arch:'Junzo Sakakura', archs:['Junzo Sakakura'],
-    yr:1958, access:'Open to Public', style:'Corbusian Modernism',
-    lat:35.6644852, lng:139.7266474,
-    addr:'5-chōme-1-17 Harumi, Chuo City, Tokyo', hood:'Harumi',
-    localName:'晴海高層アパート',
-    localAddr:'東京都港区',
-    localHood:'港区',
-    desc:'Designed by Junzo Sakakura — who spent eight years in Le Corbusier\'s Paris atelier before returning to Japan — the Harumi Apartment Complex introduced the unité d\'habitation typology to Japanese public housing. Four slab blocks rise on pilotis above open landscaped ground in Harumi, a postwar reclaimed waterfront district of Chuo Ward. Commissioned by the Japan Housing Corporation as a model for modern collective living, the project set compositional and social standards that influenced a generation of public housing in Japan. Sakakura\'s use of the pilotis, roof garden, and free façade — all Corbusian principles — was understood at the time as a serious statement about what a democratic urban life could be. The surviving blocks are now protected as Important Cultural Properties.',
-    hours:'Exterior freely visible. Interior: residential, private.', lastEntry:'',
-    admission:'Free (exterior)',
-    tourOk:false, tourInfo:'The exterior and grounds are accessible. The buildings are active residences and interiors are private.',
-    web:'',
-    transit:'Tokyo Metro Yurakucho / Toei Oedo → Tsukishima (15 min walk); Bus: Harumi 4-chome',
-    walkFrom:'Tsukishima (monjayaki district): 15 min · Harumi waterfront: 5 min',
-    gmaps:'https://maps.google.com/?q=Harumi+Apartments+Tokyo',
-    archdaily:'',
-    wiki:'https://en.wikipedia.org/wiki/Harumi_Flats',
-    tags:['Junzo Sakakura','Le Corbusier','Public Housing','Modernism','Harumi','Important Cultural Property','1958'],
-    photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Harumi_apartments.jpg?width=800'
-    ],
-    drawings:[]
-  },
-
   // ── JUNZO YOSHIMURA ─────────────────────────────────────────────
 
   {
@@ -882,39 +851,6 @@ var LOCS_TOKYO = [
 
   // ── WONDERWALL (MASAMICHI KATAYAMA) ─────────────────────────────
 
-  {
-    id:'tok-0026',
-    name:'Uniqlo Ginza Flagship',
-    cat:'Retail', cc:'c-ret', styleGroup:'Contemporary',
-    cats:['Retail'],
-    styleGroups:['Contemporary'],
-    era:'2000–Present', city:'tokyo',
-    arch:'Wonderwall (Masamichi Katayama)', archs:['Wonderwall','Masamichi Katayama'],
-    yr:2012, access:'Open to Public', style:'Concept Retail Design',
-    lat:35.6702448, lng:139.76346859999998,
-    addr:'Japan, 〒104-0061 Tokyo, Chuo City, Ginza, 6-chōme−9−５ 1F-12F', hood:'Ginza',
-    localName:'ユニクロ銀座店',
-    localAddr:'ロンドン',
-    localHood:'ロンドン',
-    desc:'Masamichi Katayama of Wonderwall is the architect most responsible for defining what Tokyo retail design became in the 2000s and 2010s — a discipline in which spatial branding is indistinguishable from cultural identity. The Uniqlo Ginza flagship, occupying twelve floors of a Ginza tower, is among his most ambitious spatial works: a vertical cascade of experience in which each floor is distinguished by a different material palette, proportion, and lighting condition, yet the whole reads as a single continuous spatial narrative. Katayama\'s influence extends from Harajuku streetwear boutiques (Bape, Neighborhood) to global fashion retail, but his Ginza work represents the maturation of his thinking into something genuinely architectural.',
-    hours:'Daily 11:00–21:00', lastEntry:'',
-    admission:'Free',
-    tourOk:false, tourInfo:'The store is freely accessible during opening hours.',
-    web:'https://www.uniqlo.com/jp/store/list/ginza.html',
-    transit:'Tokyo Metro Ginza / Hibiya / Marunouchi → Ginza (Exit A2, 2 min walk)',
-    walkFrom:'Ginza Six: 5 min · Itoya Stationery: 3 min',
-    gmaps:'https://maps.google.com/?q=Uniqlo+Ginza+Flagship',
-    archdaily:'',
-    wiki:'',
-    tags:['Wonderwall','Masamichi Katayama','Ginza','Retail Design','Uniqlo','2012','Interior','Flagship'],
-    photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/UNIQLO_Ginza_store.JPG?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Ginza_2017_%2838639131691%29.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/UNIQLO_Ginza._%2853187060408%29.jpg?width=800'
-    ],
-    drawings:[]
-  },
-
   // ── KLEIN DYTHAM ARCHITECTURE ───────────────────────────────────
 
   {
@@ -981,69 +917,9 @@ var LOCS_TOKYO = [
 
   // ── JUNYA ISHIGAMI ──────────────────────────────────────────────
 
-  {
-    id:'tok-0029',
-    name:'KAIT Workshop',
-    cat:'Academic / Institution', cc:'c-edu', styleGroup:'Contemporary',
-    cats:['Academic / Institution'],
-    styleGroups:['Contemporary'],
-    era:'2000–Present', city:'tokyo',
-    arch:'Junya Ishigami', archs:['Junya Ishigami'],
-    yr:2008, access:'Open to Public', style:'Structural Minimalism',
-    lat:35.6702448, lng:139.76346859999998,
-    addr:'1030 Shimoogino, Atsugi, Kanagawa', hood:'Atsugi / Kanagawa',
-    localName:'KAIT工房',
-    localAddr:'東京都中央区銀座3-8-15',
-    localHood:'銀座',
-    desc:'The KAIT Workshop at Kanagawa Institute of Technology is Junya Ishigami\'s breakthrough built work — a single-storey glass pavilion covering 2,000 sqm whose structural system defies immediate comprehension. Three hundred and five slender steel columns, each of a different cross-section and set at a subtly varying angle, carry the flat roof in an arrangement that resembles a forest more than an engineered grid. No column is redundant; each carries a precise load in a precisely calibrated direction; together they produce a space without hierarchy, without emphasis, without beginning or end. The workshop accommodates student making across its open floor — welding, woodworking, ceramics — dissolving the boundary between workshop and landscape. Junya Ishigami was awarded the Pritzker Prize in 2024.',
-    hours:'Open during Kanagawa Institute of Technology campus hours (term time).', lastEntry:'',
-    admission:'Free with campus access',
-    tourOk:false, tourInfo:'The building is on the KIT campus and accessible during university hours. No formal tours offered.',
-    web:'https://www.jnyi.jp',
-    transit:'Odakyu Odawara Line → Atsugi; bus to Kanagawa Institute of Technology (40 min from Shinjuku)',
-    walkFrom:'KIT main campus buildings: adjacent',
-    gmaps:'https://maps.google.com/?q=Kanagawa+Institute+of+Technology+KAIT+Workshop',
-    archdaily:'https://www.archdaily.com/13953/kait-workshop-junya-ishigami',
-    wiki:'https://en.wikipedia.org/wiki/KAIT_Workshop',
-    tags:['Junya Ishigami','KAIT','Pritzker 2024','Columns','Structural','Minimalism','Workshop','Kanagawa','2008'],
-    photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/KAIT_workshop.jpg?width=800'
-    ],
-    drawings:[]
-  },
-
   // ── HIROSHI NAKAMURA & NAP ──────────────────────────────────────
 
   // ── YOSHIHIRO SATO ──────────────────────────────────────────────
-
-  {
-    id:'tok-0031',
-    name:'Sakuradai Court Village',
-    cat:'Residential', cc:'c-res', styleGroup:'Contemporary',
-    cats:['Residential','Cultural'],
-    styleGroups:['Contemporary'],
-    era:'2000–Present', city:'tokyo',
-    arch:'Yoshihiro Sato', archs:['Yoshihiro Sato'],
-    yr:2007, access:'Open to Public', style:'Urban Housing',
-    lat:35.6719515, lng:139.7662941,
-    addr:'1 Chome-4 Sakuradai, Nerima City, Tokyo', hood:'Nerima',
-    localName:'桜台コートビレジ',
-    localAddr:'東京都中央区銀座3-6-1',
-    localHood:'銀座',
-    desc:'Yoshihiro Sato is among the Tokyo architects who have approached housing not as a typological problem but as an urban design challenge — asking how collective residential buildings can produce street life, shared space, and spatial variety at the scale of the neighbourhood. The Sakuradai Court Village project in Nerima Ward is a notable example of this approach: a complex of housing units arranged to create internal courtyards and semi-public passages that invert the typical relationship between the residential block and the street, producing an interior neighbourhood of its own.',
-    hours:'Exterior freely visible. Residential interior: private.', lastEntry:'',
-    admission:'Free (exterior)',
-    tourOk:false, tourInfo:'Residential complex. Exterior and shared walkways may be accessible.',
-    web:'',
-    transit:'Seibu Ikebukuro Line → Sakuradai',
-    walkFrom:'Nerima ward local area',
-    gmaps:'https://maps.google.com/?q=Sakuradai+Nerima+Tokyo',
-    archdaily:'',
-    wiki:'',
-    tags:['Yoshihiro Sato','Nerima','Housing','Courtyard','Residential','Tokyo','2007'],
-    photos:[],
-    drawings:[]
-  },
 
   // ── TAKASHI YAMAGUCHI ───────────────────────────────────────────
 
@@ -1078,35 +954,6 @@ var LOCS_TOKYO = [
 
   // ── YUICHIRO HIGUCHI ────────────────────────────────────────────
 
-  {
-    id:'tok-0033',
-    name:'House in Komazawa',
-    cat:'Residential', cc:'c-res', styleGroup:'Contemporary',
-    cats:['Residential'],
-    styleGroups:['Contemporary'],
-    era:'2000–Present', city:'tokyo',
-    arch:'Yuichiro Higuchi', archs:['Yuichiro Higuchi'],
-    yr:2010, access:'Private', style:'Contemporary',
-    lat:34.666917, lng:135.4334343,
-    addr:'1-chōme-23-1 Komazawa, Setagaya City, Tokyo', hood:'Komazawa',
-    localName:'駒沢の住宅',
-    localAddr:'大阪府大阪市此花区桜島2-1-33',
-    localHood:'ユニバーサルシティ',
-    desc:'Yuichiro Higuchi works within the long tradition of experimental residential architecture that has made Tokyo\'s urban fabric a laboratory of domestic invention. Operating at the scale of the individual house — the scale at which Japanese architects have historically been freest to speculate — Higuchi\'s residential work explores the relationship between programme, section, and light in the constrained conditions of the Tokyo plot. The house in Komazawa is representative of a generation of Tokyo practitioners who inherited the formal intensity of the 1990s Atelier movement and redirected it toward a more nuanced engagement with the textures of everyday urban life.',
-    hours:'Private residence. Not open to public.', lastEntry:'',
-    admission:'N/A',
-    tourOk:false, tourInfo:'Private residential building.',
-    web:'',
-    transit:'Tokyu Den-en-toshi Line → Komazawa-Daigaku',
-    walkFrom:'Komazawa Olympic Park: 10 min',
-    gmaps:'https://maps.google.com/?q=Komazawa+Setagaya+Tokyo',
-    archdaily:'',
-    wiki:'',
-    tags:['Yuichiro Higuchi','Residential','Komazawa','Setagaya','Tokyo','Contemporary'],
-    photos:[],
-    drawings:[]
-  },
-
   // ── NIKKEN SEKKEI ──────────────────────────────────────────────
 
   {
@@ -1139,35 +986,6 @@ var LOCS_TOKYO = [
       'https://commons.wikimedia.org/wiki/Special:FilePath/Tokyu_Plaza_Ginza4.JPG?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Tokyu_Plaza_Ginza_at_night%2C_Tokyo_2016-10-17_1.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Tokyu_Plaza_in_Ginza.jpg?width=800'
-    ],
-    drawings:[]
-  },
-
-  {
-    id:'tok-0035',
-    name:'Yamaha Ginza Building',
-    cat:'Retail', cats:['Retail','Cultural','Commercial'], cc:'c-ret', styleGroup:'Contemporary', styleGroups:['Contemporary'],
-    era:'2000–Present', city:'tokyo',
-    arch:'Nikken Sekkei', archs:['Nikken Sekkei'],
-    yr:2010, access:'Open to Public', style:'Contemporary',
-    lat:35.6798037, lng:139.8081939,
-    addr:'Japan, 〒104-0061 Tokyo, Chuo City, Ginza, 7-chōme−9−１４ ヤマハ銀座店 1F, 2F', hood:'Ginza',
-    localName:'ヤマハ銀座ビル',
-    localAddr:'香川県豊島郡土庄町豊島',
-    localHood:'豊島 / 瀬戸内',
-    desc:'The Yamaha Ginza Building, rebuilt by Nikken Sekkei in 2010, serves as the flagship Tokyo showroom for Yamaha\'s full range of musical instruments, audio equipment, and music education. The building\'s facade deploys a rhythmic pattern of vertical aluminium fins and glazing that evokes musical notation — the alternating opaque and transparent bays read as the bars and spaces of a musical score when seen from Chuo Dori. The interior showrooms occupy eight floors, with a concert hall, recording studios, and hands-on instrument demonstration spaces integrated across the building section. The project demonstrates Nikken Sekkei\'s command of programme-driven facade design: every element of the exterior expression is rooted in the building\'s function as a temple to sound and music.',
-    hours:'Daily 11:00 AM – 7:00 PM (concert hall hours vary)', lastEntry:'',
-    admission:'Showrooms free · Concert and event tickets vary',
-    tourOk:false, tourInfo:'The instrument showrooms on all floors are open to the public. Musical instrument demonstrations and workshops are frequently held. Check the Yamaha website for concert and event schedules.',
-    web:'https://www.yamahamusic.jp/shop/ginza',
-    transit:'Ginza/Hibiya/Marunouchi → Ginza (A4 exit, 5 min)',
-    walkFrom:'Shizuoka Press Building (Tange): 2 min · Ginza Six: 8 min',
-    gmaps:'https://maps.google.com/?q=Yamaha+Ginza+Building+Tokyo',
-    archdaily:'https://www.archdaily.com/tag/yamaha-ginza',
-    wiki:'',
-    tags:['Nikken Sekkei','Yamaha','Music','Retail','Ginza','Concert Hall','Facade'],
-    photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Yamaha_Ginza_Building_Tokyo.jpg?width=800'
     ],
     drawings:[]
   },
@@ -1371,65 +1189,7 @@ var LOCS_TOKYO = [
 
   // ── NORIHIKO DAN AND ASSOCIATES ───────────────────────────────
 
-  {
-    id:'tok-0042',
-    name:'Keyaki Building',
-    cat:'Retail', cats:['Retail','Landmarks'], cc:'c-ret', styleGroup:'Contemporary', styleGroups:['Contemporary'],
-    era:'2000–Present', city:'tokyo',
-    arch:'Norihiko Dan and Associates', archs:['Norihiko Dan and Associates'],
-    yr:2008, access:'Open to Public', style:'Contemporary',
-    lat:35.6917978, lng:139.764364,
-    addr:'6 Chome-12 Roppongi, Minato City, Tokyo', hood:'Minamiaoyama / Omotesando',
-    localName:'けやきビル',
-    localAddr:'東京都江東区',
-    localHood:'江東',
-    desc:'The Keyaki Building by Norihiko Dan and Associates takes its name from the keyaki (zelkova) trees — the same species that canopy Omotesando avenue — whose forms are abstracted into the building\'s facade. Norihiko Dan, who inherited and extended the legacy of his father Kenzo Tange\'s practice, applies a rigorous structural intelligence to the question of how a small commercial building might speak to the mature urban landscape of Omotesando without competing with it. The facade system uses a layered screen of perforated metal panels whose aperture pattern is derived from the branching silhouette of the keyaki tree in winter, allowing natural light to filter through in the same dappled pattern as the tree canopy overhead. At ground level, the building steps back to create a small covered arcade, a semi-public threshold between the pavement and the retail interior consistent with the pedestrian grain of the Omotesando side streets.',
-    hours:'Shops: daily 11:00 AM – 8:00 PM', lastEntry:'',
-    admission:'Free access',
-    tourOk:false, tourInfo:'Small commercial and retail building freely accessible during shop hours. The perforated metal facade and ground-floor arcade are best observed in late afternoon, when the dappled shadow pattern the screen casts onto the interior floors is most vivid.',
-    web:'',
-    transit:'Ginza/Hanzomon/Chiyoda → Omotesando (A5 exit, 3 min)',
-    walkFrom:'Miu Miu Aoyama (Herzog & de Meuron): 3 min · Omotesando Hills (Tadao Ando): 5 min',
-    gmaps:'https://maps.google.com/?q=Keyaki+Building+Omotesando+Tokyo',
-    archdaily:'',
-    wiki:'',
-    tags:['Norihiko Dan','Keyaki','Zelkova','Omotesando','Aoyama','Perforated Facade','Retail','2008'],
-    photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Keyaki_Building_Omotesando_Tokyo.jpg?width=800'
-    ],
-    drawings:[]
-  },
-
   // ── OMA ───────────────────────────────────────────────────────
-
-  {
-    id:'tok-0043',
-    name:'Coach Omotesando Flagship',
-    cat:'Retail', cats:['Retail','Landmarks'], cc:'c-ret', styleGroup:'Contemporary', styleGroups:['Contemporary'],
-    era:'2000–Present', city:'tokyo',
-    arch:'OMA (Office for Metropolitan Architecture)', archs:['OMA (Office for Metropolitan Architecture)'],
-    yr:2016, access:'Open to Public', style:'Contemporary',
-    lat:35.6620689, lng:139.7432671,
-    addr:'4-chōme-12-10 Jingūmae, Shibuya, Tokyo', hood:'Minamiaoyama / Omotesando',
-    localName:'コーチ表参道',
-    localAddr:'東京都江東区',
-    localHood:'江東',
-    desc:'OMA\'s Coach Omotesando flagship, designed under the leadership of Shohei Shigematsu and completed in 2016, translates OMA\'s characteristic graphic and programmatic intelligence into a mid-scale luxury retail building on one of Tokyo\'s most architecturally competitive streets. The building\'s facade is articulated in bands of warm-toned stone and glazing, with the horizontal datum of the Omotesando streetscape extended into the building section. OMA organised the retail floors as a sectional promenade rather than stacked slabs — visitors encounter the Coach collection through a continuous spatial loop of ramps, platforms, and level changes that reference the movement patterns of a New York brownstone walk-up, a reference to Coach\'s American heritage. The ground floor is pulled back from the street to create a generous covered entry zone that functions as a semi-public threshold — OMA\'s consistent argument that even luxury retail should contribute to the public life of the city around it.',
-    hours:'Mon–Sun 11:00 AM – 8:00 PM', lastEntry:'',
-    admission:'Free access (retail)',
-    tourOk:false, tourInfo:'Coach flagship boutique. The sectional organisation of the interior is best explored by ascending through all retail floors. The entry forecourt functions as a publicly accessible covered space.',
-    web:'https://www.coach.com',
-    transit:'Ginza/Hanzomon/Chiyoda → Omotesando (A5 exit, 4 min)',
-    walkFrom:'Keyaki Building (Norihiko Dan): 3 min · Prada Omotesando (Herzog & de Meuron): 4 min',
-    gmaps:'https://maps.google.com/?q=Coach+Omotesando+Flagship+Tokyo',
-    archdaily:'https://www.archdaily.com/tag/coach-omotesando',
-    wiki:'',
-    tags:['OMA','Rem Koolhaas','Shohei Shigematsu','Coach','Omotesando','Retail','Flagship','2016','Sectional'],
-    photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Coach_Omotesando_OMA_Tokyo.jpg?width=800'
-    ],
-    drawings:[]
-  },
 
   // ── HEATHERWICK STUDIO ────────────────────────────────────────
 
