@@ -271,7 +271,7 @@ function openLoc(loc) {
     svIframe.setAttribute('allowfullscreen', '');
     svIframe.src = 'https://www.google.com/maps/embed/v1/streetview?key=' +
       GOOGLE_MAPS_API_KEY + '&location=' + loc.lat + ',' + loc.lng +
-      '&heading=210&pitch=10&fov=90';
+      '&heading=210&pitch=10&fov=90&source=outdoor';
     if (hasPhotos) svIframe.style.display = 'none';
     gallery.insertBefore(svIframe, gallery.querySelector('.g-btn'));
     if (!hasPhotos) gallery.classList.add('sv-mode');
