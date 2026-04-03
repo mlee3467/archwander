@@ -254,7 +254,7 @@ var LOCS_TOKYO = [
 
   {
     id:'tok-0008',
-    name:'Nicolas G. Hayek Center',
+    name:'Nicolas G Hayek Centre',
     cat:'Landmarks', cc:'c-lmk', styleGroup:'Contemporary',
     cats:['Landmarks','Cultural'],
     styleGroups:['Contemporary'],
