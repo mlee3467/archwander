@@ -136,7 +136,7 @@ var LOCS_LONDON = [
     arch:'Foster + Partners', archs:['Foster + Partners'],
     yr:2002, access:'Free Admission', style:'Contemporary',
     lat:51.5073119, lng:0.016255200000000004,
-    addr:'Kamal Chunchie Way, London E16 1ZE's Walk, Southwark, London SE1 2AA', hood:'South Bank / London Bridge',
+    addr:'Kamal Chunchie Way, London E16 1ZE', hood:'South Bank / London Bridge',
     desc:'London\'s City Hall, completed in 2002 on the South Bank opposite the Tower of London, is an exercise in geometric energy efficiency: the building\'s distinctive tilted globe form minimises surface area exposed to direct sunlight, reducing solar gain, while a 500-metre public spiral ramp winds upward through its ten storeys. Foster + Partners calculated the optimal tilt angle to shade the offices below, creating a shape that appears different from every angle. Though the Greater London Authority relocated to Stratford in 2021 and the building was rebranded, it remains a major public space housing the outdoor amphitheatre The Scoop on its riverside.',
     hours:'Exterior and riverside: always open · Interior access varies',
     lastEntry:'',

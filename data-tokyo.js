@@ -81,7 +81,7 @@ var LOCS_TOKYO = [
 
   {
     id:'tok-0003',
-    name:'St. Mary\'s Cathedral's Cathedral Tokyo',
+    name:'St. Mary\'s Cathedral Tokyo',
     cat:'Religious', cc:'c-rel', styleGroup:'Modernist',
     cats:['Religious'],
     styleGroups:['Modernist'],
@@ -120,7 +120,7 @@ var LOCS_TOKYO = [
 
   {
     id:'tok-0004',
-    name:'Tods Omotesando's Omotesando Building',
+    name:'Tod\'s Omotesando Building',
     cat:'Landmarks', cc:'c-lmk', styleGroup:'Contemporary',
     cats:['Landmarks','Retail'],
     styleGroups:['Contemporary'],
