@@ -68,9 +68,9 @@ js/init.js          ← 부팅, 관리자 패널, SW 등록
 | 도시 | city 값 | ID prefix | 현재 범위 | 다음 ID |
 |------|---------|-----------|-----------|---------|
 | New York | `new-york` | `nyc` | nyc-0001 ~ nyc-0143 | **nyc-0144** |
-| Seoul | `seoul` | `sel` | sel-0001 ~ sel-0047 | **sel-0048** |
+| Seoul | `seoul` | `sel` | sel-0001 ~ sel-0096 | **sel-0097** |
 | London | `london` | `lon` | lon-0001 ~ lon-0022 | **lon-0023** |
-| Tokyo | `tokyo` | `tok` | tok-0001 ~ tok-0044 | **tok-0045** |
+| Tokyo | `tokyo` | `tok` | tok-0001 ~ tok-0094 | **tok-0095** |
 
 ### 규칙
 - ID는 **이름과 무관** — 이름이 바뀌어도 ID는 그대로 유지
