@@ -641,14 +641,14 @@ var LOCS_TOKYO = [
 
   {
     id:'tok-0019',
-    name:'Collezione',
+    name:'LA COLLEZIONE',
     cat:'Landmarks', cc:'c-lmk', styleGroup:'Contemporary',
     cats:['Landmarks','Skyscrapers'],
     styleGroups:['Contemporary'],
     era:'1970–1999', city:'tokyo',
     arch:'Tadao Ando', archs:['Tadao Ando'],
     yr:1989, access:'Open to Public', style:'Contemporary',
-    lat:35.6625759, lng:139.716313,
+    lat:35.6625759, lng:139.71631299999999,
     addr:'Japan, 〒107-0062 Tokyo, Minato City, Minamiaoyama, 6-chōme−1−３ コレッツィオーネビル', hood:'Minami-Aoyama',
     localName:'コレッツィオーネ',
     localAddr:'東京都千代田区丸の内',
