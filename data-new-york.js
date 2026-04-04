@@ -1,6 +1,6 @@
 /* ============================================================
    ArchWander — New York Location Data
-   143 locations
+   141 locations
    ============================================================ */
 
 var LOCS_NEW_YORK = [
@@ -10,7 +10,8 @@ var LOCS_NEW_YORK = [
     cats:[
       'Skyscrapers',
       'Landmarks',
-      'Commercial'
+      'Commercial',
+      'Observatory'
     ],
     cc:'c-sky',
     styleGroups:[
@@ -95,7 +96,8 @@ var LOCS_NEW_YORK = [
     cats:[
       'Skyscrapers',
       'Landmarks',
-      'Commercial'
+      'Commercial',
+      'Observatory'
     ],
     cc:'c-sky',
     styleGroups:[
@@ -679,7 +681,8 @@ var LOCS_NEW_YORK = [
     name:'Rockefeller Plaza',
     cats:[
       'Skyscrapers',
-      'Landmarks'
+      'Landmarks',
+      'Observatory'
     ],
     cc:'c-sky',
     styleGroups:[
@@ -1475,7 +1478,7 @@ var LOCS_NEW_YORK = [
     name:'The Shed',
     cats:[
       'Cultural',
-      'Landmarks'
+      'Art Space'
     ],
     cc:'c-cul',
     styleGroups:[
@@ -1522,7 +1525,8 @@ var LOCS_NEW_YORK = [
     ],
     cc:'c-park',
     styleGroups:[
-      'Landscape'
+      'Landscape',
+      'Picturesque'
     ],
     era:'Pre-1900',
     arch:'Frederick Law Olmsted & Calvert Vaux',
@@ -1563,9 +1567,11 @@ var LOCS_NEW_YORK = [
     name:'TWA Hotel (TWA Flight Center)',
     cats:[
       'Historic',
-      'Landmarks'
+      'Landmarks',
+      'Commercial',
+      'Hospitality'
     ],
-    cc:'c-his',
+    cc:'c-com',
     styleGroups:[
       'Expressionist Modernism'
     ],
@@ -1599,7 +1605,8 @@ var LOCS_NEW_YORK = [
       'https://commons.wikimedia.org/wiki/Special:FilePath/Interior_TWA_Terminal_at_JFK_International_Airport.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Ambassadors_Club%2C_TWA_Flight_Center%2C_John_F._Kennedy_International_Airport%2C_Jamaica%2C_Queens%2C_New_York_City%2C_NY_%2848589082067%29.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Departures_Board%2C_TWA_Flight_Center%2C_John_F._Kennedy_International_Airport%2C_Jamaica%2C_Queens%2C_New_York_City%2C_NY_%2848589187066%29.jpg?width=800'
-    ]
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.6457894, lng:-73.7774955 }
   },
   {
     id:'nyc-0037',
@@ -1609,13 +1616,14 @@ var LOCS_NEW_YORK = [
     ],
     cc:'c-ret',
     styleGroups:[
-      'Contemporary'
+      'Contemporary',
+      'High-Tech'
     ],
     era:'2000–Present',
     city:'new-york',
     arch:'Foster + Partners',
     archs:[
-      'Foster + Partners'
+      'Norman Foster'
     ],
     yr:2006,
     access:'Open to Public',
@@ -1650,10 +1658,9 @@ var LOCS_NEW_YORK = [
     id:'nyc-0038',
     name:'VIA 57 West',
     cats:[
-      'Skyscrapers',
-      'Landmarks'
+      'Residential'
     ],
-    cc:'c-sky',
+    cc:'c-res',
     styleGroups:[
       'Contemporary'
     ],
@@ -1689,66 +1696,23 @@ var LOCS_NEW_YORK = [
     ]
   },
   {
-    id:'nyc-0039',
-    name:'Spring Studios (Printing Trades Building)',
-    cats:[
-      'Historic',
-      'Landmarks'
-    ],
-    cc:'c-his',
-    styleGroups:[
-      'Art Deco'
-    ],
-    era:'1930–1969',
-    city:'new-york',
-    arch:'Ely Jacques Kahn / Beyer Blinder Belle (renovation)',
-    archs:[
-      'Ely Jacques Kahn',
-      'Beyer Blinder Belle'
-    ],
-    yr:1938,
-    access:'Private',
-    lat:40.7210372,
-    lng:-74.00613,
-    addr:'50 Varick St, New York, NY 10013',
-    hood:'Tribeca',
-    desc:'The Printing Trades Building at 50 Varick Street is a 1938 Art Deco tower designed by Ely Jacques Kahn for New York\'s printing industry. Its richly detailed facade features polychrome glazed terra cotta ornament, brickwork patterns, and Art Deco metalwork — characteristic of Kahn\'s sophisticated commercial style. Beyer Blinder Belle oversaw its conversion into Spring Studios, now the premier creative events venue and New York Fashion Week headquarters. The project exemplifies the adaptive reuse of landmark Tribeca industrial architecture.',
-    hours:'Private event venue — not open to general public',
-    lastEntry:'',
-    admission:'Private. Exterior viewable from Varick St.',
-    tourOk:false,
-    tourInfo:'Private events venue. Interior by invitation only. Exterior architecture freely viewable.',
-    transit:'1 → Canal St · A C E → Canal St',
-    walkFrom:'Canal Street station: 3 min · Hudson Square: 2 min',
-    tags:[
-      'Art Deco',
-      'Ely Jacques Kahn',
-      'Adaptive Reuse',
-      'Tribeca',
-      'NYFW',
-      'Fashion Week'
-    ],
-    photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/50_Varick_Street_from_Canal_Street.jpg/800px-50_Varick_Street_from_Canal_Street.jpg'
-    ]
-  },
-  {
     id:'nyc-0040',
     name:'The Standard, High Line',
     cats:[
-      'Landmarks'
+      'Commercial',
+      'Hospitality'
     ],
-    cc:'c-lmk',
+    cc:'c-com',
     styleGroups:[
       'Contemporary'
     ],
     era:'2000–Present',
     city:'new-york',
-    arch:'Polshek Partnership (Ennead Architects)',
+    arch:'Ennead Architects',
     yr:2009,
     access:'Open to Public',
-    lat:40.74068219999999,
-    lng:-74.0086668,
+    lat:40.7405997,
+    lng:-74.0080905,
     addr:'848 Washington St, New York, NY 10014',
     hood:'Meatpacking District',
     desc:'The Standard, High Line is an 18-story glass hotel that straddles the elevated High Line park on massive concrete pilotis, creating a dramatic urban gateway and one of New York\'s most recognizable contemporary silhouettes. Designed by Polshek Partnership (now Ennead Architects) and completed in 2009, its placement was dictated by the mandate to preserve the High Line corridor beneath. Floor-to-ceiling glass on all facades made it instantly iconic — and notorious. The building helped define the transformation of the Meatpacking District and demonstrated that the High Line could anchor architecturally serious development.',
@@ -1770,17 +1734,23 @@ var LOCS_NEW_YORK = [
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/The_Standard_High_Line_%2824245%29.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/The_Standard_NYC_4255367163_fffef9e487_crop.jpg?width=800'
-    ]
+    ],
+    archs:[
+      'James Polshek'
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7404371, lng:-74.0081197 }
   },
   {
     id:'nyc-0041',
     name:'Barclays Center',
     cats:[
-      'Public'
+      'Public',
+      'Commercial'
     ],
-    cc:'c-pub',
+    cc:'c-com',
     styleGroups:[
-      'Contemporary'
+      'Contemporary',
+      'Parametric'
     ],
     era:'2000–Present',
     city:'new-york',
@@ -1805,7 +1775,8 @@ var LOCS_NEW_YORK = [
       'Arena',
       'Brooklyn',
       'Sports',
-      'Pacific Park'
+      'Pacific Park',
+      'Parametric'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Barclays_Center_western_side.jpg?width=800',
@@ -1818,9 +1789,10 @@ var LOCS_NEW_YORK = [
     id:'nyc-0042',
     name:'Domino Sugar Refinery / Domino Park',
     cats:[
-      'Parks'
+      'Parks',
+      'Commercial'
     ],
-    cc:'c-park',
+    cc:'c-com',
     styleGroups:[
       'Adaptive Reuse'
     ],
@@ -1832,9 +1804,9 @@ var LOCS_NEW_YORK = [
       'SHoP Architects'
     ],
     yr:2018,
-    access:'Open to Public',
-    lat:40.7162351,
-    lng:-73.96685169999999,
+    access:'Open to Public (Plaza)',
+    lat:40.7144438,
+    lng:-73.9672351,
     addr:'15 River St, Brooklyn, NY 11249',
     hood:'Williamsburg, Brooklyn',
     desc:'The former Domino Sugar Refinery in Williamsburg is one of New York\'s most significant adaptive reuse projects. The landmarked 1884 refinery — once the largest sugar refinery in the world — has been preserved as the cultural anchor of a 5-acre waterfront park designed by James Corner Field Operations (creators of the High Line). Domino Park (2018) incorporates original industrial machinery — vacuum pans, centrifugal separators, and rail tracks — as monumental public sculpture and interpretive elements. SHoP Architects designed the surrounding mixed-use residential towers. The project is a model for community-driven, heritage-sensitive waterfront redevelopment.',
@@ -1856,7 +1828,8 @@ var LOCS_NEW_YORK = [
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Domino_Sugar_Refinery%2C_New_York_City%2C_20231001_1133_1047.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Historic_Domino_Sugar_Refinery.jpg?width=800'
-    ]
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7139555, lng:-73.9673211 }
   },
   {
     id:'nyc-0043',
@@ -1878,8 +1851,8 @@ var LOCS_NEW_YORK = [
     ],
     yr:2017,
     access:'Open to Public',
-    lat:40.7546836,
-    lng:-73.9561878,
+    lat:40.7550107,
+    lng:-73.9562595,
     addr:'2 West Loop Rd, New York, NY 10044',
     hood:'Roosevelt Island',
     desc:'Cornell Tech is a graduate research campus on Roosevelt Island, established after Cornell won a 2011 NYC competition for an applied-sciences campus. The Bloomberg Center (Morphosis, 2017) is the anchor: a LEED Platinum building with one of the largest building-integrated photovoltaic arrays in New York, its entire south facade clad in 1,000 solar panels. Weiss/Manfredi designed the Tata Innovation Center and Snøhetta designed The Bridge (with Related Companies). Buildings are organized around a central lawn framing dramatic Manhattan skyline views, and the campus has become a model for 21st-century urban research education.',
@@ -1903,14 +1876,17 @@ var LOCS_NEW_YORK = [
       'https://commons.wikimedia.org/wiki/Special:FilePath/Cornell_Tech_buildings_%2841991%29_crop.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/The_Bridge_at_Cornell_Tech_10.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Cornell_Tech_-_View_from_Roof.jpg?width=800'
-    ]
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7549437, lng:-73.9562729 }
   },
   {
     id:'nyc-0044',
     name:'30 Hudson Yards',
     cats:[
       'Skyscrapers',
-      'Landmarks'
+      'Commercial',
+      'Observatory',
+      'Retail'
     ],
     cc:'c-sky',
     styleGroups:[
@@ -1921,8 +1897,8 @@ var LOCS_NEW_YORK = [
     arch:'KPF (Kohn Pedersen Fox)',
     yr:2019,
     access:'Paid Ticket',
-    lat:40.7548685,
-    lng:-74.0001022,
+    lat:40.7539705,
+    lng:-74.0005481,
     addr:'500 W 33rd St, New York, NY 10001',
     hood:'Hudson Yards',
     desc:'At 1,268 feet, 30 Hudson Yards is the tallest building in the Hudson Yards development and one of the tallest in New York City, designed by KPF. Its sculpted silhouette tapers and twists as it rises, distinguishing it from its orthogonal neighbors. The Edge observation deck on floors 100–101 is the highest outdoor sky deck in the Western Hemisphere at 1,100 feet, featuring a glass-floored cantilevered platform 80 feet over the street. Major tenants include Warner Bros. Discovery, Facebook, and KKR. The tower is a centerpiece of the largest private real estate development in US history.',
@@ -1945,7 +1921,8 @@ var LOCS_NEW_YORK = [
       'https://commons.wikimedia.org/wiki/Special:FilePath/30_Hudson_Yards_August_2024_008.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/30_Hudson_Yards_2025_021.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/30_Hudson_Yards_%2892900%29.jpg?width=800'
-    ]
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7539338, lng:-73.9998399 }
   },
   {
     id:'nyc-0045',
@@ -1987,52 +1964,8 @@ var LOCS_NEW_YORK = [
       'https://commons.wikimedia.org/wiki/Special:FilePath/The_Spiral_Sep_2021.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/The_Spiral_004.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/The_Spiral_008.jpg?width=800'
-    ]
-  },
-  {
-    id:'nyc-0046',
-    name:'Hudson Yards Masterplan',
-    cats:[
-      'Landmarks'
     ],
-    cc:'c-lmk',
-    styleGroups:[
-      'Contemporary'
-    ],
-    era:'2000–Present',
-    city:'new-york',
-    arch:'KPF (Kohn Pedersen Fox) + Related Companies + multiple firms',
-    archs:[
-      'KPF (Kohn Pedersen Fox)'
-    ],
-    yr:2019,
-    access:'Open to Public',
-    lat:40.7539341,
-    lng:-74.00334219999999,
-    addr:'Hudson Yards, New York, NY 10001',
-    hood:'Hudson Yards',
-    desc:'Hudson Yards is the largest private real estate development in American history, constructed atop an 28-acre concrete platform built over the active West Side Yard of the Long Island Rail Road. The masterplan by KPF (Kohn Pedersen Fox) and Related Companies organizes over 18 million square feet of office, residential, hotel, retail, and cultural space around a central public square. Key buildings include 30 Hudson Yards (KPF), The Spiral (BIG), 35 Hudson Yards (David Childs/SOM), The Shed (Diller Scofidio + Renfro), and Vessel (Heatherwick Studio). Phase 1 opened in March 2019, redrawing the western edge of Midtown Manhattan.',
-    hours:'Public spaces: Daily 7 AM – 11 PM',
-    lastEntry:'10:30 PM',
-    admission:'Public plazas: Free · Individual venues vary',
-    tourOk:true,
-    tourInfo:'Self-guided architecture walking from the High Line terminus. Information kiosk at main plaza.',
-    transit:'7 → 34 St–Hudson Yards · A C E → 34 St–Penn Station',
-    walkFrom:'High Line terminus: 5 min · Penn Station: 12 min',
-    tags:[
-      'KPF',
-      'Masterplan',
-      'Mixed-Use',
-      'Platform Development',
-      'Related Companies',
-      'Midtown West'
-    ],
-    photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Midtown_Manhattan_from_Weehawken_September_2021_HDR.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/30th_St_staging_for_Hudson_Yards_contruction_2014_jeh.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Hudson_Yards_Real_Estate_Development_Update-_April_16%2C_2015_%2816992354740%29.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Manhattan_W_Feb_2017_3.jpg?width=800'
-    ]
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7547994, lng:-73.9991319 }
   },
   {
     id:'nyc-0047',
