@@ -122,9 +122,9 @@ var ERA_RANGE = { 'Pre-1900':[0,1900], 'Pre-1930':[1900,1930], '1930–1969':[19
 
 // ── Multi-tag helpers ──────────────────────────────────────────
 // Primary category / style (first element) for color, icon, badge
-function _pCat(loc)   { return (loc.cats  || [loc.cat])[0]; }
-function _allCats(loc) { return loc.cats  || [loc.cat]; }
-function _allSGs(loc)  { return loc.styleGroups || [loc.styleGroup]; }
+function _pCat(loc)   { return (loc.cats || [])[0] || 'Landmarks'; }
+function _allCats(loc) { return loc.cats || []; }
+function _allSGs(loc)  { return loc.styleGroups || []; }
 function _pCC(loc)     { return CAT_CC_MAP[_pCat(loc)] || 'c-lmk'; }
 
 // All unique architects (sorted) — will be rebuilt per city in initMap / refreshApp

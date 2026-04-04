@@ -358,7 +358,8 @@ async function exportPDF() {
 
       // ── Info table ──
       const fields = [];
-      if (loc.style) fields.push([t('pdf_style'), loc.style]);
+      const sgs = _allSGs(loc).join(', ');
+      if (sgs) fields.push([t('pdf_style'), sgs]);
       const cats = _allCats(loc).map(c => _tCat(c)).join(', ');
       if (cats) fields.push([t('pdf_category'), cats]);
       if (loc.access) fields.push([t('pdf_access'), _tAccess(loc.access)]);

@@ -14,9 +14,10 @@
 - Archwander_tools/translate-tool.html — 번역 도구
 
 ## Location 데이터 필드
-id, name, cat, cc, styleGroup, era, city, arch, archs, yr,
-access, style, lat, lng, addr, hood, desc, hours, lastEntry, admission,
-tourOk, tourInfo, web, transit, walkFrom, gmaps, archdaily, wiki, tags, photos, drawings
+id, name, cc, cats, styleGroups, era, city, arch, archs, yr,
+access, lat, lng, addr, hood, desc, hours, lastEntry, admission,
+tourOk, tourInfo, transit, walkFrom, tags, photos
+※ cat, styleGroup, style, web, gmaps, archdaily, wiki, drawings 필드는 purge됨
 
 ## Config 상수 (index.html 상단)
 - THUNDERFOREST_API_KEY = 078a67760db947a9803755fe3b7a4916 / STYLE = 'atlas' (bilingual 레이블)

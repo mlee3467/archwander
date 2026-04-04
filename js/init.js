@@ -287,9 +287,9 @@ function closeAdmModal() {
 }
 
 function _clearAdmForm() {
-  ['af-name','af-arch','af-yr','af-style','af-styleGroup','af-lat','af-lng',
-   'af-addr','af-hood','af-desc','af-hours','af-admission','af-web',
-   'af-gmaps','af-wiki','af-archdaily','af-tags','af-photos','af-tourInfo'].forEach(id => {
+  ['af-name','af-arch','af-yr','af-styleGroup','af-lat','af-lng',
+   'af-addr','af-hood','af-desc','af-hours','af-admission',
+   'af-tags','af-photos','af-tourInfo'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.value = '';
   });
@@ -305,7 +305,6 @@ function _fillAdmForm(loc) {
   sv('af-name',       loc.name);
   sv('af-arch',       loc.arch);
   sv('af-yr',         loc.yr);
-  sv('af-style',      loc.style);
   sv('af-styleGroup', _allSGs(loc).join(', '));
   sv('af-lat',        loc.lat);
   sv('af-lng',        loc.lng);
@@ -314,10 +313,6 @@ function _fillAdmForm(loc) {
   sv('af-desc',       loc.desc);
   sv('af-hours',      loc.hours);
   sv('af-admission',  loc.admission);
-  sv('af-web',        loc.web);
-  sv('af-gmaps',      loc.gmaps);
-  sv('af-wiki',       loc.wiki);
-  sv('af-archdaily',  loc.archdaily);
   sv('af-tourInfo',   loc.tourInfo);
   sv('af-tags',       (loc.tags || []).join(', '));
   sv('af-photos',     (loc.photos || []).join('\n'));
@@ -363,10 +358,7 @@ function saveAdmForm() {
     name,       arch:       fv('af-arch') || 'Unknown',
     yr:         parseInt(fv('af-yr')) || new Date().getFullYear(),
     cats,       cc:         CAT_CC_MAP[pCat] || 'c-lmk',
-    cat: pCat,
-    style:      fv('af-style'),
     styleGroups,
-    styleGroup: styleGroups[0],
     era:        fv('af-era') || '2000–Present',
     access:     fv('af-access') || 'Open to Public',
     city:       fv('af-city') || 'new-york',
@@ -375,12 +367,9 @@ function saveAdmForm() {
     desc:       fv('af-desc'),   hours:    fv('af-hours'),
     lastEntry:  '',              admission: fv('af-admission'),
     tourOk:     document.getElementById('af-tourOk').checked,
-    tourInfo:   fv('af-tourInfo'), web:    fv('af-web'),
-    gmaps:      fv('af-gmaps'),  wiki:     fv('af-wiki'),
-    archdaily:  fv('af-archdaily'),
+    tourInfo:   fv('af-tourInfo'),
     tags:       fv('af-tags').split(',').map(t=>t.trim()).filter(Boolean),
-    photos:     fv('af-photos').split('\n').map(s=>s.trim()).filter(Boolean),
-    drawings:   _admEditId ? (LOCS.find(l=>l.id===_admEditId)?.drawings||[]) : []
+    photos:     fv('af-photos').split('\n').map(s=>s.trim()).filter(Boolean)
   };
 
   if (_admEditId) {

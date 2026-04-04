@@ -353,7 +353,7 @@ function buildOverviewTab(loc, trans = {}) {
     <div class="info-row"><span class="info-label">${t('address')}</span><span class="info-val">${_displayAddr(loc, trans.addr)}</span></div>
     <div class="info-row"><span class="info-label">${t('arch_label')}</span><span class="info-val">${loc.arch}</span></div>
     <div class="info-row"><span class="info-label">${t('completed')}</span><span class="info-val">${loc.yr}</span></div>
-    <div class="info-row"><span class="info-label">${t('style_label')}</span><span class="info-val">${loc.style}</span></div>
+    <div class="info-row"><span class="info-label">${t('style_label')}</span><span class="info-val">${_allSGs(loc).join(', ') || '—'}</span></div>
     ${loc.access ? `<div class="info-row"><span class="info-label">${t('access_label')}</span><span class="info-val"><span class="access-badge ${ACCESS_META[loc.access]?.cls||''}">${ACCESS_META[loc.access]?.icon||''} ${loc.access}</span></span></div>` : ''}
   `;
 }
