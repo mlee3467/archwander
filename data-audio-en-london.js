@@ -166,6 +166,186 @@ Rogers chose this structural system for speed as much as efficiency. The entire 
 The dome sits on the Greenwich Peninsula, a formerly contaminated industrial site that the Millennium project was intended to regenerate. After its initial life as the Millennium Experience exhibition, the dome was repurposed as an entertainment venue — The O2 — which has become one of the busiest concert and events arenas in the world. The original fabric roof and cable structure remain intact; the interior was reconfigured to house a 20,000-seat arena, restaurants, a cinema, and exhibition spaces within the vast volume that the dome provides.
 
 Walk around the exterior and look at the cable geometry. The radial cables create a pattern that resembles the face of a clock — appropriate, perhaps, for a building that was designed to mark the turning of a millennium. The masts lean outward; the cables pull inward. The forces are visible, legible, and in balance. Rogers has always believed that structure should be honest, and this building, for all its scale, hides nothing.`
+  },
+
+  'lon-0004': {
+    title: 'Canary Wharf Underground Station',
+    script: `You are entering one of the most extraordinary underground spaces ever built in Britain — Canary Wharf station on the Jubilee Line, designed by Foster + Partners and opened in 1999.
+
+The station is an immense elliptical concrete cavern, 313 meters long, 32 meters wide, and 28 meters high — large enough to contain the Canary Wharf tower lying on its side. It was built not by tunneling but by the cut-and-cover method: the former West India Dock was drained, the station constructed in the open, and then the dock water was allowed to return above. This method of construction was dictated by the site's unique condition — the station sits in the soft, waterlogged ground of a former shipping dock, and the entire structure had to be anchored against flotation. Without the weight of the surrounding water and earth pressing down, the hollow concrete box would literally float upward out of the ground, like a submarine surfacing. Thousands of tension piles driven deep into the London clay hold it in place.
+
+The roof structure is the station's most striking architectural element. A series of coffered concrete ribs span the full width of the cavern, their deep recesses reducing the structural weight while creating a powerful rhythmic pattern overhead. At each end of the station, where the cavern meets daylight, Foster placed a glass canopy — an arched entrance pavilion that shelters the escalators descending into the cavern below. These canopies, with their curved steel and glass profiles, have been compared to the ribbed shell of a mussel or the hull of an overturned boat — forms appropriate to a site that was, until recently, one of the busiest shipping basins in the world.
+
+The station was part of the Jubilee Line Extension, one of the most celebrated infrastructure projects in modern British architecture. Roland Paoletti, the chief architect of the extension, commissioned a different architect for each station — a strategy unprecedented in underground railway design. The result was a sequence of stations that functioned as an underground gallery of contemporary architecture, with Hopkins, Alsop, and MacCormac joining Foster on the roster.
+
+Inside the cavern, the scale is deliberately oversized. Paoletti and Foster designed the station to handle not just current passenger flows but the anticipated growth of Canary Wharf over decades. The platforms are wide enough to accommodate 40 trains per hour at peak times, and the escalators — among the longest in the London Underground — descend through the full height of the cavern in a single dramatic ride.
+
+The station proves that infrastructure need not be merely functional. Stand at the base of the escalators and look up through the glass canopy. The daylight falling through the curved ribs transforms what could have been a utilitarian tunnel into something closer to a cathedral — a public space worthy of the thousands who pass through it every day.`
+  },
+
+  'lon-0007': {
+    title: 'HSBC UK HQ (8 Canada Square)',
+    script: `Eight Canada Square, the HSBC Group's UK headquarters in Canary Wharf, is a building that embodies Foster + Partners' belief that corporate architecture should be technically rigorous rather than symbolically decorative. Completed in 2002, it stands 200 meters tall — the second-tallest building in Canary Wharf after One Canada Square — and it could not be more different from its neighbor.
+
+Where Cesar Pelli's One Canada Square is a postmodern pyramid sheathed in stainless steel cladding, Foster's HSBC tower is a pure glass prism whose structure is expressed with absolute clarity on every facade. The plan is a precise 57-by-57-meter square. The structural frame — a steel perimeter system with cross-bracing visible through the glass curtain wall — carries all lateral loads on the exterior, allowing the interior floor plates to be entirely column-free. This was not an aesthetic decision; it was a functional requirement. HSBC needed vast, unobstructed trading floors capable of accommodating hundreds of dealers and screens, and any internal column would have compromised the flexibility of these critical spaces.
+
+The facade is a flush curtain wall of high-performance glass, detailed with a precision that rewards close inspection. The mullions are expressed as thin vertical lines, the glass panels are floor-to-ceiling, and the overall effect is one of transparency and technical restraint. There are no decorative elements, no applied ornament, no historical references. The building says what it is: a machine for financial work, designed to operate with maximum efficiency.
+
+The mechanical systems are distributed along the building's perimeter and in a central core, freeing the 50,000 square meters of office space from any internal obstruction. The elevators are grouped into sky lobbies — transfer floors where passengers change from express lifts to local ones — reducing the number of elevator shafts required and increasing the usable floor area on each level.
+
+The building was designed to accommodate approximately 8,000 workers, making it one of the largest single-occupancy office buildings in Europe at the time of its completion. The trading floors on the lower levels were among the most technologically advanced dealing rooms in the world, with raised access floors carrying the dense cabling required for high-frequency financial operations.
+
+Stand at the base and look up. The tower's proportions — a tall, slender box with a perfectly flat top — are deliberately anti-monumental. Foster has always argued that the best tall buildings are the ones that do not try to be sculptures. Eight Canada Square is his proof: a building that earns its place on the skyline through discipline and clarity rather than spectacle.`
+  },
+
+  'lon-0008': {
+    title: 'Wembley Stadium',
+    script: `The defining element of the new Wembley Stadium is visible from across London — a single steel arch, 133 meters high at its apex, spanning 315 meters across the full length of the pitch and beyond. At the time of its completion in 2007, it was the longest single-span roof structure in the world.
+
+The arch was designed by Foster + Partners with engineers Mott MacDonald and replaced the Twin Towers of the original 1923 Empire Stadium, which had been the most recognized symbol of English football for eighty years. The decision to demolish the Twin Towers was controversial, and Foster's response was characteristically structural: he replaced a pair of decorative monuments with a piece of engineering so large and so visible that it became a landmark not just for the stadium but for the entire northwest quadrant of London. Aircraft approaching Heathrow use it as a visual reference point.
+
+The arch serves a precise structural purpose. It supports the entire north portion of the stadium roof, which is partially retractable, through a system of steel cables that hang from the arch like the strings of a harp. This cable-stayed system eliminates the need for any columns within the seating bowl, ensuring that every one of the 90,000 seats has an unobstructed view of the pitch — a first for a stadium of this scale. The south roof is supported by a conventional steel truss ring at the perimeter, but the north side, which extends further to cover the Olympic-standard athletics track configuration, required the additional support that only the arch could provide.
+
+The arch itself is a tubular steel lattice, approximately 7 meters in diameter, fabricated in sections and lifted into position by strand jacks. It is inclined at 22 degrees from vertical, leaning northward over the stadium like a tilted halo. This inclination is not decorative — it aligns the arch's center of gravity with the resultant force vector of the cables, minimizing bending stresses and allowing the arch to be lighter than it would need to be if it were vertical.
+
+The seating bowl was designed by HOK Sport — now Populous — and is organized into three tiers of 34,000, 16,000, and 39,000 seats respectively, with a continuous concourse running behind each tier. The lower tier can be lowered hydraulically to create a flat floor for concerts and events, transforming the stadium from a 90,000-seat sporting venue to a 75,000-capacity indoor arena in a matter of hours.
+
+Look up at the arch from the Wembley Way approach. Its curve is a catenary — the natural shape formed by a chain hanging under its own weight, inverted. It is the most efficient form for an arch in compression, and it has been understood since Robert Hooke described it in 1675. Three centuries of engineering knowledge are visible in that single line against the sky.`
+  },
+
+  'lon-0009': {
+    title: "Lloyd's of London",
+    script: `Lloyd's of London, completed in 1986, is the building that established Richard Rogers as one of the most important architects of the twentieth century — and it remains the most radical corporate building ever erected in the City of London.
+
+The concept is deceptively simple: take everything that is normally hidden inside a building — the lifts, the staircases, the lavatories, the electrical risers, the water pipes, the air-handling ducts — and put it on the outside. This is the "inside-out" principle that Rogers and Renzo Piano had pioneered a decade earlier at the Centre Pompidou in Paris. At Lloyd's, Rogers applied it to a constrained City site and a client whose traditions dated back three centuries, creating a building that looked like nothing the insurance market had ever imagined.
+
+Six satellite service towers surround the central atrium, each containing a pair of external glass lifts, a staircase, and the mechanical services for the adjacent office floors. These towers are clad in polished stainless steel — a material Rogers chose for its durability, its reflective quality, and its ability to express each pipe, duct, and bracket as a distinct element. The building's exterior reads as a composition of visible components, each one identifiable by function: blue-painted crane arms for the window-cleaning gantries, exposed concrete for the structural frame, glass for the lifts, stainless steel for the service runs.
+
+The interior is organized around a vast central atrium — the "Room" — that rises through the full twelve stories of the building. This is where the Lloyd's market operates: an open trading floor where underwriters sit at individual desks, conducting the face-to-face negotiations that have defined the Lloyd's model since Edward Lloyd's coffee house in the 1680s. The atrium is spanned by a series of gallery floors that step back as they rise, flooding the lower levels with daylight from the glazed barrel-vault roof at the top.
+
+At the center of the Room sits the Lutine Bell — salvaged from HMS Lutine, a Royal Navy frigate that sank in 1799 — which was traditionally rung once for bad news and twice for good. The bell connects the building's radical modernity to three centuries of maritime insurance tradition, an anchor of history in a space defined by technological ambition.
+
+The building was Grade I listed in 2011 — the youngest structure ever to receive Britain's highest heritage protection. The listing recognized not just the building's architectural significance but its contribution to the High-Tech movement, which Rogers, along with Norman Foster and Renzo Piano, had defined. Lloyd's proved that a building could celebrate its own mechanics, make its structure legible, and still serve as the headquarters of one of the world's most conservative institutions.`
+  },
+
+  'lon-0013': {
+    title: 'One Hyde Park',
+    script: `One Hyde Park, completed in 2011 by Rogers Stirk Harbour + Partners, is one of the most expensive residential developments ever built — a project where architectural ambition and extreme wealth intersect on one of London's most prominent sites, directly overlooking Hyde Park at Knightsbridge.
+
+The development consists of four interconnected glass pavilions, each slightly offset from its neighbors in plan, creating gaps between the volumes that serve both as light wells and as visual corridors connecting Hyde Park to the shopping streets of Knightsbridge behind. This porosity was a deliberate planning strategy: Rogers argued that a continuous wall of building on this site would sever the park from the city, and the gaps between the pavilions maintain the visual and spatial connection that makes this part of London feel open rather than enclosed.
+
+Each pavilion is a slender glass tower rising between 8 and 14 stories, with floor-to-ceiling glazing on all facades. The structural system is a reinforced concrete frame with post-tensioned flat slabs, chosen for its acoustic isolation properties — essential in a building where apartments were selling for tens of millions of pounds and residents expected absolute silence. The glass is triple-glazed with a low-emissivity coating, providing thermal performance, acoustic insulation, and blast resistance — the last a security requirement given the development's proximity to the Israeli Embassy and the sensitivity of some of its purchasers.
+
+The facades are detailed with horizontal stainless steel mullions and recessed balconies that create a layered, shadowed depth in the glass surface. At night, when the interiors are lit, the building transforms into a stack of glowing rooms visible from the park — an effect that Rogers intended as a democratic gesture, the transparency of the facade revealing the life within. Whether this was appropriate for a development whose residents included some of the world's wealthiest and most private individuals became a subject of considerable public debate.
+
+Below ground, the development conceals an extraordinary infrastructure of luxury: a 21-meter swimming pool, a private cinema, a wine cellar, squash courts, a spa, and a business suite, all connected to the Mandarin Oriental Hotel next door via a private tunnel. The underground facilities extend several stories beneath the building, carved from the London clay and waterproofed against the high water table of the Hyde Park basin.
+
+One Hyde Park is a building that provokes strong reactions. To its admirers, it is a transparent, structurally honest residential tower that brings Rogers' High-Tech principles to the domestic realm. To its critics, it is the architectural expression of London's housing crisis — a fortress of glass for the global ultra-rich on a site that could have served the city far more equitably. Both readings are valid, and the building stands as evidence of both.`
+  },
+
+  'lon-0014': {
+    title: '88 Wood Street',
+    script: `Eighty-eight Wood Street, completed in 2000 by Rogers Stirk Harbour + Partners, is one of the quieter masterworks of the High-Tech movement — a building that applies the principles Rogers developed at Lloyd's and the Pompidou Centre to a mid-rise office tower in the City of London with a subtlety and contextual sensitivity that surprised many of the architect's critics.
+
+The building occupies a site between Wood Street and Fore Street, just south of the Barbican, where the City's financial district meets its cultural quarter. The plan is organized as three distinct blocks of different heights — roughly 6, 12, and 18 stories — stepping down from north to south to mediate between the tall Barbican towers to the north and the lower historic streets to the south. This stepping was not merely a planning concession; it was Rogers' argument that a building could be contextual without being historicist — that it could respect its neighbors' scale through its own modern vocabulary.
+
+The most distinctive element is the cylindrical service tower that projects from the northeast corner of the building, breaking free of the rectangular mass in a gesture that is pure Rogers. This tower contains the building's lifts, stairs, and primary mechanical risers, externalized from the main volume to liberate the office floors from internal obstructions. The cylinder is clad in a combination of glass and painted aluminum panels — the glass for the lift shafts, which are visible as they rise and descend, and the aluminum in Rogers' characteristic primary colors: red, blue, and yellow structural elements that punctuate the facade.
+
+The main facades respond differently to their orientations. The north elevation is a relatively opaque wall of reflective glass, minimizing heat loss in winter. The south elevation is opened up with projecting aluminum brise-soleil — horizontal sunshades that extend from the facade to control solar gain while admitting daylight. The east and west facades express the building's steel structural frame directly, with the cross-bracing visible through the glass curtain wall.
+
+The ground floor is given over to a public arcade — a covered pedestrian passage that connects Wood Street to Fore Street through the building's base. Rogers has always believed that buildings have a responsibility to the city at street level, and the arcade is his contribution to this site's pedestrian network.
+
+Stand on Wood Street and look at the composition. The three blocks, the cylindrical tower, the colored structure, the varying facades — it reads as a small city in itself, each element identifiable by function, each surface telling you what it does. This is the High-Tech creed made domestic: not a manifesto building, but an intelligent, responsive piece of urban architecture that improves the street it sits on.`
+  },
+
+  'lon-0015': {
+    title: 'Neo Bankside',
+    script: `Neo Bankside, completed in 2012 by Rogers Stirk Harbour + Partners, is a luxury residential development of four pavilion towers on London's South Bank, immediately adjacent to Tate Modern — and it became the subject of one of the most significant legal disputes in recent British architectural history.
+
+The development comprises four towers, ranging from 12 to 24 stories, arranged around a landscaped courtyard. The structural system is the most visible element: an external steel diagrid — diagonal bracing members that wrap the exterior of each tower in a bold lattice pattern, painted in Rogers' signature red-orange. This exoskeleton carries all the lateral loads of the building on the outside, eliminating the need for internal shear walls and freeing the 217 apartments within to have entirely flexible, open-plan layouts. The residents can arrange their rooms however they wish, because the structure is on the outside.
+
+The facades between the diagrid members are floor-to-ceiling glass — a transparency that Rogers intended as a philosophical statement. He believed that residential architecture in London had become too defensive, too closed, too afraid of the city. Neo Bankside's glass walls were designed to connect the inhabitants visually to the surrounding streetscape: the Tate Modern, the Thames, the Millennium Bridge, the dome of St Paul's across the river. Living here was meant to feel like living in the city, not hiding from it.
+
+This philosophy collided with reality in 2016 when Tate Modern opened its new Blavatnik Building extension — a ten-story tower with a public viewing gallery on its uppermost level that looked directly into the glass-walled apartments of Neo Bankside from a distance of approximately 34 meters. Residents found themselves observed by hundreds of gallery visitors daily, their living rooms and bedrooms visible to anyone with a pair of eyes and a viewing terrace.
+
+The case went to the UK Supreme Court in 2023. The residents argued that the Tate's viewing gallery constituted a nuisance — an invasion of their privacy. The Court ruled against them, finding that the residents had purchased apartments with full knowledge of their transparent facades, and that the right to enjoy a public cultural institution outweighed the privacy expectations of those who had chosen to live behind glass walls.
+
+The dispute illuminated a genuine architectural dilemma: the tension between transparency as an ideal — Rogers' belief that buildings should be open, legible, and connected to their context — and the practical reality that people need privacy in their homes. Neo Bankside is a building that is beautiful, structurally innovative, and philosophically coherent. It is also a building that taught its architect, and the profession, that transparency has consequences.`
+  },
+
+  'lon-0016': {
+    title: 'Montevetro',
+    script: `Montevetro — the "glass mountain" — is Richard Rogers' first major residential tower in London, completed in 1999 on the south bank of the Thames at Battersea. It was, at the time of its completion, the most ambitious attempt to apply the transparency and structural expression of the High-Tech movement to domestic architecture in Britain.
+
+The building rises 20 stories above the former site of a Victorian flour mill, containing 103 apartments that range from studios to full-floor penthouses. Its defining characteristic is the facade: the west elevation, facing the Thames, is almost entirely glass — a continuous wall of floor-to-ceiling glazing that gives every apartment an uninterrupted view of the river and the Chelsea shore beyond. Rogers chose glass not merely for the views but as a material statement — an argument that residential buildings could be as transparent and structurally honest as the commercial and institutional buildings for which the High-Tech movement was known.
+
+The plan is triangular, following the geometry of the site, and the building tapers as it rises — narrowing in plan at each successive floor so that the top is significantly smaller than the base. This tapering creates a distinctive silhouette when viewed from the river: a crystalline wedge that catches and reflects light differently on every face. The stepping also ensures that the upper apartments receive more sunlight and wider views than they would in a conventional rectangular tower, and it reduces the building's visual mass when seen from the surrounding streets.
+
+The structural system is a reinforced concrete frame with flat slabs — a pragmatic choice for residential construction, where acoustic separation between floors is critical. The external expression is concentrated in the facade system: slender steel mullions divide the glass into floor-height panels, and the balcony balustrades are frameless glass, maintaining the transparency of the elevation even at the projecting outdoor spaces. At the base, the building is raised on pilotis — an open ground floor that allows the landscaped garden to flow beneath the structure, connecting the street to the riverbank.
+
+Montevetro was a pioneering project in several respects. It helped establish the Thames riverside at Battersea as a premium residential address, a transformation that would accelerate dramatically in the following decades with the redevelopment of Battersea Power Station and Nine Elms. It demonstrated that High-Tech architecture could create desirable, livable homes — not just offices and museums. And it established the transparent glass tower as a residential typology that Rogers would develop further at Neo Bankside and One Hyde Park.
+
+The building's name — Italian for "glass mountain" — was chosen by Rogers himself. Walk along the Thames Path and look up at the western facade in the late afternoon. When the sun drops low and catches the glass at a shallow angle, the entire building ignites — a mountain of reflected light above the river.`
+  },
+
+  'lon-0017': {
+    title: 'Chiswick Business Park',
+    script: `Chiswick Business Park, designed by the Richard Rogers Partnership and developed by Stanhope from 2000 onwards, is an attempt to answer a question that most business parks never bother to ask: can a commercial office campus be a genuinely pleasant place?
+
+The park occupies 33 acres in west London, organized around a central lake and landscaped gardens that are open to the public. Twelve office buildings of varying sizes are arranged around this landscape, their expressed steel structures and colored panel systems creating a composition that is recognizably Rogers in vocabulary — the primary-colored elements, the visible structure, the transparency of the facades — but applied at a domestic, campus scale rather than the monumental scale of Lloyd's or the Cheesegrater.
+
+The masterplan was conceived as an alternative to the car-dependent, isolated business parks that had proliferated in the 1980s and 1990s along Britain's motorway corridors. Rogers argued that office workers performed better and stayed longer at companies that provided attractive, sociable environments — a proposition that now seems obvious but was considered radical when Chiswick Park was first proposed. The campus includes cafes, restaurants, a concierge service, a gym, and a hotel, all integrated into the landscape rather than housed in separate buildings. The idea was that workers would walk between meetings along the lakeside path rather than driving between buildings.
+
+The office buildings themselves are standardized in their structural system — steel frames with clear-span floor plates — but varied in their dimensions and facade treatments. Each building is oriented to maximize natural light and views of the lake, and the facades use a combination of full-height glazing and operable panels that allow natural ventilation when conditions permit. The environmental strategy was progressive for its time: the lake is not merely decorative but functions as a thermal sink for the buildings' cooling systems, reducing energy consumption.
+
+The landscape, designed by Charles Funke Associates, is the project's most successful element. The lake is bordered by timber boardwalks, the gardens are planted with native species, and the paths are designed for walking and cycling rather than cars. Vehicle access is relegated to the perimeter, and the interior of the campus is entirely pedestrian. The result is an environment that feels more like a university campus than a commercial office park — and that was precisely the intention.
+
+Chiswick Park anticipated by fifteen years the workplace revolution that the technology industry would later make mainstream: the idea that the best offices are the ones that make people want to stay, that blur the boundary between work and leisure, and that treat landscape as infrastructure rather than decoration. Rogers understood this earlier than most.`
+  },
+
+  'lon-0020': {
+    title: 'Rolling Bridge',
+    script: `The Rolling Bridge at Paddington Basin, completed in 2004, is one of the most delightful pieces of engineering in London — a pedestrian footbridge that opens not by lifting, swinging, or splitting apart, but by curling up into a ball.
+
+Designed by Heatherwick Studio when Thomas Heatherwick was in his early thirties, the bridge spans 12 meters across the entrance to a short inlet of the Grand Union Canal at Paddington. In its closed position, it is an apparently conventional steel and timber footbridge — a flat, gently arched walkway with a simple balustrade. But every Friday at noon, the bridge performs its party trick: a hydraulic system embedded in the handrail activates, and the bridge begins to curl.
+
+The mechanism consists of 14 hydraulic rams concealed within the balustrade — two in each of the bridge's seven hinged sections (plus the fixed eighth section at one end). When the rams extend, they push the sections of the handrail apart, which forces the deck segments to rotate relative to one another. The bridge curls progressively from one end, each section lifting and rotating until the entire structure has folded into a compact octagonal shape resting on one bank of the canal — a tight wheel of steel and timber, roughly three meters in diameter, that looks nothing like a bridge.
+
+Heatherwick has described the design as a "soft mechanism" — a machine that mutates its form rather than fracturing into separate parts. Most movable bridges operate by breaking the deck into sections that swing or lift independently. The Rolling Bridge is different: it transforms continuously, maintaining its structural integrity throughout the movement. At any point during the curling sequence, you can see both the bridge and the wheel simultaneously — a transitional form that is neither fully one nor fully the other.
+
+The engineering was developed with structural engineers SKM Anthony Hunts and hydraulic specialists Packman Lucas. The key challenge was the hinge design: each joint had to allow rotation in one axis while remaining rigid in all others, and it had to do so under the changing load conditions that occur as the bridge's weight shifts during curling. The solution was a series of bespoke steel pivot joints, each machined to extremely tight tolerances.
+
+The bridge has become one of the most-visited small structures in London. Crowds gather on Fridays to watch the curling sequence, which takes approximately five minutes from flat to fully rolled. It is a piece of infrastructure that has become a performance — proof that engineering, at its best, can provoke the same sense of wonder as any work of art. Heatherwick, who had built almost nothing before this project, used it to establish the principle that would define his career: that the most ordinary objects — a bridge, a bus stop, a power station — deserve to be reimagined from first principles.`
+  },
+
+  'lon-0021': {
+    title: 'Google UK HQ (King\'s Cross)',
+    script: `Google's new UK headquarters at King's Cross, completed in 2024, is one of the most anticipated office buildings in recent London history — a collaboration between two of the world's most inventive design practices, Heatherwick Studio and BIG (Bjarke Ingels Group), for one of the world's most scrutinized technology companies.
+
+The building is what BIG's Bjarke Ingels calls a "landscraper" — a long, low structure that prioritizes horizontal spread over vertical height. At 11 stories and approximately 330 meters in length, it is one of the longest buildings in London, stretching along the southern edge of the King's Cross regeneration area adjacent to Regent's Canal. The decision to build horizontally rather than vertically was driven by Google's workplace philosophy: the company believes that chance encounters between employees from different departments drive innovation, and a long, horizontal building creates more opportunities for people to cross paths than a tall, vertical one.
+
+The facade is the building's most distinctive external element. A system of angled timber and glass fins wraps the exterior, each fin motorized and capable of adjusting its angle in response to the sun's position. The fins are made from glued laminated timber — glulam — a sustainable material that gives the facade a warmth and texture unusual in corporate architecture. When the fins are open, the facade appears transparent; when closed, it becomes a solid, opaque screen of golden timber. The effect is of a building that breathes — opening and closing throughout the day in response to sunlight, temperature, and the occupants' needs.
+
+The rooftop is perhaps the building's most remarkable feature. A landscaped garden extends across the entire roof, incorporating a 200-meter running track, a full-size basketball court, and a rooftop meadow with native plantings. The garden is designed as an extension of the building's workspace — a place where employees can hold meetings, exercise, or simply sit in the open air, 40 meters above the King's Cross railway lands.
+
+At ground level, the building opens to the public. A covered arcade along the southern facade provides a new pedestrian route through the King's Cross development, lined with cafes and retail spaces accessible to anyone. This public ground plane was a planning requirement, but Google and the architects embraced it as an opportunity to integrate the building into the neighborhood rather than isolating it behind security barriers.
+
+The building accommodates approximately 7,000 employees across 100,000 square meters of floor space. The interior, which Google has characteristically kept largely private, is reported to include swimming pools, sleep pods, games rooms, and flexible working neighborhoods — the full vocabulary of Silicon Valley office culture, transplanted to a Victorian railway district in north London.`
+  },
+
+  'lon-0022': {
+    title: 'Lisson Gallery Bell Street',
+    script: `The Lisson Gallery on Bell Street, completed in 1992, is Tadao Ando's only built work in London — a small, intensely considered intervention that brought the Japanese master's philosophy of light, concrete, and silence to a terraced street in Marylebone.
+
+The commission came from Nicholas Logsdail, founder of the Lisson Gallery, one of the world's most influential contemporary art galleries. Logsdail had admired Ando's ability to create contemplative spaces for art — the Church of the Light in Osaka, the Naoshima Contemporary Art Museum — and invited him to design an extension to the gallery's existing premises on Bell Street, a modest Victorian terrace in a quiet residential neighborhood northwest of central London.
+
+Ando's intervention is characteristic of his method: he retained the existing brick facades facing the street, preserving the terrace's Victorian character, while entirely replacing the interiors with his signature material — board-formed exposed concrete. The concrete walls are poured in situ against smooth timber formwork, leaving the imprint of the wood grain on the finished surface. Each wall panel is defined by the regular pattern of tie holes left by the formwork bolts — a grid of small circular indentations that has become Ando's most recognizable architectural signature. The concrete is left untreated, its surface developing a subtle patina over time as it absorbs moisture and light.
+
+The gallery spaces are organized as a sequence of rooms connected by narrow passages and changes of level. Ando uses compression and release — moving visitors through tight corridors into tall, light-filled volumes — to create a spatial rhythm that prepares the eye and the mind for the art on display. The ceilings are punctuated by skylights that wash the concrete walls with natural light, which changes in quality and intensity throughout the day and across the seasons. Ando has always insisted that natural light is the most important material in architecture — more important than concrete, more important than glass — and the Lisson Gallery demonstrates this conviction in a space no larger than a London townhouse.
+
+The project is small — just a few hundred square meters — but its influence on the London gallery scene has been disproportionate. It demonstrated that world-class architecture could be achieved at an intimate scale, in an ordinary street, without the vast budgets and spectacular sites that characterize most major commissions. It also introduced London's art world to Ando's spatial language: the interplay of solid and void, the weight of concrete against the weightlessness of light, the silence that good architecture can create in the middle of a noisy city.
+
+Visit on a cloudy afternoon, when the skylights admit a soft, diffuse light that spreads evenly across the concrete surfaces. The gallery will be quiet. The art will be visible. And the walls — Ando's extraordinary concrete walls — will glow with the subdued luminosity that only this material, in this light, can produce.`
   }
 
 };
