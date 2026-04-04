@@ -419,17 +419,6 @@ var LOCS_KO_NEW_YORK = {
     transit: "7 → 34 St–Hudson Yards · A C E → 34 St–Penn Station",
     walkFrom: "High Line: 3분 · Vessel: 5분"
   },
-  "nyc-0046": {
-    name: "허드슨 야드 마스터플랜",
-    desc: "Hudson Yards는 미국 역사에서 가장 큰 사적 부동산 개발이며 Long Island Rail Road의 활동 중인 West Side Yard 위에 지어진 28에이크 콘크리트 플랫폼 위에 건설되었습니다. KPF (Kohn Pedersen Fox)와 Related Companies의 마스터플랜은 중앙 공개 광장 주변에 사무실, 주거, 호텔, 소매, 그리고 문화 공간의 1,800만 제곱피트 이상을 조직합니다. 주요 건물은 30 Hudson Yards (KPF), The Spiral (BIG), 35 Hudson Yards (David Childs/SOM), The Shed (Diller Scofidio + Renfro), and Vessel (Heatherwick Studio)을 포함합니다. Phase 1은 2019년 3월에 개관했으며 Midtown Manhattan의 서부 가장자리를 재정의했습니다.",
-    hood: "허드슨 야드",
-    hours: "공개 공간: 매일 오전 7–오후 11",
-    lastEntry: "오후 10:30",
-    admission: "공개 plaza: 무료 · 개별 장소는 다양함",
-    tourInfo: "High Line 끝에서 자가 건축 산책. Main plaza에 정보 키오스크.",
-    transit: "7 → 34 St–Hudson Yards · A C E → 34 St–Penn Station",
-    walkFrom: "High Line terminus: 5분 · Penn Station: 12분"
-  },
   "nyc-0047": {
     name: "뉴욕 시청",
     desc: "New York City Hall는 계속 사용 중인 미국에서 가장 오래된 시청이자 초대 19세기 미국 civic architecture의 가장 훌륭한 예 중 하나입니다. Joseph-François Mangin과 John McComb Jr.가 Federal과 French Renaissance 스타일의 혼합으로 설계했으며 설계 경쟁을 우승한 후 1812년 완성되었습니다. 흰 대리석 외관, 우아한 중앙 돔, 그리고 우아하게 캔틸레버된 계단은 젊은 공화국의 포부를 반영합니다. 후부 외관은 원래 갈색 사암이었습니다. 도시가 Chambers Street 너머로 북쪽으로 확장될 것이라는 가정에 기반한 비용 절감 조치였습니다.",
@@ -963,16 +952,6 @@ var LOCS_KO_NEW_YORK = {
     tourInfo: "거리에서 독특한 기울어진 외관 형태를 감상할 수 있습니다.",
     transit: "A C E → 42 St / Port Authority",
     walkFrom: "Hudson River Greenway: 인접 · Theater District: 5분"
-  },
-  "nyc-0039": {
-    name: "Spring Studios",
-    desc: "OMA / Rem Koolhaas가 설계한 Spring Studios는 2017년 완공된 Tribeca의 현대 예술 시설입니다. 용도 변경된 제조 건물의 거대한 두 층 높이 스튜디오와 전시 공간은 대규모 미술관 같은 환경을 만들어냅니다. 현대 미술 제도와 건축의 모범입니다.",
-    hood: "Tribeca",
-    hours: "전시: 화~일 10am~6pm · 월요일 휴무",
-    admission: "전시: 요금 기반",
-    tourInfo: "현대 미술 설치와 건축 공간이 통합된 경험입니다.",
-    transit: "A C E → Chambers St\n1 2 3 → Chambers St",
-    walkFrom: "City Hall: 5분 · Tribeca Lofts: 인접"
   },
   "nyc-0040": {
     name: "The Standard High Line",
