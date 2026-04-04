@@ -1274,7 +1274,16 @@ var LOCS_SEOUL = [
     transit:'4 → Myeongdong (Exit 8, 3 min walk)',
     walkFrom:'Myeongdong Station: 3 min · Apple Myeongdong: 3 min · Piknic: 5 min',
     tags:['Catholic','Gothic','1898','First Brick Church','Myeongdong','Landmark','Democracy'],
-    photos:[]
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Myeongdong_Cathedral_church.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Myeongdong_Cathedral_5.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Myeongdong_Cathedral_front.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Myeongdong_Cathedral_05.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Myeongdong_Cathedral_in_Seoul.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Towards_the_Chancel_of_Myeongdong_Cathedral.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Arches_in_the_Nave_of_Myeongdong_Cathedral.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Myeongdong_Cathedral_01.jpg?width=800'
+    ]
   },
 
   {
@@ -1322,7 +1331,11 @@ var LOCS_SEOUL = [
     transit:'1 2 → City Hall (Exit 2, 5 min walk)',
     walkFrom:'City Hall Station: 5 min · Deoksugung Palace: 2 min',
     tags:['Methodist','Protestant','1897','First Protestant Church','Jeongdong','Gothic','Red Brick'],
-    photos:[]
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Chungdong_church.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/%EC%A0%95%EB%8F%99%EA%B5%90%ED%9A%8C_%EC%A0%95%EB%AC%B8%EB%B0%A9%ED%96%A5_%EC%82%AC%EC%A7%84.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/2008%EB%85%84_%EB%8A%A6%EA%B0%80%EC%9D%84%EC%9D%98_%EC%A0%95%EB%8F%99%EA%B5%90%ED%9A%8C.jpg?width=800'
+    ]
   },
 
   {
@@ -1346,7 +1359,13 @@ var LOCS_SEOUL = [
     transit:'1 2 → City Hall (Exit 3, 3 min walk)',
     walkFrom:'City Hall Station: 3 min · Deoksugung Palace: 3 min · Seoul Library: 2 min',
     tags:['Anglican','Romanesque','1926','Granite','Arthur Dixon','City Hall','Deoksugung'],
-    photos:[]
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Seoul_Anglican_Cathedral-1.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/KSH_Jeongdong_%2884%29.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Seoul_Cathedral_Anglican_Church-10.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Seoul_Cathedral_Anglican_Church-11.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Seoul_Cathedral_Anglican_Church-6.jpg?width=800'
+    ]
   },
 
   {
@@ -1370,7 +1389,10 @@ var LOCS_SEOUL = [
     transit:'1 → Jonggak (Exit 3, 3 min walk)',
     walkFrom:'Jonggak Station: 3 min · Insadong main street: 1 min',
     tags:['Presbyterian','Protestant','1904','March 1st Movement','Independence','Insadong','Heritage'],
-    photos:[]
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/%EC%8A%B9%EB%8F%99%EA%B5%90%ED%9A%8C%2C_Insadong%2C_Seoul_02.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/%EC%8A%B9%EB%8F%99%EA%B5%90%ED%9A%8C%2C_Insadong%2C_Seoul_03.jpg?width=800'
+    ]
   },
 
   // ── COLONIAL-ERA WESTERN BUILDINGS ────────────────────────────
@@ -1494,7 +1516,12 @@ var LOCS_SEOUL = [
     transit:'3 → Anguk (Exit 4, 3 min walk) · 1 3 5 → Jongno 3-ga (Exit 5, 5 min)',
     walkFrom:'Anguk Station: 3 min · Insadong: 5 min · Bukchon: 8 min',
     tags:['Palace','Traditional','1866','Daewongun','Joseon','Jongno','Free'],
-    photos:[]
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Iro-dang%2C_Unhyeongung_-_Seoul%2C_Korea.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Construction_detail%2C_Unhyeongung_-_Seoul%2C_Korea.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Korea-Seoul-Unhyeongung_1292-06.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/%EC%84%9C%EC%9A%B8_%EC%9A%B4%ED%98%84%EA%B6%81_%EC%A0%84%EA%B2%BD.jpg?width=800'
+    ]
   },
 
   {
@@ -1518,7 +1545,14 @@ var LOCS_SEOUL = [
     transit:'3 → Dongnimmun (Exit 5, 1 min walk)',
     walkFrom:'Dongnimmun Station: 1 min · Seodaemun Independence Gate: 3 min',
     tags:['Prison','Colonial','1908','Independence','History Museum','Seodaemun','Brick'],
-    photos:[]
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Seodaemun_Prison_History_Hall_at_night.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Seodaemunprisonbarracks.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Overview_of_the_Old_Seodaemun_Prison_%28%EA%B5%AC%EC%84%9C%EB%8C%80%EB%AC%B8%ED%98%95%EB%AC%B4%EC%86%8C%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Inside_View_ofThe_Old_Seodaemun_Prison_%28%EA%B5%AC%EC%84%9C%EB%8C%80%EB%AC%B8%ED%98%95%EB%AC%B4%EC%86%8C%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Inside_View_ofThe_Old_Seodaemun_Prison%2C_April_2023_%282%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Seodaemun_Prison_20190331_162936.jpg?width=800'
+    ]
   },
 
   {
@@ -1542,7 +1576,11 @@ var LOCS_SEOUL = [
     transit:'4 6 → Samgakji (Exit 12, 2 min walk)',
     walkFrom:'Samgakji Station: 2 min · National Museum of Korea: taxi 10 min',
     tags:['Museum','Memorial','Military','Korean War','Free','Yongsan','Outdoor Exhibition'],
-    photos:[]
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Korea-Seoul-War_Memorial_of_Korea-01.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/The_War_Memorial_Of_Korea_240615_01.jpg?width=800',
+      'https://live.staticflickr.com/3762/11850469153_2567762ca5_b.jpg'
+    ]
   },
 
   {
@@ -1566,7 +1604,13 @@ var LOCS_SEOUL = [
     transit:'3 4 → Chungmuro (Exit 3, 3 min walk)',
     walkFrom:'Chungmuro Station: 3 min · Myeongdong: 10 min · Namsan Cable Car: 10 min',
     tags:['Hanok','Traditional','Village','Namsan','Free','Cultural Experience','Lee Seung-eop'],
-    photos:[]
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Namsangol_Hanok_Village_20240409_018.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Namsangol_Hanok_Village_20240409_012.jpg?width=800',
+      'https://live.staticflickr.com/65535/52903304317_76cbceda49_b.jpg',
+      'https://live.staticflickr.com/65535/52903304127_716fc14264_b.jpg',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Namsangol_Hanok_Village_20240409_017.jpg?width=800'
+    ]
   },
 
 // ── HISTORIC HOUSES & VILLAS ──────────────────────────────────
