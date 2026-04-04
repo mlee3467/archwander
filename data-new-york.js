@@ -1433,7 +1433,8 @@ var LOCS_NEW_YORK = [
     name:'One Vanderbilt',
     cats:[
       'Skyscrapers',
-      'Landmarks'
+      'Commercial',
+      'Observatory'
     ],
     cc:'c-sky',
     styleGroups:[
