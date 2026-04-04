@@ -2007,8 +2007,8 @@ var LOCS_NEW_YORK = [
       'Oldest City Hall'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/NYC_-_City_Hall.jpg/800px-NYC_-_City_Hall.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/NYC_City_Hall_interior.jpg/800px-NYC_City_Hall_interior.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/New_York_City_Hall.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/View_of_Woolworth_Building_fixed.jpg?width=800'
     ],
     sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7125004, lng:-74.006256 }
   },
@@ -2051,7 +2051,10 @@ var LOCS_NEW_YORK = [
       'Subway Integration'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Manhattan_Municipal_Building.jpg/800px-Manhattan_Municipal_Building.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Municipal_Building_-_New_York_City.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Manhattan-Municipal-Building-New-York-City-September-2014.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Manhattan_Municipal_Building_September_2024_016.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Manhattan_Municipal_Building_007.jpg?width=800'
     ],
     sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7131751, lng:-74.0040995 }
   },
@@ -2135,7 +2138,8 @@ var LOCS_NEW_YORK = [
       'Waterfront'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Battery_Park_New_York.jpg/800px-Battery_Park_New_York.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Battery_Park.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Battery_Park_td_%282019-08-10%29_003_-_Battery_Bikeway.jpg?width=800'
     ],
     sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7037823, lng:-74.014989 }
   },
@@ -2176,7 +2180,11 @@ var LOCS_NEW_YORK = [
       'Battery Park'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Castle_Clinton_NM.jpg/800px-Castle_Clinton_NM.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Castle_Clinton%2C_Battery_Park.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Castle_Clinton_National_Monument%2C_Battery_Park%2C_Manhattan%2C_New_York_%287237092384%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Aerial_photograph_of_Castle_Clinton_in_Battery_Park_%28New_York_City%29%2C_Castle_Clinton_National_Monument._%28c90754f78edc4ed38e0d72b5875368d7%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Castle_Clinton_National_Monument%2C_New_York_%28af0a6f28-7d28-4973-95ea-a1fb8a20fb0a%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/NYC-Manhattan-1811-Castle-Clinton-to-Wall-St_LCN_g3804n.ct000812.png?width=800'
     ]
   },
   {
@@ -2216,7 +2224,8 @@ var LOCS_NEW_YORK = [
       'Restaurant Row'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Stone_St_jeh.jpg/800px-Stone_St_jeh.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Stone_Street%2C_NYC.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Stone_Street_NYC_005.JPG?width=800'
     ],
     sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7043334, lng:-74.0103444 }
   },
@@ -2261,7 +2270,10 @@ var LOCS_NEW_YORK = [
       'Landmark'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Washington_Square_Park_arch_from_the_south.jpg/800px-Washington_Square_Park_arch_from_the_south.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Washington_Square_Arch_01.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Washington_Square_Arch.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/New_York_Photo_Safari_OHNY_Washington_Square_Park.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Students_of_University_of_New_York_at_Washington_Square_Arch%2C_Aneka_Amerika_102_%281957%29%2C_p16.jpg?width=800'
     ]
   },
   {
@@ -2300,7 +2312,12 @@ var LOCS_NEW_YORK = [
       'Activism'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Judson_Memorial_Church_2012.jpg/800px-Judson_Memorial_Church_2012.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Judson_Memorial_Church_%2851660334986%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Judson_Memorial_Church_Worship_Area.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/New_York_University%2C_Judson_Memorial_Baptist_Church_01.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/New_York_University%2C_Judson_Memorial_Baptist_Church_02.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Rose_Window_at_Judson_Memorial_Church.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/%28King1893NYC%29_pg384_JUDSON_MEMORIAL_BAPTIST_CHURCH%2C_WASHINGTON_SQUARE_AND_THOMPSON_STREET.jpg?width=800'
     ]
   },
   {
@@ -2342,7 +2359,11 @@ var LOCS_NEW_YORK = [
       'Adaptive Reuse'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Jefferson_Market_Library_%28NYC%29.jpg/800px-Jefferson_Market_Library_%28NYC%29.jpg'
+      'https://live.staticflickr.com/65535/50637852851_8f05553ec9_b.jpg',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Jefferson_Market_Library_October_2022_006.jpg?width=800',
+      'https://upload.wikimedia.org/wikipedia/commons/3/3e/Jefferson_Market_Library_windows.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/b/b7/Discovering_the_secret_Jefferson_Market_Library_tower.JPG',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Jefferson_Street_Market_Library_at_Dusk.jpg?width=800'
     ]
   },
   {
@@ -2384,7 +2405,10 @@ var LOCS_NEW_YORK = [
       'Fifth Avenue'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/New_School_University_Center_2014.jpg/800px-New_School_University_Center_2014.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/The_University_Center_for_the_New_School_%2848072770027%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/New_School_University_Center_-_the-groundview.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/The_New_School_-_University_Center_Reflections.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/The_New_School_-_University_Center%2C_Interior.jpg?width=800'
     ]
   },
   {
@@ -2423,7 +2447,9 @@ var LOCS_NEW_YORK = [
       'NoHo'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Astor_Place_IRT_Cube_jeh.jpg/800px-Astor_Place_IRT_Cube_jeh.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/WSTM_Team_Dustizeff_0108.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/The_Astor_Place_Cube_%2848072759542%29.jpg?width=800',
+      'https://live.staticflickr.com/5299/5436963215_cb550149ce_b.jpg'
     ]
   },
   {
@@ -2462,7 +2488,11 @@ var LOCS_NEW_YORK = [
       'Stuyvesant'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/St._Marks_Church_in-the-Bowery.jpg/800px-St._Marks_Church_in-the-Bowery.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/St_Mark%27s_Church_-_New_York_City.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/St.-Marks-In-The-Bowery_Portico.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/St.-Marks-In-The-Bowery_at_Night.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/New_York%2C_St_Marks-in-the-Bowery_1840s.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/St._Mark%27s_Church%2C_Stuyvesant_Street%2C_New_YorkCity.jpg?width=800'
     ]
   },
   {
@@ -2501,7 +2531,10 @@ var LOCS_NEW_YORK = [
       'Pixelated Facade'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/100_11th_Ave_by_David_Shankbone.jpg/800px-100_11th_Ave_by_David_Shankbone.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/NY_Chelsea_Pier_60_IMG_2189_nouvel_chelsea_100_11th_Av_luxury_condominium.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/100_Eleventh_Avenue_%2824234%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/100_11th_Avenue_002.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/100_11th_Avenue.jpg?width=800'
     ]
   },
   {
@@ -2540,7 +2573,11 @@ var LOCS_NEW_YORK = [
       'Diagonal Structure'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/HL23_condo.jpg/800px-HL23_condo.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/NYC_-_HL23_by_Neil_Denari_-_panoramio.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Highline_519_and_HL23_from_the_High_Line.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Highline_519_and_HL23.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/High_Line%2C_New_York_2012_21.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Neil_Denari%27s_HL23_Neil_Denari%27s_HL23_High_Line_Views_NY_5374.jpg?width=800'
     ]
   },
   {
@@ -2579,7 +2616,9 @@ var LOCS_NEW_YORK = [
       'William Paley'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Paley_Park_NYC_2012.jpg/800px-Paley_Park_NYC_2012.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/W_53_St_May_2022_15.jpg?width=800',
+      'https://live.staticflickr.com/558/31969570440_59e06fed79_b.jpg',
+      'https://live.staticflickr.com/2586/4130651435_111d2ece84_b.jpg'
     ]
   },
   {
@@ -2618,7 +2657,9 @@ var LOCS_NEW_YORK = [
       'Landscape'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Brooklyn_Bridge_Park_aerial.jpg/800px-Brooklyn_Bridge_Park_aerial.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Brooklyn_Bridge_Park_and_Manhattan.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Brooklyn_Bridge_Park_at_Sunset..jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Brooklyn_Bridge_Park_-_overpass.jpg?width=800'
     ]
   },
   {
@@ -2658,7 +2699,9 @@ var LOCS_NEW_YORK = [
       'Art District'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/DUMBO_Manhattan_Bridge.jpg/800px-DUMBO_Manhattan_Bridge.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/DUMBO_Historic_and_Industrial_District.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/DUMBO_from_Bridge.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/DUMBO_Industrial_District_168.JPG?width=800'
     ]
   },
   {
@@ -2737,7 +2780,11 @@ var LOCS_NEW_YORK = [
       'Queens'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Queens_Museum_2014.jpg/800px-Queens_Museum_2014.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Queens_Museum_%2848613534751%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Queens_Museum_view.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Queens_Museum_detail.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Queens_Museum_Workshop_Table.jpg?width=800',
+      'https://live.staticflickr.com/4031/4441574273_ec215a7b2d_b.jpg'
     ]
   },
   {
@@ -2776,7 +2823,9 @@ var LOCS_NEW_YORK = [
       'Landmark'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Unisphere_2014.jpg/800px-Unisphere_2014.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Unisphere_in_summer.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/The_Unisphere_%287437123330%29.jpg?width=800',
+      'https://upload.wikimedia.org/wikipedia/commons/1/11/New_York_World%27s_Fair_August_1964.jpeg'
     ]
   },
   {
@@ -2819,7 +2868,8 @@ var LOCS_NEW_YORK = [
       'Great Hall'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/New_Yankee_Stadium.jpg/800px-New_Yankee_Stadium.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Yankee_Stadium%2C_New_York_-_panoramio.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Yankee_Stadium_upper_deck_2010.jpg?width=800'
     ]
   },
   {
@@ -2858,7 +2908,9 @@ var LOCS_NEW_YORK = [
       'Landmark'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Bronx_County_Building.jpg/800px-Bronx_County_Building.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Supreme_Civil_Court_of_the_Bronx_30_June_2012.jpeg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Bronx_County_Courthouse.jpg?width=800',
+      'https://live.staticflickr.com/7211/7237807600_c7653b6c0a_b.jpg'
     ]
   },
   {
@@ -2977,7 +3029,15 @@ var LOCS_NEW_YORK = [
       'Graffiti'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/40_Bond_Street_HdM.jpg/800px-40_Bond_Street_HdM.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/40_Bond_Street.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/40_Bond_Street_entrance.jpg?width=800',
+      'https://live.staticflickr.com/6079/6116005719_cccbb21e9f_b.jpg',
+      'https://live.staticflickr.com/2038/2509286174_26248d7263_b.jpg',
+      'https://live.staticflickr.com/3173/2566495529_62482c9f35_b.jpg',
+      'https://live.staticflickr.com/3224/2508340159_14b6f8d1b6_b.jpg',
+      'https://live.staticflickr.com/2295/2515298443_da2437917d_b.jpg',
+      'https://live.staticflickr.com/2357/2516121374_11da3afa22_b.jpg',
+      'https://live.staticflickr.com/2008/1988919132_005696fe0c_b.jpg'
     ]
   },
   {
@@ -3015,7 +3075,9 @@ var LOCS_NEW_YORK = [
       'Curved Facade'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/160_Leroy_Street_HdM.jpg/800px-160_Leroy_Street_HdM.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Hudson_River_Park_td_%282019-04-24%29_005_-_One_Morton_Square%2C_160_Leroy_Street.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Houston_St_West_St_td_%282021-10-28%29_03_-_160_Leroy_Street.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/160_Leroy_Street.jpg?width=800'
     ]
   },
   {
@@ -3054,7 +3116,7 @@ var LOCS_NEW_YORK = [
       'Rooftop Bar'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Public_Hotel_NYC.jpg/800px-Public_Hotel_NYC.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Escalator%2C_Public_Hotel_New_York_%282024%29-L1005609.jpg?width=800'
     ]
   },
   {
