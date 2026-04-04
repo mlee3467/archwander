@@ -1356,6 +1356,31 @@
   padding: 7px 12px; font-size: 12px;
 }
 
+/* Route time input row */
+.route-time-row {
+  display: flex; align-items: center; gap: 6px; padding: 6px 0; margin-bottom: 8px;
+}
+.route-time-label {
+  font-size: 11px; color: #666; white-space: nowrap;
+}
+.route-time-input {
+  height: 28px; border: 1px solid #ddd; border-radius: 6px;
+  padding: 0 8px; font-size: 12px; font-family: inherit;
+  width: 100px;
+}
+.route-btn-now {
+  height: 28px; padding: 0 10px; font-size: 11px;
+  background: #f0f0ee; border: 1px solid #ddd; border-radius: 6px;
+  cursor: pointer; font-family: inherit; white-space: nowrap;
+}
+.route-btn-now:hover { background: #e4e4e0; }
+
+/* Route status message */
+.route-status-msg {
+  font-size: 12px; color: #d97706; padding: 12px; border-radius: 8px;
+  background: #fffbeb; border: 1px solid #fcd34d; text-align: center;
+}
+
 .route-walk-badge {
   background: #EFF6FF; color: #1D4ED8; font-size: 12px; font-weight: 500;
   padding: 8px 12px; border-radius: 8px; margin-bottom: 10px;
@@ -1494,6 +1519,23 @@
 /* Peek handle (hidden by default, shown when minimized on mobile) */
 .route-peek-handle {
   display: none;
+}
+
+/* GPS Marker Styles */
+.gps-dot-icon { background: none !important; border: none !important; }
+.gps-dot {
+  width: 14px; height: 14px; background: #4285F4; border: 2.5px solid #fff;
+  border-radius: 50%; box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  position: relative;
+}
+.gps-dot-pulse {
+  position: absolute; top: -8px; left: -8px;
+  width: 30px; height: 30px; background: rgba(66,133,244,0.2);
+  border-radius: 50%; animation: gpsPulse 2s ease-out infinite;
+}
+@keyframes gpsPulse {
+  0% { transform: scale(0.5); opacity: 1; }
+  100% { transform: scale(1.5); opacity: 0; }
 }
 
 /* Mobile route panel */

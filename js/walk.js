@@ -463,3 +463,22 @@ function closeMobileActions() {
 }
 
 // ══════════════════════════════════════════════════════════════════
+// SHOW GPS LOCATION MARKER (passive, without activating walk filter)
+// ══════════════════════════════════════════════════════════════════
+// Show user's GPS location as a marker on the map without activating walk filter
+function _showUserLocationMarker(lat, lng) {
+  if (userMarker) { userMarker.remove(); userMarker = null; }
+  var icon = L.divIcon({
+    className: 'gps-dot-icon',
+    html: '<div class="gps-dot"><div class="gps-dot-pulse"></div></div>',
+    iconSize: [20, 20],
+    iconAnchor: [10, 10]
+  });
+  userMarker = L.marker([lat, lng], {
+    icon: icon,
+    zIndexOffset: 1000,
+    interactive: false
+  }).addTo(map);
+}
+
+// ══════════════════════════════════════════════════════════════════

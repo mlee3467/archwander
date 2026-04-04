@@ -50,6 +50,16 @@ window.addEventListener('load', function() {
     return loadCityData(city);
   }).then(function() {
     _postInitMap();
+    // Show GPS location marker on map (passive, without activating walk filter)
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        function(pos) {
+          _showUserLocationMarker(pos.coords.latitude, pos.coords.longitude);
+        },
+        function() {},
+        { timeout: 5000, maximumAge: 300000 }
+      );
+    }
     // Preload other cities in background
     _preloadOtherCities();
   }).catch(function(err) {
@@ -130,6 +140,8 @@ var CAT_CC_MAP = {
   'Public':                'c-pub',
   'Retail':                'c-ret',
   'Commercial':            'c-com',
+  'Mixed-use':             'c-com',
+  'Public Space':          'c-park',
 };
 
 // Open with Ctrl+Shift+A

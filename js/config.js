@@ -75,6 +75,8 @@ var CAT_COLORS = {
   'Public':                '#6B7280',
   'Retail':                '#BE185D',
   'Commercial':            '#92400E',
+  'Mixed-use':             '#92400E',
+  'Public Space':          '#166534',
 };
 var CAT_ICON = {
   'Skyscrapers':            'img/icon_skyscraper.png',
@@ -89,6 +91,8 @@ var CAT_ICON = {
   'Public':                 'img/icon_public.png',
   'Retail':                 'img/icon_retail.png',
   'Commercial':             'img/icon_commercial.png',
+  'Mixed-use':              'img/icon_commercial.png',
+  'Public Space':           'img/icon_park.png',
 };
 var CAT_BG = {
   'Skyscrapers':            '#EEF2FF',
@@ -103,6 +107,8 @@ var CAT_BG = {
   'Public':                 '#F9FAFB',
   'Retail':                 '#FFF1F2',
   'Commercial':             '#FFFBEB',
+  'Mixed-use':              '#FEF3C7',
+  'Public Space':           '#ECFDF5',
 };
 var STYLES = ['Art Deco','Beaux-Arts','Neoclassical','Gothic Revival','Modernist','Expressionist Modernism','Postmodern','Contemporary','Adaptive Reuse','Landscape','High-Tech','Parametric Design','Traditional Korean'];
 var ERAS   = ['Pre-1900','Pre-1930','1930–1969','1970–1999','2000–Present'];

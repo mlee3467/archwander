@@ -57,6 +57,11 @@ function _createRoutePanel() {
         '<button class="route-btn route-btn-clear" id="route-top-clear" onclick="clearRouteSelection()" style="display:none">✕ <span class="rt-clear-text">' + (LANG === 'ko' ? '전체 삭제' : 'Clear Route') + '</span></button>' +
         '<button class="route-btn route-btn-pdf" id="route-top-pdf" onclick="exportRoutePDF()" style="display:none">📄 <span class="rt-pdf-text">' + (LANG === 'ko' ? 'PDF' : 'PDF') + '</span></button>' +
       '</div>' +
+      '<div class="route-time-row">' +
+        '<label class="route-time-label">🕐 <span class="rt-time-text">' + (LANG === 'ko' ? '시작 시간' : 'Start time') + '</span></label>' +
+        '<input type="time" id="route-start-time" class="route-time-input" value="">' +
+        '<button class="route-btn route-btn-now" onclick="_setRouteTimeNow()">' + (LANG === 'ko' ? '지금' : 'Now') + '</button>' +
+      '</div>' +
       '<div class="route-hood-list" id="route-hood-list"></div>' +
       '<div class="route-selected" id="route-selected">' +
         '<div class="route-sel-title" id="route-sel-title">Selected Stops (0)</div>' +
@@ -65,6 +70,14 @@ function _createRoutePanel() {
       '<div class="route-result" id="route-result" style="display:none"></div>' +
     '</div>';
   document.body.appendChild(div);
+}
+
+// Set route start time to current time
+function _setRouteTimeNow() {
+  var now = new Date();
+  var hh = String(now.getHours()).padStart(2, '0');
+  var mm = String(now.getMinutes()).padStart(2, '0');
+  document.getElementById('route-start-time').value = hh + ':' + mm;
 }
 
 // ── Neighborhood Grouping ────────────────────────────────────────
@@ -247,10 +260,64 @@ function _refreshRouteUI() {
   });
 }
 
+// ── Hours Parsing ───────────────────────────────────────────────
+// Parse closing time from hours string. Returns minutes since midnight, or null if can't parse.
+function _parseCloseTime(hoursStr) {
+  if (!hoursStr) return null;
+  // Pattern: "HH:MM AM/PM" or "HH:MM" or "HAM/PM"
+  var timeRe = /(\d{1,2})(?::(\d{2}))?\s*(am|pm|AM|PM)?/g;
+  var times = [];
+  var m;
+  while ((m = timeRe.exec(hoursStr)) !== null) {
+    var h = parseInt(m[1]);
+    var min = parseInt(m[2] || '0');
+    if (m[3]) {
+      var ampm = m[3].toLowerCase();
+      if (ampm === 'pm' && h < 12) h += 12;
+      if (ampm === 'am' && h === 12) h = 0;
+    }
+    times.push(h * 60 + min);
+  }
+  // The last time found is usually the closing time
+  if (times.length >= 2) return times[times.length - 1];
+  if (times.length === 1) return times[0];
+  return null;
+}
+
 // ── OSRM Route Calculation ───────────────────────────────────────
 
 function calcRoute() {
   if (routeLocations.length < 2) return;
+
+  // Filter by opening hours if start time is set
+  var startTimeEl = document.getElementById('route-start-time');
+  var startTime = startTimeEl ? startTimeEl.value : '';
+  if (startTime) {
+    var parts = startTime.split(':');
+    var startMins = parseInt(parts[0]) * 60 + parseInt(parts[1]);
+    var removed = [];
+    routeLocations = routeLocations.filter(function(loc) {
+      var closeTime = _parseCloseTime(loc.hours);
+      if (closeTime === null) return true; // keep if unknown hours
+      // Remove if closes within 30 min of start time
+      if (closeTime > 0 && closeTime <= startMins + 30) {
+        removed.push(loc.name);
+        return false;
+      }
+      return true;
+    });
+    if (removed.length > 0) {
+      var msg = LANG === 'ko'
+        ? removed.length + '개 장소가 곧 닫혀 제외됨: ' + removed.join(', ')
+        : removed.length + ' location(s) excluded (closing soon): ' + removed.join(', ');
+      _routeStatus(msg);
+    }
+    _updateRouteSelectedUI();
+    if (routeLocations.length < 2) {
+      _routeStatus(LANG === 'ko' ? '최소 2개 이상의 장소가 필요합니다.' : 'Need at least 2 stops.');
+      return;
+    }
+  }
 
   // Optimize order using nearest-neighbor heuristic
   var ordered = _optimizeOrder(routeLocations);
@@ -484,6 +551,20 @@ function clearRoute() {
   if (resultDiv) { resultDiv.style.display = 'none'; resultDiv.innerHTML = ''; }
   var topPdf = document.getElementById('route-top-pdf');
   if (topPdf) topPdf.style.display = 'none';
+}
+
+// Helper: Show status message in result area
+function _routeStatus(msg) {
+  var resultDiv = document.getElementById('route-result');
+  if (resultDiv) {
+    resultDiv.style.display = 'block';
+    resultDiv.innerHTML = '<div class="route-status-msg">' + msg + '</div>';
+  }
+}
+
+// Helper: Alias for _refreshRouteUI
+function _updateRouteSelectedUI() {
+  _refreshRouteUI();
 }
 
 // ══════════════════════════════════════════════════════════════════
