@@ -45,6 +45,7 @@ const FILTER_DB = {
     'Museum',
     'New Media Art',
     'Observation',
+    'Observatory',
     'Office',
     'Park',
     'Parks',
