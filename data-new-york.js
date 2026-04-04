@@ -1246,7 +1246,8 @@ var LOCS_NEW_YORK = [
     id:'nyc-0029',
     name:'United Nations Headquarters',
     cats:[
-      'Public'
+      'Public',
+      'Landmarks'
     ],
     cc:'c-pub',
     styleGroups:[
@@ -1332,20 +1333,23 @@ var LOCS_NEW_YORK = [
       'https://commons.wikimedia.org/wiki/Special:FilePath/Lincoln_Center_Nov_2023_29.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Lincoln_Center_Nov_2023_24.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Lincoln_Center_Nov_2023_12.jpg?width=800'
-    ]
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7721243, lng:-73.9828613 }
   },
   {
     id:'nyc-0031',
     name:'Ford Foundation Building',
     cats:[
-      'Landmarks'
+      'Academic / Institution',
+      'Cultural',
+      'Park'
     ],
-    cc:'c-lmk',
+    cc:'c-aca',
     styleGroups:[
       'Modernist'
     ],
     era:'1930–1969',
-    arch:'Kevin Roche John Dinkeloo',
+    arch:'Kevin Roche',
     yr:1968,
     access:'Open to Public',
     city:'new-york',
@@ -1365,13 +1369,19 @@ var LOCS_NEW_YORK = [
       'Kevin Roche',
       'Interior Atrium',
       'Biophilic',
-      'Midtown East'
+      'Midtown East',
+      'Indoor Garden'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Ford_Foundation_Building_%2851921997207%29.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Ford_Foundation_Building_May_2021_26.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Ford_Foundation_Building_May_2021_15.jpg?width=800'
-    ]
+    ],
+    archs:[
+      'John Dinkeloo',
+      'Kevin Roche'
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'default', lat:40.7499311, lng:-73.9710331 }
   },
   {
     id:'nyc-0032',
@@ -1415,7 +1425,8 @@ var LOCS_NEW_YORK = [
       'https://commons.wikimedia.org/wiki/Special:FilePath/Citigroup_center.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/53rd_St_Lex_Av_td_10_-_Citigroup_Center.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/St_Peter%27s_Lutheran_Church_Manhattan.jpg?width=800'
-    ]
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7586698, lng:-73.9706751 }
   },
   {
     id:'nyc-0033',
