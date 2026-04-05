@@ -67,7 +67,7 @@ js/init.js          ← 부팅, 관리자 패널, SW 등록
 ### 형식: `{city-prefix}-{4자리 순번}`
 | 도시 | city 값 | ID prefix | 현재 범위 | 다음 ID |
 |------|---------|-----------|-----------|---------|
-| New York | `new-york` | `nyc` | nyc-0001 ~ nyc-0214 | **nyc-0215** |
+| New York | `new-york` | `nyc` | nyc-0001 ~ nyc-0229 | **nyc-0230** |
 | Seoul | `seoul` | `sel` | sel-0001 ~ sel-0127 | **sel-0128** |
 | London | `london` | `lon` | lon-0001 ~ lon-0022 | **lon-0023** |
 | Tokyo | `tokyo` | `tok` | tok-0001 ~ tok-0094 | **tok-0095** |
