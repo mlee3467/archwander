@@ -39,7 +39,8 @@ var LOCS_NEW_YORK = [
       'Observatory',
       'Art Deco',
       'Landmark',
-      'Midtown'
+      'Midtown',
+      'Touristic'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/EmpireStateBuildingCU.jpg?width=800',
@@ -81,7 +82,8 @@ var LOCS_NEW_YORK = [
       'Art Deco',
       'Eagle Gargoyles',
       'Free Lobby',
-      'Midtown East'
+      'Midtown East',
+      'Touristic'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Chrysler_Building_spire%2C_Manhattan%2C_by_Carol_Highsmith_%28LOC_highsm.04444%29.jpg?width=800',
@@ -125,7 +127,8 @@ var LOCS_NEW_YORK = [
       'Observatory',
       'Memorial',
       'Lower Manhattan',
-      '1,776 ft'
+      'Supertall',
+      'Post-9/11'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Lower_Manhattan_from_Jersey_City_November_2014_panorama_3_cropped.jpg?width=800',
@@ -167,7 +170,8 @@ var LOCS_NEW_YORK = [
       'Beaux-Arts',
       'Triangular',
       'Chicago School',
-      'Free'
+      'Free',
+      'Touristic'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Flatiron_Building_3618433845_5745ebc1b9.jpg?width=800',
@@ -182,7 +186,8 @@ var LOCS_NEW_YORK = [
     cats:[
       'Historic',
       'Infrastructure',
-      'Landmarks'
+      'Landmarks',
+      'Retail'
     ],
     cc:'c-his',
     styleGroups:[
@@ -213,7 +218,8 @@ var LOCS_NEW_YORK = [
       'Beaux-Arts',
       'Celestial Ceiling',
       'Transit Hub',
-      'Free Entry'
+      'Free Entry',
+      'Touristic'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Image-Grand_central_Station_Outside_Night_2.jpg?width=800',
@@ -258,7 +264,9 @@ var LOCS_NEW_YORK = [
       'Gothic Revival',
       'Suspension Bridge',
       'Free Access',
-      'East River'
+      'East River',
+      'Touristic',
+      'Landmark'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Brooklyn_Bridge_Manhattan.jpg?width=800',
@@ -301,7 +309,9 @@ var LOCS_NEW_YORK = [
       'Modern Art',
       'Upper East Side',
       'Modern Architecture',
-      'Contemporary Art'
+      'Contemporary Art',
+      'Touristic',
+      'Legendary'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/2003-03-New-York-Guggenheim-Museum-Frank-Lloyd-Wright.jpg?width=800',
@@ -342,7 +352,9 @@ var LOCS_NEW_YORK = [
     tags:[
       'Renzo Piano',
       'American Art',
-      'Meatpacking'
+      'Meatpacking',
+      'Gallery',
+      'Museum'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Whitney_Museum_of_American_Art_%2849051573133%29.jpg?width=800',
@@ -390,7 +402,9 @@ var LOCS_NEW_YORK = [
       'Adaptive Reuse',
       'Linear Park',
       'Free Access',
-      'DS+R'
+      'DS+R',
+      'Touristic',
+      'Preservation'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/High_Line%2C_Manhattan%2C_New_York_City%2C_20231001_1722_1458.jpg?width=800',
@@ -437,7 +451,8 @@ var LOCS_NEW_YORK = [
       'Hudson Yards',
       'Free',
       'Parametric',
-      'Heatherwick'
+      'Heatherwick',
+      'Touristic'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Hudson_Yards_Plaza_March_2019_53.jpg?width=800',
@@ -486,7 +501,8 @@ var LOCS_NEW_YORK = [
       'Neo-Expressionism',
       'Free Entry',
       'Parametric',
-      '9/11'
+      'Touristic',
+      'Post-9/11'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Oculus_%2841393p%29.jpg?width=800',
