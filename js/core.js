@@ -273,8 +273,8 @@ function openLoc(loc) {
     var svP = (loc.sv && loc.sv.pitch != null) ? loc.sv.pitch : 10;
     var svF = (loc.sv && loc.sv.fov != null) ? loc.sv.fov : 90;
     var svS = (loc.sv && loc.sv.source) ? loc.sv.source : 'outdoor';
-    var svLat = (loc.sv && loc.sv.lat) ? loc.sv.lat : loc.lat;
-    var svLng = (loc.sv && loc.sv.lng) ? loc.sv.lng : loc.lng;
+    var svLat = (loc.sv && loc.sv.lat != null) ? loc.sv.lat : loc.lat;
+    var svLng = (loc.sv && loc.sv.lng != null) ? loc.sv.lng : loc.lng;
     svIframe.src = 'https://www.google.com/maps/embed/v1/streetview?key=' +
       GOOGLE_MAPS_API_KEY + '&location=' + svLat + ',' + svLng +
       '&heading=' + svH + '&pitch=' + svP + '&fov=' + svF + '&source=' + svS;
