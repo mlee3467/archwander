@@ -103,9 +103,9 @@ function getFiltered() {
     const maxDist  = minutes * 80; // ~80 m/min ≈ 4.8 km/h
     list = list.filter(l => haversineM(walkOrigin.lat, walkOrigin.lng, l.lat, l.lng) <= maxDist);
   }
-  // Sort
-  if (state.sort === 'year-asc')  list = [...list].sort((a,b) => a.yr - b.yr);
-  if (state.sort === 'year-desc') list = [...list].sort((a,b) => b.yr - a.yr);
+  // Sort — default is oldest-first (year-asc)
+  if (state.sort === 'default' || state.sort === 'year-asc')  list = [...list].sort((a,b) => (a.yr||9999) - (b.yr||9999));
+  if (state.sort === 'year-desc') list = [...list].sort((a,b) => (b.yr||0) - (a.yr||0));
   if (state.sort === 'name')      list = [...list].sort((a,b) => a.name.localeCompare(b.name));
   if (state.sort === 'clicks')    list = [...list].sort((a,b) => awStats.getClicks(b.id)   - awStats.getClicks(a.id));
   if (state.sort === 'searches')  list = [...list].sort((a,b) => awStats.getSearches(b.id) - awStats.getSearches(a.id));
