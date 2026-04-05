@@ -47,7 +47,7 @@ var LOCS_LONDON = [
       "skyscraper",
       "city of london",
       "riba stirling prize"
-    ],
+    , "pritzker prize"],
     "photos": [
       "https://commons.wikimedia.org/wiki/Special:FilePath/30_St_Mary_Axe_from_Leadenhall_Street.jpg?width=800",
       "https://commons.wikimedia.org/wiki/Special:FilePath/30_St_Mary_Axe%2C_%27Gherkin%27.JPG?width=800",
@@ -96,7 +96,7 @@ var LOCS_LONDON = [
       "roman",
       "city of london",
       "riba stirling prize 2018"
-    ],
+    , "pritzker prize"],
     "photos": [
       "https://commons.wikimedia.org/wiki/Special:FilePath/Bloomberg_London_exterior_-_Cannon_Street%2C_Walbrook.jpg?width=800",
       "https://commons.wikimedia.org/wiki/Special:FilePath/Bloomberg_London_central_ramp_-_2.jpg?width=800",
@@ -146,7 +146,7 @@ var LOCS_LONDON = [
       "bloomsbury",
       "parametric",
       "reading room"
-    ],
+    , "pritzker prize"],
     "photos": [
       "https://commons.wikimedia.org/wiki/Special:FilePath/British_Museum_Dome.jpg?width=800",
       "https://commons.wikimedia.org/wiki/Special:FilePath/British_Museum_Great_Court_roof.jpg?width=800",
@@ -194,7 +194,7 @@ var LOCS_LONDON = [
       "canary wharf",
       "concrete",
       "1999"
-    ],
+    , "pritzker prize"],
     "photos": [
       "https://commons.wikimedia.org/wiki/Special:FilePath/Canary_Wharf_Wide_View%2C_London_-_July_2009.jpg?width=800",
       "https://commons.wikimedia.org/wiki/Special:FilePath/Canary_Wharf_Tube_Station_-_July_2009.jpg?width=800",
@@ -242,7 +242,7 @@ var LOCS_LONDON = [
       "globe",
       "spiral ramp",
       "thames"
-    ],
+    , "pritzker prize"],
     "photos": [
       "https://commons.wikimedia.org/wiki/Special:FilePath/London_-_City_Hall_%284%29.jpg?width=800",
       "https://commons.wikimedia.org/wiki/Special:FilePath/City_Hall%2C_South_Bank_-_geograph.org.uk_-_1281903.jpg?width=800",
@@ -295,7 +295,7 @@ var LOCS_LONDON = [
       "wobbly bridge",
       "free",
       "st paul's"
-    ],
+    , "pritzker prize"],
     "photos": [
       "https://commons.wikimedia.org/wiki/Special:FilePath/London_Millenium_Bridge.jpg?width=800",
       "https://commons.wikimedia.org/wiki/Special:FilePath/Under_the_Millennium_Bridge%2C_London_%28geograph_4907090%29.jpg?width=800",
@@ -344,7 +344,7 @@ var LOCS_LONDON = [
       "high-tech",
       "office",
       "docklands"
-    ],
+    , "pritzker prize"],
     "photos": [
       "https://commons.wikimedia.org/wiki/Special:FilePath/HSBC_HQ.jpg?width=800"
     ]
@@ -389,7 +389,7 @@ var LOCS_LONDON = [
       "football",
       "national stadium",
       "wembley"
-    ],
+    , "pritzker prize"],
     "photos": [
       "https://commons.wikimedia.org/wiki/Special:FilePath/London_Wembley.jpg?width=800",
       "https://commons.wikimedia.org/wiki/Special:FilePath/London_2012_Olympic_Stadium_%2813_July_2012%29.jpg?width=800",
@@ -438,7 +438,7 @@ var LOCS_LONDON = [
       "grade i listed",
       "1986",
       "stainless steel"
-    ],
+    , "pritzker prize"],
     "photos": [
       "https://commons.wikimedia.org/wiki/Special:FilePath/Lloyd%27s_insurance_exterior_at_night.jpg?width=800",
       "https://commons.wikimedia.org/wiki/Special:FilePath/Lloyd%27s_Building_-_Atrium_11th_floor_looking_at_the_Walkie-Talkie.jpg?width=800",
@@ -487,7 +487,7 @@ var LOCS_LONDON = [
       "megaframe",
       "city of london",
       "st paul's view"
-    ],
+    , "pritzker prize"],
     "photos": [
       "https://commons.wikimedia.org/wiki/Special:FilePath/Cheesegrater_and_Gherkin.jpg?width=800",
       "https://commons.wikimedia.org/wiki/Special:FilePath/122_Leadenhall_Street_-_geograph-3968154-by-Julian-Osley.jpg?width=800",
@@ -537,7 +537,7 @@ var LOCS_LONDON = [
       "greenwich",
       "masts",
       "entertainment"
-    ],
+    , "pritzker prize"],
     "photos": [
       "https://commons.wikimedia.org/wiki/Special:FilePath/London_MMB_V9_Millennium_Dome.jpg?width=800",
       "https://commons.wikimedia.org/wiki/Special:FilePath/London_MMB_W7_Millennium_Dome.jpg?width=800",
@@ -585,7 +585,7 @@ var LOCS_LONDON = [
       "infrastructure",
       "single span roof",
       "terminal"
-    ],
+    , "pritzker prize"],
     "photos": [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/T5A_interior.jpg/800px-T5A_interior.jpg"
     ]
@@ -628,7 +628,7 @@ var LOCS_LONDON = [
       "knightsbridge",
       "hyde park",
       "world's most expensive"
-    ],
+    , "pritzker prize"],
     "photos": [
       "https://commons.wikimedia.org/wiki/Special:FilePath/No_1_Hyde_Park%2C_London.jpg?width=800",
       "https://commons.wikimedia.org/wiki/Special:FilePath/One_Hyde_Park_under_construction_in_May_2010.JPG?width=800",
@@ -675,7 +675,7 @@ var LOCS_LONDON = [
       "city of london",
       "office",
       "cylindrical tower"
-    ],
+    , "pritzker prize"],
     "photos": [
       "https://commons.wikimedia.org/wiki/Special:FilePath/88_Wood_St%2C_London.jpg?width=800",
       "https://commons.wikimedia.org/wiki/Special:FilePath/Vents_88_London_Wall_Richard_Rogers.jpg?width=800",
@@ -721,7 +721,7 @@ var LOCS_LONDON = [
       "south bank",
       "transparency",
       "tate modern"
-    ],
+    , "pritzker prize"],
     "photos": [
       "https://commons.wikimedia.org/wiki/Special:FilePath/NEO_Bankside%2C_London.jpg?width=800",
       "https://commons.wikimedia.org/wiki/Special:FilePath/Neo_Bankside.jpg?width=800",
@@ -767,7 +767,7 @@ var LOCS_LONDON = [
       "thames",
       "glass",
       "1999"
-    ],
+    , "pritzker prize"],
     "photos": []
   },
   {
@@ -809,7 +809,7 @@ var LOCS_LONDON = [
       "landscape",
       "lake",
       "west london"
-    ],
+    , "pritzker prize"],
     "photos": []
   },
   {
@@ -852,7 +852,7 @@ var LOCS_LONDON = [
       "south bank",
       "viewing gallery",
       "mixed-use"
-    ],
+    , "pritzker prize"],
     "photos": [
       "https://commons.wikimedia.org/wiki/Special:FilePath/The_Shard_from_the_south.jpg?width=800",
       "https://commons.wikimedia.org/wiki/Special:FilePath/The_Shard_-_Nov_2012.jpg?width=800"
@@ -1033,7 +1033,7 @@ var LOCS_LONDON = [
       "marylebone",
       "adaptive reuse",
       "contemporary art"
-    ],
+    , "pritzker prize"],
     "photos": [
       "https://commons.wikimedia.org/wiki/Special:FilePath/Lisson_Gallery_London_Ando.jpg?width=800"
     ]
@@ -3407,7 +3407,7 @@ var LOCS_LONDON = [
       "grade-ii*",
       "bankside",
       "postwar"
-    ],
+    , "pritzker prize"],
     "photos": []
   },
   {
@@ -3583,7 +3583,7 @@ var LOCS_LONDON = [
       "grade-ii*",
       "kensington",
       "cultural"
-    ],
+    , "pritzker prize"],
     "photos": []
   },
   {
@@ -3709,7 +3709,7 @@ var LOCS_LONDON = [
       "heritage",
       "contemporary design",
       "cultural"
-    ],
+    , "pritzker prize"],
     "photos": []
   },
   {
@@ -3751,7 +3751,7 @@ var LOCS_LONDON = [
       "facade",
       "heritage commerce",
       "contemporary"
-    ],
+    , "pritzker prize"],
     "photos": []
   },
   {
@@ -3874,7 +3874,7 @@ var LOCS_LONDON = [
       "sports",
       "contemporary",
       "hadid"
-    ],
+    , "pritzker prize"],
     "photos": []
   },
   {
@@ -4280,7 +4280,7 @@ var LOCS_LONDON = [
       "commercial",
       "1990s",
       "soho"
-    ],
+    , "pritzker prize"],
     "photos": []
   },
   {

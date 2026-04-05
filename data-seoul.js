@@ -68,7 +68,7 @@ var LOCS_SEOUL = [
     tourOk:false, tourInfo:'',
     transit:'Sinbundang Line → Pangyo Station (15-min taxi)',
     walkFrom:'Pangyo Techno Valley: 5 min',
-    tags:["foster + partners","high-tech","pangyo","r&d","biophilic","corporate"],
+    tags:["foster + partners","high-tech","pangyo","r&d","biophilic","corporate", "pritzker prize"],
     photos:[]
   },{
     id:'sel-0017',
@@ -132,7 +132,7 @@ var LOCS_SEOUL = [
     tourOk:false, tourInfo:'',
     transit:'5 9 → Magok Naru (Exit 4, 10-min walk)',
     walkFrom:'Magok Techno Valley: 8 min',
-    tags:["morphosis","thom mayne","high-tech","magok","composite fibre","research","campus"],
+    tags:["morphosis","thom mayne","high-tech","magok","composite fibre","research","campus", "pritzker prize"],
     photos:[]
   },
   {
@@ -374,7 +374,7 @@ var LOCS_SEOUL = [
     tourOk:true, tourInfo:'Guided tours on weekends. Audio guides available in Korean, English, and Japanese.',
     transit:'6 → Hangangjin (Exit 1, 10-min walk uphill)',
     walkFrom:'Itaewon: 10 min · La Cucina Myeongborang: 7 min · Noksapyeong: 12 min',
-    tags:["mario botta","jean nouvel","rem koolhaas","museum","free","hannam-dong","samsung"],
+    tags:["mario botta","jean nouvel","rem koolhaas","museum","free","hannam-dong","samsung", "pritzker prize"],
     photos:["https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Leeum_Samsung_Museum_of_Art.jpg/800px-Leeum_Samsung_Museum_of_Art.jpg"]
   },
   {
@@ -578,7 +578,7 @@ var LOCS_SEOUL = [
     tourOk:false, tourInfo:'',
     transit:'1 4 → Sinyongsan (Exit 1, 5-min walk)',
     walkFrom:'Yongsan Station: 8 min · National Museum of Korea: 15 min · Leeum Museum: 12 min',
-    tags:["david chipperfield","yongsan","corporate","hanging gardens","museum","free","facade"],
+    tags:["david chipperfield","yongsan","corporate","hanging gardens","museum","free","facade", "pritzker prize"],
     photos:[]
   },
   {
@@ -807,7 +807,7 @@ var LOCS_SEOUL = [
     tourOk:true, tourInfo:'The rooftop park and exterior walkways are freely accessible 24/7. The LED Rose Garden (25,550 LED roses) illuminates nightly. Design exhibitions require tickets.',
     transit:'2 4 5 → Dongdaemun History & Culture Park (Exit 1)',
     walkFrom:'Dongdaemun Gate: 3 min · Cheonggyecheon Stream: 5 min',
-    tags:['zaha hadid','pritzker','ddp','neofuturistic','dongdaemun','landmark','led rose garden','24hr'],
+    tags:['zaha hadid','pritzker','ddp','neofuturistic','dongdaemun','landmark','led rose garden','24hr', 'pritzker prize'],
     photos:[]
   },
 
@@ -892,7 +892,7 @@ var LOCS_SEOUL = [
     tourOk:true, tourInfo:'Located in Paju Book City, approximately 40 km northwest of Seoul. Combine with visits to other Paju Book City architecture.',
     transit:'Seoul → Paju (bus from Hapjeong Station)',
     walkFrom:'Paju Book City area',
-    tags:['alvaro siza','pritzker','paju','museum','minimalist','concrete','2010','book city'],
+    tags:['alvaro siza','pritzker','paju','museum','minimalist','concrete','2010','book city', 'pritzker prize'],
     photos:[]
   },
 
@@ -950,7 +950,7 @@ var LOCS_SEOUL = [
     tourOk:false, tourInfo:'Operating Apple Store. The ground-floor glass pavilion and its relationship to the streetscape are the architectural highlights.',
     transit:'4 → Myeongdong (Exit 6, 2 min walk)',
     walkFrom:'Myeongdong Station: 2 min · Myeongdong Cathedral: 3 min',
-    tags:['norman foster','pritzker','apple','myeongdong','flagship','glass','2022'],
+    tags:['norman foster','pritzker','apple','myeongdong','flagship','glass','2022', 'pritzker prize'],
     photos:[]
   },
 
@@ -979,7 +979,7 @@ var LOCS_SEOUL = [
     tourOk:false, tourInfo:'Ticketed performances only. The exterior and lobby spaces are accessible to ticket holders.',
     transit:'9 → Magok (Exit 3, 5 min walk)',
     walkFrom:'Magok Station: 5 min · Seoul Botanical Garden: 8 min',
-    tags:['tadao ando','pritzker','concert hall','performing arts','magok','concrete','2022'],
+    tags:['tadao ando','pritzker','concert hall','performing arts','magok','concrete','2022', 'pritzker prize'],
     photos:[]
   },
 
@@ -1006,7 +1006,7 @@ var LOCS_SEOUL = [
     tourOk:true, tourInfo:'The building and its public spaces are accessible during exhibition hours. Located near Changgyeonggung Palace and Daehangno theatre district.',
     transit:'4 → Hyehwa (Exit 2, 5 min walk)',
     walkFrom:'Hyehwa Station: 5 min · Changgyeonggung Palace: 8 min · SNUH: 3 min',
-    tags:['tadao ando','pritzker','concert hall','gallery','hyehwa','concrete','2009'],
+    tags:['tadao ando','pritzker','concert hall','gallery','hyehwa','concrete','2009', 'pritzker prize'],
     photos:[]
   },
 
@@ -2161,7 +2161,7 @@ var LOCS_SEOUL = [
     tourOk:true, tourInfo:'Docent tours available for exhibitions',
     transit:'7 → Cheongdam (Exit 9, 8-min walk)',
     walkFrom:'Dosan Park: 5 min',
-    tags:["art space","herzog & de meuron","contemporary","concrete","cheongdam","gangnam"],
+    tags:["art space","herzog & de meuron","contemporary","concrete","cheongdam","gangnam", "pritzker prize"],
     photos:[]
   },
 
@@ -2189,7 +2189,7 @@ var LOCS_SEOUL = [
     tourOk:true, tourInfo:'Regular exhibitions and guided tours',
     transit:'2 → Seoul National Univ. (Exit 3, shuttle bus)',
     walkFrom:'SNU Gwanak Campus',
-    tags:["museum","oma","rem koolhaas","university","art","contemporary","gwanak"],
+    tags:["museum","oma","rem koolhaas","university","art","contemporary","gwanak", "pritzker prize"],
     photos:[]
   },
 
@@ -2325,7 +2325,7 @@ var LOCS_SEOUL = [
     tourOk:false, tourInfo:'Private residential community',
     transit:'신분당 → Pangyo (15-min walk)',
     walkFrom:'Pangyo Techno Valley: 10 min',
-    tags:["housing","riken yamamoto","pritzker","residential","pangyo","community"],
+    tags:["housing","riken yamamoto","pritzker","residential","pangyo","community", "pritzker prize"],
     photos:[]
   },
 

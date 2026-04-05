@@ -315,7 +315,7 @@ var LOCS_NEW_YORK = [
       'legendary',
       'museum',
       'gallery'
-    ],
+    , 'pritzker prize'],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/2003-03-New-York-Guggenheim-Museum-Frank-Lloyd-Wright.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Solomon_R._Guggenheim_Museum%2C_New_York_City%2C_Lobby_Skylight_Delight.jpg?width=800',
@@ -358,7 +358,7 @@ var LOCS_NEW_YORK = [
       'meatpacking',
       'gallery',
       'museum'
-    ],
+    , 'pritzker prize'],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Whitney_Museum_of_American_Art_%2849051573133%29.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/The_Whitney_Museum%2C_New_York_City_in_2015.JPG?width=800',
@@ -641,7 +641,7 @@ var LOCS_NEW_YORK = [
       'education',
       'academic',
       'digital architecture'
-    ],
+    , 'pritzker prize'],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Cooper_Union_-_Cooper_Union_Academic_Building_%2848072701728%29.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Cooper_Union_New_Academic_Bldg_from_south.jpg?width=800',
@@ -785,7 +785,7 @@ var LOCS_NEW_YORK = [
       'plaza',
       'modern architecture',
       'legendary'
-    ],
+    , 'pritzker prize'],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Seagram_Building_%2835098307116%29.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/270_Park_Avenue.JPG?width=800',
@@ -877,7 +877,7 @@ var LOCS_NEW_YORK = [
       'art deco base',
       'exoskeleton',
       'exposed structure'
-    ],
+    , 'pritzker prize'],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Hearst_Tower_%28August_2024%29.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Nueva_York7042.JPG?width=800',
@@ -927,7 +927,7 @@ var LOCS_NEW_YORK = [
       'japanese',
       'museum',
       'gallery'
-    ],
+    , 'pritzker prize'],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/New_Museum_in_New_York_City_2015.JPG?width=800'
     ],
@@ -969,7 +969,7 @@ var LOCS_NEW_YORK = [
       'sculptural',
       'freeform',
       'digital architecture'
-    ],
+    , 'pritzker prize'],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Gehry_IAC_and_Nouvel_100_11th_Ave.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/IAC_night_jeh.jpg?width=800'
@@ -1012,7 +1012,7 @@ var LOCS_NEW_YORK = [
       'tribeca',
       'anish kapoor',
       'luxury residential'
-    ],
+    , 'pritzker prize'],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/56_Leonard_Street_%2824249%29.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/56_Leonard_Street_012.jpg?width=800',
@@ -1146,7 +1146,7 @@ var LOCS_NEW_YORK = [
       'ceramic tubes',
       'leed silver',
       'times square'
-    ],
+    , 'pritzker prize'],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/New_york_times_building.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/New_York_Times_Building_-_Bottom_Portion_%2848193462432%29.jpg?width=800',
@@ -1327,7 +1327,7 @@ var LOCS_NEW_YORK = [
       'international territory',
       'legendary',
       'wonder'
-    ],
+    , 'pritzker prize'],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Headquarters_of_the_United_Nations%2C_New_York_City%2C_20231001_1103_1007.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Shore_of_the_East_River_with_Headquarters_of_the_United_Nations%2C_New_York_City%2C_20231005_1132_2230.jpg?width=800',
@@ -1375,7 +1375,7 @@ var LOCS_NEW_YORK = [
       'performing arts',
       'travertine plaza',
       'legendary'
-    ],
+    , 'pritzker prize'],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Lincoln_Center_Overview_%2848047495362%29.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Lincoln_Center_Nov_2023_29.jpg?width=800',
@@ -4222,7 +4222,7 @@ var LOCS_NEW_YORK = [
       'moma',
       'midtown',
       'diagonal bracing'
-    ],
+    , 'pritzker prize'],
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/53W53_MoMA_Tower_2019.jpg/800px-53W53_MoMA_Tower_2019.jpg'
     ],
@@ -4264,7 +4264,7 @@ var LOCS_NEW_YORK = [
       'prada',
       'retail',
       'soho'
-    ],
+    , 'pritzker prize'],
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Prada_Epicenter_NYC_OMA.jpg/800px-Prada_Epicenter_NYC_OMA.jpg'
     ],
@@ -5632,7 +5632,7 @@ var LOCS_NEW_YORK = [
       'art',
       'nolita',
       'sliver building'
-    ],
+    , 'pritzker prize'],
     photos:[]
   },
   {
@@ -5675,7 +5675,7 @@ var LOCS_NEW_YORK = [
       'leed gold',
       'blackrock',
       '1011 ft'
-    ],
+    , 'pritzker prize'],
     photos:[]
   },
   {
@@ -5718,7 +5718,7 @@ var LOCS_NEW_YORK = [
       'jean-georges',
       'full block',
       '860 ft'
-    ],
+    , 'pritzker prize'],
     photos:[]
   },
   {
@@ -5762,7 +5762,7 @@ var LOCS_NEW_YORK = [
       'leed platinum',
       '1388 ft',
       '2025'
-    ],
+    , 'pritzker prize'],
     photos:[]
   },
   {
@@ -6024,7 +6024,7 @@ var LOCS_NEW_YORK = [
       'residential',
       'nolita',
       'boutique condo'
-    ],
+    , 'pritzker prize'],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/152_Elizabeth_Street_NYC_Tadao_Ando.jpg?width=800'
     ]
@@ -6067,7 +6067,7 @@ var LOCS_NEW_YORK = [
       'soho',
       'luxury',
       'curved facade'
-    ],
+    , 'pritzker prize'],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/565_Broome_SoHo_Ando.jpg?width=800'
     ]
@@ -6973,7 +6973,7 @@ var LOCS_NEW_YORK = [
       'glass-palace',
       'neuroscience-research',
       'contemporary'
-    ],
+    , 'pritzker prize'],
     photos:[]
   },
   {
@@ -7008,7 +7008,7 @@ var LOCS_NEW_YORK = [
       'art-center',
       'gallery-spaces',
       'performance-venues'
-    ],
+    , 'pritzker prize'],
     photos:[]
   },
   {
@@ -7044,7 +7044,7 @@ var LOCS_NEW_YORK = [
       'conference-space',
       'glass-pavilion',
       'public-engagement'
-    ],
+    , 'pritzker prize'],
     photos:[]
   },
   {
@@ -7079,7 +7079,7 @@ var LOCS_NEW_YORK = [
       'laboratory',
       'columbia',
       'institutional'
-    ],
+    , 'pritzker prize'],
     photos:[]
   },
   {
@@ -7513,7 +7513,7 @@ var LOCS_NEW_YORK = [
       'contemporary',
       'luxury',
       'prismatic'
-    ],
+    , 'pritzker prize'],
     photos:[]
   },
   {
@@ -7550,7 +7550,7 @@ var LOCS_NEW_YORK = [
       'residential',
       'chipperfield',
       'contemporary'
-    ],
+    , 'pritzker prize'],
     photos:[]
   },
   {
@@ -7586,7 +7586,7 @@ var LOCS_NEW_YORK = [
       'luxury',
       'chipperfield',
       'contemporary'
-    ],
+    , 'pritzker prize'],
     photos:[]
   },
   {
@@ -7916,7 +7916,7 @@ var LOCS_NEW_YORK = [
       'oma',
       'lower-east-side',
       'expansion'
-    ],
+    , 'pritzker prize'],
     photos:[]
   },
   {
@@ -8148,7 +8148,7 @@ var LOCS_NEW_YORK = [
       'som',
       'international-style',
       'landmark'
-    ],
+    , 'pritzker prize'],
     photos:[]
   },
   {

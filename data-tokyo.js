@@ -30,7 +30,7 @@ var LOCS_TOKYO = [
     tourOk:false, tourInfo:'The gymnasiums are operational sports facilities. The exterior and surrounding Yoyogi Park are freely accessible. Interior access during public sporting events.',
     transit:'Chiyoda → Harajuku (1 min walk)',
     walkFrom:'Harajuku Station: 2 min · Meiji Shrine: 5 min · Omotesando: 12 min',
-    tags:['kenzo tange','1964 olympics','metabolism','suspended roof','shibuya','national monument'],
+    tags:['kenzo tange','1964 olympics','metabolism','suspended roof','shibuya','national monument', 'pritzker prize'],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Yoyogi_National_Gymnasium_2013.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Kokuritsu_Yoyogi_Ky%C5%8Dgij%C5%8D_1.jpg?width=800',
@@ -60,7 +60,7 @@ var LOCS_TOKYO = [
     tourOk:true, tourInfo:'Both observatories are free to access. The North Tower has evening views until 10:30PM. Guided tours of the Metropolitan Assembly Hall available (Japanese only).',
     transit:'Oedo Marunouchi → Tochomae (3 min)',
     walkFrom:'Shinjuku Station West Exit: 10 min · Shinjuku Park Tower (Gehry): 5 min',
-    tags:['kenzo tange','observatory','free','government','shinjuku','twin tower','panoramic view'],
+    tags:['kenzo tange','observatory','free','government','shinjuku','twin tower','panoramic view', 'pritzker prize'],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Tokyo_Metropolitan_Government_Building_Morning1.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Tokyo_Metropolitan_Government_Building_2012.JPG?width=800',
@@ -89,7 +89,7 @@ var LOCS_TOKYO = [
     tourOk:false, tourInfo:'Visitors are welcome during opening hours. Organ concerts and services held regularly.',
     transit:'Yurakucho → Edogawabashi (7 min walk)',
     walkFrom:'Edogawabashi Station: 7 min',
-    tags:['kenzo tange','cathedral','hyperbolic paraboloid','stainless steel','bunkyo','religious'],
+    tags:['kenzo tange','cathedral','hyperbolic paraboloid','stainless steel','bunkyo','religious', 'pritzker prize'],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/20030702_2_July_2003_Tokyo_Cathedorale_1_Tange_Kenzou_Sekiguchi_Tokyo_Japan_b.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/2018_St._Mary%27s_Cathedral%2C_Tokyo_3.jpg?width=800',
@@ -123,7 +123,7 @@ var LOCS_TOKYO = [
     tourOk:false, tourInfo:'Freely accessible as a luxury retail store. The building exterior and ground floor are viewable at all times. Interior is the Tod\'s boutique.',
     transit:'Ginza Hanzomon → Omotesando (Exit A2, 3 min)',
     walkFrom:'Prada Omotesando (Herzog & de Meuron): 3 min · Omotesando Hills (Ando): 2 min',
-    tags:['toyo ito','omotesando','concrete tree structure','retail','facade','shibuya'],
+    tags:['toyo ito','omotesando','concrete tree structure','retail','facade','shibuya', 'pritzker prize'],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/%E3%83%92%E3%83%A5%E3%83%BC%E3%82%B4%E3%83%9C%E3%82%B9%E8%A1%A8%E5%8F%82%E9%81%93%E5%BA%97_May_30%2C_2019.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Tod%27s_at_Omotesando.jpg?width=800'
@@ -150,7 +150,7 @@ var LOCS_TOKYO = [
     tourOk:false, tourInfo:'Freely accessible as a Mikimoto jewellery boutique.',
     transit:'Ginza Marunouchi Hibiya → Ginza (Exit B4, 2 min)',
     walkFrom:'Ginza Six: 3 min · Chanel Ginza (Peter Marino): 3 min',
-    tags:['toyo ito','ginza','perforated steel','retail','structural facade','pink'],
+    tags:['toyo ito','ginza','perforated steel','retail','structural facade','pink', 'pritzker prize'],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Mikimoto_Ginza2.JPG?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Japan_2010_1000000379_1_%285372872502%29.jpg?width=800',
@@ -180,7 +180,7 @@ var LOCS_TOKYO = [
     tourOk:false, tourInfo:'Freely accessible as a Dior flagship boutique.',
     transit:'Ginza Hanzomon → Omotesando (Exit A5)',
     walkFrom:'Tod\'s Omotesando: 5 min · Prada Aoyama: 2 min',
-    tags:['sanaa','kazuyo sejima','ryue nishizawa','omotesando','acrylic curtain wall','retail','transparent'],
+    tags:['sanaa','kazuyo sejima','ryue nishizawa','omotesando','acrylic curtain wall','retail','transparent', 'pritzker prize'],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Christian_Dior_Omotesando_Tokyo_2016.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Le_magasin_Dior_Omotesando_%28Tokyo%29_%2842066222724%29.jpg?width=800',
@@ -211,7 +211,7 @@ var LOCS_TOKYO = [
     tourOk:false, tourInfo:'Private residence, not open to visitors. Exterior viewable from the street.',
     transit:'Multiple lines → Itabashi-ku area',
     walkFrom:'',
-    tags:['shigeru ban','curtain wall','residential','transparent','itabashi','fabric facade'],
+    tags:['shigeru ban','curtain wall','residential','transparent','itabashi','fabric facade', 'pritzker prize'],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Shigeru_Ban_Curtain_Wall_House.jpg?width=800'
     ]
@@ -237,7 +237,7 @@ var LOCS_TOKYO = [
     tourOk:false, tourInfo:'Freely accessible as a Swatch Group multi-brand boutique.',
     transit:'Ginza Marunouchi Hibiya → Ginza (Exit C2)',
     walkFrom:'Mikimoto Ginza 2 (Ito): 2 min · Chanel Ginza: 3 min',
-    tags:['shigeru ban','ginza','sliding facade','green wall','retail','swatch','transparency'],
+    tags:['shigeru ban','ginza','sliding facade','green wall','retail','swatch','transparency', 'pritzker prize'],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Nicolas_G._Hayek_Center_2.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Nicolas_G._Hayek_Center_1.jpg?width=800',
@@ -415,7 +415,7 @@ var LOCS_TOKYO = [
     tourOk:false, tourInfo:'The ground-floor gallery, café, and atrium spiral ramp are freely accessible. Upper-floor events ticketed separately.',
     transit:'Ginza Hanzomon → Omotesando (Exit B1, 3 min)',
     walkFrom:'Nezu Museum (Kuma): 2 min · Omotesando Hills (Ando): 5 min',
-    tags:['fumihiko maki','art center','gallery','minami-aoyama','collage facade','urban','free'],
+    tags:['fumihiko maki','art center','gallery','minami-aoyama','collage facade','urban','free', 'pritzker prize'],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Spiral_Building_interior_2024.JPG?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Spiral_house_Tokyo.jpg?width=800'
@@ -442,7 +442,7 @@ var LOCS_TOKYO = [
     tourOk:false, tourInfo:'The complex is freely walkable and mixed-use. Daikanyama as a neighbourhood is best explored on foot. The Tsutaya Books (Klein Dytham) nearby is also worth visiting.',
     transit:'Tokyu Toyoko → Daikanyama (3 min walk)',
     walkFrom:'Daikanyama T-Site (Tsutaya): 3 min · Log Road Daikanyama: 5 min',
-    tags:['fumihiko maki','daikanyama','mixed-use','urban quarter','incremental','shibuya','low-rise'],
+    tags:['fumihiko maki','daikanyama','mixed-use','urban quarter','incremental','shibuya','low-rise', 'pritzker prize'],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Hillside_Terrace_C_2010.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Hillside_Terrace%2C_Building_C_20241020_%28III%29.jpg?width=800',
@@ -507,7 +507,7 @@ var LOCS_TOKYO = [
     tourOk:false, tourInfo:'Freely accessible. The interior spiral ramp atrium is the main spatial experience. The preserved Dojunkai Apartment wing at the west end is worth observing.',
     transit:'Ginza Hanzomon → Omotesando (Exit A2, 1 min)',
     walkFrom:'Tod\'s Omotesando (Ito): 2 min · Prada Aoyama (Herzog & de Meuron): 5 min · Dior (SANAA): 5 min',
-    tags:['tadao ando','omotesando','concrete','spiral atrium','retail','mixed-use','shibuya'],
+    tags:['tadao ando','omotesando','concrete','spiral atrium','retail','mixed-use','shibuya', 'pritzker prize'],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Omotesando_Hills_2012.JPG?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Omotesando_Hills%2C_Tokyo.jpg?width=800',
@@ -539,7 +539,7 @@ var LOCS_TOKYO = [
     tourOk:true, tourInfo:'Curated temporary design exhibitions rotate 2–3 times per year. The garden and exterior are freely accessible in the Midtown park. The annual "design sight" programme features talks and events.',
     transit:'Hibiya Oedo → Roppongi (Exit 8, 5 min)',
     walkFrom:'National Art Center (Kurokawa): 5 min · Mori Art Museum: 5 min · Suntory Museum of Art: 2 min',
-    tags:['tadao ando','design museum','roppongi','tokyo midtown','steel roof','underground','issey miyake'],
+    tags:['tadao ando','design museum','roppongi','tokyo midtown','steel roof','underground','issey miyake', 'pritzker prize'],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Site2121.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/21_21_DESIGN_SIGHT.jpg?width=800',
@@ -570,7 +570,7 @@ var LOCS_TOKYO = [
     tourOk:false, tourInfo:'Freely accessible as a retail and dining complex.',
     transit:'Ginza Hanzomon → Omotesando (Exit B1, 5 min)',
     walkFrom:'Nezu Museum (Kuma): 3 min · Spiral (Maki): 5 min',
-    tags:['tadao ando','concrete','minami-aoyama','retail','cylindrical','atrium','1989'],
+    tags:['tadao ando','concrete','minami-aoyama','retail','cylindrical','atrium','1989', 'pritzker prize'],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/La_Collezione_1.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/La_Collezione_3.jpg?width=800'
@@ -953,7 +953,7 @@ var LOCS_TOKYO = [
     tourOk:false, tourInfo:'The building is a functioning office tower for the Shizuoka Broadcasting System Tokyo bureau. The exterior — best seen from across the elevated expressway — is accessible 24/7. A registered Important Cultural Property candidate.',
     transit:'Ginza/Hibiya/Marunouchi → Ginza (A4 exit, 8 min) · JR → Shimbashi (5 min)',
     walkFrom:'Ginza Six: 8 min · Yamaha Ginza (Nikken Sekkei): 2 min',
-    tags:['kenzo tange','metabolism','metabolist','ginza','1967','cantilever','cylindrical core','historic','important cultural property'],
+    tags:['kenzo tange','metabolism','metabolist','ginza','1967','cantilever','cylindrical core','historic','important cultural property', 'pritzker prize'],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/GINZA_SKY_WALK_2024_Shizuoka_Press_and_Broadcasting_Center_%2854534529867%29.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Shizuoka_Press_and_Broadcasting_Center_in_Tokyo3.jpg?width=800',
@@ -1015,7 +1015,7 @@ var LOCS_TOKYO = [
     tourOk:false, tourInfo:'Miu Miu boutique, freely accessible. The concrete shelf facade is best appreciated from across the narrow side street; the moss and seasonal vegetation on the shelves varies throughout the year.',
     transit:'Ginza/Hanzomon/Chiyoda → Omotesando (A5 exit, 5 min)',
     walkFrom:'Omotesando Hills (Tadao Ando): 3 min · Prada Omotesando (Herzog & de Meuron): 5 min',
-    tags:['herzog & de meuron','miu miu','aoyama','omotesando','concrete','retail','stacked shelves','2015','vegetation'],
+    tags:['herzog & de meuron','miu miu','aoyama','omotesando','concrete','retail','stacked shelves','2015','vegetation', 'pritzker prize'],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Miu_Miu_Aoyama_Herzog_de_Meuron_Tokyo.jpg?width=800'
     ]
@@ -1106,7 +1106,7 @@ var LOCS_TOKYO = [
     tourOk:true, tourInfo:'Self-guided viewing of the main hall and lecture rooms. English pamphlet available. The building hosts weddings on weekends, so some areas may be restricted.',
     transit:'JR → Ikebukuro (5 min walk) · Seibu → Ikebukuro (5 min)',
     walkFrom:'Ikebukuro Station Metropolitan Exit: 5 min',
-    tags:['frank lloyd wright','prairie style','important cultural property','ikebukuro','1921','school','oya stone'],
+    tags:['frank lloyd wright','prairie style','important cultural property','ikebukuro','1921','school','oya stone', 'pritzker prize'],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Jiyu_gakuen_myonichikan.JPG?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Jiyugakuen_Myonichikan.jpg?width=800',
@@ -1136,7 +1136,7 @@ var LOCS_TOKYO = [
     tourOk:false, tourInfo:'Operating luxury retail store. The exterior and ground floor are the primary architectural experience. Photography of the facade freely permitted.',
     transit:'Ginza Hanzomon Chiyoda → Omotesando (5 min walk)',
     walkFrom:'Omotesando Station A5 Exit: 3 min · Dior Omotesando: 2 min · Nezu Museum: 4 min',
-    tags:['herzog & de meuron','pritzker','prada','omotesando','flagship store','glass facade','2003'],
+    tags:['herzog & de meuron','pritzker','prada','omotesando','flagship store','glass facade','2003', 'pritzker prize'],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/PRADA_BOUTIQUE_AOYAMA.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Prada_Boutique_Aoyama.jpg?width=800',
@@ -1169,7 +1169,7 @@ var LOCS_TOKYO = [
     tourOk:true, tourInfo:'The 8th-floor Le Forum gallery hosts rotating contemporary art exhibitions, free to enter. The ground-floor atrium and retail spaces are also architecturally notable.',
     transit:'Ginza Marunouchi Hibiya → Ginza (2 min walk)',
     walkFrom:'Ginza Station A7 Exit: 1 min · Tokyu Plaza Ginza: 3 min · De Beers Ginza: 2 min',
-    tags:['renzo piano','pritzker','hermès','ginza','glass block','gallery','free','2001'],
+    tags:['renzo piano','pritzker','hermès','ginza','glass block','gallery','free','2001', 'pritzker prize'],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/2018_Hermes_Ginza_2.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/HermesBuildingTokyo.JPG?width=800',
@@ -1202,7 +1202,7 @@ var LOCS_TOKYO = [
     tourOk:false, tourInfo:'Private office building. The exterior and Shiodome public plazas offer the best views. The curved east facade is best appreciated from Hamarikyu Gardens.',
     transit:'Oedo Yurikamome → Shiodome (1 min walk)',
     walkFrom:'Shiodome Station: 1 min · Hamarikyu Gardens: 3 min · Ginza: 10 min',
-    tags:['jean nouvel','pritzker','shiodome','office tower','curved glass','2002','dentsu'],
+    tags:['jean nouvel','pritzker','shiodome','office tower','curved glass','2002','dentsu', 'pritzker prize'],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Dentsu_Building-20060317.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Dentsu_Headquarters_Building_-_panoramio.jpg?width=800',
@@ -1235,7 +1235,7 @@ var LOCS_TOKYO = [
     tourOk:false, tourInfo:'Private office building. Best viewed from the Ochanomizu Bridge or Hijiri-bashi Bridge over the Kanda River.',
     transit:'JR Marunouchi → Ochanomizu (3 min walk)',
     walkFrom:'Ochanomizu Station: 3 min · Nikolai Cathedral: 5 min',
-    tags:['norman foster','pritzker','high-tech','diagrid','ochanomizu','1991','structural expression'],
+    tags:['norman foster','pritzker','high-tech','diagrid','ochanomizu','1991','structural expression', 'pritzker prize'],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Century_Tower_at_Japan.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Century_Tower_Juntendo.JPG?width=800',
@@ -1353,7 +1353,7 @@ var LOCS_TOKYO = [
     tourOk:true, tourInfo:'Ground-level public spaces and retail floors are accessible. The station integration means visitors naturally pass through the building\'s architectural spaces.',
     transit:'Hibiya → Toranomon Hills (direct connection)',
     walkFrom:'Toranomon Hills Station: 0 min · Azabudai Hills: 7 min · Kamiyacho: 5 min',
-    tags:['oma','shohei shigematsu','toranomon','mori building','station tower','2023','a-frame'],
+    tags:['oma','shohei shigematsu','toranomon','mori building','station tower','2023','a-frame', 'pritzker prize'],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/2018_Toranomon_Hills_2.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Toranomon_Hills_3_towers.jpg?width=800',
@@ -1384,7 +1384,7 @@ var LOCS_TOKYO = [
     tourOk:false, tourInfo:'Commercial complex with freely accessible public floors, terraces, and food halls.',
     transit:'JR → Harajuku (2 min walk) · Chiyoda Fukutoshin → Meiji-jingumae (1 min)',
     walkFrom:'Harajuku Station: 2 min · Takeshita Street: 0 min · Omotesando Hills: 8 min',
-    tags:['oma','shohei shigematsu','harajuku','mixed-use','retail','2025','takeshita'],
+    tags:['oma','shohei shigematsu','harajuku','mixed-use','retail','2025','takeshita', 'pritzker prize'],
     photos:[]
   },
 
@@ -1585,7 +1585,7 @@ var LOCS_TOKYO = [
     tourOk:false, tourInfo:'Operating luxury retail store. The facade and ground floor are the primary architectural experience.',
     transit:'Ginza Marunouchi Hibiya → Ginza (3 min walk)',
     walkFrom:'Ginza Station: 3 min · Maison Hermès: 2 min · Tokyu Plaza Ginza: 4 min',
-    tags:['david chipperfield','pritzker','valentino','ginza','flagship store','2007'],
+    tags:['david chipperfield','pritzker','valentino','ginza','flagship store','2007', 'pritzker prize'],
     photos:[]
   },
 
