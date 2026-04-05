@@ -5273,7 +5273,8 @@ var LOCS_NEW_YORK = [
     name:'Moynihan Train Hall',
     cats:[
       'infrastructure',
-      'landmarks'
+      'landmarks',
+      'mixed-use'
     ],
     cc:'c-inf',
     styleGroups:[
@@ -5307,11 +5308,13 @@ var LOCS_NEW_YORK = [
       'beaux-arts',
       'skylight',
       'farley building',
-      '2021'
+      '2021',
+      'renovation'
     ],
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Moynihan_Train_Hall_interior_2021.jpg/800px-Moynihan_Train_Hall_interior_2021.jpg'
-    ]
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'default', lat:40.751256, lng:-73.9951837 }
   },
   {
     id:'nyc-0123',
