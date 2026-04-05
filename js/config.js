@@ -65,18 +65,18 @@ async function fetchWikiLicense(url) {
 // ── CC_META: single source of truth for cc → color, icon, bg ──
 // Every location carries a `cc` field (e.g. 'c-sky'). Look up once.
 var CC_META = {
-  'c-sky':  { color:'#4338CA', bg:'#EEF2FF', icon:'img/icon_skyscraper.png' },
-  'c-his':  { color:'#C2410C', bg:'#FFF7ED', icon:'img/icon_historic.png'   },
-  'c-inf':  { color:'#475569', bg:'#F8FAFC', icon:'img/icon_infra.png'      },
-  'c-cul':  { color:'#9333EA', bg:'#FDF4FF', icon:'img/icon_cultural.png'   },
-  'c-park': { color:'#166534', bg:'#F0FDF4', icon:'img/icon_park.png'       },
-  'c-rel':  { color:'#B45309', bg:'#FFFBEB', icon:'img/icon_religious.png'  },
-  'c-aca':  { color:'#1D4ED8', bg:'#EFF6FF', icon:'img/icon_academic.png'   },
-  'c-res':  { color:'#0F766E', bg:'#F0FDFA', icon:'img/icon_resi.png'      },
-  'c-lmk':  { color:'#0369A1', bg:'#F0F9FF', icon:'img/icon_landmark.png'  },
-  'c-pub':  { color:'#6B7280', bg:'#F9FAFB', icon:'img/icon_public.png'    },
-  'c-ret':  { color:'#BE185D', bg:'#FFF1F2', icon:'img/icon_retail.png'    },
-  'c-com':  { color:'#92400E', bg:'#FFFBEB', icon:'img/icon_commercial.png' },
+  'c-sky':  { color:'#1746A2', bg:'#E8EEFB', icon:'img/icon_skyscraper.png' },  // deep blue
+  'c-his':  { color:'#B44D12', bg:'#FEF3E2', icon:'img/icon_historic.png'   },  // burnt orange
+  'c-inf':  { color:'#5A6577', bg:'#F0F2F5', icon:'img/icon_infra.png'      },  // cool gray
+  'c-cul':  { color:'#7B2D8E', bg:'#F5EAFA', icon:'img/icon_cultural.png'   },  // purple
+  'c-park': { color:'#1A7D37', bg:'#E6F7EC', icon:'img/icon_park.png'       },  // green
+  'c-rel':  { color:'#8B6914', bg:'#FAF3DE', icon:'img/icon_religious.png'  },  // gold
+  'c-aca':  { color:'#0C7C8A', bg:'#E2F6F8', icon:'img/icon_academic.png'   },  // cyan / teal-blue
+  'c-res':  { color:'#2D882D', bg:'#EAF6EA', icon:'img/icon_resi.png'      },  // olive green
+  'c-lmk':  { color:'#C63E50', bg:'#FCEDEF', icon:'img/icon_landmark.png'  },  // crimson red
+  'c-pub':  { color:'#6B7280', bg:'#F3F4F6', icon:'img/icon_public.png'    },  // neutral gray
+  'c-ret':  { color:'#C4197D', bg:'#FBE8F3', icon:'img/icon_retail.png'    },  // magenta
+  'c-com':  { color:'#8B5E34', bg:'#F9F0E6', icon:'img/icon_commercial.png' },  // brown
 };
 var _CC_DEFAULT = CC_META['c-lmk'];
 function _ccMeta(loc) { return CC_META[loc.cc] || _CC_DEFAULT; }
