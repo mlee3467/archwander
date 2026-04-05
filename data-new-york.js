@@ -1985,8 +1985,8 @@ var LOCS_NEW_YORK = [
     ],
     yr:2019,
     access:'Open to Public',
-    lat:40.7539341,
-    lng:-74.00334219999999,
+    lat:40.7534422,
+    lng:-74.0020931,
     addr:'Hudson Yards, New York, NY 10001',
     hood:'Hudson Yards',
     desc:'Hudson Yards is the largest private real estate development in American history, constructed atop an 28-acre concrete platform built over the active West Side Yard of the Long Island Rail Road. The masterplan by KPF (Kohn Pedersen Fox) and Related Companies organizes over 18 million square feet of office, residential, hotel, retail, and cultural space around a central public square. Key buildings include 30 Hudson Yards (KPF), The Spiral (BIG), 35 Hudson Yards (David Childs/SOM), The Shed (Diller Scofidio + Renfro), and Vessel (Heatherwick Studio). Phase 1 opened in March 2019, redrawing the western edge of Midtown Manhattan.',
@@ -2010,7 +2010,8 @@ var LOCS_NEW_YORK = [
       'https://commons.wikimedia.org/wiki/Special:FilePath/30th_St_staging_for_Hudson_Yards_contruction_2014_jeh.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Hudson_Yards_Real_Estate_Development_Update-_April_16%2C_2015_%2816992354740%29.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Manhattan_W_Feb_2017_3.jpg?width=800'
-    ]
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7534788, lng:-74.0020818 }
   },
   {
     id:'nyc-0047',
