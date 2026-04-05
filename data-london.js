@@ -1,535 +1,3633 @@
 /* ============================================================
    ArchWander — London Location Data
-   19 locations · Foster + Partners · Richard Rogers · Renzo Piano
+   80 locations
    Edit this file to add / modify London locations.
    ============================================================ */
 
 var LOCS_LONDON = [
-
-  // ── FOSTER + PARTNERS ──────────────────────────────────────
-
   {
-    id:'lon-0001',
-    name:'30 St Mary Axe (Gherkin)',
-    cats:["Skyscrapers","Landmarks","Commercial"], cc:'c-sky', styleGroups:["High-Tech","Contemporary"],
-    era:'2000–Present', city:'london',
-    arch:'Foster + Partners', archs:['Foster + Partners'],
-    yr:2003, access:'Free Admission',
-    lat:51.5145, lng:-0.0803,
-    addr:'30 St Mary Axe, City of London EC3A 8EP', hood:'City of London',
-    desc:'The Gherkin is London\'s most recognisable tower, its 180-metre bullet-shaped profile rising above the medieval street grid of the City. Designed by Foster + Partners for Swiss Re and completed in 2003, the diagrid structural frame eliminates internal columns and creates column-free floor plates throughout. Six light wells spiral up the building\'s exterior, channelling natural ventilation through the offices and cutting energy consumption by roughly half compared to a conventional sealed tower. Unusually for a skyscraper, every panel of its diamond-patterned glass facade is flat, yet the geometry gives the illusion of a continuous curve.',
-    hours:'Lobby: Mon–Fri 7:00 AM – 7:00 PM · Upper floors: private',
-    lastEntry:'',
-    admission:'Free (lobby only) · Upper floors private',
-    tourOk:true, tourInfo:'Open House London (September) grants public access to upper floors. The private dining room at the apex occasionally hosts corporate events visible through the glazed dome.',
-    transit:'Circle District → Aldgate · Central Waterloo & City → Bank (5 min walk)',
-    walkFrom:'Liverpool Street: 6 min · Lloyd\'s of London: 3 min · Leadenhall Market: 4 min',
-    tags:['Foster + Partners','Norman Foster','High-Tech','Diagrid','Swiss Re','Gherkin','Skyscraper','City of London','RIBA Stirling Prize'],
-    photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/30_St_Mary_Axe_from_Leadenhall_Street.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/30_St_Mary_Axe%2C_%27Gherkin%27.JPG?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/30_St_Mary_Axe_-_The_Gherkin_from_Leadenhall_St_-_Nov_2006.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/London_MMB_41_30_St_Mary_Ax.jpg?width=800'
+    "id": "lon-0001",
+    "name": "30 St Mary Axe (Gherkin)",
+    "cats": [
+      "Skyscrapers",
+      "Landmarks",
+      "Commercial"
+    ],
+    "cc": "c-sky",
+    "styleGroups": [
+      "High-Tech",
+      "Contemporary"
+    ],
+    "era": "2000–Present",
+    "city": "london",
+    "arch": "Foster + Partners",
+    "archs": [
+      "Foster + Partners"
+    ],
+    "yr": 2003,
+    "access": "Free Admission",
+    "lat": 51.5145,
+    "lng": -0.0803,
+    "addr": "30 St Mary Axe, City of London EC3A 8EP",
+    "hood": "City of London",
+    "desc": "The Gherkin is London's most recognisable tower, its 180-metre bullet-shaped profile rising above the medieval street grid of the City. Designed by Foster + Partners for Swiss Re and completed in 2003, the diagrid structural frame eliminates internal columns and creates column-free floor plates throughout. Six light wells spiral up the building's exterior, channelling natural ventilation through the offices and cutting energy consumption by roughly half compared to a conventional sealed tower. Unusually for a skyscraper, every panel of its diamond-patterned glass facade is flat, yet the geometry gives the illusion of a continuous curve.",
+    "hours": "Lobby: Mon–Fri 7:00 AM – 7:00 PM · Upper floors: private",
+    "lastEntry": "",
+    "admission": "Free (lobby only) · Upper floors private",
+    "tourOk": true,
+    "tourInfo": "Open House London (September) grants public access to upper floors. The private dining room at the apex occasionally hosts corporate events visible through the glazed dome.",
+    "transit": "Circle District → Aldgate · Central Waterloo & City → Bank (5 min walk)",
+    "walkFrom": "Liverpool Street: 6 min · Lloyd's of London: 3 min · Leadenhall Market: 4 min",
+    "tags": [
+      "Foster + Partners",
+      "Norman Foster",
+      "High-Tech",
+      "Diagrid",
+      "Swiss Re",
+      "Gherkin",
+      "Skyscraper",
+      "City of London",
+      "RIBA Stirling Prize"
+    ],
+    "photos": [
+      "https://commons.wikimedia.org/wiki/Special:FilePath/30_St_Mary_Axe_from_Leadenhall_Street.jpg?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/30_St_Mary_Axe%2C_%27Gherkin%27.JPG?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/30_St_Mary_Axe_-_The_Gherkin_from_Leadenhall_St_-_Nov_2006.jpg?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/London_MMB_41_30_St_Mary_Ax.jpg?width=800"
     ]
   },
-
   {
-    id:'lon-0002',
-    name:'Bloomberg European HQ',
-    cats:["Landmarks","Commercial"], cc:'c-lmk', styleGroups:["Contemporary","High-Tech"],
-    era:'2000–Present', city:'london',
-    arch:'Foster + Partners', archs:['Foster + Partners'],
-    yr:2017, access:'Free Admission',
-    lat:51.51247189999999, lng:-0.0909128,
-    addr:'3 Queen Victoria St, London EC4N 4TQ', hood:'City of London',
-    desc:'Widely regarded as the world\'s most sustainable office building, Bloomberg\'s European headquarters received the highest ever BREEAM Outstanding score of 98.5% at the time of its completion. Foster + Partners\'s design reinstates a Roman-era street — Watling Street — through the site and incorporates some 16,000 bronze petal-shaped fins on its curved facade that open and close to regulate airflow. Beneath the building, a permanent public exhibition displays the remains of London\'s Roman Temple of Mithras, excavated on the same site in the 1950s.',
-    hours:'Ground floor arcade & Mithraeum: daily · Offices: private',
-    lastEntry:'',
-    admission:'Free (arcade and Mithraeum museum)',
-    tourOk:true, tourInfo:'The London Mithraeum in the basement is free to visit and open to the public. The building interior can be visited during Open House London.',
-    transit:'Central → Bank (2 min) · Circle District → Mansion House (3 min)',
-    walkFrom:'St Paul\'s Cathedral: 5 min · Tate Modern: 10 min · Bank: 3 min',
-    tags:['Foster + Partners','Bloomberg','BREEAM','Sustainable','Mithraeum','Roman','City of London','RIBA Stirling Prize 2018'],
-    photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Bloomberg_London_exterior_-_Cannon_Street%2C_Walbrook.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Bloomberg_London_central_ramp_-_2.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Bloomberg_London_central_ramp_-_3.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Bloomberg_London_lobby_-_3.jpg?width=800'
+    "id": "lon-0002",
+    "name": "Bloomberg European HQ",
+    "cats": [
+      "Landmarks",
+      "Commercial"
+    ],
+    "cc": "c-lmk",
+    "styleGroups": [
+      "Contemporary",
+      "High-Tech"
+    ],
+    "era": "2000–Present",
+    "city": "london",
+    "arch": "Foster + Partners",
+    "archs": [
+      "Foster + Partners"
+    ],
+    "yr": 2017,
+    "access": "Free Admission",
+    "lat": 51.51247189999999,
+    "lng": -0.0909128,
+    "addr": "3 Queen Victoria St, London EC4N 4TQ",
+    "hood": "City of London",
+    "desc": "Widely regarded as the world's most sustainable office building, Bloomberg's European headquarters received the highest ever BREEAM Outstanding score of 98.5% at the time of its completion. Foster + Partners's design reinstates a Roman-era street — Watling Street — through the site and incorporates some 16,000 bronze petal-shaped fins on its curved facade that open and close to regulate airflow. Beneath the building, a permanent public exhibition displays the remains of London's Roman Temple of Mithras, excavated on the same site in the 1950s.",
+    "hours": "Ground floor arcade & Mithraeum: daily · Offices: private",
+    "lastEntry": "",
+    "admission": "Free (arcade and Mithraeum museum)",
+    "tourOk": true,
+    "tourInfo": "The London Mithraeum in the basement is free to visit and open to the public. The building interior can be visited during Open House London.",
+    "transit": "Central → Bank (2 min) · Circle District → Mansion House (3 min)",
+    "walkFrom": "St Paul's Cathedral: 5 min · Tate Modern: 10 min · Bank: 3 min",
+    "tags": [
+      "Foster + Partners",
+      "Bloomberg",
+      "BREEAM",
+      "Sustainable",
+      "Mithraeum",
+      "Roman",
+      "City of London",
+      "RIBA Stirling Prize 2018"
+    ],
+    "photos": [
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Bloomberg_London_exterior_-_Cannon_Street%2C_Walbrook.jpg?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Bloomberg_London_central_ramp_-_2.jpg?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Bloomberg_London_central_ramp_-_3.jpg?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Bloomberg_London_lobby_-_3.jpg?width=800"
     ]
   },
-
   {
-    id:'lon-0003',
-    name:'Great Court, British Museum',
-    cats:["Cultural","Landmarks","Public"], cc:'c-cul', styleGroups:["Contemporary","High-Tech"],
-    era:'2000–Present', city:'london',
-    arch:'Foster + Partners', archs:['Foster + Partners'],
-    yr:2000, access:'Free Admission',
-    lat:51.5194133, lng:-0.1269566,
-    addr:'Great Russell St, London WC1B 3DG', hood:'Bloomsbury',
-    desc:'The Queen Elizabeth II Great Court transformed the long-neglected inner courtyard of the British Museum into Europe\'s largest covered public square. Foster + Partners\'s steel-and-glass roof — a 3,312-panel gridshell no two panes of which are identical — spans the 2-acre courtyard and encloses the iconic circular Reading Room at its centre. Completed in 2000 for the museum\'s 250th anniversary, the roof resolves the previously impossible geometry of fitting a circular room inside a rectangular courtyard through parametric design that predated mainstream computational tools.',
-    hours:'Daily 10:00 AM – 5:30 PM (Fri to 8:30 PM) · Great Court open from 9:00 AM',
-    lastEntry:'5:00 PM',
-    admission:'Free (Great Court and permanent collection) · Paid for special exhibitions',
-    tourOk:true, tourInfo:'Free highlights tours of the permanent collection depart from the Great Court regularly. The Reading Room is open to the public on selected dates.',
-    transit:'Central Piccadilly → Holborn (3 min) · Northern → Tottenham Court Road (5 min)',
-    walkFrom:'Tottenham Court Road: 5 min · Covent Garden: 10 min · Oxford Street: 8 min',
-    tags:['Foster + Partners','Gridshell','Glass Roof','British Museum','Free','Bloomsbury','Parametric','Reading Room'],
-    photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/British_Museum_Dome.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/British_Museum_Great_Court_roof.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/London_-_Great_Russell_Street_-_British_Museum_-_Great_Court_-_View_NNW_II.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Britmuseum.jpg?width=800'
+    "id": "lon-0003",
+    "name": "Great Court, British Museum",
+    "cats": [
+      "Cultural",
+      "Landmarks",
+      "Public"
+    ],
+    "cc": "c-cul",
+    "styleGroups": [
+      "Contemporary",
+      "High-Tech"
+    ],
+    "era": "2000–Present",
+    "city": "london",
+    "arch": "Foster + Partners",
+    "archs": [
+      "Foster + Partners"
+    ],
+    "yr": 2000,
+    "access": "Free Admission",
+    "lat": 51.5194133,
+    "lng": -0.1269566,
+    "addr": "Great Russell St, London WC1B 3DG",
+    "hood": "Bloomsbury",
+    "desc": "The Queen Elizabeth II Great Court transformed the long-neglected inner courtyard of the British Museum into Europe's largest covered public square. Foster + Partners's steel-and-glass roof — a 3,312-panel gridshell no two panes of which are identical — spans the 2-acre courtyard and encloses the iconic circular Reading Room at its centre. Completed in 2000 for the museum's 250th anniversary, the roof resolves the previously impossible geometry of fitting a circular room inside a rectangular courtyard through parametric design that predated mainstream computational tools.",
+    "hours": "Daily 10:00 AM – 5:30 PM (Fri to 8:30 PM) · Great Court open from 9:00 AM",
+    "lastEntry": "5:00 PM",
+    "admission": "Free (Great Court and permanent collection) · Paid for special exhibitions",
+    "tourOk": true,
+    "tourInfo": "Free highlights tours of the permanent collection depart from the Great Court regularly. The Reading Room is open to the public on selected dates.",
+    "transit": "Central Piccadilly → Holborn (3 min) · Northern → Tottenham Court Road (5 min)",
+    "walkFrom": "Tottenham Court Road: 5 min · Covent Garden: 10 min · Oxford Street: 8 min",
+    "tags": [
+      "Foster + Partners",
+      "Gridshell",
+      "Glass Roof",
+      "British Museum",
+      "Free",
+      "Bloomsbury",
+      "Parametric",
+      "Reading Room"
+    ],
+    "photos": [
+      "https://commons.wikimedia.org/wiki/Special:FilePath/British_Museum_Dome.jpg?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/British_Museum_Great_Court_roof.jpg?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/London_-_Great_Russell_Street_-_British_Museum_-_Great_Court_-_View_NNW_II.jpg?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Britmuseum.jpg?width=800"
     ]
   },
-
   {
-    id:'lon-0004',
-    name:'Canary Wharf Underground Station',
-    cats:["Infrastructure","Commercial"], cc:'c-inf', styleGroups:["High-Tech","Contemporary"],
-    era:'1970–1999', city:'london',
-    arch:'Foster + Partners', archs:['Foster + Partners'],
-    yr:1999, access:'Free Admission',
-    lat:51.5036499, lng:-0.019624,
-    addr:'Underground Ltd, Heron Quays Rd, Canary Wharf Estate, London E14 4HJ', hood:'Canary Wharf',
-    desc:'Foster + Partners\'s Jubilee Line extension station at Canary Wharf is one of the largest underground stations ever built in Britain — a vast elliptical concrete cavern 300 metres long and 28 metres high, capable of handling 40 trains per hour. The station\'s coffered concrete roof and glass canopy entrance, sheltering commuters like the ribbed shell of a mussel, became an icon of late 1990s infrastructure ambition. It was part of the celebrated Jubilee Line Extension, a project that turned the London Underground into a gallery of contemporary architecture with individual stations designed by Roland Paoletti\'s roster of landmark architects.',
-    hours:'Mon–Sat 5:00 AM – 12:30 AM · Sun 7:00 AM – 11:30 PM',
-    lastEntry:'',
-    admission:'Oyster/contactless or valid ticket required',
-    tourOk:false, tourInfo:'The station is a working transport hub. The dramatic concourse and escalator hall are visible to all passengers.',
-    transit:'Jubilee → Canary Wharf · Elizabeth line → Canary Wharf',
-    walkFrom:'One Canada Square: 3 min · Museum of London Docklands: 8 min',
-    tags:['Foster + Partners','Jubilee Line','Infrastructure','Underground','Canary Wharf','Concrete','1999'],
-    photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Canary_Wharf_Wide_View%2C_London_-_July_2009.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Canary_Wharf_Tube_Station_-_July_2009.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/The_elevators_leaving_-_entering_Canary_Wharf_Underground_Station_-_geograph.org.uk_-_1128533.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/CanaryWharfTubeA.JPG?width=800'
+    "id": "lon-0004",
+    "name": "Canary Wharf Underground Station",
+    "cats": [
+      "Infrastructure",
+      "Commercial"
+    ],
+    "cc": "c-inf",
+    "styleGroups": [
+      "High-Tech",
+      "Contemporary"
+    ],
+    "era": "1970–1999",
+    "city": "london",
+    "arch": "Foster + Partners",
+    "archs": [
+      "Foster + Partners"
+    ],
+    "yr": 1999,
+    "access": "Free Admission",
+    "lat": 51.5036499,
+    "lng": -0.019624,
+    "addr": "Underground Ltd, Heron Quays Rd, Canary Wharf Estate, London E14 4HJ",
+    "hood": "Canary Wharf",
+    "desc": "Foster + Partners's Jubilee Line extension station at Canary Wharf is one of the largest underground stations ever built in Britain — a vast elliptical concrete cavern 300 metres long and 28 metres high, capable of handling 40 trains per hour. The station's coffered concrete roof and glass canopy entrance, sheltering commuters like the ribbed shell of a mussel, became an icon of late 1990s infrastructure ambition. It was part of the celebrated Jubilee Line Extension, a project that turned the London Underground into a gallery of contemporary architecture with individual stations designed by Roland Paoletti's roster of landmark architects.",
+    "hours": "Mon–Sat 5:00 AM – 12:30 AM · Sun 7:00 AM – 11:30 PM",
+    "lastEntry": "",
+    "admission": "Oyster/contactless or valid ticket required",
+    "tourOk": false,
+    "tourInfo": "The station is a working transport hub. The dramatic concourse and escalator hall are visible to all passengers.",
+    "transit": "Jubilee → Canary Wharf · Elizabeth line → Canary Wharf",
+    "walkFrom": "One Canada Square: 3 min · Museum of London Docklands: 8 min",
+    "tags": [
+      "Foster + Partners",
+      "Jubilee Line",
+      "Infrastructure",
+      "Underground",
+      "Canary Wharf",
+      "Concrete",
+      "1999"
+    ],
+    "photos": [
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Canary_Wharf_Wide_View%2C_London_-_July_2009.jpg?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Canary_Wharf_Tube_Station_-_July_2009.jpg?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/The_elevators_leaving_-_entering_Canary_Wharf_Underground_Station_-_geograph.org.uk_-_1128533.jpg?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/CanaryWharfTubeA.JPG?width=800"
     ]
   },
-
   {
-    id:'lon-0005',
-    name:'City Hall (GLA Building)',
-    cats:["Public","Landmarks","Commercial"], cc:'c-pub', styleGroups:["Contemporary"],
-    era:'2000–Present', city:'london',
-    arch:'Foster + Partners', archs:['Foster + Partners'],
-    yr:2002, access:'Free Admission',
-    lat:51.5073119, lng:0.016255200000000004,
-    addr:'Kamal Chunchie Way, London E16 1ZE', hood:'South Bank / London Bridge',
-    desc:'London\'s City Hall, completed in 2002 on the South Bank opposite the Tower of London, is an exercise in geometric energy efficiency: the building\'s distinctive tilted globe form minimises surface area exposed to direct sunlight, reducing solar gain, while a 500-metre public spiral ramp winds upward through its ten storeys. Foster + Partners calculated the optimal tilt angle to shade the offices below, creating a shape that appears different from every angle. Though the Greater London Authority relocated to Stratford in 2021 and the building was rebranded, it remains a major public space housing the outdoor amphitheatre The Scoop on its riverside.',
-    hours:'Exterior and riverside: always open · Interior access varies',
-    lastEntry:'',
-    admission:'Free (exterior)',
-    tourOk:true, tourInfo:'The building is visible from the riverside walk and the interior ramp was historically open during business hours. Check current access with the current operator.',
-    transit:'Jubilee → London Bridge (5 min) · Northern → London Bridge (5 min)',
-    walkFrom:'Tower Bridge: 4 min · Tate Modern: 15 min · Borough Market: 8 min',
-    tags:['Foster + Partners','GLA','South Bank','Sustainable','Globe','Spiral Ramp','Thames'],
-    photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/London_-_City_Hall_%284%29.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/City_Hall%2C_South_Bank_-_geograph.org.uk_-_1281903.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/London_-_City_Hall_%283%29.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/GLA_Chamber.jpg?width=800'
+    "id": "lon-0005",
+    "name": "City Hall (GLA Building)",
+    "cats": [
+      "Public",
+      "Landmarks",
+      "Commercial"
+    ],
+    "cc": "c-pub",
+    "styleGroups": [
+      "Contemporary"
+    ],
+    "era": "2000–Present",
+    "city": "london",
+    "arch": "Foster + Partners",
+    "archs": [
+      "Foster + Partners"
+    ],
+    "yr": 2002,
+    "access": "Free Admission",
+    "lat": 51.5073119,
+    "lng": 0.016255200000000004,
+    "addr": "Kamal Chunchie Way, London E16 1ZE",
+    "hood": "South Bank / London Bridge",
+    "desc": "London's City Hall, completed in 2002 on the South Bank opposite the Tower of London, is an exercise in geometric energy efficiency: the building's distinctive tilted globe form minimises surface area exposed to direct sunlight, reducing solar gain, while a 500-metre public spiral ramp winds upward through its ten storeys. Foster + Partners calculated the optimal tilt angle to shade the offices below, creating a shape that appears different from every angle. Though the Greater London Authority relocated to Stratford in 2021 and the building was rebranded, it remains a major public space housing the outdoor amphitheatre The Scoop on its riverside.",
+    "hours": "Exterior and riverside: always open · Interior access varies",
+    "lastEntry": "",
+    "admission": "Free (exterior)",
+    "tourOk": true,
+    "tourInfo": "The building is visible from the riverside walk and the interior ramp was historically open during business hours. Check current access with the current operator.",
+    "transit": "Jubilee → London Bridge (5 min) · Northern → London Bridge (5 min)",
+    "walkFrom": "Tower Bridge: 4 min · Tate Modern: 15 min · Borough Market: 8 min",
+    "tags": [
+      "Foster + Partners",
+      "GLA",
+      "South Bank",
+      "Sustainable",
+      "Globe",
+      "Spiral Ramp",
+      "Thames"
+    ],
+    "photos": [
+      "https://commons.wikimedia.org/wiki/Special:FilePath/London_-_City_Hall_%284%29.jpg?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/City_Hall%2C_South_Bank_-_geograph.org.uk_-_1281903.jpg?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/London_-_City_Hall_%283%29.jpg?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/GLA_Chamber.jpg?width=800"
     ]
   },
-
   {
-    id:'lon-0006',
-    name:'Millennium Bridge',
-    cats:["Infrastructure","Landmarks","Public"], cc:'c-inf', styleGroups:["Contemporary","High-Tech"],
-    era:'2000–Present', city:'london',
-    arch:'Foster + Partners', archs:['Foster + Partners', 'Arup', 'Anthony Caro'],
-    yr:2002, access:'Free Admission',
-    lat:51.509529099999995, lng:-0.0985425,
-    addr:'Thames Embankment, London EC4V 3QH', hood:'City of London / Bankside',
-    desc:'London\'s only dedicated pedestrian crossing over the Thames, the Millennium Bridge connects St Paul\'s Cathedral to Tate Modern in a single elegant aluminium span of 325 metres. Designed by Foster + Partners with engineers Arup and sculptor Anthony Caro, the bridge was famously closed two days after opening in 2000 due to unexpected lateral swaying caused by pedestrian footfall synchronisation — the "wobbly bridge" becoming one of engineering\'s most public failures. Following a £5 million modification to install 37 fluid viscous dampers, it reopened in 2002 and is now one of London\'s most beloved public spaces.',
-    hours:'Always open',
-    lastEntry:'',
-    admission:'Free',
-    tourOk:true, tourInfo:'The bridge is a public pedestrian route open at all times. The views of St Paul\'s from the South Bank end are among London\'s finest.',
-    transit:'Central → St Paul\'s (5 min) · Jubilee Northern → Southwark (5 min)',
-    walkFrom:'St Paul\'s Cathedral: 5 min · Tate Modern: 3 min · Shakespeare\'s Globe: 7 min',
-    tags:['Foster + Partners','Arup','Bridge','Pedestrian','Thames','Millennium','Wobbly Bridge','Free','St Paul\'s'],
-    photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/London_Millenium_Bridge.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Under_the_Millennium_Bridge%2C_London_%28geograph_4907090%29.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Bridge_horiz_mode_shock.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Bridge_vert_mode_shock.jpg?width=800'
+    "id": "lon-0006",
+    "name": "Millennium Bridge",
+    "cats": [
+      "Infrastructure",
+      "Landmarks",
+      "Public"
+    ],
+    "cc": "c-inf",
+    "styleGroups": [
+      "Contemporary",
+      "High-Tech"
+    ],
+    "era": "2000–Present",
+    "city": "london",
+    "arch": "Foster + Partners",
+    "archs": [
+      "Foster + Partners",
+      "Arup",
+      "Anthony Caro"
+    ],
+    "yr": 2002,
+    "access": "Free Admission",
+    "lat": 51.509529099999995,
+    "lng": -0.0985425,
+    "addr": "Thames Embankment, London EC4V 3QH",
+    "hood": "City of London / Bankside",
+    "desc": "London's only dedicated pedestrian crossing over the Thames, the Millennium Bridge connects St Paul's Cathedral to Tate Modern in a single elegant aluminium span of 325 metres. Designed by Foster + Partners with engineers Arup and sculptor Anthony Caro, the bridge was famously closed two days after opening in 2000 due to unexpected lateral swaying caused by pedestrian footfall synchronisation — the \"wobbly bridge\" becoming one of engineering's most public failures. Following a £5 million modification to install 37 fluid viscous dampers, it reopened in 2002 and is now one of London's most beloved public spaces.",
+    "hours": "Always open",
+    "lastEntry": "",
+    "admission": "Free",
+    "tourOk": true,
+    "tourInfo": "The bridge is a public pedestrian route open at all times. The views of St Paul's from the South Bank end are among London's finest.",
+    "transit": "Central → St Paul's (5 min) · Jubilee Northern → Southwark (5 min)",
+    "walkFrom": "St Paul's Cathedral: 5 min · Tate Modern: 3 min · Shakespeare's Globe: 7 min",
+    "tags": [
+      "Foster + Partners",
+      "Arup",
+      "Bridge",
+      "Pedestrian",
+      "Thames",
+      "Millennium",
+      "Wobbly Bridge",
+      "Free",
+      "St Paul's"
+    ],
+    "photos": [
+      "https://commons.wikimedia.org/wiki/Special:FilePath/London_Millenium_Bridge.jpg?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Under_the_Millennium_Bridge%2C_London_%28geograph_4907090%29.jpg?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Bridge_horiz_mode_shock.jpg?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Bridge_vert_mode_shock.jpg?width=800"
     ]
   },
-
   {
-    id:'lon-0007',
-    name:'HSBC UK HQ (8 Canada Square)',
-    cats:["Skyscrapers","Commercial","Landmarks"], cc:'c-sky', styleGroups:["High-Tech","Contemporary"],
-    era:'2000–Present', city:'london',
-    arch:'Foster + Partners', archs:['Foster + Partners'],
-    yr:2002, access:'Private',
-    lat:51.50564379999999, lng:-0.0185088,
-    addr:'Unit 8, Canada Square, Canary Wharf Estate, Retail E14 5AH', hood:'Canary Wharf',
-    desc:'The HSBC Group headquarters at 8 Canada Square is one of the defining towers of Canary Wharf\'s second generation, a 200-metre steel-and-glass prism completed by Foster + Partners in 2002. Unlike the ornamental pyramid of One Canada Square nearby, HSBC\'s tower is rigorously technical — its structural frame is fully expressed on the exterior, the facade flush and precisely detailed, the plan a pure 57×57-metre square. The building\'s mechanical plant, staircases and lifts are distributed on the perimeter, freeing all 50,000 square metres of floor space from internal obstructions, and the trading floors were among the most advanced in the world at opening.',
-    hours:'Private — no public access',
-    lastEntry:'',
-    admission:'Private (office building)',
-    tourOk:false, tourInfo:'The building is closed to the public. The Canary Wharf estate and its public spaces surrounding the tower are accessible to all.',
-    transit:'Jubilee → Canary Wharf · Elizabeth line → Canary Wharf (3 min)',
-    walkFrom:'Canary Wharf Station: 3 min · One Canada Square: 5 min · Museum of London Docklands: 8 min',
-    tags:['Foster + Partners','HSBC','Canary Wharf','Skyscraper','High-Tech','Office','Docklands'],
-    photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/HSBC_HQ.jpg?width=800'
+    "id": "lon-0007",
+    "name": "HSBC UK HQ (8 Canada Square)",
+    "cats": [
+      "Skyscrapers",
+      "Commercial",
+      "Landmarks"
+    ],
+    "cc": "c-sky",
+    "styleGroups": [
+      "High-Tech",
+      "Contemporary"
+    ],
+    "era": "2000–Present",
+    "city": "london",
+    "arch": "Foster + Partners",
+    "archs": [
+      "Foster + Partners"
+    ],
+    "yr": 2002,
+    "access": "Private",
+    "lat": 51.50564379999999,
+    "lng": -0.0185088,
+    "addr": "Unit 8, Canada Square, Canary Wharf Estate, Retail E14 5AH",
+    "hood": "Canary Wharf",
+    "desc": "The HSBC Group headquarters at 8 Canada Square is one of the defining towers of Canary Wharf's second generation, a 200-metre steel-and-glass prism completed by Foster + Partners in 2002. Unlike the ornamental pyramid of One Canada Square nearby, HSBC's tower is rigorously technical — its structural frame is fully expressed on the exterior, the facade flush and precisely detailed, the plan a pure 57×57-metre square. The building's mechanical plant, staircases and lifts are distributed on the perimeter, freeing all 50,000 square metres of floor space from internal obstructions, and the trading floors were among the most advanced in the world at opening.",
+    "hours": "Private — no public access",
+    "lastEntry": "",
+    "admission": "Private (office building)",
+    "tourOk": false,
+    "tourInfo": "The building is closed to the public. The Canary Wharf estate and its public spaces surrounding the tower are accessible to all.",
+    "transit": "Jubilee → Canary Wharf · Elizabeth line → Canary Wharf (3 min)",
+    "walkFrom": "Canary Wharf Station: 3 min · One Canada Square: 5 min · Museum of London Docklands: 8 min",
+    "tags": [
+      "Foster + Partners",
+      "HSBC",
+      "Canary Wharf",
+      "Skyscraper",
+      "High-Tech",
+      "Office",
+      "Docklands"
+    ],
+    "photos": [
+      "https://commons.wikimedia.org/wiki/Special:FilePath/HSBC_HQ.jpg?width=800"
     ]
   },
-
   {
-    id:'lon-0008',
-    name:'Wembley Stadium',
-    cats:["Public","Landmarks"], cc:'c-pub', styleGroups:["Contemporary"],
-    era:'2000–Present', city:'london',
-    arch:'Foster + Partners', archs:['Foster + Partners', 'HOK Sport'],
-    yr:2007, access:'Paid Ticket',
-    lat:51.5566919, lng:-0.2796658,
-    addr:'Wembley HA9 0WS', hood:'Wembley',
-    desc:'The new Wembley Stadium, designed by Foster + Partners and HOK Sport and opened in 2007, is England\'s national football ground and Europe\'s second-largest stadium at 90,000 capacity. Its defining feature is the 133-metre-high steel arch that spans the entire length of the pitch, supporting the vast retractable roof and serving as a landmark visible from much of London. The arch replaced the Twin Towers of the original 1923 Wembley, which had become synonymous with English football but were structurally inadequate. The roof covers all 90,000 seats — a first for a stadium of this scale — and the arch doubles as a navigation beacon for Heathrow flights.',
-    hours:'Tours: Daily 10:00 AM – 4:00 PM (non-event days) · Events: varies',
-    lastEntry:'',
-    admission:'Stadium tours: £25 adults · Match tickets vary',
-    tourOk:true, tourInfo:'Behind-the-scenes stadium tours run daily on non-event days, including access to changing rooms, players\' tunnel, and the pitch-side view.',
-    transit:'Metropolitan → Wembley Park (10 min walk) · Jubilee → Wembley Park',
-    walkFrom:'Wembley Park Station: 10 min · Wembley Arena: 8 min',
-    tags:['Foster + Partners','HOK Sport','Stadium','Arch','Football','National Stadium','Wembley'],
-    photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/London_Wembley.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/London_2012_Olympic_Stadium_%2813_July_2012%29.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/%22Wemberley.......Wemberley%22_-_geograph.org.uk_-_1770078.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/BVB-Fans_in_Wembley.jpg?width=800'
+    "id": "lon-0008",
+    "name": "Wembley Stadium",
+    "cats": [
+      "Public",
+      "Landmarks"
+    ],
+    "cc": "c-pub",
+    "styleGroups": [
+      "Contemporary"
+    ],
+    "era": "2000–Present",
+    "city": "london",
+    "arch": "Foster + Partners",
+    "archs": [
+      "Foster + Partners",
+      "HOK Sport"
+    ],
+    "yr": 2007,
+    "access": "Paid Ticket",
+    "lat": 51.5566919,
+    "lng": -0.2796658,
+    "addr": "Wembley HA9 0WS",
+    "hood": "Wembley",
+    "desc": "The new Wembley Stadium, designed by Foster + Partners and HOK Sport and opened in 2007, is England's national football ground and Europe's second-largest stadium at 90,000 capacity. Its defining feature is the 133-metre-high steel arch that spans the entire length of the pitch, supporting the vast retractable roof and serving as a landmark visible from much of London. The arch replaced the Twin Towers of the original 1923 Wembley, which had become synonymous with English football but were structurally inadequate. The roof covers all 90,000 seats — a first for a stadium of this scale — and the arch doubles as a navigation beacon for Heathrow flights.",
+    "hours": "Tours: Daily 10:00 AM – 4:00 PM (non-event days) · Events: varies",
+    "lastEntry": "",
+    "admission": "Stadium tours: £25 adults · Match tickets vary",
+    "tourOk": true,
+    "tourInfo": "Behind-the-scenes stadium tours run daily on non-event days, including access to changing rooms, players' tunnel, and the pitch-side view.",
+    "transit": "Metropolitan → Wembley Park (10 min walk) · Jubilee → Wembley Park",
+    "walkFrom": "Wembley Park Station: 10 min · Wembley Arena: 8 min",
+    "tags": [
+      "Foster + Partners",
+      "HOK Sport",
+      "Stadium",
+      "Arch",
+      "Football",
+      "National Stadium",
+      "Wembley"
+    ],
+    "photos": [
+      "https://commons.wikimedia.org/wiki/Special:FilePath/London_Wembley.jpg?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/London_2012_Olympic_Stadium_%2813_July_2012%29.jpg?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/%22Wemberley.......Wemberley%22_-_geograph.org.uk_-_1770078.jpg?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/BVB-Fans_in_Wembley.jpg?width=800"
     ]
   },
-
-  // ── RICHARD ROGERS / ROGERS STIRK HARBOUR + PARTNERS ───────
-
   {
-    id:'lon-0009',
-    name:"Lloyd's of London",
-    cats:["Historic","Commercial","Landmarks"], cc:'c-his', styleGroups:["High-Tech"],
-    era:'1970–1999', city:'london',
-    arch:'Richard Rogers Partnership', archs:['Richard Rogers Partnership'],
-    yr:1986, access:'Private',
-    lat:51.5130826, lng:-0.0825109,
-    addr:'1 Lime St, London EC3M 7HA', hood:'City of London',
-    desc:'Lloyd\'s of London is the building that defined the High-Tech architectural movement and made Richard Rogers a global name. Completed in 1986, six years after the Centre Pompidou in Paris established the style Rogers co-invented with Renzo Piano, Lloyd\'s turned the principle inside out on a tight City of London plot: all service elements — lifts, staircases, utilities, lavatories — are externalised into six satellite towers on the perimeter, liberating the interior for the vast open trading floor known as the "Room." The building\'s stainless steel ducts, blue crane arms and exposed structure are simultaneously industrial and elegant, and it remains the most radical corporate building ever erected in the City.',
-    hours:'Private — no public access',
-    lastEntry:'',
-    admission:'Private (working insurance market)',
-    tourOk:false, tourInfo:'The building is a working insurance market and not open to the public. Open House London sometimes grants access. The exterior is best viewed from Lime Street.',
-    transit:'Circle District Hammersmith → Monument (5 min) · Central → Bank (5 min)',
-    walkFrom:'Leadenhall Market: 3 min · Gherkin: 3 min · Bank: 8 min',
-    tags:['Richard Rogers','High-Tech','Inside-Out','Insurance','City of London','Grade I Listed','1986','Stainless Steel'],
-    photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Lloyd%27s_insurance_exterior_at_night.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Lloyd%27s_Building_-_Atrium_11th_floor_looking_at_the_Walkie-Talkie.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Lloyd%27s_Building_-_Atrium_roof.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Lloyd%27s_Building_-_Escalators_fisheye.jpg?width=800'
+    "id": "lon-0009",
+    "name": "Lloyd's of London",
+    "cats": [
+      "Historic",
+      "Commercial",
+      "Landmarks"
+    ],
+    "cc": "c-his",
+    "styleGroups": [
+      "High-Tech"
+    ],
+    "era": "1970–1999",
+    "city": "london",
+    "arch": "Richard Rogers Partnership",
+    "archs": [
+      "Richard Rogers Partnership"
+    ],
+    "yr": 1986,
+    "access": "Private",
+    "lat": 51.5130826,
+    "lng": -0.0825109,
+    "addr": "1 Lime St, London EC3M 7HA",
+    "hood": "City of London",
+    "desc": "Lloyd's of London is the building that defined the High-Tech architectural movement and made Richard Rogers a global name. Completed in 1986, six years after the Centre Pompidou in Paris established the style Rogers co-invented with Renzo Piano, Lloyd's turned the principle inside out on a tight City of London plot: all service elements — lifts, staircases, utilities, lavatories — are externalised into six satellite towers on the perimeter, liberating the interior for the vast open trading floor known as the \"Room.\" The building's stainless steel ducts, blue crane arms and exposed structure are simultaneously industrial and elegant, and it remains the most radical corporate building ever erected in the City.",
+    "hours": "Private — no public access",
+    "lastEntry": "",
+    "admission": "Private (working insurance market)",
+    "tourOk": false,
+    "tourInfo": "The building is a working insurance market and not open to the public. Open House London sometimes grants access. The exterior is best viewed from Lime Street.",
+    "transit": "Circle District Hammersmith → Monument (5 min) · Central → Bank (5 min)",
+    "walkFrom": "Leadenhall Market: 3 min · Gherkin: 3 min · Bank: 8 min",
+    "tags": [
+      "Richard Rogers",
+      "High-Tech",
+      "Inside-Out",
+      "Insurance",
+      "City of London",
+      "Grade I Listed",
+      "1986",
+      "Stainless Steel"
+    ],
+    "photos": [
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Lloyd%27s_insurance_exterior_at_night.jpg?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Lloyd%27s_Building_-_Atrium_11th_floor_looking_at_the_Walkie-Talkie.jpg?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Lloyd%27s_Building_-_Atrium_roof.jpg?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Lloyd%27s_Building_-_Escalators_fisheye.jpg?width=800"
     ]
   },
-
   {
-    id:'lon-0010',
-    name:'Leadenhall Building (Cheesegrater)',
-    cats:["Skyscrapers","Commercial","Landmarks"], cc:'c-sky', styleGroups:["High-Tech"],
-    era:'2000–Present', city:'london',
-    arch:'Rogers Stirk Harbour + Partners', archs:['Rogers Stirk Harbour + Partners'],
-    yr:2014, access:'Free Admission',
-    lat:51.5142591, lng:-0.0821317,
-    addr:'122 Leadenhall St, London EC3V 4AB', hood:'City of London',
-    desc:'The Leadenhall Building — popularly the "Cheesegrater" for its wedge-shaped profile — tapers northward to preserve the protected view of St Paul\'s Cathedral from Fleet Street, transforming a planning constraint into its most distinctive architectural feature. Rogers Stirk Harbour + Partners\'s 224-metre tower, completed in 2014, expresses its megaframe structural system entirely on the exterior in orange-painted steel, freeing the 48,000-square-metre interior of every column. A 15-storey public atrium at the base extends the City\'s streets into the building at ground level, a rare act of civic generosity in London\'s financial district.',
-    hours:'Public atrium: Mon–Fri 7:00 AM – 7:00 PM · Office floors: private',
-    lastEntry:'',
-    admission:'Free (ground floor atrium)',
-    tourOk:true, tourInfo:'The public atrium with its dramatic exposed steel frame is open during business hours. Sky garden access is private.',
-    transit:'Circle District → Aldgate (5 min) · Central Waterloo & City → Bank (7 min)',
-    walkFrom:'Lloyd\'s of London: 1 min · Gherkin: 3 min · Leadenhall Market: 2 min',
-    tags:['Rogers Stirk Harbour + Partners','Richard Rogers','Cheesegrater','Skyscraper','High-Tech','Megaframe','City of London','St Paul\'s View'],
-    photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Cheesegrater_and_Gherkin.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/122_Leadenhall_Street_-_geograph-3968154-by-Julian-Osley.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/London_-_Leadenhall_Building_%281%29.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Gherkin_Cheesegrater_Abstract.jpg?width=800'
+    "id": "lon-0010",
+    "name": "Leadenhall Building (Cheesegrater)",
+    "cats": [
+      "Skyscrapers",
+      "Commercial",
+      "Landmarks"
+    ],
+    "cc": "c-sky",
+    "styleGroups": [
+      "High-Tech"
+    ],
+    "era": "2000–Present",
+    "city": "london",
+    "arch": "Rogers Stirk Harbour + Partners",
+    "archs": [
+      "Rogers Stirk Harbour + Partners"
+    ],
+    "yr": 2014,
+    "access": "Free Admission",
+    "lat": 51.5142591,
+    "lng": -0.0821317,
+    "addr": "122 Leadenhall St, London EC3V 4AB",
+    "hood": "City of London",
+    "desc": "The Leadenhall Building — popularly the \"Cheesegrater\" for its wedge-shaped profile — tapers northward to preserve the protected view of St Paul's Cathedral from Fleet Street, transforming a planning constraint into its most distinctive architectural feature. Rogers Stirk Harbour + Partners's 224-metre tower, completed in 2014, expresses its megaframe structural system entirely on the exterior in orange-painted steel, freeing the 48,000-square-metre interior of every column. A 15-storey public atrium at the base extends the City's streets into the building at ground level, a rare act of civic generosity in London's financial district.",
+    "hours": "Public atrium: Mon–Fri 7:00 AM – 7:00 PM · Office floors: private",
+    "lastEntry": "",
+    "admission": "Free (ground floor atrium)",
+    "tourOk": true,
+    "tourInfo": "The public atrium with its dramatic exposed steel frame is open during business hours. Sky garden access is private.",
+    "transit": "Circle District → Aldgate (5 min) · Central Waterloo & City → Bank (7 min)",
+    "walkFrom": "Lloyd's of London: 1 min · Gherkin: 3 min · Leadenhall Market: 2 min",
+    "tags": [
+      "Rogers Stirk Harbour + Partners",
+      "Richard Rogers",
+      "Cheesegrater",
+      "Skyscraper",
+      "High-Tech",
+      "Megaframe",
+      "City of London",
+      "St Paul's View"
+    ],
+    "photos": [
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Cheesegrater_and_Gherkin.jpg?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/122_Leadenhall_Street_-_geograph-3968154-by-Julian-Osley.jpg?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/London_-_Leadenhall_Building_%281%29.jpg?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Gherkin_Cheesegrater_Abstract.jpg?width=800"
     ]
   },
-
   {
-    id:'lon-0011',
-    name:'The O2 Arena (Millennium Dome)',
-    cats:["Public","Landmarks"], cc:'c-pub', styleGroups:["High-Tech","Contemporary"],
-    era:'2000–Present', city:'london',
-    arch:'Richard Rogers Partnership', archs:['Richard Rogers Partnership', 'Buro Happold'],
-    yr:2000, access:'Paid Ticket',
-    lat:51.5030, lng:0.0032,
-    addr:'Peninsula Square, London SE10 0DX', hood:'Greenwich Peninsula',
-    desc:'The Millennium Dome — now The O2 — is the world\'s largest dome structure, a 365-metre diameter tensile fabric roof supported by twelve 100-metre steel masts whose number evokes the months of the year and the hours on a clock face. Designed by Richard Rogers Partnership with Buro Happold as a national monument for the millennium, it opened on 31 December 1999 and was immediately controversial; following closure in 2001, AEG transformed it into The O2, Europe\'s busiest entertainment arena. The dome\'s fabric roof is now traversable on a guided "Up at The O2" climbing experience.',
-    hours:'Entertainment venue: event days only · Up at The O2: daily 10:00 AM – 5:00 PM',
-    lastEntry:'',
-    admission:'Entry to The O2 varies by event · Up at The O2: from £30',
-    tourOk:true, tourInfo:'The Up at The O2 roof walk is open daily and provides panoramic views of London. The entertainment complex is accessible to the public.',
-    transit:'Jubilee → North Greenwich (adjacent)',
-    walkFrom:'North Greenwich Station: 5 min',
-    tags:['Richard Rogers','Millennium Dome','O2','Tensile Structure','High-Tech','Greenwich','Masts','Entertainment'],
-    photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/London_MMB_V9_Millennium_Dome.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/London_MMB_W7_Millennium_Dome.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Basket_Ball_at_the_O2_Arena.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/London_2012_Olympic_Stadium_%2813_July_2012%29.jpg?width=800'
+    "id": "lon-0011",
+    "name": "The O2 Arena (Millennium Dome)",
+    "cats": [
+      "Public",
+      "Landmarks"
+    ],
+    "cc": "c-pub",
+    "styleGroups": [
+      "High-Tech",
+      "Contemporary"
+    ],
+    "era": "2000–Present",
+    "city": "london",
+    "arch": "Richard Rogers Partnership",
+    "archs": [
+      "Richard Rogers Partnership",
+      "Buro Happold"
+    ],
+    "yr": 2000,
+    "access": "Paid Ticket",
+    "lat": 51.503,
+    "lng": 0.0032,
+    "addr": "Peninsula Square, London SE10 0DX",
+    "hood": "Greenwich Peninsula",
+    "desc": "The Millennium Dome — now The O2 — is the world's largest dome structure, a 365-metre diameter tensile fabric roof supported by twelve 100-metre steel masts whose number evokes the months of the year and the hours on a clock face. Designed by Richard Rogers Partnership with Buro Happold as a national monument for the millennium, it opened on 31 December 1999 and was immediately controversial; following closure in 2001, AEG transformed it into The O2, Europe's busiest entertainment arena. The dome's fabric roof is now traversable on a guided \"Up at The O2\" climbing experience.",
+    "hours": "Entertainment venue: event days only · Up at The O2: daily 10:00 AM – 5:00 PM",
+    "lastEntry": "",
+    "admission": "Entry to The O2 varies by event · Up at The O2: from £30",
+    "tourOk": true,
+    "tourInfo": "The Up at The O2 roof walk is open daily and provides panoramic views of London. The entertainment complex is accessible to the public.",
+    "transit": "Jubilee → North Greenwich (adjacent)",
+    "walkFrom": "North Greenwich Station: 5 min",
+    "tags": [
+      "Richard Rogers",
+      "Millennium Dome",
+      "O2",
+      "Tensile Structure",
+      "High-Tech",
+      "Greenwich",
+      "Masts",
+      "Entertainment"
+    ],
+    "photos": [
+      "https://commons.wikimedia.org/wiki/Special:FilePath/London_MMB_V9_Millennium_Dome.jpg?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/London_MMB_W7_Millennium_Dome.jpg?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Basket_Ball_at_the_O2_Arena.jpg?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/London_2012_Olympic_Stadium_%2813_July_2012%29.jpg?width=800"
     ]
   },
-
   {
-    id:'lon-0012',
-    name:'Heathrow Terminal 5',
-    cats:["Infrastructure","Commercial"], cc:'c-inf', styleGroups:["Contemporary","High-Tech"],
-    era:'2000–Present', city:'london',
-    arch:'Rogers Stirk Harbour + Partners', archs:['Rogers Stirk Harbour + Partners'],
-    yr:2008, access:'Paid Ticket',
-    lat:51.471952, lng:-0.490105,
-    addr:'Terminal 5, Wallis Rd, Longford, Hounslow TW6 2GA', hood:'Heathrow',
-    desc:'Heathrow Terminal 5 is one of the largest buildings in the United Kingdom, a single-span roof 396 metres long covering a naturally lit concourse designed to handle 30 million passengers a year. Rogers Stirk Harbour + Partners\'s design, developed over 19 years through one of the longest planning inquiries in British history, uses 16 roof "petals" — prefabricated off-site — that click together to form a gentle wave above the passenger hall. The terminal\'s structural system is deliberately exposed, creating a light-filled space that counters the typical enclosure of airport terminals, and the primary structure required no paint or fire protection due to innovative engineering.',
-    hours:'24 hours (operational)',
-    lastEntry:'',
-    admission:'Access for passengers with valid tickets only',
-    tourOk:false, tourInfo:'Terminal 5 is restricted to departing passengers and those with arriving passengers. The building\'s most dramatic spaces — the departure hall and its roof — are visible only from airside.',
-    transit:'Elizabeth line → Heathrow Terminal 5 (direct) · Heathrow Express → Paddington (21 min)',
-    walkFrom:'Terminal 5 Station: adjacent',
-    tags:['Rogers Stirk Harbour + Partners','Richard Rogers','Heathrow','Airport','Infrastructure','Single Span Roof','Terminal'],
-    photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/T5A_interior.jpg/800px-T5A_interior.jpg'
+    "id": "lon-0012",
+    "name": "Heathrow Terminal 5",
+    "cats": [
+      "Infrastructure",
+      "Commercial"
+    ],
+    "cc": "c-inf",
+    "styleGroups": [
+      "Contemporary",
+      "High-Tech"
+    ],
+    "era": "2000–Present",
+    "city": "london",
+    "arch": "Rogers Stirk Harbour + Partners",
+    "archs": [
+      "Rogers Stirk Harbour + Partners"
+    ],
+    "yr": 2008,
+    "access": "Paid Ticket",
+    "lat": 51.471952,
+    "lng": -0.490105,
+    "addr": "Terminal 5, Wallis Rd, Longford, Hounslow TW6 2GA",
+    "hood": "Heathrow",
+    "desc": "Heathrow Terminal 5 is one of the largest buildings in the United Kingdom, a single-span roof 396 metres long covering a naturally lit concourse designed to handle 30 million passengers a year. Rogers Stirk Harbour + Partners's design, developed over 19 years through one of the longest planning inquiries in British history, uses 16 roof \"petals\" — prefabricated off-site — that click together to form a gentle wave above the passenger hall. The terminal's structural system is deliberately exposed, creating a light-filled space that counters the typical enclosure of airport terminals, and the primary structure required no paint or fire protection due to innovative engineering.",
+    "hours": "24 hours (operational)",
+    "lastEntry": "",
+    "admission": "Access for passengers with valid tickets only",
+    "tourOk": false,
+    "tourInfo": "Terminal 5 is restricted to departing passengers and those with arriving passengers. The building's most dramatic spaces — the departure hall and its roof — are visible only from airside.",
+    "transit": "Elizabeth line → Heathrow Terminal 5 (direct) · Heathrow Express → Paddington (21 min)",
+    "walkFrom": "Terminal 5 Station: adjacent",
+    "tags": [
+      "Rogers Stirk Harbour + Partners",
+      "Richard Rogers",
+      "Heathrow",
+      "Airport",
+      "Infrastructure",
+      "Single Span Roof",
+      "Terminal"
+    ],
+    "photos": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/T5A_interior.jpg/800px-T5A_interior.jpg"
     ]
   },
-
   {
-    id:'lon-0013',
-    name:'One Hyde Park',
-    cats:["Residential","Landmarks"], cc:'c-res', styleGroups:["Contemporary"],
-    era:'2000–Present', city:'london',
-    arch:'Rogers Stirk Harbour + Partners', archs:['Rogers Stirk Harbour + Partners'],
-    yr:2011, access:'Private',
-    lat:51.5073638, lng:-0.1641135,
-    addr:'London', hood:'Knightsbridge',
-    desc:'One Hyde Park is the world\'s most expensive residential development, its four glass pavilions rising adjacent to Hyde Park at Knightsbridge and regularly cited as London\'s priciest address. Rogers Stirk Harbour + Partners designed the development as a series of four linked but separate residential blocks, each rotated to maximise park views, with shared leisure facilities including a swimming pool, spa, cinema and squash courts concealed below ground. At opening, its penthouse apartments sold for over £100 million each. The building\'s transparent glass facades were a deliberate counterpoint to the closed, defensive architecture typical of ultra-luxury London developments.',
-    hours:'Private residential — no public access',
-    lastEntry:'',
-    admission:'Private',
-    tourOk:false, tourInfo:'One Hyde Park is a private residential development. The adjacent Hyde Park and the Serpentine Gallery are open to the public.',
-    transit:'Piccadilly → Knightsbridge (3 min)',
-    walkFrom:'Hyde Park: 1 min · Harrods: 5 min · Serpentine Gallery: 10 min',
-    tags:['Rogers Stirk Harbour + Partners','Richard Rogers','Luxury Residential','Knightsbridge','Hyde Park','World\'s Most Expensive'],
-    photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/No_1_Hyde_Park%2C_London.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/One_Hyde_Park_under_construction_in_May_2010.JPG?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/One_Hyde_Park_-_Edinburgh_Gate%2C_Knightsbridge_-_liftshaft.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/One_Hyde_Park_%2843969329645%29.jpg?width=800'
+    "id": "lon-0013",
+    "name": "One Hyde Park",
+    "cats": [
+      "Residential",
+      "Landmarks"
+    ],
+    "cc": "c-res",
+    "styleGroups": [
+      "Contemporary"
+    ],
+    "era": "2000–Present",
+    "city": "london",
+    "arch": "Rogers Stirk Harbour + Partners",
+    "archs": [
+      "Rogers Stirk Harbour + Partners"
+    ],
+    "yr": 2011,
+    "access": "Private",
+    "lat": 51.5073638,
+    "lng": -0.1641135,
+    "addr": "London",
+    "hood": "Knightsbridge",
+    "desc": "One Hyde Park is the world's most expensive residential development, its four glass pavilions rising adjacent to Hyde Park at Knightsbridge and regularly cited as London's priciest address. Rogers Stirk Harbour + Partners designed the development as a series of four linked but separate residential blocks, each rotated to maximise park views, with shared leisure facilities including a swimming pool, spa, cinema and squash courts concealed below ground. At opening, its penthouse apartments sold for over £100 million each. The building's transparent glass facades were a deliberate counterpoint to the closed, defensive architecture typical of ultra-luxury London developments.",
+    "hours": "Private residential — no public access",
+    "lastEntry": "",
+    "admission": "Private",
+    "tourOk": false,
+    "tourInfo": "One Hyde Park is a private residential development. The adjacent Hyde Park and the Serpentine Gallery are open to the public.",
+    "transit": "Piccadilly → Knightsbridge (3 min)",
+    "walkFrom": "Hyde Park: 1 min · Harrods: 5 min · Serpentine Gallery: 10 min",
+    "tags": [
+      "Rogers Stirk Harbour + Partners",
+      "Richard Rogers",
+      "Luxury Residential",
+      "Knightsbridge",
+      "Hyde Park",
+      "World's Most Expensive"
+    ],
+    "photos": [
+      "https://commons.wikimedia.org/wiki/Special:FilePath/No_1_Hyde_Park%2C_London.jpg?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/One_Hyde_Park_under_construction_in_May_2010.JPG?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/One_Hyde_Park_-_Edinburgh_Gate%2C_Knightsbridge_-_liftshaft.jpg?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/One_Hyde_Park_%2843969329645%29.jpg?width=800"
     ]
   },
-
   {
-    id:'lon-0014',
-    name:'88 Wood Street',
-    cats:["Landmarks","Commercial"], cc:'c-lmk', styleGroups:["High-Tech","Contemporary"],
-    era:'2000–Present', city:'london',
-    arch:'Rogers Stirk Harbour + Partners', archs:['Rogers Stirk Harbour + Partners'],
-    yr:2000, access:'Private',
-    lat:51.5172264, lng:-0.0939888,
-    addr:'88 Wood St, Barbican, London EC2V 7QR', hood:'City of London',
-    desc:'88 Wood Street is among Richard Rogers\'s most sophisticated smaller towers, a 19-storey office building in the heart of the City whose facade changes expression across its four elevations to respond to the surrounding streets. The north face is enclosed in reflective glass, while the south is opened up with projecting aluminium sunshades; the east and west elevations express the building\'s structural frame. Most distinctive is the cylindrical utility tower that breaks free of the rectangular mass at the north-east corner — a characteristically Rogers move that externalises services into an architectural element and creates variety in the City\'s streetscape.',
-    hours:'Private office building',
-    lastEntry:'',
-    admission:'Private',
-    tourOk:false, tourInfo:'The building is a private office building. The exterior is fully viewable from Wood Street and Fore Street.',
-    transit:'Central → St Paul\'s (5 min) · Metropolitan Circle District → Barbican (5 min)',
-    walkFrom:'Barbican: 7 min · St Paul\'s: 7 min · Museum of London: 5 min',
-    tags:['Rogers Stirk Harbour + Partners','Richard Rogers','High-Tech','City of London','Office','Cylindrical Tower'],
-    photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/88_Wood_St%2C_London.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Vents_88_London_Wall_Richard_Rogers.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/88_Wood_Street%2C_London.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Lift_at_London_Wall_-_geograph.org.uk_-_643165.jpg?width=800'
+    "id": "lon-0014",
+    "name": "88 Wood Street",
+    "cats": [
+      "Landmarks",
+      "Commercial"
+    ],
+    "cc": "c-lmk",
+    "styleGroups": [
+      "High-Tech",
+      "Contemporary"
+    ],
+    "era": "2000–Present",
+    "city": "london",
+    "arch": "Rogers Stirk Harbour + Partners",
+    "archs": [
+      "Rogers Stirk Harbour + Partners"
+    ],
+    "yr": 2000,
+    "access": "Private",
+    "lat": 51.5172264,
+    "lng": -0.0939888,
+    "addr": "88 Wood St, Barbican, London EC2V 7QR",
+    "hood": "City of London",
+    "desc": "88 Wood Street is among Richard Rogers's most sophisticated smaller towers, a 19-storey office building in the heart of the City whose facade changes expression across its four elevations to respond to the surrounding streets. The north face is enclosed in reflective glass, while the south is opened up with projecting aluminium sunshades; the east and west elevations express the building's structural frame. Most distinctive is the cylindrical utility tower that breaks free of the rectangular mass at the north-east corner — a characteristically Rogers move that externalises services into an architectural element and creates variety in the City's streetscape.",
+    "hours": "Private office building",
+    "lastEntry": "",
+    "admission": "Private",
+    "tourOk": false,
+    "tourInfo": "The building is a private office building. The exterior is fully viewable from Wood Street and Fore Street.",
+    "transit": "Central → St Paul's (5 min) · Metropolitan Circle District → Barbican (5 min)",
+    "walkFrom": "Barbican: 7 min · St Paul's: 7 min · Museum of London: 5 min",
+    "tags": [
+      "Rogers Stirk Harbour + Partners",
+      "Richard Rogers",
+      "High-Tech",
+      "City of London",
+      "Office",
+      "Cylindrical Tower"
+    ],
+    "photos": [
+      "https://commons.wikimedia.org/wiki/Special:FilePath/88_Wood_St%2C_London.jpg?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Vents_88_London_Wall_Richard_Rogers.jpg?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/88_Wood_Street%2C_London.jpg?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Lift_at_London_Wall_-_geograph.org.uk_-_643165.jpg?width=800"
     ]
   },
-
   {
-    id:'lon-0015',
-    name:'Neo Bankside',
-    cats:["Residential"], cc:'c-res', styleGroups:["Contemporary"],
-    era:'2000–Present', city:'london',
-    arch:'Rogers Stirk Harbour + Partners', archs:['Rogers Stirk Harbour + Partners'],
-    yr:2012, access:'Private',
-    lat:51.5071626, lng:-0.1013352,
-    addr:'Unit A, 52 Holland St, London SE1 9NX', hood:'Bankside / Southwark',
-    desc:'Neo Bankside is a luxury residential development of six pavilions on London\'s South Bank, directly adjacent to Tate Modern, that became the centre of a significant privacy dispute when Tate Modern\'s Blavatnik Building extension opened its viewing terrace overlooking the apartments\' floor-to-ceiling glazed facades. Rogers Stirk Harbour + Partners deliberately used transparent glass as an ethical stance — the architects believed Londoners had a right to live openly in the city — but the dispute, which reached the UK Supreme Court, highlighted the tensions between architectural transparency and residential privacy. The development\'s expressed steel frames and richly coloured service cores are characteristic of Rogers\'s palette.',
-    hours:'Private residential',
-    lastEntry:'',
-    admission:'Private',
-    tourOk:false, tourInfo:'Neo Bankside is private. The adjacent Tate Modern, Shakespeare\'s Globe, and Bankside riverside walk are all public.',
-    transit:'Jubilee Northern → Southwark (7 min) · District Circle → Blackfriars (8 min)',
-    walkFrom:'Tate Modern: 2 min · Shakespeare\'s Globe: 4 min · Millennium Bridge: 5 min',
-    tags:['Rogers Stirk Harbour + Partners','Richard Rogers','Residential','Bankside','South Bank','Transparency','Tate Modern'],
-    photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/NEO_Bankside%2C_London.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Neo_Bankside.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Neo_Bankside_apartment_buildings%2C_London.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Neo_Bankside_apartment_buildings%2C_London_%28side_view%29.jpg?width=800'
+    "id": "lon-0015",
+    "name": "Neo Bankside",
+    "cats": [
+      "Residential"
+    ],
+    "cc": "c-res",
+    "styleGroups": [
+      "Contemporary"
+    ],
+    "era": "2000–Present",
+    "city": "london",
+    "arch": "Rogers Stirk Harbour + Partners",
+    "archs": [
+      "Rogers Stirk Harbour + Partners"
+    ],
+    "yr": 2012,
+    "access": "Private",
+    "lat": 51.5071626,
+    "lng": -0.1013352,
+    "addr": "Unit A, 52 Holland St, London SE1 9NX",
+    "hood": "Bankside / Southwark",
+    "desc": "Neo Bankside is a luxury residential development of six pavilions on London's South Bank, directly adjacent to Tate Modern, that became the centre of a significant privacy dispute when Tate Modern's Blavatnik Building extension opened its viewing terrace overlooking the apartments' floor-to-ceiling glazed facades. Rogers Stirk Harbour + Partners deliberately used transparent glass as an ethical stance — the architects believed Londoners had a right to live openly in the city — but the dispute, which reached the UK Supreme Court, highlighted the tensions between architectural transparency and residential privacy. The development's expressed steel frames and richly coloured service cores are characteristic of Rogers's palette.",
+    "hours": "Private residential",
+    "lastEntry": "",
+    "admission": "Private",
+    "tourOk": false,
+    "tourInfo": "Neo Bankside is private. The adjacent Tate Modern, Shakespeare's Globe, and Bankside riverside walk are all public.",
+    "transit": "Jubilee Northern → Southwark (7 min) · District Circle → Blackfriars (8 min)",
+    "walkFrom": "Tate Modern: 2 min · Shakespeare's Globe: 4 min · Millennium Bridge: 5 min",
+    "tags": [
+      "Rogers Stirk Harbour + Partners",
+      "Richard Rogers",
+      "Residential",
+      "Bankside",
+      "South Bank",
+      "Transparency",
+      "Tate Modern"
+    ],
+    "photos": [
+      "https://commons.wikimedia.org/wiki/Special:FilePath/NEO_Bankside%2C_London.jpg?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Neo_Bankside.jpg?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Neo_Bankside_apartment_buildings%2C_London.jpg?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Neo_Bankside_apartment_buildings%2C_London_%28side_view%29.jpg?width=800"
     ]
   },
-
   {
-    id:'lon-0016',
-    name:'Montevetro',
-    cats:["Residential","Landmarks"], cc:'c-res', styleGroups:["Contemporary"],
-    era:'1970–1999', city:'london',
-    arch:'Richard Rogers Partnership', archs:['Richard Rogers Partnership'],
-    yr:1999, access:'Private',
-    lat:51.4783406, lng:-0.146702,
-    addr:'12 Palmer Rd, Nine Elms, London SW11 4FQ', hood:'Battersea',
-    desc:'Montevetro is Richard Rogers\'s first major residential tower in London, a tapering glass block of 103 apartments rising above the Thames at Battersea that pioneered the transparent, light-filled residential aesthetic Rogers would later develop at Neo Bankside. Completed in 1999 on the site of a former flour mill, the building\'s glass facade steps back in plan at each floor to follow the building\'s triangular site, creating a distinctive silhouette when viewed from the river. The project helped establish Battersea\'s transformation from industrial riverside district to luxury residential neighbourhood, a process that continues with the adjacent Battersea Power Station redevelopment.',
-    hours:'Private residential',
-    lastEntry:'',
-    admission:'Private',
-    tourOk:false, tourInfo:'The building is private residential. The Thames Path alongside provides good views of the facade from the riverside.',
-    transit:'Overground → Clapham Junction (15 min walk) · Bus 344 → Battersea Church Road',
-    walkFrom:'Battersea Power Station: 12 min · Chelsea Bridge: 10 min',
-    tags:['Richard Rogers','Residential','Battersea','Thames','Glass','1999'],
-    photos:[]
+    "id": "lon-0016",
+    "name": "Montevetro",
+    "cats": [
+      "Residential",
+      "Landmarks"
+    ],
+    "cc": "c-res",
+    "styleGroups": [
+      "Contemporary"
+    ],
+    "era": "1970–1999",
+    "city": "london",
+    "arch": "Richard Rogers Partnership",
+    "archs": [
+      "Richard Rogers Partnership"
+    ],
+    "yr": 1999,
+    "access": "Private",
+    "lat": 51.4783406,
+    "lng": -0.146702,
+    "addr": "12 Palmer Rd, Nine Elms, London SW11 4FQ",
+    "hood": "Battersea",
+    "desc": "Montevetro is Richard Rogers's first major residential tower in London, a tapering glass block of 103 apartments rising above the Thames at Battersea that pioneered the transparent, light-filled residential aesthetic Rogers would later develop at Neo Bankside. Completed in 1999 on the site of a former flour mill, the building's glass facade steps back in plan at each floor to follow the building's triangular site, creating a distinctive silhouette when viewed from the river. The project helped establish Battersea's transformation from industrial riverside district to luxury residential neighbourhood, a process that continues with the adjacent Battersea Power Station redevelopment.",
+    "hours": "Private residential",
+    "lastEntry": "",
+    "admission": "Private",
+    "tourOk": false,
+    "tourInfo": "The building is private residential. The Thames Path alongside provides good views of the facade from the riverside.",
+    "transit": "Overground → Clapham Junction (15 min walk) · Bus 344 → Battersea Church Road",
+    "walkFrom": "Battersea Power Station: 12 min · Chelsea Bridge: 10 min",
+    "tags": [
+      "Richard Rogers",
+      "Residential",
+      "Battersea",
+      "Thames",
+      "Glass",
+      "1999"
+    ],
+    "photos": []
   },
-
   {
-    id:'lon-0017',
-    name:'Chiswick Business Park',
-    cats:["Commercial","Landmarks"], cc:'c-lmk', styleGroups:["Contemporary"],
-    era:'2000–Present', city:'london',
-    arch:'Richard Rogers Partnership', archs:['Richard Rogers Partnership'],
-    yr:2000, access:'Free Admission',
-    lat:51.49325570000001, lng:-0.2739302,
-    addr:'566 Chiswick High Rd., Chiswick, London W4 5AN', hood:'Chiswick',
-    desc:'Chiswick Business Park is Rogers\'s largest commercial campus in London, a landscaped park of twelve office buildings arranged around a central lake and public gardens in west London, developed by Stanhope from 2000 onwards. Unlike conventional business parks designed for car dependency, Chiswick was conceived as a community — a "campus" with cafes, concierge services, and a hotel integrated into the landscape — that anticipated the post-industrial workplace. The buildings\' expressed steel structures and coloured panel systems are characteristic of Rogers\'s vocabulary, and the public lake and gardens are open to all, making it one of west London\'s more pleasant semi-public green spaces.',
-    hours:'Public gardens and lake: daily dawn to dusk · Offices: private',
-    lastEntry:'',
-    admission:'Free (public grounds)',
-    tourOk:true, tourInfo:'The public gardens, lake and outdoor seating areas are accessible to all. Individual buildings are private offices.',
-    transit:'District → Gunnersbury or Chiswick Park (10–15 min walk)',
-    walkFrom:'Gunnersbury Station: 12 min · Kew Bridge: 15 min',
-    tags:['Richard Rogers','Business Park','Chiswick','Campus','Landscape','Lake','West London'],
-    photos:[]
+    "id": "lon-0017",
+    "name": "Chiswick Business Park",
+    "cats": [
+      "Commercial",
+      "Landmarks"
+    ],
+    "cc": "c-lmk",
+    "styleGroups": [
+      "Contemporary"
+    ],
+    "era": "2000–Present",
+    "city": "london",
+    "arch": "Richard Rogers Partnership",
+    "archs": [
+      "Richard Rogers Partnership"
+    ],
+    "yr": 2000,
+    "access": "Free Admission",
+    "lat": 51.49325570000001,
+    "lng": -0.2739302,
+    "addr": "566 Chiswick High Rd., Chiswick, London W4 5AN",
+    "hood": "Chiswick",
+    "desc": "Chiswick Business Park is Rogers's largest commercial campus in London, a landscaped park of twelve office buildings arranged around a central lake and public gardens in west London, developed by Stanhope from 2000 onwards. Unlike conventional business parks designed for car dependency, Chiswick was conceived as a community — a \"campus\" with cafes, concierge services, and a hotel integrated into the landscape — that anticipated the post-industrial workplace. The buildings' expressed steel structures and coloured panel systems are characteristic of Rogers's vocabulary, and the public lake and gardens are open to all, making it one of west London's more pleasant semi-public green spaces.",
+    "hours": "Public gardens and lake: daily dawn to dusk · Offices: private",
+    "lastEntry": "",
+    "admission": "Free (public grounds)",
+    "tourOk": true,
+    "tourInfo": "The public gardens, lake and outdoor seating areas are accessible to all. Individual buildings are private offices.",
+    "transit": "District → Gunnersbury or Chiswick Park (10–15 min walk)",
+    "walkFrom": "Gunnersbury Station: 12 min · Kew Bridge: 15 min",
+    "tags": [
+      "Richard Rogers",
+      "Business Park",
+      "Chiswick",
+      "Campus",
+      "Landscape",
+      "Lake",
+      "West London"
+    ],
+    "photos": []
   },
-
-  // ── RENZO PIANO — THE SHARD ──────────────────────────────────
-
   {
-    id:'lon-0018',
-    name:'The Shard',
-    cats:["Skyscrapers","Landmarks","Commercial"], cc:'c-sky', styleGroups:["Contemporary","High-Tech"],
-    era:'2000–Present', city:'london',
-    arch:'Renzo Piano Building Workshop', archs:['Renzo Piano Building Workshop'],
-    yr:2012, access:'Paid Ticket',
-    lat:51.5048337, lng:-0.08725809999999999,
-    addr:'32 London Bridge St, London SE1 9SG', hood:'London Bridge / Southwark',
-    desc:'At 310 metres, the Shard is Western Europe\'s tallest building, its tapering glass spire rising above London Bridge to become the South Bank\'s defining landmark. Renzo Piano\'s design draws on the vertical spires of Wren\'s City churches and the masts of the Thames sailing ships visible in 18th-century paintings of the river — the concept of a "shard of glass" inserted into London\'s skyline. The building\'s eight angled glass facades are designed to never appear the same twice: the glass is slightly angled at each floor so they reflect different parts of the sky throughout the day and in different weathers. Inside, a mixed-use vertical city combines offices, hotel, apartments, restaurants, and a public viewing gallery at levels 68–72.',
-    hours:'Viewing Gallery: daily 10:00 AM – 10:00 PM (Fri–Sat to 11:00 PM)', lastEntry:'1 hour before closing',
-    admission:'Viewing Gallery: from £32 adults · Combined tickets available',
-    tourOk:true, tourInfo:'The View from The Shard on levels 68–72 is open to the public. The Sky Deck at level 72 is open-air. Booking in advance strongly recommended.',
-    transit:'Jubilee Northern → London Bridge (adjacent)',
-    walkFrom:'London Bridge Station: 2 min · Borough Market: 4 min · Tate Modern: 12 min',
-    tags:['Renzo Piano','Supertall','London Bridge','South Bank','Viewing Gallery','Mixed-Use'],
-    photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/The_Shard_from_the_south.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/The_Shard_-_Nov_2012.jpg?width=800'
+    "id": "lon-0018",
+    "name": "The Shard",
+    "cats": [
+      "Skyscrapers",
+      "Landmarks",
+      "Commercial"
+    ],
+    "cc": "c-sky",
+    "styleGroups": [
+      "Contemporary",
+      "High-Tech"
+    ],
+    "era": "2000–Present",
+    "city": "london",
+    "arch": "Renzo Piano Building Workshop",
+    "archs": [
+      "Renzo Piano Building Workshop"
+    ],
+    "yr": 2012,
+    "access": "Paid Ticket",
+    "lat": 51.5048337,
+    "lng": -0.08725809999999999,
+    "addr": "32 London Bridge St, London SE1 9SG",
+    "hood": "London Bridge / Southwark",
+    "desc": "At 310 metres, the Shard is Western Europe's tallest building, its tapering glass spire rising above London Bridge to become the South Bank's defining landmark. Renzo Piano's design draws on the vertical spires of Wren's City churches and the masts of the Thames sailing ships visible in 18th-century paintings of the river — the concept of a \"shard of glass\" inserted into London's skyline. The building's eight angled glass facades are designed to never appear the same twice: the glass is slightly angled at each floor so they reflect different parts of the sky throughout the day and in different weathers. Inside, a mixed-use vertical city combines offices, hotel, apartments, restaurants, and a public viewing gallery at levels 68–72.",
+    "hours": "Viewing Gallery: daily 10:00 AM – 10:00 PM (Fri–Sat to 11:00 PM)",
+    "lastEntry": "1 hour before closing",
+    "admission": "Viewing Gallery: from £32 adults · Combined tickets available",
+    "tourOk": true,
+    "tourInfo": "The View from The Shard on levels 68–72 is open to the public. The Sky Deck at level 72 is open-air. Booking in advance strongly recommended.",
+    "transit": "Jubilee Northern → London Bridge (adjacent)",
+    "walkFrom": "London Bridge Station: 2 min · Borough Market: 4 min · Tate Modern: 12 min",
+    "tags": [
+      "Renzo Piano",
+      "Supertall",
+      "London Bridge",
+      "South Bank",
+      "Viewing Gallery",
+      "Mixed-Use"
+    ],
+    "photos": [
+      "https://commons.wikimedia.org/wiki/Special:FilePath/The_Shard_from_the_south.jpg?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/The_Shard_-_Nov_2012.jpg?width=800"
     ]
   },
-
-  // ── THOMAS HEATHERWICK — LONDON ──────────────────────────────
-
   {
-    id:'lon-0019',
-    name:'Coal Drops Yard',
-    cats:["Landmarks","Retail"], cc:'c-lmk', styleGroups:["Contemporary","Adaptive Reuse"],
-    era:'2000–Present', city:'london',
-    arch:'Heatherwick Studio', archs:['Heatherwick Studio'],
-    yr:2018, access:'Open to Public',
-    lat:51.5360313, lng:-0.12655239999999998,
-    addr:'Stable St, London N1C 4LW', hood:'King\'s Cross',
-    desc:'Coal Drops Yard is a retail and cultural destination in the King\'s Cross regeneration area, designed by Heatherwick Studio and opened in October 2018. The project transforms two Victorian coal-dropping warehouses (built 1850–1863) into a contemporary retail district by connecting the two rooftops with a dramatic canopy of kissing curved steel roofs that meet at a central ridge, creating a new public street between the buildings below. The intervention adds 10,000 sq m of new floor area while preserving the brick and ironwork of the original structures. The resulting space — with its sloped pedestrian street, elevated walkways, and boutique shops — became an immediate landmark of adaptive reuse and urban regeneration in London.',
-    hours:'Daily — retail and dining hours vary by vendor', lastEntry:'',
-    admission:'Free (public space) · Individual venue charges apply',
-    tourOk:false, tourInfo:'Freely accessible as a public space. Part of the wider King\'s Cross regeneration. The adjacent Granary Square, Gasholders, and Lewis Cubitt Park are all within walking distance.',
-    transit:'Victoria Metropolitan Northern Piccadilly Circle Hammersmith → King\'s Cross St Pancras',
-    walkFrom:'King\'s Cross Station: 8 min · St Pancras International: 8 min · Granary Square: 2 min',
-    tags:['Heatherwick Studio','Thomas Heatherwick','Adaptive Reuse','King\'s Cross','Retail','Victorian Heritage','Roof'],
-    photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Coal_Drops_Yard_London_2018.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Coal_Drops_Yard_interior.jpg?width=800'
+    "id": "lon-0019",
+    "name": "Coal Drops Yard",
+    "cats": [
+      "Landmarks",
+      "Retail"
+    ],
+    "cc": "c-lmk",
+    "styleGroups": [
+      "Contemporary",
+      "Adaptive Reuse"
+    ],
+    "era": "2000–Present",
+    "city": "london",
+    "arch": "Heatherwick Studio",
+    "archs": [
+      "Heatherwick Studio"
+    ],
+    "yr": 2018,
+    "access": "Open to Public",
+    "lat": 51.5360313,
+    "lng": -0.12655239999999998,
+    "addr": "Stable St, London N1C 4LW",
+    "hood": "King's Cross",
+    "desc": "Coal Drops Yard is a retail and cultural destination in the King's Cross regeneration area, designed by Heatherwick Studio and opened in October 2018. The project transforms two Victorian coal-dropping warehouses (built 1850–1863) into a contemporary retail district by connecting the two rooftops with a dramatic canopy of kissing curved steel roofs that meet at a central ridge, creating a new public street between the buildings below. The intervention adds 10,000 sq m of new floor area while preserving the brick and ironwork of the original structures. The resulting space — with its sloped pedestrian street, elevated walkways, and boutique shops — became an immediate landmark of adaptive reuse and urban regeneration in London.",
+    "hours": "Daily — retail and dining hours vary by vendor",
+    "lastEntry": "",
+    "admission": "Free (public space) · Individual venue charges apply",
+    "tourOk": false,
+    "tourInfo": "Freely accessible as a public space. Part of the wider King's Cross regeneration. The adjacent Granary Square, Gasholders, and Lewis Cubitt Park are all within walking distance.",
+    "transit": "Victoria Metropolitan Northern Piccadilly Circle Hammersmith → King's Cross St Pancras",
+    "walkFrom": "King's Cross Station: 8 min · St Pancras International: 8 min · Granary Square: 2 min",
+    "tags": [
+      "Heatherwick Studio",
+      "Thomas Heatherwick",
+      "Adaptive Reuse",
+      "King's Cross",
+      "Retail",
+      "Victorian Heritage",
+      "Roof"
+    ],
+    "photos": [
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Coal_Drops_Yard_London_2018.jpg?width=800",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Coal_Drops_Yard_interior.jpg?width=800"
     ]
   },
-
   {
-    id:'lon-0020',
-    name:'Rolling Bridge',
-    cats:["Landmarks","Public","Infrastructure"], cc:'c-lmk', styleGroups:["Contemporary","High-Tech"],
-    era:'2000–Present', city:'london',
-    arch:'Heatherwick Studio', archs:['Heatherwick Studio'],
-    yr:2004, access:'Open to Public',
-    lat:51.518407, lng:-0.1746882,
-    addr:'S Wharf Rd, London W2 1NW', hood:'Paddington',
-    desc:'The Rolling Bridge at Paddington Basin is one of Heatherwick Studio\'s earliest and most celebrated public works. Completed in 2004, it is a pedestrian footbridge that opens by curling up on itself into a compact octagonal shape, its eight sections folding together until the handrail touches the deck, then unrolling back into a straight 12-metre walkway. The mechanism is driven by a hydraulic system embedded in each segment\'s handrail, allowing the bridge to curl and uncurl smoothly in around five minutes. The bridge opens every Friday at noon to allow boats to pass. The project — conceived when Heatherwick was in his early thirties — established his studio\'s reputation for engineering ingenuity and kinetic public design, and won the Structural Steel Design Award in 2005.',
-    hours:'Open permanently for pedestrians · Rolling mechanism: Fridays at noon (approx)', lastEntry:'',
-    admission:'Free',
-    tourOk:false, tourInfo:'The bridge rolls up every Friday at approximately 12:00 PM. Paddington Basin is a pleasant waterside walk accessible from Paddington Station.',
-    transit:'Bakerloo Circle District Hammersmith → Paddington',
-    walkFrom:'Paddington Station: 5 min',
-    tags:['Heatherwick Studio','Thomas Heatherwick','Bridge','Kinetic','Paddington','Public Art','Engineering'],
-    photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Rolling_Bridge_Paddington.jpg?width=800'
+    "id": "lon-0020",
+    "name": "Rolling Bridge",
+    "cats": [
+      "Landmarks",
+      "Public",
+      "Infrastructure"
+    ],
+    "cc": "c-lmk",
+    "styleGroups": [
+      "Contemporary",
+      "High-Tech"
+    ],
+    "era": "2000–Present",
+    "city": "london",
+    "arch": "Heatherwick Studio",
+    "archs": [
+      "Heatherwick Studio"
+    ],
+    "yr": 2004,
+    "access": "Open to Public",
+    "lat": 51.518407,
+    "lng": -0.1746882,
+    "addr": "S Wharf Rd, London W2 1NW",
+    "hood": "Paddington",
+    "desc": "The Rolling Bridge at Paddington Basin is one of Heatherwick Studio's earliest and most celebrated public works. Completed in 2004, it is a pedestrian footbridge that opens by curling up on itself into a compact octagonal shape, its eight sections folding together until the handrail touches the deck, then unrolling back into a straight 12-metre walkway. The mechanism is driven by a hydraulic system embedded in each segment's handrail, allowing the bridge to curl and uncurl smoothly in around five minutes. The bridge opens every Friday at noon to allow boats to pass. The project — conceived when Heatherwick was in his early thirties — established his studio's reputation for engineering ingenuity and kinetic public design, and won the Structural Steel Design Award in 2005.",
+    "hours": "Open permanently for pedestrians · Rolling mechanism: Fridays at noon (approx)",
+    "lastEntry": "",
+    "admission": "Free",
+    "tourOk": false,
+    "tourInfo": "The bridge rolls up every Friday at approximately 12:00 PM. Paddington Basin is a pleasant waterside walk accessible from Paddington Station.",
+    "transit": "Bakerloo Circle District Hammersmith → Paddington",
+    "walkFrom": "Paddington Station: 5 min",
+    "tags": [
+      "Heatherwick Studio",
+      "Thomas Heatherwick",
+      "Bridge",
+      "Kinetic",
+      "Paddington",
+      "Public Art",
+      "Engineering"
+    ],
+    "photos": [
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Rolling_Bridge_Paddington.jpg?width=800"
     ]
   },
-
   {
-    id:'lon-0021',
-    name:'Google UK HQ (King\'s Cross)',
-    cats:["Commercial","Landmarks"], cc:'c-lmk', styleGroups:["Contemporary","High-Tech"],
-    era:'2000–Present', city:'london',
-    arch:'Heatherwick Studio', archs:['Heatherwick Studio','BIG (Bjarke Ingels Group)'],
-    yr:2024, access:'Open to Public',
-    lat:51.53326089999999, lng:-0.1260032,
-    addr:'6 Pancras Sq, London N1C 4AG', hood:'King\'s Cross',
-    desc:'Google\'s new UK headquarters at King\'s Cross, completed in 2024, is a joint design by Heatherwick Studio and BIG (Bjarke Ingels Group). The 11-story, 100,000 sq m building occupies a prominent site adjacent to Regent\'s Canal and the King\'s Cross regeneration area. The facade is characterised by a bespoke interlocking pattern of aluminium fins that modulate solar gain while creating a dynamic, ever-changing surface depending on the angle of view and light. The building features a rooftop garden with a running track and swimming pool, and a publicly accessible ground-floor arcade. The project is one of the most anticipated contemporary buildings in London and a landmark of the ongoing transformation of King\'s Cross.',
-    hours:'Ground-floor public space: daily · Offices: private', lastEntry:'',
-    admission:'Public ground floor only · Office building',
-    tourOk:false, tourInfo:'',
-    transit:'Victoria Metropolitan Northern Piccadilly Circle Hammersmith → King\'s Cross St Pancras',
-    walkFrom:'King\'s Cross Station: 7 min · Coal Drops Yard: 3 min · Granary Square: 4 min',
-    tags:['Heatherwick Studio','BIG','Google','King\'s Cross','Aluminium Fins','Rooftop Garden'],
-    photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Google_Kings_Cross_HQ.jpg?width=800'
+    "id": "lon-0021",
+    "name": "Google UK HQ (King's Cross)",
+    "cats": [
+      "Commercial",
+      "Landmarks"
+    ],
+    "cc": "c-lmk",
+    "styleGroups": [
+      "Contemporary",
+      "High-Tech"
+    ],
+    "era": "2000–Present",
+    "city": "london",
+    "arch": "Heatherwick Studio",
+    "archs": [
+      "Heatherwick Studio",
+      "BIG (Bjarke Ingels Group)"
+    ],
+    "yr": 2024,
+    "access": "Open to Public",
+    "lat": 51.53326089999999,
+    "lng": -0.1260032,
+    "addr": "6 Pancras Sq, London N1C 4AG",
+    "hood": "King's Cross",
+    "desc": "Google's new UK headquarters at King's Cross, completed in 2024, is a joint design by Heatherwick Studio and BIG (Bjarke Ingels Group). The 11-story, 100,000 sq m building occupies a prominent site adjacent to Regent's Canal and the King's Cross regeneration area. The facade is characterised by a bespoke interlocking pattern of aluminium fins that modulate solar gain while creating a dynamic, ever-changing surface depending on the angle of view and light. The building features a rooftop garden with a running track and swimming pool, and a publicly accessible ground-floor arcade. The project is one of the most anticipated contemporary buildings in London and a landmark of the ongoing transformation of King's Cross.",
+    "hours": "Ground-floor public space: daily · Offices: private",
+    "lastEntry": "",
+    "admission": "Public ground floor only · Office building",
+    "tourOk": false,
+    "tourInfo": "",
+    "transit": "Victoria Metropolitan Northern Piccadilly Circle Hammersmith → King's Cross St Pancras",
+    "walkFrom": "King's Cross Station: 7 min · Coal Drops Yard: 3 min · Granary Square: 4 min",
+    "tags": [
+      "Heatherwick Studio",
+      "BIG",
+      "Google",
+      "King's Cross",
+      "Aluminium Fins",
+      "Rooftop Garden"
+    ],
+    "photos": [
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Google_Kings_Cross_HQ.jpg?width=800"
     ]
   },
-
-  // ── TADAO ANDO — LONDON ──────────────────────────────────────
-
   {
-    id:'lon-0022',
-    name:'Lisson Gallery Bell Street',
-    cats:["Cultural","Commercial"], cc:'c-cul', styleGroups:["Contemporary"],
-    era:'2000–Present', city:'london',
-    arch:'Tadao Ando', archs:['Tadao Ando'],
-    yr:1992, access:'Free Admission',
-    lat:51.5209753, lng:-0.1695168,
-    addr:'27 Bell St, London NW1 5BY', hood:'Marylebone / Lisson Grove',
-    desc:'The Lisson Gallery extension on Bell Street, designed by Tadao Ando and completed in 1992, is the architect\'s only built work in London and one of his earliest European commissions. Ando transformed a pair of Victorian terraced houses and an adjacent former dairy into a sequence of gallery spaces connected by his signature board-formed exposed concrete walls, punctuated by skylights that wash the surfaces in natural light. The intervention is characteristically understated — Ando retained the existing brick facades facing the street while replacing the interiors with pure geometric volumes in concrete. The Lisson Gallery, founded in 1967, is one of the world\'s leading contemporary art galleries, and the building remains a quiet landmark of Ando\'s material philosophy applied to the adaptive reuse of urban fabric.',
-    hours:'Mon–Fri 10:00 AM – 6:00 PM · Sat 11:00 AM – 5:00 PM', lastEntry:'',
-    admission:'Free',
-    tourOk:false, tourInfo:'',
-    transit:'Bakerloo → Marylebone · Jubilee → Baker Street',
-    walkFrom:'Marylebone Station: 8 min · Baker Street: 10 min',
-    tags:['Tadao Ando','Gallery','Concrete','Marylebone','Adaptive Reuse','Contemporary Art'],
-    photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Lisson_Gallery_London_Ando.jpg?width=800'
+    "id": "lon-0022",
+    "name": "Lisson Gallery Bell Street",
+    "cats": [
+      "Cultural",
+      "Commercial"
+    ],
+    "cc": "c-cul",
+    "styleGroups": [
+      "Contemporary"
+    ],
+    "era": "2000–Present",
+    "city": "london",
+    "arch": "Tadao Ando",
+    "archs": [
+      "Tadao Ando"
+    ],
+    "yr": 1992,
+    "access": "Free Admission",
+    "lat": 51.5209753,
+    "lng": -0.1695168,
+    "addr": "27 Bell St, London NW1 5BY",
+    "hood": "Marylebone / Lisson Grove",
+    "desc": "The Lisson Gallery extension on Bell Street, designed by Tadao Ando and completed in 1992, is the architect's only built work in London and one of his earliest European commissions. Ando transformed a pair of Victorian terraced houses and an adjacent former dairy into a sequence of gallery spaces connected by his signature board-formed exposed concrete walls, punctuated by skylights that wash the surfaces in natural light. The intervention is characteristically understated — Ando retained the existing brick facades facing the street while replacing the interiors with pure geometric volumes in concrete. The Lisson Gallery, founded in 1967, is one of the world's leading contemporary art galleries, and the building remains a quiet landmark of Ando's material philosophy applied to the adaptive reuse of urban fabric.",
+    "hours": "Mon–Fri 10:00 AM – 6:00 PM · Sat 11:00 AM – 5:00 PM",
+    "lastEntry": "",
+    "admission": "Free",
+    "tourOk": false,
+    "tourInfo": "",
+    "transit": "Bakerloo → Marylebone · Jubilee → Baker Street",
+    "walkFrom": "Marylebone Station: 8 min · Baker Street: 10 min",
+    "tags": [
+      "Tadao Ando",
+      "Gallery",
+      "Concrete",
+      "Marylebone",
+      "Adaptive Reuse",
+      "Contemporary Art"
+    ],
+    "photos": [
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Lisson_Gallery_London_Ando.jpg?width=800"
     ]
+  },
+  {
+    "id": "lon-0023",
+    "name": "Tower of London",
+    "cats": [
+      "Historic",
+      "Landmarks",
+      "Cultural"
+    ],
+    "cc": "c-his",
+    "styleGroups": [
+      "Medieval",
+      "Norman"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "William the Conqueror (1066) / Various",
+    "archs": [
+      "Norman",
+      "Medieval",
+      "Tudor"
+    ],
+    "yr": 1078,
+    "access": "Paid Admission",
+    "lat": 51.5081,
+    "lng": -0.0759,
+    "addr": "Tower of London, London EC3N 4AB",
+    "hood": "Tower Hill / City of London",
+    "desc": "The Tower of London stands as one of the most iconic medieval fortifications in England, founded by William the Conqueror in 1066 and completed in 1078. The magnificent White Tower—the innermost keep—remains the finest example of Norman military architecture, with its characteristic rounded turrets and massive stone walls that have survived nearly a millennium. The complex encompasses 21 towers, medieval chapels, and the Crown Jewels exhibition, offering visitors an intimate glimpse into nearly 1,000 years of English royal history and royal imprisonment. UNESCO World Heritage Site and Grade I listed by Historic England, it remains Britain's most visited paid attraction.",
+    "hours": "09:00–17:30 (Mar–Oct), 09:00–16:30 (Nov–Feb); closed 24–26 Dec",
+    "lastEntry": "60 min before close",
+    "admission": "Adults £34.90, Concessions available, Children £15.80",
+    "tourOk": true,
+    "tourInfo": "Yeoman Warders (Beefeaters) offer guided tours hourly; audio guides available",
+    "transit": "Tower Hill (Circle, District, DLR lines); riverside access via Thames Path",
+    "walkFrom": "St Katharine Docks (5 min), London Bridge (15 min), Bank (15 min)",
+    "tags": [
+      "Norman",
+      "William the Conqueror",
+      "Medieval",
+      "Royal",
+      "Crown Jewels",
+      "UNESCO WHS",
+      "Grade I",
+      "White Tower",
+      "Historic England",
+      "City of London"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0024",
+    "name": "Palace of Westminster",
+    "cats": [
+      "Historic",
+      "Landmarks",
+      "Government"
+    ],
+    "cc": "c-his",
+    "styleGroups": [
+      "Gothic Revival"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "Charles Barry & A.W.N. Pugin",
+    "archs": [
+      "Gothic Revival",
+      "Victorian"
+    ],
+    "yr": 1870,
+    "access": "Guided Tours / Parliament in Session",
+    "lat": 51.4995,
+    "lng": -0.1248,
+    "addr": "Palace of Westminster, Westminster, London SW1A 0AA",
+    "hood": "Westminster / Houses of Parliament",
+    "desc": "The iconic Palace of Westminster, redesigned by Charles Barry and Augustus Pugin following the devastating 1834 fire, represents the pinnacle of Victorian Gothic Revival architecture. The ornate façade features soaring perpendicular tracery, intricate stone carvings, and the world-famous Elizabeth Tower (Big Ben), with its mathematically precise clockwork and distinctive chimes. Constructed between 1840–1870, the palace integrates medieval Gothic aesthetics with 19th-century innovation, containing over 1,000 rooms connected by labyrinthine corridors and decorated with Pre-Raphaelite murals. This UNESCO World Heritage Site and Grade I listed building remains the political heart of the United Kingdom and one of the finest examples of Gothic Revival architecture globally.",
+    "hours": "Tours: Mon–Tue, Fri 09:00–16:30, Wed 13:00–16:30, Sat 09:00–16:30; closed some parliamentary periods",
+    "lastEntry": "60 min before close",
+    "admission": "Guided tours £18–29; UK residents may visit during Parliament sessions free",
+    "tourOk": true,
+    "tourInfo": "Official guided tours available year-round; audio guides in 6 languages",
+    "transit": "Westminster (Circle, District, Jubilee lines); Embankment (District, Northern, Circle, Bakerloo)",
+    "walkFrom": "Westminster Abbey (2 min), Big Ben (adjacent), St James's Park (5 min)",
+    "tags": [
+      "Victorian",
+      "Gothic Revival",
+      "Charles Barry",
+      "Augustus Pugin",
+      "Big Ben",
+      "Elizabeth Tower",
+      "UNESCO WHS",
+      "Grade I",
+      "Government",
+      "Westminster"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0025",
+    "name": "Westminster Abbey",
+    "cats": [
+      "Historic",
+      "Landmarks",
+      "Religious"
+    ],
+    "cc": "c-his",
+    "styleGroups": [
+      "Gothic",
+      "Medieval"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "Henry III (rebuilt 1245–1269)",
+    "archs": [
+      "Gothic",
+      "Medieval"
+    ],
+    "yr": 1245,
+    "access": "Paid Admission",
+    "lat": 51.4993,
+    "lng": -0.1273,
+    "addr": "Westminster Abbey, London SW1P 3PA",
+    "hood": "Westminster",
+    "desc": "Westminster Abbey is one of Europe's most magnificent Gothic cathedrals, rebuilt by Henry III between 1245–1269 in the Perpendicular Gothic style, replacing the earlier Norman church. The soaring nave features intricate ribbed vaulting, flying buttresses, and pointed arches that exemplify late medieval architectural achievement, while the interior houses the tombs and monuments of monarchs, poets, scientists, and national heroes spanning centuries. The twin western towers, added by Nicholas Hawksmoor in 1722, provide iconic silhouettes visible across Westminster, and the cloisters offer peaceful refuge from the bustling streets. UNESCO World Heritage Site and Grade I listed, Westminster Abbey serves as both a functioning church and a museum of English history, hosting coronations and royal ceremonies for nearly 1,000 years.",
+    "hours": "Mon–Fri 09:30–17:00, Sat 09:30–15:30; Sunday worship only (not tourist hours)",
+    "lastEntry": "60 min before close",
+    "admission": "Adults £28, Concessions £24, Children £12",
+    "tourOk": true,
+    "tourInfo": "Guided tours available; audio guides in multiple languages; expert-led photography tours",
+    "transit": "Westminster (Circle, District, Jubilee lines); St James's Park (District, Circle lines)",
+    "walkFrom": "Palace of Westminster (2 min), St James's Park (5 min), Victoria Street (2 min)",
+    "tags": [
+      "Gothic",
+      "Medieval",
+      "Henry III",
+      "Perpendicular Gothic",
+      "Royal tombs",
+      "UNESCO WHS",
+      "Grade I",
+      "Westminster",
+      "Nicholas Hawksmoor",
+      "Church"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0026",
+    "name": "Old Royal Naval College, Greenwich",
+    "cats": [
+      "Historic",
+      "Landmarks",
+      "Naval"
+    ],
+    "cc": "c-his",
+    "styleGroups": [
+      "Baroque",
+      "English Baroque"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "Christopher Wren & Nicholas Hawksmoor",
+    "archs": [
+      "Baroque",
+      "English Baroque"
+    ],
+    "yr": 1712,
+    "access": "Free & Paid Tours",
+    "lat": 51.4834,
+    "lng": -0.0064,
+    "addr": "Old Royal Naval College, Park Row, Greenwich, London SE10 9NN",
+    "hood": "Greenwich / Isle of Dogs",
+    "desc": "The Old Royal Naval College in Greenwich represents one of Christopher Wren's and Nicholas Hawksmoor's greatest collaborative achievements, begun in 1712 as a royal retirement home for naval veterans. The stunning twin domes of the Painted Hall and Chapel rise symmetrically from the Thames, with the iconic colonnaded court creating one of London's most photographed vistas. The Chapel features exquisite interior decoration with marquetry floors and ornamental plasterwork, while the Painted Hall displays a magnificent trompe-l'œil ceiling by Sir James Thornhill depicting naval victory and glorification of King William III. UNESCO World Heritage Site and Grade I listed, this complex exemplifies English Baroque at its most refined and ambitious.",
+    "hours": "Greenwich Painted Hall & Chapel: 10:00–17:00 daily (last entry 16:00)",
+    "lastEntry": "60 min before close",
+    "admission": "Painted Hall & Chapel: Adults £16, Children £8; grounds free",
+    "tourOk": true,
+    "tourInfo": "Guided tours available; audio guides included with admission",
+    "transit": "Cutty Sark DLR or Greenwich (Jubilee line extension via London Bridge)",
+    "walkFrom": "Greenwich Park (uphill 10 min), Cutty Sark (5 min), Greenwich Market (5 min)",
+    "tags": [
+      "Baroque",
+      "Christopher Wren",
+      "Nicholas Hawksmoor",
+      "Painted Hall",
+      "Naval",
+      "UNESCO WHS",
+      "Grade I",
+      "Thames",
+      "Maritime Greenwich"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0027",
+    "name": "Queen's House, Greenwich",
+    "cats": [
+      "Historic",
+      "Landmarks",
+      "Royal"
+    ],
+    "cc": "c-his",
+    "styleGroups": [
+      "Palladian",
+      "Renaissance"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "Inigo Jones",
+    "archs": [
+      "Palladian",
+      "Renaissance"
+    ],
+    "yr": 1616,
+    "access": "Free Entry (National Maritime Museum)",
+    "lat": 51.481,
+    "lng": -0.0038,
+    "addr": "Queen's House, Greenwich, London SE10 9NF",
+    "hood": "Greenwich",
+    "desc": "The Queen's House, designed by Inigo Jones and built between 1616–1635 for the consort of Charles I, is the first purely Palladian building in England and a landmark of architectural sophistication. Its elegant proportions, symmetrical façade, and innovative central loggia demonstrate Jones's mastery of Italian Renaissance principles applied to English construction, introducing a new vocabulary of classical restraint after centuries of ornamental Tudor and Jacobean excess. The interior features the famous geometric Tulip Staircase—a self-supporting spiral with no central column—and period furnishings reflecting 17th-century royal taste. Now part of the National Maritime Museum, the house offers an intimate glimpse into Caroline royal life and marks the birth of English neoclassical architecture.",
+    "hours": "As part of National Maritime Museum: 10:00–17:00 daily",
+    "lastEntry": "60 min before close",
+    "admission": "Free (donation requested)",
+    "tourOk": true,
+    "tourInfo": "Museum staff available; guided tours by National Maritime Museum",
+    "transit": "Cutty Sark DLR or Greenwich (Jubilee line extension)",
+    "walkFrom": "Greenwich Park (uphill 5 min), Cutty Sark (2 min), Old Royal Naval College (2 min)",
+    "tags": [
+      "Palladian",
+      "Inigo Jones",
+      "Renaissance",
+      "Stuart",
+      "Caroline",
+      "Royal",
+      "Grade I",
+      "Tulip Staircase",
+      "Greenwich",
+      "Neoclassical"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0028",
+    "name": "Royal Botanic Gardens, Kew",
+    "cats": [
+      "Historic",
+      "Landmarks",
+      "Gardens"
+    ],
+    "cc": "c-his",
+    "styleGroups": [
+      "Victorian",
+      "Glass Architecture"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "Decimus Burton (Palm House 1848, Temperate House 1863)",
+    "archs": [
+      "Victorian",
+      "Iron & Glass"
+    ],
+    "yr": 1848,
+    "access": "Paid Admission",
+    "lat": 51.4787,
+    "lng": -0.2956,
+    "addr": "Royal Botanic Gardens, Kew, Richmond, London TW9 3AE",
+    "hood": "Kew / Richmond",
+    "desc": "The Royal Botanic Gardens at Kew form a 300-acre botanical masterpiece established in the 18th century and transformed into a global scientific institution by the 19th century. The iconic Palm House, designed by Decimus Burton and engineer Richard Turner in 1848, pioneered glass and iron construction with its soaring curved roof and elegant iron framework, creating a humid microclimate for tropical plants. The Temperate House, Burton's later triumph (1863), stands as the world's largest Victorian glasshouse, containing specimens from temperate regions worldwide and showcasing the engineering innovation of the Industrial Age. UNESCO World Heritage Site and Grade I listed, Kew remains a center of plant science, conservation, and horticulture while offering visitors an exceptional experience in both botanical discovery and architectural heritage.",
+    "hours": "10:00–17:15 (summer), 10:00–15:45 (winter); closed 24–25 Dec",
+    "lastEntry": "60 min before close",
+    "admission": "Adults £19.50, Concessions £17.50, Children £6.50",
+    "tourOk": true,
+    "tourInfo": "Guided tours available; hop-on hop-off train; garden maps provided; expert-led botanical walks",
+    "transit": "Kew Bridge (District line, London Overground); Kew Gardens (District line)",
+    "walkFrom": "Kew Bridge (5 min walk), Richmond (riverside path 30 min)",
+    "tags": [
+      "Victorian",
+      "Decimus Burton",
+      "Glass architecture",
+      "Palm House",
+      "Temperate House",
+      "UNESCO WHS",
+      "Grade I",
+      "Botanical",
+      "Gardens",
+      "Richmond"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0029",
+    "name": "St Paul's Cathedral",
+    "cats": [
+      "Historic",
+      "Landmarks",
+      "Religious"
+    ],
+    "cc": "c-his",
+    "styleGroups": [
+      "Baroque",
+      "English Baroque"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "Christopher Wren",
+    "archs": [
+      "Baroque",
+      "English Baroque"
+    ],
+    "yr": 1675,
+    "access": "Paid Admission",
+    "lat": 51.5138,
+    "lng": -0.0984,
+    "addr": "St Paul's Cathedral, London EC4M 8AD",
+    "hood": "City of London / Ludgate Hill",
+    "desc": "St Paul's Cathedral, designed by Christopher Wren and built between 1675–1710, is England's preeminent Baroque cathedral and one of the world's most instantly recognizable churches. The monumental domed roof—rising 111 meters from the Great Fire rebuild—combines English Baroque severity with continental elegance, while the interior features intricate wood carvings by Grinling Gibbons, marble columns, and wrought iron by Jean Tijou. The iconic dome, constructed with a clever hidden brick cone and copper-clad timber framework, represents a masterpiece of structural ingenuity and aesthetic refinement that has dominated London's skyline for over three centuries. Grade I listed and a working cathedral, St Paul's has hosted state funerals, royal weddings, and coronations, embodying the spiritual and architectural resilience of London through fire, war, and social upheaval.",
+    "hours": "08:30–16:30 Mon–Sat; worship services Sun (public welcome); closed during major services",
+    "lastEntry": "60 min before close",
+    "admission": "Cathedral entry: Adults £20, Children £9; Dome climb: additional £5.50",
+    "tourOk": true,
+    "tourInfo": "Guided tours available; audioguides included; photography tours; access to Whispering Gallery and Dome",
+    "transit": "St Paul's (Circle, Metropolitan lines); Bank (Circle, Northern, District lines)",
+    "walkFrom": "Museum of London (2 min), Millennium Bridge (2 min), Bank of England (5 min)",
+    "tags": [
+      "Baroque",
+      "Christopher Wren",
+      "English Baroque",
+      "Dome",
+      "Great Fire",
+      "Grade I",
+      "City of London",
+      "Religious",
+      "Grinling Gibbons"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0030",
+    "name": "Buckingham Palace",
+    "cats": [
+      "Historic",
+      "Landmarks",
+      "Royal"
+    ],
+    "cc": "c-his",
+    "styleGroups": [
+      "Neoclassical",
+      "Georgian"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "John Nash (1825–1830), Edward Blore (1847), Aston Webb (1913)",
+    "archs": [
+      "Neoclassical",
+      "Georgian",
+      "Edwardian"
+    ],
+    "yr": 1825,
+    "access": "Summer Tours / Limited Access",
+    "lat": 51.5014,
+    "lng": -0.1419,
+    "addr": "Buckingham Palace, London SW1A 1AA",
+    "hood": "Westminster / St James's",
+    "desc": "Buckingham Palace, the official London residence of British monarchs since 1837, evolved from a Georgian mansion into a grand neoclassical palace through successive transformations by John Nash, Edward Blore, and Aston Webb. Nash's 1825–1830 remodeling created the principal façade and gardens, while Blore's 1847 east wing expansion added the iconic ceremonial front, and Webb's 1913 refacing unified the composition with the distinctive Portland stone façade visible today. The palace comprises 775 rooms across six floors, including the magnificent State Rooms with gilt decorations, tapestries, and Old Master paintings that represent centuries of royal collecting and artistic patronage. Grade I listed and the working heart of the British monarchy, Buckingham Palace symbolizes royal authority while remaining architecturally dynamic, adapting to contemporary needs while preserving its historical character.",
+    "hours": "State Rooms: August–September, 09:45–16:00 (dates vary annually)",
+    "lastEntry": "75 min before close",
+    "admission": "Adults £28.50, Concessions £26, Children £15.50",
+    "tourOk": false,
+    "tourInfo": "No guided tours; self-guided audio tours available during State Rooms opening",
+    "transit": "Victoria (District, Circle, Northern, Hammersmith & City lines); Green Park (Jubilee, Victoria, Piccadilly)",
+    "walkFrom": "St James's Park (adjacent), Green Park (2 min), Westminster (10 min)",
+    "tags": [
+      "Neoclassical",
+      "Georgian",
+      "John Nash",
+      "Edward Blore",
+      "Aston Webb",
+      "Royal",
+      "Grade I",
+      "Westminster",
+      "Monarchy",
+      "State Rooms"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0031",
+    "name": "Banqueting House",
+    "cats": [
+      "Historic",
+      "Landmarks",
+      "Royal"
+    ],
+    "cc": "c-his",
+    "styleGroups": [
+      "Palladian",
+      "Renaissance"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "Inigo Jones",
+    "archs": [
+      "Palladian",
+      "Renaissance"
+    ],
+    "yr": 1622,
+    "access": "Paid Admission",
+    "lat": 51.5041,
+    "lng": -0.126,
+    "addr": "Banqueting House, Whitehall, London SW1A 2ER",
+    "hood": "Whitehall / Westminster",
+    "desc": "The Banqueting House, designed by Inigo Jones and completed in 1622 for King James I, stands as the first purely Renaissance and Palladian building in London, introducing Italian architectural principles to English court architecture. Its austere brick and Portland stone façade with rusticated arches exhibits classical restraint, while the magnificent interior features Peter Paul Rubens's extraordinary ceiling paintings (1636) glorifying the Stuart dynasty—a trompe-l'œil masterpiece celebrating divine monarchy that dominates the double-cube hall. This historic space witnessed the civil war's tragic culmination when Charles I was executed from the Banqueting House window in 1649, transforming it from a celebration of absolutism into a poignant monument to political conflict. Grade I listed and now operated by Historic England, the Banqueting House remains an intimate window into Stuart court culture and the architectural revolution initiated by Jones.",
+    "hours": "10:00–17:00 Mon–Fri, 10:00–17:00 Sat–Sun (with exceptions for state events)",
+    "lastEntry": "60 min before close",
+    "admission": "Adults £9.90, Children £5.40",
+    "tourOk": true,
+    "tourInfo": "Self-guided with interpretive panels; guided tours available; audio guides",
+    "transit": "Embankment (District, Circle, Bakerloo lines); Westminster (Circle, District, Jubilee)",
+    "walkFrom": "Palace of Westminster (5 min), Trafalgar Square (3 min), Thames (2 min)",
+    "tags": [
+      "Palladian",
+      "Inigo Jones",
+      "Renaissance",
+      "Stuart",
+      "Rubens ceiling",
+      "Grade I",
+      "Whitehall",
+      "Royal",
+      "Charles I",
+      "Historic England"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0032",
+    "name": "Tower Bridge",
+    "cats": [
+      "Historic",
+      "Landmarks",
+      "Engineering"
+    ],
+    "cc": "c-his",
+    "styleGroups": [
+      "Victorian Gothic",
+      "Victorian Engineering"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "Horace Jones & John Wolfe Barry",
+    "archs": [
+      "Victorian Gothic",
+      "Engineering"
+    ],
+    "yr": 1886,
+    "access": "Paid Admission",
+    "lat": 51.5055,
+    "lng": -0.0754,
+    "addr": "Tower Bridge, London SE1 2UP",
+    "hood": "Tower Hill / Southwark",
+    "desc": "Tower Bridge, designed by Sir Horace Jones and Sir John Wolfe Barry and completed in 1894, represents a triumphant synthesis of Victorian Gothic aesthetics and cutting-edge hydraulic engineering. The twin towers, clad in Cornish granite and adorned with turrets and ornamental stonework, evoke medieval fortress architecture while concealing a revolutionary hydraulic bascule mechanism that can raise the 1,200-ton roadway in just 85 seconds to permit tall ships passage. The intricate wrought iron framework, internal machinery, and decorative detailing showcase the Victorian era's fascination with marrying functional engineering with ornamental beauty, creating an instantly recognizable monument to London's maritime and industrial supremacy. Grade I listed and one of the world's most iconic bridges, Tower Bridge remains a functional river crossing and museum, welcoming over 8 million annual visitors.",
+    "hours": "09:00–18:00 (Apr–Sep), 09:30–17:00 (Oct–Mar); check for special hours",
+    "lastEntry": "60 min before close",
+    "admission": "Adults £13.50, Concessions £9.90, Children £6.15",
+    "tourOk": true,
+    "tourInfo": "Self-guided access to high walkways and engine rooms; educational displays; views of Thames",
+    "transit": "Tower Hill (Circle, District, DLR lines); London Bridge (District, Jubilee, Northern lines)",
+    "walkFrom": "Tower of London (adjacent), London Bridge (1 min), St Katharine Docks (5 min)",
+    "tags": [
+      "Victorian Gothic",
+      "Horace Jones",
+      "John Wolfe Barry",
+      "Hydraulic engineering",
+      "Bascule bridge",
+      "Grade I",
+      "Thames",
+      "Iconic",
+      "Engineering",
+      "Tower Hill"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0033",
+    "name": "Eltham Palace",
+    "cats": [
+      "Historic",
+      "Landmarks",
+      "Royal"
+    ],
+    "cc": "c-his",
+    "styleGroups": [
+      "Medieval",
+      "Art Deco"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "Medieval royal palace + Stephen & Virginia Courtauld (1930s Art Deco)",
+    "archs": [
+      "Medieval",
+      "Art Deco"
+    ],
+    "yr": 1475,
+    "access": "Paid Admission",
+    "lat": 51.4504,
+    "lng": 0.0508,
+    "addr": "Eltham Palace, Court Yard, London SE9 5QE",
+    "hood": "Eltham / Southeastchester",
+    "desc": "Eltham Palace presents an extraordinary juxtaposition of medieval royal history and 1930s Art Deco glamour, with the great hall built by Edward IV in 1475 standing as one of England's finest examples of late medieval timber roof construction. The double-hammerbeam roof, spanning 39 meters without internal support, showcases the technical brilliance of medieval craftsmen, while the roofline glitters with gilded weathervanes and ornamental cresting. In 1933, American textile millionaire Stephen Courtauld and his wife Virginia purchased the partially ruined palace and added a stunning Art Deco mansion seamlessly adjacent to the medieval remains, featuring chrome detailing, avant-garde furnishings, and contemporary luxuries that highlight the aesthetic gulf between two eras. Now operated by English Heritage, Eltham Palace offers visitors a singular experience: exploring authentic Tudor and Stuart gardens, walking among genuine medieval stones, and stepping into the sophisticated world of interwar design.",
+    "hours": "10:00–17:00 (Apr–Oct), 10:00–16:00 (Nov–Mar); closed 24–26 Dec",
+    "lastEntry": "60 min before close",
+    "admission": "Adults £13.30, Concessions £11.90, Children £8",
+    "tourOk": true,
+    "tourInfo": "Guided tours available; family activities; historic gardens tour",
+    "transit": "Eltham (District line)",
+    "walkFrom": "Eltham High Street (10 min walk)",
+    "tags": [
+      "Medieval",
+      "Edward IV",
+      "Great Hall",
+      "Art Deco",
+      "Stephen Courtauld",
+      "Virginia Courtauld",
+      "English Heritage",
+      "Tudor",
+      "Gardens",
+      "Eltham"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0034",
+    "name": "Kenwood House",
+    "cats": [
+      "Historic",
+      "Landmarks",
+      "Neoclassical"
+    ],
+    "cc": "c-his",
+    "styleGroups": [
+      "Neoclassical",
+      "Georgian"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "Robert Adam (1764–1779)",
+    "archs": [
+      "Neoclassical",
+      "Georgian"
+    ],
+    "yr": 1764,
+    "access": "Free Entry",
+    "lat": 51.5716,
+    "lng": -0.1669,
+    "addr": "Kenwood House, Hampstead Lane, London NW3 7JR",
+    "hood": "Hampstead / Parliament Hill",
+    "desc": "Kenwood House, perched on the edge of Hampstead Heath and redesigned by Robert Adam between 1764–1779, represents a masterclass in neoclassical domestic architecture and interior design. Adam's elegant remodeling transformed a modest 17th-century villa into a sophisticated mansion, adding the iconic library wing with its coffered ceiling and refined proportions, and the cream and pale blue drawing rooms that exemplify his signature restrained elegance and mathematical precision. The house contains an important collection of Old Master paintings, including works by Rembrandt, Vermeer, and Gainsborough, displayed in period rooms that evoke 18th-century aristocratic taste and connoisseurship. Operated by English Heritage on the Heath's northern slope, Kenwood provides an exceptional setting for art appreciation while its harmonious architectural proportions and panoramic views across London embody the ideals of the Enlightenment.",
+    "hours": "11:30–16:30 (Apr–Oct), 11:30–16:00 (Nov–Mar); closed 24–26 Dec",
+    "lastEntry": "60 min before close",
+    "admission": "Free (donation requested)",
+    "tourOk": true,
+    "tourInfo": "Guided tours available; audio guides; sculpture park in grounds",
+    "transit": "Golders Green (Northern line) + bus 210; Hampstead Heath (overland)",
+    "walkFrom": "Hampstead Heath (adjacent), Hampstead village (15 min walk downhill)",
+    "tags": [
+      "Neoclassical",
+      "Robert Adam",
+      "Georgian",
+      "Library",
+      "Old Masters",
+      "English Heritage",
+      "Hampstead",
+      "Hampstead Heath",
+      "Rembrandt",
+      "Vermeer"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0035",
+    "name": "Apsley House",
+    "cats": [
+      "Historic",
+      "Landmarks",
+      "Museum"
+    ],
+    "cc": "c-his",
+    "styleGroups": [
+      "Neoclassical",
+      "Georgian"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "Robert Adam (1771–1778), Benjamin Dean Wyatt extension (1828)",
+    "archs": [
+      "Neoclassical",
+      "Georgian",
+      "Regency"
+    ],
+    "yr": 1771,
+    "access": "Paid Admission",
+    "lat": 51.5027,
+    "lng": -0.1512,
+    "addr": "Apsley House, 149 Piccadilly, London W1J 7NT",
+    "hood": "Knightsbridge / Hyde Park Corner",
+    "desc": "Apsley House, designed by Robert Adam and completed in 1778, stands at the corner of Piccadilly and Park Lane as the former London residence of Arthur Wellesley, the Duke of Wellington, who defeated Napoleon at Waterloo. Adam's original neoclassical composition, featuring refined proportions and elegantly decorated interiors, was enhanced by Benjamin Dean Wyatt's 1828 extension with the addition of the Waterloo Gallery—a stunning state apartment designed to display the Duke's extraordinary art collection. The house contains masterworks by Goya, Velázquez, Rubens, and Canaletto, along with Sevres porcelain, sculpture, and Regency furniture that reflect both Wellington's wealth and his sophisticated taste cultivated through military service across Europe. Now operated by English Heritage as a museum dedicated to Wellington and his era, Apsley House offers intimate insight into the domestic world of one of Britain's most celebrated military figures.",
+    "hours": "11:00–17:00 (Apr–Oct), 11:00–16:00 (Nov–Mar); closed Mondays and major holidays",
+    "lastEntry": "60 min before close",
+    "admission": "Adults £11.50, Concessions £9.20, Children £5.75",
+    "tourOk": true,
+    "tourInfo": "Guided tours available; audio guides; gallery talks",
+    "transit": "Hyde Park Corner (Piccadilly line); Knightsbridge (Piccadilly, District lines)",
+    "walkFrom": "Hyde Park (adjacent), Green Park (3 min), Ritz Hotel (2 min)",
+    "tags": [
+      "Neoclassical",
+      "Robert Adam",
+      "Georgian",
+      "Benjamin Dean Wyatt",
+      "Waterloo Gallery",
+      "Wellington",
+      "English Heritage",
+      "Grade I",
+      "Old Masters",
+      "Piccadilly"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0036",
+    "name": "Wellington Arch",
+    "cats": [
+      "Historic",
+      "Landmarks",
+      "Monument"
+    ],
+    "cc": "c-his",
+    "styleGroups": [
+      "Neoclassical",
+      "Georgian"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "Decimus Burton",
+    "archs": [
+      "Neoclassical",
+      "Georgian"
+    ],
+    "yr": 1826,
+    "access": "Free to View / Paid Gallery Entry",
+    "lat": 51.5025,
+    "lng": -0.1505,
+    "addr": "Wellington Arch, Hyde Park Corner, London W1J 7JZ",
+    "hood": "Knightsbridge / Hyde Park Corner",
+    "desc": "The Wellington Arch, designed by Decimus Burton and constructed between 1826–1830, stands as one of London's most prominent neoclassical monuments, commissioned to commemorate military victories and honor Wellington's triumph at Waterloo. The triumphal arch features a distinctive stone façade with Ionic columns, ornamental reliefs, and sculptural detailing that embodies classical proportions, while its elevated position at the principal entrance to Hyde Park makes it a focal point for vehicular and pedestrian traffic converging on the capital's most prestigious neighborhood. The interior houses a small museum dedicated to Wellington and contains the arch's unique copper quadriga sculpture depicting Peace descending on the chariot of War—a symbolic and artistic masterpiece visible from numerous vantage points across London. Now operated by English Heritage, Wellington Arch functions as both a working war memorial and an intimate museum space offering panoramic views of Hyde Park and central London from its gallery level.",
+    "hours": "10:00–17:00 (Apr–Oct), 10:00–16:00 (Nov–Mar); closed 24–26 Dec",
+    "lastEntry": "60 min before close",
+    "admission": "Gallery entry: Adults £6.50, Concessions £5.20, Children £3.90",
+    "tourOk": true,
+    "tourInfo": "Self-guided with interpretive displays; views from gallery level; historical information panels",
+    "transit": "Hyde Park Corner (Piccadilly line)",
+    "walkFrom": "Apsley House (30 sec), Green Park (2 min), Knightsbridge (3 min)",
+    "tags": [
+      "Neoclassical",
+      "Decimus Burton",
+      "Georgian",
+      "Wellington",
+      "Waterloo",
+      "Triumphal arch",
+      "English Heritage",
+      "Grade I",
+      "Monument",
+      "Hyde Park Corner"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0037",
+    "name": "Ham House and Garden",
+    "cats": [
+      "Historic",
+      "Landmarks",
+      "National Trust"
+    ],
+    "cc": "c-his",
+    "styleGroups": [
+      "Stuart",
+      "Baroque"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "Unknown (1610), extended 1670s",
+    "archs": [
+      "Stuart",
+      "Baroque"
+    ],
+    "yr": 1610,
+    "access": "Paid Admission",
+    "lat": 51.4387,
+    "lng": -0.3155,
+    "addr": "Ham House, Ham Street, Richmond, London TW10 7RS",
+    "hood": "Richmond / Ham",
+    "desc": "Ham House, constructed in 1610 and dramatically enlarged and redecorated in the 1670s, contains the finest Stuart interior surviving in England, representing the height of Restoration taste and craftsmanship. The house showcases exceptional examples of period wallpapers, silk damasks, carved wooden overmantels, and gilt-leather wall coverings, while the magnificent grand staircase features original wood paneling and intricate ironwork by Jean Tijou exemplifying Baroque opulence. The collection of paintings, tapestries, and furniture reflects the worldly sophistication and continental cultural knowledge of the house's original owners, particularly the 1st Duke and Duchess of Lauderdale, who transformed Ham into a showcase of artistic patronage. Now operated by the National Trust, the house and its 17 acres of historic gardens—including formal parterres, hedged avenues, and riverside meadows—offer an unparalleled glimpse into aristocratic life and taste during the turbulent Stuart and Restoration periods.",
+    "hours": "13:00–17:00 (Mar–Oct Sat–Wed), 13:00–16:00 (Nov–Feb Sat–Sun); gardens 10:30–17:00",
+    "lastEntry": "60 min before close (house), 60 min before dusk (gardens)",
+    "admission": "Adults £17, Concessions £15, Children £8.50; National Trust members free",
+    "tourOk": true,
+    "tourInfo": "Guided tours available; family activities; tea room in stable block",
+    "transit": "Richmond (District, Overground lines) + bus or riverside walk (40 min)",
+    "walkFrom": "Richmond town center (3 km), Richmond Park (adjacent)",
+    "tags": [
+      "Stuart",
+      "Baroque",
+      "National Trust",
+      "Restoration",
+      "Duke of Lauderdale",
+      "Tijou ironwork",
+      "Gardens",
+      "Richmond",
+      "Terrace",
+      "Grade I"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0038",
+    "name": "Osterley Park and House",
+    "cats": [
+      "Historic",
+      "Landmarks",
+      "National Trust"
+    ],
+    "cc": "c-his",
+    "styleGroups": [
+      "Neoclassical",
+      "Georgian"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "Robert Adam (1761–1780)",
+    "archs": [
+      "Neoclassical",
+      "Georgian"
+    ],
+    "yr": 1761,
+    "access": "Paid Admission",
+    "lat": 51.4815,
+    "lng": -0.3555,
+    "addr": "Osterley Park and House, Jersey Road, Isleworth, London TW7 4RB",
+    "hood": "Isleworth / Osterley",
+    "desc": "Osterley Park House, redesigned by Robert Adam between 1761–1780, represents one of the finest expressions of Adam's neoclassical genius applied to a suburban manor, transforming a modest Tudor mansion into an elegant country house of aristocratic refinement. Adam's additions include the iconic entrance portico with its columned loggia, the celebrated library with its delicate stucco ceiling, the drawing room with its sophisticated color palette of pale greens and blues, and the magnificent Etruscan Room inspired by Roman decorative aesthetics. The 140-acre estate, surrounded by a sweeping landscape park and dotted with Adam-designed garden pavilions, creates a complete Enlightenment vision of the relationship between house, grounds, and nature. Now operated by the National Trust, Osterley—paradoxically situated in suburban West London amid modern housing—survives as a pristine museum of Georgian taste and craftsmanship, offering visitors a rare opportunity to experience intact neoclassical domestic interiors.",
+    "hours": "13:00–17:00 (Apr–Oct Wed–Sun), 13:00–16:00 (Nov–Mar Sat–Sun); gardens 10:00–dusk",
+    "lastEntry": "60 min before close (house)",
+    "admission": "Adults £17, Concessions £15, Children £8.50; National Trust members free",
+    "tourOk": true,
+    "tourInfo": "Guided tours available; children's activities; tea room; family events",
+    "transit": "Osterley (Piccadilly line); Kew Bridge (District, Overground lines)",
+    "walkFrom": "Kew Bridge (15 min walk), River Thames path (adjacent)",
+    "tags": [
+      "Neoclassical",
+      "Robert Adam",
+      "Georgian",
+      "National Trust",
+      "Etruscan Room",
+      "Library",
+      "Grade I",
+      "Isleworth",
+      "Suburban",
+      "Country house"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0039",
+    "name": "Red House",
+    "cats": [
+      "Historic",
+      "Landmarks",
+      "Arts and Crafts"
+    ],
+    "cc": "c-his",
+    "styleGroups": [
+      "Arts and Crafts",
+      "Victorian"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "Philip Webb & William Morris",
+    "archs": [
+      "Arts and Crafts",
+      "Victorian"
+    ],
+    "yr": 1859,
+    "access": "Paid Admission",
+    "lat": 51.4434,
+    "lng": 0.1432,
+    "addr": "Red House, 13 Kelmscott Road, Bexleyheath, London DA6 8JF",
+    "hood": "Bexleyheath",
+    "desc": "The Red House, designed by Philip Webb and commissioned by William Morris in 1859, stands as the birthplace of the Arts and Crafts movement and a revolutionary statement against Victorian industrial aesthetics and mass production. The striking red-brick exterior with asymmetrical composition, steep roof pitches, and Gothic Revival details represented a radical departure from prevailing domestic architectural conventions, while the interior embodied Morris's vision of integrated design where every element—from furniture to stained glass to wall hangings—was crafted with meticulous attention to materials and process. The house served as a collaborative laboratory where Morris, Webb, and their circle of Pre-Raphaelite and craft-oriented associates developed the design principles that would define the Arts and Crafts movement and profoundly influence 20th-century architecture and design philosophy. Now operated by the National Trust, Red House remains an intimate testimony to artistic conviction and the belief that everyday objects deserved beauty, craftsmanship, and integrity.",
+    "hours": "11:00–17:00 (Apr–Oct Wed–Sun), 11:00–16:00 (Nov–Mar Sat–Sun)",
+    "lastEntry": "60 min before close",
+    "admission": "Adults £11, Concessions £9.90, Children £5.50; National Trust members free",
+    "tourOk": true,
+    "tourInfo": "Guided tours available; family activities; tea room",
+    "transit": "Bexleyheath (District line)",
+    "walkFrom": "Bexleyheath town center (10 min walk)",
+    "tags": [
+      "Arts and Crafts",
+      "William Morris",
+      "Philip Webb",
+      "Victorian",
+      "National Trust",
+      "Grade I",
+      "Design",
+      "Bexleyheath",
+      "Pre-Raphaelite",
+      "Red brick"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0040",
+    "name": "Fenton House",
+    "cats": [
+      "Historic",
+      "Landmarks",
+      "National Trust"
+    ],
+    "cc": "c-his",
+    "styleGroups": [
+      "Georgian",
+      "William & Mary"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "Unknown (1686)",
+    "archs": [
+      "Georgian",
+      "William & Mary"
+    ],
+    "yr": 1686,
+    "access": "Paid Admission",
+    "lat": 51.5588,
+    "lng": -0.1773,
+    "addr": "Fenton House, Windmill Hill, Hampstead, London NW3 6SP",
+    "hood": "Hampstead",
+    "desc": "Fenton House, built in 1686 and set amid Hampstead's winding village streets, represents the finest surviving 17th-century merchant house in the area, embodying the taste and prosperity of London's prosperous merchant class during the William and Mary period. The brick-built house with its distinctive cupola, multi-pane sash windows, and graceful proportions remains remarkably unchanged, its interior featuring period paneling, a fine staircase, and authentic furnishings that evoke domestic life two centuries ago. The collection includes an exceptional array of 17th and 18th-century porcelain, needlework, paintings, and decorative arts assembled by the house's latter owners, particularly a distinguished collection of Early English pottery that reflects the refined aesthetic sensibilities of cultivated collectors. The terraced garden, descending steeply behind the house with views across London, provides a surprising urban refuge and period-appropriate setting. Now operated by the National Trust, Fenton House offers visitors an intimate understanding of mercantile prosperity and domestic refinement during London's Georgian heyday.",
+    "hours": "11:00–17:00 (Apr–Oct Wed–Sun), 11:00–16:00 (Nov–Mar Sat–Sun)",
+    "lastEntry": "60 min before close",
+    "admission": "Adults £9.90, Concessions £8.80, Children £4.95; National Trust members free",
+    "tourOk": true,
+    "tourInfo": "Guided tours available; family activities; tea room; music recitals (seasonal)",
+    "transit": "Hampstead (Northern line)",
+    "walkFrom": "Hampstead village (5 min walk), Hampstead Heath (adjacent)",
+    "tags": [
+      "Georgian",
+      "William and Mary",
+      "1686",
+      "Merchant house",
+      "National Trust",
+      "Grade I",
+      "Hampstead",
+      "Porcelain",
+      "Collection",
+      "Terraced garden"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0041",
+    "name": "Sutton House",
+    "cats": [
+      "Historic",
+      "Landmarks",
+      "National Trust"
+    ],
+    "cc": "c-his",
+    "styleGroups": [
+      "Tudor",
+      "Renaissance"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "Unknown (1535)",
+    "archs": [
+      "Tudor",
+      "Renaissance"
+    ],
+    "yr": 1535,
+    "access": "Paid Admission",
+    "lat": 51.5474,
+    "lng": -0.0476,
+    "addr": "Sutton House, 2–4 Homerton High Street, Hackney, London E9 6JQ",
+    "hood": "Hackney",
+    "desc": "Sutton House, built in 1535 by Ralph Sadleir, a wealthy Tudor courtier, stands as the oldest domestic building in East London and a precious survivor of pre-Georgian domestic architecture in the working-class East End. The timber-framed house retains its original layout with original paneled rooms, Tudor chimneys, and decorative linenfold paneling that exemplify early 16th-century craftsmanship and aesthetic values, surviving nearly 500 years of transformation, subdivision, and urban change. Now operated by the National Trust and restored to reveal its Tudor cores beneath Georgian and Victorian layers, Sutton House offers an exceptional opportunity to understand domestic architecture during Henry VIII's reign and the evolution of London housing through five centuries. The house functions as a vibrant community center hosting exhibitions, workshops, and cultural events, while also serving as a museum dedicated to Tudor life and the cultural heritage of Hackney.",
+    "hours": "11:30–16:30 (Apr–Oct Wed–Sun), 12:00–16:00 (Nov–Mar Sat–Sun)",
+    "lastEntry": "60 min before close",
+    "admission": "Adults £9.90, Concessions £8.80, Children £4.95; National Trust members free",
+    "tourOk": true,
+    "tourInfo": "Guided tours available; exhibitions; community programs; tea room",
+    "transit": "Hackney Central (Overground); Hackney Downs (Overground); Homerton (Overground)",
+    "walkFrom": "Hackney High Street (adjacent), Hackney Marshes (15 min walk)",
+    "tags": [
+      "Tudor",
+      "1535",
+      "Ralph Sadleir",
+      "National Trust",
+      "Grade II*",
+      "Hackney",
+      "East London",
+      "Community",
+      "Timber-framed",
+      "Oldest domestic"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0042",
+    "name": "Jewel Tower",
+    "cats": [
+      "Historic",
+      "Landmarks",
+      "Medieval"
+    ],
+    "cc": "c-his",
+    "styleGroups": [
+      "Medieval",
+      "Plantagenet"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "Edward III",
+    "archs": [
+      "Medieval",
+      "Plantagenet"
+    ],
+    "yr": 1365,
+    "access": "Paid Admission",
+    "lat": 51.4977,
+    "lng": -0.1258,
+    "addr": "Jewel Tower, Abingdon Street, Westminster, London SW1P 3JX",
+    "hood": "Westminster",
+    "desc": "The Jewel Tower, constructed in 1365 by Edward III, represents one of only two surviving structures from the medieval Palace of Westminster, making it an irreplaceable relic of the palace's 14th-century appearance and an intimate connection to England's pre-Tudor monarchy. The sturdy stone tower, originally four stories with a moat, housed the crown jewels and royal treasure during the medieval period, its thick walls and defensive architecture reflecting the security concerns of a royal dynasty protecting its most precious assets. The interior, now operated by English Heritage as a small museum, exhibits artifacts related to the medieval Palace of Westminster and its ceremonial functions, along with interpretive displays explaining the tower's original role within the palace complex. Remarkably, this modest yet historically charged structure survived the devastating 1834 fire that destroyed the medieval palace, standing isolated amid the Victorian Gothic splendor of Barry and Pugin's Palace of Westminster as a tangible reminder of England's medieval institutional heritage.",
+    "hours": "10:00–17:00 (Apr–Oct), 10:00–16:00 (Nov–Mar); closed 24–26 Dec and occasional events",
+    "lastEntry": "60 min before close",
+    "admission": "Adults £9.90, Concessions £7.90, Children £6",
+    "tourOk": true,
+    "tourInfo": "Self-guided with interpretive displays; exhibition on medieval palace; views from upper level",
+    "transit": "Westminster (Circle, District, Jubilee lines); St James's Park (District, Circle lines)",
+    "walkFrom": "Palace of Westminster (3 min), St James's Park (2 min), Tate Britain (5 min)",
+    "tags": [
+      "Medieval",
+      "Edward III",
+      "1365",
+      "Palace of Westminster",
+      "Plantagenet",
+      "English Heritage",
+      "Grade I",
+      "Westminster",
+      "Crown Jewels",
+      "Survivor"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0043",
+    "name": "George Inn",
+    "cats": [
+      "historic",
+      "accommodation"
+    ],
+    "cc": "c-his",
+    "styleGroups": [
+      "Colonial",
+      "Coaching Inn"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "Unknown (17th-century)",
+    "archs": [
+      "Unknown"
+    ],
+    "yr": 1677,
+    "access": "Public (food & drink only)",
+    "lat": 51.5048,
+    "lng": -0.0888,
+    "addr": "77 Borough High Street, Southwark, SE1 1NH",
+    "hood": "Southwark",
+    "desc": "The George Inn is London's last surviving galleried coaching inn, with its iconic three-storey timber-framed galleries arranged around a central courtyard overlooking Borough High Street. Built in 1677 after the Great Fire, it exemplifies the traditional coaching inn typology that once dominated medieval London. Now owned by the National Trust and still operating as a pub, the building retains its atmospheric cobbled yard and period character, offering visitors a tangible connection to centuries of London hospitality and travel. Charles Dickens famously referenced this inn in his works, cementing its place in literary and cultural history.",
+    "hours": "Daily 11am-11pm (food served 12-9pm)",
+    "lastEntry": "N/A (pub)",
+    "admission": "Free (food & drink purchases)",
+    "tourOk": true,
+    "tourInfo": "Self-guided viewing of courtyard and galleries",
+    "transit": "Bridge (Circle, District, Northern Lines), London Bridge (Jubilee, Northern), Borough (Northern)",
+    "walkFrom": "Tower Bridge (0.3 mi), London Bridge Station (0.2 mi)",
+    "tags": [
+      "coaching-inn",
+      "17th-century",
+      "timber-frame",
+      "national-trust",
+      "southwark",
+      "historic-pub"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0044",
+    "name": "London Wall (Roman & Medieval)",
+    "cats": [
+      "historic",
+      "monument"
+    ],
+    "cc": "c-his",
+    "styleGroups": [
+      "Roman",
+      "Medieval"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "Roman military engineers / Medieval craftsmen",
+    "archs": [
+      "Roman",
+      "Medieval"
+    ],
+    "yr": 200,
+    "access": "Public (outdoor)",
+    "lat": 51.513,
+    "lng": -0.0765,
+    "addr": "Multiple sections around City of London; best preserved at Tower Hill, EC3N 4AB",
+    "hood": "City of London / Tower Hill",
+    "desc": "London Wall represents nearly 2,000 years of continuous urban fortification, beginning with Roman engineers who constructed the original 2 miles of defensive wall around Londinium circa 200 AD. The surviving sections—particularly visible at Tower Hill, Moorgate, and Bishopsgate—showcase the Roman core (grey Cornish slate and ragstone) interspersed with medieval brick repairs and crenellations added during the 12th-14th centuries. This Scheduled Monument provides an unparalleled archaeological record of Roman military engineering and medieval urban defense strategies. Walking along the preserved sections offers visitors a literal chronological journey through London's layered history.",
+    "hours": "24/7 (outdoor monument)",
+    "lastEntry": "N/A",
+    "admission": "Free",
+    "tourOk": true,
+    "tourInfo": "Self-guided; interpretation panels at key sections",
+    "transit": "Tower Hill (Circle, District), Aldgate (Circle, District, Hammersmith & City), Moorgate (Circle, Hammersmith & City, Metropolitan)",
+    "walkFrom": "Tower of London (0.2 mi), Museum of London (0.3 mi)",
+    "tags": [
+      "roman",
+      "medieval",
+      "scheduled-monument",
+      "english-heritage",
+      "defensive-architecture",
+      "city-of-london"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0045",
+    "name": "Royal Exchange",
+    "cats": [
+      "commercial",
+      "historic"
+    ],
+    "cc": "c-com",
+    "styleGroups": [
+      "Neoclassical",
+      "Victorian"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "William Tite",
+    "archs": [
+      "William Tite"
+    ],
+    "yr": 1844,
+    "access": "Public (shopping only)",
+    "lat": 51.5134,
+    "lng": -0.0876,
+    "addr": "Royal Exchange, City of London, EC3V 3LR",
+    "hood": "City of London",
+    "desc": "William Tite's Royal Exchange (1844) is a masterpiece of Victorian Neoclassicism, crowned by an imposing Corinthian portico and topped with a weather vane depicting a golden grasshopper—a centuries-old symbol of the Exchange. The building's rusticated ground floor and refined upper elevations reflect its historic role as the commercial heart of the British Empire, where merchants gathered to conduct international trade. Now repurposed as a luxury shopping destination, the interior retains its marble grandeur and original ceiling frescoes while accommodating contemporary retail tenants. Grade I listed and architecturally iconic, it remains one of London's most refined civic structures.",
+    "hours": "Mon-Sat 10am-6pm, Sun 12-5pm (shopping)",
+    "lastEntry": "Closing time minus 30 min",
+    "admission": "Free",
+    "tourOk": true,
+    "tourInfo": "Self-guided viewing of atrium and portico",
+    "transit": "Bank (Central, District, Northern), Monument (Circle, District)",
+    "walkFrom": "Bank of England (0.1 mi), St Paul's Cathedral (0.3 mi)",
+    "tags": [
+      "victorian",
+      "neoclassical",
+      "commercial-hub",
+      "grade-i",
+      "william-tite",
+      "city-of-london"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0046",
+    "name": "Bank of England",
+    "cats": [
+      "commercial",
+      "historic"
+    ],
+    "cc": "c-com",
+    "styleGroups": [
+      "Edwardian",
+      "Neoclassical"
+    ],
+    "era": "1900-1945",
+    "city": "london",
+    "arch": "Herbert Baker (rebuilt); John Soane (original 1788 core)",
+    "archs": [
+      "Herbert Baker",
+      "John Soane"
+    ],
+    "yr": 1925,
+    "access": "Exterior viewing only",
+    "lat": 51.5142,
+    "lng": -0.0886,
+    "addr": "Threadneedle Street, City of London, EC2R 8AH",
+    "hood": "City of London",
+    "desc": "The Bank of England stands as one of London's most formidable architectural expressions of financial power and institutional stability, rebuilt by Herbert Baker between 1925–1939 atop John Soane's legendary 1788 foundation walls. Baker's exterior of rusticated Portland stone and stripped Neoclassical detailing conveys Edwardian authority without ornamentation, while the interior—reconstructed from Soane's original designs—retains the historic 18th-century spatial logic. The building's fortress-like presence, surrounded by its own perimeter wall, reflects both security concerns and symbolic self-containment. A Grade I masterpiece, it remains the architectural embodiment of Britain's financial establishment.",
+    "hours": "Not open to public",
+    "lastEntry": "N/A",
+    "admission": "Exterior only (no public interior access)",
+    "tourOk": true,
+    "tourInfo": "Self-guided exterior viewing and heritage plaques",
+    "transit": "Bank (Central, District, Northern), Monument (Circle, District)",
+    "walkFrom": "Royal Exchange (0.1 mi), Threadneedle Street (main address)",
+    "tags": [
+      "edwardian",
+      "neoclassical",
+      "financial-institution",
+      "grade-i",
+      "herbert-baker",
+      "city-of-london"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0047",
+    "name": "Leadenhall Market",
+    "cats": [
+      "market",
+      "historic"
+    ],
+    "cc": "c-pub",
+    "styleGroups": [
+      "Victorian",
+      "Ornamental"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "Horace Jones",
+    "archs": [
+      "Horace Jones"
+    ],
+    "yr": 1881,
+    "access": "Public (shopping & dining)",
+    "lat": 51.513,
+    "lng": -0.0838,
+    "addr": "Leadenhall Market, City of London, EC3V 1LT",
+    "hood": "City of London",
+    "desc": "Leadenhall Market is a Victorian masterpiece of ornamental ironwork and covered marketplace design, created by architect Horace Jones in 1881 as a modern replacement for the medieval poultry market. The structure's intricate glazed roof, slender iron columns, and painted cast-iron brackets exemplify high Victorian industrial aesthetics applied to commercial purpose. Cobblestone floors, shop fronts with polished wood and tilework, and abundant natural light filtering through the glass canopy create an enchanting 19th-century shopping experience largely unchanged for nearly 150 years. Grade II* listed and perpetually bustling with visitors, it remains a beloved destination for period architecture enthusiasts and shoppers alike.",
+    "hours": "Mon-Sat 10am-6pm, Sun 10am-4pm (hours vary by tenant)",
+    "lastEntry": "Closing time",
+    "admission": "Free",
+    "tourOk": true,
+    "tourInfo": "Self-guided exploration; photography encouraged",
+    "transit": "Bank (Central, District, Northern), Monument (Circle, District), Aldgate (Circle, District)",
+    "walkFrom": "Tower of London (0.2 mi), Lloyd's Building (0.1 mi)",
+    "tags": [
+      "victorian",
+      "ironwork",
+      "market-hall",
+      "grade-ii*",
+      "horace-jones",
+      "city-of-london"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0048",
+    "name": "St Pancras Station & Midland Grand Hotel",
+    "cats": [
+      "railway",
+      "historic"
+    ],
+    "cc": "c-inf",
+    "styleGroups": [
+      "Victorian Gothic",
+      "Victorian"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "William Henry Barlow (train shed) & George Gilbert Scott (hotel)",
+    "archs": [
+      "William Henry Barlow",
+      "George Gilbert Scott"
+    ],
+    "yr": 1868,
+    "access": "Public (station & hotel)",
+    "lat": 51.5322,
+    "lng": -0.1269,
+    "addr": "Pancras Road, King's Cross, N1C 4QP",
+    "hood": "King's Cross",
+    "desc": "St Pancras Station represents the pinnacle of Victorian railway architecture, combining William Henry Barlow's magnificent single-span iron train shed (1868)—one of the world's largest at its time—with George Gilbert Scott's extraordinary Midland Grand Hotel (1876), a flamboyant Gothic Revival edifice of red brick and terracotta. The three great arched trainsheds of green-painted iron create an cathedral-like space of breathtaking scale and engineering audacity, while Scott's hotel facade features soaring pointed arches, towers, and ornamental detailing that celebrates Gothic pageantry. Recently restored to pristine condition, the building represents the optimistic marriage of Victorian engineering prowess and aesthetic ambition. A Grade I masterpiece and UNESCO World Heritage Site component.",
+    "hours": "Station: 24/7; Hotel: check The Standard London booking",
+    "lastEntry": "N/A",
+    "admission": "Free (station); paid (hotel/dining)",
+    "tourOk": true,
+    "tourInfo": "Self-guided viewing of train shed and exterior; guided tours by arrangement",
+    "transit": "St Pancras International (Circle, Hammersmith & City, Metropolitan, Piccadilly, Northern), King's Cross St Pancras (all lines)",
+    "walkFrom": "King's Cross Station (0.2 mi), British Library (0.3 mi)",
+    "tags": [
+      "victorian",
+      "gothic-revival",
+      "railway-station",
+      "grade-i",
+      "engineering-marvel",
+      "scott-barlow"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0049",
+    "name": "King's Cross Station",
+    "cats": [
+      "railway",
+      "historic"
+    ],
+    "cc": "c-inf",
+    "styleGroups": [
+      "Victorian",
+      "Contemporary"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "Lewis Cubitt (1852) & John McAslan + Partners (2012 Western Concourse)",
+    "archs": [
+      "Lewis Cubitt",
+      "John McAslan"
+    ],
+    "yr": 1852,
+    "access": "Public (station)",
+    "lat": 51.532,
+    "lng": -0.124,
+    "addr": "Euston Road, King's Cross, N1 9AP",
+    "hood": "King's Cross",
+    "desc": "King's Cross Station, designed by Lewis Cubitt in 1852, epitomizes functional Victorian railway architecture through its iconic twin towers, bold red-brick facade, and remarkable glass-roofed train shed. The station's honest expression of purpose—large arched windows and minimalist ornamentation—contrasts sharply with the Gothic exuberance of nearby St Pancras, creating a dialogue between two approaches to Victorian modernity. The recently completed Western Concourse by John McAslan + Partners (2012) adds a contemporary glass-and-steel interpretation that respectfully complements the historic structure while meeting 21st-century operational demands. Grade I listed, it remains an essential hub for rail travel and architectural pilgrimage.",
+    "hours": "24/7",
+    "lastEntry": "N/A",
+    "admission": "Free (station)",
+    "tourOk": true,
+    "tourInfo": "Self-guided; interpretation panels throughout station",
+    "transit": "King's Cross St Pancras (all Circle, Hammersmith & City, Metropolitan, Piccadilly, Northern, Vertical Circle)",
+    "walkFrom": "St Pancras Station (0.2 mi), British Library (0.3 mi)",
+    "tags": [
+      "victorian",
+      "railway-station",
+      "grade-i",
+      "lewis-cubitt",
+      "london-transport"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0050",
+    "name": "Paddington Station",
+    "cats": [
+      "railway",
+      "historic"
+    ],
+    "cc": "c-inf",
+    "styleGroups": [
+      "Victorian Iron & Glass",
+      "Industrial"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "Isambard Kingdom Brunel & Matthew Digby Wyatt",
+    "archs": [
+      "Isambard Kingdom Brunel",
+      "Matthew Digby Wyatt"
+    ],
+    "yr": 1854,
+    "access": "Public (station)",
+    "lat": 51.5154,
+    "lng": -0.1755,
+    "addr": "Praed Street, Paddington, W2 1HQ",
+    "hood": "Paddington",
+    "desc": "Paddington Station is an architectural triumph of Victorian engineering, featuring three great arched trainsheds of wrought iron and glass designed by Isambard Kingdom Brunel and Matthew Digby Wyatt in 1854. The elegant iron lattice work, ornamental ironwork, and soaring glass roof create a cathedral-like interior space of remarkable lightness and clarity, demonstrating how industrial materials could achieve aesthetic grace. The station's head building, with its Italianate arcading and polished materials, complements the engineering spectacle of the trainsheds, creating a harmonious dialogue between decorated exterior and utilitarian interior. Grade I listed and recently restored to gleaming condition, it remains a seminal example of high Victorian railway architecture and engineering aspiration.",
+    "hours": "24/7",
+    "lastEntry": "N/A",
+    "admission": "Free (station)",
+    "tourOk": true,
+    "tourInfo": "Self-guided viewing; interpretation plaques throughout",
+    "transit": "Paddington (Bakerloo, Circle, District, Hammersmith & City), Paddington (Heathrow Express)",
+    "walkFrom": "Little Venice (0.2 mi), Grand Union Canal (adjacent)",
+    "tags": [
+      "victorian",
+      "railway-station",
+      "iron-and-glass",
+      "grade-i",
+      "brunel",
+      "engineering-marvel"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0051",
+    "name": "Charing Cross Station",
+    "cats": [
+      "railway",
+      "historic"
+    ],
+    "cc": "c-inf",
+    "styleGroups": [
+      "Victorian",
+      "Postmodern"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "John Hawkshaw (1864) & Terry Farrell (1990 Embankment Place)",
+    "archs": [
+      "John Hawkshaw",
+      "Terry Farrell"
+    ],
+    "yr": 1864,
+    "access": "Public (station)",
+    "lat": 51.5074,
+    "lng": -0.1234,
+    "addr": "The Strand, Westminster, WC2N 5HF",
+    "hood": "Westminster / Strand",
+    "desc": "Charing Cross Station, designed by John Hawkshaw in 1864, features a graceful arched train shed of cast iron and glass that epitomizes Victorian railway aesthetics, complemented by a romantic Gothic Revival head building with ornamental detailing. The station's Eleanor Cross sculpture, a Victorian-era replica of the medieval original, adds ceremonial significance to this significant transport hub. Terry Farrell's bold Postmodernist addition of Embankment Place (1990)—a striking curved glass-and-steel structure perched above the historic station—creates an intriguing architectural dialogue between two centuries' design philosophies. Grade II listed, the complex represents London's railway heritage and ongoing architectural innovation.",
+    "hours": "24/7",
+    "lastEntry": "N/A",
+    "admission": "Free (station)",
+    "tourOk": true,
+    "tourInfo": "Self-guided; Eleanor Cross is free to view",
+    "transit": "Charing Cross (Bakerloo, Northern), Embankment (Bakerloo, Circle, District, Northern)",
+    "walkFrom": "Trafalgar Square (0.2 mi), Thames embankment (0.1 mi)",
+    "tags": [
+      "victorian",
+      "railway-station",
+      "gothic-revival",
+      "postmodern",
+      "hawkshaw-farrell",
+      "transport-hub"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0052",
+    "name": "Liverpool Street Station",
+    "cats": [
+      "railway",
+      "historic"
+    ],
+    "cc": "c-inf",
+    "styleGroups": [
+      "Victorian",
+      "Contemporary"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "Edward Wilson (1874) with later rebuilds",
+    "archs": [
+      "Edward Wilson"
+    ],
+    "yr": 1874,
+    "access": "Public (station & shopping)",
+    "lat": 51.5178,
+    "lng": -0.0823,
+    "addr": "Liverpool Street, City of London, EC2M 7QH",
+    "hood": "City of London",
+    "desc": "Liverpool Street Station, completed by Edward Wilson in 1874 and substantially expanded in 1894, represents a pivotal moment in Victorian railway architecture with its twin arched trainsheds of cast iron and glass. The building's eclectic Victorian Gothic head building features red brick, terracotta ornamentation, and ornamental ironwork that reflects the confidence and ornamental ambition of the era. The subsequent late-Victorian expansion (1894) introduced additional platforms and refined the structural system to accommodate growing traffic. Now a vibrant transport and shopping complex that has been carefully restored and integrated with contemporary retail while preserving the historic architectural fabric, it remains Grade II* listed.",
+    "hours": "24/7",
+    "lastEntry": "N/A",
+    "admission": "Free (station)",
+    "tourOk": true,
+    "tourInfo": "Self-guided viewing; historic features labeled throughout",
+    "transit": "Liverpool Street (Circle, District, Hammersmith & City, Metropolitan), Liverpool Street Overground",
+    "walkFrom": "Tower of London (0.3 mi), Museum of London (0.2 mi)",
+    "tags": [
+      "victorian",
+      "railway-station",
+      "grade-ii*",
+      "edward-wilson",
+      "industrial-architecture"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0053",
+    "name": "Battersea Power Station",
+    "cats": [
+      "industrial",
+      "historic"
+    ],
+    "cc": "c-inf",
+    "styleGroups": [
+      "Art Deco",
+      "Industrial"
+    ],
+    "era": "1900-1945",
+    "city": "london",
+    "arch": "Giles Gilbert Scott",
+    "archs": [
+      "Giles Gilbert Scott"
+    ],
+    "yr": 1933,
+    "access": "Public (mixed-use development with tours)",
+    "lat": 51.482,
+    "lng": -0.146,
+    "addr": "Circus West Village, Battersea, SW8 5BN",
+    "hood": "Battersea",
+    "desc": "Battersea Power Station, designed by Giles Gilbert Scott, stands as an iconic Art Deco industrial monument completed in two phases (A side 1933, B side 1953). Scott's distinctive brick cathedral—crowned with four monumental turbine halls and chimney stacks—represents the apogee of utilitarian industrial design elevated to architectural grandeur. The building's symmetrical composition, red and blue brick bonding patterns, and soaring Art Deco detailing transform what could have been mundane power generation into a celebrated civic landmark. Recently reimagined by WilkinsonEyre architects as a mixed-use development, the restored Grade II* building now hosts residential, commercial, and cultural spaces while preserving its extraordinary industrial character and engineering legacy.",
+    "hours": "Varies by tenant; public areas accessible during development opening hours",
+    "lastEntry": "Varies",
+    "admission": "Free (public areas); tours by advance booking",
+    "tourOk": true,
+    "tourInfo": "Guided tours of the Power Station offered periodically; check website",
+    "transit": "Battersea Power Station (Zone 1 extension to Northern Line - opened 2021); Battersea Park (overground)",
+    "walkFrom": "Battersea Park (0.3 mi), Thames Path (adjacent)",
+    "tags": [
+      "art-deco",
+      "industrial",
+      "power-station",
+      "grade-ii*",
+      "scott",
+      "regeneration"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0054",
+    "name": "Gasholder Park (King's Cross)",
+    "cats": [
+      "industrial",
+      "park"
+    ],
+    "cc": "c-pub",
+    "styleGroups": [
+      "Victorian Industrial",
+      "Contemporary"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "Victorian engineers (original); Bell Phillips Architects (2015 park)",
+    "archs": [
+      "Victorian engineers",
+      "Bell Phillips Architects"
+    ],
+    "yr": 1860,
+    "access": "Public (park)",
+    "lat": 51.5357,
+    "lng": -0.1242,
+    "addr": "Gasholder Park, King's Cross, N1C 4AB",
+    "hood": "King's Cross",
+    "desc": "Gasholder Park represents an innovative approach to heritage conservation and public space design, preserving three extraordinary Victorian iron gasholders (circa 1860s) as sculptural focal points within a contemporary urban park by Bell Phillips Architects (2015). These extraordinary structures—towering frames of cast and wrought iron that once stored gas for London's heating and lighting—have been carefully dismantled and relocated to create monumental landscape features. The repurposing of industrial infrastructure as public art and social gathering space reflects contemporary ecological thinking while celebrating the honest beauty of Victorian engineering. As a Scheduled Ancient Monument now transformed into beloved green space, it demonstrates how industrial heritage can be sustainably integrated into contemporary urban life.",
+    "hours": "24/7 (park)",
+    "lastEntry": "N/A",
+    "admission": "Free",
+    "tourOk": true,
+    "tourInfo": "Self-guided park exploration; interpretation plaques explain gasholders history",
+    "transit": "King's Cross St Pancras (all lines), St Pancras International",
+    "walkFrom": "St Pancras Station (0.2 mi), British Library (0.3 mi)",
+    "tags": [
+      "victorian-industrial",
+      "gasholders",
+      "scheduled-monument",
+      "park",
+      "conservation",
+      "king's-cross"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0055",
+    "name": "Covent Garden Market",
+    "cats": [
+      "market",
+      "historic"
+    ],
+    "cc": "c-pub",
+    "styleGroups": [
+      "Regency",
+      "Victorian"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "Charles Fowler (1830) with Inigo Jones piazza (1630s)",
+    "archs": [
+      "Charles Fowler",
+      "Inigo Jones"
+    ],
+    "yr": 1830,
+    "access": "Public (shopping, dining & entertainment)",
+    "lat": 51.512,
+    "lng": -0.1227,
+    "addr": "Covent Garden, London, WC2E 8RF",
+    "hood": "Covent Garden",
+    "desc": "Covent Garden Market merges two centuries of London's architectural and social history—Inigo Jones's elegant 17th-century piazza (1630s) with its Italianate arcaded walkways, and Charles Fowler's refined Victorian market hall (1830) featuring cast-iron columns, glazed roof, and symmetrical arcading. The Grade I complex represents the evolution of market design from elegant civic space to purposeful commerce, with Fowler's glass-and-iron pavilion demonstrating Victorian technical sophistication and aesthetic refinement. Now a vibrant cultural, retail, and entertainment hub bustling with street performers, artisan vendors, and restaurants, it remains one of London's most beloved and architecturally significant public spaces, where Georgian elegance meets Victorian practicality.",
+    "hours": "Market: Mon-Sun 10am-6pm (hours vary); restaurants/cafes extended",
+    "lastEntry": "Closing time",
+    "admission": "Free",
+    "tourOk": true,
+    "tourInfo": "Self-guided exploration; street performances and vendor interactions add to experience",
+    "transit": "Covent Garden (Piccadilly, Bakerloo), Leicester Square (Piccadilly, Northern)",
+    "walkFrom": "Royal Opera House (0.1 mi), National Gallery (0.2 mi)",
+    "tags": [
+      "regency",
+      "victorian",
+      "market-hall",
+      "grade-i",
+      "jones-fowler",
+      "public-space"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0056",
+    "name": "Royal Opera House",
+    "cats": [
+      "cultural",
+      "historic"
+    ],
+    "cc": "c-cul",
+    "styleGroups": [
+      "Victorian",
+      "Contemporary"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "E.M. Barry (1858) with Dixon Jones 1999 Floral Hall",
+    "archs": [
+      "E.M. Barry",
+      "Dixon Jones"
+    ],
+    "yr": 1858,
+    "access": "Ticketed performances; tours available",
+    "lat": 51.5129,
+    "lng": -0.1224,
+    "addr": "Bow Street, Covent Garden, WC2E 9DD",
+    "hood": "Covent Garden",
+    "desc": "The Royal Opera House, designed by E.M. Barry in 1858, exemplifies Victorian grand theatre architecture with its rusticated stone facade, ornamental portico, and interior spaces of sumptuous gilt, plush velvet, and painted ceilings that evoke 19th-century theatrical opulence. The building's five-tiered auditorium, intimate box seating arrangement, and technical innovations establish it as a masterpiece of performance space design. The dramatic contemporary addition of the Floral Hall—a glass-roofed public foyer by Dixon Jones (1999)—provides visual connection to the adjacent Covent Garden Market while meeting modern accessibility and operational requirements. Grade I listed, it remains Britain's principal opera venue and an architectural beacon of cultural refinement.",
+    "hours": "Box office Mon-Sat 10am-8pm; performances evenings and matinees",
+    "lastEntry": "Performance-dependent",
+    "admission": "Paid (ticket prices vary); backstage tours available",
+    "tourOk": true,
+    "tourInfo": "Guided backstage tours available on non-performance days; book in advance",
+    "transit": "Covent Garden (Piccadilly, Bakerloo), Leicester Square (Piccadilly, Northern)",
+    "walkFrom": "Covent Garden Market (0.1 mi), National Gallery (0.2 mi)",
+    "tags": [
+      "victorian",
+      "theatre",
+      "cultural-institution",
+      "grade-i",
+      "barry-dixon-jones",
+      "covent-garden"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0057",
+    "name": "London Coliseum",
+    "cats": [
+      "cultural",
+      "historic"
+    ],
+    "cc": "c-cul",
+    "styleGroups": [
+      "Edwardian Baroque",
+      "Ornamental"
+    ],
+    "era": "1900-1945",
+    "city": "london",
+    "arch": "Frank Matcham",
+    "archs": [
+      "Frank Matcham"
+    ],
+    "yr": 1904,
+    "access": "Ticketed performances; limited tours",
+    "lat": 51.5092,
+    "lng": -0.1267,
+    "addr": "St Martin's Lane, Charing Cross, WC2N 4ES",
+    "hood": "Charing Cross / West End",
+    "desc": "The London Coliseum, designed by celebrated theatre architect Frank Matcham in 1904, stands as the largest theatre in London's West End and a masterpiece of Edwardian Baroque exuberance. The building's ornate Portland stone facade features elaborate sculptural detailing, arched window openings, and a crowning dome visible throughout the West End streetscape. The interior dazzles with gilded plasterwork, ornamental panels, and a magnificent auditorium designed for optimal sightlines and acoustics, embodying Matcham's genius for creating theatrical spectacle. Grade II* listed and meticulously restored, it hosts major opera, dance, and musical productions, remaining one of London's most beloved and architecturally distinguished performance venues.",
+    "hours": "Box office Mon-Sat 10am-8pm; performances vary",
+    "lastEntry": "Performance-dependent",
+    "admission": "Paid (performances vary); architectural viewing limited to performance intervals",
+    "tourOk": false,
+    "tourInfo": "Interior viewing primarily during performances; exterior viewing recommended",
+    "transit": "Charing Cross (Bakerloo, Northern), Embankment (Bakerloo, Circle, District, Northern), Leicester Square (Piccadilly, Northern)",
+    "walkFrom": "Trafalgar Square (0.3 mi), West End theatres (adjacent)",
+    "tags": [
+      "edwardian-baroque",
+      "theatre",
+      "west-end",
+      "grade-ii*",
+      "matcham",
+      "ornamental"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0058",
+    "name": "Savoy Theatre",
+    "cats": [
+      "cultural",
+      "historic"
+    ],
+    "cc": "c-cul",
+    "styleGroups": [
+      "Victorian",
+      "Art Deco"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "C.J. Phipps (1881) with Basil Ionides 1929 Art Deco interior",
+    "archs": [
+      "C.J. Phipps",
+      "Basil Ionides"
+    ],
+    "yr": 1881,
+    "access": "Ticketed performances; tours by arrangement",
+    "lat": 51.5104,
+    "lng": -0.1203,
+    "addr": "The Strand, Westminster, WC2R 0ET",
+    "hood": "Strand / Westminster",
+    "desc": "The Savoy Theatre, designed by C.J. Phipps in 1881, represents a pivotal moment in theatrical innovation as the first public building in the world to be lit by electricity, revolutionizing stage lighting and audience experience. The Victorian exterior, while refined, conceals one of London's most spectacular Art Deco interiors, redesigned by Basil Ionides in 1929 with geometric patterns, chrome detailing, and lavish tilework that epitomizes the Streamline Moderne aesthetic. The theatre's association with Gilbert and Sullivan operettas cemented its cultural significance, while its technological innovations established it as a model for theatrical modernity. Grade II* listed, it continues to host prestigious productions while celebrating London's theatrical heritage.",
+    "hours": "Box office Mon-Sat 10am-8pm; performances vary",
+    "lastEntry": "Performance-dependent",
+    "admission": "Paid (performances vary); backstage tours occasionally offered",
+    "tourOk": true,
+    "tourInfo": "Limited backstage tours available; check with box office",
+    "transit": "Charing Cross (Bakerloo, Northern), Covent Garden (Piccadilly, Bakerloo), Temple (Circle, District)",
+    "walkFrom": "Royal Opera House (0.3 mi), Charing Cross Station (0.2 mi)",
+    "tags": [
+      "victorian",
+      "art-deco",
+      "theatre",
+      "grade-ii*",
+      "electricity-innovation",
+      "strand"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0059",
+    "name": "Daily Express Building",
+    "cats": [
+      "commercial",
+      "historic"
+    ],
+    "cc": "c-com",
+    "styleGroups": [
+      "Art Deco",
+      "Streamline Moderne"
+    ],
+    "era": "1900-1945",
+    "city": "london",
+    "arch": "Ellis Clarke & Atkinson with Owen Williams",
+    "archs": [
+      "Ellis Clarke",
+      "Atkinson",
+      "Owen Williams"
+    ],
+    "yr": 1932,
+    "access": "Exterior viewing only",
+    "lat": 51.5143,
+    "lng": -0.1069,
+    "addr": "120 Fleet Street, City of London, EC4A 2DY",
+    "hood": "City of London / Fleet Street",
+    "desc": "The Daily Express Building (1932) is a tour de force of Art Deco and Streamline Moderne design, featuring a striking facade of polished black glass and chromium that gleams with modernist precision along historic Fleet Street. Designed by Ellis Clarke, Atkinson, and engineer Owen Williams, the building's streamlined horizontal banding, glass-block windows, and gleaming surfaces create an almost futuristic aesthetic that celebrated newspaper technology and journalistic modernity. The building's dramatic corner entrance and curvaceous ground floor windows capture the optimistic spirit of 1930s modernism applied to commercial purpose. Grade II* listed, it remains one of London's finest examples of early 20th-century commercial modernism and a beloved Art Deco icon.",
+    "hours": "Exterior viewing only (24/7)",
+    "lastEntry": "N/A",
+    "admission": "Free (exterior)",
+    "tourOk": true,
+    "tourInfo": "Self-guided exterior exploration; detailed views from Fleet Street",
+    "transit": "St Paul's (Central), Chancery Lane (Central, Northern), Temple (Circle, District)",
+    "walkFrom": "St Paul's Cathedral (0.2 mi), Fleet Street (main address)",
+    "tags": [
+      "art-deco",
+      "streamline-moderne",
+      "commercial-building",
+      "grade-ii*",
+      "modernism",
+      "fleet-street"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0060",
+    "name": "Isokon Building (Lawn Road Flats)",
+    "cats": [
+      "residential",
+      "historic"
+    ],
+    "cc": "c-his",
+    "styleGroups": [
+      "Modernist",
+      "International Style"
+    ],
+    "era": "1900-1945",
+    "city": "london",
+    "arch": "Wells Coates",
+    "archs": [
+      "Wells Coates"
+    ],
+    "yr": 1934,
+    "access": "Residential (limited public viewing by arrangement)",
+    "lat": 51.5556,
+    "lng": -0.1625,
+    "addr": "Isokon Building, Lawn Road, Hampstead, NW3 2XD",
+    "hood": "Hampstead",
+    "desc": "The Isokon Building, designed by modernist visionary Wells Coates in 1934, stands as one of the world's finest examples of International Style residential architecture and a crucial sanctuary for Bauhaus artists fleeing Nazi Germany. The building's clean lines, horizontal banding, functional design, and ship-like aesthetic—complete with circular porthole windows and sleek balconies—embodies modernist principles applied to communal living. The building housed luminaries including Walter Gropius, Marcel Breuer, and László Moholy-Nagy, establishing it as a nexus of twentieth-century artistic modernism. Now Grade I listed and carefully restored, the Isokon remains an architectural monument to pre-war modernist idealism and a tangible expression of London's cultural cosmopolitanism.",
+    "hours": "Residents only (exterior viewing possible)",
+    "lastEntry": "N/A",
+    "admission": "Limited (tours by arrangement with heritage organization)",
+    "tourOk": true,
+    "tourInfo": "Exterior viewing from Lawn Road; occasional guided tours offered",
+    "transit": "Belsize Park (Edgware, Northern), Hampstead (Northern)",
+    "walkFrom": "Hampstead High Street (0.2 mi), Hampstead Heath (0.3 mi)",
+    "tags": [
+      "modernist",
+      "international-style",
+      "bauhaus",
+      "residential",
+      "grade-i",
+      "hampstead"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0061",
+    "name": "Highpoint I",
+    "cats": [
+      "residential",
+      "historic"
+    ],
+    "cc": "c-his",
+    "styleGroups": [
+      "Modernist",
+      "Constructivist"
+    ],
+    "era": "1900-1945",
+    "city": "london",
+    "arch": "Berthold Lubetkin / Tecton",
+    "archs": [
+      "Berthold Lubetkin",
+      "Tecton"
+    ],
+    "yr": 1935,
+    "access": "Residential (exterior viewing)",
+    "lat": 51.5684,
+    "lng": -0.1472,
+    "addr": "Highpoint I, North Hill, Highgate, N6 5HF",
+    "hood": "Highgate",
+    "desc": "Highpoint I, designed by Russian-born modernist Berthold Lubetkin and his Tecton group in 1935, is widely recognized as one of the finest modernist residential buildings in the world and a masterwork of Constructivist-influenced design applied to speculative housing. The building's elegant geometry, clean white facades, rational floor plans, and horizontal ribbon windows demonstrate modernist principles of efficiency and beauty, while its dramatic pilotis and open ground floor maximize public space and visual transparency. The building houses approximately 130 units while creating an imposing yet refined silhouette that dominates the Highgate skyline. Grade I listed and meticulously preserved, Highpoint I remains an icon of twentieth-century utopian modernist thinking and architectural ambition.",
+    "hours": "Exterior viewing (24/7)",
+    "lastEntry": "N/A",
+    "admission": "Free (exterior)",
+    "tourOk": true,
+    "tourInfo": "Self-guided exterior exploration; views from North Hill approach are spectacular",
+    "transit": "Highgate (Northern), Archway (Northern)",
+    "walkFrom": "Highgate High Street (0.3 mi), Highgate Cemetery (0.2 mi)",
+    "tags": [
+      "modernist",
+      "constructivist",
+      "residential",
+      "grade-i",
+      "lubetkin",
+      "highgate"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0062",
+    "name": "Senate House",
+    "cats": [
+      "institutional",
+      "historic"
+    ],
+    "cc": "c-his",
+    "styleGroups": [
+      "Art Deco",
+      "Skyscraper"
+    ],
+    "era": "1900-1945",
+    "city": "london",
+    "arch": "Charles Holden",
+    "archs": [
+      "Charles Holden"
+    ],
+    "yr": 1937,
+    "access": "Limited (University of London events; occasional open days)",
+    "lat": 51.5216,
+    "lng": -0.13,
+    "addr": "Senate House, Malet Street, Bloomsbury, WC1E 7HU",
+    "hood": "Bloomsbury",
+    "desc": "Senate House, designed by Charles Holden in 1937, represents London's boldest venture into American-style Art Deco skyscraper design, rising 210 feet as a monument to learning and institutional prestige. The building's distinctive setback facade, limestone cladding, and soaring tower create an imposing silhouette visible across Bloomsbury and beyond, while the interior features refined Art Deco detail and grand ceremonial spaces. The building's stark modernist symbolism—its fortress-like presence and totalitarian aesthetic—famously inspired George Orwell's dystopian novel *Nineteen Eighty-Four*, where it became the model for the terrifying Ministry of Truth. Grade II* listed, it remains London's most significant Art Deco institutional building and a masterpiece of interwar architectural ambition.",
+    "hours": "Limited public access; check University of London events calendar",
+    "lastEntry": "N/A",
+    "admission": "Free for open days and public events; check website",
+    "tourOk": true,
+    "tourInfo": "Occasional open days during London Open House; exterior viewing always possible",
+    "transit": "Goodge Street (Northern, Central), Tottenham Court Road (Northern, Piccadilly, Central)",
+    "walkFrom": "British Museum (0.3 mi), British Library (0.2 mi)",
+    "tags": [
+      "art-deco",
+      "skyscraper",
+      "institutional",
+      "grade-ii*",
+      "holden",
+      "bloomsbury"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0063",
+    "name": "Somerset House",
+    "cats": [
+      "historic",
+      "neoclassical"
+    ],
+    "cc": "c-his",
+    "styleGroups": [
+      "1700-1800"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "William Chambers",
+    "archs": [
+      "William Chambers"
+    ],
+    "yr": 1776,
+    "access": "public",
+    "lat": 51.5113,
+    "lng": -0.1174,
+    "addr": "Strand, London WC2R 1LA",
+    "hood": "Covent Garden / Strand",
+    "desc": "Designed by William Chambers and constructed between 1776-1796, Somerset House stands as a masterpiece of English Neoclassical architecture along the Thames. The building features a striking rusticated facade with a grand courtyard lined with arcaded Corinthian columns, originally serving as government offices and royal residences. Today it houses the Courtauld Gallery, cultural exhibitions, and fountains that animate the courtyard. Grade I listed, it remains one of London's most important 18th-century civic structures and a focal point for cultural events.",
+    "hours": "10:00–18:00 (closed Mondays)",
+    "lastEntry": "17:30",
+    "admission": "free (galleries vary)",
+    "tourOk": true,
+    "tourInfo": "Guided tours and architectural routes available",
+    "transit": "Temple (Circle, District, Bakerloo lines), Covent Garden (Piccadilly line)",
+    "walkFrom": "Waterloo Bridge (5 min), Savoy Theatre (2 min)",
+    "tags": [
+      "neoclassical",
+      "thames",
+      "art",
+      "chambers",
+      "18th-century",
+      "grade-i",
+      "london-landmark"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0064",
+    "name": "Royal Courts of Justice",
+    "cats": [
+      "historic",
+      "victorian-gothic"
+    ],
+    "cc": "c-his",
+    "styleGroups": [
+      "1800-1900"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "George Edmund Street",
+    "archs": [
+      "George Edmund Street"
+    ],
+    "yr": 1882,
+    "access": "public",
+    "lat": 51.5136,
+    "lng": -0.1131,
+    "addr": "The Strand, London WC2A 2LL",
+    "hood": "Strand / City",
+    "desc": "Completed in 1882, the Royal Courts of Justice represents the zenith of Victorian Gothic Revival design by architect George Edmund Street, featuring ornate red brick and Portland stone facades with pointed arches, turrets, and intricate stonework. The building is the largest non-ecclesiastical Gothic structure in the world, containing 88 courts arranged over 3.5 miles of corridors. Its Great Hall, with a vaulted ceiling and marble floor, exemplifies Victorian ambition and craftsmanship. Grade I listed and a working courthouse, it remains one of London's most visually dramatic Victorian buildings.",
+    "hours": "09:00–16:00 (Mon–Fri, public areas only)",
+    "lastEntry": "15:30",
+    "admission": "free",
+    "tourOk": false,
+    "tourInfo": "Self-guided public access to Great Hall; tours require advance booking",
+    "transit": "Temple (Circle, District, Bakerloo lines), Aldwych (Piccadilly line, closed but nearby)",
+    "walkFrom": "Waterloo Bridge (5 min), Fleet Street (adjacent)",
+    "tags": [
+      "victorian-gothic",
+      "street",
+      "civic",
+      "grade-i",
+      "iconic-london",
+      "19th-century"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0065",
+    "name": "Sir John Soane's Museum",
+    "cats": [
+      "historic",
+      "museum",
+      "townhouse"
+    ],
+    "cc": "c-cul",
+    "styleGroups": [
+      "1700-1800"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "John Soane",
+    "archs": [
+      "John Soane"
+    ],
+    "yr": 1792,
+    "access": "public",
+    "lat": 51.517,
+    "lng": -0.1173,
+    "addr": "Lincoln's Inn Fields, London WC2A 3BP",
+    "hood": "Bloomsbury / Lincoln's Inn",
+    "desc": "Sir John Soane's own residence and museum (1792–1837), this Grade I listed townhouse showcases the architect's unorthodox design genius with ingenious spatial manipulation, hidden skylights, and an eclectic collection of antiquities and art. The building compresses a Roman sarcophagus, Greek marbles, Renaissance paintings, and Egyptian artifacts into just three narrow townhouses, creating an immersive cabinet of wonders. Soane's use of mirrors, recessed walls, and cantilevered structures anticipates modernist spatial innovation by a century. A UNESCO-listed collection that remains largely unchanged since his death.",
+    "hours": "10:00–17:00 (Wed–Sun)",
+    "lastEntry": "16:30",
+    "admission": "free",
+    "tourOk": true,
+    "tourInfo": "Specialist tours available; evening candlelit openings monthly",
+    "transit": "Holborn (Piccadilly, Giclde lines), Russell Square (Piccadilly line)",
+    "walkFrom": "Bloomsbury Museum district (8 min)",
+    "tags": [
+      "soane",
+      "museum",
+      "neoclassical",
+      "townhouse",
+      "grade-i",
+      "bloomsbury",
+      "collector"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0066",
+    "name": "The Monument",
+    "cats": [
+      "historic",
+      "landmark",
+      "memorial"
+    ],
+    "cc": "c-lmk",
+    "styleGroups": [
+      "1600-1700"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "Christopher Wren & Robert Hooke",
+    "archs": [
+      "Christopher Wren",
+      "Robert Hooke"
+    ],
+    "yr": 1677,
+    "access": "public",
+    "lat": 51.51,
+    "lng": -0.0861,
+    "addr": "Monument Street, London EC3R 8AH",
+    "hood": "Monument / City of London",
+    "desc": "Designed by Sir Christopher Wren and Robert Hooke, the Monument (1671–1677) is a 62-meter Doric column of Portland stone commemorating the Great Fire of London (1666). Its height precisely equals its distance from the bakery on Pudding Lane where the fire began, creating an elegant geometric relationship to the event. The column features a balcony 56 meters up offering panoramic City views, and a blazing urn finial symbolizes the fire's destruction and renewal. Grade I listed and a Scheduled Monument, it remains the city's most striking Baroque monument and an icon of post-fire London reconstruction.",
+    "hours": "09:30–17:30 (daily)",
+    "lastEntry": "17:00",
+    "admission": "£5.00",
+    "tourOk": false,
+    "tourInfo": "Climb 311 steps to viewing gallery",
+    "transit": "Monument (Circle, District lines), Eastcheap nearby",
+    "walkFrom": "Tower of London (10 min), London Bridge (8 min)",
+    "tags": [
+      "wren",
+      "baroque",
+      "monument",
+      "city",
+      "great-fire",
+      "grade-i",
+      "hooke"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0067",
+    "name": "Royal Hospital Chelsea",
+    "cats": [
+      "historic",
+      "baroque",
+      "institutional"
+    ],
+    "cc": "c-his",
+    "styleGroups": [
+      "1600-1700"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "Christopher Wren",
+    "archs": [
+      "Christopher Wren"
+    ],
+    "yr": 1692,
+    "access": "public",
+    "lat": 51.4885,
+    "lng": -0.1577,
+    "addr": "Royal Hospital Road, Chelsea, London SW3 4SR",
+    "hood": "Chelsea",
+    "desc": "Founded by Charles II and designed by Sir Christopher Wren, the Royal Hospital Chelsea (completed 1692) is an outstanding example of English Baroque institutional architecture, housing retired military personnel (In-Pensioners). The complex features a grand central courtyard, chapel with barrel-vault ceiling, elegant columned colonnades, and symmetrical residential blocks arranged with mathematical precision. Grade I listed, it exemplifies Wren's humanistic approach to institutional design, blending grandeur with domestic comfort for its residents.",
+    "hours": "10:00–12:00, 14:00–16:00 (Mon–Sun, grounds and museum)",
+    "lastEntry": "15:30",
+    "admission": "free",
+    "tourOk": true,
+    "tourInfo": "Guided tours available; RHS Chelsea Flower Show held annually",
+    "transit": "Sloane Square (Circle, District lines), South Kensington (Circle, District, Piccadilly)",
+    "walkFrom": "Thames (Chelsea Embankment, adjacent)",
+    "tags": [
+      "wren",
+      "baroque",
+      "institutional",
+      "chelsea",
+      "grade-i",
+      "military",
+      "charles-ii"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0068",
+    "name": "Spencer House",
+    "cats": [
+      "historic",
+      "townhouse",
+      "rococo"
+    ],
+    "cc": "c-his",
+    "styleGroups": [
+      "1700-1800"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "John Vardy & James Stuart",
+    "archs": [
+      "John Vardy",
+      "James Stuart"
+    ],
+    "yr": 1766,
+    "access": "limited",
+    "lat": 51.5044,
+    "lng": -0.1403,
+    "addr": "St James's Place, London SW1A 1NR",
+    "hood": "St James's",
+    "desc": "Spencer House (1756–1766), designed by John Vardy and James Stuart for the Spencer family, is widely recognized as the finest surviving 18th-century London townhouse. Its gilded interiors feature exquisite plasterwork, painted ceilings, marble fireplaces, and furniture of exceptional craftsmanship across nine principal rooms. The house exemplifies Palladian restraint externally and rococo opulence internally, with each room representing a distinct decorative character. Grade I listed and meticulously restored, it offers an unparalleled glimpse into aristocratic Georgian domestic life.",
+    "hours": "10:15–17:45 (Tues–Sun, by advance booking)",
+    "lastEntry": "16:45",
+    "admission": "£12.00–16.00",
+    "tourOk": true,
+    "tourInfo": "Guided tours mandatory; booking essential",
+    "transit": "Green Park (Jubilee, Victoria, Piccadilly lines), St James's Park (Circle, District)",
+    "walkFrom": "Buckingham Palace (10 min), Park (adjacent)",
+    "tags": [
+      "vardy",
+      "stuart",
+      "rococo",
+      "georgian",
+      "townhouse",
+      "grade-i",
+      "st-james"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0069",
+    "name": "2 Willow Road",
+    "cats": [
+      "modernist",
+      "bauhaus",
+      "residential"
+    ],
+    "cc": "c-his",
+    "styleGroups": [
+      "1900-1945"
+    ],
+    "era": "1900-1945",
+    "city": "london",
+    "arch": "Ernő Goldfinger",
+    "archs": [
+      "Ernő Goldfinger"
+    ],
+    "yr": 1939,
+    "access": "limited",
+    "lat": 51.555,
+    "lng": -0.1697,
+    "addr": "Willow Road, Hampstead, London NW3 1TH",
+    "hood": "Hampstead",
+    "desc": "Designed and built by Hungarian-British architect Ernő Goldfinger in 1939 for his own residence, 2 Willow Road is a pioneering modernist terraced house that introduced Bauhaus and International Style principles to residential London. The home features stark geometric forms, continuous ribbon windows, flat roof, exposed concrete frame, and open-plan interiors—radical for 1930s Hampstead. Now owned by the National Trust and Grade I listed, it contains Goldfinger's original furniture and artworks, serving as both dwelling and artistic manifesto.",
+    "hours": "11:00–17:00 (Tues–Sun, Mar–Oct; weekends only Nov–Feb)",
+    "lastEntry": "16:30",
+    "admission": "£8.00 (NT members free)",
+    "tourOk": true,
+    "tourInfo": "Guided house tours; book ahead for group visits",
+    "transit": "Hampstead (Northern line), Belsize Park (Northern line)",
+    "walkFrom": "Hampstead Heath (2 min), village (3 min)",
+    "tags": [
+      "goldfinger",
+      "modernist",
+      "bauhaus",
+      "hampstead",
+      "grade-i",
+      "national-trust",
+      "residential"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0070",
+    "name": "Temple Church",
+    "cats": [
+      "medieval",
+      "religious",
+      "round-church"
+    ],
+    "cc": "c-rel",
+    "styleGroups": [
+      "1100-1300"
+    ],
+    "era": "Pre-1900",
+    "city": "london",
+    "arch": "Knights Templar",
+    "archs": [
+      "Unknown"
+    ],
+    "yr": 1240,
+    "access": "public",
+    "lat": 51.5137,
+    "lng": -0.1107,
+    "addr": "Temple, London EC4Y 7BB",
+    "hood": "Temple / City",
+    "desc": "Temple Church uniquely combines a 1185 round nave (one of only four in England, built by the Knights Templar) with a Gothic chancel added in 1240. The circular Romanesque nave derives from the Church of the Holy Sepulchre in Jerusalem, reflecting Templar pilgrimage traditions. The church features ornate stone carved capitals, clustered columns, and marble effigies of Templar knights within. Grade I listed, a Scheduled Monument, and still functioning as the spiritual home of the Inner and Middle Temples legal societies, it is London's most architecturally distinctive medieval church.",
+    "hours": "10:00–12:00, 14:00–16:00 (Wed–Sat)",
+    "lastEntry": "15:45",
+    "admission": "free",
+    "tourOk": false,
+    "tourInfo": "Self-guided visits; special services for academic ceremonies",
+    "transit": "Temple (Circle, District, Bakerloo lines), Blackfriars (Circle, District, Central)",
+    "walkFrom": "Fleet Street (2 min), Thames Path (adjacent)",
+    "tags": [
+      "templar",
+      "medieval",
+      "round-church",
+      "gothic",
+      "grade-i",
+      "city",
+      "scheduled-monument"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0071",
+    "name": "Lloyd's 1928 Building",
+    "cats": [
+      "neoclassical",
+      "beaux-arts",
+      "commercial"
+    ],
+    "cc": "c-com",
+    "styleGroups": [
+      "1900-1945"
+    ],
+    "era": "1900-1945",
+    "city": "london",
+    "arch": "Edwin Cooper",
+    "archs": [
+      "Edwin Cooper"
+    ],
+    "yr": 1928,
+    "access": "limited",
+    "lat": 51.5129,
+    "lng": -0.0828,
+    "addr": "The Leadenhall Building area, London EC3M 7HA",
+    "hood": "City of London",
+    "desc": "Designed by Edwin Cooper and completed in 1928, the former Lloyd's Building is a masterpiece of Neoclassical and Beaux-Arts design featuring a majestic 23-story facade of Portland stone with coupled Corinthian columns, ornamental frieze, and classical moldings. Built for insurance market Lloyd's (now relocated to the 1986 high-tech building), it exemplifies the grandeur and confidence of 1920s Imperial commerce. The building's ornamental detail, symmetry, and refined proportions embody Edwardian Classicism. Grade II* listed, it recently reopened as a luxury hotel while preserving its historic interiors.",
+    "hours": "Hotel lobby and dining publicly accessible",
+    "lastEntry": "—",
+    "admission": "free to visit lobby",
+    "tourOk": false,
+    "tourInfo": "Hotel guests and dining patrons only; exterior viewing from street",
+    "transit": "Tower (Circle, District, DLR), Monument (Circle, District)",
+    "walkFrom": "City of London historic core (adjacent)",
+    "tags": [
+      "cooper",
+      "neoclassical",
+      "beaux-arts",
+      "city",
+      "grade-ii*",
+      "commercial",
+      "insurance"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0072",
+    "name": "Barbican Centre",
+    "cats": [
+      "brutalism",
+      "cultural",
+      "modernist"
+    ],
+    "cc": "c-cul",
+    "styleGroups": [
+      "1960-1980"
+    ],
+    "era": "1945-1979",
+    "city": "london",
+    "arch": "Chamberlin, Powell and Bon",
+    "archs": [
+      "Chamberlin, Powell and Bon"
+    ],
+    "yr": 1982,
+    "access": "public",
+    "lat": 51.52,
+    "lng": -0.0938,
+    "addr": "Silk Street, Barbican, London EC2Y 8DS",
+    "hood": "Barbican / City of London",
+    "desc": "Completed in 1982 by architects Chamberlin, Powell and Bon, the Barbican Centre is Europe's largest arts and cultural centre and one of the world's finest Brutalist complexes. Rising 42 meters above ground, the fortress-like structure of exposed concrete, geometric forms, and fortress-like silhouette integrates concert halls, theatres, galleries, and residential towers within a unified megastructure. The plaza features elevated walkways, water features, and landscaped gardens creating a self-contained utopian urban village. Grade II listed, it revolutionized postwar cultural infrastructure and remains a beacon of ambitious public architecture.",
+    "hours": "09:00–23:00 (daily, facility-dependent)",
+    "lastEntry": "varies",
+    "admission": "free (events vary)",
+    "tourOk": true,
+    "tourInfo": "Architecture tours available; guided walks and educational programs",
+    "transit": "Barbican (Circle, District, Hammersmith & City lines)",
+    "walkFrom": "St Paul's Cathedral (10 min), Museum of London (adjacent)",
+    "tags": [
+      "brutalism",
+      "cultural",
+      "megastructure",
+      "modernist",
+      "grade-ii",
+      "barbican",
+      "postwar"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0073",
+    "name": "National Theatre",
+    "cats": [
+      "brutalism",
+      "cultural",
+      "postwar"
+    ],
+    "cc": "c-cul",
+    "styleGroups": [
+      "1960-1980"
+    ],
+    "era": "1945-1979",
+    "city": "london",
+    "arch": "Denys Lasdun",
+    "archs": [
+      "Denys Lasdun"
+    ],
+    "yr": 1976,
+    "access": "public",
+    "lat": 51.5071,
+    "lng": -0.1142,
+    "addr": "South Bank, London SE1 9PX",
+    "hood": "South Bank / Waterloo",
+    "desc": "Designed by renowned British architect Denys Lasdun and completed in 1976, the National Theatre is a Brutalist masterpiece defining the South Bank cultural landscape. Its massive interlocking concrete platforms, stepped facades, and layered terraces create a bold sculptural presence that frames the Thames. The three auditoria (Olivier, Lyttelton, Dorfman) are ingeniously nested within the structure, with open lobbies and public spaces fostering democratic access to culture. Grade II* listed, it embodies postwar idealism and remains a triumph of functional modernist architecture and theatrical innovation.",
+    "hours": "10:00–23:00 (daily, depending on performances)",
+    "lastEntry": "varies",
+    "admission": "free lobby access (tickets vary)",
+    "tourOk": true,
+    "tourInfo": "Architecture tours, backstage tours, and educational programs available",
+    "transit": "Waterloo (Bakerloo, Circle, District, Jubilee, Northern lines), Embankment (Northern, Bakerloo, Circle, District)",
+    "walkFrom": "Thames Path (adjacent), South Bank cultural precinct (integrated)",
+    "tags": [
+      "lasdun",
+      "brutalism",
+      "cultural",
+      "theatre",
+      "grade-ii*",
+      "south-bank",
+      "postwar"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0074",
+    "name": "Royal Festival Hall",
+    "cats": [
+      "modernist",
+      "cultural",
+      "festive-of-britain"
+    ],
+    "cc": "c-cul",
+    "styleGroups": [
+      "1945-1960"
+    ],
+    "era": "1945-1979",
+    "city": "london",
+    "arch": "LCC Architects (Robert Matthew & Leslie Martin)",
+    "archs": [
+      "Robert Matthew",
+      "Leslie Martin"
+    ],
+    "yr": 1951,
+    "access": "public",
+    "lat": 51.5065,
+    "lng": -0.1163,
+    "addr": "Belvedere Road, South Bank, London SE1 8XX",
+    "hood": "South Bank / Waterloo",
+    "desc": "Designed by LCC Architects Robert Matthew and Leslie Martin, the Royal Festival Hall (1951) stands as the centrepiece of the Festival of Britain and a pioneering modernist concert hall. Its clean horizontal lines, expansive glazing, and open public foyer epitomize the optimistic aesthetic of British postwar reconstruction and social renewal. The auditorium interior features elegant wooden detailing and exceptional acoustics, while the building's transparent, people-centred design democratizes access to concert culture. Grade I listed, it set the template for postwar arts buildings and remains one of Europe's most-visited concert venues.",
+    "hours": "10:00–22:00 (daily)",
+    "lastEntry": "varies",
+    "admission": "free foyer access (concerts vary)",
+    "tourOk": true,
+    "tourInfo": "Guided architecture tours, concert performances, restaurant/cafe access",
+    "transit": "Waterloo (Bakerloo, Circle, District, Jubilee, Northern lines), Embankment (Northern, Bakerloo, Circle, District)",
+    "walkFrom": "Thames Path (adjacent), South Bank (integrated)",
+    "tags": [
+      "matthew",
+      "martin",
+      "modernist",
+      "cultural",
+      "festival-of-britain",
+      "grade-i",
+      "south-bank"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0075",
+    "name": "Tate Modern",
+    "cats": [
+      "postwar",
+      "adaptive-reuse",
+      "contemporary-art"
+    ],
+    "cc": "c-cul",
+    "styleGroups": [
+      "1900-1945",
+      "1980-2000"
+    ],
+    "era": "2000–Present",
+    "city": "london",
+    "arch": "Giles Gilbert Scott / Herzog & de Meuron",
+    "archs": [
+      "Giles Gilbert Scott",
+      "Herzog & de Meuron"
+    ],
+    "yr": 2000,
+    "access": "public",
+    "lat": 51.5076,
+    "lng": -0.0994,
+    "addr": "Bankside, London SE1 9TG",
+    "hood": "Bankside / South Bank",
+    "desc": "Tate Modern represents one of the world's greatest adaptive reuse projects, transforming Giles Gilbert Scott's 1947 Bankside Power Station (a brick industrial icon) into a world-class contemporary art museum. Swiss architects Herzog & de Meuron's 2000 conversion inserted a striking top-lit turbine hall and transformed the industrial interiors into flexible gallery spaces while preserving the building's brutalist character. The 2016 Switch House extension by Herzog & de Meuron adds a dramatic pyramidal silhouette and addresses the Thames. Grade II* listed, Tate Modern is Britain's most-visited museum and a paradigm of 21st-century cultural regeneration.",
+    "hours": "10:00–18:00 (daily; Fri–Sat until 22:00)",
+    "lastEntry": "17:30",
+    "admission": "free (special exhibitions vary)",
+    "tourOk": true,
+    "tourInfo": "Guided tours, talks, and architectural walks available",
+    "transit": "Southwark (Jubilee line), London Bridge (Northern, Jubilee lines), Blackfriars (Circle, District, Central lines)",
+    "walkFrom": "Millennium Bridge (2 min), Thames Path (adjacent)",
+    "tags": [
+      "scott",
+      "herzog-de-meuron",
+      "adaptive-reuse",
+      "contemporary-art",
+      "grade-ii*",
+      "bankside",
+      "postwar"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0076",
+    "name": "Trellick Tower",
+    "cats": [
+      "brutalism",
+      "residential",
+      "modernist"
+    ],
+    "cc": "c-his",
+    "styleGroups": [
+      "1960-1980"
+    ],
+    "era": "1945-1979",
+    "city": "london",
+    "arch": "Ernő Goldfinger",
+    "archs": [
+      "Ernő Goldfinger"
+    ],
+    "yr": 1972,
+    "access": "limited",
+    "lat": 51.5245,
+    "lng": -0.2054,
+    "addr": "Golborne Road, North Kensington, London W10 5AW",
+    "hood": "North Kensington / Notting Hill",
+    "desc": "Completed in 1972 and designed by Ernő Goldfinger, Trellick Tower is a 31-story modernist residential tower and an iconic British Brutalist masterpiece. Its distinctive sculptural form features a striking external service spine running the full height like a backbone, exposed concrete framework, and soaring glass-fronted elevation creating a bold vertical composition. The tower houses 217 flats and pioneered innovative housing models combining high-density living with communal facilities. Grade II* listed and a Pevsner highlight, it epitomizes ambitious social housing design and has become a cultural symbol of postwar utopian architecture.",
+    "hours": "—",
+    "lastEntry": "—",
+    "admission": "residential (exterior viewing only)",
+    "tourOk": false,
+    "tourInfo": "Exterior viewing and photography from street; occasional resident-led tours",
+    "transit": "Westbourne Park (Circle line), Ladbroke Grove (District, Piccadilly lines)",
+    "walkFrom": "Portobello Road Market (5 min), Notting Hill (10 min)",
+    "tags": [
+      "goldfinger",
+      "brutalism",
+      "residential",
+      "social-housing",
+      "grade-ii*",
+      "north-kensington",
+      "modernist"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0077",
+    "name": "Alexandra Road Estate",
+    "cats": [
+      "brutalism",
+      "social-housing",
+      "modernist"
+    ],
+    "cc": "c-his",
+    "styleGroups": [
+      "1960-1980"
+    ],
+    "era": "1945-1979",
+    "city": "london",
+    "arch": "Neave Brown / Camden Council Architects",
+    "archs": [
+      "Neave Brown"
+    ],
+    "yr": 1978,
+    "access": "limited",
+    "lat": 51.54,
+    "lng": -0.1745,
+    "addr": "Swiss Cottage, London NW8 0SE",
+    "hood": "Swiss Cottage / Chalk Farm",
+    "desc": "Completed in 1978, the Alexandra Road Estate by Neave Brown and Camden Council Architects represents one of the most ambitious and successful social housing schemes in British architectural history. Its dramatic sweeping brick facade runs for 450 meters (1,500 feet), creating a unified sculptural composition of interlocking residential units, courtyards, and communal spaces that frame human activity and social interaction. The estate integrates parking underground, preserves generous green space, and provides 520 family homes with exceptional spatial quality and dignity. Grade II* listed, it demonstrates that collective housing need not sacrifice architectural excellence or community.",
+    "hours": "—",
+    "lastEntry": "—",
+    "admission": "residential (exterior viewing and walks)",
+    "tourOk": true,
+    "tourInfo": "Occasional architectural walks organized by Camden Heritage; exterior access",
+    "transit": "Swiss Cottage (Circle, Jubilee, Northern lines), Chalk Farm (Northern line)",
+    "walkFrom": "Primrose Hill (5 min), Parliament Hill (10 min)",
+    "tags": [
+      "brown",
+      "brutalism",
+      "social-housing",
+      "swiss-cottage",
+      "grade-ii*",
+      "modernist",
+      "collective"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0078",
+    "name": "Balfron Tower",
+    "cats": [
+      "brutalism",
+      "residential",
+      "modernist"
+    ],
+    "cc": "c-his",
+    "styleGroups": [
+      "1960-1980"
+    ],
+    "era": "1945-1979",
+    "city": "london",
+    "arch": "Ernő Goldfinger",
+    "archs": [
+      "Ernő Goldfinger"
+    ],
+    "yr": 1967,
+    "access": "limited",
+    "lat": 51.5133,
+    "lng": -0.0121,
+    "addr": "Poplar, London E14 0QG",
+    "hood": "Poplar / Isle of Dogs",
+    "desc": "Designed by Ernő Goldfinger and completed in 1967, Balfron Tower is a 27-story Brutalist residential tower in Poplar and a sculptural masterpiece of modernist social housing. The tower features an external service spine (inspired by Kenzo Tange), bold concrete structural frame, and interlocking balconies creating dynamic visual rhythm and human-scale domestic facades. Goldfinger famously lived in one of the flats to test livability, demonstrating his commitment to resident wellbeing. Grade II* listed, Balfron Tower exemplifies high-modernist confidence in collective housing as a transformative urban form.",
+    "hours": "—",
+    "lastEntry": "—",
+    "admission": "residential (exterior viewing from street)",
+    "tourOk": false,
+    "tourInfo": "Exterior viewing; occasional heritage walks; some flats available for architectural tourism",
+    "transit": "Langdon Park (DLR), Canary Wharf (Jubilee line, adjacent)",
+    "walkFrom": "Thames Path (5 min), Canary Wharf (10 min)",
+    "tags": [
+      "goldfinger",
+      "brutalism",
+      "residential",
+      "poplar",
+      "grade-ii*",
+      "modernist",
+      "social-housing"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0079",
+    "name": "Design Museum",
+    "cats": [
+      "contemporary",
+      "adaptive-reuse",
+      "cultural"
+    ],
+    "cc": "c-cul",
+    "styleGroups": [
+      "1960-1980",
+      "2000-2020"
+    ],
+    "era": "2000–Present",
+    "city": "london",
+    "arch": "OMA / John Pawson / RMJM (original)",
+    "archs": [
+      "Rem Koolhaas",
+      "John Pawson",
+      "RMJM"
+    ],
+    "yr": 2016,
+    "access": "public",
+    "lat": 51.4998,
+    "lng": -0.1997,
+    "addr": "Kensington, London W8 6AG",
+    "hood": "Kensington / South Kensington",
+    "desc": "The Design Museum's 2016 conversion by OMA and John Pawson transforms the Grade II* listed Commonwealth Institute (1962) by RMJM—a pioneering modernist cultural structure with iconic hyperbolic paraboloid roof—into a contemporary design museum. Pawson's refined minimal intervention preserves the spatial grandeur and architectural integrity while creating luminous interior galleries that celebrate post-1945 design innovation. The iconic copper-clad roof continues to dominate the Kensington skyline. A masterclass in adaptive reuse respecting modernist heritage, it serves as both museum and monument to mid-century optimism.",
+    "hours": "10:00–18:00 (daily)",
+    "lastEntry": "17:30",
+    "admission": "£17.50–20.00",
+    "tourOk": true,
+    "tourInfo": "Guided architecture tours; design talks and exhibitions vary",
+    "transit": "High Street Kensington (Circle, District lines), South Kensington (Circle, District, Piccadilly lines)",
+    "walkFrom": "South Kensington museums district (10 min), Kensington Gardens (5 min)",
+    "tags": [
+      "pawson",
+      "koolhaas",
+      "adaptive-reuse",
+      "contemporary",
+      "design",
+      "grade-ii*",
+      "kensington",
+      "cultural"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0080",
+    "name": "Serpentine Gallery & Pavilion Site",
+    "cats": [
+      "art",
+      "cultural",
+      "contemporary"
+    ],
+    "cc": "c-cul",
+    "styleGroups": [
+      "1900-2000"
+    ],
+    "era": "2000–Present",
+    "city": "london",
+    "arch": "Various (annual pavilions)",
+    "archs": [
+      "Various"
+    ],
+    "yr": 2000,
+    "access": "public",
+    "lat": 51.5045,
+    "lng": -0.1568,
+    "addr": "Kensington Gardens, London W2 3XA",
+    "hood": "Kensington Gardens / South Kensington",
+    "desc": "The Serpentine Gallery occupies a Grade II listed 1934 tea pavilion converted into an art space in 1970, celebrating postwar artistic innovation. Since 2000, it has commissioned internationally renowned architects (Zaha Hadid, Rem Koolhaas, Sou Fujimoto, Diebedo Francis Kéré) to design annual temporary pavilions—a cultural phenomenon that transforms the gallery's external forecourt into an architectural laboratory. Each summer pavilion becomes a sculptural artwork, social gathering space, and testing ground for speculative design. Combining heritage preservation, contemporary art, and architectural experimentation, the Serpentine exemplifies how cultural institutions drive innovation.",
+    "hours": "10:00–18:00 (daily, seasonal closures)",
+    "lastEntry": "17:45",
+    "admission": "free",
+    "tourOk": true,
+    "tourInfo": "Guided talks on pavilions; architectural tours available",
+    "transit": "South Kensington (Circle, District, Piccadilly lines), Knightsbridge (Piccadilly line)",
+    "walkFrom": "Kensington Gardens (integrated), South Kensington museums (10 min)",
+    "tags": [
+      "contemporary",
+      "pavilion",
+      "art",
+      "grade-ii",
+      "kensington-gardens",
+      "architecture-commissions",
+      "cultural"
+    ],
+    "photos": []
   }
-
 ];
