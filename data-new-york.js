@@ -4427,8 +4427,8 @@ var LOCS_NEW_YORK = [
     arch:'Adjaye Associates',
     yr:2014,
     access:'Paid Ticket',
-    lat:40.8312407,
-    lng:-73.9411423,
+    lat:40.8303801,
+    lng:-73.940928,
     addr:'898 St Nicholas Ave, New York, NY 10032',
     hood:'Sugar Hill, Harlem',
     desc:'The Sugar Hill Children\'s Museum of Art and Storytelling occupies the ground floor of a mixed-income residential tower designed by Adjaye Associates for Broadway Housing Communities in Harlem\'s historic Sugar Hill neighborhood. The building\'s most striking feature is its dark sculptural concrete facade — articulated with dramatic relief patterns that draw on West African architectural traditions — which wraps both the affordable housing tower above and the museum\'s double-height gallery and performance space below. The museum focuses on storytelling and art-making for children, with programming rooted in the African American cultural heritage of Harlem. The project demonstrates Adjaye\'s commitment to architecture as a vehicle for community empowerment.',
@@ -4449,7 +4449,8 @@ var LOCS_NEW_YORK = [
     ],
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Sugar_Hill_Museum_Adjaye.jpg/800px-Sugar_Hill_Museum_Adjaye.jpg'
-    ]
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.8307982, lng:-73.9411801 }
   },
   {
     id:'nyc-0106',
