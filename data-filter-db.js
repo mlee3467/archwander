@@ -63,7 +63,10 @@ const FILTER_DB = {
     'Religious Heritage',
     'Residential',
     'Retail',
-    'Skyscrapers'
+    'Skyscrapers',
+    'cultural',
+    'landmarks',
+    'public'
   ],
 
   styleGroups: [
@@ -96,7 +99,8 @@ const FILTER_DB = {
     'Traditional',
     'Traditional Korean',
     'Underground',
-    'Western'
+    'Western',
+    'modernist'
   ],
 
   tags: [
@@ -1328,6 +1332,7 @@ const FILTER_DB = {
     'courthouse',
     'cultural-center',
     'cultural-landmark',
+    'curtain wall',
     'curved-form',
     'deconstructivism',
     'expansion',
@@ -1355,14 +1360,17 @@ const FILTER_DB = {
     'industrial-site',
     'infrastructure',
     'institutional',
+    'international territory',
     'jazz-venue',
     'laboratory',
     'landmark',
     'landmark-tower',
     'landscape',
     'large-scale',
+    'le corbusier',
     'leed',
     'leed-gold',
+    'legendary',
     'library',
     'long-island-city',
     'lower-east-side',
@@ -1383,6 +1391,8 @@ const FILTER_DB = {
     'neo-gothic',
     'neoclassical',
     'neuroscience-research',
+    'new formalism',
+    'niemeyer',
     'noguchi',
     'office-building',
     'oma',
@@ -1392,7 +1402,9 @@ const FILTER_DB = {
     'park',
     'passive-house',
     'performance-venues',
+    'performing arts',
     'performing-arts',
+    'philip johnson',
     'postmodern',
     'prismatic',
     'public-art',
@@ -1424,11 +1436,13 @@ const FILTER_DB = {
     'theological-campus',
     'times-square',
     'townhouses',
+    'travertine plaza',
     'tribeca',
     'upper-east-side',
     'warehouse',
     'waterfront',
     'williamsburg',
+    'wonder',
     'wtc',
     '¥10000 Note',
     'Álvaro Siza'
@@ -1751,6 +1765,8 @@ const FILTER_DB = {
     'Private (Lobby Viewable)',
     'Public',
     'Residents & Guests',
-    'Ticketed'
+    'Ticketed',
+    'open to public',
+    'paid ticket'
   ]
 };
