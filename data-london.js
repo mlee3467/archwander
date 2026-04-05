@@ -1,7 +1,6 @@
 /* ============================================================
    ArchWander — London Location Data
-   80 locations
-   Edit this file to add / modify London locations.
+   109 locations
    ============================================================ */
 
 var LOCS_LONDON = [
@@ -3627,6 +3626,1198 @@ var LOCS_LONDON = [
       "kensington-gardens",
       "architecture-commissions",
       "cultural"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0081",
+    "name": "Economist Building",
+    "cats": [
+      "architecture",
+      "landmark"
+    ],
+    "cc": "c-lmk",
+    "styleGroups": [
+      "brutalism",
+      "modernism"
+    ],
+    "era": "1945-1979",
+    "city": "london",
+    "arch": "Alison & Peter Smithson",
+    "archs": [
+      "Alison Smithson",
+      "Peter Smithson"
+    ],
+    "yr": 1964,
+    "access": "exterior",
+    "lat": 51.507,
+    "lng": -0.1386,
+    "addr": "St James's Street, SW1A 1HG",
+    "hood": "St James's",
+    "desc": "Designed by Alison and Peter Smithson in 1964, the Economist Building stands as a defining New Brutalism landmark in St James's. Three interconnected volumes clad in Portland stone and board-marked concrete form a distinctive piazza, demonstrating the Smithsons' principles of hierarchical composition and urban integration. The Grade II* cluster exemplifies late 20th-century British Modernism and remains one of London's most architecturally significant post-war ensembles.",
+    "hours": "exterior only",
+    "lastEntry": "always",
+    "admission": "free",
+    "tourOk": false,
+    "tourInfo": "exterior viewing only",
+    "transit": "Green Park (Underground: Victoria, Piccadilly, Jubilee lines)",
+    "walkFrom": "Green Park, St James's Park",
+    "tags": [
+      "brutalism",
+      "modernism",
+      "listed",
+      "landmark",
+      "piazza"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0082",
+    "name": "Royal Academy of Arts",
+    "cats": [
+      "architecture",
+      "cultural"
+    ],
+    "cc": "c-cul",
+    "styleGroups": [
+      "neoclassicism",
+      "contemporary"
+    ],
+    "era": "1900-1945",
+    "city": "london",
+    "arch": "David Chipperfield Architects",
+    "archs": [
+      "David Chipperfield"
+    ],
+    "yr": 2018,
+    "access": "public",
+    "lat": 51.5094,
+    "lng": -0.1393,
+    "addr": "Piccadilly, W1J 0BD",
+    "hood": "Mayfair",
+    "desc": "Burlington House, originally built in 1664 and home to the Royal Academy since 1869, underwent a transformative renovation by David Chipperfield Architects completed in 2018. The project masterfully connected the historic Burlington House with Burlington Gardens through a contemporary intervention that respects the Grade I heritage fabric while introducing modern exhibition and teaching spaces. Chipperfield's sensitive design balance between preservation and innovation has made the RA a model for 21st-century museum expansion.",
+    "hours": "10am-6pm (Tue-Sun), until 10pm Fridays",
+    "lastEntry": "30 mins before close",
+    "admission": "variable (exhibitions)",
+    "tourOk": true,
+    "tourInfo": "guided tours available, audio guides",
+    "transit": "Piccadilly Circus (Piccadilly, Bakerloo lines), Green Park (Victoria, Piccadilly, Jubilee)",
+    "walkFrom": "Piccadilly Circus, Green Park",
+    "tags": [
+      "art museum",
+      "exhibition",
+      "heritage",
+      "contemporary design",
+      "cultural"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0083",
+    "name": "Selfridges Duke Street",
+    "cats": [
+      "architecture",
+      "commercial"
+    ],
+    "cc": "c-com",
+    "styleGroups": [
+      "edwardian baroque",
+      "contemporary"
+    ],
+    "era": "1900-1945",
+    "city": "london",
+    "arch": "David Chipperfield Architects",
+    "archs": [
+      "David Chipperfield",
+      "Daniel Burnham"
+    ],
+    "yr": 2003,
+    "access": "public",
+    "lat": 51.5141,
+    "lng": -0.1524,
+    "addr": "Duke Street, W1A 1AB",
+    "hood": "Mayfair",
+    "desc": "Daniel Burnham's iconic 1909 Edwardian Baroque department store was sensitively augmented by David Chipperfield Architects in 2003 with a translucent glass facade addition on Duke Street. The contemporary intervention respects the Grade II* original while introducing a luminous, dematerialized presence that creates a striking dialogue between Edwardian pomp and 21st-century transparency. The facade functions as both functional shopfront and architectural statement, exemplifying contextual modernism in a heritage retail environment.",
+    "hours": "9:30am-8pm (Mon-Sat), 11:30am-6pm (Sun)",
+    "lastEntry": "30 mins before close",
+    "admission": "free",
+    "tourOk": false,
+    "tourInfo": "self-guided exploration encouraged",
+    "transit": "Bond Street (Central, Elizabeth lines), Marble Arch (Central line)",
+    "walkFrom": "Bond Street, Oxford Street",
+    "tags": [
+      "retail",
+      "modernism",
+      "facade",
+      "heritage commerce",
+      "contemporary"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0084",
+    "name": "One Canada Square",
+    "cats": [
+      "architecture",
+      "landmark"
+    ],
+    "cc": "c-sky",
+    "styleGroups": [
+      "postmodernism",
+      "high-rise"
+    ],
+    "era": "1980-1999",
+    "city": "london",
+    "arch": "César Pelli",
+    "archs": [
+      "César Pelli"
+    ],
+    "yr": 1991,
+    "access": "lobby",
+    "lat": 51.5049,
+    "lng": -0.0196,
+    "addr": "Canary Wharf, E14 5AB",
+    "hood": "Canary Wharf",
+    "desc": "César Pelli's One Canada Square (1991) stands 235 metres tall, dominating the Canary Wharf skyline with its distinctive stainless steel-clad pyramid-topped tower. As the UK's tallest building from 1991 to 2012, it established the visual identity of London's financial east end and introduced postmodern high-rise aesthetics to the capital. The Grade II structure merges commercial pragmatism with iconic formal expression, its gleaming pyramidal crown visible from across the Thames.",
+    "hours": "lobby access; observation deck varies",
+    "lastEntry": "inquire on-site",
+    "admission": "free (lobby), paid (observation deck if open)",
+    "tourOk": false,
+    "tourInfo": "architectural appreciation from plaza",
+    "transit": "Canary Wharf (Jubilee, DLR)",
+    "walkFrom": "Canary Wharf DLR station",
+    "tags": [
+      "skyscraper",
+      "postmodernism",
+      "financial district",
+      "landmark",
+      "iconic"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0085",
+    "name": "Queen Elizabeth Olympic Park",
+    "cats": [
+      "architecture",
+      "public"
+    ],
+    "cc": "c-pub",
+    "styleGroups": [
+      "contemporary",
+      "landscape"
+    ],
+    "era": "2000–Present",
+    "city": "london",
+    "arch": "James Corner Field Operations",
+    "archs": [
+      "James Corner"
+    ],
+    "yr": 2014,
+    "access": "public",
+    "lat": 51.5387,
+    "lng": -0.0166,
+    "addr": "Stratford, E20 2ST",
+    "hood": "Stratford",
+    "desc": "Queen Elizabeth Olympic Park represents a transformative post-2012 landscape masterplan by James Corner Field Operations, converting Olympic venues into permanent public parkland. The 227-acre park integrates iconic architecture with extensive green corridors, wetlands, and recreational spaces that serve both as spectacle and functional ecological zones. Corner's design philosophy emphasizes pedestrian networks, ecological recovery, and the strategic deployment of contemporary architectural landmarks within a coherent landscape framework.",
+    "hours": "dawn to dusk (park); venues vary",
+    "lastEntry": "dusk",
+    "admission": "free (park); venues separately ticketed",
+    "tourOk": true,
+    "tourInfo": "self-guided walking routes, visitor centres",
+    "transit": "Stratford (Central, DLR, Jubilee lines)",
+    "walkFrom": "Stratford station",
+    "tags": [
+      "landscape design",
+      "olympic legacy",
+      "public space",
+      "ecology",
+      "contemporary"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0086",
+    "name": "London Aquatics Centre",
+    "cats": [
+      "architecture",
+      "sports"
+    ],
+    "cc": "c-pub",
+    "styleGroups": [
+      "parametric",
+      "contemporary"
+    ],
+    "era": "2000–Present",
+    "city": "london",
+    "arch": "Zaha Hadid Architects",
+    "archs": [
+      "Zaha Hadid"
+    ],
+    "yr": 2011,
+    "access": "public",
+    "lat": 51.541,
+    "lng": -0.0106,
+    "addr": "Stratford, E20 2ZQ",
+    "hood": "Stratford",
+    "desc": "Zaha Hadid Architects' London Aquatics Centre (2011) defines contemporary Olympic architecture through its undulating wave-form roof, a 160-metre span of biomorphic geometry that appears to float above two Olympic-standard pools. The Grade II* structure pioneered parametric design principles in sports infrastructure, with its flowing curves responding to movement, light, and structural efficiency. The building symbolizes London's 21st-century ambitions in biomimetic design and functional beauty.",
+    "hours": "6am-10pm (varies by day)",
+    "lastEntry": "30 mins before close",
+    "admission": "paid; various memberships/day tickets",
+    "tourOk": true,
+    "tourInfo": "facility tours available; architectural appreciation encouraged",
+    "transit": "Stratford (Central, DLR, Jubilee)",
+    "walkFrom": "Queen Elizabeth Olympic Park",
+    "tags": [
+      "parametric design",
+      "olympic venue",
+      "sports",
+      "contemporary",
+      "hadid"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0087",
+    "name": "ArcelorMittal Orbit",
+    "cats": [
+      "architecture",
+      "landmark"
+    ],
+    "cc": "c-lmk",
+    "styleGroups": [
+      "contemporary sculpture",
+      "high-rise"
+    ],
+    "era": "2000–Present",
+    "city": "london",
+    "arch": "Anish Kapoor & Cecil Balmond",
+    "archs": [
+      "Anish Kapoor",
+      "Cecil Balmond"
+    ],
+    "yr": 2012,
+    "access": "public",
+    "lat": 51.5385,
+    "lng": -0.0134,
+    "addr": "Stratford, E20 2AD",
+    "hood": "Stratford",
+    "desc": "The ArcelorMittal Orbit, a 114.5-metre public artwork designed by artist Anish Kapoor and engineer Cecil Balmond, stands as the UK's tallest public sculpture and Olympic Park's defining symbolic gesture. Its red lattice steel form evokes mobility and aspiration, with visitor platforms offering unprecedented perspectives across London. The tower merges fine art with engineering spectacle, embodying the cultural ambitions of the 2012 Olympics while providing lasting iconic presence.",
+    "hours": "9am-5:30pm (varies seasonally)",
+    "lastEntry": "30 mins before close",
+    "admission": "paid (observation platforms)",
+    "tourOk": true,
+    "tourInfo": "observation deck ascent, interpretive signage",
+    "transit": "Stratford (Central, DLR, Jubilee)",
+    "walkFrom": "Queen Elizabeth Olympic Park",
+    "tags": [
+      "public art",
+      "sculpture",
+      "observation tower",
+      "olympic legacy",
+      "contemporary"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0088",
+    "name": "London Stadium",
+    "cats": [
+      "architecture",
+      "sports"
+    ],
+    "cc": "c-pub",
+    "styleGroups": [
+      "contemporary",
+      "sports"
+    ],
+    "era": "2000–Present",
+    "city": "london",
+    "arch": "Populous",
+    "archs": [
+      "Populous"
+    ],
+    "yr": 2012,
+    "access": "event-dependent",
+    "lat": 51.5387,
+    "lng": -0.0166,
+    "addr": "Stratford, E20 2ST",
+    "hood": "Stratford",
+    "desc": "Populous designed the Olympic Stadium (2012) as London's primary Olympic venue with an 80,000-capacity bowl defined by a flowing elliptical plan and innovative structural strategies. Following the Games, Populous completed a transformative 2016 conversion adapting the stadium for West Ham United, reducing capacity to 62,500 while retaining architectural integrity and adding dynamic architectural elements. The stadium exemplifies Olympic infrastructure flexibility and post-Games adaptive reuse.",
+    "hours": "event-dependent; tours when available",
+    "lastEntry": "varies",
+    "admission": "event ticketing; architectural tours occasionally offered",
+    "tourOk": true,
+    "tourInfo": "occasional stadium tours during non-event periods",
+    "transit": "Stratford (Central, DLR, Jubilee)",
+    "walkFrom": "Queen Elizabeth Olympic Park",
+    "tags": [
+      "olympic venue",
+      "sports stadium",
+      "contemporary",
+      "adaptive reuse"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0089",
+    "name": "US Embassy Nine Elms",
+    "cats": [
+      "architecture",
+      "landmark"
+    ],
+    "cc": "c-inf",
+    "styleGroups": [
+      "contemporary"
+    ],
+    "era": "2000–Present",
+    "city": "london",
+    "arch": "KieranTimberlake",
+    "archs": [
+      "KieranTimberlake"
+    ],
+    "yr": 2018,
+    "access": "exterior",
+    "lat": 51.4816,
+    "lng": -0.1328,
+    "addr": "Nine Elms, SW11 7US",
+    "hood": "Nine Elms",
+    "desc": "KieranTimberlake's US Embassy at Nine Elms (2018) presents a crystalline cube formed by layered ETFE plastic cushion facade, a material innovation that provides transparency while maintaining environmental performance and security. Surrounded by a protective moat and set within a landscaped plaza, the building merges diplomatic security requirements with contemporary architectural expression. The translucent, geometric form represents 21st-century institutional architecture balancing openness and protection.",
+    "hours": "exterior only; not open to public",
+    "lastEntry": "always",
+    "admission": "free (exterior viewing)",
+    "tourOk": false,
+    "tourInfo": "external architectural appreciation only",
+    "transit": "Vauxhall (Victoria, Northern lines), Nine Elms (Northern line future)",
+    "walkFrom": "Vauxhall, Thames Path",
+    "tags": [
+      "institutional",
+      "contemporary",
+      "facade",
+      "security",
+      "landmark"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0090",
+    "name": "Royal Ballet School Bridge of Aspiration",
+    "cats": [
+      "architecture",
+      "cultural"
+    ],
+    "cc": "c-cul",
+    "styleGroups": [
+      "contemporary"
+    ],
+    "era": "2000–Present",
+    "city": "london",
+    "arch": "Wilkinson Eyre",
+    "archs": [
+      "Wilkinson Eyre"
+    ],
+    "yr": 2003,
+    "access": "limited public",
+    "lat": 51.513,
+    "lng": -0.123,
+    "addr": "Covent Garden, WC2E 9DA",
+    "hood": "Covent Garden",
+    "desc": "Wilkinson Eyre's Bridge of Aspiration (2003) connects the Royal Opera House to the Royal Ballet School across the street through an innovative enclosed bridge featuring 23 aluminium square modules that rotate incrementally to create a spiraling form. This kinetic architectural gesture celebrates the connection between performance and training while creating a unified campus across fragmented urban fabric. The bridge merges structural engineering with expressive geometry, transforming a practical connection into an artistic statement.",
+    "hours": "not regularly open; visible from street",
+    "lastEntry": "n/a",
+    "admission": "free (street viewing)",
+    "tourOk": false,
+    "tourInfo": "external viewing from Floral Street; occasional access events",
+    "transit": "Covent Garden (Piccadilly, Northern lines)",
+    "walkFrom": "Covent Garden Market",
+    "tags": [
+      "cultural infrastructure",
+      "contemporary",
+      "kinetic",
+      "bridge",
+      "innovative"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0091",
+    "name": "Hoover Building",
+    "cats": [
+      "architecture",
+      "landmark"
+    ],
+    "cc": "c-lmk",
+    "styleGroups": [
+      "art deco",
+      "egyptian revival"
+    ],
+    "era": "1900-1945",
+    "city": "london",
+    "arch": "Wallis, Gilbert and Partners",
+    "archs": [
+      "Wallis, Gilbert and Partners"
+    ],
+    "yr": 1933,
+    "access": "exterior",
+    "lat": 51.5365,
+    "lng": -0.3198,
+    "addr": "Perivale, UB6 8DW",
+    "hood": "Perivale",
+    "desc": "Wallis, Gilbert and Partners' Hoover Building (1933) stands as one of Britain's most exuberant Art Deco structures, merging streamlined modernism with Egyptian Revival ornament and polychromatic glazed faience cladding. Originally a vacuum cleaner factory, this Grade II* landmark celebrates industrial modernity through bold geometry, vibrant turquoise and red tiling, and an aspirational functional aesthetic. Now repurposed as a Tesco supermarket, the facade preservation maintains this extraordinary interwar monument.",
+    "hours": "exterior only; Tesco interior 6am-midnight",
+    "lastEntry": "dusk (exterior); midnight (store)",
+    "admission": "free",
+    "tourOk": false,
+    "tourInfo": "external facade appreciation recommended",
+    "transit": "South Ealing (District line), Ealing Broadway connections",
+    "walkFrom": "Perivale neighbourhood",
+    "tags": [
+      "art deco",
+      "egyptian revival",
+      "industrial",
+      "listed",
+      "faience"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0092",
+    "name": "Highgate Cemetery",
+    "cats": [
+      "architecture",
+      "cultural"
+    ],
+    "cc": "c-cul",
+    "styleGroups": [
+      "gothic revival",
+      "victorian"
+    ],
+    "era": "1900-1945",
+    "city": "london",
+    "arch": "Stephen Geary",
+    "archs": [
+      "Stephen Geary"
+    ],
+    "yr": 1860,
+    "access": "public",
+    "lat": 51.5675,
+    "lng": -0.1475,
+    "addr": "Highgate, N6 6PJ",
+    "hood": "Highgate",
+    "desc": "Highgate Cemetery comprises two Grade I/Grade II* sites of exceptional landscape and architectural significance. Stephen Geary's West Cemetery (1839) introduced the Victorian \"garden cemetery\" movement with Gothic Revival chapels, elaborate monuments, and romantic wooded setting. The East Cemetery (1860) extends this vision with dramatic Egyptian Avenue and Circle of Lebanon, creating a picturesque necropolis that functions as both burial ground and public landscape artwork. The cemeteries exemplify 19th-century commemorative architecture and horticultural design.",
+    "hours": "10am-5pm (West-guided tours only), 10am-4:30pm (East-free access)",
+    "lastEntry": "30 mins before close",
+    "admission": "paid (West Cemetery tours); free (East Cemetery)",
+    "tourOk": true,
+    "tourInfo": "West tours mandatory; self-guided East Cemetery",
+    "transit": "Archway (Northern line), Highgate (Northern line)",
+    "walkFrom": "Highgate Village",
+    "tags": [
+      "victorian",
+      "landscape design",
+      "gothic revival",
+      "necropolis",
+      "cultural"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0093",
+    "name": "Isle of Dogs Pumping Station",
+    "cats": [
+      "architecture",
+      "landmark"
+    ],
+    "cc": "c-inf",
+    "styleGroups": [
+      "postmodernism"
+    ],
+    "era": "1980-1999",
+    "city": "london",
+    "arch": "John Outram",
+    "archs": [
+      "John Outram"
+    ],
+    "yr": 1988,
+    "access": "exterior",
+    "lat": 51.4933,
+    "lng": -0.0101,
+    "addr": "Docklands, E14 3BG",
+    "hood": "Isle of Dogs",
+    "desc": "John Outram's Isle of Dogs Pumping Station (1988) represents postmodernism's most exuberant expression of utilitarian infrastructure, transformed into a chromatic temple celebrating sewage engineering. With its polychromatic tiling, monumental form, and audacious ornament, the Grade II* structure elevates water management into cultural spectacle. The station stands as one of London's most colourful and architecturally assertive buildings, challenging modernist severity with joyous material excess.",
+    "hours": "exterior only; not accessible internally",
+    "lastEntry": "always",
+    "admission": "free",
+    "tourOk": false,
+    "tourInfo": "external viewing recommended for full colour appreciation",
+    "transit": "Canary Wharf (Jubilee, DLR)",
+    "walkFrom": "Thames Path, Canary Wharf",
+    "tags": [
+      "postmodernism",
+      "infrastructure",
+      "colour",
+      "landmark",
+      "cultural"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0094",
+    "name": "The Brunswick Centre",
+    "cats": [
+      "architecture",
+      "residential"
+    ],
+    "cc": "c-res",
+    "styleGroups": [
+      "brutalism"
+    ],
+    "era": "1945-1979",
+    "city": "london",
+    "arch": "Patrick Hodgkinson",
+    "archs": [
+      "Patrick Hodgkinson"
+    ],
+    "yr": 1972,
+    "access": "semi-public",
+    "lat": 51.5238,
+    "lng": -0.1223,
+    "addr": "Bloomsbury, WC1N 1BS",
+    "hood": "Bloomsbury",
+    "desc": "Patrick Hodgkinson's Brunswick Centre (1972) epitomizes Brutalist megastructure through its monumental stepped ziggurat form housing 482 apartments arranged around a central retail street. The Grade II structure creates an inward-looking community while maintaining visual drama through massive concrete terraces, dramatic voids, and hierarchical spatial organization. The building exemplifies 1970s urbanism's ambitions for mixed-use density and sculptural residential form.",
+    "hours": "plaza accessible; residential/retail hours vary",
+    "lastEntry": "dusk (plaza)",
+    "admission": "free",
+    "tourOk": false,
+    "tourInfo": "self-guided plaza exploration; architectural appreciation from public areas",
+    "transit": "Russell Square (Piccadilly line), King's Cross St Pancras (multiple lines)",
+    "walkFrom": "Bloomsbury, British Museum",
+    "tags": [
+      "brutalism",
+      "megastructure",
+      "residential",
+      "utopian planning",
+      "heritage"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0095",
+    "name": "BAPS Shri Swaminarayan Mandir",
+    "cats": [
+      "architecture",
+      "religious"
+    ],
+    "cc": "c-rel",
+    "styleGroups": [
+      "traditional hindu",
+      "contemporary"
+    ],
+    "era": "2000–Present",
+    "city": "london",
+    "arch": "traditional artisans",
+    "archs": [
+      "BAPS craftspeople"
+    ],
+    "yr": 1995,
+    "access": "public",
+    "lat": 51.5469,
+    "lng": -0.2624,
+    "addr": "Neasden, NW10 8LD",
+    "hood": "Neasden",
+    "desc": "The BAPS Shri Swaminarayan Mandir (1995) stands as the largest traditional Hindu temple outside India, an extraordinary feat of craftsmanship employing 5,000 tonnes of Italian Carrara marble and Bulgarian limestone hand-carved by artisans following classical Hindu architectural principles. The complex merges ancient temple traditions with contemporary construction techniques, creating a gleaming white landmark in northwest London. The mandir represents diaspora cultural assertion and traditional Hindu cosmology's physical manifestation in contemporary Britain.",
+    "hours": "9am-6pm (varies; call to confirm)",
+    "lastEntry": "30 mins before close",
+    "admission": "free (donations encouraged)",
+    "tourOk": true,
+    "tourInfo": "guided tours available; respectful dress required; remove shoes",
+    "transit": "Neasden (Jubilee line)",
+    "walkFrom": "Neasden, High Street",
+    "tags": [
+      "hindu temple",
+      "traditional architecture",
+      "marble",
+      "diaspora",
+      "cultural"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0096",
+    "name": "Broadwick House",
+    "cats": [
+      "Commercial",
+      "Office"
+    ],
+    "cc": "GB-ENG",
+    "styleGroups": [
+      "Modern",
+      "Contemporary"
+    ],
+    "era": "1980-1999",
+    "city": "london",
+    "arch": "Richard Rogers Partnership",
+    "archs": [
+      "Richard Rogers"
+    ],
+    "yr": 1996,
+    "access": "Public exterior only",
+    "lat": 51.5135,
+    "lng": -0.1373,
+    "addr": "Broadwick Street",
+    "hood": "Soho",
+    "desc": "A pioneering 7-story office building by Richard Rogers Partnership, completed in 1996. Early exemplar of Rogers' signature exposed-structure commercial design language, featuring prominent steel exoskeletons and transparency. The building demonstrates the architect's commitment to expressing structural and mechanical systems on facades. Located in central Soho, Broadwick House represents a crucial moment in 1990s London commercial architecture and remains influential for its bold material honesty.",
+    "hours": "Business hours only",
+    "lastEntry": "17:00",
+    "admission": "Not open to public",
+    "tourOk": false,
+    "tourInfo": "Exterior viewing only",
+    "transit": "Piccadilly Circus (0.25km), Oxford Circus (0.35km)",
+    "walkFrom": "Oxford Street, Carnaby Street",
+    "tags": [
+      "steel",
+      "exposed structure",
+      "commercial",
+      "1990s",
+      "soho"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0097",
+    "name": "30 Grosvenor Square (1960 Embassy Building)",
+    "cats": [
+      "Institutional",
+      "Embassy"
+    ],
+    "cc": "GB-ENG",
+    "styleGroups": [
+      "Modernist",
+      "Brutalist"
+    ],
+    "era": "1945-1979",
+    "city": "london",
+    "arch": "Eero Saarinen",
+    "archs": [
+      "Eero Saarinen"
+    ],
+    "yr": 1960,
+    "access": "Exterior only",
+    "lat": 51.5117,
+    "lng": -0.15,
+    "addr": "Grosvenor Square",
+    "hood": "Mayfair",
+    "desc": "The former United States Embassy, designed by Eero Saarinen and completed in 1960, stands as one of the most important American architectural works built in London. The Grade II* listed building features a distinctive Brutalist-Modernist aesthetic with bold geometric forms and a travertine-clad facade. Saarinen's design combines fortress-like security with diplomatic grandeur, reflecting Cold War architectural tensions. The building has become Grade II* protected, testament to its architectural significance. Currently undergoing mixed-use redevelopment while maintaining the iconic exterior.",
+    "hours": "Not accessible",
+    "lastEntry": null,
+    "admission": "Not open to public",
+    "tourOk": false,
+    "tourInfo": "Exterior viewing recommended",
+    "transit": "Bond Street (0.40km), Marble Arch (0.60km)",
+    "walkFrom": "Oxford Street, Park Lane",
+    "tags": [
+      "modernist",
+      "brutalist",
+      "embassy",
+      "1960",
+      "saarinen",
+      "mayfair"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0098",
+    "name": "Bosideng UK Headquarters",
+    "cats": [
+      "Commercial",
+      "Office"
+    ],
+    "cc": "GB-ENG",
+    "styleGroups": [
+      "Contemporary",
+      "Modern"
+    ],
+    "era": "2000–Present",
+    "city": "london",
+    "arch": "DSDHA",
+    "archs": [
+      "DSDHA Architects"
+    ],
+    "yr": 2018,
+    "access": "Public exterior only",
+    "lat": 51.5145,
+    "lng": -0.146,
+    "addr": "South Molton Street area",
+    "hood": "Mayfair",
+    "desc": "Completed in 2018, DSDHA Architects designed this striking Mayfair headquarters for the international outerwear brand Bosideng. The facade showcases an angular, sculptural composition of weathering corten steel and floor-to-ceiling glazing, creating dynamic visual contrasts. The material palette deliberately uses raw, oxidising steel to express industrial robustness while maintaining luxurious transparency. The building's form responds sensitively to the historic Mayfair streetscape while making a bold contemporary statement. A standout example of 2010s luxury commercial architecture in London's most prestigious district.",
+    "hours": "Business hours only",
+    "lastEntry": "17:00",
+    "admission": "Not open to public",
+    "tourOk": false,
+    "tourInfo": "Exterior viewing only",
+    "transit": "Bond Street (0.20km), Oxford Circus (0.45km)",
+    "walkFrom": "Oxford Street, South Molton Street",
+    "tags": [
+      "contemporary",
+      "corten steel",
+      "commercial",
+      "mayfair",
+      "2018"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0099",
+    "name": "Wood Wharf",
+    "cats": [
+      "Mixed-Use",
+      "Development"
+    ],
+    "cc": "GB-ENG",
+    "styleGroups": [
+      "Contemporary",
+      "Modern"
+    ],
+    "era": "2000–Present",
+    "city": "london",
+    "arch": "Allies and Morrison",
+    "archs": [
+      "Allies and Morrison"
+    ],
+    "yr": 2020,
+    "access": "Public spaces partially accessible",
+    "lat": 51.502,
+    "lng": -0.0145,
+    "addr": "Canary Wharf",
+    "hood": "Isle of Dogs",
+    "desc": "An ambitious mixed-use masterplan extension of Canary Wharf designed by the London-based Allies and Morrison practice. Wood Wharf represents contemporary docklands regeneration combining offices, residences, retail, and public waterfront spaces. The development responds to the post-industrial Docklands context, emphasizing pedestrian connectivity and Thames riverfront activation. Currently under active development, the scheme demonstrates current thinking on integrating high-density urban design with liveable public realm. Part of broader Canary Wharf evolution toward mixed neighbourhoods rather than financial monoculture.",
+    "hours": "Variable during development",
+    "lastEntry": null,
+    "admission": "Free (public areas)",
+    "tourOk": true,
+    "tourInfo": "Consult site office for tours",
+    "transit": "Canary Wharf Station (0.30km)",
+    "walkFrom": "South Dock, West India Quay",
+    "tags": [
+      "contemporary",
+      "mixed-use",
+      "docklands",
+      "development",
+      "masterplan"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0100",
+    "name": "Drapers' Hall",
+    "cats": [
+      "Institutional",
+      "Livery Hall"
+    ],
+    "cc": "GB-ENG",
+    "styleGroups": [
+      "Georgian",
+      "Victorian"
+    ],
+    "era": "1900-1945",
+    "city": "london",
+    "arch": "Herbert Williams",
+    "archs": [
+      "Herbert Williams"
+    ],
+    "yr": 1868,
+    "access": "By prior arrangement only",
+    "lat": 51.5155,
+    "lng": -0.0862,
+    "addr": "Throgmorton Avenue",
+    "hood": "City of London",
+    "desc": "One of London's finest Livery Halls, Drapers' Hall originated in 1667 during post-Fire rebuilding but was substantially reconstructed with magnificent Victorian interiors by Herbert Williams in 1868-70. The Grade I listed interior showcases ornate plasterwork, marble columns, and period furnishings of exceptional quality. The early Georgian exterior conceals these opulent late-Victorian spaces, creating a striking contrast between street presence and interior splendour. Drapers' Hall exemplifies the enduring wealth and craftsmanship traditions of the medieval guild system preserved in the modern City. A rare survivor demonstrating Livery Hall prestige and architectural ambition.",
+    "hours": "By appointment only",
+    "lastEntry": null,
+    "admission": "Private events only",
+    "tourOk": false,
+    "tourInfo": "Contact Livery Company directly",
+    "transit": "Bank (0.20km), Monument (0.35km)",
+    "walkFrom": "Threadneedle Street, Cornhill",
+    "tags": [
+      "livery hall",
+      "victorian",
+      "city of london",
+      "guild",
+      "interior"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0101",
+    "name": "Vanbrugh Park Estate",
+    "cats": [
+      "Housing",
+      "Social Housing"
+    ],
+    "cc": "GB-ENG",
+    "styleGroups": [
+      "Modernist",
+      "Brutalist"
+    ],
+    "era": "1945-1979",
+    "city": "london",
+    "arch": "Chamberlin, Powell and Bon",
+    "archs": [
+      "Chamberlin, Powell and Bon"
+    ],
+    "yr": 1963,
+    "access": "Public footpaths only",
+    "lat": 51.4756,
+    "lng": 0.002,
+    "addr": "Vanbrugh Park",
+    "hood": "Blackheath",
+    "desc": "Built in 1963 for London County Council, Vanbrugh Park Estate represents the same architectural practice responsible for the celebrated Barbican Estate. Chamberlin, Powell and Bon's scheme demonstrates their Modernist approach to large-scale social housing, employing bold sculptural forms and communal landscaping. The estate sits prominently above Greenwich, with buildings carefully positioned to respond to the topography and historic views across London. The architecture emphasizes community spaces, pedestrian priority, and architectural unity within a diverse composition. Vanbrugh Park remains a significant example of 1960s LCC housing ambition and modernist urban planning.",
+    "hours": "Daylight hours only",
+    "lastEntry": "16:00",
+    "admission": "Free",
+    "tourOk": true,
+    "tourInfo": "Self-guided estate walks recommended",
+    "transit": "Blackheath Station (0.60km), Greenwich (0.80km)",
+    "walkFrom": "Greenwich Park, Blackheath",
+    "tags": [
+      "social housing",
+      "brutalist",
+      "lcc",
+      "1960s",
+      "blackheath"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0102",
+    "name": "Langham House Close (Ham Common Flats)",
+    "cats": [
+      "Housing",
+      "Residential"
+    ],
+    "cc": "GB-ENG",
+    "styleGroups": [
+      "Brutalist",
+      "Modernist"
+    ],
+    "era": "1945-1979",
+    "city": "london",
+    "arch": "Stirling & Gowan",
+    "archs": [
+      "James Stirling",
+      "Gowan"
+    ],
+    "yr": 1958,
+    "access": "Public footpaths only",
+    "lat": 51.4395,
+    "lng": -0.309,
+    "addr": "Ham Common",
+    "hood": "Ham, Richmond",
+    "desc": "A seminal early Brutalist residential project designed by Stirling & Gowan and completed in 1958, Langham House Close represents a watershed moment in British postwar architecture. Directly influenced by Le Corbusier's Maisons Jaoul in Paris, the scheme employs robust concrete construction, sculptural form, and intimate human-scale courtyards. Grade II* listed status recognizes its significance as a foundational work of British Brutalism and a model for subsequent housing schemes. The building demonstrates how Continental Modernism translated into a distinctly British context through material expression and spatial composition. A pilgrimage site for students of mid-century architecture and raw concrete design.",
+    "hours": "Viewable from public spaces only",
+    "lastEntry": "17:00",
+    "admission": "Free (exterior)",
+    "tourOk": true,
+    "tourInfo": "External viewing from Ham Common",
+    "transit": "Kew Gardens Station (1.0km), Ham Station (0.90km)",
+    "walkFrom": "Ham Common, Riverside Walk",
+    "tags": [
+      "brutalist",
+      "concrete",
+      "stirling gowan",
+      "1958",
+      "housing"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0103",
+    "name": "Dawson's Heights",
+    "cats": [
+      "Housing",
+      "Social Housing"
+    ],
+    "cc": "GB-ENG",
+    "styleGroups": [
+      "Brutalist",
+      "Modernist"
+    ],
+    "era": "1945-1979",
+    "city": "london",
+    "arch": "Kate Macintosh",
+    "archs": [
+      "Kate Macintosh"
+    ],
+    "yr": 1972,
+    "access": "Public footpaths and communal areas",
+    "lat": 51.4508,
+    "lng": -0.0712,
+    "addr": "East Dulwich, Peckham",
+    "hood": "Peckham",
+    "desc": "Completed in 1972, Kate Macintosh's Dawson's Heights stands as a heroic expression of Brutalist social housing, dramatically stepping down a steep Dulwich hillside like an urban amphitheatre. Residents affectionately nicknamed it \"the Hilton\" for its luxurious spatial generosity and sculptural presence. The Grade II listed complex employs exposed concrete terraces, communal gardens, and generous public thoroughfares to create a self-contained urban village. The building showcases Macintosh's distinctive style combining architectural monumentality with genuine social purpose. Dawson's Heights remains one of Britain's most architecturally significant and beloved social housing schemes of the 1970s.",
+    "hours": "Accessible during daylight",
+    "lastEntry": "16:30",
+    "admission": "Free",
+    "tourOk": true,
+    "tourInfo": "Estate walks available via Southwark Council",
+    "transit": "East Dulwich Station (0.70km), Peckham Station (0.50km)",
+    "walkFrom": "Dulwich Common, Peckham Rye Park",
+    "tags": [
+      "social housing",
+      "brutalist",
+      "concrete",
+      "kate macintosh",
+      "1970s"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0104",
+    "name": "Odhams Walk",
+    "cats": [
+      "Mixed-Use",
+      "Housing"
+    ],
+    "cc": "GB-ENG",
+    "styleGroups": [
+      "Postmodern",
+      "Contemporary"
+    ],
+    "era": "1980-1999",
+    "city": "london",
+    "arch": "GLC Architects Department",
+    "archs": [
+      "GLC Architects Department"
+    ],
+    "yr": 1981,
+    "access": "Public circulation only",
+    "lat": 51.5148,
+    "lng": -0.1244,
+    "addr": "Odhams Walk",
+    "hood": "Covent Garden",
+    "desc": "Designed by the Greater London Council Architects Department and completed in 1981, Odhams Walk represents sensitive infill development within the historic Covent Garden conservation area. The mixed-use scheme combines housing with ground-floor retail, carefully responding to adjacent Georgian and Victorian streetscapes through material palette and fenestration patterns. Rather than visual domination, the architects pursued contextual integration, using pitched roofs and brick facades that respect neighbourhood character. Odhams Walk demonstrates 1980s public architecture's commitment to urban conservation and community-scaled development. An exemplary model of sensitive contemporary design within historic London streetscapes.",
+    "hours": "Shops open 10:00-18:00",
+    "lastEntry": "18:00",
+    "admission": "Free (public areas)",
+    "tourOk": true,
+    "tourInfo": "Street-level public access",
+    "transit": "Covent Garden Station (0.15km), Tottenham Court Road (0.35km)",
+    "walkFrom": "Covent Garden Market, Seven Dials",
+    "tags": [
+      "infill",
+      "conservation",
+      "covent garden",
+      "glc",
+      "1980s"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0105",
+    "name": "Dunboyne Road Estate",
+    "cats": [
+      "Housing",
+      "Social Housing"
+    ],
+    "cc": "GB-ENG",
+    "styleGroups": [
+      "Brutalist",
+      "Modernist"
+    ],
+    "era": "1945-1979",
+    "city": "london",
+    "arch": "Kate Macintosh / London Borough of Lambeth Architects",
+    "archs": [
+      "Kate Macintosh"
+    ],
+    "yr": 1966,
+    "access": "Public footpaths only",
+    "lat": 51.5517,
+    "lng": -0.1728,
+    "addr": "Dunboyne Road",
+    "hood": "Hampstead",
+    "desc": "A pioneering social housing complex designed by Kate Macintosh with the London Borough of Lambeth Architects Department between 1966-69, Dunboyne Road Estate employs an innovative ziggurat form that dramatically steps the building profile down the Hampstead hillside. The Grade II listed scheme uses sculptural concrete to create a series of terraced outdoor spaces and dramatic visual silhouettes. The ziggurat geometry maximizes light and views while maintaining density, demonstrating avant-garde approaches to collective housing. Macintosh's design vocabulary emphasizes geometric purity, structural expression, and social amenity. Dunboyne Road stands as a masterpiece of 1960s radical housing design.",
+    "hours": "Accessible from public walkways",
+    "lastEntry": "16:00",
+    "admission": "Free (exterior)",
+    "tourOk": true,
+    "tourInfo": "Estate accessible via Hampstead roads",
+    "transit": "Belsize Park Station (0.40km), Chalk Farm (0.60km)",
+    "walkFrom": "Hampstead Heath, Primrose Hill",
+    "tags": [
+      "social housing",
+      "brutalist",
+      "ziggurat",
+      "hampstead",
+      "1960s"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0106",
+    "name": "Kensal House",
+    "cats": [
+      "Housing",
+      "Social Housing"
+    ],
+    "cc": "GB-ENG",
+    "styleGroups": [
+      "Modernist",
+      "International"
+    ],
+    "era": "1900-1945",
+    "city": "london",
+    "arch": "Maxwell Fry",
+    "archs": [
+      "Maxwell Fry"
+    ],
+    "yr": 1937,
+    "access": "Public exterior only",
+    "lat": 51.5245,
+    "lng": -0.2118,
+    "addr": "Ladbroke Grove",
+    "hood": "Notting Hill",
+    "desc": "Designed by Maxwell Fry in collaboration with Elizabeth Denby and completed in 1937, Kensal House stands as a pioneering example of Continental Modernism applied to British social housing. The Grade II* listed building features the curved concrete forms that Fry encountered on the Continent, demonstrating how European architectural innovations could address London's housing shortage. The sculptural facades combine modernist principles with genuine social commitment, providing light-filled dwellings and communal amenities. Kensal House influenced generations of British housing architects and remains visually distinctive on the Ladbroke Grove streetscape. An architectural landmark bridging European modernism and London's social housing tradition.",
+    "hours": "Viewable from public spaces only",
+    "lastEntry": "17:00",
+    "admission": "Free (exterior)",
+    "tourOk": true,
+    "tourInfo": "External viewing from Ladbroke Grove",
+    "transit": "Ladbroke Grove Station (0.25km), Notting Hill Gate (0.60km)",
+    "walkFrom": "Ladbroke Grove, Portobello Road",
+    "tags": [
+      "modernist",
+      "social housing",
+      "fry",
+      "1937",
+      "notting hill"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0107",
+    "name": "Nine Elms Development Area",
+    "cats": [
+      "Mixed-Use",
+      "Development"
+    ],
+    "cc": "GB-ENG",
+    "styleGroups": [
+      "Contemporary",
+      "Mixed"
+    ],
+    "era": "2000–Present",
+    "city": "london",
+    "arch": "Various (Gehry Partners, Foster + Partners, etc.)",
+    "archs": [
+      "Frank Gehry",
+      "Norman Foster"
+    ],
+    "yr": 2015,
+    "access": "Public areas accessible",
+    "lat": 51.481,
+    "lng": -0.138,
+    "addr": "Nine Elms Lane",
+    "hood": "Vauxhall",
+    "desc": "An expansive regeneration area in Vauxhall anchored by the iconic Battersea Power Station and new US Embassy, Nine Elms Development Area represents London's most ambitious docklands transformation of the 2010s-2020s. Master architects including Gehry Partners and Foster + Partners are orchestrating mixed-use composition combining commercial, residential, cultural, and public spaces. The scheme reconnects the Thames riverfront and activates previously industrial wasteland with contemporary architectural statement. Battersea Power Station's adaptive reuse stands as centerpiece, while the American embassy demonstrates current diplomatic architecture. Nine Elms showcases 21st-century urban regeneration at metropolitan scale.",
+    "hours": "Variable by venue",
+    "lastEntry": null,
+    "admission": "Varies by building",
+    "tourOk": true,
+    "tourInfo": "Consult individual venues and visitor centers",
+    "transit": "Nine Elms Station (0.20km), Vauxhall (0.50km)",
+    "walkFrom": "Battersea Park, Thames Path",
+    "tags": [
+      "regeneration",
+      "contemporary",
+      "mixed-use",
+      "power station",
+      "vauxhall"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0108",
+    "name": "St Pancras Renaissance Hotel",
+    "cats": [
+      "Hotel",
+      "Institutional"
+    ],
+    "cc": "GB-ENG",
+    "styleGroups": [
+      "Victorian",
+      "Gothic Revival"
+    ],
+    "era": "1900-1945",
+    "city": "london",
+    "arch": "George Gilbert Scott",
+    "archs": [
+      "George Gilbert Scott"
+    ],
+    "yr": 1873,
+    "access": "Hotel guests and restaurant visitors",
+    "lat": 51.5315,
+    "lng": -0.1262,
+    "addr": "Euston Road / King's Cross",
+    "hood": "King's Cross",
+    "desc": "George Gilbert Scott's St Pancras Renaissance Hotel, completed in 1873, ranks among Victorian London's most magnificent Gothic Revival statements. While the adjacent station showcases iron-and-glass engineering, this hotel building asserts Gothic ambition through decorative red brick, terracotta detailing, and soaring towers articulating the London skyline. The Grade I listed building underwent comprehensive restoration by RHWL architects in 2011, recovering gilded interiors, ornate plasterwork, and period furnishings. Scott's design merges architectural fantasy with modern convenience, creating a masterwork of Victorian optimism. Recently restored to contemporary luxury hospitality standards, St Pancras Hotel remains one of London's most visually distinctive Victorian achievements.",
+    "hours": "24 hours (hotel guests)",
+    "lastEntry": null,
+    "admission": "Hotel guests; public restaurant access",
+    "tourOk": true,
+    "tourInfo": "Restaurant and public areas accessible; tours by arrangement",
+    "transit": "King's Cross St Pancras Station (immediate)",
+    "walkFrom": "British Library, Bloomsbury",
+    "tags": [
+      "victorian gothic",
+      "scott",
+      "hotel",
+      "1873",
+      "kings cross"
+    ],
+    "photos": []
+  },
+  {
+    "id": "lon-0109",
+    "name": "Canary Wharf Masterplan Area",
+    "cats": [
+      "Mixed-Use",
+      "Financial District"
+    ],
+    "cc": "GB-ENG",
+    "styleGroups": [
+      "Contemporary",
+      "Postmodern"
+    ],
+    "era": "2000–Present",
+    "city": "london",
+    "arch": "SOM (masterplan), César Pelli, Foster + Partners, Various",
+    "archs": [
+      "Skidmore Owings Merrill",
+      "César Pelli",
+      "Norman Foster"
+    ],
+    "yr": 1990,
+    "access": "Public spaces accessible",
+    "lat": 51.5054,
+    "lng": -0.0235,
+    "addr": "Canary Wharf",
+    "hood": "Isle of Dogs",
+    "desc": "The Canary Wharf masterplan represents London's most significant post-industrial urban transformation, beginning in the 1990s and continuing through the present day. Skidmore, Owings & Merrill established the geometric order, while César Pelli's One Canada Square (1991) became the defining tower defining London's changing skyline. Foster + Partners and others contributed complementary architectural languages creating a coherent yet diverse urban ensemble. The development evolved from purely financial monoculture toward mixed-use neighbourhood incorporating residential, retail, cultural, and waterfront public spaces. Canary Wharf demonstrates how docklands can transform into vibrant urban centres while maintaining architectural ambition and quality design. A contemporary London icon.",
+    "hours": "Variable by venue",
+    "lastEntry": null,
+    "admission": "Free (public areas)",
+    "tourOk": true,
+    "tourInfo": "Self-guided walks; visitor information at South Dock",
+    "transit": "Canary Wharf Station (immediate), South Dock (0.15km)",
+    "walkFrom": "West India Dock, Thames Path",
+    "tags": [
+      "financial district",
+      "contemporary",
+      "masterplan",
+      "docklands",
+      "pelli"
     ],
     "photos": []
   }
