@@ -4767,16 +4767,17 @@ var LOCS_NEW_YORK = [
     transit:'C E → Spring St · 1 → Houston St · N R W → Prince St',
     walkFrom:'SoHo: central · Prada Epicenter: 8 min',
     tags:[
-      'steven holl architects',
       'perfume boutique',
       'smell columns',
       'soho',
       'retail',
-      'phenomenological'
+      'phenomenological',
+      'steven holl architects'
     ],
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Frederic_Malle_Steven_Holl_NYC.jpg/800px-Frederic_Malle_Steven_Holl_NYC.jpg'
-    ]
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7379232, lng:-74.0018625 }
   },
   {
     id:'nyc-0111',
@@ -4814,7 +4815,8 @@ var LOCS_NEW_YORK = [
       'residential',
       'meatpacking district',
       'warehouse conversion',
-      'aia award'
+      'aia award',
+      'addition'
     ],
     photos:[]
   },
@@ -4854,16 +4856,20 @@ var LOCS_NEW_YORK = [
       'residential',
       'nolita',
       'contextual',
-      'undulating facade'
+      'undulating facade',
+      'facade design',
+      'parametric',
+      'exterior'
     ],
-    photos:[]
+    photos:[],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.724667, lng:-73.995047 }
   },
   {
     id:'nyc-0113',
     name:'American Copper Buildings',
     cats:[
       'skyscrapers',
-      'landmarks'
+      'commercial'
     ],
     cc:'c-sky',
     styleGroups:[
@@ -4896,9 +4902,13 @@ var LOCS_NEW_YORK = [
       'twin towers',
       'residential',
       'waterfront',
-      'kips bay'
+      'kips bay',
+      'facade design',
+      'parametric',
+      'exterior'
     ],
-    photos:[]
+    photos:[],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7443674, lng:-73.971387 }
   },
   {
     id:'nyc-0114',
@@ -4937,9 +4947,12 @@ var LOCS_NEW_YORK = [
       'waterfront',
       'public',
       'entertainment',
-      'brooklyn bridge views'
+      'brooklyn bridge views',
+      'facade design',
+      'exterior'
     ],
-    photos:[]
+    photos:[],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7057499, lng:-74.0023992 }
   },
   {
     id:'nyc-0115',
@@ -4978,16 +4991,20 @@ var LOCS_NEW_YORK = [
       'domino sugar',
       'waterfront',
       'courtyard',
-      'brooklyn'
+      'brooklyn',
+      'facade design',
+      'exterior',
+      'digital architecture'
     ],
-    photos:[]
+    photos:[],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7137915, lng:-73.9671522 }
   },
   {
     id:'nyc-0116',
     name:'Steinway Tower (111 W 57th St)',
     cats:[
       'skyscrapers',
-      'landmarks'
+      'residential'
     ],
     cc:'c-sky',
     styleGroups:[
@@ -5018,20 +5035,21 @@ var LOCS_NEW_YORK = [
       'supertall',
       'skyscraper',
       'billionaires row',
-      'ultra-luxury',
       'steinway hall',
       'terracotta',
       'slender tower',
-      '1428 ft'
+      'skinny',
+      'luxury residential'
     ],
-    photos:[]
+    photos:[],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7650657, lng:-73.9775162 }
   },
   {
     id:'nyc-0117',
     name:'The Brooklyn Tower (9 DeKalb Ave)',
     cats:[
       'skyscrapers',
-      'landmarks'
+      'residential'
     ],
     cc:'c-sky',
     styleGroups:[
@@ -5065,7 +5083,9 @@ var LOCS_NEW_YORK = [
       'landmark preservation',
       'downtown brooklyn',
       'tallest in brooklyn',
-      '1066 ft'
+      '1066 ft',
+      'facade design',
+      'exterior'
     ],
     photos:[]
   },
@@ -5106,7 +5126,11 @@ var LOCS_NEW_YORK = [
       'folded aluminum',
       'icp museum',
       'mixed-use',
-      'condo'
+      'condo',
+      'parametric',
+      'digital architecture',
+      'facade design',
+      'exterior'
     ],
     photos:[]
   },
@@ -5148,7 +5172,11 @@ var LOCS_NEW_YORK = [
       'chelsea',
       'folded metal panels',
       '2025',
-      'new york'
+      'new york',
+      'digital architecture',
+      'facade design',
+      'exterior',
+      'parametric'
     ],
     photos:[]
   },
@@ -5157,7 +5185,7 @@ var LOCS_NEW_YORK = [
     name:'7 World Trade Center',
     cats:[
       'skyscrapers',
-      'landmarks'
+      'commercial'
     ],
     cc:'c-sky',
     styleGroups:[
@@ -5200,8 +5228,7 @@ var LOCS_NEW_YORK = [
     id:'nyc-0121',
     name:'28 Liberty Street (One Chase Manhattan Plaza)',
     cats:[
-      'skyscrapers',
-      'landmarks'
+      'skyscrapers'
     ],
     cc:'c-sky',
     styleGroups:[
