@@ -314,8 +314,9 @@ var LOCS_NEW_YORK = [
       'touristic',
       'legendary',
       'museum',
-      'gallery'
-    , 'pritzker prize'],
+      'gallery',
+      'pritzker prize'
+    ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/2003-03-New-York-Guggenheim-Museum-Frank-Lloyd-Wright.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Solomon_R._Guggenheim_Museum%2C_New_York_City%2C_Lobby_Skylight_Delight.jpg?width=800',
@@ -357,8 +358,9 @@ var LOCS_NEW_YORK = [
       'american art',
       'meatpacking',
       'gallery',
-      'museum'
-    , 'pritzker prize'],
+      'museum',
+      'pritzker prize'
+    ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Whitney_Museum_of_American_Art_%2849051573133%29.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/The_Whitney_Museum%2C_New_York_City_in_2015.JPG?width=800',
@@ -640,8 +642,9 @@ var LOCS_NEW_YORK = [
       'leed gold',
       'education',
       'academic',
-      'digital architecture'
-    , 'pritzker prize'],
+      'digital architecture',
+      'pritzker prize'
+    ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Cooper_Union_-_Cooper_Union_Academic_Building_%2848072701728%29.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Cooper_Union_New_Academic_Bldg_from_south.jpg?width=800',
@@ -784,8 +787,9 @@ var LOCS_NEW_YORK = [
       'bronze glass',
       'plaza',
       'modern architecture',
-      'legendary'
-    , 'pritzker prize'],
+      'legendary',
+      'pritzker prize'
+    ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Seagram_Building_%2835098307116%29.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/270_Park_Avenue.JPG?width=800',
@@ -825,8 +829,11 @@ var LOCS_NEW_YORK = [
       'som',
       'glass curtain wall',
       'international style',
-      'park avenue'
-    , 'pritzker prize', 'gordon bunshaft', 'nyc landmark'],
+      'park avenue',
+      'pritzker prize',
+      'gordon bunshaft',
+      'nyc landmark'
+    ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Lever_House_390_Park_Avenue.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Park_Av_53_St_Mar_2021_70.jpg?width=800',
@@ -876,8 +883,9 @@ var LOCS_NEW_YORK = [
       'leed gold',
       'art deco base',
       'exoskeleton',
-      'exposed structure'
-    , 'pritzker prize'],
+      'exposed structure',
+      'pritzker prize'
+    ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Hearst_Tower_%28August_2024%29.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Nueva_York7042.JPG?width=800',
@@ -926,8 +934,9 @@ var LOCS_NEW_YORK = [
       'minimalist',
       'japanese',
       'museum',
-      'gallery'
-    , 'pritzker prize'],
+      'gallery',
+      'pritzker prize'
+    ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/New_Museum_in_New_York_City_2015.JPG?width=800'
     ],
@@ -968,8 +977,9 @@ var LOCS_NEW_YORK = [
       'chelsea',
       'sculptural',
       'freeform',
-      'digital architecture'
-    , 'pritzker prize'],
+      'digital architecture',
+      'pritzker prize'
+    ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Gehry_IAC_and_Nouvel_100_11th_Ave.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/IAC_night_jeh.jpg?width=800'
@@ -1011,8 +1021,9 @@ var LOCS_NEW_YORK = [
       'jenga tower',
       'tribeca',
       'anish kapoor',
-      'luxury residential'
-    , 'pritzker prize'],
+      'luxury residential',
+      'pritzker prize'
+    ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/56_Leonard_Street_%2824249%29.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/56_Leonard_Street_012.jpg?width=800',
@@ -1145,8 +1156,9 @@ var LOCS_NEW_YORK = [
       'renzo piano',
       'ceramic tubes',
       'leed silver',
-      'times square'
-    , 'pritzker prize'],
+      'times square',
+      'pritzker prize'
+    ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/New_york_times_building.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/New_York_Times_Building_-_Bottom_Portion_%2848193462432%29.jpg?width=800',
@@ -1326,8 +1338,9 @@ var LOCS_NEW_YORK = [
       'curtain wall',
       'international territory',
       'legendary',
-      'wonder'
-    , 'pritzker prize'],
+      'wonder',
+      'pritzker prize'
+    ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Headquarters_of_the_United_Nations%2C_New_York_City%2C_20231001_1103_1007.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Shore_of_the_East_River_with_Headquarters_of_the_United_Nations%2C_New_York_City%2C_20231005_1132_2230.jpg?width=800',
@@ -1374,8 +1387,9 @@ var LOCS_NEW_YORK = [
       'new formalism',
       'performing arts',
       'travertine plaza',
-      'legendary'
-    , 'pritzker prize'],
+      'legendary',
+      'pritzker prize'
+    ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Lincoln_Center_Overview_%2848047495362%29.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Lincoln_Center_Nov_2023_29.jpg?width=800',
@@ -3991,8 +4005,9 @@ var LOCS_NEW_YORK = [
       'glass',
       'minimalist',
       'hudson river',
-      'pritzker prize'
-    , 'the new york five'],
+      'pritzker prize',
+      'the new york five'
+    ],
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/173_Perry_St_by_David_Shankbone.jpg/800px-173_Perry_St_by_David_Shankbone.jpg'
     ],
@@ -4221,8 +4236,9 @@ var LOCS_NEW_YORK = [
       'supertall',
       'moma',
       'midtown',
-      'diagonal bracing'
-    , 'pritzker prize'],
+      'diagonal bracing',
+      'pritzker prize'
+    ],
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/53W53_MoMA_Tower_2019.jpg/800px-53W53_MoMA_Tower_2019.jpg'
     ],
@@ -4263,8 +4279,9 @@ var LOCS_NEW_YORK = [
       'rem koolhaas',
       'prada',
       'retail',
-      'soho'
-    , 'pritzker prize'],
+      'soho',
+      'pritzker prize'
+    ],
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Prada_Epicenter_NYC_OMA.jpg/800px-Prada_Epicenter_NYC_OMA.jpg'
     ],
@@ -4508,7 +4525,7 @@ var LOCS_NEW_YORK = [
       'financial district',
       'arched windows',
       'supertall',
-      'first nyc tower'
+      'first nyc work'
     ],
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/130_William_Street_Adjaye.jpg/800px-130_William_Street_Adjaye.jpg'
@@ -4603,7 +4620,8 @@ var LOCS_NEW_YORK = [
     id:'nyc-0107',
     name:'Campbell Sports Center',
     cats:[
-      'academic / institution'
+      'academic / institution',
+      'sports'
     ],
     cc:'c-aca',
     styleGroups:[
@@ -4697,8 +4715,8 @@ var LOCS_NEW_YORK = [
     arch:'Steven Holl Architects',
     yr:2005,
     access:'open to public',
-    lat:40.6878882,
-    lng:-73.964387,
+    lat:40.6880131,
+    lng:-73.9643168,
     addr:'61 St James Place, Brooklyn, NY 11238',
     hood:'Clinton Hill, Brooklyn',
     desc:'Higgins Hall Center Wing is a new insertion by Steven Holl Architects into the historic campus of Pratt Institute in Clinton Hill, Brooklyn, completed in 2005. The project inserts a new connecting wing between the two wings of the historic 1892 Higgins Hall building, creating a new entrance, circulation spine, and studio spaces for the School of Architecture. Holl\'s addition is expressed in board-formed concrete and glass block, with a carefully detailed transition between old and new. The central space — a luminous concrete hall with staggered floor levels — becomes the social heart of the architecture school. The project is a model of sensitive contextual addition.',
@@ -4736,10 +4754,10 @@ var LOCS_NEW_YORK = [
     arch:'Steven Holl Architects',
     yr:2014,
     access:'open to public',
-    lat:40.7241473,
-    lng:-74.0024033,
-    addr:'394 W Broadway, New York, NY 10012',
-    hood:'SoHo',
+    lat:40.7379151,
+    lng:-74.0017498,
+    addr:'94 Greenwich Ave, New York, NY 10011, United States',
+    hood:'West Village',
     desc:'The Frédéric Malle boutique at 394 West Broadway in SoHo is one of Steven Holl\'s most refined small-scale works — a narrow retail space transformed by the insertion of cylindrical glass \'smell columns\' that each contain a different fragrance. Visitors enter the columns to experience individual perfumes in isolation, uncontaminated by ambient scent. The design creates an entirely new typology for fragrance retail: rather than a display wall of bottles, the experience is spatial, immersive, and sequential. The steel, glass, and resin interior is designed to feel simultaneously laboratory and sanctuary. The project demonstrates how Holl\'s phenomenological approach to architecture translates into the intimate scale of a boutique.',
     hours:'Mon–Sat 11 AM–7 PM · Sun 12–6 PM',
     lastEntry:'',
@@ -4749,16 +4767,17 @@ var LOCS_NEW_YORK = [
     transit:'C E → Spring St · 1 → Houston St · N R W → Prince St',
     walkFrom:'SoHo: central · Prada Epicenter: 8 min',
     tags:[
-      'steven holl architects',
       'perfume boutique',
       'smell columns',
       'soho',
       'retail',
-      'phenomenological'
+      'phenomenological',
+      'steven holl architects'
     ],
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Frederic_Malle_Steven_Holl_NYC.jpg/800px-Frederic_Malle_Steven_Holl_NYC.jpg'
-    ]
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7379232, lng:-74.0018625 }
   },
   {
     id:'nyc-0111',
@@ -4796,7 +4815,8 @@ var LOCS_NEW_YORK = [
       'residential',
       'meatpacking district',
       'warehouse conversion',
-      'aia award'
+      'aia award',
+      'addition'
     ],
     photos:[]
   },
@@ -4836,16 +4856,20 @@ var LOCS_NEW_YORK = [
       'residential',
       'nolita',
       'contextual',
-      'undulating facade'
+      'undulating facade',
+      'facade design',
+      'parametric',
+      'exterior'
     ],
-    photos:[]
+    photos:[],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.724667, lng:-73.995047 }
   },
   {
     id:'nyc-0113',
     name:'American Copper Buildings',
     cats:[
       'skyscrapers',
-      'landmarks'
+      'commercial'
     ],
     cc:'c-sky',
     styleGroups:[
@@ -4878,9 +4902,13 @@ var LOCS_NEW_YORK = [
       'twin towers',
       'residential',
       'waterfront',
-      'kips bay'
+      'kips bay',
+      'facade design',
+      'parametric',
+      'exterior'
     ],
-    photos:[]
+    photos:[],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7443674, lng:-73.971387 }
   },
   {
     id:'nyc-0114',
@@ -4919,9 +4947,12 @@ var LOCS_NEW_YORK = [
       'waterfront',
       'public',
       'entertainment',
-      'brooklyn bridge views'
+      'brooklyn bridge views',
+      'facade design',
+      'exterior'
     ],
-    photos:[]
+    photos:[],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7057499, lng:-74.0023992 }
   },
   {
     id:'nyc-0115',
@@ -4960,16 +4991,20 @@ var LOCS_NEW_YORK = [
       'domino sugar',
       'waterfront',
       'courtyard',
-      'brooklyn'
+      'brooklyn',
+      'facade design',
+      'exterior',
+      'digital architecture'
     ],
-    photos:[]
+    photos:[],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7137915, lng:-73.9671522 }
   },
   {
     id:'nyc-0116',
     name:'Steinway Tower (111 W 57th St)',
     cats:[
       'skyscrapers',
-      'landmarks'
+      'residential'
     ],
     cc:'c-sky',
     styleGroups:[
@@ -5000,20 +5035,21 @@ var LOCS_NEW_YORK = [
       'supertall',
       'skyscraper',
       'billionaires row',
-      'ultra-luxury',
       'steinway hall',
       'terracotta',
       'slender tower',
-      '1428 ft'
+      'skinny',
+      'luxury residential'
     ],
-    photos:[]
+    photos:[],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7650657, lng:-73.9775162 }
   },
   {
     id:'nyc-0117',
     name:'The Brooklyn Tower (9 DeKalb Ave)',
     cats:[
       'skyscrapers',
-      'landmarks'
+      'residential'
     ],
     cc:'c-sky',
     styleGroups:[
@@ -5047,7 +5083,9 @@ var LOCS_NEW_YORK = [
       'landmark preservation',
       'downtown brooklyn',
       'tallest in brooklyn',
-      '1066 ft'
+      '1066 ft',
+      'facade design',
+      'exterior'
     ],
     photos:[]
   },
@@ -5088,7 +5126,11 @@ var LOCS_NEW_YORK = [
       'folded aluminum',
       'icp museum',
       'mixed-use',
-      'condo'
+      'condo',
+      'parametric',
+      'digital architecture',
+      'facade design',
+      'exterior'
     ],
     photos:[]
   },
@@ -5130,7 +5172,11 @@ var LOCS_NEW_YORK = [
       'chelsea',
       'folded metal panels',
       '2025',
-      'new york'
+      'new york',
+      'digital architecture',
+      'facade design',
+      'exterior',
+      'parametric'
     ],
     photos:[]
   },
@@ -5139,7 +5185,7 @@ var LOCS_NEW_YORK = [
     name:'7 World Trade Center',
     cats:[
       'skyscrapers',
-      'landmarks'
+      'commercial'
     ],
     cc:'c-sky',
     styleGroups:[
@@ -5182,8 +5228,7 @@ var LOCS_NEW_YORK = [
     id:'nyc-0121',
     name:'28 Liberty Street (One Chase Manhattan Plaza)',
     cats:[
-      'skyscrapers',
-      'landmarks'
+      'skyscrapers'
     ],
     cc:'c-sky',
     styleGroups:[
@@ -5215,8 +5260,10 @@ var LOCS_NEW_YORK = [
       'financial district',
       'chase manhattan',
       'dubuffet sculpture',
-      '1960s modernism'
-    , 'pritzker prize', 'gordon bunshaft'],
+      '1960s modernism',
+      'pritzker prize',
+      'gordon bunshaft'
+    ],
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/28_Liberty_Street_by_David_Shankbone.jpg/800px-28_Liberty_Street_by_David_Shankbone.jpg'
     ]
@@ -5226,7 +5273,8 @@ var LOCS_NEW_YORK = [
     name:'Moynihan Train Hall',
     cats:[
       'infrastructure',
-      'landmarks'
+      'landmarks',
+      'mixed-use'
     ],
     cc:'c-inf',
     styleGroups:[
@@ -5260,11 +5308,13 @@ var LOCS_NEW_YORK = [
       'beaux-arts',
       'skylight',
       'farley building',
-      '2021'
+      '2021',
+      'renovation'
     ],
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Moynihan_Train_Hall_interior_2021.jpg/800px-Moynihan_Train_Hall_interior_2021.jpg'
-    ]
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'default', lat:40.751256, lng:-73.9951837 }
   },
   {
     id:'nyc-0123',
@@ -5631,8 +5681,9 @@ var LOCS_NEW_YORK = [
       'moving room',
       'art',
       'nolita',
-      'sliver building'
-    , 'pritzker prize'],
+      'sliver building',
+      'pritzker prize'
+    ],
     photos:[]
   },
   {
@@ -5674,8 +5725,9 @@ var LOCS_NEW_YORK = [
       'italian marble',
       'leed gold',
       'blackrock',
-      '1011 ft'
-    , 'pritzker prize'],
+      '1011 ft',
+      'pritzker prize'
+    ],
     photos:[]
   },
   {
@@ -5717,8 +5769,9 @@ var LOCS_NEW_YORK = [
       'midtown east',
       'jean-georges',
       'full block',
-      '860 ft'
-    , 'pritzker prize'],
+      '860 ft',
+      'pritzker prize'
+    ],
     photos:[]
   },
   {
@@ -5761,8 +5814,9 @@ var LOCS_NEW_YORK = [
       'net zero',
       'leed platinum',
       '1388 ft',
-      '2025'
-    , 'pritzker prize'],
+      '2025',
+      'pritzker prize'
+    ],
     photos:[]
   },
   {
@@ -6023,8 +6077,9 @@ var LOCS_NEW_YORK = [
       'concrete',
       'residential',
       'nolita',
-      'boutique condo'
-    , 'pritzker prize'],
+      'boutique condo',
+      'pritzker prize'
+    ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/152_Elizabeth_Street_NYC_Tadao_Ando.jpg?width=800'
     ]
@@ -6066,8 +6121,9 @@ var LOCS_NEW_YORK = [
       'residential',
       'soho',
       'luxury',
-      'curved facade'
-    , 'pritzker prize'],
+      'curved facade',
+      'pritzker prize'
+    ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/565_Broome_SoHo_Ando.jpg?width=800'
     ]
@@ -6972,8 +7028,9 @@ var LOCS_NEW_YORK = [
     tags:[
       'glass-palace',
       'neuroscience-research',
-      'contemporary'
-    , 'pritzker prize'],
+      'contemporary',
+      'pritzker prize'
+    ],
     photos:[]
   },
   {
@@ -7007,8 +7064,9 @@ var LOCS_NEW_YORK = [
     tags:[
       'art-center',
       'gallery-spaces',
-      'performance-venues'
-    , 'pritzker prize'],
+      'performance-venues',
+      'pritzker prize'
+    ],
     photos:[]
   },
   {
@@ -7043,8 +7101,9 @@ var LOCS_NEW_YORK = [
     tags:[
       'conference-space',
       'glass-pavilion',
-      'public-engagement'
-    , 'pritzker prize'],
+      'public-engagement',
+      'pritzker prize'
+    ],
     photos:[]
   },
   {
@@ -7078,8 +7137,9 @@ var LOCS_NEW_YORK = [
       'glass',
       'laboratory',
       'columbia',
-      'institutional'
-    , 'pritzker prize'],
+      'institutional',
+      'pritzker prize'
+    ],
     photos:[]
   },
   {
@@ -7512,8 +7572,9 @@ var LOCS_NEW_YORK = [
       'oma',
       'contemporary',
       'luxury',
-      'prismatic'
-    , 'pritzker prize'],
+      'prismatic',
+      'pritzker prize'
+    ],
     photos:[]
   },
   {
@@ -7549,8 +7610,9 @@ var LOCS_NEW_YORK = [
       'hotel',
       'residential',
       'chipperfield',
-      'contemporary'
-    , 'pritzker prize'],
+      'contemporary',
+      'pritzker prize'
+    ],
     photos:[]
   },
   {
@@ -7585,8 +7647,9 @@ var LOCS_NEW_YORK = [
       'flagship',
       'luxury',
       'chipperfield',
-      'contemporary'
-    , 'pritzker prize'],
+      'contemporary',
+      'pritzker prize'
+    ],
     photos:[]
   },
   {
@@ -7915,8 +7978,9 @@ var LOCS_NEW_YORK = [
       'contemporary',
       'oma',
       'lower-east-side',
-      'expansion'
-    , 'pritzker prize'],
+      'expansion',
+      'pritzker prize'
+    ],
     photos:[]
   },
   {
@@ -8147,8 +8211,10 @@ var LOCS_NEW_YORK = [
       'skyscraper',
       'som',
       'international-style',
-      'landmark'
-    , 'pritzker prize', 'gordon bunshaft'],
+      'landmark',
+      'pritzker prize',
+      'gordon bunshaft'
+    ],
     photos:[]
   },
   {
@@ -8545,8 +8611,7 @@ var LOCS_NEW_YORK = [
       'historic'
     ],
     photos:[]
-  }
-,
+  },
   {
     id:'nyc-0215',
     name:'FDNY Engine 233 / Ladder 176 Firehouse',
@@ -8561,14 +8626,16 @@ var LOCS_NEW_YORK = [
     era:'1970–1999',
     city:'new-york',
     arch:'Peter Eisenman',
-    archs:['Peter Eisenman'],
+    archs:[
+      'Peter Eisenman'
+    ],
     yr:1985,
     access:'exterior only',
     lat:40.7094,
     lng:-73.958,
     addr:'175 Middleton St, Brooklyn, NY 11206',
     hood:'Williamsburg',
-    desc:"One of Peter Eisenman's rare built public commissions. This two-story firehouse in Williamsburg, Brooklyn was designed to respond to the intersecting street grids of the neighborhood. Eisenman incorporated his signature formal explorations — rotating and overlapping geometries derived from the two grids that meet at the site — into a functional municipal building. Red laser lights in the structural roof beams reference the fire engine's emergency lights. It stands as the only built civic structure in New York by one of architecture's most influential theorists.",
+    desc:'One of Peter Eisenman\'s rare built public commissions. This two-story firehouse in Williamsburg, Brooklyn was designed to respond to the intersecting street grids of the neighborhood. Eisenman incorporated his signature formal explorations — rotating and overlapping geometries derived from the two grids that meet at the site — into a functional municipal building. Red laser lights in the structural roof beams reference the fire engine\'s emergency lights. It stands as the only built civic structure in New York by one of architecture\'s most influential theorists.',
     hours:'Exterior only',
     lastEntry:'',
     admission:'Free (exterior viewing)',
@@ -8600,14 +8667,16 @@ var LOCS_NEW_YORK = [
     era:'2000–Present',
     city:'new-york',
     arch:'Michael Graves & Associates',
-    archs:['Michael Graves'],
+    archs:[
+      'Michael Graves'
+    ],
     yr:2003,
     access:'private',
     lat:40.7505,
     lng:-73.9821,
     addr:'425 5th Ave, New York, NY 10016',
     hood:'Midtown',
-    desc:"A 55-story residential tower designed by Michael Graves, one of the New York Five and a leading figure in postmodern architecture. The building's limestone and glass facade rises with setbacks that reference classic Manhattan skyscraper massing, while an elliptical lobby and a dedicated sky lobby on the 7th floor add a theatrical sense of arrival. It was one of Graves's largest built projects and marked his rare foray into New York City high-rise design. The tower houses 197 luxury condominium units overlooking the New York Public Library and Bryant Park.",
+    desc:'A 55-story residential tower designed by Michael Graves, one of the New York Five and a leading figure in postmodern architecture. The building\'s limestone and glass facade rises with setbacks that reference classic Manhattan skyscraper massing, while an elliptical lobby and a dedicated sky lobby on the 7th floor add a theatrical sense of arrival. It was one of Graves\'s largest built projects and marked his rare foray into New York City high-rise design. The tower houses 197 luxury condominium units overlooking the New York Public Library and Bryant Park.',
     hours:'Exterior: 24/7',
     lastEntry:'',
     admission:'Private residential',
@@ -8637,14 +8706,16 @@ var LOCS_NEW_YORK = [
     era:'1970–1999',
     city:'new-york',
     arch:'Gwathmey Siegel & Associates',
-    archs:['Charles Gwathmey'],
+    archs:[
+      'Charles Gwathmey'
+    ],
     yr:1992,
     access:'paid ticket',
     lat:40.783,
     lng:-73.959,
     addr:'1071 5th Ave, New York, NY 10128',
     hood:'Upper East Side',
-    desc:"Charles Gwathmey's ten-story rectangular addition to Frank Lloyd Wright's iconic Guggenheim Museum was one of the most debated architectural projects in New York history. The limestone-clad tower added 51,000 square feet of new and renovated gallery space while deliberately deferring to Wright's spiral rotunda. Gwathmey's restrained geometric slab — positioned behind and to the side of the original building — was designed to be 'a background building' that would enhance rather than compete with Wright's masterwork. The project also included a full restoration of the original 1959 structure.",
+    desc:'Charles Gwathmey\'s ten-story rectangular addition to Frank Lloyd Wright\'s iconic Guggenheim Museum was one of the most debated architectural projects in New York history. The limestone-clad tower added 51,000 square feet of new and renovated gallery space while deliberately deferring to Wright\'s spiral rotunda. Gwathmey\'s restrained geometric slab — positioned behind and to the side of the original building — was designed to be \'a background building\' that would enhance rather than compete with Wright\'s masterwork. The project also included a full restoration of the original 1959 structure.',
     hours:'Thu–Mon 11am–6pm (closed Tue–Wed)',
     lastEntry:'5:30pm',
     admission:'$30 adults; Pay What You Wish Sat 4–6pm',
@@ -8675,14 +8746,16 @@ var LOCS_NEW_YORK = [
     era:'2000–Present',
     city:'new-york',
     arch:'Gwathmey Siegel & Associates',
-    archs:['Charles Gwathmey'],
+    archs:[
+      'Charles Gwathmey'
+    ],
     yr:2005,
     access:'private',
     lat:40.7292,
     lng:-73.992,
     addr:'445 Lafayette St, New York, NY 10003',
     hood:'NoHo',
-    desc:"A 21-story mixed-use tower at the crossroads of NoHo and the East Village, designed by Charles Gwathmey of the New York Five. The building's asymmetric form is clad in dark stainless steel and tinted glass, creating a striking sculptural presence that contrasts with the 19th-century cast-iron neighbors. It contains 39 luxury loft units and ground-floor retail. The tower was considered one of Gwathmey's most accomplished late works, demonstrating his ongoing commitment to bold geometric abstraction in an urban residential context.",
+    desc:'A 21-story mixed-use tower at the crossroads of NoHo and the East Village, designed by Charles Gwathmey of the New York Five. The building\'s asymmetric form is clad in dark stainless steel and tinted glass, creating a striking sculptural presence that contrasts with the 19th-century cast-iron neighbors. It contains 39 luxury loft units and ground-floor retail. The tower was considered one of Gwathmey\'s most accomplished late works, demonstrating his ongoing commitment to bold geometric abstraction in an urban residential context.',
     hours:'Exterior: 24/7',
     lastEntry:'',
     admission:'Private residential',
@@ -8713,14 +8786,16 @@ var LOCS_NEW_YORK = [
     era:'2000–Present',
     city:'new-york',
     arch:'Gwathmey Siegel & Associates',
-    archs:['Charles Gwathmey'],
+    archs:[
+      'Charles Gwathmey'
+    ],
     yr:2010,
     access:'exterior only',
     lat:40.7495,
     lng:-73.9689,
     addr:'799 United Nations Plaza, New York, NY 10017',
     hood:'Turtle Bay',
-    desc:"The United States Mission to the United Nations building, designed by Charles Gwathmey as one of his final major commissions. Completed posthumously in 2010 and dedicated in 2011, the building serves as the diplomatic headquarters for America's UN delegation. Its sleek modern facade of glass and metal along First Avenue presents a restrained yet authoritative presence befitting its diplomatic function, positioned within the constellation of international mission buildings near the UN Headquarters.",
+    desc:'The United States Mission to the United Nations building, designed by Charles Gwathmey as one of his final major commissions. Completed posthumously in 2010 and dedicated in 2011, the building serves as the diplomatic headquarters for America\'s UN delegation. Its sleek modern facade of glass and metal along First Avenue presents a restrained yet authoritative presence befitting its diplomatic function, positioned within the constellation of international mission buildings near the UN Headquarters.',
     hours:'Not open to public',
     lastEntry:'',
     admission:'Government building — no public access',
@@ -8751,14 +8826,16 @@ var LOCS_NEW_YORK = [
     era:'1970–1999',
     city:'new-york',
     arch:'John Hejduk',
-    archs:['John Hejduk'],
+    archs:[
+      'John Hejduk'
+    ],
     yr:1975,
     access:'limited',
     lat:40.7292,
     lng:-73.9908,
     addr:'7 E 7th St, New York, NY 10003',
     hood:'East Village',
-    desc:"As Dean of the Cooper Union School of Architecture (1975–2000), John Hejduk oversaw the radical interior renovation of the historic Foundation Building, originally designed by Frederick A. Peterson in 1859. Hejduk retained the four original brownstone facades and the Great Hall (where Abraham Lincoln spoke in 1860) while inserting a modern columnar structural grid to create open, loft-like studios, classrooms, and exhibition spaces. The renovation transformed a 19th-century academic building into a laboratory for avant-garde architectural education, reflecting Hejduk's deeply theoretical approach to architecture.",
+    desc:'As Dean of the Cooper Union School of Architecture (1975–2000), John Hejduk oversaw the radical interior renovation of the historic Foundation Building, originally designed by Frederick A. Peterson in 1859. Hejduk retained the four original brownstone facades and the Great Hall (where Abraham Lincoln spoke in 1860) while inserting a modern columnar structural grid to create open, loft-like studios, classrooms, and exhibition spaces. The renovation transformed a 19th-century academic building into a laboratory for avant-garde architectural education, reflecting Hejduk\'s deeply theoretical approach to architecture.',
     hours:'Mon–Fri 9am–5pm (academic year)',
     lastEntry:'4:30pm',
     admission:'Free (public gallery)',
@@ -8791,14 +8868,16 @@ var LOCS_NEW_YORK = [
     era:'1930–1969',
     city:'new-york',
     arch:'Richard Meier & Partners',
-    archs:['Richard Meier'],
+    archs:[
+      'Richard Meier'
+    ],
     yr:1970,
     access:'limited',
     lat:40.7358,
     lng:-74.0086,
     addr:'55 Bethune St, New York, NY 10014',
     hood:'West Village',
-    desc:"Richard Meier's first major commission — and one of America's most significant adaptive reuse projects. The former Bell Telephone Laboratories complex (where the transistor, talking movies, and early TV were developed) was converted into 384 subsidized artist live-work units, making it the first federally subsidized artist housing in the United States. Meier threaded new circulation, studios, galleries, and a theater through the massive 1898–1928 industrial complex while preserving its robust industrial character. Residents have included Diane Arbus, Robert De Niro Sr., Merce Cunningham, and many others.",
+    desc:'Richard Meier\'s first major commission — and one of America\'s most significant adaptive reuse projects. The former Bell Telephone Laboratories complex (where the transistor, talking movies, and early TV were developed) was converted into 384 subsidized artist live-work units, making it the first federally subsidized artist housing in the United States. Meier threaded new circulation, studios, galleries, and a theater through the massive 1898–1928 industrial complex while preserving its robust industrial character. Residents have included Diane Arbus, Robert De Niro Sr., Merce Cunningham, and many others.',
     hours:'Gallery: check website; residential areas private',
     lastEntry:'',
     admission:'Gallery free; residential private',
@@ -8831,14 +8910,16 @@ var LOCS_NEW_YORK = [
     era:'2000–Present',
     city:'new-york',
     arch:'Richard Meier & Partners',
-    archs:['Richard Meier'],
+    archs:[
+      'Richard Meier'
+    ],
     yr:2005,
     access:'private',
     lat:40.7357,
     lng:-74.0104,
     addr:'165 Charles St, New York, NY 10014',
     hood:'West Village',
-    desc:"The third and final building in Richard Meier's Perry Street ensemble, 165 Charles Street is a 16-story glass and white-panel residential tower facing the Hudson River. While sharing the same all-glass aesthetic as the earlier 173–176 Perry Street towers, this building introduced a more refined curtain wall system and curving glass corners. Together the three towers form Meier's most prominent Manhattan statement — importing his signature white minimalism into the dense West Village fabric. Winner of the 2005 AIA New York Housing Design Award.",
+    desc:'The third and final building in Richard Meier\'s Perry Street ensemble, 165 Charles Street is a 16-story glass and white-panel residential tower facing the Hudson River. While sharing the same all-glass aesthetic as the earlier 173–176 Perry Street towers, this building introduced a more refined curtain wall system and curving glass corners. Together the three towers form Meier\'s most prominent Manhattan statement — importing his signature white minimalism into the dense West Village fabric. Winner of the 2005 AIA New York Housing Design Award.',
     hours:'Exterior: 24/7',
     lastEntry:'',
     admission:'Private residential',
@@ -8871,14 +8952,17 @@ var LOCS_NEW_YORK = [
     era:'1930–1969',
     city:'new-york',
     arch:'Gordon Bunshaft / SOM (Skidmore, Owings & Merrill)',
-    archs:['Gordon Bunshaft', 'SOM (Skidmore, Owings & Merrill)'],
+    archs:[
+      'Gordon Bunshaft',
+      'SOM (Skidmore, Owings & Merrill)'
+    ],
     yr:1954,
     access:'limited',
     lat:40.7546,
     lng:-73.9807,
     addr:'510 5th Ave, New York, NY 10036',
     hood:'Midtown',
-    desc:"The first bank building in the United States designed in the International Style. Gordon Bunshaft's masterful four-story glass-walled structure on Fifth Avenue revolutionized bank architecture — replacing the traditional fortress-like stone bank with a transparent, welcoming facade that put the vault on full display to passing pedestrians. The luminous interior, designed with sculptor Harry Bertoia's dramatic screen, embodied mid-century corporate modernism at its most confident. The facade is a designated NYC Landmark (1997) and the interior received landmark status in 2011 — one of the few commercial interiors so honored.",
+    desc:'The first bank building in the United States designed in the International Style. Gordon Bunshaft\'s masterful four-story glass-walled structure on Fifth Avenue revolutionized bank architecture — replacing the traditional fortress-like stone bank with a transparent, welcoming facade that put the vault on full display to passing pedestrians. The luminous interior, designed with sculptor Harry Bertoia\'s dramatic screen, embodied mid-century corporate modernism at its most confident. The facade is a designated NYC Landmark (1997) and the interior received landmark status in 2011 — one of the few commercial interiors so honored.',
     hours:'Retail hours vary',
     lastEntry:'',
     admission:'Free (retail)',
@@ -8912,14 +8996,18 @@ var LOCS_NEW_YORK = [
     era:'1930–1969',
     city:'new-york',
     arch:'Gordon Bunshaft / SOM (Skidmore, Owings & Merrill)',
-    archs:['Gordon Bunshaft', 'Natalie de Blois', 'SOM (Skidmore, Owings & Merrill)'],
+    archs:[
+      'Gordon Bunshaft',
+      'Natalie de Blois',
+      'SOM (Skidmore, Owings & Merrill)'
+    ],
     yr:1960,
     access:'limited',
     lat:40.763,
     lng:-73.9705,
     addr:'500 Park Ave, New York, NY 10022',
     hood:'Midtown East',
-    desc:"Originally built as the Pepsi-Cola Company headquarters, this elegant 11-story glass and aluminum curtain-wall office building at the prominent corner of Park Avenue and 59th Street exemplifies the refined minimalism of SOM's mid-century corporate work. Natalie de Blois, one of the few prominent women architects of the era, was the primary designer under Bunshaft's direction. The building's slender proportions and crystalline transparency made it an instant icon of International Style corporate architecture. Designated a NYC Landmark in 1995.",
+    desc:'Originally built as the Pepsi-Cola Company headquarters, this elegant 11-story glass and aluminum curtain-wall office building at the prominent corner of Park Avenue and 59th Street exemplifies the refined minimalism of SOM\'s mid-century corporate work. Natalie de Blois, one of the few prominent women architects of the era, was the primary designer under Bunshaft\'s direction. The building\'s slender proportions and crystalline transparency made it an instant icon of International Style corporate architecture. Designated a NYC Landmark in 1995.',
     hours:'Lobby only during business hours',
     lastEntry:'',
     admission:'Free (lobby)',
@@ -8953,14 +9041,17 @@ var LOCS_NEW_YORK = [
     era:'1930–1969',
     city:'new-york',
     arch:'Gordon Bunshaft / SOM (Skidmore, Owings & Merrill)',
-    archs:['Gordon Bunshaft', 'SOM (Skidmore, Owings & Merrill)'],
+    archs:[
+      'Gordon Bunshaft',
+      'SOM (Skidmore, Owings & Merrill)'
+    ],
     yr:1967,
     access:'lobby only',
     lat:40.7086,
     lng:-74.01,
     addr:'140 Broadway, New York, NY 10005',
     hood:'Financial District',
-    desc:"A 52-story, 645-foot office tower and one of Bunshaft's most formally rigorous works. The building's sheer black aluminum and glass curtain wall rises from a trapezoidal footprint set upon a bold public plaza — occupied by Isamu Noguchi's famous red cube sculpture ('Red Cube,' 1968). Bunshaft's decision to eliminate all ground-floor retail and devote the street level to open space was a conscious urbanism statement, creating one of Lower Manhattan's most iconic public art-and-architecture encounters. Designated a NYC Landmark.",
+    desc:'A 52-story, 645-foot office tower and one of Bunshaft\'s most formally rigorous works. The building\'s sheer black aluminum and glass curtain wall rises from a trapezoidal footprint set upon a bold public plaza — occupied by Isamu Noguchi\'s famous red cube sculpture (\'Red Cube,\' 1968). Bunshaft\'s decision to eliminate all ground-floor retail and devote the street level to open space was a conscious urbanism statement, creating one of Lower Manhattan\'s most iconic public art-and-architecture encounters. Designated a NYC Landmark.',
     hours:'Lobby: business hours; plaza: 24/7',
     lastEntry:'',
     admission:'Free (plaza and lobby)',
@@ -8995,14 +9086,17 @@ var LOCS_NEW_YORK = [
     era:'1970–1999',
     city:'new-york',
     arch:'Gordon Bunshaft / SOM (Skidmore, Owings & Merrill)',
-    archs:['Gordon Bunshaft', 'SOM (Skidmore, Owings & Merrill)'],
+    archs:[
+      'Gordon Bunshaft',
+      'SOM (Skidmore, Owings & Merrill)'
+    ],
     yr:1974,
     access:'lobby only',
     lat:40.7643,
     lng:-73.9748,
     addr:'9 W 57th St, New York, NY 10019',
     hood:'Midtown',
-    desc:"One of Manhattan's most distinctive skyscrapers. The 50-story Solow Building's signature feature is its dramatically sloped facade — curving inward from street level and narrowing by 64 feet to the 18th floor before rising straight to the top. Clad in white travertine marble (rather than the typical glass curtain wall), the building creates an arresting concave profile along 57th Street, framing views of Central Park. The generous setback produces an unusually deep public plaza featuring a sculpture installation. The slope was developer Sheldon Solow's personal aesthetic demand, executed with Bunshaft's engineering mastery.",
+    desc:'One of Manhattan\'s most distinctive skyscrapers. The 50-story Solow Building\'s signature feature is its dramatically sloped facade — curving inward from street level and narrowing by 64 feet to the 18th floor before rising straight to the top. Clad in white travertine marble (rather than the typical glass curtain wall), the building creates an arresting concave profile along 57th Street, framing views of Central Park. The generous setback produces an unusually deep public plaza featuring a sculpture installation. The slope was developer Sheldon Solow\'s personal aesthetic demand, executed with Bunshaft\'s engineering mastery.',
     hours:'Lobby: business hours; plaza: 24/7',
     lastEntry:'',
     admission:'Free (plaza)',
@@ -9035,14 +9129,18 @@ var LOCS_NEW_YORK = [
     era:'1930–1969',
     city:'new-york',
     arch:'Gordon Bunshaft / SOM (Skidmore, Owings & Merrill)',
-    archs:['Gordon Bunshaft', 'Mayer & Whittlesey', 'SOM (Skidmore, Owings & Merrill)'],
+    archs:[
+      'Gordon Bunshaft',
+      'Mayer & Whittlesey',
+      'SOM (Skidmore, Owings & Merrill)'
+    ],
     yr:1951,
     access:'private',
     lat:40.7654,
     lng:-73.9634,
     addr:'200 E 66th St, New York, NY 10065',
     hood:'Upper East Side',
-    desc:"One of the first modernist residential buildings in Manhattan and a pioneering example of 'white-glove' apartment living in the International Style. The 21-story white-brick building occupies a full block on the Upper East Side, with generous setbacks, a landscaped courtyard, and open ground-floor through-passages that were radical for 1950s New York. Designed by SOM with Mayer & Whittlesey, the building replaced the Third Avenue Elevated Railway's adjacent rail yards and helped establish the Upper East Side as a premier residential district. Designated a NYC Landmark.",
+    desc:'One of the first modernist residential buildings in Manhattan and a pioneering example of \'white-glove\' apartment living in the International Style. The 21-story white-brick building occupies a full block on the Upper East Side, with generous setbacks, a landscaped courtyard, and open ground-floor through-passages that were radical for 1950s New York. Designed by SOM with Mayer & Whittlesey, the building replaced the Third Avenue Elevated Railway\'s adjacent rail yards and helped establish the Upper East Side as a premier residential district. Designated a NYC Landmark.',
     hours:'Exterior: 24/7',
     lastEntry:'',
     admission:'Private residential',
@@ -9076,14 +9174,17 @@ var LOCS_NEW_YORK = [
     era:'1930–1969',
     city:'new-york',
     arch:'Gordon Bunshaft / SOM (Skidmore, Owings & Merrill)',
-    archs:['Gordon Bunshaft', 'SOM (Skidmore, Owings & Merrill)'],
+    archs:[
+      'Gordon Bunshaft',
+      'SOM (Skidmore, Owings & Merrill)'
+    ],
     yr:1965,
     access:'open to public',
     lat:40.7727,
     lng:-73.9836,
     addr:'40 Lincoln Center Plaza, New York, NY 10023',
     hood:'Upper West Side',
-    desc:"Positioned between the Metropolitan Opera House and the Vivian Beaumont Theater at Lincoln Center, this performing arts research library was designed by Gordon Bunshaft of SOM as the fourth building to open in the Lincoln Center complex. The building houses one of the world's most important collections of performing arts materials — over 50,000 sound recordings, 60,000 musical scores, and vast archives of theater, dance, and music history. Bunshaft's travertine-clad facade echoes the classical formality of the surrounding Lincoln Center buildings while maintaining his signature modernist restraint.",
+    desc:'Positioned between the Metropolitan Opera House and the Vivian Beaumont Theater at Lincoln Center, this performing arts research library was designed by Gordon Bunshaft of SOM as the fourth building to open in the Lincoln Center complex. The building houses one of the world\'s most important collections of performing arts materials — over 50,000 sound recordings, 60,000 musical scores, and vast archives of theater, dance, and music history. Bunshaft\'s travertine-clad facade echoes the classical formality of the surrounding Lincoln Center buildings while maintaining his signature modernist restraint.',
     hours:'Mon, Thu 12–8pm; Tue–Wed 10am–6pm; Fri–Sat 10am–5pm',
     lastEntry:'30 min before closing',
     admission:'Free',
@@ -9117,14 +9218,17 @@ var LOCS_NEW_YORK = [
     era:'1930–1969',
     city:'new-york',
     arch:'Gordon Bunshaft / SOM (Skidmore, Owings & Merrill)',
-    archs:['Gordon Bunshaft', 'SOM (Skidmore, Owings & Merrill)'],
+    archs:[
+      'Gordon Bunshaft',
+      'SOM (Skidmore, Owings & Merrill)'
+    ],
     yr:1951,
     access:'exterior only',
     lat:40.843,
     lng:-73.9175,
     addr:'2755 Sedgwick Ave, Bronx, NY 10468',
     hood:'Morris Heights',
-    desc:"A seven-building public housing complex in the Morris Heights neighborhood of the Bronx, designed by SOM under Gordon Bunshaft's direction. The red-brick towers arranged in a 'towers in the park' layout were influenced by Le Corbusier's urbanism ideals and represent one of the first modernist-designed public housing projects in New York City. Completed in 1951 for the New York City Housing Authority (NYCHA), the complex demonstrated that progressive architectural design could serve public housing. The project remains one of the few examples of a Pritzker Prize-winning architect's work in public social housing.",
+    desc:'A seven-building public housing complex in the Morris Heights neighborhood of the Bronx, designed by SOM under Gordon Bunshaft\'s direction. The red-brick towers arranged in a \'towers in the park\' layout were influenced by Le Corbusier\'s urbanism ideals and represent one of the first modernist-designed public housing projects in New York City. Completed in 1951 for the New York City Housing Authority (NYCHA), the complex demonstrated that progressive architectural design could serve public housing. The project remains one of the few examples of a Pritzker Prize-winning architect\'s work in public social housing.',
     hours:'Exterior: 24/7',
     lastEntry:'',
     admission:'Public housing — exterior viewing only',
