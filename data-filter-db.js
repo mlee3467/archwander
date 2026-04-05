@@ -1422,6 +1422,7 @@ const FILTER_DB = {
 
   archs: [
     '1990uao',
+    'Adjaye Associates',
     'Alan Ritchie',
     'Alejandro Zaera-Polo',
     'Allen & Collens',
