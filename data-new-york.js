@@ -40,7 +40,8 @@ var LOCS_NEW_YORK = [
       'Art Deco',
       'Landmark',
       'Midtown',
-      'Touristic'
+      'Touristic',
+      'Supertall'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/EmpireStateBuildingCU.jpg?width=800',
@@ -311,7 +312,9 @@ var LOCS_NEW_YORK = [
       'Modern Architecture',
       'Contemporary Art',
       'Touristic',
-      'Legendary'
+      'Legendary',
+      'Museum',
+      'Gallery'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/2003-03-New-York-Guggenheim-Museum-Frank-Lloyd-Wright.jpg?width=800',
@@ -546,7 +549,8 @@ var LOCS_NEW_YORK = [
       'Fifth Avenue',
       'Active Parish',
       'Church',
-      'Cathedral'
+      'Cathedral',
+      'Touristic'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/St._Patrick%27s_Cathedral%2C_New_York_1.jpg?width=800',
@@ -588,7 +592,8 @@ var LOCS_NEW_YORK = [
       'Beaux-Arts',
       'Free Entry',
       'Rose Reading Room',
-      'Bryant Park'
+      'Bryant Park',
+      'Touristic'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Public_Building_Library.jpg?width=800',
@@ -634,7 +639,8 @@ var LOCS_NEW_YORK = [
       'Deconstructivist',
       'LEED Gold',
       'Education',
-      'Academic'
+      'Academic',
+      'Digital Architecture'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Cooper_Union_-_Cooper_Union_Academic_Building_%2848072701728%29.jpg?width=800',
@@ -683,7 +689,8 @@ var LOCS_NEW_YORK = [
       '843 Acres',
       'Free Access',
       'Picturesque',
-      'Park'
+      'Park',
+      'Touristic'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/3015-Central_Park-Sheep_Meadow.JPG?width=800',
@@ -729,7 +736,8 @@ var LOCS_NEW_YORK = [
       'Art Deco',
       'Observatory',
       'NBC Studios',
-      'Rockefeller Center'
+      'Rockefeller Center',
+      'Touristic'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/GE_Building_by_David_Shankbone.JPG?width=800',
@@ -775,7 +783,8 @@ var LOCS_NEW_YORK = [
       'International Style',
       'Bronze Glass',
       'Plaza',
-      'Modern Architecture'
+      'Modern Architecture',
+      'Legendary'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Seagram_Building_%2835098307116%29.jpg?width=800',
@@ -865,7 +874,9 @@ var LOCS_NEW_YORK = [
       'Norman Foster',
       'Diagrid',
       'LEED Gold',
-      'Art Deco Base'
+      'Art Deco Base',
+      'Exoskeleton',
+      'exposed structure'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Hearst_Tower_%28August_2024%29.jpg?width=800',
@@ -911,7 +922,11 @@ var LOCS_NEW_YORK = [
       'SANAA',
       'Aluminum Mesh',
       'Contemporary Art',
-      'Bowery'
+      'Bowery',
+      'Minimalist',
+      'Japanese',
+      'Museum',
+      'Gallery'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/New_Museum_in_New_York_City_2015.JPG?width=800'
@@ -950,7 +965,10 @@ var LOCS_NEW_YORK = [
       'Frank Gehry',
       'Deconstructivist',
       'Undulating Glass',
-      'Chelsea'
+      'Chelsea',
+      'Sculptural',
+      'Freeform',
+      'Digital Architecture'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Gehry_IAC_and_Nouvel_100_11th_Ave.jpg?width=800',
@@ -1034,7 +1052,8 @@ var LOCS_NEW_YORK = [
       'Rafael Viñoly',
       'Supertall',
       'Slender Tower',
-      'Midtown Skyline'
+      'Midtown Skyline',
+      'Skinny'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/432_Park_Avenue%2C_NY_%28cropped%292.jpg?width=800',
@@ -1081,7 +1100,8 @@ var LOCS_NEW_YORK = [
       'Memorial',
       'Reflecting Pools',
       'Lower Manhattan',
-      'Free Plaza'
+      'Free Plaza',
+      'Touristic'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/9-11_Memorial_and_Museum_%2828815276064%29.jpg?width=800',
@@ -1170,7 +1190,10 @@ var LOCS_NEW_YORK = [
       'Beaux-Arts',
       'World Collection',
       '5th Avenue',
-      'Central Park'
+      'Central Park',
+      'Touristic',
+      'Museum',
+      'Gallery'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Metropolitan_Museum_of_Art_%28The_Met%29_-_Central_Park%2C_NYC.jpg?width=800',
@@ -1210,7 +1233,10 @@ var LOCS_NEW_YORK = [
       'Yoshio Taniguchi',
       'Modern Art',
       'Sculpture Garden',
-      'Midtown'
+      'Midtown',
+      'Touristic',
+      'Museum',
+      'Gallery'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/MoMa_NY_USA_1.jpg?width=800',
