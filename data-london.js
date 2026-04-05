@@ -4249,7 +4249,7 @@ var LOCS_LONDON = [
       "commercial",
       "office"
     ],
-    "cc": "GB-ENG",
+    "cc": "c-com",
     "styleGroups": [
       "modern",
       "contemporary"
@@ -4290,7 +4290,7 @@ var LOCS_LONDON = [
       "institutional",
       "embassy"
     ],
-    "cc": "GB-ENG",
+    "cc": "c-aca",
     "styleGroups": [
       "modernist",
       "brutalist"
@@ -4332,7 +4332,7 @@ var LOCS_LONDON = [
       "commercial",
       "office"
     ],
-    "cc": "GB-ENG",
+    "cc": "c-com",
     "styleGroups": [
       "contemporary",
       "modern"
@@ -4373,7 +4373,7 @@ var LOCS_LONDON = [
       "mixed-use",
       "development"
     ],
-    "cc": "GB-ENG",
+    "cc": "c-com",
     "styleGroups": [
       "contemporary",
       "modern"
@@ -4414,7 +4414,7 @@ var LOCS_LONDON = [
       "institutional",
       "livery hall"
     ],
-    "cc": "GB-ENG",
+    "cc": "c-aca",
     "styleGroups": [
       "georgian",
       "victorian"
@@ -4455,7 +4455,7 @@ var LOCS_LONDON = [
       "housing",
       "social housing"
     ],
-    "cc": "GB-ENG",
+    "cc": "c-res",
     "styleGroups": [
       "modernist",
       "brutalist"
@@ -4496,7 +4496,7 @@ var LOCS_LONDON = [
       "housing",
       "residential"
     ],
-    "cc": "GB-ENG",
+    "cc": "c-res",
     "styleGroups": [
       "brutalist",
       "modernist"
@@ -4538,7 +4538,7 @@ var LOCS_LONDON = [
       "housing",
       "social housing"
     ],
-    "cc": "GB-ENG",
+    "cc": "c-res",
     "styleGroups": [
       "brutalist",
       "modernist"
@@ -4579,7 +4579,7 @@ var LOCS_LONDON = [
       "mixed-use",
       "housing"
     ],
-    "cc": "GB-ENG",
+    "cc": "c-com",
     "styleGroups": [
       "postmodern",
       "contemporary"
@@ -4620,7 +4620,7 @@ var LOCS_LONDON = [
       "housing",
       "social housing"
     ],
-    "cc": "GB-ENG",
+    "cc": "c-res",
     "styleGroups": [
       "brutalist",
       "modernist"
@@ -4661,7 +4661,7 @@ var LOCS_LONDON = [
       "housing",
       "social housing"
     ],
-    "cc": "GB-ENG",
+    "cc": "c-res",
     "styleGroups": [
       "modernist",
       "international"
@@ -4702,7 +4702,7 @@ var LOCS_LONDON = [
       "mixed-use",
       "development"
     ],
-    "cc": "GB-ENG",
+    "cc": "c-com",
     "styleGroups": [
       "contemporary",
       "mixed"
@@ -4744,7 +4744,7 @@ var LOCS_LONDON = [
       "hotel",
       "institutional"
     ],
-    "cc": "GB-ENG",
+    "cc": "c-com",
     "styleGroups": [
       "victorian",
       "gothic revival"
@@ -4785,7 +4785,7 @@ var LOCS_LONDON = [
       "mixed-use",
       "financial district"
     ],
-    "cc": "GB-ENG",
+    "cc": "c-com",
     "styleGroups": [
       "contemporary",
       "postmodern"

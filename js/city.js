@@ -50,7 +50,7 @@ function _refreshMarkerIcon(id) {
 
 function _buildLocIcon(loc) {
   const S = 26; // marker size (10% up from 24)
-  const color = CAT_COLORS[_pCat(loc)] || '#111';
+  const color = _ccMeta(loc).color;
   const fav = isFav(loc.id);
   const vis = isVisited(loc.id);
   // Star overlay — same size for fav and fav+vis, with white outline

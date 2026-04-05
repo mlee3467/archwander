@@ -2116,7 +2116,7 @@ var LOCS_SEOUL = [
     name:'Lotte World Tower',
     localName:'롯데월드타워',
     city:'seoul',
-    cats:["office","residential","retail","hotel","observation"], cc:'c-mix',
+    cats:["office","residential","retail","hotel","observation"], cc:'c-com',
     styleGroups:["contemporary","supertall"],
     era:'2010s',
     arch:'Kohn Pedersen Fox Associates', archs:["Kohn Pedersen Fox Associates"],

@@ -511,13 +511,12 @@ function _renderRouteResult(data, ordered) {
       var legDur  = Math.ceil(leg.duration / 60) + (LANG === 'ko' ? '분' : ' min');
       legInfo = '<div class="route-leg-info">🚶 ' + legDist + ' · ' + legDur + '</div>';
     }
-    var catBadge = _pCat(loc);
     html += '<div class="route-stop">' +
       '<div class="route-stop-num">' + (i + 1) + '</div>' +
       '<div class="route-stop-info">' +
         '<div class="route-stop-name">' + _routeLocName(loc) + '</div>' +
         '<div class="route-stop-meta">' +
-          '<span class="cat-badge ' + (CAT_CC_MAP[catBadge] || 'c-lmk') + '" style="font-size:10px">' + catBadge + '</span>' +
+          '<span class="cat-badge ' + _pCC(loc) + '" style="font-size:10px">' + _pCat(loc) + '</span>' +
           (loc.hood ? ' · ' + _escHtml(loc.hood) : '') +
         '</div>' +
       '</div>' +

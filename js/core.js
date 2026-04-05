@@ -125,10 +125,9 @@ document.getElementById('search').addEventListener('input', function() {
 var activeLoc = null;
 
 function cardThumb(loc) {
-  const icon = CAT_ICON[_pCat(loc)];
-  if (icon) {
-    const bg = CAT_BG[_pCat(loc)] || '#F3F4F6';
-    return `<div class="card-thumb-icon" style="background-image:url('${icon}');background-color:${bg}" title="${_allCats(loc).join(', ')}"></div>`;
+  const m = _ccMeta(loc);
+  if (m.icon) {
+    return `<div class="card-thumb-icon" style="background-image:url('${m.icon}');background-color:${m.bg}" title="${_allCats(loc).join(', ')}"></div>`;
   }
   return `<img class="card-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="background:#e8e8e4">`;
 }
@@ -299,9 +298,9 @@ function openLoc(loc) {
   }
 
   // Header
-  const color = CAT_COLORS[_pCat(loc)] || '#111';
+  const color = _ccMeta(loc).color;
   const biName = _displayName(loc);
-  const catBadges = _allCats(loc).map(c => `<span class="cat-badge ${CAT_CC_MAP[c]||'c-lmk'}" style="font-size:11px;margin-right:4px">${c}</span>`).join('');
+  const catBadges = _allCats(loc).map((c,i) => `<span class="cat-badge ${i===0 ? _pCC(loc) : (CAT_CC_MAP[c]||'c-lmk')}" style="font-size:11px;margin-right:4px">${c}</span>`).join('');
   document.getElementById('panel-head').innerHTML = `
     <div class="p-cat">${catBadges}</div>
     <div class="p-title">${biName}</div>

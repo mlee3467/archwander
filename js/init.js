@@ -287,7 +287,7 @@ function renderAdminTable() {
       <td class="td-name">${loc.name}</td>
       <td style="color:var(--text-secondary)">${loc.arch}</td>
       <td style="color:var(--text-secondary)">${loc.yr}</td>
-      <td>${_allCats(loc).map(c => `<span class="cat-badge ${CAT_CC_MAP[c]||'c-lmk'}" style="font-size:10px">${c}</span>`).join(' ')}</td>
+      <td>${_allCats(loc).map((c,i) => `<span class="cat-badge ${i===0 ? _pCC(loc) : (CAT_CC_MAP[c]||'c-lmk')}" style="font-size:10px">${c}</span>`).join(' ')}</td>
       <td>${loc.access ? `<span class="access-badge ${ACCESS_META[loc.access]?.cls||''}" style="font-size:10px">${ACCESS_META[loc.access]?.icon||''} ${loc.access}</span>` : '—'}</td>
       <td style="color:var(--text-secondary)">${(loc.city||'').replace(/-/g,' ').replace(/\b\w/g,x=>x.toUpperCase())}</td>
       <td>

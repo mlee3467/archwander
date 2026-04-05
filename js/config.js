@@ -62,99 +62,24 @@ async function fetchWikiLicense(url) {
 // ══════════════════════════════════════════════════════════════════
 // CONFIG
 // ══════════════════════════════════════════════════════════════════
-var CAT_COLORS = {
-  'skyscrapers':           '#4338CA',
-  'historic':              '#C2410C',
-  'infrastructure':        '#475569',
-  'cultural':              '#9333EA',
-  'parks':                 '#166534',
-  'religious':             '#B45309',
-  'academic / institution':'#1D4ED8',
-  'academic':              '#1D4ED8',
-  'educational':           '#1D4ED8',
-  'institution':           '#1D4ED8',
-  'residential':           '#0F766E',
-  'housing':               '#0F766E',
-  'landmarks':             '#0369A1',
-  'landmark':              '#0369A1',
-  'public':                '#6B7280',
-  'civic':                 '#6B7280',
-  'government':            '#6B7280',
-  'retail':                '#BE185D',
-  'commercial':            '#92400E',
-  'mixed-use':             '#92400E',
-  'office':                '#92400E',
-  'public space':          '#166534',
-  'park':                  '#166534',
-  'museum':                '#9333EA',
-  'gallery':               '#9333EA',
-  'hospitality':           '#92400E',
-  'observatory':           '#4338CA',
-  'sports':                '#166534',
-  'memorial':              '#C2410C',
+// ── CC_META: single source of truth for cc → color, icon, bg ──
+// Every location carries a `cc` field (e.g. 'c-sky'). Look up once.
+var CC_META = {
+  'c-sky':  { color:'#4338CA', bg:'#EEF2FF', icon:'img/icon_skyscraper.png' },
+  'c-his':  { color:'#C2410C', bg:'#FFF7ED', icon:'img/icon_historic.png'   },
+  'c-inf':  { color:'#475569', bg:'#F8FAFC', icon:'img/icon_infra.png'      },
+  'c-cul':  { color:'#9333EA', bg:'#FDF4FF', icon:'img/icon_cultural.png'   },
+  'c-park': { color:'#166534', bg:'#F0FDF4', icon:'img/icon_park.png'       },
+  'c-rel':  { color:'#B45309', bg:'#FFFBEB', icon:'img/icon_religious.png'  },
+  'c-aca':  { color:'#1D4ED8', bg:'#EFF6FF', icon:'img/icon_academic.png'   },
+  'c-res':  { color:'#0F766E', bg:'#F0FDFA', icon:'img/icon_resi.png'      },
+  'c-lmk':  { color:'#0369A1', bg:'#F0F9FF', icon:'img/icon_landmark.png'  },
+  'c-pub':  { color:'#6B7280', bg:'#F9FAFB', icon:'img/icon_public.png'    },
+  'c-ret':  { color:'#BE185D', bg:'#FFF1F2', icon:'img/icon_retail.png'    },
+  'c-com':  { color:'#92400E', bg:'#FFFBEB', icon:'img/icon_commercial.png' },
 };
-var CAT_ICON = {
-  'skyscrapers':            'img/icon_skyscraper.png',
-  'historic':               'img/icon_historic.png',
-  'infrastructure':         'img/icon_infra.png',
-  'cultural':               'img/icon_cultural.png',
-  'parks':                  'img/icon_park.png',
-  'religious':              'img/icon_religious.png',
-  'academic / institution': 'img/icon_academic.png',
-  'academic':               'img/icon_academic.png',
-  'educational':            'img/icon_academic.png',
-  'institution':            'img/icon_academic.png',
-  'residential':            'img/icon_resi.png',
-  'housing':                'img/icon_resi.png',
-  'landmarks':              'img/icon_landmark.png',
-  'landmark':               'img/icon_landmark.png',
-  'public':                 'img/icon_public.png',
-  'civic':                  'img/icon_public.png',
-  'government':             'img/icon_public.png',
-  'retail':                 'img/icon_retail.png',
-  'commercial':             'img/icon_commercial.png',
-  'mixed-use':              'img/icon_commercial.png',
-  'office':                 'img/icon_commercial.png',
-  'public space':           'img/icon_park.png',
-  'park':                   'img/icon_park.png',
-  'museum':                 'img/icon_cultural.png',
-  'gallery':                'img/icon_cultural.png',
-  'hospitality':            'img/icon_commercial.png',
-  'observatory':            'img/icon_skyscraper.png',
-  'sports':                 'img/icon_park.png',
-  'memorial':               'img/icon_historic.png',
-};
-var CAT_BG = {
-  'skyscrapers':            '#EEF2FF',
-  'historic':               '#FFF7ED',
-  'infrastructure':         '#F8FAFC',
-  'cultural':               '#FDF4FF',
-  'parks':                  '#F0FDF4',
-  'religious':              '#FFFBEB',
-  'academic / institution': '#EFF6FF',
-  'academic':               '#EFF6FF',
-  'educational':            '#EFF6FF',
-  'institution':            '#EFF6FF',
-  'residential':            '#F0FDFA',
-  'housing':                '#F0FDFA',
-  'landmarks':              '#F0F9FF',
-  'landmark':               '#F0F9FF',
-  'public':                 '#F9FAFB',
-  'civic':                  '#F9FAFB',
-  'government':             '#F9FAFB',
-  'retail':                 '#FFF1F2',
-  'commercial':             '#FFFBEB',
-  'mixed-use':              '#FEF3C7',
-  'office':                 '#FFFBEB',
-  'public space':           '#ECFDF5',
-  'park':                   '#F0FDF4',
-  'museum':                 '#FDF4FF',
-  'gallery':                '#FDF4FF',
-  'hospitality':            '#FFFBEB',
-  'observatory':            '#EEF2FF',
-  'sports':                 '#F0FDF4',
-  'memorial':               '#FFF7ED',
-};
+var _CC_DEFAULT = CC_META['c-lmk'];
+function _ccMeta(loc) { return CC_META[loc.cc] || _CC_DEFAULT; }
 var STYLES = ['art deco','beaux-arts','neoclassical','gothic revival','modernist','expressionist modernism','postmodern','contemporary','adaptive reuse','landscape','high-tech','parametric design','traditional korean'];
 var ERAS   = ['Pre-1900','Pre-1930','1930–1969','1970–1999','2000–Present'];
 var ACCESS = ['All', 'open to public', 'paid ticket', 'private'];
@@ -170,7 +95,7 @@ var ERA_RANGE = { 'Pre-1900':[0,1900], 'Pre-1930':[1900,1930], '1930–1969':[19
 function _pCat(loc)   { return (loc.cats || [])[0] || 'landmarks'; }
 function _allCats(loc) { return loc.cats || []; }
 function _allSGs(loc)  { return loc.styleGroups || []; }
-function _pCC(loc)     { return CAT_CC_MAP[_pCat(loc)] || 'c-lmk'; }
+function _pCC(loc)     { return loc.cc || 'c-lmk'; }
 
 // All unique architects (sorted) — will be rebuilt per city in initMap / refreshApp
 var ARCHITECTS = [];
