@@ -3864,7 +3864,7 @@ var LOCS_NEW_YORK = [
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Silver_Towers_NYC.jpg/800px-Silver_Towers_NYC.jpg'
     ],
-    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7601657, lng:-73.99895 }
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7267953, lng:-73.9982736 }
   },
   {
     id:'nyc-0092',
@@ -3906,16 +3906,17 @@ var LOCS_NEW_YORK = [
     ],
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/173_Perry_St_by_David_Shankbone.jpg/800px-173_Perry_St_by_David_Shankbone.jpg'
-    ]
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7346044, lng:-74.0100297 }
   },
   {
     id:'nyc-0093',
     name:'8 Spruce Street (New York by Gehry)',
     cats:[
       'Skyscrapers',
-      'Landmarks'
+      'Residential'
     ],
-    cc:'c-sky',
+    cc:'c-res',
     styleGroups:[
       'Contemporary'
     ],
@@ -3947,6 +3948,9 @@ var LOCS_NEW_YORK = [
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/8_Spruce_Street_2012_crop.jpg/800px-8_Spruce_Street_2012_crop.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/8_Spruce_Street_from_street_level.jpg/800px-8_Spruce_Street_from_street_level.jpg'
+    ],
+    archs:[
+      'Frank Gehry'
     ]
   },
   {
@@ -3954,11 +3958,13 @@ var LOCS_NEW_YORK = [
     name:'Morgan Library & Museum',
     cats:[
       'Cultural',
-      'Historic'
+      'Historic',
+      'Expansion'
     ],
     cc:'c-cul',
     styleGroups:[
-      'Beaux-Arts'
+      'Beaux-Arts',
+      'High-Tech'
     ],
     era:'2000–Present',
     city:'new-york',
@@ -3992,14 +3998,15 @@ var LOCS_NEW_YORK = [
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Morgan_Library_%26_Museum_Exterior.jpg/800px-Morgan_Library_%26_Museum_Exterior.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Morgan_Library_atrium.jpg/800px-Morgan_Library_atrium.jpg'
-    ]
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7493295, lng:-73.9817541 }
   },
   {
     id:'nyc-0095',
     name:'3 World Trade Center',
     cats:[
       'Skyscrapers',
-      'Landmarks'
+      'Commercial'
     ],
     cc:'c-sky',
     styleGroups:[
@@ -4045,6 +4052,7 @@ var LOCS_NEW_YORK = [
     ],
     cc:'c-res',
     styleGroups:[
+      'Deconstructivist',
       'Contemporary'
     ],
     era:'2000–Present',
@@ -4074,6 +4082,9 @@ var LOCS_NEW_YORK = [
     ],
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/520_West_28th_Street_Zaha_Hadid.jpg/800px-520_West_28th_Street_Zaha_Hadid.jpg'
+    ],
+    archs:[
+      'Zaha Hadid'
     ]
   },
   {
@@ -4081,7 +4092,7 @@ var LOCS_NEW_YORK = [
     name:'53W53 (MoMA Tower)',
     cats:[
       'Skyscrapers',
-      'Landmarks'
+      'Commercial'
     ],
     cc:'c-sky',
     styleGroups:[
@@ -4114,6 +4125,10 @@ var LOCS_NEW_YORK = [
     ],
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/53W53_MoMA_Tower_2019.jpg/800px-53W53_MoMA_Tower_2019.jpg'
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7617784, lng:-73.9781921 },
+    archs:[
+      'Jean Nouvel'
     ]
   },
   {
@@ -4154,7 +4169,8 @@ var LOCS_NEW_YORK = [
     ],
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Prada_Epicenter_NYC_OMA.jpg/800px-Prada_Epicenter_NYC_OMA.jpg'
-    ]
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'default', lat:40.7243336, lng:-73.9978498 }
   },
   {
     id:'nyc-0099',
@@ -4240,9 +4256,10 @@ var LOCS_NEW_YORK = [
     id:'nyc-0101',
     name:'LVMH Tower',
     cats:[
-      'Landmarks'
+      'Commercial',
+      'Retail'
     ],
-    cc:'c-lmk',
+    cc:'c-com',
     styleGroups:[
       'Contemporary'
     ],
@@ -4281,7 +4298,7 @@ var LOCS_NEW_YORK = [
     name:'4 World Trade Center',
     cats:[
       'Skyscrapers',
-      'Landmarks'
+      'Commercial'
     ],
     cc:'c-sky',
     styleGroups:[
@@ -4330,9 +4347,9 @@ var LOCS_NEW_YORK = [
     arch:'Shigeru Ban Architects',
     yr:2010,
     access:'Private',
-    lat:40.7486259,
-    lng:-74.0073403,
-    addr:'150 11th Ave, New York, NY 10011',
+    lat:40.745613,
+    lng:-74.0073341,
+    addr:'524 West 19th Street, New York, NY 10011',
     hood:'West Chelsea',
     desc:'Metal Shutter Houses at 150 Eleventh Avenue is a 12-story luxury residential building by Shigeru Ban, completed in 2010 adjacent to the High Line. The building\'s name derives from its most distinctive feature: corrugated metal shutters that can be deployed across the floor-to-ceiling glass facade of each unit, creating a constantly changing pattern of open, closed, and partially open panels that gives the building a kinetic, industrial character. The system allows residents to modulate privacy, light, and ventilation while contributing to the building\'s animated, ever-changing street presence. Ban, better known for his innovative use of paper tubes and disaster-relief architecture, demonstrates in this project his range across high-end residential construction.',
     hours:'Exterior: 24/7',
