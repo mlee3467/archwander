@@ -1,6 +1,6 @@
 /* ============================================================
    ArchWander — New York Location Data
-   213 locations
+   142 locations
    ============================================================ */
 
 var LOCS_NEW_YORK = [
@@ -10,7 +10,8 @@ var LOCS_NEW_YORK = [
     cats:[
       'Skyscrapers',
       'Landmarks',
-      'Commercial'
+      'Commercial',
+      'Observatory'
     ],
     cc:'c-sky',
     styleGroups:[
@@ -18,9 +19,7 @@ var LOCS_NEW_YORK = [
     ],
     era:'1930–1969',
     arch:'Shreve, Lamb & Harmon',
-    archs:[
-      'Shreve, Lamb & Harmon'
-    ],
+    archs:[],
     yr:1931,
     access:'Paid Ticket',
     city:'new-york',
@@ -97,7 +96,8 @@ var LOCS_NEW_YORK = [
     cats:[
       'Skyscrapers',
       'Landmarks',
-      'Commercial'
+      'Commercial',
+      'Observatory'
     ],
     cc:'c-sky',
     styleGroups:[
@@ -105,9 +105,7 @@ var LOCS_NEW_YORK = [
     ],
     era:'2000–Present',
     arch:'SOM (Skidmore, Owings & Merrill)',
-    archs:[
-      'SOM (Skidmore, Owings & Merrill)'
-    ],
+    archs:[],
     yr:2014,
     access:'Paid Ticket',
     city:'new-york',
@@ -301,14 +299,17 @@ var LOCS_NEW_YORK = [
       'Frank Lloyd Wright',
       'Spiral Ramp',
       'Modern Art',
-      'Upper East Side'
+      'Upper East Side',
+      'Modern Architecture',
+      'Contemporary Art'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/2003-03-New-York-Guggenheim-Museum-Frank-Lloyd-Wright.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Solomon_R._Guggenheim_Museum%2C_New_York_City%2C_Lobby_Skylight_Delight.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Solomon_R._Guggenheim_Museum_skylight.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Int%C3%A9rieur_du_mus%C3%A9e_Solomon_R._Guggenheim_%C3%A0_New-York.jpg?width=800'
-    ]
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7833604, lng:-73.9589579 }
   },
   {
     id:'nyc-0008',
@@ -341,8 +342,7 @@ var LOCS_NEW_YORK = [
     tags:[
       'Renzo Piano',
       'American Art',
-      'Meatpacking',
-      'High Line'
+      'Meatpacking'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Whitney_Museum_of_American_Art_%2849051573133%29.jpg?width=800',
@@ -357,7 +357,8 @@ var LOCS_NEW_YORK = [
     name:'The High Line',
     cats:[
       'Parks',
-      'Landmarks'
+      'Landmarks',
+      'Adaptive Reuse'
     ],
     cc:'c-park',
     styleGroups:[
@@ -399,7 +400,8 @@ var LOCS_NEW_YORK = [
       'https://commons.wikimedia.org/wiki/Special:FilePath/High_Line%2C_New_York_City%2C_20231001_1806_1489.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/New_York%27s_High_Line_in_March_2025_06.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/High_Line%2C_New_York_2012_39.jpg?width=800'
-    ]
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7479905, lng:-74.0046572 }
   },
   {
     id:'nyc-0010',
@@ -414,7 +416,7 @@ var LOCS_NEW_YORK = [
       'Parametric Design'
     ],
     era:'2000–Present',
-    arch:'Thomas Heatherwick',
+    arch:'Heatherwick Studio',
     yr:2019,
     access:'Open to Public',
     city:'new-york',
@@ -431,16 +433,21 @@ var LOCS_NEW_YORK = [
     transit:'7 → 34 St–Hudson Yards',
     walkFrom:'High Line (north end): 5 min · Javits Center: 8 min',
     tags:[
-      'Heatherwick',
       'Sculptural',
       'Hudson Yards',
-      'Free'
+      'Free',
+      'Parametric',
+      'Heatherwick'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Hudson_Yards_Plaza_March_2019_53.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Hudson_Yards_Plaza_March_2019_27.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/The_Vessel_%28top-down_view%29%2C_Hudson_Yards%2C_New_York_City%2C_July_2019.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/The_Vessel%2C_Hudson_Yards%2C_New_York_City%2C_June_2019.jpg?width=800'
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7533912, lng:-74.0014093 },
+    archs:[
+      'Thomas Heartherwick'
     ]
   },
   {
@@ -448,11 +455,13 @@ var LOCS_NEW_YORK = [
     name:'WTC Transportation Hub (Oculus)',
     cats:[
       'Commercial',
-      'Landmarks'
+      'Landmarks',
+      'Infrastructure'
     ],
     cc:'c-inf',
     styleGroups:[
-      'Contemporary'
+      'Contemporary',
+      'Parametric'
     ],
     era:'2000–Present',
     arch:'Santiago Calatrava',
@@ -475,13 +484,16 @@ var LOCS_NEW_YORK = [
       'Calatrava',
       'Transit Hub',
       'Neo-Expressionism',
-      'Free Entry'
+      'Free Entry',
+      'Parametric',
+      '9/11'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Oculus_%2841393p%29.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Oculus_%2841285p%29.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/WTC_Oculus_Exterior_018.jpg?width=800'
-    ]
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7118984, lng:-74.0120333 }
   },
   {
     id:'nyc-0012',
@@ -516,7 +528,9 @@ var LOCS_NEW_YORK = [
       'Gothic Revival',
       'Free Entry',
       'Fifth Avenue',
-      'Active Parish'
+      'Active Parish',
+      'Church',
+      'Cathedral'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/St._Patrick%27s_Cathedral%2C_New_York_1.jpg?width=800',
@@ -530,7 +544,8 @@ var LOCS_NEW_YORK = [
     name:'New York Public Library',
     cats:[
       'Cultural',
-      'Landmarks'
+      'Landmarks',
+      'Historic'
     ],
     cc:'c-cul',
     styleGroups:[
@@ -564,7 +579,8 @@ var LOCS_NEW_YORK = [
       'https://commons.wikimedia.org/wiki/Special:FilePath/NYPL_portals.JPG?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Main_Reading_Room_of_the_New_York_City_Public_Library_on_5th_Avenue_ca%2C_1910-1920.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/New_York_Public_Library_1908c.jpg?width=800'
-    ]
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7528814, lng:-73.981429 }
   },
   {
     id:'nyc-0014',
@@ -574,12 +590,13 @@ var LOCS_NEW_YORK = [
     ],
     cc:'c-aca',
     styleGroups:[
-      'Contemporary'
+      'Contemporary',
+      'Deconstructivist'
     ],
     era:'2000–Present',
-    arch:'Morphosis / Thom Mayne',
+    arch:'Morphosis',
     archs:[
-      'Carrère and Hastings'
+      'Thom Mayne'
     ],
     yr:2009,
     access:'Open to Public',
@@ -600,14 +617,16 @@ var LOCS_NEW_YORK = [
       'Morphosis',
       'Deconstructivist',
       'LEED Gold',
-      'Education'
+      'Education',
+      'Academic'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Cooper_Union_-_Cooper_Union_Academic_Building_%2848072701728%29.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Cooper_Union_New_Academic_Bldg_from_south.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Atrium_and_Staircase_Interior.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/The_Cooper_Union_-_Cooper_Union_Academic_Building_Entrance_%2848072760147%29.jpg?width=800'
-    ]
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7288449, lng:-73.9904519 }
   },
   {
     id:'nyc-0015',
@@ -618,7 +637,8 @@ var LOCS_NEW_YORK = [
     ],
     cc:'c-park',
     styleGroups:[
-      'Landscape'
+      'Landscape',
+      'Picturesque'
     ],
     era:'Pre-1900',
     arch:'Frederick Law Olmsted & Calvert Vaux',
@@ -645,7 +665,9 @@ var LOCS_NEW_YORK = [
       'Olmsted & Vaux',
       'Landscape',
       '843 Acres',
-      'Free Access'
+      'Free Access',
+      'Picturesque',
+      'Park'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/3015-Central_Park-Sheep_Meadow.JPG?width=800',
@@ -656,10 +678,11 @@ var LOCS_NEW_YORK = [
   },
   {
     id:'nyc-0016',
-    name:'30 Rockefeller Plaza & Top of the Rock',
+    name:'Rockefeller Plaza',
     cats:[
       'Skyscrapers',
-      'Landmarks'
+      'Landmarks',
+      'Observatory'
     ],
     cc:'c-sky',
     styleGroups:[
@@ -697,7 +720,8 @@ var LOCS_NEW_YORK = [
       'https://commons.wikimedia.org/wiki/Special:FilePath/30_Rockefeller_Plaza.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Rockefeller_Center%2C_December_1933.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Lunch_atop_a_Skyscraper_-_Charles_Clyde_Ebbets.jpg?width=800'
-    ]
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7586843, lng:-73.9786504 }
   },
   {
     id:'nyc-0017',
@@ -713,8 +737,7 @@ var LOCS_NEW_YORK = [
     era:'1930–1969',
     arch:'Mies van der Rohe / Philip Johnson',
     archs:[
-      'Mies van der Rohe',
-      'Philip Johnson'
+      'Mies van der Rohe'
     ],
     yr:1958,
     access:'Open to Public',
@@ -735,7 +758,8 @@ var LOCS_NEW_YORK = [
       'Mies van der Rohe',
       'International Style',
       'Bronze Glass',
-      'Plaza'
+      'Plaza',
+      'Modern Architecture'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Seagram_Building_%2835098307116%29.jpg?width=800',
@@ -783,14 +807,19 @@ var LOCS_NEW_YORK = [
       'https://commons.wikimedia.org/wiki/Special:FilePath/Park_Av_53_St_Mar_2021_70.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Lever_House_Nov_2025_34.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Lever_House_Courtyard.JPG?width=800'
-    ]
+    ],
+    archs:[
+      'Gordon Bunshaft'
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7595882, lng:-73.9725806 }
   },
   {
     id:'nyc-0019',
     name:'Hearst Tower',
     cats:[
       'Skyscrapers',
-      'Commercial'
+      'Commercial',
+      'Adaptive Reuse'
     ],
     cc:'c-sky',
     styleGroups:[
@@ -799,7 +828,7 @@ var LOCS_NEW_YORK = [
     era:'2000–Present',
     arch:'Foster + Partners',
     archs:[
-      'Foster + Partners'
+      'Norman Foster'
     ],
     yr:2006,
     access:'Open to Public',
@@ -827,7 +856,8 @@ var LOCS_NEW_YORK = [
       'https://commons.wikimedia.org/wiki/Special:FilePath/Nueva_York7042.JPG?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/W_57th_St_Nov_2020_160.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Hearst_Tower_Lobby_October_2006.jpg?width=800'
-    ]
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.766079, lng:-73.9833766 }
   },
   {
     id:'nyc-0020',
@@ -843,7 +873,8 @@ var LOCS_NEW_YORK = [
     era:'2000–Present',
     arch:'SANAA (Sejima + Nishizawa)',
     archs:[
-      'SANAA'
+      'Kazuyo Sejima',
+      'Ryue Nishizawa'
     ],
     yr:2007,
     access:'Paid Ticket',
@@ -868,20 +899,22 @@ var LOCS_NEW_YORK = [
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/New_Museum_in_New_York_City_2015.JPG?width=800'
-    ]
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7225612, lng:-73.9932795 }
   },
   {
     id:'nyc-0021',
     name:'IAC Building',
     cats:[
-      'Landmarks'
+      'Deconstructivist',
+      'Commercial'
     ],
-    cc:'c-lmk',
+    cc:'c-com',
     styleGroups:[
       'Contemporary'
     ],
     era:'2000–Present',
-    arch:'Frank Gehry',
+    arch:'Gehry Partners',
     yr:2007,
     access:'Private',
     city:'new-york',
@@ -906,6 +939,9 @@ var LOCS_NEW_YORK = [
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Gehry_IAC_and_Nouvel_100_11th_Ave.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/IAC_night_jeh.jpg?width=800'
+    ],
+    archs:[
+      'Frank Gehry'
     ]
   },
   {
@@ -915,9 +951,9 @@ var LOCS_NEW_YORK = [
       'Skyscrapers',
       'Residential'
     ],
-    cc:'c-sky',
+    cc:'c-res',
     styleGroups:[
-      'Postmodern'
+      'Contemporary'
     ],
     era:'2000–Present',
     arch:'Herzog & de Meuron',
@@ -940,20 +976,22 @@ var LOCS_NEW_YORK = [
       'Herzog & de Meuron',
       'Jenga Tower',
       'Tribeca',
-      'Anish Kapoor'
+      'Anish Kapoor',
+      'Luxury Residential'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/56_Leonard_Street_%2824249%29.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/56_Leonard_Street_012.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/56_Leonard_Street_October_2024_004.jpg?width=800'
-    ]
+    ],
+    archs:[]
   },
   {
     id:'nyc-0023',
     name:'432 Park Avenue',
     cats:[
       'Skyscrapers',
-      'Landmarks'
+      'Residential'
     ],
     cc:'c-sky',
     styleGroups:[
@@ -987,16 +1025,18 @@ var LOCS_NEW_YORK = [
       'https://commons.wikimedia.org/wiki/Special:FilePath/432ParkNov2017.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Park_Av_Nov_2021_13.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/432_Park_Avenue_from_Top_of_the_Rock.jpg?width=800'
-    ]
+    ],
+    archs:[]
   },
   {
     id:'nyc-0024',
-    name:'9/11 Memorial & Museum',
+    name:'9/11 Memorial',
     cats:[
-      'Cultural',
-      'Landmarks'
+      'Landmarks',
+      'Parks',
+      'Public Space'
     ],
-    cc:'c-cul',
+    cc:'c-park',
     styleGroups:[
       'Contemporary'
     ],
@@ -1032,26 +1072,29 @@ var LOCS_NEW_YORK = [
       'https://commons.wikimedia.org/wiki/Special:FilePath/12.6.11BerryBerensonPanelN-76ByLuigiNovi4.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/One_WTC_From_W_Hotel_7-28-10.JPG?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/11_Memorial_Museum_-_steel_beams_in_foundation.jpg?width=800'
-    ]
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7119837, lng:-74.013565 }
   },
   {
     id:'nyc-0025',
     name:'New York Times Building',
     cats:[
       'Skyscrapers',
-      'Landmarks'
+      'Landmarks',
+      'Commercial'
     ],
     cc:'c-sky',
     styleGroups:[
-      'Contemporary'
+      'Contemporary',
+      'High-Tech'
     ],
     era:'2000–Present',
     arch:'Renzo Piano',
     yr:2007,
     access:'Open to Public',
     city:'new-york',
-    lat:40.7559312,
-    lng:-73.98915939999999,
+    lat:40.7560713,
+    lng:-73.990109,
     addr:'620 8th Ave, New York, NY 10018',
     hood:'Midtown West / Hell\'s Kitchen',
     desc:'Renzo Piano\'s New York Times Building is one of the most technically sophisticated skyscrapers in New York. Its distinctive exterior is wrapped in a second skin of ceramic tubes that modulate light, reduce glare, and give the tower a luminous, ethereal quality that changes with the light of day. The 52-story tower achieves LEED Silver certification and includes a publicly accessible lobby garden. The building exemplifies Piano\'s philosophy of transparency and light in architecture.',
@@ -1072,7 +1115,8 @@ var LOCS_NEW_YORK = [
       'https://commons.wikimedia.org/wiki/Special:FilePath/New_york_times_building.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/New_York_Times_Building_-_Bottom_Portion_%2848193462432%29.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/The_New_York_Times_Building_-_Manhattan_-_New_York_City_-_USA_%2824894121662%29.jpg?width=800'
-    ]
+    ],
+    archs:[]
   },
   {
     id:'nyc-0026',
@@ -1116,18 +1160,18 @@ var LOCS_NEW_YORK = [
       'https://commons.wikimedia.org/wiki/Special:FilePath/Metropolitan_Museum_of_Art_%28The_Met%29_-_Central_Park%2C_NYC.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Metropolitan_Museum_of_Art%2C_New_York_City_NY%2C_entrance.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/People_in_the_rooftop_bar_of_the_Metropolitan_Museum_of_Art%2C_New_York%2C_2007.jpg?width=800'
-    ]
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7790161, lng:-73.9624606 }
   },
   {
     id:'nyc-0027',
     name:'Museum of Modern Art (MoMA)',
     cats:[
-      'Cultural',
-      'Landmarks'
+      'Cultural'
     ],
     cc:'c-cul',
     styleGroups:[
-      'Contemporary'
+      'Modernist'
     ],
     era:'2000–Present',
     arch:'Yoshio Taniguchi',
@@ -1157,7 +1201,8 @@ var LOCS_NEW_YORK = [
       'https://commons.wikimedia.org/wiki/Special:FilePath/MoMA_Museum_shop_%281%29_2021_jeh.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Museum_of_Modern_Art_%28MoMA%29_%2851395759113%29.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Paul_Gauguin_-_Te_aa_no_areois_-_Google_Art_Project.jpg?width=800'
-    ]
+    ],
+    archs:[]
   },
   {
     id:'nyc-0028',
@@ -1204,7 +1249,8 @@ var LOCS_NEW_YORK = [
     id:'nyc-0029',
     name:'United Nations Headquarters',
     cats:[
-      'Public'
+      'Public',
+      'Landmarks'
     ],
     cc:'c-pub',
     styleGroups:[
@@ -1243,7 +1289,8 @@ var LOCS_NEW_YORK = [
       'https://commons.wikimedia.org/wiki/Special:FilePath/Shore_of_the_East_River_with_Headquarters_of_the_United_Nations%2C_New_York_City%2C_20231005_1132_2230.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/2003-03-New-York-United-Nations-Secretariat-Building.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/United_Nations_Headquarters_-_Security_Council_chamber%2C_angled_view.jpg?width=800'
-    ]
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7494762, lng:-73.9692635 }
   },
   {
     id:'nyc-0030',
@@ -1289,20 +1336,23 @@ var LOCS_NEW_YORK = [
       'https://commons.wikimedia.org/wiki/Special:FilePath/Lincoln_Center_Nov_2023_29.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Lincoln_Center_Nov_2023_24.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Lincoln_Center_Nov_2023_12.jpg?width=800'
-    ]
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7721243, lng:-73.9828613 }
   },
   {
     id:'nyc-0031',
     name:'Ford Foundation Building',
     cats:[
-      'Landmarks'
+      'Academic / Institution',
+      'Cultural',
+      'Park'
     ],
-    cc:'c-lmk',
+    cc:'c-aca',
     styleGroups:[
       'Modernist'
     ],
     era:'1930–1969',
-    arch:'Kevin Roche John Dinkeloo',
+    arch:'Kevin Roche',
     yr:1968,
     access:'Open to Public',
     city:'new-york',
@@ -1322,13 +1372,19 @@ var LOCS_NEW_YORK = [
       'Kevin Roche',
       'Interior Atrium',
       'Biophilic',
-      'Midtown East'
+      'Midtown East',
+      'Indoor Garden'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Ford_Foundation_Building_%2851921997207%29.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Ford_Foundation_Building_May_2021_26.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Ford_Foundation_Building_May_2021_15.jpg?width=800'
-    ]
+    ],
+    archs:[
+      'John Dinkeloo',
+      'Kevin Roche'
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'default', lat:40.7499311, lng:-73.9710331 }
   },
   {
     id:'nyc-0032',
@@ -1372,14 +1428,16 @@ var LOCS_NEW_YORK = [
       'https://commons.wikimedia.org/wiki/Special:FilePath/Citigroup_center.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/53rd_St_Lex_Av_td_10_-_Citigroup_Center.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/St_Peter%27s_Lutheran_Church_Manhattan.jpg?width=800'
-    ]
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7586698, lng:-73.9706751 }
   },
   {
     id:'nyc-0033',
     name:'One Vanderbilt',
     cats:[
       'Skyscrapers',
-      'Landmarks'
+      'Commercial',
+      'Observatory'
     ],
     cc:'c-sky',
     styleGroups:[
@@ -1420,7 +1478,7 @@ var LOCS_NEW_YORK = [
     name:'The Shed',
     cats:[
       'Cultural',
-      'Landmarks'
+      'Art Space'
     ],
     cc:'c-cul',
     styleGroups:[
@@ -1467,7 +1525,8 @@ var LOCS_NEW_YORK = [
     ],
     cc:'c-park',
     styleGroups:[
-      'Landscape'
+      'Landscape',
+      'Picturesque'
     ],
     era:'Pre-1900',
     arch:'Frederick Law Olmsted & Calvert Vaux',
@@ -1508,9 +1567,11 @@ var LOCS_NEW_YORK = [
     name:'TWA Hotel (TWA Flight Center)',
     cats:[
       'Historic',
-      'Landmarks'
+      'Landmarks',
+      'Commercial',
+      'Hospitality'
     ],
-    cc:'c-his',
+    cc:'c-com',
     styleGroups:[
       'Expressionist Modernism'
     ],
@@ -1544,7 +1605,8 @@ var LOCS_NEW_YORK = [
       'https://commons.wikimedia.org/wiki/Special:FilePath/Interior_TWA_Terminal_at_JFK_International_Airport.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Ambassadors_Club%2C_TWA_Flight_Center%2C_John_F._Kennedy_International_Airport%2C_Jamaica%2C_Queens%2C_New_York_City%2C_NY_%2848589082067%29.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Departures_Board%2C_TWA_Flight_Center%2C_John_F._Kennedy_International_Airport%2C_Jamaica%2C_Queens%2C_New_York_City%2C_NY_%2848589187066%29.jpg?width=800'
-    ]
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.6457894, lng:-73.7774955 }
   },
   {
     id:'nyc-0037',
@@ -1554,13 +1616,14 @@ var LOCS_NEW_YORK = [
     ],
     cc:'c-ret',
     styleGroups:[
-      'Contemporary'
+      'Contemporary',
+      'High-Tech'
     ],
     era:'2000–Present',
     city:'new-york',
     arch:'Foster + Partners',
     archs:[
-      'Foster + Partners'
+      'Norman Foster'
     ],
     yr:2006,
     access:'Open to Public',
@@ -1595,10 +1658,9 @@ var LOCS_NEW_YORK = [
     id:'nyc-0038',
     name:'VIA 57 West',
     cats:[
-      'Skyscrapers',
-      'Landmarks'
+      'Residential'
     ],
-    cc:'c-sky',
+    cc:'c-res',
     styleGroups:[
       'Contemporary'
     ],
@@ -1634,66 +1696,23 @@ var LOCS_NEW_YORK = [
     ]
   },
   {
-    id:'nyc-0039',
-    name:'Spring Studios (Printing Trades Building)',
-    cats:[
-      'Historic',
-      'Landmarks'
-    ],
-    cc:'c-his',
-    styleGroups:[
-      'Art Deco'
-    ],
-    era:'1930–1969',
-    city:'new-york',
-    arch:'Ely Jacques Kahn / Beyer Blinder Belle (renovation)',
-    archs:[
-      'Ely Jacques Kahn',
-      'Beyer Blinder Belle'
-    ],
-    yr:1938,
-    access:'Private',
-    lat:40.7210372,
-    lng:-74.00613,
-    addr:'50 Varick St, New York, NY 10013',
-    hood:'Tribeca',
-    desc:'The Printing Trades Building at 50 Varick Street is a 1938 Art Deco tower designed by Ely Jacques Kahn for New York\'s printing industry. Its richly detailed facade features polychrome glazed terra cotta ornament, brickwork patterns, and Art Deco metalwork — characteristic of Kahn\'s sophisticated commercial style. Beyer Blinder Belle oversaw its conversion into Spring Studios, now the premier creative events venue and New York Fashion Week headquarters. The project exemplifies the adaptive reuse of landmark Tribeca industrial architecture.',
-    hours:'Private event venue — not open to general public',
-    lastEntry:'',
-    admission:'Private. Exterior viewable from Varick St.',
-    tourOk:false,
-    tourInfo:'Private events venue. Interior by invitation only. Exterior architecture freely viewable.',
-    transit:'1 → Canal St · A C E → Canal St',
-    walkFrom:'Canal Street station: 3 min · Hudson Square: 2 min',
-    tags:[
-      'Art Deco',
-      'Ely Jacques Kahn',
-      'Adaptive Reuse',
-      'Tribeca',
-      'NYFW',
-      'Fashion Week'
-    ],
-    photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/50_Varick_Street_from_Canal_Street.jpg/800px-50_Varick_Street_from_Canal_Street.jpg'
-    ]
-  },
-  {
     id:'nyc-0040',
     name:'The Standard, High Line',
     cats:[
-      'Landmarks'
+      'Commercial',
+      'Hospitality'
     ],
-    cc:'c-lmk',
+    cc:'c-com',
     styleGroups:[
       'Contemporary'
     ],
     era:'2000–Present',
     city:'new-york',
-    arch:'Polshek Partnership (Ennead Architects)',
+    arch:'Ennead Architects',
     yr:2009,
     access:'Open to Public',
-    lat:40.74068219999999,
-    lng:-74.0086668,
+    lat:40.7405997,
+    lng:-74.0080905,
     addr:'848 Washington St, New York, NY 10014',
     hood:'Meatpacking District',
     desc:'The Standard, High Line is an 18-story glass hotel that straddles the elevated High Line park on massive concrete pilotis, creating a dramatic urban gateway and one of New York\'s most recognizable contemporary silhouettes. Designed by Polshek Partnership (now Ennead Architects) and completed in 2009, its placement was dictated by the mandate to preserve the High Line corridor beneath. Floor-to-ceiling glass on all facades made it instantly iconic — and notorious. The building helped define the transformation of the Meatpacking District and demonstrated that the High Line could anchor architecturally serious development.',
@@ -1715,17 +1734,23 @@ var LOCS_NEW_YORK = [
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/The_Standard_High_Line_%2824245%29.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/The_Standard_NYC_4255367163_fffef9e487_crop.jpg?width=800'
-    ]
+    ],
+    archs:[
+      'James Polshek'
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7404371, lng:-74.0081197 }
   },
   {
     id:'nyc-0041',
     name:'Barclays Center',
     cats:[
-      'Public'
+      'Public',
+      'Commercial'
     ],
-    cc:'c-pub',
+    cc:'c-com',
     styleGroups:[
-      'Contemporary'
+      'Contemporary',
+      'Parametric'
     ],
     era:'2000–Present',
     city:'new-york',
@@ -1750,7 +1775,8 @@ var LOCS_NEW_YORK = [
       'Arena',
       'Brooklyn',
       'Sports',
-      'Pacific Park'
+      'Pacific Park',
+      'Parametric'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Barclays_Center_western_side.jpg?width=800',
@@ -1763,9 +1789,10 @@ var LOCS_NEW_YORK = [
     id:'nyc-0042',
     name:'Domino Sugar Refinery / Domino Park',
     cats:[
-      'Parks'
+      'Parks',
+      'Commercial'
     ],
-    cc:'c-park',
+    cc:'c-com',
     styleGroups:[
       'Adaptive Reuse'
     ],
@@ -1777,9 +1804,9 @@ var LOCS_NEW_YORK = [
       'SHoP Architects'
     ],
     yr:2018,
-    access:'Open to Public',
-    lat:40.7162351,
-    lng:-73.96685169999999,
+    access:'Open to Public (Plaza)',
+    lat:40.7144438,
+    lng:-73.9672351,
     addr:'15 River St, Brooklyn, NY 11249',
     hood:'Williamsburg, Brooklyn',
     desc:'The former Domino Sugar Refinery in Williamsburg is one of New York\'s most significant adaptive reuse projects. The landmarked 1884 refinery — once the largest sugar refinery in the world — has been preserved as the cultural anchor of a 5-acre waterfront park designed by James Corner Field Operations (creators of the High Line). Domino Park (2018) incorporates original industrial machinery — vacuum pans, centrifugal separators, and rail tracks — as monumental public sculpture and interpretive elements. SHoP Architects designed the surrounding mixed-use residential towers. The project is a model for community-driven, heritage-sensitive waterfront redevelopment.',
@@ -1801,7 +1828,8 @@ var LOCS_NEW_YORK = [
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Domino_Sugar_Refinery%2C_New_York_City%2C_20231001_1133_1047.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Historic_Domino_Sugar_Refinery.jpg?width=800'
-    ]
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7139555, lng:-73.9673211 }
   },
   {
     id:'nyc-0043',
@@ -1823,8 +1851,8 @@ var LOCS_NEW_YORK = [
     ],
     yr:2017,
     access:'Open to Public',
-    lat:40.7546836,
-    lng:-73.9561878,
+    lat:40.7550107,
+    lng:-73.9562595,
     addr:'2 West Loop Rd, New York, NY 10044',
     hood:'Roosevelt Island',
     desc:'Cornell Tech is a graduate research campus on Roosevelt Island, established after Cornell won a 2011 NYC competition for an applied-sciences campus. The Bloomberg Center (Morphosis, 2017) is the anchor: a LEED Platinum building with one of the largest building-integrated photovoltaic arrays in New York, its entire south facade clad in 1,000 solar panels. Weiss/Manfredi designed the Tata Innovation Center and Snøhetta designed The Bridge (with Related Companies). Buildings are organized around a central lawn framing dramatic Manhattan skyline views, and the campus has become a model for 21st-century urban research education.',
@@ -1848,14 +1876,17 @@ var LOCS_NEW_YORK = [
       'https://commons.wikimedia.org/wiki/Special:FilePath/Cornell_Tech_buildings_%2841991%29_crop.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/The_Bridge_at_Cornell_Tech_10.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Cornell_Tech_-_View_from_Roof.jpg?width=800'
-    ]
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7549437, lng:-73.9562729 }
   },
   {
     id:'nyc-0044',
     name:'30 Hudson Yards',
     cats:[
       'Skyscrapers',
-      'Landmarks'
+      'Commercial',
+      'Observatory',
+      'Retail'
     ],
     cc:'c-sky',
     styleGroups:[
@@ -1866,8 +1897,8 @@ var LOCS_NEW_YORK = [
     arch:'KPF (Kohn Pedersen Fox)',
     yr:2019,
     access:'Paid Ticket',
-    lat:40.7548685,
-    lng:-74.0001022,
+    lat:40.7539705,
+    lng:-74.0005481,
     addr:'500 W 33rd St, New York, NY 10001',
     hood:'Hudson Yards',
     desc:'At 1,268 feet, 30 Hudson Yards is the tallest building in the Hudson Yards development and one of the tallest in New York City, designed by KPF. Its sculpted silhouette tapers and twists as it rises, distinguishing it from its orthogonal neighbors. The Edge observation deck on floors 100–101 is the highest outdoor sky deck in the Western Hemisphere at 1,100 feet, featuring a glass-floored cantilevered platform 80 feet over the street. Major tenants include Warner Bros. Discovery, Facebook, and KKR. The tower is a centerpiece of the largest private real estate development in US history.',
@@ -1890,7 +1921,8 @@ var LOCS_NEW_YORK = [
       'https://commons.wikimedia.org/wiki/Special:FilePath/30_Hudson_Yards_August_2024_008.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/30_Hudson_Yards_2025_021.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/30_Hudson_Yards_%2892900%29.jpg?width=800'
-    ]
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7539338, lng:-73.9998399 }
   },
   {
     id:'nyc-0045',
@@ -1932,15 +1964,62 @@ var LOCS_NEW_YORK = [
       'https://commons.wikimedia.org/wiki/Special:FilePath/The_Spiral_Sep_2021.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/The_Spiral_004.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/The_Spiral_008.jpg?width=800'
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7547994, lng:-73.9991319 }
+  },
+  {
+    id:'nyc-0046',
+    name:'Hudson Yards Masterplan',
+    cats:[
+      'Landmarks'
+    ],
+    cc:'c-lmk',
+    styleGroups:[
+      'Contemporary'
+    ],
+    era:'2000–Present',
+    city:'new-york',
+    arch:'KPF (Kohn Pedersen Fox) + Related Companies + multiple firms',
+    archs:[
+      'KPF (Kohn Pedersen Fox)'
+    ],
+    yr:2019,
+    access:'Open to Public',
+    lat:40.7539341,
+    lng:-74.00334219999999,
+    addr:'Hudson Yards, New York, NY 10001',
+    hood:'Hudson Yards',
+    desc:'Hudson Yards is the largest private real estate development in American history, constructed atop an 28-acre concrete platform built over the active West Side Yard of the Long Island Rail Road. The masterplan by KPF (Kohn Pedersen Fox) and Related Companies organizes over 18 million square feet of office, residential, hotel, retail, and cultural space around a central public square. Key buildings include 30 Hudson Yards (KPF), The Spiral (BIG), 35 Hudson Yards (David Childs/SOM), The Shed (Diller Scofidio + Renfro), and Vessel (Heatherwick Studio). Phase 1 opened in March 2019, redrawing the western edge of Midtown Manhattan.',
+    hours:'Public spaces: Daily 7 AM – 11 PM',
+    lastEntry:'10:30 PM',
+    admission:'Public plazas: Free · Individual venues vary',
+    tourOk:true,
+    tourInfo:'Self-guided architecture walking from the High Line terminus. Information kiosk at main plaza.',
+    transit:'7 → 34 St–Hudson Yards · A C E → 34 St–Penn Station',
+    walkFrom:'High Line terminus: 5 min · Penn Station: 12 min',
+    tags:[
+      'KPF',
+      'Masterplan',
+      'Mixed-Use',
+      'Platform Development',
+      'Related Companies',
+      'Midtown West'
+    ],
+    photos:[
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Midtown_Manhattan_from_Weehawken_September_2021_HDR.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/30th_St_staging_for_Hudson_Yards_contruction_2014_jeh.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Hudson_Yards_Real_Estate_Development_Update-_April_16%2C_2015_%2816992354740%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Manhattan_W_Feb_2017_3.jpg?width=800'
     ]
   },
   {
     id:'nyc-0047',
     name:'New York City Hall',
     cats:[
-      'Public'
+      'Public',
+      'Historic'
     ],
-    cc:'c-pub',
+    cc:'c-his',
     styleGroups:[
       'Neoclassical'
     ],
@@ -1973,17 +2052,19 @@ var LOCS_NEW_YORK = [
       'Oldest City Hall'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/NYC_-_City_Hall.jpg/800px-NYC_-_City_Hall.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/NYC_City_Hall_interior.jpg/800px-NYC_City_Hall_interior.jpg'
-    ]
+      'https://commons.wikimedia.org/wiki/Special:FilePath/New_York_City_Hall.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/View_of_Woolworth_Building_fixed.jpg?width=800'
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7125004, lng:-74.006256 }
   },
   {
     id:'nyc-0048',
     name:'Manhattan Municipal Building',
     cats:[
-      'Public'
+      'Public',
+      'Historic'
     ],
-    cc:'c-pub',
+    cc:'c-his',
     styleGroups:[
       'Beaux-Arts'
     ],
@@ -1995,8 +2076,8 @@ var LOCS_NEW_YORK = [
     ],
     yr:1914,
     access:'Open to Public',
-    lat:40.712528,
-    lng:-74.0037083,
+    lat:40.7128905,
+    lng:-74.0035844,
     addr:'1 Centre St, New York, NY 10007',
     hood:'Civic Center',
     desc:'One of the first skyscrapers to incorporate a subway station within its base — the Chambers Street subway passes directly through its archway. Designed by McKim, Mead & White and completed in 1914, it was then the world\'s largest office building. The Beaux-Arts tower is crowned by Adolph Weinman\'s gilded \'Civic Fame\' copper statue. Its wedding-cake silhouette of setbacks and classical ornament became a direct inspiration for Moscow\'s Stalinist \'Seven Sisters\' skyscrapers. The Marriage Bureau in the lobby has served millions of couples.',
@@ -2015,8 +2096,12 @@ var LOCS_NEW_YORK = [
       'Subway Integration'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Manhattan_Municipal_Building.jpg/800px-Manhattan_Municipal_Building.jpg'
-    ]
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Municipal_Building_-_New_York_City.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Manhattan-Municipal-Building-New-York-City-September-2014.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Manhattan_Municipal_Building_September_2024_016.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Manhattan_Municipal_Building_007.jpg?width=800'
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7131751, lng:-74.0040995 }
   },
   {
     id:'nyc-0049',
@@ -2060,7 +2145,8 @@ var LOCS_NEW_YORK = [
       'https://commons.wikimedia.org/wiki/Special:FilePath/World_Financial_Center_Winter_Garden_200706.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/3_World_Financial_Center.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/World_Financial_Center_from_the_Windows_on_the_World_restaurant.jpg?width=800'
-    ]
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7124249, lng:-74.0158636 }
   },
   {
     id:'nyc-0050',
@@ -2097,8 +2183,10 @@ var LOCS_NEW_YORK = [
       'Waterfront'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Battery_Park_New_York.jpg/800px-Battery_Park_New_York.jpg'
-    ]
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Battery_Park.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Battery_Park_td_%282019-08-10%29_003_-_Battery_Bikeway.jpg?width=800'
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7037823, lng:-74.014989 }
   },
   {
     id:'nyc-0051',
@@ -2137,7 +2225,11 @@ var LOCS_NEW_YORK = [
       'Battery Park'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Castle_Clinton_NM.jpg/800px-Castle_Clinton_NM.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Castle_Clinton%2C_Battery_Park.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Castle_Clinton_National_Monument%2C_Battery_Park%2C_Manhattan%2C_New_York_%287237092384%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Aerial_photograph_of_Castle_Clinton_in_Battery_Park_%28New_York_City%29%2C_Castle_Clinton_National_Monument._%28c90754f78edc4ed38e0d72b5875368d7%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Castle_Clinton_National_Monument%2C_New_York_%28af0a6f28-7d28-4973-95ea-a1fb8a20fb0a%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/NYC-Manhattan-1811-Castle-Clinton-to-Wall-St_LCN_g3804n.ct000812.png?width=800'
     ]
   },
   {
@@ -2145,19 +2237,20 @@ var LOCS_NEW_YORK = [
     name:'Stone Street Historic District',
     cats:[
       'Historic',
-      'Commercial'
+      'Retail',
+      'Urban'
     ],
     cc:'c-his',
     styleGroups:[
-      'Beaux-Arts'
+      'Heritage'
     ],
     era:'Pre-1900',
     city:'new-york',
     arch:'Various',
     yr:1836,
     access:'Open to Public',
-    lat:40.723144,
-    lng:-74.0006181,
+    lat:40.7044323,
+    lng:-74.0102041,
     addr:'Stone Street, New York, NY 10004',
     hood:'Financial District',
     desc:'Manhattan\'s oldest cobblestone street and one of the city\'s most atmospheric historic corridors. Named for being the first street paved with stones in New Amsterdam (1658), the current Greek Revival and Italianate commercial buildings date from 1836, rebuilt after the Great Fire of 1835. Transformed in 1999 into a restaurant row with outdoor cobblestone seating, the walled-in canyon flanked by pre-Civil War counting houses offers a remarkable glimpse into the texture of the 19th-century financial district.',
@@ -2176,14 +2269,17 @@ var LOCS_NEW_YORK = [
       'Restaurant Row'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Stone_St_jeh.jpg/800px-Stone_St_jeh.jpg'
-    ]
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Stone_Street%2C_NYC.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Stone_Street_NYC_005.JPG?width=800'
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7043334, lng:-74.0103444 }
   },
   {
     id:'nyc-0053',
     name:'Washington Square Arch',
     cats:[
-      'Landmarks'
+      'Landmarks',
+      'Historic'
     ],
     cc:'c-lmk',
     styleGroups:[
@@ -2191,9 +2287,10 @@ var LOCS_NEW_YORK = [
     ],
     era:'Pre-1900',
     city:'new-york',
-    arch:'Stanford White (McKim, Mead & White)',
+    arch:'McKim, Mead & White',
     archs:[
-      'Stanford White'
+      'Stanford White',
+      'McKim, Mead & White'
     ],
     yr:1892,
     access:'Open to Public',
@@ -2218,14 +2315,18 @@ var LOCS_NEW_YORK = [
       'Landmark'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Washington_Square_Park_arch_from_the_south.jpg/800px-Washington_Square_Park_arch_from_the_south.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Washington_Square_Arch_01.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Washington_Square_Arch.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/New_York_Photo_Safari_OHNY_Washington_Square_Park.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Students_of_University_of_New_York_at_Washington_Square_Arch%2C_Aneka_Amerika_102_%281957%29%2C_p16.jpg?width=800'
     ]
   },
   {
     id:'nyc-0054',
     name:'Judson Memorial Church',
     cats:[
-      'Religious'
+      'Religious',
+      'Historic'
     ],
     cc:'c-rel',
     styleGroups:[
@@ -2233,7 +2334,7 @@ var LOCS_NEW_YORK = [
     ],
     era:'Pre-1900',
     city:'new-york',
-    arch:'Stanford White (McKim, Mead & White)',
+    arch:'McKim, Mead & White',
     yr:1892,
     access:'Open to Public',
     lat:40.7302192,
@@ -2256,7 +2357,12 @@ var LOCS_NEW_YORK = [
       'Activism'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Judson_Memorial_Church_2012.jpg/800px-Judson_Memorial_Church_2012.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Judson_Memorial_Church_%2851660334986%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Judson_Memorial_Church_Worship_Area.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/New_York_University%2C_Judson_Memorial_Baptist_Church_01.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/New_York_University%2C_Judson_Memorial_Baptist_Church_02.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Rose_Window_at_Judson_Memorial_Church.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/%28King1893NYC%29_pg384_JUDSON_MEMORIAL_BAPTIST_CHURCH%2C_WASHINGTON_SQUARE_AND_THOMPSON_STREET.jpg?width=800'
     ]
   },
   {
@@ -2264,7 +2370,8 @@ var LOCS_NEW_YORK = [
     name:'Jefferson Market Library',
     cats:[
       'Historic',
-      'Landmarks'
+      'Landmarks',
+      'Public'
     ],
     cc:'c-his',
     styleGroups:[
@@ -2273,9 +2380,7 @@ var LOCS_NEW_YORK = [
     era:'Pre-1900',
     city:'new-york',
     arch:'Calvert Vaux & Frederick Clarke Withers',
-    archs:[
-      'Stanford White'
-    ],
+    archs:[],
     yr:1877,
     access:'Open to Public',
     lat:40.734588,
@@ -2299,7 +2404,11 @@ var LOCS_NEW_YORK = [
       'Adaptive Reuse'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Jefferson_Market_Library_%28NYC%29.jpg/800px-Jefferson_Market_Library_%28NYC%29.jpg'
+      'https://live.staticflickr.com/65535/50637852851_8f05553ec9_b.jpg',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Jefferson_Market_Library_October_2022_006.jpg?width=800',
+      'https://upload.wikimedia.org/wikipedia/commons/3/3e/Jefferson_Market_Library_windows.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/b/b7/Discovering_the_secret_Jefferson_Market_Library_tower.JPG',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Jefferson_Street_Market_Library_at_Dusk.jpg?width=800'
     ]
   },
   {
@@ -2341,7 +2450,10 @@ var LOCS_NEW_YORK = [
       'Fifth Avenue'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/New_School_University_Center_2014.jpg/800px-New_School_University_Center_2014.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/The_University_Center_for_the_New_School_%2848072770027%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/New_School_University_Center_-_the-groundview.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/The_New_School_-_University_Center_Reflections.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/The_New_School_-_University_Center%2C_Interior.jpg?width=800'
     ]
   },
   {
@@ -2380,22 +2492,27 @@ var LOCS_NEW_YORK = [
       'NoHo'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Astor_Place_IRT_Cube_jeh.jpg/800px-Astor_Place_IRT_Cube_jeh.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/WSTM_Team_Dustizeff_0108.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/The_Astor_Place_Cube_%2848072759542%29.jpg?width=800',
+      'https://live.staticflickr.com/5299/5436963215_cb550149ce_b.jpg'
     ]
   },
   {
     id:'nyc-0058',
     name:'St. Mark\'s Church in-the-Bowery',
     cats:[
-      'Religious'
+      'Religious',
+      'Historic'
     ],
     cc:'c-rel',
     styleGroups:[
-      'Neoclassical'
+      'Neoclassical',
+      'Greek Revival',
+      'Italianate steeple'
     ],
     era:'Pre-1900',
     city:'new-york',
-    arch:'Various (Federal 1799, Greek Revival 1828, Italianate steeple 1858)',
+    arch:'Various',
     yr:1799,
     access:'Open to Public',
     lat:40.7305475,
@@ -2416,10 +2533,16 @@ var LOCS_NEW_YORK = [
       'Historic Church',
       'Poetry Project',
       'East Village',
-      'Stuyvesant'
+      'Stuyvesant',
+      'Italianate steeple',
+      'Bowery'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/St._Marks_Church_in-the-Bowery.jpg/800px-St._Marks_Church_in-the-Bowery.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/St_Mark%27s_Church_-_New_York_City.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/St.-Marks-In-The-Bowery_Portico.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/St.-Marks-In-The-Bowery_at_Night.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/New_York%2C_St_Marks-in-the-Bowery_1840s.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/St._Mark%27s_Church%2C_Stuyvesant_Street%2C_New_YorkCity.jpg?width=800'
     ]
   },
   {
@@ -2452,14 +2575,17 @@ var LOCS_NEW_YORK = [
     tags:[
       'Jean Nouvel',
       'Curtain Wall',
-      'High Line',
       'West Chelsea',
       'Residential',
       'Pixelated Facade'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/100_11th_Ave_by_David_Shankbone.jpg/800px-100_11th_Ave_by_David_Shankbone.jpg'
-    ]
+      'https://commons.wikimedia.org/wiki/Special:FilePath/NY_Chelsea_Pier_60_IMG_2189_nouvel_chelsea_100_11th_Av_luxury_condominium.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/100_Eleventh_Avenue_%2824234%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/100_11th_Avenue_002.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/100_11th_Avenue.jpg?width=800'
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7460946, lng:-74.0079351 }
   },
   {
     id:'nyc-0060',
@@ -2497,14 +2623,22 @@ var LOCS_NEW_YORK = [
       'Diagonal Structure'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/HL23_condo.jpg/800px-HL23_condo.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/NYC_-_HL23_by_Neil_Denari_-_panoramio.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Highline_519_and_HL23_from_the_High_Line.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Highline_519_and_HL23.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/High_Line%2C_New_York_2012_21.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Neil_Denari%27s_HL23_Neil_Denari%27s_HL23_High_Line_Views_NY_5374.jpg?width=800'
+    ],
+    archs:[
+      'Neil M. Denari'
     ]
   },
   {
     id:'nyc-0061',
     name:'Paley Park',
     cats:[
-      'Parks'
+      'Parks',
+      'Public Space'
     ],
     cc:'c-park',
     styleGroups:[
@@ -2515,8 +2649,8 @@ var LOCS_NEW_YORK = [
     arch:'Zion & Breen Associates (landscape)',
     yr:1967,
     access:'Open to Public',
-    lat:40.7602575,
-    lng:-73.9750532,
+    lat:40.7603155,
+    lng:-73.9750966,
     addr:'3 E 53rd St, New York, NY 10022',
     hood:'Midtown Manhattan',
     desc:'The paradigmatic example of the urban \'vest-pocket park\' — a 42-by-100-foot slice of calm between Midtown skyscrapers. Designed by Zion & Breen Associates in 1967 on the site of the demolished Stork Club (funded by CBS founder William S. Paley), the park\'s defining feature is a 20-foot waterfall wall generating enough white noise to mask surrounding traffic. A canopy of honey locust trees and movable chairs create a remarkably effective urban refuge. The park became one of the most influential models for urban park design in the 20th century and continues to be cited as a touchstone of urban design.',
@@ -2536,14 +2670,18 @@ var LOCS_NEW_YORK = [
       'William Paley'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Paley_Park_NYC_2012.jpg/800px-Paley_Park_NYC_2012.jpg'
-    ]
+      'https://commons.wikimedia.org/wiki/Special:FilePath/W_53_St_May_2022_15.jpg?width=800',
+      'https://live.staticflickr.com/558/31969570440_59e06fed79_b.jpg',
+      'https://live.staticflickr.com/2586/4130651435_111d2ece84_b.jpg'
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7603602, lng:-73.9750564 }
   },
   {
     id:'nyc-0062',
     name:'Brooklyn Bridge Park',
     cats:[
-      'Parks'
+      'Parks',
+      'Public Space'
     ],
     cc:'c-park',
     styleGroups:[
@@ -2575,15 +2713,19 @@ var LOCS_NEW_YORK = [
       'Landscape'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Brooklyn_Bridge_Park_aerial.jpg/800px-Brooklyn_Bridge_Park_aerial.jpg'
-    ]
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Brooklyn_Bridge_Park_and_Manhattan.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Brooklyn_Bridge_Park_at_Sunset..jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Brooklyn_Bridge_Park_-_overpass.jpg?width=800'
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7018866, lng:-73.9968149 }
   },
   {
     id:'nyc-0063',
     name:'DUMBO Historic District',
     cats:[
       'Historic',
-      'Landmarks'
+      'Retail',
+      'Public'
     ],
     cc:'c-his',
     styleGroups:[
@@ -2591,7 +2733,7 @@ var LOCS_NEW_YORK = [
     ],
     era:'Pre-1900',
     city:'new-york',
-    arch:'Various (industrial, converted)',
+    arch:'Various',
     yr:1885,
     access:'Open to Public',
     lat:40.7033164,
@@ -2615,7 +2757,9 @@ var LOCS_NEW_YORK = [
       'Art District'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/DUMBO_Manhattan_Bridge.jpg/800px-DUMBO_Manhattan_Bridge.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/DUMBO_Historic_and_Industrial_District.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/DUMBO_from_Bridge.JPG?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/DUMBO_Industrial_District_168.JPG?width=800'
     ]
   },
   {
@@ -2694,7 +2838,11 @@ var LOCS_NEW_YORK = [
       'Queens'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Queens_Museum_2014.jpg/800px-Queens_Museum_2014.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Queens_Museum_%2848613534751%29.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Queens_Museum_view.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Queens_Museum_detail.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Queens_Museum_Workshop_Table.jpg?width=800',
+      'https://live.staticflickr.com/4031/4441574273_ec215a7b2d_b.jpg'
     ]
   },
   {
@@ -2733,7 +2881,9 @@ var LOCS_NEW_YORK = [
       'Landmark'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Unisphere_2014.jpg/800px-Unisphere_2014.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Unisphere_in_summer.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/The_Unisphere_%287437123330%29.jpg?width=800',
+      'https://upload.wikimedia.org/wikipedia/commons/1/11/New_York_World%27s_Fair_August_1964.jpeg'
     ]
   },
   {
@@ -2776,7 +2926,8 @@ var LOCS_NEW_YORK = [
       'Great Hall'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/New_Yankee_Stadium.jpg/800px-New_Yankee_Stadium.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Yankee_Stadium%2C_New_York_-_panoramio.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Yankee_Stadium_upper_deck_2010.jpg?width=800'
     ]
   },
   {
@@ -2815,7 +2966,9 @@ var LOCS_NEW_YORK = [
       'Landmark'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Bronx_County_Building.jpg/800px-Bronx_County_Building.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Supreme_Civil_Court_of_the_Bronx_30_June_2012.jpeg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Bronx_County_Courthouse.jpg?width=800',
+      'https://live.staticflickr.com/7211/7237807600_c7653b6c0a_b.jpg'
     ]
   },
   {
@@ -2934,7 +3087,15 @@ var LOCS_NEW_YORK = [
       'Graffiti'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/40_Bond_Street_HdM.jpg/800px-40_Bond_Street_HdM.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/40_Bond_Street.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/40_Bond_Street_entrance.jpg?width=800',
+      'https://live.staticflickr.com/6079/6116005719_cccbb21e9f_b.jpg',
+      'https://live.staticflickr.com/2038/2509286174_26248d7263_b.jpg',
+      'https://live.staticflickr.com/3173/2566495529_62482c9f35_b.jpg',
+      'https://live.staticflickr.com/3224/2508340159_14b6f8d1b6_b.jpg',
+      'https://live.staticflickr.com/2295/2515298443_da2437917d_b.jpg',
+      'https://live.staticflickr.com/2357/2516121374_11da3afa22_b.jpg',
+      'https://live.staticflickr.com/2008/1988919132_005696fe0c_b.jpg'
     ]
   },
   {
@@ -2972,7 +3133,9 @@ var LOCS_NEW_YORK = [
       'Curved Facade'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/160_Leroy_Street_HdM.jpg/800px-160_Leroy_Street_HdM.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Hudson_River_Park_td_%282019-04-24%29_005_-_One_Morton_Square%2C_160_Leroy_Street.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Houston_St_West_St_td_%282021-10-28%29_03_-_160_Leroy_Street.jpg?width=800',
+      'https://commons.wikimedia.org/wiki/Special:FilePath/160_Leroy_Street.jpg?width=800'
     ]
   },
   {
@@ -3011,7 +3174,7 @@ var LOCS_NEW_YORK = [
       'Rooftop Bar'
     ],
     photos:[
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Public_Hotel_NYC.jpg/800px-Public_Hotel_NYC.jpg'
+      'https://commons.wikimedia.org/wiki/Special:FilePath/Escalator%2C_Public_Hotel_New_York_%282024%29-L1005609.jpg?width=800'
     ]
   },
   {
@@ -5903,17 +6066,12 @@ var LOCS_NEW_YORK = [
       'https://commons.wikimedia.org/wiki/Special:FilePath/Little_Island_park_Hudson_River.jpg?width=800'
     ]
   },
-  {
+{
     id:'nyc-0144',
     name:'St. Ann\'s Warehouse',
-    cats:[
-      'Cultural',
-      'Historic'
-    ],
+    cats:['Cultural','Historic'],
     cc:'c-cul',
-    styleGroups:[
-      'Contemporary'
-    ],
+    styleGroups:['Contemporary'],
     era:'1950–2000',
     city:'new-york',
     arch:'Marvel Architects',
@@ -5931,26 +6089,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Theater tours available for groups.',
     transit:'A, C → High St–Brooklyn Bridge',
     walkFrom:'Jane\'s Carousel: 3 min',
-    tags:[
-      'adaptive-reuse',
-      'theater',
-      'brick-architecture'
-    ],
+    tags:['adaptive-reuse','theater','brick-architecture'],
     photos:[]
   },
   {
     id:'nyc-0145',
     name:'Empire Stores',
-    cats:[
-      'Commercial',
-      'Retail',
-      'Historic'
-    ],
+    cats:['Commercial','Retail','Historic'],
     cc:'c-ret',
-    styleGroups:[
-      'Romanesque Revival',
-      'Contemporary'
-    ],
+    styleGroups:['Romanesque Revival','Contemporary'],
     era:'1900–1950',
     city:'new-york',
     arch:'S9 Architecture, Studio V Architecture',
@@ -5968,25 +6115,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Self-guided exploration recommended.',
     transit:'A, C → High St–Brooklyn Bridge',
     walkFrom:'St. Ann\'s Warehouse: 2 min',
-    tags:[
-      'adaptive-reuse',
-      'shopping',
-      'romanesque-revival'
-    ],
+    tags:['adaptive-reuse','shopping','romanesque-revival'],
     photos:[]
   },
   {
     id:'nyc-0146',
     name:'OLYMPIA DUMBO',
-    cats:[
-      'Residential',
-      'Skyscrapers'
-    ],
+    cats:['Residential','Skyscrapers'],
     cc:'c-sky',
-    styleGroups:[
-      'Contemporary',
-      'Parametric'
-    ],
+    styleGroups:['Contemporary','Parametric'],
     era:'2000–Present',
     city:'new-york',
     arch:'Hill West Architects',
@@ -6004,23 +6141,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Private residential tower.',
     transit:'A, C → High St–Brooklyn Bridge',
     walkFrom:'Jane\'s Carousel: 4 min',
-    tags:[
-      'luxury-residential',
-      'parametric-form',
-      'waterfront'
-    ],
+    tags:['luxury-residential','parametric-form','waterfront'],
     photos:[]
   },
   {
     id:'nyc-0147',
     name:'Dumbo Townhouses (Alloy)',
-    cats:[
-      'Residential'
-    ],
+    cats:['Residential'],
     cc:'c-res',
-    styleGroups:[
-      'Contemporary'
-    ],
+    styleGroups:['Contemporary'],
     era:'2000–Present',
     city:'new-york',
     arch:'Alloy Development (Jared Della Valle)',
@@ -6038,26 +6167,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Private residences.',
     transit:'A, C → High St–Brooklyn Bridge',
     walkFrom:'St. Ann\'s Warehouse: 5 min',
-    tags:[
-      'townhouses',
-      'concrete-facade',
-      'contemporary'
-    ],
+    tags:['townhouses','concrete-facade','contemporary'],
     photos:[]
   },
   {
     id:'nyc-0148',
     name:'505 State Street',
-    cats:[
-      'Residential',
-      'Commercial',
-      'Skyscrapers'
-    ],
+    cats:['Residential','Commercial','Skyscrapers'],
     cc:'c-sky',
-    styleGroups:[
-      'Contemporary',
-      'Sustainable'
-    ],
+    styleGroups:['Contemporary','Sustainable'],
     era:'2000–Present',
     city:'new-york',
     arch:'Alloy Development',
@@ -6075,25 +6193,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Private residential tower.',
     transit:'2, 3, 4, 5 → Borough Hall',
     walkFrom:'Boerum Hill Park: 6 min',
-    tags:[
-      'all-electric',
-      'sustainable',
-      'green-building'
-    ],
+    tags:['all-electric','sustainable','green-building'],
     photos:[]
   },
   {
     id:'nyc-0149',
     name:'489 State Street',
-    cats:[
-      'Academic',
-      'Institution'
-    ],
+    cats:['Academic','Institution'],
     cc:'c-aca',
-    styleGroups:[
-      'Contemporary',
-      'Sustainable'
-    ],
+    styleGroups:['Contemporary','Sustainable'],
     era:'2000–Present',
     city:'new-york',
     arch:'Architecture Research Office (ARO)',
@@ -6111,24 +6219,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Educational tours for groups available.',
     transit:'2, 3, 4, 5 → Borough Hall',
     walkFrom:'505 State Street: 2 min',
-    tags:[
-      'passive-house',
-      'schools',
-      'sustainable'
-    ],
+    tags:['passive-house','schools','sustainable'],
     photos:[]
   },
   {
     id:'nyc-0150',
     name:'One John Street',
-    cats:[
-      'Residential'
-    ],
+    cats:['Residential'],
     cc:'c-res',
-    styleGroups:[
-      'Contemporary',
-      'Sculptural'
-    ],
+    styleGroups:['Contemporary','Sculptural'],
     era:'2000–Present',
     city:'new-york',
     arch:'Alloy Development, SITU Studio',
@@ -6146,24 +6245,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Private residential tower.',
     transit:'A, C → High St–Brooklyn Bridge',
     walkFrom:'Jane\'s Carousel: 2 min',
-    tags:[
-      'leed-gold',
-      'concrete-sculpture',
-      'adaptive-reuse'
-    ],
+    tags:['leed-gold','concrete-sculpture','adaptive-reuse'],
     photos:[]
   },
   {
     id:'nyc-0151',
     name:'185 Plymouth Street',
-    cats:[
-      'Residential'
-    ],
+    cats:['Residential'],
     cc:'c-res',
-    styleGroups:[
-      'Industrial',
-      'Contemporary'
-    ],
+    styleGroups:['Industrial','Contemporary'],
     era:'2000–Present',
     city:'new-york',
     arch:'Alloy Development',
@@ -6181,24 +6271,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Private residences.',
     transit:'A, C → High St–Brooklyn Bridge',
     walkFrom:'St. Ann\'s Warehouse: 3 min',
-    tags:[
-      'adaptive-reuse',
-      'warehouse',
-      'industrial'
-    ],
+    tags:['adaptive-reuse','warehouse','industrial'],
     photos:[]
   },
   {
     id:'nyc-0152',
     name:'168 Plymouth Street',
-    cats:[
-      'Residential'
-    ],
+    cats:['Residential'],
     cc:'c-res',
-    styleGroups:[
-      'Historic',
-      'Contemporary'
-    ],
+    styleGroups:['Historic','Contemporary'],
     era:'2000–Present',
     city:'new-york',
     arch:'Alloy Development',
@@ -6216,24 +6297,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Private residences.',
     transit:'A, C → High St–Brooklyn Bridge',
     walkFrom:'OLYMPIA DUMBO: 3 min',
-    tags:[
-      'leed-gold',
-      'adaptive-reuse',
-      'mixed-era'
-    ],
+    tags:['leed-gold','adaptive-reuse','mixed-era'],
     photos:[]
   },
   {
     id:'nyc-0153',
     name:'420 Kent Avenue',
-    cats:[
-      'Residential',
-      'Skyscrapers'
-    ],
+    cats:['Residential','Skyscrapers'],
     cc:'c-sky',
-    styleGroups:[
-      'Contemporary'
-    ],
+    styleGroups:['Contemporary'],
     era:'2000–Present',
     city:'new-york',
     arch:'ODA Architecture',
@@ -6251,23 +6323,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Private residential towers.',
     transit:'L → Bedford Ave',
     walkFrom:'Williamsburg waterfront: adjacent',
-    tags:[
-      'waterfront',
-      'glass-towers',
-      'public-space'
-    ],
+    tags:['waterfront','glass-towers','public-space'],
     photos:[]
   },
   {
     id:'nyc-0154',
     name:'251 1st Street',
-    cats:[
-      'Residential'
-    ],
+    cats:['Residential'],
     cc:'c-res',
-    styleGroups:[
-      'Contemporary'
-    ],
+    styleGroups:['Contemporary'],
     era:'2000–Present',
     city:'new-york',
     arch:'ODA Architecture',
@@ -6285,23 +6349,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Private residential tower.',
     transit:'F, G → 7th Ave',
     walkFrom:'Prospect Park: 5 min',
-    tags:[
-      'contextual-design',
-      'terraces',
-      'residential'
-    ],
+    tags:['contextual-design','terraces','residential'],
     photos:[]
   },
   {
     id:'nyc-0155',
     name:'The Rheingold (10 Montieth Street)',
-    cats:[
-      'Residential'
-    ],
+    cats:['Residential'],
     cc:'c-res',
-    styleGroups:[
-      'Contemporary'
-    ],
+    styleGroups:['Contemporary'],
     era:'2000–Present',
     city:'new-york',
     arch:'ODA Architecture',
@@ -6319,23 +6375,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Private residential tower.',
     transit:'G → Myrtle–Willoughby Aves',
     walkFrom:'Bushwick collective: 8 min',
-    tags:[
-      'modular-design',
-      'sloped-roofs',
-      'industrial-site'
-    ],
+    tags:['modular-design','sloped-roofs','industrial-site'],
     photos:[]
   },
   {
     id:'nyc-0156',
     name:'Denizen Bushwick',
-    cats:[
-      'Residential'
-    ],
+    cats:['Residential'],
     cc:'c-res',
-    styleGroups:[
-      'Contemporary'
-    ],
+    styleGroups:['Contemporary'],
     era:'2000–Present',
     city:'new-york',
     arch:'ODA Architecture',
@@ -6353,24 +6401,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Private residential complex.',
     transit:'G → Myrtle–Willoughby Aves',
     walkFrom:'The Rheingold: 3 min',
-    tags:[
-      'large-scale',
-      'public-park',
-      'industrial-reuse'
-    ],
+    tags:['large-scale','public-park','industrial-reuse'],
     photos:[]
   },
   {
     id:'nyc-0157',
     name:'Bevel LIC',
-    cats:[
-      'Residential'
-    ],
+    cats:['Residential'],
     cc:'c-res',
-    styleGroups:[
-      'Contemporary',
-      'Geometric'
-    ],
+    styleGroups:['Contemporary','Geometric'],
     era:'2000–Present',
     city:'new-york',
     arch:'ODA Architecture',
@@ -6388,25 +6427,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Private residential tower.',
     transit:'G → Court Sq',
     walkFrom:'Queensbridge Park: 7 min',
-    tags:[
-      'stepped-facade',
-      'outdoor-spaces',
-      'atrium'
-    ],
+    tags:['stepped-facade','outdoor-spaces','atrium'],
     photos:[]
   },
   {
     id:'nyc-0158',
     name:'Jazz at Lincoln Center',
-    cats:[
-      'Cultural',
-      'Landmarks'
-    ],
+    cats:['Cultural','Landmarks'],
     cc:'c-cul',
-    styleGroups:[
-      'Contemporary',
-      'Glass'
-    ],
+    styleGroups:['Contemporary','Glass'],
     era:'2000–Present',
     city:'new-york',
     arch:'Rafael Viñoly Architects',
@@ -6424,24 +6453,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Behind-the-scenes tours available.',
     transit:'A, C, D → Columbus Circle',
     walkFrom:'Central Park: adjacent',
-    tags:[
-      'jazz-venue',
-      'glass-architecture',
-      'cultural-landmark'
-    ],
+    tags:['jazz-venue','glass-architecture','cultural-landmark'],
     photos:[]
   },
   {
     id:'nyc-0159',
     name:'125 Greenwich Street',
-    cats:[
-      'Residential',
-      'Skyscrapers'
-    ],
+    cats:['Residential','Skyscrapers'],
     cc:'c-sky',
-    styleGroups:[
-      'Contemporary'
-    ],
+    styleGroups:['Contemporary'],
     era:'2000–Present',
     city:'new-york',
     arch:'Rafael Viñoly Architects',
@@ -6459,24 +6479,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Private residential tower.',
     transit:'N, R, W → Cortlandt St',
     walkFrom:'Battery Park: 8 min',
-    tags:[
-      'luxury-residential',
-      'curved-form',
-      'financial-district'
-    ],
+    tags:['luxury-residential','curved-form','financial-district'],
     photos:[]
   },
   {
     id:'nyc-0160',
     name:'40 Tenth Avenue (Solar Carve Tower)',
-    cats:[
-      'Commercial'
-    ],
+    cats:['Commercial'],
     cc:'c-com',
-    styleGroups:[
-      'Contemporary',
-      'Parametric'
-    ],
+    styleGroups:['Contemporary','Parametric'],
     era:'2000–Present',
     city:'new-york',
     arch:'Studio Gang',
@@ -6494,25 +6505,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Office building.',
     transit:'A, C, E → 14th St',
     walkFrom:'High Line: adjacent',
-    tags:[
-      'parametric-design',
-      'solar-carved',
-      'office-building'
-    ],
+    tags:['parametric-design','solar-carved','office-building'],
     photos:[]
   },
   {
     id:'nyc-0161',
     name:'11 Hoyt',
-    cats:[
-      'Residential',
-      'Skyscrapers'
-    ],
+    cats:['Residential','Skyscrapers'],
     cc:'c-sky',
-    styleGroups:[
-      'Contemporary',
-      'Sculptural'
-    ],
+    styleGroups:['Contemporary','Sculptural'],
     era:'2000–Present',
     city:'new-york',
     arch:'Studio Gang',
@@ -6530,24 +6531,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Private residential tower.',
     transit:'2, 3, 4, 5 → Hoyt–Schermerhorn',
     walkFrom:'Atlantic Avenue Terminal: 6 min',
-    tags:[
-      'scalloped-facade',
-      'rooftop-park',
-      'residential-tower'
-    ],
+    tags:['scalloped-facade','rooftop-park','residential-tower'],
     photos:[]
   },
   {
     id:'nyc-0162',
     name:'Richard Gilder Center',
-    cats:[
-      'Cultural',
-      'Landmarks'
-    ],
+    cats:['Cultural','Landmarks'],
     cc:'c-cul',
-    styleGroups:[
-      'Contemporary'
-    ],
+    styleGroups:['Contemporary'],
     era:'2000–Present',
     city:'new-york',
     arch:'Studio Gang',
@@ -6565,25 +6557,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Museum docent tours available.',
     transit:'B, C → 79th St–Museum of Natural History',
     walkFrom:'Central Park: adjacent',
-    tags:[
-      'museum-addition',
-      'cave-like',
-      'institutional'
-    ],
+    tags:['museum-addition','cave-like','institutional'],
     photos:[]
   },
   {
     id:'nyc-0163',
     name:'Union Theological Seminary',
-    cats:[
-      'Academic',
-      'Institution',
-      'Religious'
-    ],
+    cats:['Academic','Institution','Religious'],
     cc:'c-rel',
-    styleGroups:[
-      'Gothic Revival'
-    ],
+    styleGroups:['Gothic Revival'],
     era:'1900–1950',
     city:'new-york',
     arch:'Allen & Collens',
@@ -6601,24 +6583,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Campus tours by appointment.',
     transit:'1 → 125th St',
     walkFrom:'Columbia University: 2 min',
-    tags:[
-      'gothic-revival',
-      'theological-campus',
-      'historic'
-    ],
+    tags:['gothic-revival','theological-campus','historic'],
     photos:[]
   },
   {
     id:'nyc-0164',
     name:'Riverside Church',
-    cats:[
-      'Religious',
-      'Landmarks'
-    ],
+    cats:['Religious','Landmarks'],
     cc:'c-rel',
-    styleGroups:[
-      'Neo-Gothic'
-    ],
+    styleGroups:['Neo-Gothic'],
     era:'1900–1950',
     city:'new-york',
     arch:'Henry C. Pelton, Allen & Collens',
@@ -6636,25 +6609,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Bell tower tours available Wed 2pm.',
     transit:'1 → 125th St',
     walkFrom:'Union Theological Seminary: 2 min',
-    tags:[
-      'neo-gothic',
-      'carillon',
-      'landmark-tower'
-    ],
+    tags:['neo-gothic','carillon','landmark-tower'],
     photos:[]
   },
   {
     id:'nyc-0165',
     name:'Claremont Hall',
-    cats:[
-      'Residential',
-      'Skyscrapers'
-    ],
+    cats:['Residential','Skyscrapers'],
     cc:'c-sky',
-    styleGroups:[
-      'Contemporary',
-      'Gothic Revival'
-    ],
+    styleGroups:['Contemporary','Gothic Revival'],
     era:'2000–Present',
     city:'new-york',
     arch:'Robert A.M. Stern Architects (RAMSA)',
@@ -6672,25 +6635,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Private residential tower.',
     transit:'1 → 125th St',
     walkFrom:'Riverside Church: 4 min',
-    tags:[
-      'collegiate-gothic',
-      'luxury-residential',
-      'contextual'
-    ],
+    tags:['collegiate-gothic','luxury-residential','contextual'],
     photos:[]
   },
   {
     id:'nyc-0166',
     name:'Jerome L. Greene Science Center',
-    cats:[
-      'Academic',
-      'Institution'
-    ],
+    cats:['Academic','Institution'],
     cc:'c-aca',
-    styleGroups:[
-      'Contemporary',
-      'Glass'
-    ],
+    styleGroups:['Contemporary','Glass'],
     era:'2000–Present',
     city:'new-york',
     arch:'Renzo Piano Building Workshop',
@@ -6708,24 +6661,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Educational programs and campus tours available.',
     transit:'1 → 125th St',
     walkFrom:'Columbia University campus: adjacent',
-    tags:[
-      'glass-palace',
-      'neuroscience-research',
-      'contemporary'
-    ],
+    tags:['glass-palace','neuroscience-research','contemporary'],
     photos:[]
   },
   {
     id:'nyc-0167',
     name:'Lenfest Center for the Arts',
-    cats:[
-      'Cultural',
-      'Academic'
-    ],
+    cats:['Cultural','Academic'],
     cc:'c-cul',
-    styleGroups:[
-      'Contemporary'
-    ],
+    styleGroups:['Contemporary'],
     era:'2000–Present',
     city:'new-york',
     arch:'Renzo Piano Building Workshop',
@@ -6743,25 +6687,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Gallery talks and performance tours available.',
     transit:'1 → 125th St',
     walkFrom:'Jerome L. Greene Science Center: 4 min',
-    tags:[
-      'art-center',
-      'gallery-spaces',
-      'performance-venues'
-    ],
+    tags:['art-center','gallery-spaces','performance-venues'],
     photos:[]
   },
   {
     id:'nyc-0168',
     name:'The Forum',
-    cats:[
-      'Academic',
-      'Institution'
-    ],
+    cats:['Academic','Institution'],
     cc:'c-aca',
-    styleGroups:[
-      'Contemporary',
-      'Glass'
-    ],
+    styleGroups:['Contemporary','Glass'],
     era:'2000–Present',
     city:'new-york',
     arch:'Renzo Piano Building Workshop',
@@ -6779,23 +6713,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Campus tours include the Forum.',
     transit:'A, C, D, 1 → 125th St',
     walkFrom:'Lenfest Center for the Arts: 3 min',
-    tags:[
-      'conference-space',
-      'glass-pavilion',
-      'public-engagement'
-    ],
+    tags:['conference-space','glass-pavilion','public-engagement'],
     photos:[]
   },
   {
     id:'nyc-0169',
     name:'Northwest Corner Building',
-    cats:[
-      'Academic'
-    ],
+    cats:['Academic'],
     cc:'c-aca',
-    styleGroups:[
-      'Modern'
-    ],
+    styleGroups:['Modern'],
     era:'2010s',
     city:'new-york',
     arch:'Rafael Moneo',
@@ -6813,26 +6739,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Contact Columbia University for academic tours.',
     transit:'A/C → 125th St',
     walkFrom:'Columbia University campus center: 2 min',
-    tags:[
-      'glass',
-      'laboratory',
-      'columbia',
-      'institutional'
-    ],
+    tags:['glass','laboratory','columbia','institutional'],
     photos:[]
   },
   {
     id:'nyc-0170',
     name:'Cathedral of St. John the Divine',
-    cats:[
-      'Religious',
-      'Landmarks'
-    ],
+    cats:['Religious','Landmarks'],
     cc:'c-rel',
-    styleGroups:[
-      'Romanesque Revival',
-      'Gothic Revival'
-    ],
+    styleGroups:['Romanesque Revival','Gothic Revival'],
     era:'1891-present',
     city:'new-york',
     arch:'Heins & LaFarge / Cram & Ferguson',
@@ -6850,25 +6765,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Guided tours available; check website for schedule.',
     transit:'1 → 110th St; A/C → 125th St',
     walkFrom:'Morningside Park: 1 min; Columbia University: 3 min',
-    tags:[
-      'cathedral',
-      'religious',
-      'gothic',
-      'landmark',
-      'historic'
-    ],
+    tags:['cathedral','religious','gothic','landmark','historic'],
     photos:[]
   },
   {
     id:'nyc-0171',
     name:'Enclave at the Cathedral',
-    cats:[
-      'Residential'
-    ],
+    cats:['Residential'],
     cc:'c-res',
-    styleGroups:[
-      'Contemporary'
-    ],
+    styleGroups:['Contemporary'],
     era:'2010s',
     city:'new-york',
     arch:'Handel Architects',
@@ -6886,24 +6791,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Private residential building.',
     transit:'1 → 110th St; A/C → 110th St',
     walkFrom:'Cathedral of St. John the Divine: 1 min',
-    tags:[
-      'residential',
-      'modern',
-      'contextual',
-      'mixed-use'
-    ],
+    tags:['residential','modern','contextual','mixed-use'],
     photos:[]
   },
   {
     id:'nyc-0172',
     name:'The Vandewater',
-    cats:[
-      'Residential'
-    ],
+    cats:['Residential'],
     cc:'c-res',
-    styleGroups:[
-      'Contemporary'
-    ],
+    styleGroups:['Contemporary'],
     era:'2020s',
     city:'new-york',
     arch:'COOKFOX Architects',
@@ -6921,24 +6817,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Private residential building.',
     transit:'1 → 110th St; A/C → 110th St',
     walkFrom:'Columbia University: 2 min',
-    tags:[
-      'residential',
-      'luxury',
-      'sustainable',
-      'brick'
-    ],
+    tags:['residential','luxury','sustainable','brick'],
     photos:[]
   },
   {
     id:'nyc-0173',
     name:'CUNY Advanced Science Research Center',
-    cats:[
-      'Academic'
-    ],
+    cats:['Academic'],
     cc:'c-aca',
-    styleGroups:[
-      'Modern'
-    ],
+    styleGroups:['Modern'],
     era:'2010s',
     city:'new-york',
     arch:'KPF (Kohn Pedersen Fox)',
@@ -6956,26 +6843,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Academic facility; contact City College for more information.',
     transit:'A/D → 155th St',
     walkFrom:'City College campus: adjacent',
-    tags:[
-      'research',
-      'laboratory',
-      'academic',
-      'modern',
-      'institutional'
-    ],
+    tags:['research','laboratory','academic','modern','institutional'],
     photos:[]
   },
   {
     id:'nyc-0174',
     name:'Low Memorial Library',
-    cats:[
-      'Academic',
-      'Landmarks'
-    ],
+    cats:['Academic','Landmarks'],
     cc:'c-aca',
-    styleGroups:[
-      'Beaux-Arts'
-    ],
+    styleGroups:['Beaux-Arts'],
     era:'1890s',
     city:'new-york',
     arch:'McKim, Mead & White',
@@ -6993,25 +6869,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Columbia University campus tours include exterior; some interior access during events.',
     transit:'1 → 116th St; A/C → 125th St',
     walkFrom:'Columbia University center: 1 min',
-    tags:[
-      'beaux-arts',
-      'landmark',
-      'neoclassical',
-      'columbia',
-      'historic'
-    ],
+    tags:['beaux-arts','landmark','neoclassical','columbia','historic'],
     photos:[]
   },
   {
     id:'nyc-0175',
     name:'Butler Library',
-    cats:[
-      'Academic'
-    ],
+    cats:['Academic'],
     cc:'c-aca',
-    styleGroups:[
-      'Neoclassical'
-    ],
+    styleGroups:['Neoclassical'],
     era:'1930s',
     city:'new-york',
     arch:'James Gamble Rogers',
@@ -7029,25 +6895,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Campus tours may include exterior; interior access requires affiliation.',
     transit:'1 → 114th St',
     walkFrom:'Columbia University: 1 min',
-    tags:[
-      'library',
-      'neoclassical',
-      'academic',
-      'columbia',
-      'institutional'
-    ],
+    tags:['library','neoclassical','academic','columbia','institutional'],
     photos:[]
   },
   {
     id:'nyc-0176',
     name:'Alfred Lerner Hall',
-    cats:[
-      'Academic'
-    ],
+    cats:['Academic'],
     cc:'c-aca',
-    styleGroups:[
-      'Deconstructivism'
-    ],
+    styleGroups:['Deconstructivism'],
     era:'1990s',
     city:'new-york',
     arch:'Bernard Tschumi Architects',
@@ -7065,25 +6921,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Student center; contact Columbia for access information.',
     transit:'1 → 116th St; A/C → 125th St',
     walkFrom:'Columbia University: adjacent',
-    tags:[
-      'deconstructivism',
-      'student-center',
-      'glass',
-      'columbia',
-      'modern'
-    ],
+    tags:['deconstructivism','student-center','glass','columbia','modern'],
     photos:[]
   },
   {
     id:'nyc-0177',
     name:'Columbia Business School',
-    cats:[
-      'Academic'
-    ],
+    cats:['Academic'],
     cc:'c-aca',
-    styleGroups:[
-      'Contemporary'
-    ],
+    styleGroups:['Contemporary'],
     era:'2020s',
     city:'new-york',
     arch:'Diller Scofidio + Renfro',
@@ -7101,26 +6947,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Academic facility; contact Columbia Business School.',
     transit:'1 → 125th St; A/C → 125th St',
     walkFrom:'Columbia Manhattanville campus: adjacent',
-    tags:[
-      'business-school',
-      'academic',
-      'contemporary',
-      'columbia',
-      'institutional'
-    ],
+    tags:['business-school','academic','contemporary','columbia','institutional'],
     photos:[]
   },
   {
     id:'nyc-0178',
     name:'15 Hudson Yards',
-    cats:[
-      'Residential',
-      'Skyscrapers'
-    ],
+    cats:['Residential','Skyscrapers'],
     cc:'c-sky',
-    styleGroups:[
-      'Contemporary'
-    ],
+    styleGroups:['Contemporary'],
     era:'2010s',
     city:'new-york',
     arch:'Diller Scofidio + Renfro',
@@ -7138,25 +6973,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Private residential building.',
     transit:'7 → Hudson Yards-34th St; A/C/E → 34th St',
     walkFrom:'The Shed: 1 min; High Line: 2 min',
-    tags:[
-      'residential',
-      'skyscraper',
-      'luxury',
-      'hudson-yards',
-      'contemporary'
-    ],
+    tags:['residential','skyscraper','luxury','hudson-yards','contemporary'],
     photos:[]
   },
   {
     id:'nyc-0179',
     name:'Roy & Diana Vagelos Education Center',
-    cats:[
-      'Academic'
-    ],
+    cats:['Academic'],
     cc:'c-aca',
-    styleGroups:[
-      'Contemporary'
-    ],
+    styleGroups:['Contemporary'],
     era:'2010s',
     city:'new-york',
     arch:'Diller Scofidio + Renfro',
@@ -7174,25 +6999,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Medical school facility; contact Columbia CUMC.',
     transit:'A/C → 168th St',
     walkFrom:'Columbia Medical Center: adjacent',
-    tags:[
-      'medical-education',
-      'academic',
-      'contemporary',
-      'columbia',
-      'institutional'
-    ],
+    tags:['medical-education','academic','contemporary','columbia','institutional'],
     photos:[]
   },
   {
     id:'nyc-0180',
     name:'Diana Center at Barnard College',
-    cats:[
-      'Academic'
-    ],
+    cats:['Academic'],
     cc:'c-aca',
-    styleGroups:[
-      'Contemporary'
-    ],
+    styleGroups:['Contemporary'],
     era:'2010s',
     city:'new-york',
     arch:'Weiss/Manfredi',
@@ -7210,25 +7025,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Barnard College facility; contact for event access.',
     transit:'1 → 116th St; A/C → 125th St',
     walkFrom:'Barnard College campus: adjacent',
-    tags:[
-      'arts-center',
-      'academic',
-      'contemporary',
-      'barnard',
-      'institutional'
-    ],
+    tags:['arts-center','academic','contemporary','barnard','institutional'],
     photos:[]
   },
   {
     id:'nyc-0181',
     name:'121 East 22nd Street',
-    cats:[
-      'Residential'
-    ],
+    cats:['Residential'],
     cc:'c-res',
-    styleGroups:[
-      'Contemporary'
-    ],
+    styleGroups:['Contemporary'],
     era:'2010s',
     city:'new-york',
     arch:'OMA (Shohei Shigematsu)',
@@ -7246,26 +7051,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Private residential building.',
     transit:'N/R/W → 23rd St; 6 → 23rd St',
     walkFrom:'Gramercy Park: 2 min',
-    tags:[
-      'residential',
-      'oma',
-      'contemporary',
-      'luxury',
-      'prismatic'
-    ],
+    tags:['residential','oma','contemporary','luxury','prismatic'],
     photos:[]
   },
   {
     id:'nyc-0182',
     name:'The Bryant',
-    cats:[
-      'Residential',
-      'Commercial'
-    ],
+    cats:['Residential','Commercial'],
     cc:'c-res',
-    styleGroups:[
-      'Contemporary'
-    ],
+    styleGroups:['Contemporary'],
     era:'2010s',
     city:'new-york',
     arch:'David Chipperfield Architects',
@@ -7283,25 +7077,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Hotel guests and public lobby access.',
     transit:'B/D/F/M → 42nd St; 7 → 42nd St',
     walkFrom:'Bryant Park: 1 min; Times Square: 2 min',
-    tags:[
-      'mixed-use',
-      'hotel',
-      'residential',
-      'chipperfield',
-      'contemporary'
-    ],
+    tags:['mixed-use','hotel','residential','chipperfield','contemporary'],
     photos:[]
   },
   {
     id:'nyc-0183',
     name:'Valentino Flagship',
-    cats:[
-      'Retail'
-    ],
+    cats:['Retail'],
     cc:'c-ret',
-    styleGroups:[
-      'Contemporary'
-    ],
+    styleGroups:['Contemporary'],
     era:'2010s',
     city:'new-york',
     arch:'David Chipperfield Architects',
@@ -7319,26 +7103,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Retail space; public entry.',
     transit:'E/M → 53rd St; N/R/W → 5th Ave',
     walkFrom:'St. Patrick\'s Cathedral: 1 min; Fifth Avenue: adjacent',
-    tags:[
-      'retail',
-      'flagship',
-      'luxury',
-      'chipperfield',
-      'contemporary'
-    ],
+    tags:['retail','flagship','luxury','chipperfield','contemporary'],
     photos:[]
   },
   {
     id:'nyc-0184',
     name:'New York County Supreme Court',
-    cats:[
-      'Public',
-      'Landmarks'
-    ],
+    cats:['Public','Landmarks'],
     cc:'c-pub',
-    styleGroups:[
-      'Beaux-Arts'
-    ],
+    styleGroups:['Beaux-Arts'],
     era:'1920s',
     city:'new-york',
     arch:'Guy Lowell',
@@ -7356,26 +7129,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Courthouse; limited public access during operations.',
     transit:'4/5/6 → Brooklyn Bridge-City Hall; J/Z → Chambers St',
     walkFrom:'City Hall: 2 min; The Oculus: 3 min',
-    tags:[
-      'courthouse',
-      'beaux-arts',
-      'landmark',
-      'civic',
-      'historic'
-    ],
+    tags:['courthouse','beaux-arts','landmark','civic','historic'],
     photos:[]
   },
   {
     id:'nyc-0185',
     name:'Thurgood Marshall United States Courthouse',
-    cats:[
-      'Public',
-      'Landmarks'
-    ],
+    cats:['Public','Landmarks'],
     cc:'c-pub',
-    styleGroups:[
-      'Art Deco'
-    ],
+    styleGroups:['Art Deco'],
     era:'1930s',
     city:'new-york',
     arch:'Cass Gilbert',
@@ -7393,26 +7155,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Federal courthouse; limited public access.',
     transit:'4/5/6 → Brooklyn Bridge-City Hall; J/Z → Chambers St',
     walkFrom:'City Hall: 2 min; Woolworth Building: 2 min',
-    tags:[
-      'courthouse',
-      'art-deco',
-      'landmark',
-      'federal',
-      'historic'
-    ],
+    tags:['courthouse','art-deco','landmark','federal','historic'],
     photos:[]
   },
   {
     id:'nyc-0186',
     name:'New York Stock Exchange',
-    cats:[
-      'Public',
-      'Landmarks'
-    ],
+    cats:['Public','Landmarks'],
     cc:'c-pub',
-    styleGroups:[
-      'Beaux-Arts'
-    ],
+    styleGroups:['Beaux-Arts'],
     era:'1900-1920s',
     city:'new-york',
     arch:'George B. Post / Trowbridge & Livingston',
@@ -7430,26 +7181,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Visitor gallery closed; contact for information on special access.',
     transit:'4/5 → Wall St; 2/3 → Wall St; J/Z → Broad St',
     walkFrom:'Wall Street: adjacent; Federal Hall: 1 min',
-    tags:[
-      'stock-exchange',
-      'beaux-arts',
-      'landmark',
-      'financial',
-      'historic'
-    ],
+    tags:['stock-exchange','beaux-arts','landmark','financial','historic'],
     photos:[]
   },
   {
     id:'nyc-0187',
     name:'MoMA PS1',
-    cats:[
-      'Cultural',
-      'Landmarks'
-    ],
+    cats:['Cultural','Landmarks'],
     cc:'c-cul',
-    styleGroups:[
-      'Romanesque Revival'
-    ],
+    styleGroups:['Romanesque Revival'],
     era:'1893 / 1997',
     city:'new-york',
     arch:'Frederick Fisher (1997 renovation)',
@@ -7467,25 +7207,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Self-guided; exhibitions displayed throughout.',
     transit:'M/N/W → Queensboro Plaza; 7 → Court Sq',
     walkFrom:'Queensboro Bridge: 2 min; Gantry Plaza State Park: 1 min',
-    tags:[
-      'contemporary-art',
-      'moma',
-      'landmark',
-      'long-island-city',
-      'adaptive-reuse'
-    ],
+    tags:['contemporary-art','moma','landmark','long-island-city','adaptive-reuse'],
     photos:[]
   },
   {
     id:'nyc-0188',
     name:'Noguchi Museum',
-    cats:[
-      'Cultural'
-    ],
+    cats:['Cultural'],
     cc:'c-cul',
-    styleGroups:[
-      'Modern'
-    ],
+    styleGroups:['Modern'],
     era:'1980s',
     city:'new-york',
     arch:'Isamu Noguchi',
@@ -7503,26 +7233,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Self-guided tours; docent talks on weekends.',
     transit:'M/R → Steinway St; N/W → Astoria Blvd',
     walkFrom:'Astoria Park: 1 min',
-    tags:[
-      'museum',
-      'sculpture',
-      'noguchi',
-      'astoria',
-      'contemporary-art'
-    ],
+    tags:['museum','sculpture','noguchi','astoria','contemporary-art'],
     photos:[]
   },
   {
     id:'nyc-0189',
     name:'The Hills at Governors Island',
-    cats:[
-      'Parks',
-      'Landmarks'
-    ],
+    cats:['Parks','Landmarks'],
     cc:'c-park',
-    styleGroups:[
-      'Landscape Architecture'
-    ],
+    styleGroups:['Landscape Architecture'],
     era:'2010s',
     city:'new-york',
     arch:'West 8 Urban Design',
@@ -7540,26 +7259,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Public landscape; self-guided exploration.',
     transit:'Ferry from Battery Park or Brooklyn Bridge Park',
     walkFrom:'Governors Island center: 10 min walk',
-    tags:[
-      'landscape',
-      'park',
-      'sculpture',
-      'governors-island',
-      'public-art'
-    ],
+    tags:['landscape','park','sculpture','governors-island','public-art'],
     photos:[]
   },
   {
     id:'nyc-0190',
     name:'111 Murray Street',
-    cats:[
-      'Residential',
-      'Skyscrapers'
-    ],
+    cats:['Residential','Skyscrapers'],
     cc:'c-sky',
-    styleGroups:[
-      'Contemporary'
-    ],
+    styleGroups:['Contemporary'],
     era:'2010s',
     city:'new-york',
     arch:'KPF (Kohn Pedersen Fox)',
@@ -7577,25 +7285,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Private residential building.',
     transit:'1/2/3 → Park Place; 4/5 → Fulton St',
     walkFrom:'Tribeca: 1 min; The Oculus: 2 min',
-    tags:[
-      'residential',
-      'skyscraper',
-      'luxury',
-      'tribeca',
-      'contemporary'
-    ],
+    tags:['residential','skyscraper','luxury','tribeca','contemporary'],
     photos:[]
   },
   {
     id:'nyc-0191',
     name:'262 Kent Avenue',
-    cats:[
-      'Residential'
-    ],
+    cats:['Residential'],
     cc:'c-res',
-    styleGroups:[
-      'Contemporary'
-    ],
+    styleGroups:['Contemporary'],
     era:'2020s',
     city:'new-york',
     arch:'COOKFOX Architects',
@@ -7613,25 +7311,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Private residential building.',
     transit:'L → Bedford Ave; G → Nassau Ave',
     walkFrom:'East River Waterfront: 1 min; Domino Park: 2 min',
-    tags:[
-      'residential',
-      'waterfront',
-      'sustainable',
-      'williamsburg',
-      'adaptive-reuse'
-    ],
+    tags:['residential','waterfront','sustainable','williamsburg','adaptive-reuse'],
     photos:[]
   },
   {
     id:'nyc-0192',
     name:'New Museum Expansion',
-    cats:[
-      'Cultural'
-    ],
+    cats:['Cultural'],
     cc:'c-cul',
-    styleGroups:[
-      'Contemporary'
-    ],
+    styleGroups:['Contemporary'],
     era:'2020s',
     city:'new-york',
     arch:'OMA (Shohei Shigematsu)',
@@ -7649,26 +7337,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Guided and self-guided exhibition tours available.',
     transit:'F → Broadway-Lafayette; J/Z → Bowery',
     walkFrom:'Lower East Side: adjacent',
-    tags:[
-      'museum',
-      'contemporary',
-      'oma',
-      'lower-east-side',
-      'expansion'
-    ],
+    tags:['museum','contemporary','oma','lower-east-side','expansion'],
     photos:[]
   },
   {
     id:'nyc-0193',
     name:'Perelman Performing Arts Center',
-    cats:[
-      'Cultural',
-      'Landmarks'
-    ],
+    cats:['Cultural','Landmarks'],
     cc:'c-cul',
-    styleGroups:[
-      'Contemporary'
-    ],
+    styleGroups:['Contemporary'],
     era:'2020s',
     city:'new-york',
     arch:'REX Architecture (Joshua Prince-Ramus)',
@@ -7686,16 +7363,10 @@ var LOCS_NEW_YORK = [
     tourInfo:'Public performances and special events; lobby accessible.',
     transit:'2/3/4/5 → Fulton St; J/Z → Fulton St; 1 → Park Place',
     walkFrom:'World Trade Center: 1 min; The Oculus: 1 min',
-    tags:[
-      'performing-arts',
-      'theater',
-      'landmark',
-      'wtc',
-      'contemporary'
-    ],
+    tags:['performing-arts','theater','landmark','wtc','contemporary'],
     photos:[]
   },
-  {
+{
     id:'nyc-0194',
     name:'McGraw-Hill Building',
     city:'new-york',
@@ -7714,13 +7385,7 @@ var LOCS_NEW_YORK = [
     tourInfo:'Exterior viewing; interior office spaces',
     transit:'A/C/E → 42nd St-Port Authority',
     walkFrom:'Times Square: 5 min',
-    tags:[
-      'art-deco',
-      'skyscraper',
-      'landmark',
-      'modernism',
-      'commercial'
-    ],
+    tags:['art-deco','skyscraper','landmark','modernism','commercial'],
     photos:[]
   },
   {
@@ -7742,12 +7407,7 @@ var LOCS_NEW_YORK = [
     tourInfo:'Lobby and public spaces; guest rooms available',
     transit:'1/2/3 → 34th St-Penn Station',
     walkFrom:'Penn Station: 2 min',
-    tags:[
-      'art-deco',
-      'hotel',
-      'skyscraper',
-      'historic'
-    ],
+    tags:['art-deco','hotel','skyscraper','historic'],
     photos:[]
   },
   {
@@ -7758,7 +7418,7 @@ var LOCS_NEW_YORK = [
     yr:1902,
     access:'Open to Public',
     lat:40.7508,
-    lng:-73.989,
+    lng:-73.9890,
     addr:'151 W 34th St, New York, NY 10001',
     hood:'Midtown',
     desc:'The world\'s largest store by floor area, this Beaux-Arts department store features an ornate Broadway facade with elaborate stone and terra cotta ornamentation. Multiple expansions through 1924 created a retail palace celebrated for its monumental scale and decorative masonry work.',
@@ -7769,13 +7429,7 @@ var LOCS_NEW_YORK = [
     tourInfo:'Self-guided shopping; architectural features throughout building',
     transit:'B/D/F/M/N/Q/R/W → 34th St-Herald Square',
     walkFrom:'Herald Square: 0 min',
-    tags:[
-      'beaux-arts',
-      'landmark',
-      'historic',
-      'retail',
-      'commercial'
-    ],
+    tags:['beaux-arts','landmark','historic','retail','commercial'],
     photos:[]
   },
   {
@@ -7797,13 +7451,7 @@ var LOCS_NEW_YORK = [
     tourInfo:'Exterior viewing; interior tours occasionally available',
     transit:'C/E → Spring St; 1 → Houston St',
     walkFrom:'Hudson River Greenway: 3 min',
-    tags:[
-      'contemporary',
-      'infrastructure',
-      'modernism',
-      'sculpture',
-      'landmark'
-    ],
+    tags:['contemporary','infrastructure','modernism','sculpture','landmark'],
     photos:[]
   },
   {
@@ -7813,7 +7461,7 @@ var LOCS_NEW_YORK = [
     arch:'Edward Durell Stone & Donald Deskey',
     yr:1932,
     access:'Open to Public',
-    lat:40.76,
+    lat:40.7600,
     lng:-73.9799,
     addr:'1260 6th Ave, New York, NY 10020',
     hood:'Midtown',
@@ -7825,13 +7473,7 @@ var LOCS_NEW_YORK = [
     tourInfo:'Guided tours showcase grand lobby, auditorium, and backstage areas',
     transit:'B/D/F/M → 47-50th Sts-Rockefeller Center',
     walkFrom:'Rockefeller Center: 2 min',
-    tags:[
-      'art-deco',
-      'performing-arts',
-      'historic',
-      'landmark',
-      'theatrical'
-    ],
+    tags:['art-deco','performing-arts','historic','landmark','theatrical'],
     photos:[]
   },
   {
@@ -7853,13 +7495,7 @@ var LOCS_NEW_YORK = [
     tourInfo:'Guided tours of main hall, intimate theaters, and landmark spaces',
     transit:'N/Q/R/W → 57th St-7th Ave',
     walkFrom:'Columbus Circle: 5 min',
-    tags:[
-      'renaissance-revival',
-      'performing-arts',
-      'historic',
-      'landmark',
-      'music'
-    ],
+    tags:['renaissance-revival','performing-arts','historic','landmark','music'],
     photos:[]
   },
   {
@@ -7881,13 +7517,7 @@ var LOCS_NEW_YORK = [
     tourInfo:'Exterior viewing; lobby accessible',
     transit:'B/D/F/M → 42nd St-Bryant Park; 7 → 5th Ave',
     walkFrom:'Bryant Park: 1 min',
-    tags:[
-      'modernism',
-      'skyscraper',
-      'som',
-      'international-style',
-      'landmark'
-    ],
+    tags:['modernism','skyscraper','som','international-style','landmark'],
     photos:[]
   },
   {
@@ -7909,13 +7539,7 @@ var LOCS_NEW_YORK = [
     tourInfo:'Lobby viewing; guest rooms available',
     transit:'N/R/W → 5th Ave/59th St',
     walkFrom:'Central Park: 1 min',
-    tags:[
-      'gothic-revival',
-      'hotel',
-      'historic',
-      'luxury',
-      'upper-east-side'
-    ],
+    tags:['gothic-revival','hotel','historic','luxury','upper-east-side'],
     photos:[]
   },
   {
@@ -7937,13 +7561,7 @@ var LOCS_NEW_YORK = [
     tourInfo:'Lobby, restaurants, and tea service available',
     transit:'N/R/W → 5th Ave/59th St',
     walkFrom:'Central Park: 1 min',
-    tags:[
-      'french-renaissance',
-      'hotel',
-      'historic',
-      'landmark',
-      'national-historic-landmark'
-    ],
+    tags:['french-renaissance','hotel','historic','landmark','national-historic-landmark'],
     photos:[]
   },
   {
@@ -7965,13 +7583,7 @@ var LOCS_NEW_YORK = [
     tourInfo:'Exterior viewing during renovation; future tours planned',
     transit:'6 → 51st St; E/M → Lexington Ave/53rd St',
     walkFrom:'Grand Central Terminal: 5 min',
-    tags:[
-      'art-deco',
-      'hotel',
-      'historic',
-      'landmark',
-      'skyscraper'
-    ],
+    tags:['art-deco','hotel','historic','landmark','skyscraper'],
     photos:[]
   },
   {
@@ -7981,7 +7593,7 @@ var LOCS_NEW_YORK = [
     arch:'Schultze & Weaver',
     yr:1930,
     access:'Open to Public',
-    lat:40.766,
+    lat:40.7660,
     lng:-73.9726,
     addr:'2 E 61st St, New York, NY 10065',
     hood:'Upper East Side',
@@ -7993,13 +7605,7 @@ var LOCS_NEW_YORK = [
     tourInfo:'Lobby and public spaces; afternoon tea service available',
     transit:'N/R/W → 5th Ave/59th St; 4/5/6 → 59th St',
     walkFrom:'Central Park: 2 min',
-    tags:[
-      'neo-georgian',
-      'hotel',
-      'historic',
-      'luxury',
-      'upper-east-side'
-    ],
+    tags:['neo-georgian','hotel','historic','luxury','upper-east-side'],
     photos:[]
   },
   {
@@ -8021,12 +7627,7 @@ var LOCS_NEW_YORK = [
     tourInfo:'Atrium accessible during business hours',
     transit:'E/M → 5th Ave/53rd St; N/R/W → 5th Ave/59th St',
     walkFrom:'Rockefeller Center: 5 min',
-    tags:[
-      'postmodern',
-      'skyscraper',
-      'luxury',
-      'commercial'
-    ],
+    tags:['postmodern','skyscraper','luxury','commercial'],
     photos:[]
   },
   {
@@ -8048,14 +7649,7 @@ var LOCS_NEW_YORK = [
     tourInfo:'Shopping and dining open to public',
     transit:'1/A/B/C/D → 59th St-Columbus Circle',
     walkFrom:'Central Park: 2 min',
-    tags:[
-      'skyscraper',
-      'glass',
-      'modern',
-      'mixed-use',
-      'som',
-      'landmark'
-    ],
+    tags:['skyscraper','glass','modern','mixed-use','som','landmark'],
     photos:[]
   },
   {
@@ -8065,7 +7659,7 @@ var LOCS_NEW_YORK = [
     arch:'McKim, Mead & White (1883) / Emery Roth & Sons (1980)',
     yr:1980,
     access:'Open to Public',
-    lat:40.758,
+    lat:40.7580,
     lng:-73.9748,
     addr:'455 Madison Ave, New York, NY 10022',
     hood:'Midtown East',
@@ -8077,14 +7671,7 @@ var LOCS_NEW_YORK = [
     tourInfo:'Historic lobby accessible; guided tours available',
     transit:'6 → 51st St; E/M → Lexington Ave/53rd St',
     walkFrom:'St. Patrick\'s Cathedral: 3 min',
-    tags:[
-      'historic',
-      'renaissance',
-      'luxury',
-      'adaptive-reuse',
-      'landmark',
-      'hotel'
-    ],
+    tags:['historic','renaissance','luxury','adaptive-reuse','landmark','hotel'],
     photos:[]
   },
   {
@@ -8106,13 +7693,7 @@ var LOCS_NEW_YORK = [
     tourInfo:'Lobby and exterior viewing',
     transit:'6 → 51st St; E/M → Lexington Ave/53rd St',
     walkFrom:'Waldorf Astoria: 2 min',
-    tags:[
-      'art-deco',
-      'landmark',
-      'skyscraper',
-      'historic',
-      'commercial'
-    ],
+    tags:['art-deco','landmark','skyscraper','historic','commercial'],
     photos:[]
   },
   {
@@ -8134,14 +7715,7 @@ var LOCS_NEW_YORK = [
     tourInfo:'Office building; lobby viewing only',
     transit:'B/D/F/M → 42nd St-Bryant Park; 1/2/3/7/N/Q/R/W/S → Times Square-42nd St',
     walkFrom:'New York Public Library: 2 min',
-    tags:[
-      'skyscraper',
-      'sustainable',
-      'leed',
-      'glass',
-      'modern',
-      'landmark'
-    ],
+    tags:['skyscraper','sustainable','leed','glass','modern','landmark'],
     photos:[]
   },
   {
@@ -8163,13 +7737,7 @@ var LOCS_NEW_YORK = [
     tourInfo:'Atrium and lobby accessible to visitors',
     transit:'1/2/3/7/N/Q/R/W/S → Times Square-42nd St',
     walkFrom:'TKTS Stairs: 1 min',
-    tags:[
-      'hotel',
-      'postmodern',
-      'atrium',
-      'broadway',
-      'times-square'
-    ],
+    tags:['hotel','postmodern','atrium','broadway','times-square'],
     photos:[]
   },
   {
@@ -8191,14 +7759,7 @@ var LOCS_NEW_YORK = [
     tourInfo:'Guided tours available; reservations required',
     transit:'2/3 → Wall St; 4/5 → Wall St; J/Z → Broad St',
     walkFrom:'9/11 Memorial: 3 min',
-    tags:[
-      'renaissance-revival',
-      'infrastructure',
-      'historic',
-      'banking',
-      'financial-district',
-      'landmark'
-    ],
+    tags:['renaissance-revival','infrastructure','historic','banking','financial-district','landmark'],
     photos:[]
   },
   {
@@ -8220,13 +7781,7 @@ var LOCS_NEW_YORK = [
     tourInfo:'Residential building; exterior viewing only',
     transit:'4/5/6 → Brooklyn Bridge-City Hall; J/Z → Chambers St',
     walkFrom:'City Hall Park: 5 min',
-    tags:[
-      'brutalism',
-      'residential',
-      'modernism',
-      'concrete',
-      'mid-century'
-    ],
+    tags:['brutalism','residential','modernism','concrete','mid-century'],
     photos:[]
   },
   {
@@ -8248,13 +7803,7 @@ var LOCS_NEW_YORK = [
     tourInfo:'Gallery spaces and cultural programs open to public',
     transit:'E/M → 5th Ave/53rd St; 6 → 51st St',
     walkFrom:'St. Patrick\'s Cathedral: 3 min',
-    tags:[
-      'deconstructivism',
-      'cultural-center',
-      'glass',
-      'modern',
-      'contemporary'
-    ],
+    tags:['deconstructivism','cultural-center','glass','modern','contemporary'],
     photos:[]
   },
   {
@@ -8265,7 +7814,7 @@ var LOCS_NEW_YORK = [
     yr:1925,
     access:'Open to Public',
     lat:40.7608,
-    lng:-73.987,
+    lng:-73.9870,
     addr:'261 W 47th St, New York, NY 10036',
     hood:'Theater District',
     desc:'Intimate 650-seat neo-Georgian theater originally designed by Herbert Krapp in 1925 and renovated in 2003 as the home of Manhattan Theatre Club. The theater exemplifies early 20th-century Broadway playhouse design with elegant period detailing and sophisticated acoustics.',
@@ -8276,13 +7825,7 @@ var LOCS_NEW_YORK = [
     tourInfo:'Tours available; check website for schedule',
     transit:'N/R/W → 49th St; 1 → 50th St',
     walkFrom:'Times Square: 5 min',
-    tags:[
-      'theater',
-      'performing-arts',
-      'neo-georgian',
-      'broadway',
-      'historic'
-    ],
+    tags:['theater','performing-arts','neo-georgian','broadway','historic'],
     photos:[]
   }
 ];

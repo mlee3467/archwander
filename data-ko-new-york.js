@@ -419,6 +419,17 @@ var LOCS_KO_NEW_YORK = {
     transit: "7 → 34 St–Hudson Yards · A C E → 34 St–Penn Station",
     walkFrom: "High Line: 3분 · Vessel: 5분"
   },
+  "nyc-0046": {
+    name: "허드슨 야드 마스터플랜",
+    desc: "Hudson Yards는 미국 역사에서 가장 큰 사적 부동산 개발이며 Long Island Rail Road의 활동 중인 West Side Yard 위에 지어진 28에이크 콘크리트 플랫폼 위에 건설되었습니다. KPF (Kohn Pedersen Fox)와 Related Companies의 마스터플랜은 중앙 공개 광장 주변에 사무실, 주거, 호텔, 소매, 그리고 문화 공간의 1,800만 제곱피트 이상을 조직합니다. 주요 건물은 30 Hudson Yards (KPF), The Spiral (BIG), 35 Hudson Yards (David Childs/SOM), The Shed (Diller Scofidio + Renfro), and Vessel (Heatherwick Studio)을 포함합니다. Phase 1은 2019년 3월에 개관했으며 Midtown Manhattan의 서부 가장자리를 재정의했습니다.",
+    hood: "허드슨 야드",
+    hours: "공개 공간: 매일 오전 7–오후 11",
+    lastEntry: "오후 10:30",
+    admission: "공개 plaza: 무료 · 개별 장소는 다양함",
+    tourInfo: "High Line 끝에서 자가 건축 산책. Main plaza에 정보 키오스크.",
+    transit: "7 → 34 St–Hudson Yards · A C E → 34 St–Penn Station",
+    walkFrom: "High Line terminus: 5분 · Penn Station: 12분"
+  },
   "nyc-0047": {
     name: "뉴욕 시청",
     desc: "New York City Hall는 계속 사용 중인 미국에서 가장 오래된 시청이자 초대 19세기 미국 civic architecture의 가장 훌륭한 예 중 하나입니다. Joseph-François Mangin과 John McComb Jr.가 Federal과 French Renaissance 스타일의 혼합으로 설계했으며 설계 경쟁을 우승한 후 1812년 완성되었습니다. 흰 대리석 외관, 우아한 중앙 돔, 그리고 우아하게 캔틸레버된 계단은 젊은 공화국의 포부를 반영합니다. 후부 외관은 원래 갈색 사암이었습니다. 도시가 Chambers Street 너머로 북쪽으로 확장될 것이라는 가정에 기반한 비용 절감 조치였습니다.",
@@ -1533,6 +1544,7 @@ var LOCS_KO_NEW_YORK = {
     name: "퍼엘만 공연 예술 센터",
     desc: "REX 아키텍처의 2023년 WTC 부지의 반투명 대리석 클래딩 입방체로 자체 발광하는 맥락 있는 대리석 패널이 야간 시각성을 창출합니다. 60개 이상의 서로 다른 구성이 가능한 3개 유연 극장이 WTC 복원력을 경축하는 발광 시빅 베뉴입니다."
   },
+
   "nyc-0194": {
     name: "맥그로힐 빌딩",
     desc: "1931년 레이먼드 후드가 설계한 아르데코 양식의 고층빌딩이다. 파란색-녹색 테라코타로 마감된 독특한 파사드가 특징이며 국제 양식의 영향을 받았다."
