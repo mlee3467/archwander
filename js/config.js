@@ -105,7 +105,7 @@ var ARCHITECTS = [];
 // ══════════════════════════════════════════════════════════════════
 // MapTiler — raster tiles with multilingual labels. Free: 100k loads/month.
 // Secure with Allowed HTTP Origins in MapTiler dashboard.
-var MAPTILER_API_KEY = '6zoIvJmOmVVyh7LnuSVp';
+var MAPTILER_API_KEY = ''; // disabled — free tier exhausted
 var MAPTILER_STYLE   = 'streets-v2'; // 'streets-v2' | 'basic-v2' | 'topo-v2' | 'voyager' | 'toner'
 
 // Thunderforest — fallback if MapTiler key is empty. Free: 150,000 tiles/month.
