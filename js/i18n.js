@@ -441,6 +441,7 @@ function applyLang() {
   // Rebuild dynamic content
   buildFilters();
   renderList();
+  if (typeof buildLegend === 'function') buildLegend();
   // Re-apply panel when switching language
   if (activeLoc) {
     _hideTransBar();

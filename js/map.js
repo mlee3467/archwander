@@ -85,6 +85,30 @@ function initMap() {
   // Update badge with city-specific count
   const badge = document.getElementById('pilot-badge');
   if (badge) badge.textContent = `🗺 ArchWander · Pilot v0.2 · ${initLocs.length} Locations`;
+  buildLegend();
+}
+
+// ── Map Legend ──────────────────────────────────────────────
+var legendControl = null;
+function buildLegend() {
+  if (legendControl) map.removeControl(legendControl);
+  legendControl = L.control({ position: 'topright' });
+  legendControl.onAdd = function() {
+    var div = L.DomUtil.create('div', 'map-legend');
+    var html = '<div class="legend-title">' + (LANG === 'ko' ? '범례' : 'Legend') + '</div>';
+    var order = ['c-lmk','c-sky','c-his','c-cul','c-park','c-pub','c-rel','c-aca','c-res','c-inf','c-ret','c-com'];
+    order.forEach(function(cc) {
+      var m = CC_META[cc];
+      var label = typeof _tCat === 'function' ? _tCat(CC_LABEL[cc]) : CC_LABEL[cc];
+      html += '<div class="legend-item">' +
+        '<span class="legend-dot" style="background:' + m.color + '"></span>' +
+        '<span class="legend-label">' + label + '</span></div>';
+    });
+    div.innerHTML = html;
+    L.DomEvent.disableClickPropagation(div);
+    return div;
+  };
+  legendControl.addTo(map);
 }
 
 function refreshApp() {

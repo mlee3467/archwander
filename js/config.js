@@ -80,6 +80,13 @@ var CC_META = {
 };
 var _CC_DEFAULT = CC_META['c-lmk'];
 function _ccMeta(loc) { return CC_META[loc.cc] || _CC_DEFAULT; }
+// cc → English category label (used by legend + _tCat for i18n)
+var CC_LABEL = {
+  'c-sky':'skyscrapers','c-his':'historic','c-inf':'infrastructure',
+  'c-cul':'cultural','c-park':'parks','c-rel':'religious',
+  'c-aca':'academic','c-res':'residential','c-lmk':'landmarks',
+  'c-pub':'public','c-ret':'retail','c-com':'commercial'
+};
 var STYLES = ['art deco','beaux-arts','neoclassical','gothic revival','modernist','expressionist modernism','postmodern','contemporary','adaptive reuse','landscape','high-tech','parametric design','traditional korean'];
 var ERAS   = ['Pre-1900','Pre-1930','1930–1969','1970–1999','2000–Present'];
 var ACCESS = ['All', 'open to public', 'paid ticket', 'private'];
