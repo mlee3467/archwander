@@ -1,6 +1,6 @@
 /* ============================================================
    ArchWander — New York Location Data
-   226 locations
+   223 locations
    ============================================================ */
 
 var LOCS_NEW_YORK = [
@@ -316,7 +316,9 @@ var LOCS_NEW_YORK = [
       'legendary',
       'museum',
       'gallery',
-      'pritzker prize'
+      'pritzker prize',
+      'cultural',
+      'landmark'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/2003-03-New-York-Guggenheim-Museum-Frank-Lloyd-Wright.jpg?width=800',
@@ -360,7 +362,8 @@ var LOCS_NEW_YORK = [
       'meatpacking',
       'gallery',
       'museum',
-      'pritzker prize'
+      'pritzker prize',
+      'cultural'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Whitney_Museum_of_American_Art_%2849051573133%29.jpg?width=800',
@@ -943,7 +946,8 @@ var LOCS_NEW_YORK = [
       'japanese',
       'museum',
       'gallery',
-      'pritzker prize'
+      'pritzker prize',
+      'cultural'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/New_Museum_in_New_York_City_2015.JPG?width=800'
@@ -1215,7 +1219,9 @@ var LOCS_NEW_YORK = [
       'touristic',
       'museum',
       'gallery',
-      'kids'
+      'kids',
+      'cultural',
+      'landmark'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Metropolitan_Museum_of_Art_%28The_Met%29_-_Central_Park%2C_NYC.jpg?width=800',
@@ -1401,7 +1407,8 @@ var LOCS_NEW_YORK = [
       'performing arts',
       'travertine plaza',
       'legendary',
-      'pritzker prize'
+      'pritzker prize',
+      'performance-venues'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Lincoln_Center_Overview_%2848047495362%29.jpg?width=800',
@@ -1538,7 +1545,8 @@ var LOCS_NEW_YORK = [
       'kpf',
       'supertall',
       'grand central',
-      'observatory'
+      'observatory',
+      'touristic'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/One_Vanderbilt_April_2023.jpg?width=800',
@@ -1587,7 +1595,13 @@ var LOCS_NEW_YORK = [
       'kinetic',
       'etfe facade',
       'facade design',
-      'exterior'
+      'exterior',
+      'cultural',
+      'performing-arts',
+      'performance-venues',
+      'theater',
+      'museum',
+      'touristic'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/The_Shed_-_Complete_%2848206488176%29.jpg?width=800',
@@ -2961,7 +2975,10 @@ var LOCS_NEW_YORK = [
       'flushing meadows',
       'queens',
       'renovation',
-      'kids'
+      'kids',
+      'cultural',
+      'museum',
+      'gallery'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Queens_Museum_%2848613534751%29.jpg?width=800',
@@ -4145,7 +4162,8 @@ var LOCS_NEW_YORK = [
       'expansion',
       'renovation',
       'gallery',
-      'pritzker prize'
+      'pritzker prize',
+      'cultural'
     ],
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Morgan_Library_%26_Museum_Exterior.jpg/800px-Morgan_Library_%26_Museum_Exterior.jpg',
@@ -4609,7 +4627,9 @@ var LOCS_NEW_YORK = [
       'children\'s museum',
       'affordable housing',
       'west african',
-      'kids'
+      'kids',
+      'museum',
+      'cultural'
     ],
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Sugar_Hill_Museum_Adjaye.jpg/800px-Sugar_Hill_Museum_Adjaye.jpg'
@@ -5737,7 +5757,8 @@ var LOCS_NEW_YORK = [
       'sliver building',
       'pritzker prize',
       'museum',
-      'norman foster'
+      'norman foster',
+      'cultural'
     ],
     photos:[]
   },
@@ -5985,8 +6006,8 @@ var LOCS_NEW_YORK = [
     ],
     yr:2014,
     access:'paid ticket',
-    lat:40.7115,
-    lng:-74.0133,
+    lat:40.71151,
+    lng:-74.0126395,
     addr:'180 Greenwich St, New York, NY 10007',
     hood:'World Trade Center, Lower Manhattan',
     desc:'The National September 11 Memorial Museum opened on 21 May 2014. The above-ground pavilion — designed by Norwegian firm Snøhetta — serves as the entry portal to the museum seven storeys below grade, where the original foundations and artefacts of the Twin Towers are preserved in situ. The pavilion\'s tilted glass-and-steel form is deliberately asymmetric: two angular steel trusses — called the "tridents" — salvaged from the original WTC facade frame the entrance and establish a visible connection between what stands above and what lies below. The pavilion reads as a threshold rather than a monument, its transparency and incompleteness conveying absence and memory with restraint. Davis Brody Bond designed the underground museum galleries.',
@@ -6003,63 +6024,23 @@ var LOCS_NEW_YORK = [
       'museum',
       'world trade center',
       'lower manhattan',
-      '9/11'
+      '9/11',
+      'touristic',
+      'gallery',
+      'public-space',
+      'cultural'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/911_Memorial_Museum_Entrance.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/National_September_11_Memorial_reflecting_pool.jpg?width=800'
-    ]
-  },
-  {
-    id:'nyc-0138',
-    name:'American Copper Buildings',
-    cats:[
-      'residential',
-      'skyscrapers',
-      'landmarks'
     ],
-    cc:'c-res',
-    styleGroups:[
-      'contemporary'
-    ],
-    era:'2000–Present',
-    city:'new-york',
-    arch:'SHoP Architects',
-    archs:[
-      'SHoP Architects'
-    ],
-    yr:2017,
-    access:'open to public',
-    lat:40.7443979,
-    lng:-73.9717998,
-    addr:'626 First Ave, New York, NY 10016',
-    hood:'Kips Bay / Murray Hill',
-    desc:'The American Copper Buildings are a pair of 41- and 48-story residential towers on First Avenue designed by SHoP Architects and completed in 2017. Their most distinctive feature is the three-story sky bridge connecting the two towers at the 29th through 31st floors — the first sky bridge between residential skyscrapers in New York City. The towers are clad in pre-weathered copper panels that will develop a natural patina over decades, referencing New York\'s copper-clad landmarks. SHoP used advanced parametric modeling to design the irregular, faceted facades, which achieve dramatic angles while conforming to zoning setbacks. The project represents a new generation of mixed-income supertall residential towers redefining the East River skyline.',
-    hours:'Sky bridge and amenities: residents only · Exterior viewable 24/7',
-    lastEntry:'',
-    admission:'Residential building · Public lobby viewable',
-    tourOk:false,
-    tourInfo:'',
-    transit:'6 → 33 St · M15 bus along First Ave',
-    walkFrom:'Grand Central: 12 min · United Nations: 8 min',
-    tags:[
-      'shop architects',
-      'sky bridge',
-      'copper facade',
-      'residential tower',
-      'first avenue',
-      'kips bay'
-    ],
-    photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/American_Copper_Buildings_NYC.jpg?width=800'
-    ]
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7117338, lng:-74.0124245 }
   },
   {
     id:'nyc-0139',
     name:'FDR Four Freedoms Park',
     cats:[
       'parks',
-      'landmarks',
       'public'
     ],
     cc:'c-park',
@@ -6093,54 +6074,12 @@ var LOCS_NEW_YORK = [
       'roosevelt island',
       'modernism',
       'east river',
-      'posthumous'
+      'posthumous',
+      'legendary'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/FDR_Four_Freedoms_Park_room.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/FDR_Four_Freedoms_Park_aerial.jpg?width=800'
-    ]
-  },
-  {
-    id:'nyc-0140',
-    name:'152 Elizabeth Street',
-    cats:[
-      'residential',
-      'landmarks'
-    ],
-    cc:'c-res',
-    styleGroups:[
-      'contemporary'
-    ],
-    era:'2000–Present',
-    city:'new-york',
-    arch:'Tadao Ando',
-    archs:[
-      'Tadao Ando'
-    ],
-    yr:2018,
-    access:'open to public',
-    lat:40.7204762,
-    lng:-73.9949254,
-    addr:'152 Elizabeth St, New York, NY 10012',
-    hood:'Nolita',
-    desc:'152 Elizabeth Street is Tadao Ando\'s first residential building in New York City, completed in 2018. The 7-story, 7-unit boutique condominium occupies a narrow lot in Nolita and is clad entirely in Ando\'s signature board-formed exposed concrete — a material almost entirely absent from Manhattan\'s residential architecture. The building\'s facade is articulated by deep horizontal shadow lines created by the plank formwork, and the street-level planting softens its monolithic presence. Each floor houses a single full-floor unit with interiors finished in concrete, stone, and warm timber, bringing Ando\'s characteristic spatial discipline and tactile austerity to the New York market. The project reflects Ando\'s consistent philosophy: geometry, natural light, and the poetic use of concrete regardless of programme or scale.',
-    hours:'Private residential building · Exterior viewable 24/7',
-    lastEntry:'',
-    admission:'Private building',
-    tourOk:false,
-    tourInfo:'',
-    transit:'6 → Spring St · J Z → Bowery · B D → Grand St',
-    walkFrom:'New Museum: 5 min · SoHo: 5 min',
-    tags:[
-      'tadao ando',
-      'concrete',
-      'residential',
-      'nolita',
-      'boutique condo',
-      'pritzker prize'
-    ],
-    photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/152_Elizabeth_Street_NYC_Tadao_Ando.jpg?width=800'
     ]
   },
   {
@@ -6185,52 +6124,8 @@ var LOCS_NEW_YORK = [
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/565_Broome_SoHo_Ando.jpg?width=800'
-    ]
-  },
-  {
-    id:'nyc-0142',
-    name:'Vessel',
-    cats:[
-      'landmarks',
-      'public'
     ],
-    cc:'c-lmk',
-    styleGroups:[
-      'contemporary',
-      'parametric design'
-    ],
-    era:'2000–Present',
-    city:'new-york',
-    arch:'Heatherwick Studio',
-    archs:[
-      'Heatherwick Studio'
-    ],
-    yr:2019,
-    access:'open to public',
-    lat:40.7533936,
-    lng:-74.00105500000001,
-    addr:'Hudson Yards, New York, NY 10001',
-    hood:'Hudson Yards, West Side',
-    desc:'Vessel is a 16-story public climbable structure at the centre of Hudson Yards, designed by Thomas Heatherwick and completed in March 2019. The structure comprises 154 interlocking staircases — 2,500 steps and 80 landings — arranged around a central atrium to create a honeycomb-like lattice of weathering steel that rises 46 meters from the ground. No two levels are the same; the geometry shifts as the form tapers inward and outward, creating a three-dimensional network that allows visitors to observe each other from multiple angles simultaneously. Heatherwick described the design as "a different kind of public space" — more interactive than a sculpture, more architectural than a monument. The structure has become one of New York\'s most recognisable new landmarks and a focal point of the Hudson Yards public square.',
-    hours:'Daily 10:00 AM – 8:00 PM (last entry 7:15 PM)',
-    lastEntry:'7:15 PM',
-    admission:'Free reservation required (timed entry tickets)',
-    tourOk:false,
-    tourInfo:'Free timed-entry tickets must be reserved in advance at hudsonyardsnewyork.com. Stroller and wheelchair accessible.',
-    transit:'7 → 34 St–Hudson Yards',
-    walkFrom:'High Line (south end): 5 min · The Edge observation deck: 2 min',
-    tags:[
-      'heatherwick studio',
-      'thomas heatherwick',
-      'hudson yards',
-      'landmark',
-      'interactive',
-      'weathering steel'
-    ],
-    photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Vessel_2019.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Hudson_Yards_New_York_City_-_Vessel.jpg?width=800'
-    ]
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7239413, lng:-74.0060522 }
   },
   {
     id:'nyc-0143',
