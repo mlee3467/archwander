@@ -69,6 +69,19 @@ var T = {
     fav_imp_success:'Favorites imported successfully!',
     fav_imp_invalid:'Invalid file format. Please select a valid ArchWander favorites JSON file.',
     fav_exp_empty:'No favorites or visited locations to export.',
+    ifl_title:    'I feel like exploring…',
+    ifl_btn:      'I feel like…',
+    ifl_historic: 'Pre-1900s Space',
+    ifl_modern:   'Modern Space',
+    ifl_pritzker: 'Pritzker Prize Winners',
+    ifl_kids:     'Kid-friendly Space',
+    ifl_nature:   'Nature & Green',
+    ifl_tourist:  'Tourist Highlights',
+    ifl_skyscraper:'Skyscrapers',
+    ifl_landmark: 'Landmarks',
+    ifl_shopping: 'Shopping & Dining',
+    ifl_apply:    'Apply',
+    ifl_clear:    '✕ Clear',
   },
   ko: {
     search_ph:    '건물, 건축가, 스타일 검색…',
@@ -136,6 +149,19 @@ var T = {
     fav_imp_success:'즐겨찾기를 성공적으로 가져왔습니다!',
     fav_imp_invalid:'잘못된 파일 형식입니다. ArchWander 즐겨찾기 JSON 파일을 선택해 주세요.',
     fav_exp_empty:'내보낼 즐겨찾기 또는 방문 기록이 없습니다.',
+    ifl_title:    '이런 곳이 보고 싶어요…',
+    ifl_btn:      '추천 테마',
+    ifl_historic: '1900년 이전 공간',
+    ifl_modern:   '현대적인 공간',
+    ifl_pritzker: '프리츠커 수상자 작품',
+    ifl_kids:     '어린이 친화적 공간',
+    ifl_nature:   '자연 친화적 공간',
+    ifl_tourist:  '관광지 위주',
+    ifl_skyscraper:'초고층 건물',
+    ifl_landmark: '랜드마크 위주',
+    ifl_shopping: '쇼핑 / 레스토랑',
+    ifl_apply:    '적용',
+    ifl_clear:    '✕ 초기화',
   }
 };
 
@@ -427,6 +453,15 @@ function applyLang() {
   const fimOvr = document.getElementById('fav-import-overwrite');if(fimOvr) fimOvr.textContent = t('fav_imp_overwrite');
   const fimApp = document.getElementById('fav-import-append');  if (fimApp) fimApp.textContent = t('fav_imp_append');
   const fimCnl = document.getElementById('fav-import-cancel');  if (fimCnl) fimCnl.textContent = t('fav_imp_cancel');
+  // "I feel like…" button text
+  const iflText = document.querySelector('#ifl-btn .ifl-text');
+  if (iflText) iflText.textContent = t('ifl_btn');
+  const mobIflText = document.querySelector('.mob-ifl-text');
+  if (mobIflText) mobIflText.textContent = t('ifl_btn');
+  const iflApplyBtn = document.getElementById('ifl-apply-btn');
+  if (iflApplyBtn) iflApplyBtn.textContent = t('ifl_apply');
+  const iflClearBtn = document.getElementById('ifl-clear-btn');
+  if (iflClearBtn) iflClearBtn.textContent = t('ifl_clear');
   // Lang dropdown: update label + checkmarks (use short label on mobile)
   const langCur = document.getElementById('lang-current');
   if (langCur) {

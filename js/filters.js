@@ -96,6 +96,12 @@ function setFilter(key, val) {
 function setSort(val) { state.sort = val; renderList(); }
 
 function clearAllFilters() {
+  // Also clear "I feel like…" themes
+  state.themes = [];
+  var iflBtn = document.getElementById('ifl-btn');
+  var mobIflBtn = document.getElementById('mob-ifl-btn');
+  if (iflBtn) iflBtn.classList.remove('active');
+  if (mobIflBtn) mobIflBtn.classList.remove('active');
   ['cat','style','era','access','arch','fav'].forEach(k => {
     state[k] = _MULTI_KEYS.has(k) ? [] : 'All';
     const bodyId = k === 'arch' ? 'body-arch' : `body-${k}`;
@@ -123,6 +129,73 @@ function updateClearBtn() {
 function toggleFsec(id) {
   const sec = document.getElementById(`fsec-${id}`);
   sec.classList.toggle('open');
+}
+
+// ══════════════════════════════════════════════════════════════════
+// "I FEEL LIKE…" THEME MODAL
+// ══════════════════════════════════════════════════════════════════
+var _iflSelection = []; // temporary selection inside modal
+
+function openThemeModal() {
+  _iflSelection = state.themes.slice(); // copy current active themes
+  _renderThemeCards();
+  document.getElementById('ifl-overlay').classList.add('open');
+  document.getElementById('ifl-modal').classList.add('open');
+  _updateIflTitle();
+}
+
+function closeThemeModal() {
+  document.getElementById('ifl-overlay').classList.remove('open');
+  document.getElementById('ifl-modal').classList.remove('open');
+}
+
+function _renderThemeCards() {
+  const body = document.getElementById('ifl-body');
+  body.innerHTML = THEME_DEFS.map(function(td) {
+    const label = t('ifl_' + td.key);
+    const sel = _iflSelection.includes(td.key);
+    return '<button class="ifl-card' + (sel ? ' selected' : '') + '" data-theme="' + td.key + '" onclick="_toggleThemeCard(\'' + td.key + '\')">' +
+      '<span class="ifl-card-icon">' + td.icon + '</span>' +
+      '<span class="ifl-card-label">' + label + '</span>' +
+      '</button>';
+  }).join('');
+}
+
+function _toggleThemeCard(key) {
+  const idx = _iflSelection.indexOf(key);
+  if (idx >= 0) _iflSelection.splice(idx, 1);
+  else _iflSelection.push(key);
+  _renderThemeCards();
+}
+
+function _updateIflTitle() {
+  const el = document.getElementById('ifl-title');
+  if (el) el.textContent = t('ifl_title');
+}
+
+function applyThemes() {
+  state.themes = _iflSelection.slice();
+  closeThemeModal();
+  // Update button active state
+  var btn = document.getElementById('ifl-btn');
+  var mobBtn = document.getElementById('mob-ifl-btn');
+  if (btn) btn.classList.toggle('active', state.themes.length > 0);
+  if (mobBtn) mobBtn.classList.toggle('active', state.themes.length > 0);
+  renderList();
+  syncMarkers();
+}
+
+function clearThemes() {
+  _iflSelection = [];
+  state.themes = [];
+  _renderThemeCards();
+  var btn = document.getElementById('ifl-btn');
+  var mobBtn = document.getElementById('mob-ifl-btn');
+  if (btn) btn.classList.remove('active');
+  if (mobBtn) mobBtn.classList.remove('active');
+  closeThemeModal();
+  renderList();
+  syncMarkers();
 }
 
 // ══════════════════════════════════════════════════════════════════

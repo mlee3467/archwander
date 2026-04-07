@@ -27,8 +27,23 @@ function _mergeLocsFromStorage(freshLocs) {
   } catch(e) { return freshLocs.map(function(l){ return Object.assign({}, l); }); }
 }
 
-var state = { cat:[], style:[], era:[], access:[], arch:'All', fav:'All', sort:'default', query:'' };
+var state = { cat:[], style:[], era:[], access:[], arch:'All', fav:'All', sort:'default', query:'', themes:[] };
 var _MULTI_KEYS = new Set(['cat','style','era','access']);
+
+// ══════════════════════════════════════════════════════════════════
+// "I FEEL LIKE…" THEME DEFINITIONS
+// ══════════════════════════════════════════════════════════════════
+var THEME_DEFS = [
+  { key:'historic',   icon:'🏛️', filter: function(l){ return l.yr < 1900 || (l.tags||[]).some(function(t){ return t==='historic'; }); } },
+  { key:'modern',     icon:'🏙️', filter: function(l){ return l.yr >= 2000; } },
+  { key:'pritzker',   icon:'🏆', filter: function(l){ return (l.tags||[]).some(function(t){ return t==='pritzker prize' || t==='pritzker'; }); } },
+  { key:'kids',       icon:'👨‍👩‍👧‍👦', filter: function(l){ return l.cc==='c-park' || (l.cats||[]).includes('parks') || ((l.tourOk) && ((l.cats||[]).includes('cultural') || (l.tags||[]).some(function(t){ return t==='museum' || t==='free' || t==='touristic'; }))); } },
+  { key:'nature',     icon:'🌿', filter: function(l){ return l.cc==='c-park' || (l.tags||[]).some(function(t){ return /garden|park|waterfront|landscape|nature|forest|botanical|green/i.test(t) && !/parking/i.test(t); }); } },
+  { key:'tourist',    icon:'📸', filter: function(l){ return (l.tags||[]).some(function(t){ return t==='touristic' || t==='landmark' || t==='observatory' || t==='iconic'; }) || (l.access||'').toLowerCase().indexOf('free')>=0; } },
+  { key:'skyscraper', icon:'🏗️', filter: function(l){ return l.cc==='c-sky' || (l.cats||[]).includes('skyscrapers') || (l.tags||[]).some(function(t){ return t==='skyscraper' || t==='supertall' || t==='megatall'; }); } },
+  { key:'landmark',   icon:'🗽', filter: function(l){ return l.cc==='c-lmk' || (l.cats||[]).includes('landmarks') || (l.tags||[]).some(function(t){ return t==='landmark' || t==='iconic'; }); } },
+  { key:'shopping',   icon:'🛍️', filter: function(l){ return l.cc==='c-ret' || (l.cats||[]).includes('retail') || (l.tags||[]).some(function(t){ return t==='retail' || t==='shop' || t==='shopping' || t==='restaurant' || t==='dining' || t==='food hall' || t==='hotel' || t==='luxury'; }); } },
+];
 
 // ══════════════════════════════════════════════════════════════════
 // WIKIMEDIA LICENSE UTILITIES

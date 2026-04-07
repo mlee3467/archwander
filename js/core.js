@@ -97,6 +97,15 @@ function getFiltered() {
       l.tags.some(t => t.toLowerCase().includes(q))
     );
   }
+  // "I feel like…" theme filter (OR logic across selected themes)
+  if (state.themes.length) {
+    list = list.filter(function(l) {
+      return state.themes.some(function(tk) {
+        var td = THEME_DEFS.find(function(d){ return d.key === tk; });
+        return td && td.filter(l);
+      });
+    });
+  }
   // Walk distance filter
   if (walkActive && walkOrigin) {
     const minutes  = parseInt(document.getElementById('walk-slider').value, 10);
