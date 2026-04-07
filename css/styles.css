@@ -1178,23 +1178,27 @@
         background: var(--surface);
         border-bottom: 1px solid var(--border);
         padding: 6px 12px;
-        gap: 8px;
+        gap: 6px 8px;
         box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        flex-wrap: wrap;
       }
       #mobile-action-bar.open { display: flex; }
-      /* When action bar is open, push sidebar & backdrop below it */
+      /* When action bar is open, push sidebar & backdrop below it (2-row = ~84px) */
       #mobile-action-bar.open ~ .app .sidebar {
-        top: calc(var(--mob-header-h) + var(--safe-top) + 44px);
+        top: calc(var(--mob-header-h) + var(--safe-top) + 84px);
       }
       #mobile-action-bar.open ~ #sidebar-backdrop {
-        top: calc(var(--mob-header-h) + var(--safe-top) + 44px);
+        top: calc(var(--mob-header-h) + var(--safe-top) + 84px);
       }
       .mob-action-btn {
-        display: flex; align-items: center; gap: 5px;
+        display: flex; align-items: center; justify-content: center; gap: 5px;
         padding: 7px 14px; border: none; border-radius: 8px;
         font-size: 12px; font-weight: 600; font-family: Inter, -apple-system, sans-serif;
         cursor: pointer; white-space: nowrap;
         color: white;
+        flex: 1 1 calc(50% - 4px);
+        min-width: 0;
+        box-sizing: border-box;
       }
       #mob-near-btn { background: linear-gradient(135deg, #6366F1, #4F46E5); box-shadow: 0 1px 3px rgba(79,70,229,0.3); }
       #mob-near-btn svg { stroke: white; }
