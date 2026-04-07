@@ -1,6 +1,6 @@
 /* ============================================================
    ArchWander — New York Location Data
-   223 locations
+   229 locations
    ============================================================ */
 
 var LOCS_NEW_YORK = [
@@ -9221,6 +9221,267 @@ var LOCS_NEW_YORK = [
       'bronx',
       'towers in the park',
       'social housing'
+    ],
+    photos:[]
+  },
+  {
+    id:'nyc-0230',
+    name:'Queen of All Saints Church',
+    cats:[
+      'cultural',
+      'landmarks'
+    ],
+    cc:'c-lmk',
+    styleGroups:[
+      'gothic-revival'
+    ],
+    era:'Pre-1900',
+    city:'new-york',
+    arch:'Gustave Steinback (Reiley & Steinback)',
+    archs:[
+      'Gustave Steinback'
+    ],
+    yr:1913,
+    access:'Free Admission',
+    lat:40.6884,
+    lng:-73.9741,
+    addr:'300 Vanderbilt Ave, Brooklyn, NY 11205',
+    hood:'Fort Greene',
+    desc:'Queen of All Saints Church, completed in 1913 and designed by Gustave Steinback of the firm Reiley & Steinback, is a Gothic Revival masterpiece in Fort Greene modelled after the Sainte-Chapelle in Paris. The church features soaring pointed arches, elaborate tracery windows, and a richly ornamented limestone facade that evokes the High Gothic cathedrals of medieval France. The interior is distinguished by its stained-glass windows and vaulted ceilings that flood the nave with coloured light. The parish dates from 1879, originally known as St. John\'s Parish, and the building sits within the Fort Greene Historic District. The apse and rectory were completed two years after the church in 1915, and its 1913 Philipp Wirsching pipe organ holds an Organ Historical Society citation.',
+    hours:'Mass schedule varies · Generally open daily for visitors',
+    lastEntry:'',
+    admission:'Free',
+    tourOk:true,
+    tourInfo:'Open for visitors during mass hours. Interior best viewed during quieter weekday services.',
+    transit:'G → Fulton St · C → Lafayette Ave · B Q → Atlantic Ave–Barclays Ctr',
+    walkFrom:'Fort Greene Park: 5 min · BAM: 3 min · 300 Ashland: 2 min',
+    tags:[
+      'gothic revival',
+      'church',
+      'historic',
+      'fort greene',
+      'steinback',
+      'sainte-chapelle',
+      'limestone'
+    ],
+    photos:[]
+  },
+  {
+    id:'nyc-0231',
+    name:'300 Ashland',
+    cats:[
+      'residential',
+      'mixed-use'
+    ],
+    cc:'c-res',
+    styleGroups:[
+      'contemporary'
+    ],
+    era:'2000–Present',
+    city:'new-york',
+    arch:'TEN Arquitectos (Enrique Norten)',
+    archs:[
+      'TEN Arquitectos',
+      'Enrique Norten'
+    ],
+    yr:2017,
+    access:'Free Admission',
+    lat:40.6863,
+    lng:-73.9776,
+    addr:'300 Ashland Pl, Brooklyn, NY 11217',
+    hood:'Fort Greene / Downtown Brooklyn',
+    desc:'300 Ashland, designed by Enrique Norten of TEN Arquitectos and completed in 2017, is a 32-story, 364-foot mixed-use tower in Brooklyn\'s cultural district adjacent to the Brooklyn Academy of Music. The tower is articulated as three volumes — a central circulation spine flanked by two residential wings — all wrapped in a continuous folding skin of perforated metal panels that shift in colour with changing light conditions, reflecting the surrounding streets, buildings, and sky. The building contains 379 apartments, including 76 below-market-rate units, along with 50,000 square feet of cultural space housing 651 Arts, MoCADA, and BAM cinemas, plus a new branch of the Brooklyn Public Library and 43,000 square feet of ground-floor retail along Flatbush Avenue.',
+    hours:'Lobby: daily · Cultural tenants: varies · Residential floors: private',
+    lastEntry:'',
+    admission:'Free (cultural venues vary)',
+    tourOk:true,
+    tourInfo:'BAM cinemas and Brooklyn Public Library branch are open to the public. Building exterior and lobby are accessible.',
+    transit:'B D N Q R 2 3 4 5 → Atlantic Ave–Barclays Ctr · G → Fulton St',
+    walkFrom:'BAM: 1 min · Barclays Center: 3 min · Fort Greene Park: 5 min',
+    tags:[
+      'ten arquitectos',
+      'enrique norten',
+      'mixed-use',
+      'perforated metal',
+      'cultural',
+      'brooklyn',
+      'affordable housing'
+    ],
+    photos:[]
+  },
+  {
+    id:'nyc-0232',
+    name:'One Hanson Place (Williamsburgh Savings Bank Tower)',
+    cats:[
+      'skyscrapers',
+      'landmarks'
+    ],
+    cc:'c-sky',
+    styleGroups:[
+      'art-deco'
+    ],
+    era:'Pre-1950',
+    city:'new-york',
+    arch:'Halsey, McCormack & Helmer',
+    archs:[
+      'Halsey, McCormack & Helmer'
+    ],
+    yr:1929,
+    access:'Free Admission',
+    lat:40.6855,
+    lng:-73.9786,
+    addr:'1 Hanson Pl, Brooklyn, NY 11243',
+    hood:'Fort Greene / Downtown Brooklyn',
+    desc:'One Hanson Place, originally the Williamsburgh Savings Bank Tower, is a 41-story, 512-foot Art Deco skyscraper designed by Halsey, McCormack & Helmer and completed in 1929. It was the tallest building in Brooklyn for 80 years until 2009. The exterior features a limestone base, brick-and-terracotta upper stories with a series of setbacks tapering to a clock tower crowned by a gilded copper dome — the four-faced clock remains one of the world\'s largest. The 63-foot-high former banking hall is cathedral-like in grandeur, with a nave, aisles, and chancel finished in exotic marbles, Cosmati floor surfaces, golden mosaic vaults, enamelled steel, sculptures by René Paul Chambellan, and mosaics by Angelo Magnanti. The building was converted to luxury condominiums in 2007 while preserving its landmarked interiors.',
+    hours:'Lobby open during business hours · Residential floors: private',
+    lastEntry:'',
+    admission:'Free (lobby)',
+    tourOk:true,
+    tourInfo:'The landmarked lobby and former banking hall are accessible to the public. Open House New York sometimes grants broader access.',
+    transit:'B D N Q R 2 3 4 5 → Atlantic Ave–Barclays Ctr',
+    walkFrom:'BAM: 2 min · Barclays Center: 3 min · Fort Greene Park: 5 min',
+    tags:[
+      'art deco',
+      'historic',
+      'landmark',
+      'skyscraper',
+      'brooklyn',
+      'clock tower',
+      'bank',
+      'condominium',
+      'mosaic',
+      'gilded dome'
+    ],
+    photos:[]
+  },
+  {
+    id:'nyc-0233',
+    name:'30 Hudson Street (Goldman Sachs Tower)',
+    cats:[
+      'skyscrapers',
+      'commercial'
+    ],
+    cc:'c-sky',
+    styleGroups:[
+      'contemporary'
+    ],
+    era:'2000–Present',
+    city:'new-york',
+    arch:'César Pelli & Associates',
+    archs:[
+      'César Pelli'
+    ],
+    yr:2004,
+    access:'No Public Access',
+    lat:40.7168,
+    lng:-74.0346,
+    addr:'30 Hudson St, Jersey City, NJ 07302',
+    hood:'Exchange Place, Jersey City',
+    desc:'30 Hudson Street, commonly known as the Goldman Sachs Tower, is a 42-story, 781-foot skyscraper in Jersey City\'s Exchange Place designed by César Pelli & Associates and completed in 2004. It was the tallest building in New Jersey for 14 years. The tower\'s curtain wall system incorporates a decorative array of external tubes that, under natural light, add perceived depth to the facade and animate the surface throughout the day. Sited on the Hudson River waterfront directly opposite Lower Manhattan, the building forms a striking counterpoint to the New York skyline and is visible from all five boroughs. The tower received LEED certification in 2005, among the earliest skyscrapers to achieve this distinction. Pelli, who also designed the Petronas Towers in Kuala Lumpur and One Canada Square in London, brought his signature curtain-wall refinement to the New Jersey waterfront.',
+    hours:'Private office building',
+    lastEntry:'',
+    admission:'Private',
+    tourOk:false,
+    tourInfo:'',
+    transit:'PATH → Exchange Place · Hudson-Bergen Light Rail → Exchange Place',
+    walkFrom:'Exchange Place waterfront: 1 min · Paulus Hook: 5 min · Colgate Clock: 8 min',
+    tags:[
+      'cesar pelli',
+      'skyscraper',
+      'curtain wall',
+      'goldman sachs',
+      'jersey city',
+      'waterfront',
+      'leed',
+      'pritzker prize'
+    ],
+    photos:[]
+  },
+  {
+    id:'nyc-0234',
+    name:'One High Line',
+    cats:[
+      'residential',
+      'landmarks'
+    ],
+    cc:'c-res',
+    styleGroups:[
+      'contemporary'
+    ],
+    era:'2000–Present',
+    city:'new-york',
+    arch:'Bjarke Ingels Group (BIG)',
+    archs:[
+      'Bjarke Ingels Group'
+    ],
+    yr:2024,
+    access:'No Public Access',
+    lat:40.7427,
+    lng:-74.0077,
+    addr:'500 W 18th St, New York, NY 10011',
+    hood:'Chelsea / Meatpacking District',
+    desc:'One High Line, completed in 2024, is a pair of twisting travertine-clad condominium towers designed by Bjarke Ingels Group (BIG) in Chelsea overlooking the High Line and the Hudson River. The West Tower rises 36 stories (400 feet) and the East Tower 26 stories (300 feet), connected by a glass-enclosed double-height bridge lounge. The two sculptural volumes angle away from each other at their bases to preserve sight lines from the High Line promenade to the river, then twist in tandem as they rise to maximise city and waterfront views for the 236 residences within. The travertine facade, an homage to Gordon Bunshaft\'s Solow Building, gives the towers a warm materiality unusual among New York\'s glass-dominated luxury developments. Interiors are by Gabellini Sheppard (West Tower) and Gilles & Boissier (East Tower), and amenities include a 75-foot pool and a Faena Hotel.',
+    hours:'Private residential building',
+    lastEntry:'',
+    admission:'Private',
+    tourOk:false,
+    tourInfo:'',
+    transit:'A C E → 14th St · 1 → 18th St · L → 8th Ave',
+    walkFrom:'High Line: immediate · Chelsea Market: 3 min · Whitney Museum: 5 min',
+    tags:[
+      'bjarke ingels',
+      'big',
+      'twisting tower',
+      'travertine',
+      'residential',
+      'luxury',
+      'chelsea',
+      'high line',
+      'condominium'
+    ],
+    photos:[]
+  },
+  {
+    id:'nyc-0235',
+    name:'New York Life Insurance Building',
+    cats:[
+      'landmarks',
+      'commercial'
+    ],
+    cc:'c-lmk',
+    styleGroups:[
+      'gothic-revival',
+      'art-deco'
+    ],
+    era:'Pre-1950',
+    city:'new-york',
+    arch:'Cass Gilbert',
+    archs:[
+      'Cass Gilbert'
+    ],
+    yr:1928,
+    access:'Free Admission',
+    lat:40.7417,
+    lng:-73.9863,
+    addr:'51 Madison Ave, New York, NY 10010',
+    hood:'NoMad / Flatiron',
+    desc:'The New York Life Insurance Building, designed by Cass Gilbert and completed in 1928, is a 40-story, 615-foot tower crowned by an iconic gilded pyramidal roof inspired by the Salisbury Cathedral in England. Built on the former site of Madison Square Garden, the building blends Gothic Revival detailing — pointed arches, tracery, and pinnacles — with the massing and setbacks of the emerging Art Deco style. The gilded roof, originally clad in gold leaf and later replaced with gold-coloured tile, remains one of the most recognisable features of the Manhattan skyline. Gilbert, who also designed the Woolworth Building and the United States Supreme Court, brought his signature approach of combining historical ornament with modern skyscraper engineering. The ornate lobby features coffered ceilings, bronze fixtures, and marble walls. The building occupies an entire city block abutting Madison Square Park and has served as New York Life\'s home office for nearly a century.',
+    hours:'Lobby: Mon–Fri 8:00 AM – 6:00 PM · Upper floors: private',
+    lastEntry:'',
+    admission:'Free (lobby only)',
+    tourOk:true,
+    tourInfo:'The ornate lobby is accessible during business hours. Upper floors are private offices.',
+    transit:'6 → 28th St · N R W → 28th St',
+    walkFrom:'Madison Square Park: immediate · Flatiron Building: 3 min · Empire State Building: 8 min',
+    tags:[
+      'cass gilbert',
+      'gothic revival',
+      'art deco',
+      'historic',
+      'landmark',
+      'gilded roof',
+      'madison square park',
+      'skyscraper'
     ],
     photos:[]
   }
