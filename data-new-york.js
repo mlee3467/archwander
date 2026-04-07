@@ -261,7 +261,8 @@ var LOCS_NEW_YORK = [
     tourInfo:'Self-guided walk approx. 30 min one-way. Best views from DUMBO waterfront, Manhattan Bridge walkway, or Brooklyn Heights Promenade.',
     transit:'4 5 6 → Brooklyn Bridge–City Hall\nA C → High St (Brooklyn)',
     walkFrom:'City Hall: 5 min · One WTC: 10 min',
-    tags:['historic',
+    tags:[
+      'historic',
       'gothic revival',
       'suspension bridge',
       'free access',
@@ -409,7 +410,8 @@ var LOCS_NEW_YORK = [
       'free access',
       'ds+r',
       'touristic',
-      'preservation'
+      'preservation',
+      'kids'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/High_Line%2C_Manhattan%2C_New_York_City%2C_20231001_1722_1458.jpg?width=800',
@@ -507,7 +509,8 @@ var LOCS_NEW_YORK = [
       'free entry',
       'parametric',
       'touristic',
-      'post-9/11'
+      'post-9/11',
+      'shopping'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Oculus_%2841393p%29.jpg?width=800',
@@ -545,7 +548,8 @@ var LOCS_NEW_YORK = [
     tourInfo:'Self-guided visits welcome at all times. Check saintpatrickscathedral.org for mass schedule and guided tour availability.',
     transit:'B D F M → 47-50 Sts–Rockefeller Ctr\nE M → 5 Av/53 St',
     walkFrom:'Rockefeller Center: 2 min · MoMA: 5 min',
-    tags:['historic',
+    tags:[
+      'historic',
       'gothic revival',
       'free entry',
       'fifth avenue',
@@ -686,14 +690,16 @@ var LOCS_NEW_YORK = [
     tourInfo:'Central Park Conservancy offers free tours on weekends. Bike rentals available at multiple points around the park.',
     transit:'Multiple lines (1 2 3 A B C D N Q R) serve stations from 59th to 110th St',
     walkFrom:'Guggenheim Museum: 2 min · The Met: at park edge',
-    tags:['historic',
+    tags:[
+      'historic',
       'olmsted & vaux',
       'landscape',
       '843 acres',
       'free access',
       'picturesque',
       'park',
-      'touristic'
+      'touristic',
+      'kids'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/3015-Central_Park-Sheep_Meadow.JPG?width=800',
@@ -740,7 +746,9 @@ var LOCS_NEW_YORK = [
       'observatory',
       'nbc studios',
       'rockefeller center',
-      'touristic'
+      'touristic',
+      'shopping',
+      'restaurant'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/GE_Building_by_David_Shankbone.JPG?width=800',
@@ -1157,7 +1165,8 @@ var LOCS_NEW_YORK = [
       'ceramic tubes',
       'leed silver',
       'times square',
-      'pritzker prize'
+      'pritzker prize',
+      'restaurant'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/New_york_times_building.jpg?width=800',
@@ -1205,7 +1214,8 @@ var LOCS_NEW_YORK = [
       'central park',
       'touristic',
       'museum',
-      'gallery'
+      'gallery',
+      'kids'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Metropolitan_Museum_of_Art_%28The_Met%29_-_Central_Park%2C_NYC.jpg?width=800',
@@ -1248,7 +1258,8 @@ var LOCS_NEW_YORK = [
       'midtown',
       'touristic',
       'museum',
-      'gallery'
+      'gallery',
+      'kids'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/MoMa_NY_USA_1.jpg?width=800',
@@ -1339,7 +1350,9 @@ var LOCS_NEW_YORK = [
       'international territory',
       'legendary',
       'wonder',
-      'pritzker prize'
+      'pritzker prize',
+      'touristic',
+      'tour program'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Headquarters_of_the_United_Nations%2C_New_York_City%2C_20231001_1103_1007.jpg?width=800',
@@ -1614,11 +1627,14 @@ var LOCS_NEW_YORK = [
     tourInfo:'Prospect Park Alliance offers free walking tours on select weekends. Bike rentals available. Check prospectpark.org for events.',
     transit:'2 3 → Grand Army Plaza or Eastern Pkwy–Brooklyn Museum\nQ → Seventh Ave (Brooklyn)\nB Q → Prospect Park',
     walkFrom:'Brooklyn Museum: 5 min · Brooklyn Botanic Garden: adjacent',
-    tags:['historic',
+    tags:[
+      'historic',
       'olmsted & vaux',
       'brooklyn',
       'natural forest',
-      'long meadow'
+      'long meadow',
+      'kids',
+      'park'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/A_walk_in_the_park_%2849086734093%29.jpg?width=800',
@@ -1711,7 +1727,8 @@ var LOCS_NEW_YORK = [
       'midtown',
       'norman foster',
       'touristic',
-      'pritzker prize'
+      'pritzker prize',
+      'shopping'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Apple_Store_-_Fifth_Avenue_%287181848534%29.jpg?width=800',
@@ -1895,7 +1912,7 @@ var LOCS_NEW_YORK = [
       'williamsburg',
       'industrial heritage',
       'waterfront',
-      'shop'
+      'park'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Domino_Sugar_Refinery%2C_New_York_City%2C_20231001_1133_1047.jpg?width=800',
@@ -1987,7 +2004,9 @@ var LOCS_NEW_YORK = [
       'hudson yards',
       'supertall',
       'edge',
-      'observatory'
+      'observatory',
+      'shopping',
+      'restaurant'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Hudson_Yards_from_Hudson_Commons_%2895131p%29.jpg?width=800',
@@ -2076,7 +2095,9 @@ var LOCS_NEW_YORK = [
       'mixed-use',
       'platform development',
       'related companies',
-      'midtown west'
+      'midtown west',
+      'shopping',
+      'restaurant'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Midtown_Manhattan_from_Weehawken_September_2021_HDR.jpg?width=800',
@@ -2118,7 +2139,8 @@ var LOCS_NEW_YORK = [
     tourInfo:'Free public tours on select days. Check NYC gov website for schedule.',
     transit:'4 5 6 J Z → Brooklyn Bridge–City Hall · N R W → City Hall',
     walkFrom:'Brooklyn Bridge: 5 min · World Trade Center: 10 min',
-    tags:['historic',
+    tags:[
+      'historic',
       'federal',
       'french renaissance',
       'civic',
@@ -2211,7 +2233,9 @@ var LOCS_NEW_YORK = [
       'winter garden',
       'atrium',
       'battery park city',
-      'palm trees'
+      'palm trees',
+      'shopping',
+      'restaurant'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/World_Financial_Center_Evening.jpg?width=800',
@@ -2254,7 +2278,8 @@ var LOCS_NEW_YORK = [
       'historic',
       'public space',
       'waterfront',
-      'battery park city'
+      'battery park city',
+      'kids'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Battery_Park.JPG?width=800',
@@ -2290,7 +2315,8 @@ var LOCS_NEW_YORK = [
     tourInfo:'Free ranger-led tours. Also serves as Statue of Liberty ferry ticket office.',
     transit:'1 → South Ferry · R W → Whitehall St · 4 5 → Bowling Green',
     walkFrom:'Battery Park: adjacent · Bowling Green: 3 min',
-    tags:['historic',
+    tags:[
+      'historic',
       'national monument',
       'federal',
       'fort',
@@ -2335,12 +2361,14 @@ var LOCS_NEW_YORK = [
     tourInfo:'NYC Financial District walking tours typically include Stone Street. Best visited weekday lunch for the outdoor seating atmosphere.',
     transit:'R W → Whitehall St · J Z → Broad St · 4 5 → Bowling Green',
     walkFrom:'Bowling Green: 4 min · WTC: 8 min',
-    tags:['historic',
+    tags:[
+      'historic',
       'cobblestone',
       'greek revival',
       'historic district',
       'oldest street',
-      'restaurant row'
+      'restaurant row',
+      'restaurant'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Stone_Street%2C_NYC.jpg?width=800',
@@ -2380,13 +2408,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Self-guided. Washington Square Park is a major gathering space for the NYU community and neighborhood.',
     transit:'A C E B D F M → W 4 St–Washington Sq',
     walkFrom:'NYU campus: adjacent · SoHo: 10 min',
-    tags:['historic',
+    tags:[
+      'historic',
       'stanford white',
       'beaux-arts',
       'arch',
       'greenwich village',
       'nyu',
-      'landmark'
+      'landmark',
+      'kids'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Washington_Square_Arch_01.JPG?width=800',
@@ -2423,7 +2453,8 @@ var LOCS_NEW_YORK = [
     tourInfo:'Open for services. La Farge stained glass windows are a particular highlight.',
     transit:'A C E B D F M → W 4 St–Washington Sq',
     walkFrom:'Washington Square Arch: 2 min · NYU: adjacent',
-    tags:['historic',
+    tags:[
+      'historic',
       'stanford white',
       'romanesque revival',
       'la farge',
@@ -2470,7 +2501,8 @@ var LOCS_NEW_YORK = [
     tourInfo:'Free public library. Ask about the clock tower — it occasionally opens for guided tours.',
     transit:'A C E B D F M → W 4 St–Washington Sq · 1 → Christopher St',
     walkFrom:'Washington Square: 5 min · Christopher St: 3 min',
-    tags:['historic',
+    tags:[
+      'historic',
       'calvert vaux',
       'victorian gothic',
       'nypl',
@@ -2604,7 +2636,8 @@ var LOCS_NEW_YORK = [
     tourInfo:'Churchyard freely accessible. Interior open for services and events.',
     transit:'6 → Astor Pl · L → 1 Av',
     walkFrom:'Astor Place: 3 min · Tompkins Square Park: 5 min',
-    tags:['historic',
+    tags:[
+      'historic',
       'georgian',
       'greek revival',
       'historic church',
@@ -2833,14 +2866,16 @@ var LOCS_NEW_YORK = [
     tourInfo:'Walking tours available from multiple operators. Best photographed on Washington St at Water St for the Manhattan Bridge frame view.',
     transit:'A C → High St · F → York St',
     walkFrom:'Brooklyn Bridge Park: 5 min · Brooklyn Heights Promenade: 10 min',
-    tags:['historic',
+    tags:[
+      'historic',
       'industrial loft',
       'cobblestone',
       'brooklyn',
       'manhattan bridge',
       'art district',
       'renovation',
-      'touristic'
+      'touristic',
+      'shopping'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/DUMBO_Historic_and_Industrial_District.jpg?width=800',
@@ -2884,7 +2919,8 @@ var LOCS_NEW_YORK = [
       'brooklyn bridge park',
       'victorian',
       'renovation',
-      'pritzker prize'
+      'pritzker prize',
+      'kids'
     ],
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Janes_Carousel_Pavilion_2011.jpg/800px-Janes_Carousel_Pavilion_2011.jpg'
@@ -2924,7 +2960,8 @@ var LOCS_NEW_YORK = [
       'world\'s fair',
       'flushing meadows',
       'queens',
-      'renovation'
+      'renovation',
+      'kids'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Queens_Museum_%2848613534751%29.jpg?width=800',
@@ -2967,7 +3004,8 @@ var LOCS_NEW_YORK = [
       'world\'s fair',
       'queens',
       '1964',
-      'landmark'
+      'landmark',
+      'sculpture'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Unisphere_in_summer.jpg?width=800',
@@ -3016,7 +3054,8 @@ var LOCS_NEW_YORK = [
       'sports',
       'monument park',
       'great hall',
-      'renovation'
+      'renovation',
+      'kids'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Yankee_Stadium%2C_New_York_-_panoramio.jpg?width=800',
@@ -3093,7 +3132,8 @@ var LOCS_NEW_YORK = [
     tourInfo:'Free docent tours Sat 11 AM. Garden highlights tours Sun 2 PM.',
     transit:'1 → 231 St, then BX7/BX10 bus · Metro-North Hudson Line → Riverdale',
     walkFrom:'Riverdale neighborhood: 5 min · Hudson River overlook: adjacent',
-    tags:['historic',
+    tags:[
+      'historic',
       'garden',
       'estate',
       'bronx',
@@ -3276,7 +3316,8 @@ var LOCS_NEW_YORK = [
       'lower east side',
       'perforated metal',
       'rooftop bar',
-      'pritzker prize'
+      'pritzker prize',
+      'restaurant'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Escalator%2C_Public_Hotel_New_York_%282024%29-L1005609.jpg?width=800'
@@ -4280,7 +4321,8 @@ var LOCS_NEW_YORK = [
       'prada',
       'retail',
       'soho',
-      'pritzker prize'
+      'pritzker prize',
+      'shopping'
     ],
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Prada_Epicenter_NYC_OMA.jpg/800px-Prada_Epicenter_NYC_OMA.jpg'
@@ -4485,7 +4527,8 @@ var LOCS_NEW_YORK = [
       'kinetic facade',
       'residential',
       'japanese',
-      'pritzker prize'
+      'pritzker prize',
+      'luxury residential'
     ],
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Metal_Shutter_Houses_NYC.jpg/800px-Metal_Shutter_Houses_NYC.jpg'
@@ -4565,7 +4608,8 @@ var LOCS_NEW_YORK = [
       'community',
       'children\'s museum',
       'affordable housing',
-      'west african'
+      'west african',
+      'kids'
     ],
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Sugar_Hill_Museum_Adjaye.jpg/800px-Sugar_Hill_Museum_Adjaye.jpg'
@@ -4610,7 +4654,8 @@ var LOCS_NEW_YORK = [
       'queens',
       'concrete',
       'waterfront',
-      'panoramic view'
+      'panoramic view',
+      'kids'
     ],
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Hunters_Point_Community_Library_2019.jpg/800px-Hunters_Point_Community_Library_2019.jpg'
@@ -5274,7 +5319,6 @@ var LOCS_NEW_YORK = [
     name:'Moynihan Train Hall',
     cats:[
       'infrastructure',
-      'landmarks',
       'mixed-use'
     ],
     cc:'c-inf',
@@ -5310,7 +5354,10 @@ var LOCS_NEW_YORK = [
       'skylight',
       'farley building',
       '2021',
-      'renovation'
+      'renovation',
+      'shopping',
+      'restaurant',
+      'retail'
     ],
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Moynihan_Train_Hall_interior_2021.jpg/800px-Moynihan_Train_Hall_interior_2021.jpg'
@@ -5480,7 +5527,11 @@ var LOCS_NEW_YORK = [
       'kpf (kohn pedersen fox)',
       'hudson yards',
       'office',
-      'supertall'
+      'supertall',
+      'shopping',
+      'restaurant',
+      'little spain',
+      'high line'
     ],
     photos:[]
   },
@@ -5618,7 +5669,8 @@ var LOCS_NEW_YORK = [
     city:'new-york',
     arch:'KPF (Kohn Pedersen Fox)',
     archs:[
-      'KPF (Kohn Pedersen Fox)'
+      'KPF (Kohn Pedersen Fox)',
+      'Richard Meier'
     ],
     yr:2019,
     access:'private (exterior viewable)',
@@ -5641,7 +5693,7 @@ var LOCS_NEW_YORK = [
       'waterfront',
       'riverside park',
       'richard meier',
-      'rafael viñoly'
+      'pritzker prize'
     ],
     photos:[]
   },
