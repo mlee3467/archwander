@@ -6121,7 +6121,9 @@ var LOCS_NEW_YORK = [
       'soho',
       'luxury',
       'curved facade',
-      'pritzker prize'
+      'pritzker prize',
+      'facade design',
+      'exterior'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/565_Broome_SoHo_Ando.jpg?width=800'
@@ -6133,7 +6135,7 @@ var LOCS_NEW_YORK = [
     name:'Little Island',
     cats:[
       'parks',
-      'landmarks'
+      'public space'
     ],
     cc:'c-park',
     styleGroups:[
@@ -6168,7 +6170,8 @@ var LOCS_NEW_YORK = [
       'hudson river',
       'pier 55',
       'meatpacking district',
-      'landscape'
+      'landscape',
+      'modular-design'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Little_Island_NYC_aerial.jpg?width=800',
@@ -6179,8 +6182,7 @@ var LOCS_NEW_YORK = [
     id:'nyc-0144',
     name:'St. Ann\'s Warehouse',
     cats:[
-      'cultural',
-      'historic'
+      'cultural'
     ],
     cc:'c-cul',
     styleGroups:[
@@ -6191,8 +6193,8 @@ var LOCS_NEW_YORK = [
     arch:'Marvel Architects',
     yr:2015,
     access:'open to public',
-    lat:40.7024,
-    lng:-73.9869,
+    lat:40.7036434,
+    lng:-73.9928126,
     addr:'45 Water St, Brooklyn 11201',
     hood:'DUMBO',
     desc:'Marvel Architects\' 2015 renovation of an 1860 tobacco warehouse demonstrates adaptive reuse principles. New construction is inserted within surviving brick walls with a glass brick clerestory providing natural light. The flexible theater space enables diverse performance configurations.',
@@ -6206,9 +6208,13 @@ var LOCS_NEW_YORK = [
     tags:[
       'adaptive-reuse',
       'theater',
-      'brick-architecture'
+      'brick-architecture',
+      'performance-venues',
+      'performing-arts',
+      'cultural'
     ],
-    photos:[]
+    photos:[],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7033506, lng:-73.99303 }
   },
   {
     id:'nyc-0145',
@@ -6228,8 +6234,8 @@ var LOCS_NEW_YORK = [
     arch:'S9 Architecture, Studio V Architecture',
     yr:2016,
     access:'open to public',
-    lat:40.7032,
-    lng:-74.0091,
+    lat:40.7035783,
+    lng:-73.9917827,
     addr:'55 Water St, Brooklyn 11201',
     hood:'DUMBO',
     desc:'2016 renovation by S9 Architecture and Studio V Architecture preserves seven historic 1869 Romanesque Revival warehouse buildings while adding 2.5 new floors. A dramatic open-air courtyard joins the complex, now home to the Time Out Market. The project balances heritage preservation with modern retail activation.',
@@ -6243,7 +6249,8 @@ var LOCS_NEW_YORK = [
     tags:[
       'adaptive-reuse',
       'shopping',
-      'romanesque-revival'
+      'romanesque-revival',
+      'restaurant'
     ],
     photos:[]
   },
