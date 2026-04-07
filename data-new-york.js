@@ -1,6 +1,6 @@
 /* ============================================================
    ArchWander — New York Location Data
-   226 locations
+   223 locations
    ============================================================ */
 
 var LOCS_NEW_YORK = [
@@ -261,7 +261,8 @@ var LOCS_NEW_YORK = [
     tourInfo:'Self-guided walk approx. 30 min one-way. Best views from DUMBO waterfront, Manhattan Bridge walkway, or Brooklyn Heights Promenade.',
     transit:'4 5 6 → Brooklyn Bridge–City Hall\nA C → High St (Brooklyn)',
     walkFrom:'City Hall: 5 min · One WTC: 10 min',
-    tags:['historic',
+    tags:[
+      'historic',
       'gothic revival',
       'suspension bridge',
       'free access',
@@ -315,7 +316,9 @@ var LOCS_NEW_YORK = [
       'legendary',
       'museum',
       'gallery',
-      'pritzker prize'
+      'pritzker prize',
+      'cultural',
+      'landmark'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/2003-03-New-York-Guggenheim-Museum-Frank-Lloyd-Wright.jpg?width=800',
@@ -359,7 +362,8 @@ var LOCS_NEW_YORK = [
       'meatpacking',
       'gallery',
       'museum',
-      'pritzker prize'
+      'pritzker prize',
+      'cultural'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Whitney_Museum_of_American_Art_%2849051573133%29.jpg?width=800',
@@ -409,7 +413,8 @@ var LOCS_NEW_YORK = [
       'free access',
       'ds+r',
       'touristic',
-      'preservation'
+      'preservation',
+      'kids'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/High_Line%2C_Manhattan%2C_New_York_City%2C_20231001_1722_1458.jpg?width=800',
@@ -507,7 +512,8 @@ var LOCS_NEW_YORK = [
       'free entry',
       'parametric',
       'touristic',
-      'post-9/11'
+      'post-9/11',
+      'shopping'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Oculus_%2841393p%29.jpg?width=800',
@@ -545,7 +551,8 @@ var LOCS_NEW_YORK = [
     tourInfo:'Self-guided visits welcome at all times. Check saintpatrickscathedral.org for mass schedule and guided tour availability.',
     transit:'B D F M → 47-50 Sts–Rockefeller Ctr\nE M → 5 Av/53 St',
     walkFrom:'Rockefeller Center: 2 min · MoMA: 5 min',
-    tags:['historic',
+    tags:[
+      'historic',
       'gothic revival',
       'free entry',
       'fifth avenue',
@@ -686,14 +693,16 @@ var LOCS_NEW_YORK = [
     tourInfo:'Central Park Conservancy offers free tours on weekends. Bike rentals available at multiple points around the park.',
     transit:'Multiple lines (1 2 3 A B C D N Q R) serve stations from 59th to 110th St',
     walkFrom:'Guggenheim Museum: 2 min · The Met: at park edge',
-    tags:['historic',
+    tags:[
+      'historic',
       'olmsted & vaux',
       'landscape',
       '843 acres',
       'free access',
       'picturesque',
       'park',
-      'touristic'
+      'touristic',
+      'kids'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/3015-Central_Park-Sheep_Meadow.JPG?width=800',
@@ -740,7 +749,9 @@ var LOCS_NEW_YORK = [
       'observatory',
       'nbc studios',
       'rockefeller center',
-      'touristic'
+      'touristic',
+      'shopping',
+      'restaurant'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/GE_Building_by_David_Shankbone.JPG?width=800',
@@ -935,7 +946,8 @@ var LOCS_NEW_YORK = [
       'japanese',
       'museum',
       'gallery',
-      'pritzker prize'
+      'pritzker prize',
+      'cultural'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/New_Museum_in_New_York_City_2015.JPG?width=800'
@@ -1157,7 +1169,8 @@ var LOCS_NEW_YORK = [
       'ceramic tubes',
       'leed silver',
       'times square',
-      'pritzker prize'
+      'pritzker prize',
+      'restaurant'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/New_york_times_building.jpg?width=800',
@@ -1205,7 +1218,10 @@ var LOCS_NEW_YORK = [
       'central park',
       'touristic',
       'museum',
-      'gallery'
+      'gallery',
+      'kids',
+      'cultural',
+      'landmark'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Metropolitan_Museum_of_Art_%28The_Met%29_-_Central_Park%2C_NYC.jpg?width=800',
@@ -1248,7 +1264,8 @@ var LOCS_NEW_YORK = [
       'midtown',
       'touristic',
       'museum',
-      'gallery'
+      'gallery',
+      'kids'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/MoMa_NY_USA_1.jpg?width=800',
@@ -1339,7 +1356,9 @@ var LOCS_NEW_YORK = [
       'international territory',
       'legendary',
       'wonder',
-      'pritzker prize'
+      'pritzker prize',
+      'touristic',
+      'tour program'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Headquarters_of_the_United_Nations%2C_New_York_City%2C_20231001_1103_1007.jpg?width=800',
@@ -1388,7 +1407,8 @@ var LOCS_NEW_YORK = [
       'performing arts',
       'travertine plaza',
       'legendary',
-      'pritzker prize'
+      'pritzker prize',
+      'performance-venues'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Lincoln_Center_Overview_%2848047495362%29.jpg?width=800',
@@ -1525,7 +1545,8 @@ var LOCS_NEW_YORK = [
       'kpf',
       'supertall',
       'grand central',
-      'observatory'
+      'observatory',
+      'touristic'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/One_Vanderbilt_April_2023.jpg?width=800',
@@ -1574,7 +1595,13 @@ var LOCS_NEW_YORK = [
       'kinetic',
       'etfe facade',
       'facade design',
-      'exterior'
+      'exterior',
+      'cultural',
+      'performing-arts',
+      'performance-venues',
+      'theater',
+      'museum',
+      'touristic'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/The_Shed_-_Complete_%2848206488176%29.jpg?width=800',
@@ -1614,11 +1641,14 @@ var LOCS_NEW_YORK = [
     tourInfo:'Prospect Park Alliance offers free walking tours on select weekends. Bike rentals available. Check prospectpark.org for events.',
     transit:'2 3 → Grand Army Plaza or Eastern Pkwy–Brooklyn Museum\nQ → Seventh Ave (Brooklyn)\nB Q → Prospect Park',
     walkFrom:'Brooklyn Museum: 5 min · Brooklyn Botanic Garden: adjacent',
-    tags:['historic',
+    tags:[
+      'historic',
       'olmsted & vaux',
       'brooklyn',
       'natural forest',
-      'long meadow'
+      'long meadow',
+      'kids',
+      'park'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/A_walk_in_the_park_%2849086734093%29.jpg?width=800',
@@ -1711,7 +1741,8 @@ var LOCS_NEW_YORK = [
       'midtown',
       'norman foster',
       'touristic',
-      'pritzker prize'
+      'pritzker prize',
+      'shopping'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Apple_Store_-_Fifth_Avenue_%287181848534%29.jpg?width=800',
@@ -1895,7 +1926,7 @@ var LOCS_NEW_YORK = [
       'williamsburg',
       'industrial heritage',
       'waterfront',
-      'shop'
+      'park'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Domino_Sugar_Refinery%2C_New_York_City%2C_20231001_1133_1047.jpg?width=800',
@@ -1987,7 +2018,9 @@ var LOCS_NEW_YORK = [
       'hudson yards',
       'supertall',
       'edge',
-      'observatory'
+      'observatory',
+      'shopping',
+      'restaurant'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Hudson_Yards_from_Hudson_Commons_%2895131p%29.jpg?width=800',
@@ -2076,7 +2109,9 @@ var LOCS_NEW_YORK = [
       'mixed-use',
       'platform development',
       'related companies',
-      'midtown west'
+      'midtown west',
+      'shopping',
+      'restaurant'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Midtown_Manhattan_from_Weehawken_September_2021_HDR.jpg?width=800',
@@ -2118,7 +2153,8 @@ var LOCS_NEW_YORK = [
     tourInfo:'Free public tours on select days. Check NYC gov website for schedule.',
     transit:'4 5 6 J Z → Brooklyn Bridge–City Hall · N R W → City Hall',
     walkFrom:'Brooklyn Bridge: 5 min · World Trade Center: 10 min',
-    tags:['historic',
+    tags:[
+      'historic',
       'federal',
       'french renaissance',
       'civic',
@@ -2211,7 +2247,9 @@ var LOCS_NEW_YORK = [
       'winter garden',
       'atrium',
       'battery park city',
-      'palm trees'
+      'palm trees',
+      'shopping',
+      'restaurant'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/World_Financial_Center_Evening.jpg?width=800',
@@ -2254,7 +2292,8 @@ var LOCS_NEW_YORK = [
       'historic',
       'public space',
       'waterfront',
-      'battery park city'
+      'battery park city',
+      'kids'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Battery_Park.JPG?width=800',
@@ -2290,7 +2329,8 @@ var LOCS_NEW_YORK = [
     tourInfo:'Free ranger-led tours. Also serves as Statue of Liberty ferry ticket office.',
     transit:'1 → South Ferry · R W → Whitehall St · 4 5 → Bowling Green',
     walkFrom:'Battery Park: adjacent · Bowling Green: 3 min',
-    tags:['historic',
+    tags:[
+      'historic',
       'national monument',
       'federal',
       'fort',
@@ -2335,12 +2375,14 @@ var LOCS_NEW_YORK = [
     tourInfo:'NYC Financial District walking tours typically include Stone Street. Best visited weekday lunch for the outdoor seating atmosphere.',
     transit:'R W → Whitehall St · J Z → Broad St · 4 5 → Bowling Green',
     walkFrom:'Bowling Green: 4 min · WTC: 8 min',
-    tags:['historic',
+    tags:[
+      'historic',
       'cobblestone',
       'greek revival',
       'historic district',
       'oldest street',
-      'restaurant row'
+      'restaurant row',
+      'restaurant'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Stone_Street%2C_NYC.jpg?width=800',
@@ -2380,13 +2422,15 @@ var LOCS_NEW_YORK = [
     tourInfo:'Self-guided. Washington Square Park is a major gathering space for the NYU community and neighborhood.',
     transit:'A C E B D F M → W 4 St–Washington Sq',
     walkFrom:'NYU campus: adjacent · SoHo: 10 min',
-    tags:['historic',
+    tags:[
+      'historic',
       'stanford white',
       'beaux-arts',
       'arch',
       'greenwich village',
       'nyu',
-      'landmark'
+      'landmark',
+      'kids'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Washington_Square_Arch_01.JPG?width=800',
@@ -2423,7 +2467,8 @@ var LOCS_NEW_YORK = [
     tourInfo:'Open for services. La Farge stained glass windows are a particular highlight.',
     transit:'A C E B D F M → W 4 St–Washington Sq',
     walkFrom:'Washington Square Arch: 2 min · NYU: adjacent',
-    tags:['historic',
+    tags:[
+      'historic',
       'stanford white',
       'romanesque revival',
       'la farge',
@@ -2470,7 +2515,8 @@ var LOCS_NEW_YORK = [
     tourInfo:'Free public library. Ask about the clock tower — it occasionally opens for guided tours.',
     transit:'A C E B D F M → W 4 St–Washington Sq · 1 → Christopher St',
     walkFrom:'Washington Square: 5 min · Christopher St: 3 min',
-    tags:['historic',
+    tags:[
+      'historic',
       'calvert vaux',
       'victorian gothic',
       'nypl',
@@ -2604,7 +2650,8 @@ var LOCS_NEW_YORK = [
     tourInfo:'Churchyard freely accessible. Interior open for services and events.',
     transit:'6 → Astor Pl · L → 1 Av',
     walkFrom:'Astor Place: 3 min · Tompkins Square Park: 5 min',
-    tags:['historic',
+    tags:[
+      'historic',
       'georgian',
       'greek revival',
       'historic church',
@@ -2833,14 +2880,16 @@ var LOCS_NEW_YORK = [
     tourInfo:'Walking tours available from multiple operators. Best photographed on Washington St at Water St for the Manhattan Bridge frame view.',
     transit:'A C → High St · F → York St',
     walkFrom:'Brooklyn Bridge Park: 5 min · Brooklyn Heights Promenade: 10 min',
-    tags:['historic',
+    tags:[
+      'historic',
       'industrial loft',
       'cobblestone',
       'brooklyn',
       'manhattan bridge',
       'art district',
       'renovation',
-      'touristic'
+      'touristic',
+      'shopping'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/DUMBO_Historic_and_Industrial_District.jpg?width=800',
@@ -2884,7 +2933,8 @@ var LOCS_NEW_YORK = [
       'brooklyn bridge park',
       'victorian',
       'renovation',
-      'pritzker prize'
+      'pritzker prize',
+      'kids'
     ],
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Janes_Carousel_Pavilion_2011.jpg/800px-Janes_Carousel_Pavilion_2011.jpg'
@@ -2924,7 +2974,11 @@ var LOCS_NEW_YORK = [
       'world\'s fair',
       'flushing meadows',
       'queens',
-      'renovation'
+      'renovation',
+      'kids',
+      'cultural',
+      'museum',
+      'gallery'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Queens_Museum_%2848613534751%29.jpg?width=800',
@@ -2967,7 +3021,8 @@ var LOCS_NEW_YORK = [
       'world\'s fair',
       'queens',
       '1964',
-      'landmark'
+      'landmark',
+      'sculpture'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Unisphere_in_summer.jpg?width=800',
@@ -3016,7 +3071,8 @@ var LOCS_NEW_YORK = [
       'sports',
       'monument park',
       'great hall',
-      'renovation'
+      'renovation',
+      'kids'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Yankee_Stadium%2C_New_York_-_panoramio.jpg?width=800',
@@ -3093,7 +3149,8 @@ var LOCS_NEW_YORK = [
     tourInfo:'Free docent tours Sat 11 AM. Garden highlights tours Sun 2 PM.',
     transit:'1 → 231 St, then BX7/BX10 bus · Metro-North Hudson Line → Riverdale',
     walkFrom:'Riverdale neighborhood: 5 min · Hudson River overlook: adjacent',
-    tags:['historic',
+    tags:[
+      'historic',
       'garden',
       'estate',
       'bronx',
@@ -3276,7 +3333,8 @@ var LOCS_NEW_YORK = [
       'lower east side',
       'perforated metal',
       'rooftop bar',
-      'pritzker prize'
+      'pritzker prize',
+      'restaurant'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Escalator%2C_Public_Hotel_New_York_%282024%29-L1005609.jpg?width=800'
@@ -4104,7 +4162,8 @@ var LOCS_NEW_YORK = [
       'expansion',
       'renovation',
       'gallery',
-      'pritzker prize'
+      'pritzker prize',
+      'cultural'
     ],
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Morgan_Library_%26_Museum_Exterior.jpg/800px-Morgan_Library_%26_Museum_Exterior.jpg',
@@ -4280,7 +4339,8 @@ var LOCS_NEW_YORK = [
       'prada',
       'retail',
       'soho',
-      'pritzker prize'
+      'pritzker prize',
+      'shopping'
     ],
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Prada_Epicenter_NYC_OMA.jpg/800px-Prada_Epicenter_NYC_OMA.jpg'
@@ -4485,7 +4545,8 @@ var LOCS_NEW_YORK = [
       'kinetic facade',
       'residential',
       'japanese',
-      'pritzker prize'
+      'pritzker prize',
+      'luxury residential'
     ],
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Metal_Shutter_Houses_NYC.jpg/800px-Metal_Shutter_Houses_NYC.jpg'
@@ -4565,7 +4626,10 @@ var LOCS_NEW_YORK = [
       'community',
       'children\'s museum',
       'affordable housing',
-      'west african'
+      'west african',
+      'kids',
+      'museum',
+      'cultural'
     ],
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Sugar_Hill_Museum_Adjaye.jpg/800px-Sugar_Hill_Museum_Adjaye.jpg'
@@ -4610,7 +4674,8 @@ var LOCS_NEW_YORK = [
       'queens',
       'concrete',
       'waterfront',
-      'panoramic view'
+      'panoramic view',
+      'kids'
     ],
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Hunters_Point_Community_Library_2019.jpg/800px-Hunters_Point_Community_Library_2019.jpg'
@@ -5274,7 +5339,6 @@ var LOCS_NEW_YORK = [
     name:'Moynihan Train Hall',
     cats:[
       'infrastructure',
-      'landmarks',
       'mixed-use'
     ],
     cc:'c-inf',
@@ -5310,7 +5374,10 @@ var LOCS_NEW_YORK = [
       'skylight',
       'farley building',
       '2021',
-      'renovation'
+      'renovation',
+      'shopping',
+      'restaurant',
+      'retail'
     ],
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Moynihan_Train_Hall_interior_2021.jpg/800px-Moynihan_Train_Hall_interior_2021.jpg'
@@ -5480,7 +5547,11 @@ var LOCS_NEW_YORK = [
       'kpf (kohn pedersen fox)',
       'hudson yards',
       'office',
-      'supertall'
+      'supertall',
+      'shopping',
+      'restaurant',
+      'little spain',
+      'high line'
     ],
     photos:[]
   },
@@ -5618,7 +5689,8 @@ var LOCS_NEW_YORK = [
     city:'new-york',
     arch:'KPF (Kohn Pedersen Fox)',
     archs:[
-      'KPF (Kohn Pedersen Fox)'
+      'KPF (Kohn Pedersen Fox)',
+      'Richard Meier'
     ],
     yr:2019,
     access:'private (exterior viewable)',
@@ -5641,7 +5713,7 @@ var LOCS_NEW_YORK = [
       'waterfront',
       'riverside park',
       'richard meier',
-      'rafael viñoly'
+      'pritzker prize'
     ],
     photos:[]
   },
@@ -5649,8 +5721,7 @@ var LOCS_NEW_YORK = [
     id:'nyc-0131',
     name:'Sperone Westwater Gallery',
     cats:[
-      'cultural',
-      'landmarks'
+      'cultural'
     ],
     cc:'c-cul',
     styleGroups:[
@@ -5684,7 +5755,10 @@ var LOCS_NEW_YORK = [
       'art',
       'nolita',
       'sliver building',
-      'pritzker prize'
+      'pritzker prize',
+      'museum',
+      'norman foster',
+      'cultural'
     ],
     photos:[]
   },
@@ -5693,7 +5767,7 @@ var LOCS_NEW_YORK = [
     name:'50 Hudson Yards',
     cats:[
       'skyscrapers',
-      'landmarks'
+      'commercial'
     ],
     cc:'c-sky',
     styleGroups:[
@@ -5737,7 +5811,7 @@ var LOCS_NEW_YORK = [
     name:'425 Park Avenue',
     cats:[
       'skyscrapers',
-      'landmarks'
+      'commercial'
     ],
     cc:'c-sky',
     styleGroups:[
@@ -5772,7 +5846,8 @@ var LOCS_NEW_YORK = [
       'jean-georges',
       'full block',
       '860 ft',
-      'pritzker prize'
+      'pritzker prize',
+      'norman foster'
     ],
     photos:[]
   },
@@ -5781,7 +5856,7 @@ var LOCS_NEW_YORK = [
     name:'270 Park Avenue (JPMorgan Chase HQ)',
     cats:[
       'skyscrapers',
-      'landmarks'
+      'commercial'
     ],
     cc:'c-sky',
     styleGroups:[
@@ -5817,7 +5892,8 @@ var LOCS_NEW_YORK = [
       'leed platinum',
       '1388 ft',
       '2025',
-      'pritzker prize'
+      'pritzker prize',
+      'norman foster'
     ],
     photos:[]
   },
@@ -5825,8 +5901,7 @@ var LOCS_NEW_YORK = [
     id:'nyc-0135',
     name:'Alice Tully Hall',
     cats:[
-      'cultural',
-      'landmarks'
+      'cultural'
     ],
     cc:'c-cul',
     styleGroups:[
@@ -5858,11 +5933,14 @@ var LOCS_NEW_YORK = [
       'lincoln center',
       'concert hall',
       'upper west side',
-      'adaptive reuse'
+      'adaptive reuse',
+      'performance-venues',
+      'acoustic'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Alice_Tully_Hall_renovated.jpg?width=800'
-    ]
+    ],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7731461, lng:-73.9824674 }
   },
   {
     id:'nyc-0136',
@@ -5883,8 +5961,8 @@ var LOCS_NEW_YORK = [
     ],
     yr:2012,
     access:'open to public',
-    lat:40.8277,
-    lng:-73.9227,
+    lat:40.819087,
+    lng:-73.9121962,
     addr:'700 Brook Ave, Bronx, NY 10455',
     hood:'South Bronx',
     desc:'Via Verde (The Green Way) is a 222-unit affordable housing development in the South Bronx designed by Grimshaw Architects and Dattner Architects, winner of the New Housing New York Legacy Project competition in 2006. The design steps down from a 20-story tower at the north to a 6-story walk-up block at the south, with each terrace level supporting productive roof gardens — growing vegetables, herbs, and fruit trees accessible to residents. The building\'s stepped section maximises solar access to all units and terraces. Via Verde received LEED Gold certification and is widely cited as a model for integrating sustainability, community, and affordable housing design in dense urban contexts.',
@@ -5928,8 +6006,8 @@ var LOCS_NEW_YORK = [
     ],
     yr:2014,
     access:'paid ticket',
-    lat:40.7115,
-    lng:-74.0133,
+    lat:40.71151,
+    lng:-74.0126395,
     addr:'180 Greenwich St, New York, NY 10007',
     hood:'World Trade Center, Lower Manhattan',
     desc:'The National September 11 Memorial Museum opened on 21 May 2014. The above-ground pavilion — designed by Norwegian firm Snøhetta — serves as the entry portal to the museum seven storeys below grade, where the original foundations and artefacts of the Twin Towers are preserved in situ. The pavilion\'s tilted glass-and-steel form is deliberately asymmetric: two angular steel trusses — called the "tridents" — salvaged from the original WTC facade frame the entrance and establish a visible connection between what stands above and what lies below. The pavilion reads as a threshold rather than a monument, its transparency and incompleteness conveying absence and memory with restraint. Davis Brody Bond designed the underground museum galleries.',
@@ -5946,63 +6024,23 @@ var LOCS_NEW_YORK = [
       'museum',
       'world trade center',
       'lower manhattan',
-      '9/11'
+      '9/11',
+      'touristic',
+      'gallery',
+      'public-space',
+      'cultural'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/911_Memorial_Museum_Entrance.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/National_September_11_Memorial_reflecting_pool.jpg?width=800'
-    ]
-  },
-  {
-    id:'nyc-0138',
-    name:'American Copper Buildings',
-    cats:[
-      'residential',
-      'skyscrapers',
-      'landmarks'
     ],
-    cc:'c-res',
-    styleGroups:[
-      'contemporary'
-    ],
-    era:'2000–Present',
-    city:'new-york',
-    arch:'SHoP Architects',
-    archs:[
-      'SHoP Architects'
-    ],
-    yr:2017,
-    access:'open to public',
-    lat:40.7443979,
-    lng:-73.9717998,
-    addr:'626 First Ave, New York, NY 10016',
-    hood:'Kips Bay / Murray Hill',
-    desc:'The American Copper Buildings are a pair of 41- and 48-story residential towers on First Avenue designed by SHoP Architects and completed in 2017. Their most distinctive feature is the three-story sky bridge connecting the two towers at the 29th through 31st floors — the first sky bridge between residential skyscrapers in New York City. The towers are clad in pre-weathered copper panels that will develop a natural patina over decades, referencing New York\'s copper-clad landmarks. SHoP used advanced parametric modeling to design the irregular, faceted facades, which achieve dramatic angles while conforming to zoning setbacks. The project represents a new generation of mixed-income supertall residential towers redefining the East River skyline.',
-    hours:'Sky bridge and amenities: residents only · Exterior viewable 24/7',
-    lastEntry:'',
-    admission:'Residential building · Public lobby viewable',
-    tourOk:false,
-    tourInfo:'',
-    transit:'6 → 33 St · M15 bus along First Ave',
-    walkFrom:'Grand Central: 12 min · United Nations: 8 min',
-    tags:[
-      'shop architects',
-      'sky bridge',
-      'copper facade',
-      'residential tower',
-      'first avenue',
-      'kips bay'
-    ],
-    photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/American_Copper_Buildings_NYC.jpg?width=800'
-    ]
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7117338, lng:-74.0124245 }
   },
   {
     id:'nyc-0139',
     name:'FDR Four Freedoms Park',
     cats:[
       'parks',
-      'landmarks',
       'public'
     ],
     cc:'c-park',
@@ -6036,54 +6074,12 @@ var LOCS_NEW_YORK = [
       'roosevelt island',
       'modernism',
       'east river',
-      'posthumous'
+      'posthumous',
+      'legendary'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/FDR_Four_Freedoms_Park_room.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/FDR_Four_Freedoms_Park_aerial.jpg?width=800'
-    ]
-  },
-  {
-    id:'nyc-0140',
-    name:'152 Elizabeth Street',
-    cats:[
-      'residential',
-      'landmarks'
-    ],
-    cc:'c-res',
-    styleGroups:[
-      'contemporary'
-    ],
-    era:'2000–Present',
-    city:'new-york',
-    arch:'Tadao Ando',
-    archs:[
-      'Tadao Ando'
-    ],
-    yr:2018,
-    access:'open to public',
-    lat:40.7204762,
-    lng:-73.9949254,
-    addr:'152 Elizabeth St, New York, NY 10012',
-    hood:'Nolita',
-    desc:'152 Elizabeth Street is Tadao Ando\'s first residential building in New York City, completed in 2018. The 7-story, 7-unit boutique condominium occupies a narrow lot in Nolita and is clad entirely in Ando\'s signature board-formed exposed concrete — a material almost entirely absent from Manhattan\'s residential architecture. The building\'s facade is articulated by deep horizontal shadow lines created by the plank formwork, and the street-level planting softens its monolithic presence. Each floor houses a single full-floor unit with interiors finished in concrete, stone, and warm timber, bringing Ando\'s characteristic spatial discipline and tactile austerity to the New York market. The project reflects Ando\'s consistent philosophy: geometry, natural light, and the poetic use of concrete regardless of programme or scale.',
-    hours:'Private residential building · Exterior viewable 24/7',
-    lastEntry:'',
-    admission:'Private building',
-    tourOk:false,
-    tourInfo:'',
-    transit:'6 → Spring St · J Z → Bowery · B D → Grand St',
-    walkFrom:'New Museum: 5 min · SoHo: 5 min',
-    tags:[
-      'tadao ando',
-      'concrete',
-      'residential',
-      'nolita',
-      'boutique condo',
-      'pritzker prize'
-    ],
-    photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/152_Elizabeth_Street_NYC_Tadao_Ando.jpg?width=800'
     ]
   },
   {
@@ -6129,52 +6125,8 @@ var LOCS_NEW_YORK = [
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/565_Broome_SoHo_Ando.jpg?width=800'
-    ]
-  },
-  {
-    id:'nyc-0142',
-    name:'Vessel',
-    cats:[
-      'landmarks',
-      'public'
     ],
-    cc:'c-lmk',
-    styleGroups:[
-      'contemporary',
-      'parametric design'
-    ],
-    era:'2000–Present',
-    city:'new-york',
-    arch:'Heatherwick Studio',
-    archs:[
-      'Heatherwick Studio'
-    ],
-    yr:2019,
-    access:'open to public',
-    lat:40.7533936,
-    lng:-74.00105500000001,
-    addr:'Hudson Yards, New York, NY 10001',
-    hood:'Hudson Yards, West Side',
-    desc:'Vessel is a 16-story public climbable structure at the centre of Hudson Yards, designed by Thomas Heatherwick and completed in March 2019. The structure comprises 154 interlocking staircases — 2,500 steps and 80 landings — arranged around a central atrium to create a honeycomb-like lattice of weathering steel that rises 46 meters from the ground. No two levels are the same; the geometry shifts as the form tapers inward and outward, creating a three-dimensional network that allows visitors to observe each other from multiple angles simultaneously. Heatherwick described the design as "a different kind of public space" — more interactive than a sculpture, more architectural than a monument. The structure has become one of New York\'s most recognisable new landmarks and a focal point of the Hudson Yards public square.',
-    hours:'Daily 10:00 AM – 8:00 PM (last entry 7:15 PM)',
-    lastEntry:'7:15 PM',
-    admission:'Free reservation required (timed entry tickets)',
-    tourOk:false,
-    tourInfo:'Free timed-entry tickets must be reserved in advance at hudsonyardsnewyork.com. Stroller and wheelchair accessible.',
-    transit:'7 → 34 St–Hudson Yards',
-    walkFrom:'High Line (south end): 5 min · The Edge observation deck: 2 min',
-    tags:[
-      'heatherwick studio',
-      'thomas heatherwick',
-      'hudson yards',
-      'landmark',
-      'interactive',
-      'weathering steel'
-    ],
-    photos:[
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Vessel_2019.jpg?width=800',
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Hudson_Yards_New_York_City_-_Vessel.jpg?width=800'
-    ]
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7239413, lng:-74.0060522 }
   },
   {
     id:'nyc-0143',
