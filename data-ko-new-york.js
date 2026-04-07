@@ -1283,7 +1283,7 @@ var LOCS_KO_NEW_YORK = {
   },
   "nyc-0128": {
         "name": "Madison Square Park Tower (45 E 22nd St)",
-        "desc": "Madison Square Park Tower는 KPF (Kohn Pedersen Fox)가 Flatiron District에서 설계한 65층, 777피트의 주거용 초고층빌딩으로서, Midtown과 Downtown Manhattan 사이에서 가장 높은 주거 빌딩이다. 이 슬렌더 타워는 83개의 초럭셔리 콘도를 포함하며 유리와 석재의 교대 띠로 마감되어 있어 shaft 전체에 걸쳐 미묘한 텍스처 리듬을 만든다. 이 빌딩의 slenderness ratio와 Madison Square Park 및 Flatiron Building의 commanding view는 그것의 defining amenity이다. 이 타워는 2010년대 중반 이후 Flatiron / Gramercy skyline을 재정의한 superthin 럭셔리 주거용 타워의 cluster에 동참한다.",
+        "desc": "매디슨 스퀘어 파크 타워는 KPF(콘 페더슨 폭스)가 설계한 65층, 높이 777피트의 주거용 초고층 건축물로 플래티언 지구에 위치하며, 미드타운과 다운타운 맨해튼 사이의 가장 높은 주거 건물입니다. 날씬한 타워는 83개의 초고급 콘도미니엄을 포함하고 있으며, 교대로 배치된 유리와 돌로 된 밴드 패턴의 파사드가 건물 전체에 미묘한 텍스처 리듬을 만듭니다. 건물의 슬렌더함과 매디슨 스퀘어 파크 및 플래티언 빌딩의 탁월한 경관이 주요 특징입니다. 이 타워는 2010년대 중반 이후 플래티언/그래머시 스카이라인을 재정의해온 초슬림 럭셀리 주거 타워의 클러스터에 새롭게 추가되었습니다.",
         "hood": "Flatiron / Gramercy",
         "hours": "외부 관찰 24/7 · 민간 주거용 빌딩",
         "admission": "무료 (외부)",
@@ -1301,7 +1301,7 @@ var LOCS_KO_NEW_YORK = {
   },
   "nyc-0130": {
         "name": "Two Waterline Square",
-        "desc": "Two Waterline Square는 KPF (Kohn Pedersen Fox)가 Upper West Side waterfront의 Riverside Park에 인접한 3개 빌딩의 Waterline Square complex의 일부로서 설계한 37층 럭셔리 주거용 타워이다. 이 complex는 또한 Richard Meier와 Rafael Viñoly의 타워를 포함한다. KPF의 빌딩은 강의 edge에 대응하는 subtly curved 유리 파사드를 특징으로 하며, 유리의 수평 띠는 wave-like visual rhythm을 만든다. Waterline Square complex는 대규모 park-like 공개 ground plane을 포함하는 amenity base를 공유한다. 이 프로젝트는 Manhattan의 Hudson River waterfront의 마지막 미개발 구간의 변환의 significant한 장을 대표한다.",
+        "desc": "투 워터라인 스퀘어는 KPF(콘 페더슨 폭스)가 설계한 37층의 럭셀리 주거 타워로, 어퍼 웨스트 사이드 워터프론트의 3개 건물로 이루어진 워터라인 스퀘어 복합단지의 일부이며 리버사이드 파크에 인접합니다. 이 복합단지는 리처드 마이어와 라파엘 비뇰로가 설계한 타워도 포함합니다. KPF의 건물은 강변의 모서리에 대응하는 미묘한 곡선형 유리 파사드를 특징으로 하며, 수평 유리 밴드가 파도 같은 시각적 리듬을 만듭니다. 워터라인 스퀘어 복합단지는 넓은 공원 같은 공용 지면을 포함한 공용 시설을 공유합니다. 이 프로젝트는 맨해튼 허드슨 강 워터프론트의 마지막 미개발 구간 변화의 중요한 장을 나타냅니다.",
         "hood": "Upper West Side / Riverside Center",
         "hours": "외부 관찰 24/7 · 민간 주거용 빌딩",
         "admission": "무료 (외부 / riverfront)",
@@ -1321,7 +1321,7 @@ var LOCS_KO_NEW_YORK = {
   },
   "nyc-0132": {
         "name": "50 Hudson Yards",
-        "desc": "50 Hudson Yards는 Foster + Partners가 설계한 58층, 1,011피트의 초고층 사무용 타워로서, 2022년 Hudson Yards megadevelopment의 일부로 완공되었다. 이것은 leasable 면적으로 뉴욕에서 네 번째로 큰 사무용 타워로서 2.9백만 제곱피트의 Class A space를 가진다. 이 빌딩의 파사드는 크기가 감소하는 3개의 stacked rectangular volume으로 구성되며, 각각 hand-carved Italian marble panel과 high-performance 유리로 마감되어 있어 이러한 규모의 초고층으로는 exceptionally material-rich approach이다. innovative한 triple elevator system (conventional, double-decker, twin)이 뉴욕 사무용 빌딩에서 처음으로 여기에 배치되었다. 입주사로는 BlackRock, Facebook 및 기타 주요 financial and technology firm이 있다. 이 타워는 LEED Gold 인증을 받았다.",
+        "desc": "50 허드슨 야드는 포스터 앤드 파트너스가 설계한 58층, 높이 1,011피트의 초고층 오피스 타워로 2022년 완공되었으며 허드슨 야드 메가개발 프로젝트의 일부입니다. 임대 가능한 면적 기준으로 뉴욕의 4번째로 큰 오피스 타워이며 270만 제곱피트의 A급 공간을 보유합니다. 건물의 파사드는 크기가 감소하는 3개의 적층된 직사각형 볼륨으로 구성되어 있으며, 각각 손으로 조각한 이탈리안 대리석 패널과 고성능 유리로 마감되어 있습니다. 이는 이 규모의 초고층 건축물로서는 예외적으로 재료 중심적인 접근입니다. 혁신적인 삼중 엘리베이터 시스템(일반, 이층, 쌍둥이)이 뉴욕 오피스 건물에서 처음으로 도입되었습니다. 테넌트는 블랙록, 페이스북 및 기타 주요 금융 및 기술 회사입니다. 이 타워는 LEED 골드 인증을 획득했습니다.",
         "hood": "Hudson Yards",
         "hours": "외부 관찰 24/7 · 민간 사무용 빌딩",
         "admission": "무료 (외부 / Hudson Yards 공개 공간)",
@@ -1330,7 +1330,7 @@ var LOCS_KO_NEW_YORK = {
   },
   "nyc-0133": {
         "name": "425 Park Avenue",
-        "desc": "425 Park Avenue는 Foster + Partners가 설계하고 2022년 완공된 50년 이상 동안 Park Avenue에서 처음으로 세워진 full-block 사무용 타워이다. 47층, 약 860피트 높이의 이 빌딩의 형태는 명확한 tripartite composition으로 구성되어 있다: triple-height 공개 lobby와 Jean-Georges restaurant를 포함하는 podium, premium office floor의 mid-section, 그리고 38피트 ceiling과 공개 terrace를 가진 dramatic crown level. 파사드는 빌딩의 lateral force-resisting structure를 표현하는 diagonal steel exoskeleton으로 정의되어 있으며, 425 Park Avenue에 Park Avenue의 유리 커튼월 행 중에서 distinctive한 visual logic을 부여한다. ground-floor lobby와 주변 공개 공간은 Avenue의 civic life에 대한 기여로 설계되었다.",
+        "desc": "425 파크 애비뉴는 포스터 앤드 파트너스가 설계했으며 2022년 완공된 50년 이상 만에 파크 애비뉴에 지어진 첫 전블록 오피스 타워입니다. 47층, 높이 약 860피트의 건물은 명확한 3부 구성으로 구성됩니다: 삼중 높이의 공용 로비와 장조르주 레스토랑을 포함한 포디움, 프리미엄 오피스 플로어의 중간부, 그리고 38피트의 천고와 공용 테라스가 있는 극적인 크라운 레벨입니다. 파사드는 건물의 횡력 저항 구조를 표현하는 대각선 강철 엑소스켈레톤으로 정의되어 있으며, 425 파크 애비뉴는 파크 애비뉴의 유리 커튼월 행렬에서 독특한 시각적 논리를 가집니다. 1층 로비와 주변 공용 공간은 애비뉴의 시민 생활에 기여하도록 설계되었습니다.",
         "hood": "Midtown East / Park Avenue",
         "hours": "Lobby: 월–금 8 AM–7 PM · Restaurant: service에 따라 변함",
         "admission": "무료 (lobby)",
@@ -1340,7 +1340,7 @@ var LOCS_KO_NEW_YORK = {
   },
   "nyc-0134": {
         "name": "270 Park Avenue (JPMorgan Chase HQ)",
-        "desc": "270 Park Avenue는 JPMorgan Chase의 새로운 글로벌 본부로서, Foster + Partners가 설계하고 2025년 완공된 60층, 1,388피트의 초고층으로 뉴욕시에서 여섯 번째로 높은 빌딩이다. 이 타워는 그 자리를 차지하기 위해 철거된 former Union Carbide Building (1960)을 대체했다. 이 빌딩은 상부로 갈수록 좁아지는 slender pinnacle로 tapering되는 4개의 pronounced setback으로 정의되며, 그 base는 dramatic truss system으로 elevated되어 있어 structure가 단 4개 지점에서만 지면에 접하여 generous하고 permeable한 ground-floor civic space를 만든다. 270 Park는 net-zero operational carbon emission을 목표로 하는 뉴욕시의 가장 큰 all-electric commercial tower로서 LEED Platinum 인증을 목표로 하고 있으며, 이 규모의 sustainable skyscraper design의 benchmark이다.",
+        "desc": "270 파크 애비뉴는 JP모건 체이스의 새로운 글로벌 본사로, 포스터 앤드 파트너스가 설계한 60층, 높이 1,388피트의 초고층 건축물이며 2025년 완공되어 뉴욕 시에서 6번째로 높은 건물입니다. 이 타워는 1960년에 지어진 구 유니온 카바이드 빌딩을 대체하기 위해 철거되었습니다. 건물은 4개의 뚜렷한 세트백으로 정의되어 있으며 위쪽으로 갈수록 가늘어져 날슬한 첨탑을 이루며, 기단은 극적인 트러스 시스템 위에 올려져 구조체가 지면에 단 4개의 지점에서만 닿아 너그럽고 투과성 있는 1층 공용 공간을 만듭니다. 270 파크는 뉴욕 시의 가장 큰 전기식 상업 타워로 순영 탄소 배출량이 0이며 LEED 플래티넘 인증을 목표로 하고 있습니다. 이는 이 규모의 지속 가능한 초고층 설계의 벤치마크입니다.",
         "hood": "Midtown East / Park Avenue",
         "hours": "외부 및 ground-level 공개 공간 24/7 관찰 가능 · 민간 사무용 빌딩",
         "admission": "무료 (외부 / ground-floor 공개 공간)",
@@ -1349,7 +1349,7 @@ var LOCS_KO_NEW_YORK = {
   },
   "nyc-0135": {
         "name": "Alice Tully Hall",
-        "desc": "Diller Scofidio + Renfro의 2009년 Alice Tully Hall 개보수는 닫혀있고 창이 없는 1969 Pietro Belluschi concert hall을 luminous하고 street-engaged한 cultural venue로 변환했다. studio는 빌딩의 파사드를 벗겨내고 moabi wood와 유리의 monocoque shell로 감쌌으며, Broadway 위로 cantilevering되어 hall의 내부를 지나가는 사람들에게 드러내면서 거리에서 보이는 새로운 유리-wood foyer를 만들었다. 개보수는 또한 1,087석의 main hall을 재배치하고 크기를 조정했다. 이 프로젝트는 contemporary cultural architecture에서 adaptive reuse와 urban activation의 landmark로 널리 인용된다.",
+        "desc": "2009년 딜러 스코피디오 + 렌프로가 수행한 앨리스 톨리 홀의 리노베이션은 폐쇄되고 창문이 없던 1969년 피에트로 벨루스키 콘서트홀을 광채로운 거리 중심적 문화 장소로 변모시켰습니다. 이 스튜디오는 건물의 파사드를 벗겨내고 모아비 목재와 유리로 된 모노코크 쉘로 감싸서 브로드웨이 위로 캔틸레버하여 홀의 인테리어를 지나가는 사람들에게 드러내면서 동시에 거리에서 보이는 새로운 유리와 목재 포이어를 만듭니다. 리노베이션은 또한 1,087석의 메인 홀을 재배치하고 크기를 조정했습니다. 이 프로젝트는 현대 문화 건축의 적응적 재활용과 도시 활성화의 랜드마크로 널리 인용됩니다.",
         "hood": "Lincoln Center, Upper West Side",
         "hours": "Box office: 월–토 10AM–6PM · Event hour는 변함",
         "admission": "공연은 입장료 필요 · Lobby 무료",
@@ -1359,7 +1359,7 @@ var LOCS_KO_NEW_YORK = {
   },
   "nyc-0136": {
         "name": "Via Verde",
-        "desc": "Via Verde (The Green Way)는 Grimshaw Architects와 Dattner Architects가 설계한 South Bronx의 222개 유닛 affordable housing development로서, 2006년 New Housing New York Legacy Project competition의 수상작이다. 설계는 북쪽의 20층 타워에서 남쪽의 6층 walk-up block으로 내려가며, 각 terrace level은 주민에게 accessible한 productive roof garden을 지원한다 — 채소, 허브, 과일 나무를 재배한다. 빌딩의 stepped section은 모든 유닛과 terrace에 대한 solar access를 최대화한다. Via Verde는 LEED Gold 인증을 받았으며 sustainability, community, affordable housing design을 dense urban context에 통합하는 model로 널리 인용된다.",
+        "desc": "비아 베르데(더 그린 웨이)는 남부 브롱크스의 222개 유닛 저렴 주택 개발로, 그림쇼 아키텍츠와 달너 아키텍츠가 설계했으며 2006년 뉴 하우징 뉴욕 레거시 프로젝트 경기에서 우승했습니다. 설계는 북쪽의 20층 타워에서 남쪽의 6층 워크업 블록으로 단계적으로 내려가며, 각 테라스 레벨은 주민들이 접근 가능한 채소, 허브, 과일나무를 재배하는 생산적인 옥상 정원을 지원합니다. 건물의 계단식 단면은 모든 유닛과 테라스에 대한 태양 접근을 극대화합니다. 비아 베르데는 LEED 골드 인증을 획득했으며 지속 가능성, 커뮤니티, 저렴 주택 설계를 밀집한 도시 맥락에서 통합하는 모델로 널리 인용됩니다.",
         "hood": "South Bronx",
         "hours": "외부 및 communal garden: 주간",
         "admission": "주거용 빌딩 · 외부 및 ground-floor garden 개방",
@@ -1369,7 +1369,7 @@ var LOCS_KO_NEW_YORK = {
   },
   "nyc-0137": {
         "name": "9/11 Memorial Museum Pavilion",
-        "desc": "National September 11 Memorial Museum는 2014년 5월 21일에 개관했다. above-ground pavilion은 Norwegian firm Snøhetta가 설계했으며, 쌍둥이 타워의 original foundation과 artifact이 in situ에서 보존되어 있는 지하 7층의 museum으로의 entry portal로 기능한다. 이 pavilion의 tilted 유리-steel form은 의도적으로 asymmetric이다: \"trident\"라고 불리는 2개의 angular steel truss — original WTC facade에서 salvaged된 — 는 entrance를 frame하고 위에 있는 것과 아래에 있는 것 사이의 visible connection을 establish한다. pavilion은 monument가 아닌 threshold로 읽히며, 그것의 transparency와 incompleteness는 restraint로 absence와 memory를 전달한다. Davis Brody Bond는 underground museum gallery를 설계했다.",
+        "desc": "국립 9·11 추도 박물관은 2014년 5월 21일에 개관했습니다. 지상의 파빌리온은 노르웨이의 스뇌헤타가 설계했으며 지하 7층에 위치한 박물관으로의 입구 포탈 역할을 하며, 여기서는 쌍둥이 타워의 원래 기초와 유물들이 현지에 보존됩니다. 파빌리온의 기울어진 유리와 강철 형태는 의도적으로 비대칭입니다: \"트라이던츠\"라고 불리는 2개의 각진 강철 트러스는 원래 WTC 파사드에서 회수되었으며 입구를 표현하고 위에 서있는 것과 아래에 있는 것 사이의 가시적 연결을 확립합니다. 파빌리온은 기념비라기보다는 임계점으로 읽히며, 그 투명성과 미완성성은 부재와 기억을 절제된 방식으로 전달합니다. 데이비스 브로디 본드는 지하 박물관 갤러리를 설계했습니다.",
         "hood": "World Trade Center, Lower Manhattan",
         "hours": "매일 9:00 AM – 8:00 PM (마지막 입장 7:00 PM) · 9/11 아침 휴무",
         "lastEntry": "7:00 PM",
@@ -1380,7 +1380,7 @@ var LOCS_KO_NEW_YORK = {
   },
   "nyc-0138": {
         "name": "American Copper Buildings",
-        "desc": "American Copper Buildings는 SHoP Architects가 설계하고 2017년 완공된 First Avenue의 41층 및 48층 주거용 타워의 쌍이다. 가장 distinctive한 특징은 29층에서 31층의 두 타워를 연결하는 3층 sky bridge로서, 뉴욕시에서 주거용 초고층빌딩 사이의 첫 번째 sky bridge이다. 타워는 수십 년에 걸쳐 자연 patina를 develop할 pre-weathered copper panel로 마감되어 있어, 뉴욕의 copper-clad landmark를 referencing한다. SHoP는 advanced parametric modeling을 사용하여 irregular하고 faceted된 파사드를 설계했으며, zoning setback을 따르면서 dramatic angle을 달성한다. 이 프로젝트는 East River skyline을 재정의하는 new generation의 mixed-income supertall 주거용 타워를 대표한다.",
+        "desc": "아메리칸 카퍼 빌딩은 SHoP 아키텍츠가 설계했으며 2017년 완공된 퍼스트 애비뉴의 41층과 48층 주거 타워 쌍입니다. 가장 특징적인 것은 29층에서 31층 사이에 2개 타워를 연결하는 3층 스카이 브릿지로, 뉴욕 시 주거 초고층 건물 사이의 첫 스카이 브릿지입니다. 타워는 수십 년에 걸쳐 자연 녹청을 띠게 될 사전 풍화 처리된 구리 패널로 클래드되어 있으며, 뉴욕의 구리 클래드 랜드마크들을 참고합니다. SHoP는 고급 파라메트릭 모델링을 사용하여 비정형 면처리 파사드를 설계했으며, 극적인 각도를 달성하면서도 조닝 세트백을 준수합니다. 이 프로젝트는 이스트 강 스카이라인을 재정의하고 있는 새로운 세대의 혼합 수입 초고층 주거 타워를 나타냅니다.",
         "hood": "Kips Bay / Murray Hill",
         "hours": "Sky bridge와 amenity: 주민만 · 외부 관찰 24/7",
         "admission": "주거용 빌딩 · 공개 lobby 관찰 가능",
@@ -1389,7 +1389,7 @@ var LOCS_KO_NEW_YORK = {
   },
   "nyc-0139": {
         "name": "FDR Four Freedoms Park",
-        "desc": "FDR Four Freedoms Park는 Louis Kahn이 뉴욕시에서 설계한 유일한 완성된 작품이자 그의 가장 poignant한 작품 중 하나이다. Kahn는 1973년에 Roosevelt Island의 남쪽 끝을 위해 이 memorial을 설계했으며, 그것을 President Franklin D. Roosevelt와 그가 1941년에 proclaimed한 Four Freedoms에 헌정했다. Kahn는 1974년에 사망했으며, 그는 drawing 완성 후 3개월 내에 사망했으며, 이 프로젝트는 거의 4십 년 동안 unrealised로 남아있었다. 그것은 마침내 그의 original plan에 따라 건설되었으며 2012년 10월 17일에 개관했다. 이 공원은 linden tree로 flanked된 긴 grass allée로 구성되며, sky에 open된 granite \"room\"으로 terminate된다 — minimal하고 monumental한 enclosure로 East River와 Manhattan skyline을 frame한다. 이 room의 중앙에는 Jo Davidson이 제작한 FDR의 bronze bust가 서 있다. 이 프로젝트는 Kahn이 specify한 동일한 materials와 dimension으로 executed된 complete architectural vision의 rare example of a posthumous realisation이다.",
+        "desc": "FDR 포 프리덤 파크는 루이스 칸이 뉴욕 시에서 완성한 유일한 건축 작품이자 그의 가장 감동적인 작품 중 하나입니다. 칸은 루즈벨트 아일랜드 남쪽 끝을 위해 1973년에 이 메모리얼을 설계했으며, 프랭클린 D. 루즈벨트 대통령과 그가 1941년에 선포한 포 프리덤에 헌정했습니다. 칸은 1974년에 도면 완성 후 3개월 만에 사망했으며, 프로젝트는 거의 40년 동안 미실현 상태로 남았습니다. 마침내 그의 원래 계획에 따라 2012년 10월 17일에 건설되어 개관했습니다. 파크는 보리수로 양쪽이 둘러싸인 긴 잔디 앨레로 구성되어 있으며 하늘에 열린 화강암 \"방\"으로 종료되며, 이는 극소주의적이면서도 기념비적인 인클로저로 이스트 강과 맨해튼 스카이라인을 프레임합니다. 방의 중앙에는 조 데이빗슨이 만든 FDR의 청동 흉상이 서있습니다. 이 프로젝트는 칸이 명시한 동일한 재료와 치수로 실행된 완전한 건축 비전의 사후 실현의 드문 사례입니다.",
         "hood": "Roosevelt Island",
         "hours": "수–일 9:00 AM – 7:00 PM (5월–10월) · 9:00 AM – 5:00 PM (11월–4월)",
         "lastEntry": "폐장 30분 전",
@@ -1400,7 +1400,7 @@ var LOCS_KO_NEW_YORK = {
   },
   "nyc-0140": {
         "name": "152 Elizabeth Street",
-        "desc": "152 Elizabeth Street는 Tadao Ando의 뉴욕시에서의 첫 주거용 빌딩으로서, 2018년 완공되었다. Nolita의 narrow lot을 차지하는 이 7층, 7유닛의 boutique condominium은 Ando의 signature인 board-formed exposed concrete로 완전히 마감되어 있으며, 이는 Manhattan의 주거 건축에서 거의 전혀 absent한 material이다. 빌딩의 파사드는 plank formwork로 만들어진 deep horizontal shadow line으로 articulated되며, street-level planting은 그것의 monolithic presence를 softens한다. 각 층은 concrete, stone, warm timber로 finished된 interior를 가진 단일 full-floor unit을 housing하여 Ando의 characteristic spatial discipline과 tactile austerity를 뉴욕 시장에 가져온다. 이 프로젝트는 Ando의 consistent philosophy를 반영한다: programme이나 scale과 무관하게 geometry, natural light, 그리고 concrete의 poetic use.",
+        "desc": "152 엘리자베스 스트리트는 다다오 안도의 뉴욕 시 첫 주거 건물로 2018년 완공되었습니다. 7층, 7개 유닛의 부티크 콘도미니엄은 놀리타의 좁은 부지에 위치하며 완전히 안도의 시그니처 판목 노출 콘크리트로 클래드되어 있습니다. 이는 맨해튼 주거 건축에서 거의 전혀 없는 재료입니다. 건물의 파사드는 판목 거푸집으로 만들어진 깊은 수평 섀도 라인으로 표현되어 있으며, 거리 레벨의 식재가 그 단편적인 존재감을 부드럽게 합니다. 각 층은 콘크리트, 석재, 따뜻한 목재로 마감된 인테리어를 가진 단일 풀플로어 유닛을 포함하며, 안도의 특성적 공간 규율과 촉각적 소박함을 뉴욕 시장으로 가져옵니다. 이 프로젝트는 안도의 일관된 철학을 반영합니다: 프로그램이나 규모와 관계없이 기하학, 자연광, 그리고 콘크리트의 시적 사용입니다.",
         "hood": "Nolita",
         "hours": "민간 주거용 빌딩 · 외부 관찰 24/7",
         "admission": "민간 빌딩",
@@ -1409,7 +1409,7 @@ var LOCS_KO_NEW_YORK = {
   },
   "nyc-0141": {
         "name": "The Residences at 565 Broome SoHo",
-        "desc": "2019년 완공된 The Residences at 565 Broome SoHo는 Tadao Ando의 두 번째 뉴욕시 프로젝트이자 도시에서의 가장 큰 주거 위탁이다. 이 30층, 115유닛의 럭셔리 콘도 타워는 SoHo의 low cast-iron roofscape 위로 올라가며 poured concrete와 유리의 2개 curved convex form을 특징으로 하며, 이들은 상승함에 따라 서로 향하여 taper된다. curved 파사드는 natural light와 view angle을 최대화하며 cantilever된 base — minimal한 ground-floor column grid에 의해 supported — 는 covered public arcade를 만들고 Ando의 trademark인 rough-shuttered concrete의 double-height lobby를 드러낸다. 타워의 curvature는 Ando의 typical rectilinear vocabulary 내에서 unusual하지만, material palette과 spatial rigour은 unmistakably his이다. 이 프로젝트는 뉴욕 skyline에 대한 그의 가장 prominent한 기여를 marks한다.",
+        "desc": "565 브룸 소호의 레지던시는 2019년 완공되었으며 다다오 안도의 두 번째 뉴욕 시 프로젝트이자 이 도시에서 가장 큰 주거 커미션입니다. 30층, 115개 유닛의 럭셀리 콘도미니엄 타워는 소호의 낮은 주철 지붕선 위로 솟아 있으며 위로 올라가면서 서로를 향해 가늘어지는 부은 콘크리트와 유리의 2개 곡선 볼록 형태를 보입니다. 곡선 파사드는 자연광과 조망각을 극대화하며 최소 1층 기둥 그리드로 지지되는 캔틸레버 기단은 덮인 공용 아케이드를 만들고 안도의 시그니처 대강 셔터 콘크리트로 된 이층 높이의 로비를 드러냅니다. 타워의 곡률은 안도의 전형적으로 직선적인 어휘 내에서는 비전형적이지만 재료 팔레트와 공간 엄격함은 명백히 그의 것입니다. 이 프로젝트는 뉴욕 스카이라인에 대한 그의 가장 두드러진 기여를 표시합니다.",
         "hood": "SoHo / Hudson Square",
         "hours": "민간 주거용 빌딩 · 공개 lobby atrium은 street에서 visible",
         "admission": "민간 빌딩",
@@ -1418,7 +1418,7 @@ var LOCS_KO_NEW_YORK = {
   },
   "nyc-0142": {
         "name": "Vessel",
-        "desc": "Vessel는 Thomas Heatherwick가 설계하고 2019년 3월에 완공된 Hudson Yards의 중앙에 위치한 16층의 공개 climbable structure이다. 이 structure는 154개의 interlocking staircase — 2,500 step과 80 landing — 로 구성되며, weathering steel의 central atrium 주위로 arranged되어 지면에서 46미터 올라가는 honeycomb-like lattice를 만든다. 두 단계도 동일하지 않으며, geometry는 form이 inward와 outward로 taper함에 따라 shift되어, 방문객이 여러 각도에서 서로를 관찰할 수 있도록 허용하는 three-dimensional network를 만든다. Heatherwick는 설계를 \"a different kind of public space\"라고 설명했다 — sculpture보다는 더 interactive, monument보다는 더 architectural. 이 structure는 뉴욕의 가장 recognizable한 새로운 landmark 중 하나가 되었으며 Hudson Yards public square의 focal point이다.",
+        "desc": "Vessel은 토마스 헤더윅이 설계하고 2019년 3월에 완공된 허드슨 야즈의 중심부에 위치한 16층 규모의 공개 등반 구조물이다. 이 구조물은 154개의 맞물리는 계단으로 이루어져 있으며, 2,500개의 계단과 80개의 랜딩이 중앙 아트리움 주위에 배열되어 지표면으로부터 46미터 높이까지 올라가는 벌집 모양의 내후성 강철 격자를 형성한다. 어느 두 층도 동일하지 않으며, 형태가 안쪽과 바깥쪽으로 테이퍼되면서 기하학이 변하여 방문객들이 동시에 여러 각도에서 서로를 관찰할 수 있는 3차원 네트워크를 만든다. 헤더윅은 이 설계를 \"다양한 종류의 공공 공간\"으로 묘사했으며, 조각 작품보다 더 상호작용적이고 기념물보다 더 건축적이다. 이 구조물은 뉴욕의 가장 인식도 높은 새로운 랜드마크 중 하나가 되었으며 허드슨 야즈 광장의 초점이 되었다.",
         "hood": "Hudson Yards, West Side",
         "hours": "매일 10:00 AM – 8:00 PM (마지막 입장 7:15 PM)",
         "lastEntry": "7:15 PM",
@@ -1429,7 +1429,7 @@ var LOCS_KO_NEW_YORK = {
   },
   "nyc-0143": {
         "name": "Little Island",
-        "desc": "Little Island는 former Pier 55 부지의 Hudson River에 floating된 2.4에이커 공개 공원으로서, Heatherwick Studio와 landscape architect MNLA가 설계하고 2021년 5월에 완공되었다. 이 공원은 132개의 tulip-shaped concrete pier (각각 크기가 다름)에 rest되어 있으며, 강에서 올라가고 gently undulating planted landscape를 support한다. waterfront에서, 이 공원은 rolling topography의 island로 읽힌다; 내부에서, varied terrain은 distinct garden, lawn, open-air amphitheatre seating 700의 series를 만든다. 이 공원은 Diller-von Furstenberg Family Foundation에 의해 funded되었으며 deteriorated된 19세기 pier structure를 대체했다. 이것은 뉴욕의 가장 popular한 공개 공간 중 하나가 되었으며 contemporary park design의 landmark이다.",
+        "desc": "Little Island는 헤더윅 스튜디오와 조경 건축가 MNLA가 설계하고 2021년 5월에 완공된 구 피어 55 부지의 허드슨 강 위에 떠있는 2.4에이커 규모의 공공 공원이다. 이 공원은 강에서 솟아오른 높이와 폭이 다양한 132개의 튤립 모양의 콘크리트 교각 위에 안착해 있으며, 각각의 교각은 고유하다. 위에는 부드럽게 기복이 있는 식재 경관이 펼쳐져 있다. 워터프론트에서 보면 이 공원은 구릉지 지형의 섬처럼 보이며, 내부에서는 다양한 지형이 여러 개의 뚜렷한 정원, 잔디밭, 700명을 수용할 수 있는 야외 원형극장을 만든다. 이 공원은 딜러-폰 퓨르스텐베르그 가족 재단의 자금 지원으로 건설되었으며 훼손된 19세기 부두 구조물을 대체했다. 뉴욕의 가장 인기 있는 공공 공간 중 하나가 되었으며 현대 공원 설계의 랜드마크가 되었다.",
         "hood": "Meatpacking District / West Village",
         "hours": "매일 6:00 AM – 11:00 PM (seasonal variation)",
         "admission": "무료 · peak season의 주말에는 timed-entry ticket 필요",
@@ -1439,7 +1439,7 @@ var LOCS_KO_NEW_YORK = {
   },
   "nyc-0144": {
         "name": "St. Ann's Warehouse",
-        "desc": "Marvel Architects의 2015년 1860 tobacco warehouse의 개보수는 adaptive reuse principle을 demonstrates한다. 새로운 construction은 surviving brick wall 내에 inserted되며 glass brick clerestory는 natural light를 provides한다. flexible한 theater space는 diverse performance configuration을 enable한다.",
+        "desc": "Marvel 아키텍처의 2015년 리노베이션은 1860년식 담배 창고의 적응적 재사용 원칙을 보여준다. 새로운 건설은 남은 벽돌 벽 내에 삽입되었으며, 유리 벽돌 클레스토리가 자연광을 제공한다. 유연한 극장 공간은 다양한 공연 구성을 가능하게 한다.",
         "hood": "DUMBO",
         "hours": "Performance dependent",
         "admission": "Varies",
@@ -1449,7 +1449,7 @@ var LOCS_KO_NEW_YORK = {
   },
   "nyc-0145": {
         "name": "Empire Stores",
-        "desc": "2016년 S9 Architecture와 Studio V Architecture의 개보수는 1869 Romanesque Revival warehouse building인 7개 historic building을 preserve하면서 2.5개 새로운 floor를 add한다. dramatic open-air courtyard는 complex를 join하며, 현재 Time Out Market의 home이다. 이 프로젝트는 heritage preservation을 modern retail activation과 balance한다.",
+        "desc": "2016년 S9 Architecture와 Studio V Architecture의 리노베이션은 1869년식 로마네스크 리바이벌 창고 건물 7개를 보존하면서 2.5층의 신축을 추가한다. 극적인 야외 중정이 건물군을 연결하며, 현재 Time Out Market의 거점이 되었다. 이 프로젝트는 유산 보존과 현대적 소매 활성화의 균형을 맞춘다.",
         "hood": "DUMBO",
         "hours": "매일 10am–10pm",
         "admission": "입장 무료",
@@ -1459,7 +1459,7 @@ var LOCS_KO_NEW_YORK = {
   },
   "nyc-0146": {
         "name": "OLYMPIA DUMBO",
-        "desc": "Hill West Architects의 2022년 럭셔리 타워는 33층, 401피트로 distinctive한 sail-like twisting silhouette을 stands한다. sculptural한 form은 DUMBO의 maritime heritage를 evoke하면서 varied apartment layout을 creating한다. floor plate는 building이 rise함에 따라 spiral하여, corner unit과 view를 maximizing한다.",
+        "desc": "Hill West Architects의 2022년 럭셔리 타워는 33층, 401피트 높이로 독특한 돛 모양의 비틀린 실루엣을 자랑한다. 조각적 형태는 DUMBO의 해양 유산을 연상시키면서 다양한 아파트 레이아웃을 만든다. 건물이 올라가면서 층판이 나선형으로 회전하여 코너 유닛과 조망을 극대화한다.",
         "hood": "DUMBO",
         "hours": "N/A",
         "admission": "N/A",
@@ -1469,7 +1469,7 @@ var LOCS_KO_NEW_YORK = {
   },
   "nyc-0147": {
         "name": "Dumbo Townhouses (Alloy)",
-        "desc": "Jared Della Valle의 2015년 Alloy Development을 위한 설계는 louvered Ductal ultra-high-performance concrete panel로 clad된 5개 contemporary skinny townhouse를 feature한다. double-height parlor floor는 dramatic interior volume을 create한다. facade system은 privacy를 provide하면서 transparency와 ventilation을 maintain한다.",
+        "desc": "자레드 델라 발레의 2015년 설계는 Alloy Development를 위한 5개의 현대적 슬림 타운하우스로, 루버 처리된 Ductal 초고성능 콘크리트 패널로 외장되어 있다. 이층 높이의 파를러 층은 극적인 내부 볼륨을 만든다. 파사드 시스템은 프라이버시를 제공하면서 투명성과 통풍을 유지한다.",
         "hood": "DUMBO",
         "hours": "N/A",
         "admission": "N/A",
@@ -1479,7 +1479,7 @@ var LOCS_KO_NEW_YORK = {
   },
   "nyc-0148": {
         "name": "505 State Street",
-        "desc": "2024년 완공된 NYC의 첫 all-electric 초고층빌딩. 44층, 482피트의 타워는 triangular wedge-shaped site를 occupy하며 renewable energy로 전적으로 powered된 441개 rental unit을 house한다. 이 빌딩은 모든 on-site fossil fuel combustion을 eliminate하여, 새로운 sustainability standard를 set한다.",
+        "desc": "뉴욕시의 첫 번째 전기 구동 초고층 건물로 2024년에 완공되었다. 44층, 482피트 높이의 타워는 삼각형 쐐기 모양의 부지를 차지하며 재생 에너지로 완전히 구동되는 441개의 임차 주택 유닛을 포함한다. 이 건물은 현장 내 모든 화석 연료 연소를 제거하여 새로운 지속 가능성 표준을 설정한다.",
         "hood": "Boerum Hill",
         "hours": "N/A",
         "admission": "N/A",
@@ -1489,7 +1489,7 @@ var LOCS_KO_NEW_YORK = {
   },
   "nyc-0149": {
         "name": "489 State Street",
-        "desc": "ARO의 2024년 설계는 NYC의 첫 Passive House school을 house하며, 2개의 공개 school을 1개 building에 combining한다. thermal-bridge-free construction과 heat recovery ventilation system은 minimal mechanical load로 comfortable indoor climate를 maintain한다. 이 빌딩은 institutional architecture가 어떻게 climate resilience에 lead할 수 있는지를 demonstrate한다.",
+        "desc": "ARO의 2024년 설계는 뉴욕시의 첫 번째 Passive House 학교를 포함하며, 두 개의 공립학교를 하나의 건물에 결합한다. 열교 없는 구조와 열 회수 환기 시스템은 최소한의 기계적 부하로 쾌적한 실내 기후를 유지한다. 이 건물은 제도적 건축이 기후 회복력 측면에서 어떻게 선도할 수 있는지를 보여준다.",
         "hood": "Boerum Hill",
         "hours": "School hour",
         "admission": "무료",
@@ -1499,7 +1499,7 @@ var LOCS_KO_NEW_YORK = {
   },
   "nyc-0150": {
         "name": "One John Street",
-        "desc": "Alloy Development과 SITU Studio의 2016년 콘도는 sculptural concrete panel facade를 feature하며, 각각은 one-of-a-kind이다. 12층, 42유닛의 LEED Gold building은 그것의 articulated concrete skin을 통해 striking visual impact을 achieve한다. Brooklyn Children's Museum annex는 ground floor를 occupy하여, street life를 activating한다.",
+        "desc": "Alloy Development와 SITU Studio의 2016년 콘도는 각각 유일한 조각적 콘크리트 패널 파사드를 특징으로 한다. 12층, 42유닛 LEED Gold 건물은 표현된 콘크리트 피부를 통해 시각적 영향력을 달성한다. 브루클린 어린이 박물관 분관이 1층을 차지하며 거리 생활을 활성화한다.",
         "hood": "DUMBO",
         "hours": "N/A",
         "admission": "N/A",
@@ -1509,7 +1509,7 @@ var LOCS_KO_NEW_YORK = {
   },
   "nyc-0151": {
         "name": "185 Plymouth Street",
-        "desc": "Alloy Development의 2014년 adaptive reuse는 former Brillo warehouse를 8개의 large loft residence로 transform한다. building을 통해 carved된 central void는 light well과 courtyard를 create하여, daylight를 interior 깊숙이 bring하면서 dramatic interior space를 create한다.",
+        "desc": "Alloy Development의 2014년 적응적 재사용은 구 Brillo 창고를 8개의 대규모 로프트 주택으로 변환한다. 건물을 통해 조각된 중앙 공간은 채광통과 중정을 만들어 자연광을 깊숙이 실내로 가져오면서 극적인 내부 공간을 창조한다.",
         "hood": "DUMBO",
         "hours": "N/A",
         "admission": "N/A",
@@ -1519,7 +1519,7 @@ var LOCS_KO_NEW_YORK = {
   },
   "nyc-0152": {
         "name": "168 Plymouth Street",
-        "desc": "Alloy Development의 2022년 LEED Gold conversion은 1891 Round Arch building을 1921 Daylight Factory와 merge하여 46개 residential unit을 만든다. contemporary penthouse addition은 restored historic structure를 crown하여, industrial heritage를 honor하면서 modern amenity를 providing하는 vertical village를 create한다.",
+        "desc": "Alloy Development의 2022년 LEED Gold 전환은 1891년식 Round Arch 건물과 1921년식 Daylight Factory를 46개의 주택 유닛으로 통합한다. 현대적 펜트하우스 추가 구조가 복원된 역사적 구조물의 정상을 차지하여 산업 유산을 존중하면서 현대적 편의시설을 제공하는 수직 마을을 만든다.",
         "hood": "DUMBO",
         "hours": "N/A",
         "admission": "N/A",
@@ -1529,7 +1529,7 @@ var LOCS_KO_NEW_YORK = {
   },
   "nyc-0153": {
         "name": "420 Kent Avenue",
-        "desc": "ODA Architecture의 2019년 riverfront development는 corner apartment와 full-height glazing으로 view를 maximizing하는 3개의 glass tower를 feature한다. 857개 residence complex는 80,000 제곱피트 이상의 outdoor space와 공개에 open된 400피트 riverside esplanade를 include하여, waterfront를 neighborhood life로 integrate한다.",
+        "desc": "ODA Architecture의 2019년 강변 개발은 코너 아파트와 전층 높이 글레이징이 있는 3개의 유리 타워를 특징으로 하며 조망을 극대화한다. 857개 주택 단위 복합체는 80,000제곱피트 이상의 야외 공간과 공개적으로 접근 가능한 400피트 강변 에스플러네이드를 포함하여 워터프론트를 이웃 생활에 통합한다.",
         "hood": "Williamsburg",
         "hours": "N/A",
         "admission": "N/A",
