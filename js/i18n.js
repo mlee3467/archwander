@@ -80,6 +80,7 @@ var T = {
     ifl_skyscraper:'Skyscrapers',
     ifl_landmark: 'Landmarks',
     ifl_shopping: 'Shopping & Dining',
+    ifl_luxres:   'Luxury Residential',
     ifl_apply:    'Apply',
     ifl_clear:    '✕ Clear',
   },
@@ -160,6 +161,7 @@ var T = {
     ifl_skyscraper:'초고층 건물',
     ifl_landmark: '랜드마크 위주',
     ifl_shopping: '쇼핑 / 레스토랑',
+    ifl_luxres:   '럭셔리 레지덴셜',
     ifl_apply:    '적용',
     ifl_clear:    '✕ 초기화',
   }

@@ -42,7 +42,8 @@ var THEME_DEFS = [
   { key:'tourist',    icon:'📸', filter: function(l){ return (l.tags||[]).some(function(t){ return t==='touristic' || t==='landmark' || t==='observatory' || t==='iconic'; }) || (l.access||'').toLowerCase().indexOf('free')>=0; } },
   { key:'skyscraper', icon:'🏗️', filter: function(l){ return l.cc==='c-sky' || (l.cats||[]).includes('skyscrapers') || (l.tags||[]).some(function(t){ return t==='skyscraper' || t==='supertall' || t==='megatall'; }); } },
   { key:'landmark',   icon:'🗽', filter: function(l){ return l.cc==='c-lmk' || (l.cats||[]).includes('landmarks') || (l.tags||[]).some(function(t){ return t==='landmark' || t==='iconic'; }); } },
-  { key:'shopping',   icon:'🛍️', filter: function(l){ return l.cc==='c-ret' || (l.cats||[]).includes('retail') || (l.tags||[]).some(function(t){ return t==='retail' || t==='shop' || t==='shopping' || t==='restaurant' || t==='dining' || t==='food hall' || t==='hotel' || t==='luxury'; }); } },
+  { key:'shopping',   icon:'🛍️', filter: function(l){ return l.cc==='c-ret' || (l.cats||[]).includes('retail') || (l.tags||[]).some(function(t){ return t==='retail' || t==='shop' || t==='shopping' || t==='restaurant' || t==='dining' || t==='food hall' || t==='hotel'; }); } },
+  { key:'luxres',     icon:'🏠', filter: function(l){ return l.cc==='c-res' || (l.cats||[]).includes('residential') || (l.tags||[]).some(function(t){ return t==='luxury residential' || t==='luxury' || t==='residential' || t==='housing' || t==='penthouse' || t==='condominium'; }); } },
 ];
 
 // ══════════════════════════════════════════════════════════════════
