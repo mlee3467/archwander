@@ -6099,9 +6099,9 @@ var LOCS_NEW_YORK = [
     ],
     era:'2000–Present',
     city:'new-york',
-    arch:'Tadao Ando',
+    arch:'Renzo Piano Building Workshop',
     archs:[
-      'Tadao Ando'
+      'Renzo Piano Building Workshop'
     ],
     yr:2019,
     access:'open to public',
@@ -6109,8 +6109,8 @@ var LOCS_NEW_YORK = [
     lng:-74.00563679999999,
     addr:'565 Broome St, New York, NY 10013',
     hood:'SoHo / Hudson Square',
-    desc:'The Residences at 565 Broome SoHo, completed in 2019, is Tadao Ando\'s second New York City project and his largest residential commission in the city. The 30-story, 115-unit luxury condominium tower rises above the low cast-iron roofscape of SoHo with two curved, convex forms of poured concrete and glass that taper toward each other as they rise. The curved facades maximise natural light and view angles while the cantilevered base — supported on a minimal ground-floor column grid — creates a covered public arcade and reveals a double-height lobby of Ando\'s trademark rough-shuttered concrete. The tower\'s curvature is unusual within Ando\'s typically rectilinear vocabulary, yet the material palette and spatial rigour are unmistakably his. The project marks his most prominent contribution to the New York skyline.',
-    hours:'Private residential building · Public lobby atrium visible from street',
+    desc:'565 Broome SoHo, completed in 2019, is Renzo Piano Building Workshop\'s first residential project in New York City. The 30-story tower rises nearly 100 metres above the historic cast-iron roofscape of SoHo, composed of two slender, mirrored volumes with fully glazed facades and gently curved corners. Low-iron glass with crystal-like clarity wraps the exterior, while interiors by Paris-based RDAI (Rena Dumas Architecture Intérieure) use an honest palette of stone, white oak, glass, and concrete. The 115 apartments, ranging from 92 to 234 square metres, offer panoramic views of the city and waterfront. A defining structural feature is the 66-centimetre-thick transfer slab at the 12th floor, enabling misaligned upper-level columns to transfer loads to the lower structure. The building brought RPBW\'s signature values of lightness, clarity, and civic sensibility to one of Manhattan\'s most storied neighbourhoods.',
+    hours:'Private residential building · Lobby visible from street',
     lastEntry:'',
     admission:'Private building',
     tourOk:false,
@@ -6118,8 +6118,9 @@ var LOCS_NEW_YORK = [
     transit:'1 → Houston St · C E → Spring St',
     walkFrom:'SoHo Cast Iron District: 3 min · Hudson River Park: 5 min',
     tags:[
-      'tadao ando',
-      'concrete',
+      'renzo piano',
+      'rpbw',
+      'glass',
       'residential',
       'soho',
       'luxury',
