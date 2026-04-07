@@ -1102,6 +1102,8 @@
       #fav-btn { padding: 0 8px; height: 28px; font-size: 13px; }
       #route-btn .route-text { display: none; }
       #route-btn { padding: 0 8px; height: 28px; font-size: 11px; }
+      #ifl-btn .ifl-text { display: none; }
+      #ifl-btn { padding: 0 8px; height: 28px; font-size: 13px; }
       #fav-io-bar.visible { display: flex; font-size: 11px; padding: 0 10px; min-height: 36px; gap: 6px; }
       #fav-io-bar .fav-io-label { font-size: 10px; }
       #fav-io-bar .fav-io-btn { height: 24px; padding: 0 8px; font-size: 10px; }
@@ -1160,7 +1162,7 @@
       .leaflet-bottom.leaflet-right { bottom: 60px; }
 
       /* ── Hide header action buttons on mobile (use action bar instead) ── */
-      #near-me-btn, #fav-btn, #route-btn { display: none !important; }
+      #near-me-btn, #fav-btn, #route-btn, #ifl-btn { display: none !important; }
 
       /* ── Mobile Action Bar ── */
       #mobile-action-bar {
@@ -1195,6 +1197,8 @@
       #mob-fav-btn { background: linear-gradient(135deg, #FF7A1A, #FF5F00); box-shadow: 0 1px 3px rgba(255,95,0,0.3); }
       #mob-route-btn { background: linear-gradient(135deg, #E052A0, #D946A8); box-shadow: 0 1px 3px rgba(217,70,168,0.3); }
       #mob-route-btn svg { stroke: white; }
+      #mob-ifl-btn { background: linear-gradient(135deg, #22C55E, #16A34A); box-shadow: 0 1px 3px rgba(22,163,74,0.3); }
+      #mob-ifl-btn.active { background: linear-gradient(135deg, #15803D, #166534); }
 
       /* ── Sidebar backdrop ── */
       #sidebar-backdrop { display: none; position: fixed; top: calc(var(--mob-header-h) + var(--safe-top)); left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4); z-index: 350; }
@@ -1649,8 +1653,18 @@
    "I FEEL LIKE…" THEME MODAL
    ══════════════════════════════════════════════════════════════════ */
 
-/* Header button */
-#ifl-btn { position: relative; }
+/* Header button — matches near-me / fav / route button style */
+#ifl-btn {
+  position: relative; height: 34px; padding: 0 13px;
+  border: none; border-radius: 8px;
+  font-size: 12px; font-family: inherit;
+  background: linear-gradient(135deg, #22C55E, #16A34A);
+  cursor: pointer; display: flex; align-items: center; gap: 5px;
+  white-space: nowrap; flex-shrink: 0; transition: all 0.2s;
+  color: white; font-weight: 600; box-shadow: 0 1px 3px rgba(22,163,74,0.3);
+}
+#ifl-btn:hover { background: linear-gradient(135deg, #34D06E, #1FB855); box-shadow: 0 2px 6px rgba(22,163,74,0.4); }
+#ifl-btn.active { background: linear-gradient(135deg, #15803D, #166534); box-shadow: 0 2px 8px rgba(21,128,61,0.5); }
 #ifl-btn.active::after {
   content: ''; position: absolute; top: 3px; right: 3px;
   width: 6px; height: 6px; border-radius: 50%; background: #FF6B6B;
