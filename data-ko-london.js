@@ -1,7 +1,7 @@
 var LOCS_KO_LONDON = {
   "lon-0001": {
         "name": "30 세인트 메리 악스 (거킨)",
-        "desc": "The 거킨 is London's most recognisable tower, its 180-metre bullet-shaped profile rising above the medieval street grid of the City. Designed by 노먼 포스터 및 파트너스 for Swiss Re and 완성된 in 2003, the 다이어그리드 구조 골조 eliminates 내부 기둥 and 창조한다 기둥 없는 floor plates throughout. Six light wells spiral up the building's exterior, channelling natural ventilation through the offices and cutting energy consumption by roughly half compared to a conventional sealed tower. Unusually for a skyscraper, every panel of its diamond-patterned glass 파사드 is flat, yet the geometry gives the illusion of a continuous curve.",
+        "desc": "거킨은 런던에서 가장 인식도가 높은 타워로, 180미터의 총알 모양 프로필이 시티의 중세 도시 그리드 위로 솟아있습니다. 포스터 앤드 파트너스가 스위스 리를 위해 설계했으며 2003년에 완성되었습니다. 다이어그리드 구조 틀은 내부 기둥을 제거하고 층 전체에 걸쳐 기둥이 없는 바닥판을 만들어냅니다. 여섯 개의 빛 우물이 건물 외부를 따라 나선형으로 올라가며, 사무실을 통해 자연 환기를 유도하고 기존의 밀폐된 타워와 비교했을 때 에너지 소비를 약 반으로 줄입니다. 마천루치고는 드물게도, 다이아몬드 패턴 글래스 파사드의 모든 판이 평평하지만, 기하학은 연속적인 곡선의 착각을 만들어냅니다.",
         "hood": "런던 시티",
         "hours": "Lobby: Mon–Fri 7:00 AM – 7:00 PM · Upper floors: private",
         "admission": "Free (lobby only) · Upper floors private",
@@ -11,7 +11,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0002": {
         "name": "블룸버그 유럽 본사",
-        "desc": "Widely regarded as the world's most sustainable office building, Bloomberg's European headquarters received the highest ever 브림 뛰어남 score of 98.5% at the time of its completion. 노먼 포스터 및 파트너스's design reinstates a Roman-era street — Watling Street — through the site and incorporates some 16,000 bronze petal-shaped fins on its curved 파사드 that open and close to regulate airflow. Beneath the building, a permanent public exhibition displays the 남아있다 of London's Roman 템플 of Mithras, excavated on the same site in the 1950s.",
+        "desc": "세계에서 가장 지속 가능한 사무실 건물로 널리 인정받은 블룸버그 유럽 본부는 완공 당시 역대 최고의 BREEAM 우수 등급인 98.5%를 받았습니다. 포스터 앤드 파트너스의 설계는 로마 시대 도로인 워틀링 스트릿을 부지를 통해 복원하고, 곡면 파사드에 공기 흐름을 조절하기 위해 열고 닫는 약 16,000개의 청동 꽃잎 모양 핀을 포함합니다. 건물 아래에는 1950년대에 같은 부지에서 발굴된 런던의 미스라 신전 유적을 전시하는 상설 공개 전시관이 있습니다.",
         "hood": "런던 시티",
         "hours": "Ground floor arcade & Mithraeum: daily · Offices: private",
         "admission": "Free (arcade and Mithraeum museum)",
@@ -21,7 +21,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0003": {
         "name": "그레이트 코트, 대영박물관",
-        "desc": "The Queen Elizabeth II 그레이트 코트 transformed the long-neglected inner courtyard of the 대영박물관 into Europe's largest covered public square. 노먼 포스터 및 파트너스's steel-and-glass roof — a 3,312-panel gridshell no two panes of which are identical — spans the 2-acre courtyard and encloses the iconic circular Reading Room at its centre. Completed in 2000 for the museum's 250th anniversary, the roof resolves the previously impossible geometry of fitting a circular room inside a rectangular courtyard through 매개변수적 설계 that predated mainstream computational tools.",
+        "desc": "엘리자베스 2세 그레이트 코트는 대영박물관의 오랫동안 방치되었던 내부 안뜰을 유럽 최대의 실내 공개 광장으로 변모시켰습니다. 포스터 앤드 파트너스의 철강 및 유리 지붕은 3,312개의 패널로 이루어진 그리드셸이며, 어떤 두 개의 판도 동일하지 않습니다. 이 지붕은 2에이커 규모의 안뜰을 덮으며 중앙의 상징적인 원형 열람실을 포함합니다. 2000년 박물관의 250주년을 위해 완성되었으며, 지붕은 원형 방을 직사각형 안뜰에 맞추는 이전에는 불가능했던 기하학 문제를 주류 전산 도구가 등장하기 이전의 매개변수 설계를 통해 해결했습니다.",
         "hood": "블룸즈베리",
         "hours": "Daily 10:00 AM – 5:30 PM (Fri to 8:30 PM) · 그레이트 코트 open from 9:00 AM",
         "lastEntry": "5:00 PM",
@@ -32,7 +32,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0004": {
         "name": "카나리 워프 Underground Station",
-        "desc": "노먼 포스터 및 파트너스's Jubilee Line extension station at 카나리 워프 is one of the largest underground stations ever built in Britain — a vast elliptical concrete cavern 300 metres long and 28 metres high, capable of handling 40 trains per hour. The station's coffered concrete roof and glass canopy entrance, sheltering commuters like the ribbed shell of a mussel, became an icon of late 1990s infrastructure ambition. It was part of the celebrated Jubilee Line Extension, a project that turned the London Underground into a gallery of contemporary architecture with individual stations 설계된 by Roland Paoletti's roster of landmark architects.",
+        "desc": "포스터 앤드 파트너스의 주빌리 라인 연장역인 카나리 워프 지하철역은 영국에서 지어진 가장 큰 지하철역 중 하나로, 300미터 길이와 28미터 높이의 거대한 타원형 콘크리트 굴입니다. 시간당 40대의 열차를 수용할 수 있습니다. 역의 격자 무늬 콘크리트 지붕과 글래스 캐노피 입구는 홍합의 갈비뼈 껍질처럼 통근자를 보호하며, 1990년대 후기 인프라 야망의 아이콘이 되었습니다. 이는 런던 지하철을 현대 건축의 갤러리로 만든 기념비적인 주빌리 라인 연장 프로젝트의 일부였으며, 개별 역들은 롤랜드 파올레티의 명망 있는 건축가 명단에 의해 설계되었습니다.",
         "hood": "카나리 워프",
         "hours": "Mon–Sat 5:00 AM – 12:30 AM · Sun 7:00 AM – 11:30 PM",
         "admission": "Oyster/contactless or valid ticket required",
@@ -42,7 +42,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0005": {
         "name": "시청 (GLA 빌딩)",
-        "desc": "London's 시청, 완성된 in 2002 on the 사우스 뱅크 opposite the 런던탑, is an exercise in geometric energy efficiency: the building's distinctive tilted globe form minimises surface area exposed to direct sunlight, reducing solar gain, while a 500-metre public spiral ramp winds upward through its ten storeys. 노먼 포스터 및 파트너스 calculated the optimal tilt angle to shade the offices below, creating a shape that appears different from every angle. Though the Greater London Authority relocated to 스트래포드 in 2021 and the building was rebranded, it 남아있다 a major public space housing the outdoor amphitheatre The Scoop on its riverside.",
+        "desc": "런던 시청은 2002년에 런던탑 맞은편 사우스 뱅크에 완성되었으며, 기하학적 에너지 효율성의 연습입니다. 건물의 특이한 기울어진 지구 형태는 직접 햇빛에 노출된 표면 영역을 최소화하여 태양열 획득을 줄이며, 500미터의 공개 나선형 경사로가 10층을 통해 위쪽으로 휘감습니다. 포스터 앤드 파트너스는 아래 사무실에 그림자를 드리우기 위한 최적의 기울임각을 계산했으며, 모든 각도에서 다르게 보이는 형태를 만들어냈습니다. 런던 광역청이 2021년에 스트래트포드로 이전했고 건물이 재브랜딩되었지만, 강변의 야외 원형극장 더 스쿱을 포함하는 주요 공공 공간으로 남아있습니다.",
         "hood": "사우스 뱅크 / 런던 브릿지",
         "hours": "Exterior and riverside: always open · Interior access varies",
         "admission": "Free (exterior)",
@@ -52,7 +52,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0006": {
         "name": "밀레니엄 브릿지",
-        "desc": "London's only dedicated pedestrian crossing over the 템즈, the 밀레니엄 브릿지 connects 세인트 폴 대성당 to 테이트 모던 in a single elegant aluminium span of 325 metres. Designed by 노먼 포스터 및 파트너스 with engineers Arup and sculptor 앤서니 카로, the bridge was famously closed two days after opening in 2000 due to unexpected lateral swaying caused by pedestrian footfall synchronisation — the \"wobbly bridge\" becoming one of engineering's most public failures. Following a £5 million modification to install 37 fluid viscous dampers, it re열렸다 in 2002 and is now one of London's most beloved public spaces.",
+        "desc": "런던의 템즈 강 위의 유일한 전용 보행자 횡단교인 밀레니엄 브리지는 세인트 폴 대성당과 테이트 모던을 325미터의 우아한 알루미늄 스팬으로 연결합니다. 포스터 앤드 파트너스와 엔지니어 아럽, 조각가 앤서니 카로에 의해 설계되었습니다. 이 다리는 2000년 개통 2일 후 보행자 발걸음 동기화로 인한 예상치 못한 측방향 흔들림으로 유명하게 폐쇄되었고, \"흔들리는 다리\"는 공학의 가장 대중적인 실패 중 하나가 되었습니다. 37개의 유체 점성 감쇠기를 설치하는 500만 파운드의 개선 작업 후, 2002년에 다시 개통했으며 현재는 런던에서 가장 사랑받는 공공 공간 중 하나입니다.",
         "hood": "런던 시티 / 뱅크사이드",
         "hours": "Always open",
         "admission": "Free",
@@ -62,7 +62,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0007": {
         "name": "HSBC 영국 본사 (8 캐나다 스퀨어)",
-        "desc": "The HSBC 그룹 본사 at 8 캐나다 스퀨어 is one of the defining towers of 카나리 워프's second generation, a 200-metre steel-and-glass prism 완성된 by 노먼 포스터 및 파트너스 in 2002. Unlike the ornamental pyramid of 원 캐나다 스퀨어 nearby, HSBC's tower is rigorously technical — its 구조 골조 is fully expressed on the exterior, the 파사드 flush and precisely detailed, the plan a pure 57×57-metre square. The building's mechanical plant, staircases and lifts are distributed on the perimeter, freeing all 50,000 square metres of floor space from internal obstructions, and the 트레이딩 플로어s were among the most advanced in the world at opening.",
+        "desc": "8 캐나다 스퀘어의 HSBC 그룹 본부는 카나리 워프 2세대의 정의적인 타워 중 하나로, 포스터 앤드 파트너스에 의해 2002년에 완성된 200미터의 철강 및 유리 프리즘입니다. 근처의 원 캐나다 스퀘어의 장식적인 피라미드와 달리, HSBC 타워는 엄격하게 기술적입니다. 구조틀이 외부에 완전히 표현되고, 파사드는 매끄럽고 정밀하게 세부 처리되며, 평면은 57×57미터의 순수 사각형입니다. 건물의 기계실, 계단, 엘리베이터는 둘레에 분산되어 있어 50,000제곱미터의 모든 바닥 공간을 내부 장애물로부터 해방시키며, 트레이딩 바닥은 개장 당시 세계에서 가장 첨단이었습니다.",
         "hood": "카나리 워프",
         "hours": "Private — no public access",
         "admission": "Private (office building)",
@@ -72,7 +72,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0008": {
         "name": "웸블리 스타디움",
-        "desc": "The new 웸블리 스타디움, 설계된 by 노먼 포스터 및 파트너스 and HOK 스포츠 and 열렸다 in 2007, is England's national football ground and Europe's second-largest stadium at 90,000 capacity. Its defining feature is the 133-metre-high steel arch that spans the entire length of the pitch, 지지 the vast retractable roof and serving as a landmark visible from much of London. The arch replaced the Twin Towers of the original 1923 웸블리, which had become synonymous with English football but were structurally inadequate. The roof covers all 90,000 seats — a first for a stadium of this scale — and the arch doubles as a navigation beacon for 히드로 flights.",
+        "desc": "포스터 앤드 파트너스와 HOK 스포츠에 의해 설계되고 2007년에 개장한 신 웸블리 스타디움은 영국의 국립 축구 경기장이자 유럽 제2의 스타디움으로 90,000명의 수용 능력을 가집니다. 그 특징은 피치 전체를 걸쳐 있는 133미터 높이의 철강 아치로, 거대한 수축식 지붕을 지지하며 런던의 많은 부분에서 볼 수 있는 랜드마크로 기능합니다. 이 아치는 1923년의 원래 웸블리의 쌍둥이 탑을 대체했으며, 이는 영국 축구와 동의어가 되었지만 구조적으로 부적절했습니다. 지붕은 이 규모의 스타디움으로서는 처음으로 90,000명의 모든 좌석을 덮으며, 아치는 히드로 항공편의 항법 등대로도 기능합니다.",
         "hood": "웸블리",
         "hours": "Tours: Daily 10:00 AM – 4:00 PM (non-event days) · Events: varies",
         "admission": "Stadium tours: £25 adults · Match tickets vary",
@@ -82,7 +82,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0009": {
         "name": "런던 로이즈",
-        "desc": "런던 로이즈 is the building that defined the 고기술 architectural movement and made 리처드 로저스 a global name. Completed in 1986, six years after the Centre Pompidou in Paris established the style Rogers co-invented with 렌조 피아노, 로이즈 turned the principle inside out on a tight 런던 시티 plot: all service elements — lifts, staircases, utilities, lavatories — are externalised into six satellite towers on the perimeter, liberating the interior for the vast open 트레이딩 플로어 known as the \"Room.\" The building's stainless steel ducts, blue crane arms and exposed structure are simultaneously industrial and elegant, and it 남아있다 the most radical corporate building ever erected in the City.",
+        "desc": "로이즈 오브 런던은 하이테크 건축 운동을 정의하고 리처드 로저스를 세계적 인물로 만든 건물입니다. 1986년에 완성되었으며, 로저스가 렌조 피아노와 함께 공동 발명한 스타일을 수립한 파리의 센터 퐁피두로부터 6년 후입니다. 로이즈는 런던 시티의 좁은 부지에서 이 원칙을 뒤집었습니다. 모든 서비스 요소(엘리베이터, 계단, 유틸리티, 화장실)는 둘레의 6개 위성 탑으로 외부화되어, 내부를 \"룸\"으로 알려진 거대한 열린 트레이딩 바닥을 위해 해방시킵니다. 건물의 스테인리스 강 덕트, 파란색 크레인 암, 노출된 구조는 동시에 산업적이면서 우아하며, 런던 시티에서 지어진 가장 급진적인 기업 건물로 남아있습니다.",
         "hood": "런던 시티",
         "hours": "Private — no public access",
         "admission": "Private (working insurance market)",
@@ -92,7 +92,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0010": {
         "name": "리든홀 빌딩 (치즈강판)",
-        "desc": "The 리든홀 빌딩 — popularly the \"치즈강판\" for its wedge-shaped profile — tapers northward to preserve the protected view of 세인트 폴 대성당 from 플릿 스트리트, transforming a planning constraint into its most distinctive architectural feature. 로저스 스털크 하버 및 파트너스's 224-metre tower, 완성된 in 2014, expresses its 메가프레임 structural system entirely on the exterior in orange-painted steel, freeing the 48,000-square-metre interior of every column. A 15-storey public 아트리움 at the base extends the City's streets into the building at ground level, a rare act of civic generosity in London's financial district.",
+        "desc": "리드홀 빌딩(치즈그레이터)은 그 쐐기 모양 프로필로 인해 대중적으로 \"치즈그레이터\"라 불리며, 플릿 스트릿에서 세인트 폴 대성당의 보호된 시망을 보존하기 위해 북쪽으로 좁혀지며, 계획 제약을 가장 독특한 건축 특징으로 변환합니다. 로저스 스터크 하버 앤드 파트너스의 224미터 타워는 2014년에 완성되었으며, 거대 틀 구조 시스템을 외부에 주황색 칠해진 철강으로 완전히 표현하여 48,000제곱미터의 내부를 모든 기둥으로부터 해방시킵니다. 15층의 공개 아트리움이 밑부분에 있어 런던의 거리를 지면 수준에서 건물 내로 확장하며, 런던의 금융 지구에서 드문 시민적 관대함의 행동입니다.",
         "hood": "런던 시티",
         "hours": "Public 아트리움: Mon–Fri 7:00 AM – 7:00 PM · Office floors: private",
         "admission": "Free (ground floor 아트리움)",
@@ -102,7 +102,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0011": {
         "name": "The O2 아레나 (밀레니엄 돔)",
-        "desc": "The 밀레니엄 돔 — now The O2 — is the world's largest dome structure, a 365-metre diameter tensile fabric roof supported by twelve 100-metre steel masts whose number evokes the months of the year and the hours on a clock face. Designed by 리처드 로저스 파트너십 with Buro Happold as a national monument for the millennium, it 열렸다 on 31 December 1999 and was immediately controversial; following closure in 2001, AEG transformed it into The O2, Europe's busiest entertainment arena. The dome's fabric roof is now traversable on a guided \"Up at The O2\" climbing experience.",
+        "desc": "밀레니엄 돔(현 O2)은 세계에서 가장 큰 돔 구조로, 365미터 직경의 인장 직물 지붕이 12개의 100미터 철강 마스트에 의해 지지되며, 그 수는 연중 월의 수와 시계 면의 시간을 연상시킵니다. 리처드 로저스 파트너십과 부로 해플드에 의해 밀레니엄을 위한 국가 기념비로 설계되어 1999년 12월 31일에 개장했으며 즉시 논란이 되었습니다. 2001년 폐쇄 후 AEG가 이를 유럽에서 가장 바쁜 엔터테인먼트 아레나인 O2로 변환했습니다. 돔의 직물 지붕은 이제 가이드 \"업 앳 더 오투\" 등반 경험으로 횡단 가능합니다.",
         "hood": "그리니치 반도",
         "hours": "Entertainment venue: event days only · Up at The O2: daily 10:00 AM – 5:00 PM",
         "admission": "Entry to The O2 varies by event · Up at The O2: from £30",
@@ -112,7 +112,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0012": {
         "name": "히드로 터미널 5",
-        "desc": "히드로 터미널 5 is one of the largest buildings in the United Kingdom, a single-span roof 396 metres long covering a naturally lit concourse 설계된 to handle 30 million passengers a year. 로저스 스털크 하버 및 파트너스's design, developed over 19 years through one of the longest planning inquiries in British history, uses 16 roof \"petals\" — prefabricated off-site — that click together to form a gentle wave above the passenger hall. The terminal's structural system is deliberately exposed, creating a light-filled space that counters the typical enclosure of airport terminals, and the primary structure required no paint or fire protection due to innovative engineering.",
+        "desc": "히드로 터미널 5는 영국에서 가장 큰 건물 중 하나로, 연 3,000만 명의 승객을 처리하도록 설계된 자연 채광 콘코스를 덮는 396미터 길이의 단일 스팬 지붕입니다. 로저스 스터크 하버 앤드 파트너스의 설계는 영국 역사상 가장 긴 계획 공청회 중 하나를 통해 19년에 걸쳐 개발되었으며, 현장에서 미리 제작된 16개의 지붕 \"꽃잎\"을 사용하여 승객 홀 위에 부드러운 파도를 형성합니다. 터미널의 구조 시스템은 의도적으로 노출되어 공항 터미널의 전형적인 밀폐를 반박하는 밝은 공간을 만들며, 혁신적인 공학으로 인해 주요 구조는 도료나 화재 방지가 필요하지 않습니다.",
         "hood": "히드로",
         "hours": "24 hours (operational)",
         "admission": "Access for passengers with valid tickets only",
@@ -122,7 +122,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0013": {
         "name": "원 하이드 파크",
-        "desc": "원 하이드 파크 is the world's most expensive residential development, its four glass pavilions rising adjacent to 하이드 파크 at 나이츠브릿지 and regularly cited as London's priciest address. 로저스 스털크 하버 및 파트너스 설계된 the development as a series of four linked but separate residential blocks, each rotated to maximise park views, with shared leisure facilities including a swimming pool, spa, cinema and squash courts concealed below ground. At opening, its penthouse apartments sold for over £100 million each. The building's transparent glass 파사드s were a deliberate counterpoint to the closed, defensive architecture typical of ultra-luxury London developments.",
+        "desc": "원 하이드 파크는 세계에서 가장 비싼 주거 개발로, 네 개의 글래스 파빌리온이 나이츠브릿지의 하이드 파크 인접해 솟아있으며 런던의 가장 비싼 주소로 정기적으로 인용됩니다. 로저스 스터크 하버 앤드 파트너스는 이 개발을 연결되었지만 분리된 네 개의 주거 블록의 계열로 설계했으며, 각각은 공원 전망을 극대화하기 위해 회전되어, 수영장, 스파, 영화관, 스쿼시 코트를 포함하는 공유 여가 시설이 지하에 숨겨져 있습니다. 개장 당시, 펜트하우스 아파트는 각각 1억 파운드 이상에 팔렸습니다. 건물의 투명한 글래스 파사드는 초고급 런던 개발에 전형적인 폐쇄적이고 방어적인 건축에 대한 의도적인 대조입니다.",
         "hood": "나이츠브릿지",
         "hours": "Private residential — no public access",
         "admission": "Private",
@@ -132,7 +132,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0014": {
         "name": "88 우드 스트리트",
-        "desc": "88 우드 스트리트 is among 리처드 로저스's most sophisticated smaller towers, a 19-storey office building in the heart of the City whose 파사드 changes expression across its four elevations to respond to the surrounding streets. The north face is enclosed in reflective glass, while the south is 열렸다 up with projecting aluminium sunshades; the east and west elevations express the building's 구조 골조. Most distinctive is the cylindrical utility tower that breaks free of the rectangular mass at the north-east corner — a characteristically Rogers move that externalises services into an architectural element and 창조한다 variety in the City's streetscape.",
+        "desc": "88 우드 스트릿은 리처드 로저스의 가장 정교한 소규모 타워 중 하나로, 런던 시시티의 중심부에 있는 19층 사무실 건물이며, 그 파사드는 주변 거리에 대응하기 위해 네 개의 입면 전체에서 다른 표현으로 변합니다. 북쪽 면은 반사 유리로 밀폐되어 있고, 남쪽은 돌출된 알루미늄 선글레이드로 열려 있습니다. 동쪽과 서쪽 입면은 건물의 구조 틀을 표현합니다. 가장 특이한 것은 북동쪽 모서리의 직사각형 덩어리로부터 분리된 원통형 유틸리티 탑으로, 로저스의 특성적인 움직임으로 서비스를 건축 요소로 외부화하고 런던 시시티의 거리경관에 다양성을 만듭니다.",
         "hood": "런던 시티",
         "hours": "Private office building",
         "admission": "Private",
@@ -142,7 +142,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0015": {
         "name": "네오 뱅크사이드",
-        "desc": "네오 뱅크사이드 is a luxury residential development of six pavilions on London's 사우스 뱅크, directly adjacent to 테이트 모던, that became the centre of a significant privacy dispute when 테이트 모던's Blavatnik Building extension 열렸다 its viewing terrace overlooking the apartments' floor-to-ceiling glazed 파사드s. 로저스 스털크 하버 및 파트너스 deliberately used transparent glass as an ethical stance — the architects believed Londoners had a right to live openly in the city — but the dispute, which reached the UK Supreme Court, highlighted the tensions between architectural transparency and residential privacy. The development's expressed steel frames and richly coloured service cores are characteristic of Rogers's palette.",
+        "desc": "네오 뱅크사이드는 런던 사우스 뱅크에 있는 6개 파빌리온의 사치 주거 개발로, 테이트 모던 바로 인접해 있으며, 테이트 모던의 블라바츠키 빌딩 연장부가 아파트의 천장부터 바닥까지 유리 파사드를 내려다보는 관람 테라스를 열었을 때 상당한 개인정보보호 분쟁의 중심이 되었습니다. 로저스 스터크 하버 앤드 파트너스는 의도적으로 투명한 유리를 윤리적 입장으로 사용했습니다. 건축가들은 런던인들이 도시에 개방적으로 살 권리가 있다고 믿었습니다. 하지만 영국 대법원에 이른 분쟁은 건축 투명성과 주거 개인정보보호 사이의 긴장을 강조했습니다. 개발의 표현된 철강 틀과 풍부하게 칠해진 서비스 코어는 로저스 팔레트의 특징입니다.",
         "hood": "뱅크사이드 / 사우스워크",
         "hours": "Private residential",
         "admission": "Private",
@@ -152,7 +152,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0016": {
         "name": "몬테베트로",
-        "desc": "몬테베트로 is 리처드 로저스's first major residential tower in London, a tapering glass block of 103 apartments rising above the 템즈 at 배터시 that pioneered the transparent, light-filled residential aesthetic Rogers would later develop at 네오 뱅크사이드. Completed in 1999 on the site of a former flour mill, the building's glass 파사드 steps back in plan at each floor to follow the building's triangular site, creating a distinctive silhouette when viewed from the river. The project helped establish 배터시's transformation from industrial riverside district to luxury residential neighbourhood, a process that continues with the adjacent 배터시 발전소 redevelopment.",
+        "desc": "몬테베트로는 리처드 로저스의 런던에서의 첫 주요 주거 타워로, 배터시의 템즈 강 위로 솟아있는 103개 아파트의 테이퍼링 글래스 블록이며, 나중에 네오 뱅크사이드에서 개발할 투명하고 밝은 주거 미학을 개척했습니다. 구 가루 공장 부지에 1999년에 완성되었으며, 건물의 글래스 파사드는 건물의 삼각형 부지를 따르기 위해 각 층에서 평면으로 한 발씩 물러나며, 강에서 보았을 때 독특한 실루엣을 만듭니다. 이 프로젝트는 배터시의 산업 강변 지구에서 사치 주거 지역으로의 변환을 확립하는 데 도움이 되었으며, 인접한 배터시 파워 스테이션 재개발로 계속되는 과정입니다.",
         "hood": "배터시",
         "hours": "Private residential",
         "admission": "Private",
@@ -162,7 +162,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0017": {
         "name": "칙윅 비즈니스 파크",
-        "desc": "칙윅 비즈니스 파크 is Rogers's largest commercial campus in London, a landscaped park of twelve office buildings arranged around a central lake and public gardens in west London, developed by Stanhope from 2000 onwards. Unlike conventional business parks 설계된 for car dependency, 칙윅 was conceived as a community — a \"campus\" with cafes, concierge services, and a hotel integrated into the landscape — that anticipated the post-industrial workplace. The buildings' expressed steel structures and coloured panel systems are characteristic of Rogers's vocabulary, and the public lake and gardens are open to all, making it one of west London's more pleasant semi-public green spaces.",
+        "desc": "칙윅 비즈니스 파크는 로저스의 런던에서의 가장 큰 상업 캠퍼스로, 2000년부터 스탠호프에 의해 개발된 런던 서부의 중앙 호수와 공개 정원 주변에 배열된 12개 사무실 건물의 조경 공원입니다. 자동차 의존성을 위해 설계된 기존 비즈니스 파크와 달리, 칙윅은 커뮤니티, 즉 경관에 통합된 카페, 컨시어지 서비스, 호텔이 있는 \"캠퍼스\"로 구상되었으며, 이는 포스트 산업 직장을 예상했습니다. 건물의 표현된 철강 구조와 칠해진 패널 시스템은 로저스 어휘의 특징이며, 공개 호수와 정원은 모두에게 열려 있어 런던 서부에서 더 즐거운 반공개 녹색 공간 중 하나입니다.",
         "hood": "칙윅",
         "hours": "Public gardens and lake: daily dawn to dusk · Offices: private",
         "admission": "Free (public grounds)",
@@ -172,7 +172,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0018": {
         "name": "더 샤드",
-        "desc": "At 310 metres, the Shard is Western Europe's tallest building, its tapering glass spire rising above 런던 브릿지 to become the 사우스 뱅크's defining landmark. 렌조 피아노's design draws on the vertical spires of Wren's City churches and the masts of the 템즈 sailing ships visible in 18th-century paintings of the river — the concept of a \"shard of glass\" inserted into London's skyline. The building's eight angled glass 파사드s are 설계된 to never appear the same twice: the glass is slightly angled at each floor so they reflect different parts of the sky throughout the day and in different weathers. Inside, a mixed-use vertical city 결합한다 offices, hotel, apartments, restaurants, and a public viewing gallery at levels 68–72.",
+        "desc": "310미터 높이의 샤드는 서유럽의 가장 높은 건물이며, 테이퍼링 글래스 첨탑이 런던 브리지 위로 솟아 사우스 뱅크의 정의적 랜드마크가 됩니다. 렌조 피아노의 설계는 렌의 시티 교회들의 수직 첨탑과 18세기 강 그림에서 볼 수 있는 템즈 돛단배의 마스트에서 영감을 받아, \"런던 스카이라인에 삽입된 유리 조각\"의 개념입니다. 건물의 8개 각진 글래스 파사드는 절대 같은 모습으로 나타나지 않도록 설계되었습니다. 글래스가 각 층에서 약간 각지어져 있어 하루 종일 하늘의 다른 부분들을 반사하고 다양한 날씨에서 반사합니다. 내부에는 사무실, 호텔, 아파트, 레스토랑 및 68~72층의 공개 관람대를 결합하는 혼합 사용 수직 도시가 있습니다.",
         "hood": "런던 브릿지 / 사우스워크",
         "hours": "Viewing Gallery: daily 10:00 AM – 10:00 PM (Fri–Sat to 11:00 PM)",
         "lastEntry": "1 hour before closing",
@@ -183,7 +183,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0019": {
         "name": "콜 드롭스 야드",
-        "desc": "콜 드롭스 야드 is a retail and cultural destination in the 킹스 크로스 재생 area, 설계된 by 헤더윅 스튜디오 and 열렸다 in October 2018. The project 변환한다 two 빅토리아 coal-dropping ware있다 (built 1850–1863) into a contemporary retail district by connecting the two rooftops with a dramatic canopy of kissing curved steel roofs that meet at a central ridge, creating a new public street between the buildings below. The intervention adds 10,000 sq m of new floor area while preserving the brick and ironwork of the original structures. The resulting space — with its sloped pedestrian street, elevated walkways, and boutique shops — became an immediate landmark of 적응적 재사용 and urban regeneration in London.",
+        "desc": "Coal Drops Yard는 King's Cross 재생 지역에 위치한 소매 및 문화 목적지로, 헤더윅 스튜디오가 설계하여 2018년 10월에 개장했다. 이 프로젝트는 1850-1863년 사이에 지어진 두 개의 빅토리아 시대 석탄 저장고를 현대적 소매 지구로 변모시키며, 두 건물의 지붕을 중앙 능선에서 만나는 극적인 곡선형 강철 지붕의 캐노피로 연결하여 아래에 새로운 공공 거리를 창출했다. 이 개입은 10,000제곱미터의 새로운 바닥 면적을 추가하면서 원래 구조의 벽돌과 철제 작업을 보존한다. 경사진 보행자 거리, 높인 산책로, 부티크 상점으로 이루어진 공간은 런던에서 적응적 재이용과 도시 재생의 즉각적 랜드마크가 되었다.",
         "hood": "킹스 크로스",
         "hours": "Daily — retail and dining hours vary by vendor",
         "admission": "Free (public space) · Individual venue charges apply",
@@ -193,7 +193,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0020": {
         "name": "롤링 브릿지",
-        "desc": "The 롤링 브릿지 at 패딩턴 베이신 is one of 헤더윅 스튜디오's earliest and most celebrated public works. Completed in 2004, it is a pedestrian footbridge that 열리다 by curling up on itself into a compact octagonal shape, its eight sections folding together until the handrail touches the deck, then unrolling back into a straight 12-metre walkway. The mechanism is driven by a hydraulic system embedded in each segment's handrail, allowing the bridge to curl and uncurl smoothly in around five minutes. The bridge 열리다 every Friday at noon to allow boats to pass. The project — conceived when Heatherwick was in his early thirties — established his studio's reputation for engineering ingenuity and kinetic public design, and won the Structural Steel Design Award in 2005.",
+        "desc": "Paddington Basin의 Rolling Bridge는 헤더윅 스튜디오의 가장 초기 및 가장 찬사 받은 공공 작업 중 하나이다. 2004년에 완성된 이 보행자 다리는 자신의 위에서 자체로 말려 올라 컴팩트한 팔각형 모양을 이루며, 8개의 섹션이 함께 접혀 손잡이가 갑판에 닿을 때까지 접힌 후 12미터 직선 산책로로 다시 펼쳐진다. 메커니즘은 각 세그먼트의 손잡이에 내장된 유압 시스템으로 구동되며, 다리가 약 5분 내에 부드럽게 말려 펼쳐질 수 있도록 한다. 다리는 보트가 통과할 수 있도록 매주 금요일 정오에 개방된다. 헤더윅이 30대 초반일 때 구상된 이 프로젝트는 그의 스튜디오의 엔지니어링 창의성과 운동 공공 설계의 평판을 확립했으며, 2005년 구조강철설계상을 수상했다.",
         "hood": "패딩턴",
         "hours": "Open permanently for pedestrians · Rolling mechanism: Fridays at noon (approx)",
         "admission": "Free",
@@ -203,7 +203,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0021": {
         "name": "구글 영국 본사 (킹스 크로스)",
-        "desc": "Google's new UK headquarters at 킹스 크로스, 완성된 in 2024, is a joint design by 헤더윅 스튜디오 and 비야르케 잉겔스 그룹. The 11-story, 100,000 sq m building occupies a prominent site adjacent to 리젠트 운하 and the 킹스 크로스 재생 area. The 파사드 is characterised by a bespoke interlocking pattern of aluminium fins that modulate solar gain while creating a dynamic, ever-changing surface depending on the angle of view and light. The building 특징이다 a rooftop garden with a running track and swimming pool, and a publicly accessible ground-floor arcade. The project is one of the most anticipated contemporary buildings in London and a landmark of the ongoing transformation of 킹스 크로스.",
+        "desc": "King's Cross의 Google UK 본사는 2024년에 완성되었으며, 헤더윅 스튜디오와 BIG(Bjarke Ingels Group)의 공동 설계다. 11층 규모의 100,000제곱미터 건물은 Regent's Canal과 King's Cross 재생 지역에 인접한 주요 위치를 차지한다. 파사드는 태양 이득을 조절하면서 관점과 빛의 각도에 따라 역동적이고 항상 변하는 표면을 만드는 맞춤형 맞물림 패턴의 알루미늄 핀으로 특징지어진다. 건물은 달리기 트랙과 수영장이 있는 옥상 정원, 그리고 공개적으로 접근 가능한 1층 아케이드를 갖추고 있다. 이 프로젝트는 런던에서 가장 기대되는 현대 건축 중 하나이며 진행 중인 King's Cross 변신의 랜드마크다.",
         "hood": "킹스 크로스",
         "hours": "Ground-floor public space: daily · Offices: private",
         "admission": "Public ground floor only · Office building",
@@ -212,7 +212,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0022": {
         "name": "리슨 갤러리 벨 스트리트",
-        "desc": "The 리슨 갤러리 extension on 벨 스트리트, 설계된 by 다다오 안도 and 완성된 in 1992, is the architect's only built work in London and one of his earliest European commissions. Ando transformed a pair of 빅토리아 terraced 있다 and an adjacent former dairy into a sequence of gallery spaces connected by his signature board-formed exposed concrete walls, punctuated by skylights that wash the surfaces in natural light. The intervention is characteristically understated — Ando retained the existing brick 파사드s facing the street while replacing the interiors with pure geometric volumes in concrete. The 리슨 갤러리, founded in 1967, is one of the world's leading contemporary art galleries, and the building 남아있다 a quiet landmark of Ando's material philosophy applied to the 적응적 재사용 of urban fabric.",
+        "desc": "Bell Street의 Lisson Gallery 확장부는 다다오 안도가 설계하여 1992년에 완성되었으며, 이는 건축가의 유일한 런던 건축 작품이자 가장 초기 유럽 의뢰 작품 중 하나다. 안도는 빅토리아 시대 테라스 하우스 한 쌍과 인접한 전 낙농장을 천창으로 점철된 그의 특징적인 노출 콘크리트 벽으로 연결된 갤러리 공간들의 수열로 변모시켰으며, 천창은 표면을 자연 빛으로 씻어낸다. 이 개입은 특징적으로 절제되어 있으며 안도는 거리를 마주한 기존 벽돌 파사드를 유지하면서 인테리어를 순수 기하학적 콘크리트 볼륨으로 교체했다. 1967년에 설립된 Lisson Gallery는 세계 최고 현대 미술 갤러리 중 하나이며, 이 건물은 도시 구조의 적응적 재이용에 적용된 안도의 재료 철학의 조용한 랜드마크로 남아있다.",
         "hood": "메어리본 / 리슨 그로브",
         "hours": "Mon–Fri 10:00 AM – 6:00 PM · Sat 11:00 AM – 5:00 PM",
         "admission": "Free",
@@ -221,7 +221,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0023": {
         "name": "런던탑",
-        "desc": "The 런던탑 서 있다 as one of the most iconic medieval fortifications in England, founded by William the Conqueror in 1066 and 완성된 in 1078. The magnificent White Tower—the innermost keep—남아있다 the finest example of Norman military architecture, with its characteristic rounded turrets and massive stone walls that have survived nearly a millennium. The complex 포함한다 21 towers, medieval chapels, and the Crown Jewels exhibition, offering visitors an intimate glimpse into nearly 1,000 years of English royal history and royal imprisonment. 유네스코 세계 유산 Site and 1급 지정 건축물 by 잉글랜드 유산, it 남아있다 Britain's most visited paid attraction.",
+        "desc": "런던 타워는 1066년에 정복왕 윌리엄에 의해 창립되고 1078년에 완성된 영국에서 가장 상징적인 중세 요새 중 하나다. 웅대한 White Tower—가장 안쪽 천수각—는 특징적인 둥근 포탑과 거의 천 년을 견뎌낸 거대한 돌 벽으로 노먼 군사 건축의 가장 훌륭한 사례로 남아있다. 이 복합체는 21개의 탑, 중세 예배당, 그리고 Crown Jewels 전시를 포함하며, 방문객들에게 거의 1,000년의 영국 왕실 역사와 왕실 투옥에 대한 친밀한 시각을 제공한다. UNESCO 세계 문화유산이자 Historic England에 의해 Grade I로 지정되었으며, 영국에서 가장 많이 방문하는 유료 관광지로 남아있다.",
         "hood": "타워 힐 / 런던 시티",
         "hours": "09:00–17:30 (Mar–Oct), 09:00–16:30 (Nov–Feb); closed 24–26 Dec",
         "lastEntry": "60 min before close",
@@ -232,7 +232,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0024": {
         "name": "웨스트민스터 궁전",
-        "desc": "The iconic 웨스트민스터 궁전, re설계된 by 찰스 배리 and 어거스투스 퓨진 following the devastating 1834 fire, 나타낸다 the pinnacle of 빅토리아 고딕 리바이벌 architecture. The ornate façade 특징이다 soaring perpendicular tracery, intricate stone carvings, and the world-famous 엘리자베스 타워 (빅 벤), with its mathematically precise clockwork and distinctive chimes. Constructed between 1840–1870, the palace 통합한다 medieval Gothic aesthetics with 19th-century innovation, containing over 1,000 rooms connected by labyrinthine corridors and decorated with Pre-Raphaelite murals. This 유네스코 세계 유산 Site and 1급 지정 건축물 building 남아있다 the political heart of the United Kingdom and one of the finest examples of 고딕 리바이벌 architecture globally.",
+        "desc": "상징적인 Palace of Westminster는 1834년의 파괴적 화재 이후 Charles Barry와 Augustus Pugin에 의해 재설계되었으며 빅토리아 고딕 리바이벌 건축의 정점을 나타낸다. 화려한 파사드는 솟아오른 수직 트레이서리, 복잡한 석조 조각, 그리고 수학적으로 정밀한 시계 장치와 특징적인 종소리를 가진 세계적으로 유명한 Elizabeth Tower(Big Ben)로 특징지어진다. 1840-1870년 사이에 건설된 이 궁전은 중세 고딕 미학을 19세기 혁신과 통합하며, 미로처럼 얽힌 복도로 연결된 1,000개 이상의 객실과 Pre-Raphaelite 벽화로 장식되어 있다. 이 UNESCO 세계 문화유산이자 Grade I 지정 건물은 영국의 정치적 중심으로 남아있으며 전 세계에서 고딕 리바이벌 건축의 가장 훌륭한 사례 중 하나다.",
         "hood": "웨스트민스터 / 의회 건물",
         "hours": "Tours: Mon–Tue, Fri 09:00–16:30, Wed 13:00–16:30, Sat 09:00–16:30; closed some parliamentary periods",
         "lastEntry": "60 min before close",
@@ -243,7 +243,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0025": {
         "name": "웨스트민스터 사원",
-        "desc": "웨스트민스터 사원 is one of Europe's most magnificent Gothic cathedrals, rebuilt by Henry III between 1245–1269 in the Perpendicular Gothic style, replacing the earlier Norman church. The soaring nave 특징이다 intricate 늑골 궁금, 비행 버트리스, and pointed arches that exemplify late medieval architectural achievement, while the interior 있다 the tombs and monuments of monarchs, poets, scientists, and national heroes spanning centuries. The twin western towers, added by 니콜라스 호크스무어 in 1722, provide iconic silhouettes visible across 웨스트민스터, and the cloisters offer peaceful refuge from the bustling streets. 유네스코 세계 유산 Site and 1급 지정 건축물, 웨스트민스터 사원 봉사하다 as both a functioning church and a museum of English history, hosting coronations and royal ceremonies for nearly 1,000 years.",
+        "desc": "Westminster Abbey는 유럽에서 가장 웅대한 고딕 성당 중 하나로, Henry III에 의해 1245-1269년 사이에 수직 고딕 양식으로 재건되어 초기 노먼 교회를 대체했다. 솟아오른 중랑은 복잡한 리브 볼트, 플라잉 버트레스, 그리고 후기 중세 건축 성취의 특징인 뾰족한 아치를 갖추고 있으며, 인테리어는 수세기에 걸친 군주, 시인, 과학자, 국가 영웅들의 무덤과 기념물을 수용한다. 1722년에 Nicholas Hawksmoor에 의해 추가된 쌍의 서쪽 탑은 Westminster 전역에서 볼 수 있는 상징적인 실루엣을 제공하며, 회랑은 분주한 거리로부터 평온한 피난처를 제공한다. UNESCO 세계 문화유산이자 Grade I 지정 건물인 Westminster Abbey는 기능 중인 교회이자 영국 역사 박물관으로 봉사하며, 거의 1,000년 동안 대관식과 왕실 의식을 개최했다.",
         "hood": "웨스트민스터",
         "hours": "Mon–Fri 09:30–17:00, Sat 09:30–15:30; Sunday worship only (not tourist hours)",
         "lastEntry": "60 min before close",
@@ -254,7 +254,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0026": {
         "name": "구 왕립해군대학, 그리니치",
-        "desc": "The 구 왕립해군대학 in 그리니치 나타낸다 one of 크리스토퍼 렌's and 니콜라스 호크스무어's greatest collaborative achievements, begun in 1712 as a royal retirement home for naval veterans. The stunning twin domes of the 페인티드 홀 and 예배당 rise symmetrically from the 템즈, with the iconic colonnaded court creating one of London's most photographed vistas. The 예배당 특징이다 exquisite interior decoration with marquetry floors and ornamental plasterwork, while the 페인티드 홀 displays a magnificent trompe-l'œil ceiling by 제임스 턴힐 경 depicting naval victory and glorification of King William III. 유네스코 세계 유산 Site and 1급 지정 건축물, this complex 전형화한다 English 바로크 at its most refined and ambitious.",
+        "desc": "Greenwich의 Old Royal Naval College는 Christopher Wren과 Nicholas Hawksmoor의 가장 위대한 협력 성과 중 하나를 나타내며, 1712년에 해군 퇴역군인들을 위한 왕실 은퇴 집으로 시작되었다. Painted Hall과 Chapel의 놀라운 쌍둥이 돔은 Thames에서 대칭적으로 솟아오르며, 상징적인 주랑형 중정은 런던에서 가장 많이 사진이 찍히는 전망 중 하나를 창출한다. Chapel은 마르께트리 바닥과 장식적 회반죽 세공이 있는 정교한 인테리어 장식을 갖추고 있으며, Painted Hall은 Sir James Thornhill에 의해 그려진 해군 승리와 윌리엄 3세 국왕 찬양을 묘사하는 웅대한 트롱프뢰유 천장을 전시한다. UNESCO 세계 문화유산이자 Grade I 지정 건물인 이 복합체는 가장 세련되고 야심 찬 영국 바로크의 전형이다.",
         "hood": "그리니치 / 독스 제도",
         "hours": "그리니치 페인티드 홀 & 예배당: 10:00–17:00 daily (last entry 16:00)",
         "lastEntry": "60 min before close",
@@ -265,7 +265,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0027": {
         "name": "여왕의 집, 그리니치",
-        "desc": "The 여왕의 집, 설계된 by 이니고 존스 and built between 1616–1635 for the consort of Charles I, is the first purely 팔라디오식 building in England and a landmark of architectural sophistication. Its elegant proportions, symmetrical façade, and innovative central loggia demonstrate Jones's mastery of Italian 르네상스 principles applied to English construction, introducing a new vocabulary of classical restraint after centuries of ornamental Tudor and Jacobean excess. The interior 특징이다 the famous geometric Tulip Staircase—a self-지지 spiral with no central column—and period furnishings reflecting 17th-century royal taste. Now part of the National Maritime Museum, the house 제공한다 an intimate glimpse into Caroline royal life and marks the birth of English neoclassical architecture.",
+        "desc": "Queen's House는 Inigo Jones가 설계하여 Charles I의 왕비를 위해 1616-1635년 사이에 지어진 건물로, 영국 최초의 순수 팔라디오 양식 건축이며 건축적 정교함의 랜드마크다. 우아한 비율, 대칭적 파사드, 혁신적 중앙 로지아는 Jones의 영국 건설에 적용된 이탈리아 르네상스 원리에 대한 숙련을 보여주며, 수세기의 장식적 튜더 및 제임스 양식 과잉 이후 고전적 절제의 새로운 어휘를 도입했다. 인테리어는 유명한 기하학적 Tulip Staircase—중앙 기둥이 없는 자립식 나선형—와 17세기 왕실 취향을 반영하는 시대 가구를 갖추고 있다. 현재 National Maritime Museum의 일부인 이 집은 Caroline 왕실 생활에 대한 친밀한 시각을 제공하며 영국 신고전주의 건축의 탄생을 표시한다.",
         "hood": "그리니치",
         "hours": "As part of National Maritime Museum: 10:00–17:00 daily",
         "lastEntry": "60 min before close",
@@ -276,7 +276,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0028": {
         "name": "왕립식물원, 큐",
-        "desc": "The 큐 왕립식물원 form a 300-acre botanical masterpiece established in the 18th century and transformed into a global scientific institution by the 19th century. The iconic 야자관, 설계된 by 데시무스 버튼 and engineer 리처드 터너 in 1848, pioneered glass and iron construction with its soaring curved roof and elegant iron framework, creating a humid microclimate for tropical plants. The 온대관, Burton's later triumph (1863), 서 있다 as the world's largest 빅토리아 glasshouse, containing specimens from temperate regions worldwide and showcasing the engineering innovation of the Industrial Age. 유네스코 세계 유산 Site and 1급 지정 건축물, 큐 남아있다 a center of plant science, conservation, and horticulture while offering visitors an exceptional experience in both botanical discovery and architectural heritage.",
+        "desc": "Kew의 Royal Botanic Gardens는 18세기에 설립되고 19세기에 글로벌 과학 기관으로 변모된 300에이커의 식물 걸작을 형성한다. 상징적인 Palm House는 Decimus Burton과 엔지니어 Richard Turner에 의해 1848년에 설계되었으며, 솟아오른 곡선 지붕과 우아한 철제 골조를 갖춘 유리와 철제 건설을 개척하여 열대 식물을 위한 습한 미기후를 창출했다. Temperate House는 Burton의 나중 걸작(1863년)으로 세계 최대의 빅토리아 시대 온실로 서 있으며, 전 세계 온대 지역의 표본을 포함하고 산업 시대의 엔지니어링 혁신을 전시한다. UNESCO 세계 문화유산이자 Grade I 지정 건물인 Kew는 식물 과학, 보존, 원예의 중심으로 남아있으면서 방문객들에게 식물 발견과 건축 유산 모두에서 뛰어난 경험을 제공한다.",
         "hood": "큐 / 리치몬드",
         "hours": "10:00–17:15 (summer), 10:00–15:45 (winter); closed 24–25 Dec",
         "lastEntry": "60 min before close",
@@ -287,7 +287,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0029": {
         "name": "세인트 폴 대성당",
-        "desc": "세인트 폴 대성당, 설계된 by 크리스토퍼 렌 and built between 1675–1710, is England's preeminent 바로크 cathedral and one of the world's most instantly recognizable churches. The monumental domed roof—rising 111 meters from the Great Fire rebuild—결합한다 English 바로크 severity with continental elegance, while the interior 특징이다 intricate wood carvings by 그린링 기번스, marble columns, and wrought iron by 장 티주. The iconic dome, constructed with a clever hidden brick cone and copper-clad timber framework, 나타낸다 a masterpiece of structural ingenuity and aesthetic refinement that has dominated London's skyline for over three centuries. 1급 지정 건축물 and a working cathedral, 세인트 폴 has hosted state funerals, royal weddings, and coronations, embodying the spiritual and architectural resilience of London through fire, war, and social upheaval.",
+        "desc": "St Paul's Cathedral은 Christopher Wren이 설계하여 1675-1710년 사이에 지어졌으며, 영국 최고의 바로크 대성당이자 세계에서 가장 즉각적으로 인식할 수 있는 교회 중 하나다. 웅대한 돔 지붕—대화재 재건에서 111미터 높이로 솟아오름—은 영국 바로크 엄격함을 대륙 우아함과 결합하며, 인테리어는 Grinling Gibbons의 정교한 목재 조각, 대리석 기둥, Jean Tijou의 주철을 갖추고 있다. 상징적인 돔은 영리한 숨겨진 벽돌 원뿔과 구리로 덮인 목재 골조로 구성되어 있으며 건축적 영리함과 미학적 세련의 걸작으로 300년 이상 런던의 스카이라인을 지배하고 있다. Grade I 지정 건축이자 기능 중인 대성당인 St Paul's는 국가 장례식, 왕실 결혼식, 대관식을 개최했으며, 화재, 전쟁, 사회적 격변을 통한 런던의 영적·건축적 회복력을 구현한다.",
         "hood": "런던 시티 / Ludgate Hill",
         "hours": "08:30–16:30 Mon–Sat; worship services Sun (public welcome); closed during major services",
         "lastEntry": "60 min before close",
@@ -298,7 +298,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0030": {
         "name": "버킹엄 궁전",
-        "desc": "버킹엄 궁전, the official London residence of British monarchs since 1837, evolved from a Georgian mansion into a grand neoclassical palace through successive transformations by John Nash, Edward Blore, and Aston Webb. Nash's 1825–1830 remodeling created the principal façade and gardens, while Blore's 1847 east wing expansion added the iconic ceremonial front, and Webb's 1913 refacing unified the composition with the distinctive Portland stone façade visible today. The palace comprises 775 rooms across six floors, including the magnificent State Rooms with gilt decorations, tapestries, and Old Master paintings that represent centuries of royal collecting and artistic patronage. 1급 지정 건축물 and the working heart of the British monarchy, 버킹엄 궁전 symbolizes royal authority while remaining architecturally dynamic, adapting to contemporary needs while preserving its historical character.",
+        "desc": "Buckingham Palace는 1837년 이후 영국 군주들의 공식 런던 거주지로, John Nash, Edward Blore, Aston Webb의 연속적 변모를 통해 조지아 저택에서 웅대한 신고전주의 궁전으로 진화했다. Nash의 1825-1830년 재건은 주요 파사드와 정원을 창출했고, Blore의 1847년 동쪽 날개 확장은 상징적 의식 정면을 추가했으며, Webb의 1913년 재건은 오늘날 보이는 특징적 포틀랜드 석재 파사드와 함께 구성을 통합했다. 궁전은 6개 층에 걸쳐 775개 객실로 이루어져 있으며, 수세기 왕실 수집과 예술적 후원을 나타내는 금박 장식, 태피스트리, 그리고 거장화로 장식된 웅대한 State Rooms를 포함한다. Grade I 지정 건물이자 영국 군부의 작동 중심인 Buckingham Palace는 왕실 권위를 상징하면서 동시에 건축적으로 역동적이며, 현대적 필요에 적응하면서 역사적 성격을 보존한다.",
         "hood": "웨스트민스터 / 세인트 제임스",
         "hours": "State Rooms: August–September, 09:45–16:00 (dates vary annually)",
         "lastEntry": "75 min before close",
@@ -309,7 +309,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0031": {
         "name": "연회장",
-        "desc": "The 연회장, 설계된 by 이니고 존스 and 완성된 in 1622 for King James I, 서 있다 as the first purely 르네상스 and 팔라디오식 building in London, introducing Italian architectural principles to English court architecture. Its austere brick and Portland stone façade with rusticated arches exhibits classical restraint, while the magnificent interior 특징이다 페터 파울 루벤스's extraordinary ceiling paintings (1636) glorifying the Stuart dynasty—a trompe-l'œil masterpiece celebrating divine monarchy that dominates the double-cube hall. This historic space witnessed the civil war's tragic culmination when Charles I was executed from the 연회장 window in 1649, transforming it from a celebration of absolutism into a poignant monument to political conflict. 1급 지정 건축물 and now operated by 잉글랜드 유산, the 연회장 남아있다 an intimate window into Stuart court culture and the architectural revolution initiated by Jones.",
+        "desc": "Banqueting House는 Inigo Jones가 설계하여 King James I을 위해 1622년에 완성되었으며, 런던에서 최초의 순수 르네상스 및 팔라디오 건축으로 서 있으며 이탈리아 건축 원리를 영국 궁정 건축에 소개했다. 러스티케이션 아치가 있는 소박한 벽돌과 포틀랜드 석재 파사드는 고전적 절제를 나타내며, 웅대한 인테리어는 Peter Paul Rubens의 특별한 천장 그림(1636년)을 갖추고 있으며 Stuart 왕조를 찬양하는 웅대한 트롱프뢰유 걸작으로 이중 정육면체 홀을 지배한다. 이 역사적 공간은 Charles I이 1649년에 Banqueting House 창에서 처형될 때 내전의 비극적 절정을 목격했으며, 절대주의 축하에서 정치적 갈등의 가슴 아픈 기념비로 변모시켰다. Grade I 지정 건물이자 현재 Historic England가 운영하는 Banqueting House는 Stuart 궁정 문화와 Jones가 시작한 건축 혁명에 대한 친밀한 창으로 남아있다.",
         "hood": "화이트할 / 웨스트민스터",
         "hours": "10:00–17:00 Mon–Fri, 10:00–17:00 Sat–Sun (with exceptions for state events)",
         "lastEntry": "60 min before close",
@@ -320,7 +320,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0032": {
         "name": "타워 브릿지",
-        "desc": "타워 브릿지, 설계된 by Sir 호레이스 존스 and Sir 존 울프 배리 and 완성된 in 1894, 나타낸다 a triumphant synthesis of 빅토리아 Gothic aesthetics and cutting-edge hydraulic engineering. The twin towers, clad in Cornish granite and adorned with turrets and ornamental stonework, evoke medieval fortress architecture while concealing a revolutionary hydraulic bascule mechanism that can raise the 1,200-ton roadway in just 85 seconds to permit tall ships passage. The intricate wrought iron framework, internal machinery, and decorative detailing showcase the 빅토리아 era's fascination with marrying functional engineering with ornamental beauty, creating an instantly recognizable monument to London's maritime and industrial supremacy. 1급 지정 건축물 and one of the world's most iconic bridges, 타워 브릿지 남아있다 a functional river crossing and museum, welcoming over 8 million annual visitors.",
+        "desc": "Tower Bridge는 Sir Horace Jones와 Sir John Wolfe Barry가 설계하여 1894년에 완성되었으며, 빅토리아 고딕 미학과 최첨단 유압 엔지니어링의 승리적 통합을 나타낸다. Cornwall 화강암으로 덮인 쌍의 탑은 포탑과 장식적 석조로 장식되어 중세 요새 건축을 연상시키면서 높은 배 통로를 허용하기 위해 1,200톤 도로를 단 85초 만에 올릴 수 있는 혁명적 유압 바스큘 메커니즘을 은폐한다. 복잡한 주철 골조, 내부 기계 장치, 장식적 세부 사항은 빅토리아 시대의 기능 엔지니어링을 장식적 아름다움과 결합하려는 매력을 보여주며, 런던의 해양 및 산업 우월성에 대한 즉각적으로 인식할 수 있는 기념비를 창출한다. Grade I 지정 건물이자 세계에서 가장 상징적인 다리 중 하나인 Tower Bridge는 기능 중인 강 통로이자 박물관으로 남아있으며 매년 800만 명 이상의 방문객을 맞이한다.",
         "hood": "타워 힐 / 사우스워크",
         "hours": "09:00–18:00 (Apr–Sep), 09:30–17:00 (Oct–Mar); check for special hours",
         "lastEntry": "60 min before close",
@@ -331,7 +331,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0033": {
         "name": "엘담 궁전",
-        "desc": "엘담 궁전 presents an extraordinary juxtaposition of medieval royal history and 1930s 아르 데코 glamour, with the great hall built by Edward IV in 1475 standing as one of England's finest examples of late medieval 목재 지붕 construction. The double-해머빔 roof, spanning 39 meters without internal support, 전시하다 the technical brilliance of medieval craftsmen, while the roofline glitters with gilded weathervanes and ornamental cresting. In 1933, American textile millionaire Stephen Courtauld and his wife Virginia purchased the partially ruined palace and added a stunning 아르 데코 mansion seamlessly adjacent to the medieval 남아있다, featuring chrome detailing, avant-garde furnishings, and contemporary luxuries that highlight the aesthetic gulf between two eras. Now operated by 영국 유산, 엘담 궁전 제공한다 visitors a singular experience: exploring authentic Tudor and Stuart gardens, walking among genuine medieval stones, and stepping into the sophisticated world of interwar design.",
+        "desc": "Eltham Palace는 1475년에 Edward IV에 의해 지어진 웅대한 홀과 1930년대 아르데코 화려함의 비범한 병치를 나타내며, 이 홀은 영국에서 후기 중세 목재 지붕 건설의 가장 훌륭한 사례 중 하나다. 이중 해머빔 지붕은 내부 지지 없이 39미터에 걸쳐 있으며 중세 장인의 기술적 광채를 보여주며, 지붕 선은 금박 풍향계와 장식적 능선으로 반짝인다. 1933년에 미국 섬유 재벌 Stephen Courtauld와 그의 아내 Virginia는 부분적으로 폐허가 된 궁전을 구입하고 중세 유적에 인접하게 놀랍도록 아르데코 저택을 추가하여, 크롬 세부 사항, 전위 가구, 현대적 사치를 갖추고 있으며 두 시대 사이의 미학적 차이를 강조한다. 현재 English Heritage에 의해 운영되는 Eltham Palace는 방문객들에게 특별한 경험을 제공한다: 정통 Tudor 및 Stuart 정원을 탐험하고, 정통 중세 돌 사이를 걷고, 전간기 설계의 정교한 세계에 발을 들인다.",
         "hood": "Eltham / Southeastchester",
         "hours": "10:00–17:00 (Apr–Oct), 10:00–16:00 (Nov–Mar); closed 24–26 Dec",
         "lastEntry": "60 min before close",
@@ -342,7 +342,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0034": {
         "name": "켄우드 하우스",
-        "desc": "켄우드 하우스, perched on the edge of 햄스테드 히스 and re설계된 by 로버트 애덤 between 1764–1779, 나타낸다 a masterclass in neoclassical domestic architecture and interior design. Adam's elegant remodeling transformed a modest 17th-century villa into a sophisticated mansion, adding the iconic library wing with its 격자천장 and refined proportions, and the cream and pale blue drawing rooms that exemplify his signature restrained elegance and mathematical precision. The house contains an important collection of Old Master paintings, including works by Rembrandt, Vermeer, and Gainsborough, displayed in period rooms that evoke 18th-century aristocratic taste and connoisseurship. Operated by 영국 유산 on the Heath's northern slope, Kenwood 제공한다 an exceptional setting for art appreciation while its harmonious architectural proportions and panoramic views across London embody the ideals of the Enlightenment.",
+        "desc": "Hampstead Heath의 가장자리에 자리 잡은 Kenwood House는 Robert Adam에 의해 1764-1779년 사이에 재설계되었으며, 신고전주의 주택 건축 및 인테리어 설계의 거작을 나타낸다. Adam의 우아한 재건은 소박한 17세기 별장을 정교한 저택으로 변모시켰으며, 격자 천장과 세련된 비율을 가진 상징적 도서관 날개를 추가했으며, 크림색과 옅은 파란색 그림방은 그의 특징적 절제된 우아함과 수학적 정밀성을 구현한다. 이 집은 Rembrandt, Vermeer, Gainsborough의 작품을 포함한 중요한 거장화 모음을 포함하며, 18세기 귀족적 취향과 전문성을 불러일으키는 시대 객실에 전시된다. English Heritage에 의해 Heath의 북쪽 경사면에서 운영되는 Kenwood는 미술 감상을 위한 뛰어난 배경을 제공하며 조화로운 건축적 비율과 런던 전역의 파노라마 전망은 계몽주의 이상을 구현한다.",
         "hood": "햄스테드 / 의회 언덕",
         "hours": "11:30–16:30 (Apr–Oct), 11:30–16:00 (Nov–Mar); closed 24–26 Dec",
         "lastEntry": "60 min before close",
@@ -353,7 +353,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0035": {
         "name": "애플즐리 하우스",
-        "desc": "애플즐리 하우스, 설계된 by 로버트 애덤 and 완성된 in 1778, 서 있다 at the corner of 피카딜리 and 파크 레인 as the former London residence of Arthur Wellesley, the Duke of Wellington, who defeated Napoleon at 워털루. Adam's original neoclassical composition, featuring refined proportions and elegantly decorated interiors, was enhanced by 벤자민 딘 와이트's 1828 extension with the addition of the 워털루 Gallery—a stunning state apartment 설계된 to display the Duke's extraordinary art collection. The house contains masterworks by Goya, Velázquez, Rubens, and Canaletto, along with Sevres porcelain, sculpture, and Regency furniture that reflect both Wellington's wealth and his sophisticated taste cultivated through military service across Europe. Now operated by 영국 유산 as a museum dedicated to Wellington and his era, 애플즐리 하우스 제공한다 intimate insight into the domestic world of one of Britain's most celebrated military figures.",
+        "desc": "Apsley House는 Robert Adam이 설계하여 1778년에 완성되었으며, Piccadilly와 Park Lane의 모서리에 서 있으며 Waterloo에서 Napoleon을 격파한 Duke of Wellington Arthur Wellesley의 전 런던 거주지다. Adam의 원래 신고전주의 구성은 세련된 비율과 우아하게 장식된 인테리어를 갖추고 있으며, Benjamin Dean Wyatt의 1828년 확장으로 Waterloo Gallery 추가—Duke의 비범한 미술 모음을 전시하기 위해 설계된 놀라운 국가 아파트로 향상되었다. 이 집은 Goya, Velázquez, Rubens, Canaletto의 거작, Sevres 도자기, 조각, 그리고 Regency 가구를 포함하며 Wellington의 부와 유럽 전역 군사 복무를 통해 양성된 정교한 취향 모두를 반영한다. 현재 English Heritage에 의해 Wellington과 그의 시대에 헌정된 박물관으로 운영되는 Apsley House는 영국에서 가장 유명한 군사 인물 중 한 명의 국내 세계에 대한 친밀한 통찰력을 제공한다.",
         "hood": "나이츠브릿지 / 하이드 파크 Corner",
         "hours": "11:00–17:00 (Apr–Oct), 11:00–16:00 (Nov–Mar); closed Mondays and major holidays",
         "lastEntry": "60 min before close",
@@ -364,7 +364,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0036": {
         "name": "Wellington Arch",
-        "desc": "The Wellington Arch, 설계된 by 데시무스 버튼 and constructed between 1826–1830, 서 있다 as one of London's most prominent neoclassical monuments, commissioned to commemorate military victories and honor Wellington's triumph at 워털루. The triumphal arch 특징이다 a distinctive stone façade with Ionic columns, ornamental reliefs, and sculptural detailing that embodies classical proportions, while its elevated position at the principal entrance to 하이드 파크 makes it a focal point for vehicular and pedestrian traffic converging on the capital's most prestigious neighborhood. The interior 있다 a small museum dedicated to Wellington and contains the arch's unique copper quadriga sculpture depicting Peace descending on the chariot of War—a symbolic and artistic masterpiece visible from numerous vantage points across London. Now operated by 영국 유산, Wellington Arch functions as both a working war memorial and an intimate museum space offering panoramic views of 하이드 파크 and central London from its gallery level.",
+        "desc": "Wellington Arch는 Decimus Burton이 설계하여 1826-1830년 사이에 건설되었으며, Waterloo에서의 Wellington의 승리를 기념하고 군사 승리를 명예롭게 하기 위해 의뢰된 런던에서 가장 두드러진 신고전주의 기념비 중 하나다. 승리 아치는 이온 기둥, 장식적 부조, 고전적 비율을 구현하는 조각적 세부 사항이 있는 특징적 석조 파사드를 갖추고 있으며, Hyde Park의 주요 입구에서의 높인 위치는 런던의 가장 유명한 지역으로 수렴하는 차량 및 보행자 교통의 초점을 만든다. 인테리어는 Wellington에 헌정된 작은 박물관을 수용하며 전쟁의 전차에서 평화가 내려오는 것을 묘사하는 아치의 독특한 구리 쿠아드리가 조각을 포함한다—런던 전역의 수많은 관점에서 볼 수 있는 상징적이고 예술적 걸작. 현재 English Heritage에 의해 운영되는 Wellington Arch는 기능 중인 전쟁 기념비이자 친밀한 박물관 공간으로 기능하며 갤러리 레벨에서 Hyde Park 및 중앙 런던의 파노라마 전망을 제공한다.",
         "hood": "나이츠브릿지 / 하이드 파크 Corner",
         "hours": "10:00–17:00 (Apr–Oct), 10:00–16:00 (Nov–Mar); closed 24–26 Dec",
         "lastEntry": "60 min before close",
@@ -375,7 +375,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0037": {
         "name": "햄 House and Garden",
-        "desc": "햄 House, constructed in 1610 and dramatically enlarged and redecorated in the 1670s, contains the finest Stuart interior surviving in England, representing the height of Restoration taste and craftsmanship. The house 전시하다 exceptional examples of period wallpapers, silk damasks, carved wooden overmantels, and gilt-leather wall coverings, while the magnificent grand staircase 특징이다 original wood paneling and intricate ironwork by 장 티주 exemplifying 바로크 opulence. The collection of paintings, tapestries, and furniture reflects the worldly sophistication and continental cultural knowledge of the house's original owners, particularly the 1st Duke and Duchess of Lauderdale, who transformed 햄 into a showcase of artistic patronage. Now operated by the 국민신탁, the house and its 17 acres of historic gardens—including formal parterres, hedged avenues, and riverside meadows—offer an unparalleled glimpse into aristocratic life and taste during the turbulent Stuart and Restoration periods.",
+        "desc": "1610년에 건설되고 1670년대에 대대적으로 확장 및 재장식된 햄 하우스는 영국에 현존하는 최고의 스튜어트 시대 인테리어를 담고 있으며, 복구 시대의 취향과 공예 기술의 정점을 대표한다. 이 건물은 시대별 벽지, 비단 다마스크, 조각된 목재 오버먼텔, 그리고 금칠한 가죽 벽면 장식의 뛰어난 사례들을 전시하고 있으며, 웅장한 그랜드 계단은 장 티주의 독창적인 목재 패널링과 복잡한 철제 장식으로 바로크 양식의 화려함을 보여준다. 그림, 태피스트리, 가구 컬렉션은 원래 소유자, 특히 햄을 예술 후원의 쇼케이스로 변모시킨 1대 로더데일 공작 및 공작부인의 세련된 취향과 대륙 문화 지식을 반영한다. 현재 내셔널 트러스트에 의해 운영되는 이 건물과 17에이커의 역사적 정원(정규적 파르테르, 산울타리 가로수길, 강변 초지 포함)은 소요 시대와 복구 시대의 귀족 생활과 취향을 타의 추종을 불허할 수 있게 보여준다.",
         "hood": "리치몬드 / 햄",
         "hours": "13:00–17:00 (Mar–Oct Sat–Wed), 13:00–16:00 (Nov–Feb Sat–Sun); gardens 10:30–17:00",
         "lastEntry": "60 min before close (house), 60 min before dusk (gardens)",
@@ -386,7 +386,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0038": {
         "name": "Osterley Park and House",
-        "desc": "Osterley Park House, re설계된 by 로버트 애덤 between 1761–1780, 나타낸다 one of the finest expressions of Adam's neoclassical genius applied to a suburban manor, transforming a modest Tudor mansion into an elegant country house of aristocratic refinement. Adam's additions include the iconic entrance portico with its columned loggia, the celebrated library with its delicate stucco ceiling, the drawing room with its sophisticated color palette of pale greens and blues, and the magnificent Etruscan Room inspired by Roman decorative aesthetics. The 140-acre estate, surrounded by a sweeping landscape park and dotted with Adam-설계된 garden pavilions, 창조한다 a complete Enlightenment vision of the relationship between house, grounds, and nature. Now operated by the 국민신탁, Osterley—paradoxically situated in suburban West London amid modern housing—survives as a pristine museum of Georgian taste and craftsmanship, offering visitors a rare opportunity to experience intact neoclassical domestic interiors.",
+        "desc": "로버트 애덤이 1761년에서 1780년 사이에 재설계한 오스터리 파크 하우스는 교외 저택에 적용된 애덤의 신고전주의 천재성의 가장 뛰어난 표현 중 하나로, 겸손한 튜더 저택을 귀족적 세련미를 갖춘 우아한 컨트리 하우스로 변모시켰다. 애덤의 추가 구조물에는 기둥식 로지아를 갖춘 상징적인 현관 포르티코, 우아한 스투코 천장을 갖춘 유명한 도서관, 창백한 녹색과 파란색의 세련된 색상 팔레트를 갖춘 드로잉룸, 그리고 로마 장식미학에서 영감을 받은 웅장한 에트루리아 룸이 포함된다. 140에이커의 부동산은 광활한 경관 공원으로 둘러싸여 있고 애덤이 설계한 정원 파빌리온으로 꾸며져 있으며, 건물, 부지, 자연 사이의 관계에 대한 계몽주의적 비전을 완성한다. 현재 내셔널 트러스트에 의해 운영되는 오스터리는 현대식 주택에 둘러싸인 런던 서부 교외에 역설적으로 위치해 있지만 조지아 시대 취향과 공예의 완벽한 박물관으로 남아 있으며, 방문객에게 온전한 신고전주의 주거 인테리어를 경험할 수 있는 드문 기회를 제공한다.",
         "hood": "Isleworth / Osterley",
         "hours": "13:00–17:00 (Apr–Oct Wed–Sun), 13:00–16:00 (Nov–Mar Sat–Sun); gardens 10:00–dusk",
         "lastEntry": "60 min before close (house)",
@@ -397,7 +397,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0039": {
         "name": "Red House",
-        "desc": "The Red House, 설계된 by Philip Webb and commissioned by William Morris in 1859, 서 있다 as the birthplace of the Arts and Crafts movement and a revolutionary statement against 빅토리아 industrial aesthetics and mass production. The striking red-brick exterior with asymmetrical composition, steep roof pitches, and 고딕 리바이벌 details represented a radical departure from prevailing domestic architectural conventions, while the interior embodied Morris's vision of integrated design where every element—from furniture to stained glass to wall hangings—was crafted with meticulous attention to materials and process. The house served as a collaborative laboratory where Morris, Webb, and their circle of Pre-Raphaelite and craft-oriented associates developed the design principles that would define the Arts and Crafts movement and profoundly influence 20th-century architecture and design philosophy. Now operated by the 국민신탁, Red House 남아있다 an intimate testimony to artistic conviction and the belief that everyday objects deserved beauty, craftsmanship, and integrity.",
+        "desc": "필립 웹이 설계하고 윌리엄 모리스가 1859년에 의뢰한 적색 집은 미술공예운동의 발상지이자 빅토리아 시대 산업 미학과 대량 생산에 대한 혁명적 항거의 표현이다. 비대칭적 구성, 가파른 지붕 경사, 고딕 리바이벌 장식을 갖춘 눈에 띄는 적벽돌 외관은 당시의 지배적인 주거 건축 관례에서 급진적인 탈피를 의미했으며, 내부는 가구에서 스테인드글라스, 벽 장식에 이르기까지 모든 요소가 재료와 과정에 대한 세밀한 주의를 기울여 제작되는 통합 설계의 모리스의 비전을 구현했다. 이 건물은 모리스, 웹, 그리고 그들의 전-라파엘파 및 공예 지향 동료 원들이 미술공예운동을 정의하고 20세기 건축과 디자인 철학에 깊은 영향을 미친 설계 원칙을 개발한 협력 실험실로 기능했다. 현재 내셔널 트러스트에 의해 운영되는 적색 집은 예술적 신념과 일상용품이 아름다움, 공예성, 완전함을 마땅히 누려야 한다는 신념에 대한 진정한 증거로 남아 있다.",
         "hood": "Bexleyheath",
         "hours": "11:00–17:00 (Apr–Oct Wed–Sun), 11:00–16:00 (Nov–Mar Sat–Sun)",
         "lastEntry": "60 min before close",
@@ -408,7 +408,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0040": {
         "name": "Fenton House",
-        "desc": "Fenton House, built in 1686 and set amid 햄스테드's winding village streets, 나타낸다 the finest surviving 17th-century merchant house in the area, embodying the taste and prosperity of London's prosperous merchant class during the William and Mary period. The brick-built house with its distinctive cupola, multi-pane sash windows, and graceful proportions 남아있다 remarkably unchanged, its interior featuring period paneling, a fine staircase, and authentic furnishings that evoke domestic life two centuries ago. The collection 포함한다 an exceptional array of 17th and 18th-century porcelain, needlework, paintings, and decorative arts assembled by the house's latter owners, particularly a distinguished collection of Early English pottery that reflects the refined aesthetic sensibilities of cultivated collectors. The terraced garden, descending steeply behind the house with views across London, 제공한다 a surprising urban refuge and period-appropriate setting. Now operated by the 국민신탁, Fenton House 제공한다 visitors an intimate understanding of mercantile prosperity and domestic refinement during London's Georgian heyday.",
+        "desc": "1686년에 건설되고 햄프스테드의 구불거리는 마을 거리 속에 자리한 펜턴 하우스는 이 지역의 가장 뛰어난 17세기 상인 저택으로, 윌리엄과 메리 시대 런던의 번영하는 상인 계층의 취향과 번영을 구현한다. 독특한 큐폴라, 다중 창을 가진 새시창, 우아한 비례를 갖춘 벽돌 건물은 놀랍도록 변함이 없으며, 그 내부는 시대별 패널링, 우아한 계단, 그리고 2백 년 전의 가정생활을 연상시키는 진정한 가구를 특징으로 한다. 수집품에는 특히 정교한 수집가의 세련된 미학적 감각을 반영하는 초기 영어 도자기의 뛰어난 컬렉션을 포함하여 건물의 나중 소유자들이 수집한 17세기와 18세기 자기, 침술 공예, 그림, 장식미술의 뛰어난 배열이 포함되어 있다. 건물 뒤로 급격하게 내려가며 런던을 가로질러 바라보는 전망을 제공하는 계단식 정원은 놀라운 도시 휴식처와 시대 적절한 배경을 제공한다. 현재 내셔널 트러스트에 의해 운영되는 펜턴 하우스는 방문객에게 런던의 조지아 시대 전성기의 상업적 번영과 주거 세련미를 친밀하게 이해할 수 있는 기회를 제공한다.",
         "hood": "햄스테드",
         "hours": "11:00–17:00 (Apr–Oct Wed–Sun), 11:00–16:00 (Nov–Mar Sat–Sun)",
         "lastEntry": "60 min before close",
@@ -419,7 +419,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0041": {
         "name": "Sutton House",
-        "desc": "Sutton House, built in 1535 by Ralph Sadleir, a wealthy Tudor courtier, 서 있다 as the oldest domestic building in East London and a precious survivor of pre-Georgian domestic architecture in the working-class East End. The timber-framed house retains its original layout with original paneled rooms, Tudor chimneys, and decorative linenfold paneling that exemplify early 16th-century craftsmanship and aesthetic values, surviving nearly 500 years of transformation, subdivision, and urban change. Now operated by the 국민신탁 and restored to reveal its Tudor cores beneath Georgian and 빅토리아 layers, Sutton House 제공한다 an exceptional opportunity to understand domestic architecture during Henry VIII's reign and the evolution of London housing through five centuries. The house functions as a vibrant community center hosting exhibitions, workshops, and cultural events, while also serving as a museum dedicated to Tudor life and the cultural heritage of Hackney.",
+        "desc": "부유한 튜더 궁정인 랄프 새들리어가 1535년에 건설한 서튼 하우스는 동부 런던에서 가장 오래된 주거 건물이자 노동자 계급의 동쪽 끝에서 조지아 시대 이전 주거 건축의 귀중한 생존자이다. 목재 골조 건물은 원래 배치, 패널이 된 방, 튜더 시대 굴뚝, 초기 16세기의 공예 기술과 미학적 가치를 보여주는 장식적 베갓살 패널링을 유지하며, 거의 500년 동안의 변형, 세분화, 도시 변화를 견뎌냈다. 현재 내셔널 트러스트에 의해 운영되고 조지아 및 빅토리아 시대 층 아래의 튜더 시대 핵심을 드러내기 위해 복원된 서튼 하우스는 헨리 8세 통치 시기의 주거 건축을 이해하고 5세기에 걸친 런던 주택의 진화를 이해할 수 있는 뛰어난 기회를 제공한다. 이 건물은 전시회, 워크숍, 문화 행사를 개최하는 활기찬 지역사회 센터로 기능하면서 동시에 튜더 시대 생활과 핵니 지역의 문화 유산을 다루는 박물관으로 기능한다.",
         "hood": "Hackney",
         "hours": "11:30–16:30 (Apr–Oct Wed–Sun), 12:00–16:00 (Nov–Mar Sat–Sun)",
         "lastEntry": "60 min before close",
@@ -430,7 +430,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0042": {
         "name": "Jewel Tower",
-        "desc": "The Jewel Tower, constructed in 1365 by Edward III, 나타낸다 one of only two surviving structures from the medieval 웨스트민스터 궁전, making it an irreplaceable relic of the palace's 14th-century appearance and an intimate connection to England's pre-Tudor monarchy. The sturdy stone tower, originally four stories with a moat, housed the crown jewels and royal treasure during the medieval period, its thick walls and defensive architecture reflecting the security concerns of a royal dynasty protecting its most precious assets. The interior, now operated by 영국 유산 as a small museum, exhibits artifacts related to the medieval 웨스트민스터 궁전 and its ceremonial functions, along with interpretive displays explaining the tower's original role within the palace complex. Remarkably, this modest yet historically charged structure survived the devastating 1834 fire that destroyed the medieval palace, standing isolated amid the 빅토리아 Gothic splendor of Barry and Pugin's 웨스트민스터 궁전 as a tangible reminder of England's medieval institutional heritage.",
+        "desc": "에드워드 3세가 1365년에 건설한 보석 탑은 중세 웨스트민스터 궁전에서 현존하는 두 구조물 중 하나로, 궁전의 14세기 모습의 대체불가능한 유물이자 영국의 튜더 시대 이전 왕정과의 친밀한 연결고리를 나타낸다. 원래 4층이고 해자를 갖춘 튼튼한 석조 탑은 중세 시대 왕관 보석과 왕실 보물을 보관했으며, 그 두터운 벽과 방어 건축은 가장 귀중한 자산을 보호하는 왕실의 보안 문제를 반영한다. 현재 영국 유산으로 운영되는 내부는 중세 웨스트민스터 궁전과 그 의례 기능과 관련된 유물을 전시하는 소규모 박물관으로, 탑의 궁전 복합단지 내 원래 역할을 설명하는 해석 전시가 함께 있다. 놀랍게도 이 소박하지만 역사적으로 중요한 구조물은 중세 궁전을 파괴한 1834년의 악명 높은 화재를 견뎌냈으며, 배리와 푸진의 빅토리아 고딕 양식 웨스트민스터 궁전의 웅장함 속에 고립되어 있으면서 영국의 중세 제도 유산의 실질적 증거로 남아 있다.",
         "hood": "웨스트민스터",
         "hours": "10:00–17:00 (Apr–Oct), 10:00–16:00 (Nov–Mar); closed 24–26 Dec and occasional events",
         "lastEntry": "60 min before close",
@@ -441,7 +441,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0043": {
         "name": "George Inn",
-        "desc": "The George Inn is London's last surviving galleried coaching inn, with its iconic three-storey timber-framed galleries arranged around a central courtyard overlooking Borough High Street. Built in 1677 after the Great Fire, it 전형화한다 the traditional coaching inn typology that once dominated medieval London. Now owned by the 국민신탁 and still operating as a pub, the building retains its atmospheric cobbled yard and period character, offering visitors a tangible connection to centuries of London hospitality and travel. Charles Dickens famously referenced this inn in his works, cementing its place in literary and cultural history.",
+        "desc": "조지 인은 런던의 마지막 현존 갤러리식 객주로, 중앙 안뜰을 중심으로 배열된 상징적인 3층 목재 골조 갤러리가 보로우 하이 스트리트를 내려다본다. 대화재 이후인 1677년에 건설된 이 건물은 한때 중세 런던을 지배했던 전형적인 객주 유형을 보여준다. 현재 내셔널 트러스트에 의해 소유되고 여전히 펍으로 운영 중인 이 건물은 대기가 풍부한 조약돌 마당과 시대별 특성을 유지하고 있으며, 방문객에게 수세기의 런던 숙박 및 여행 문화와의 유형적 연결고리를 제공한다. 찰스 디킨스는 그의 작품에서 이 객주를 유명하게 언급했으며, 이를 문학 및 문화 역사상의 한 자리를 공고히 했다.",
         "hood": "사우스워크",
         "hours": "Daily 11am-11pm (food served 12-9pm)",
         "lastEntry": "N/A (pub)",
@@ -452,7 +452,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0044": {
         "name": "London Wall (Roman & Medieval)",
-        "desc": "London Wall 나타낸다 nearly 2,000 years of continuous urban fortification, beginning with Roman engineers who constructed the original 2 miles of defensive wall around Londinium circa 200 AD. The surviving sections—particularly visible at 타워 힐, Moorgate, and Bishopsgate—showcase the Roman core (grey Cornish slate and ragstone) interspersed with medieval brick repairs and crenellations added during the 12th-14th centuries. This Scheduled 모뉴먼트 제공한다 an unparalleled archaeological record of Roman military engineering and medieval urban defense strategies. Walking along the preserved sections 제공한다 visitors a literal chronological journey through London's layered history.",
+        "desc": "런던 월은 약 200년경 론디니움 주변에 방어용 벽 2마일을 건설한 로마 공학자들로 시작하는 거의 2,000년의 지속적인 도시 요새화를 나타낸다. 특히 타워 힐, 무어게이트, 비숍스게이트에서 보이는 현존 구간은 로마 핵심(회색 콘월 슬레이트와 자갈돌)과 12~14세기에 추가된 중세 벽돌 보수 및 총렬 사이를 교차하고 있다. 이 지정 기념물은 로마 군사 공학과 중세 도시 방어 전략의 비교할 수 없는 고고학적 기록을 제공한다. 보존된 구간을 따라 걷는 것은 방문객들에게 런던의 겹겹이 쌓인 역사를 통한 문자 그대로의 연대순 여행을 제공한다.",
         "hood": "런던 시티 / 타워 힐",
         "hours": "24/7 (outdoor monument)",
         "lastEntry": "N/A",
@@ -463,7 +463,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0045": {
         "name": "Royal Exchange",
-        "desc": "William Tite's Royal Exchange (1844) is a masterpiece of 빅토리아 Neoclassicism, crowned by an imposing Corinthian portico and topped with a weather vane depicting a golden grasshopper—a centuries-old symbol of the Exchange. The building's rusticated ground floor and refined upper elevations reflect its historic role as the commercial heart of the British Empire, where merchants gathered to conduct international trade. Now repurposed as a luxury shopping destination, the interior retains its marble grandeur and original ceiling frescoes while accommodating contemporary retail tenants. 1급 지정 건축물 and architecturally iconic, it 남아있다 one of London's most refined civic structures.",
+        "desc": "윌리엄 타이트의 로열 익스체인지(1844)는 빅토리아 시대 신고전주의의 걸작으로, 웅장한 코린스식 포르티코로 관을 이루고 있으며 거의 수백 년 된 익스체인지의 상징인 황금 메뚜기를 그린 풍향계로 꾸며져 있다. 건물의 러스티케이트된 1층과 정교한 상층부 입면은 상인들이 국제 무역을 수행하기 위해 모여든 영국 제국의 상업 중심지로서의 역사적 역할을 반영한다. 현재 럭셔리 쇼핑 목적지로 용도 변경되었으나, 내부는 그 대리석의 웅장함과 원래의 천장 프레스코 벽화를 유지하고 있으면서 현대 소매 테넌트를 수용하고 있다. 1급 지정 건축물이자 건축학적으로 상징적인 구조물로, 런던의 가장 세련된 시민 건축물 중 하나로 남아 있다.",
         "hood": "런던 시티",
         "hours": "Mon-Sat 10am-6pm, Sun 12-5pm (shopping)",
         "lastEntry": "Closing time minus 30 min",
@@ -474,7 +474,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0046": {
         "name": "영국 중앙은행",
-        "desc": "The 영국 중앙은행 서 있다 as one of London's most formidable architectural expressions of financial power and institutional stability, rebuilt by Herbert Baker between 1925–1939 atop John Soane's legendary 1788 foundation walls. Baker's exterior of rusticated Portland stone and stripped 신고전주의 detailing conveys 에드워드 시대 authority without ornamentation, while the interior—reconstructed from Soane's original designs—retains the historic 18th-century spatial logic. The building's fortress-like presence, surrounded by its own perimeter wall, reflects both security concerns and symbolic self-containment. A Grade I masterpiece, it 남아있다 the architectural embodiment of Britain's financial establishment.",
+        "desc": "영국 중앙은행은 런던의 재정력과 제도적 안정성을 건축학적으로 가장 강력하게 표현한 구조물 중 하나로, 존 소언의 전설적인 1788년 기초 위에 허버트 베이커에 의해 1925~1939년 사이에 재건되었다. 베이커의 러스티케이트된 포틀랜드 석재와 벗겨낸 신고전주의 세부 장식의 외관은 장식 없이 에드워드 시대의 권위를 전달하며, 소언의 원래 설계에서 재구성된 내부는 역사적 18세기 공간 논리를 유지하고 있다. 자체 둘레 벽으로 둘러싸인 건물의 요새 같은 존재감은 보안 문제와 상징적 자기 자족성 모두를 반영한다. 1급 지정 건축물로서, 이는 영국 금융 기관의 건축학적 화신으로 남아 있다.",
         "hood": "런던 시티",
         "hours": "Not open to public",
         "lastEntry": "N/A",
@@ -485,7 +485,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0047": {
         "name": "리든홀 마켓",
-        "desc": "리든홀 마켓 is a 빅토리아 masterpiece of ornamental ironwork and covered marketplace design, created by architect 호레이스 존스 in 1881 as a modern replacement for the medieval poultry market. The structure's intricate glazed roof, slender iron columns, and painted cast-iron brackets exemplify high 빅토리아 industrial aesthetics applied to commercial purpose. Cobblestone floors, shop fronts with polished wood and tilework, and abundant natural light filtering through the glass canopy create an enchanting 19th-century shopping experience largely unchanged for nearly 150 years. 2급 우등 지정 건축물 and perpetually bustling with visitors, it 남아있다 a beloved destination for period architecture enthusiasts and shoppers alike.",
+        "desc": "레이던홀 마켓은 1881년에 건축가 호레이스 존스가 중세 가금류 시장의 현대적 대체물로 창조한 장식용 철제 공예와 덮인 시장 설계의 빅토리아 시대 걸작이다. 이 구조물의 복잡한 유리 지붕, 가늘고 긴 철 기둥, 칠해진 주철 괄호는 상업적 목적으로 적용된 높은 빅토리아 시대 산업 미학을 보여준다. 자갈돌 바닥, 광택 목재와 타일로 된 상점 입면, 유리 캐노피를 통해 흘러들어오는 풍부한 자연광은 거의 150년 동안 거의 변하지 않은 매혹적인 19세기 쇼핑 경험을 만든다. 2급 우등 지정 건축물이자 항상 방문객으로 바쁜 이 곳은 시대별 건축 애호가와 쇼핑객 모두에게 가장 사랑받는 목적지로 남아 있다.",
         "hood": "런던 시티",
         "hours": "Mon-Sat 10am-6pm, Sun 10am-4pm (hours vary by tenant)",
         "lastEntry": "Closing time",
@@ -496,7 +496,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0048": {
         "name": "St Pancras Station & Midland Grand Hotel",
-        "desc": "St Pancras Station 나타낸다 the pinnacle of 빅토리아 railway architecture, combining William Henry Barlow's magnificent single-span iron train shed (1868)—one of the world's largest at its time—with 조지 길버트 스콧's extraordinary Midland Grand Hotel (1876), a flamboyant 고딕 리바이벌 edifice of red brick and terracotta. The three great arched trainsheds of green-painted iron create an cathedral-like space of breathtaking scale and engineering audacity, while Scott's hotel 파사드 특징이다 soaring pointed arches, towers, and ornamental detailing that celebrates Gothic pageantry. Recently restored to pristine condition, the building 나타낸다 the optimistic marriage of 빅토리아 engineering prowess and aesthetic ambition. A Grade I masterpiece and 유네스코 세계 유산 Site component.",
+        "desc": "세인트 팬크래스 역은 윌리엄 헨리 발로우의 웅장한 단일 스팬 철 열차 차고(1868)—당시 세계 최대 규모 중 하나—와 조지 길버트 스콧의 비상한 미들랜드 그랜드 호텔(1876), 적색 벽돌과 테라코타 장식으로 된 화려한 고딕 리바이벌 건축물을 결합하여 빅토리아 시대 열차역 건축의 정점을 나타낸다. 초록색으로 칠해진 철 세 개의 커다란 아치형 열차 차고는 숨이 찰 정도로 큰 규모와 공학적 대담함의 대성당 같은 공간을 만들며, 스콧의 호텔 파사드는 고딕 호화로움을 축하하는 솟아오른 첨탑, 탑, 장식 세부 장식을 특징으로 한다. 최근 완벽한 조건으로 복원되어 이 건물은 빅토리아 시대 공학력과 미학적 야심의 낙관적 결혼을 나타낸다. 1급 지정 건축물이자 유네스코 세계유산 목록 구성 요소이다.",
         "hood": "킹스 크로스",
         "hours": "Station: 24/7; Hotel: check The Standard London booking",
         "lastEntry": "N/A",
@@ -507,7 +507,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0049": {
         "name": "킹스 크로스 Station",
-        "desc": "킹스 크로스 Station, 설계된 by Lewis Cubitt in 1852, epitomizes functional 빅토리아 railway architecture through its iconic twin towers, bold red-brick 파사드, and remarkable glass-roofed train shed. The station's honest expression of purpose—large arched windows and minimalist ornamentation—contrasts sharply with the Gothic exuberance of nearby St Pancras, creating a dialogue between two approaches to 빅토리아 modernity. The recently 완성된 Western Concourse by John McAslan + Partners (2012) adds a contemporary glass-and-steel interpretation that respectfully complements the historic structure while meeting 21st-century operational demands. 1급 지정 건축물, it 남아있다 an essential hub for rail travel and architectural pilgrimage.",
+        "desc": "루이스 쿠빗이 1852년에 설계한 킹스 크로스 역은 상징적인 쌍둥이 탑, 대담한 적색 벽돌 파사드, 놀라운 유리 지붕 열차 차고를 통해 기능적인 빅토리아 시대 열차역 건축을 대표한다. 역의 정직한 목적 표현—넓은 아치형 창과 최소한의 장식—은 인근의 세인트 팬크래스의 고딕 과장성과 뚜렷이 대조를 이루며, 빅토리아 시대 현대성에 대한 두 가지 접근 방식 사이의 대화를 만든다. 최근 완공된 존 맥애슬란 + 파트너스의 웨스턴 콩코스(2012)는 역사적 구조물을 존중하면서 보완하며 21세기 운영 요구 사항을 충족하는 현대 유리와 철강 해석을 추가한다. 1급 지정 건축물로서, 철도 여행과 건축학적 순례의 필수 허브로 남아 있다.",
         "hood": "킹스 크로스",
         "hours": "24/7",
         "lastEntry": "N/A",
@@ -518,7 +518,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0050": {
         "name": "패딩턴 Station",
-        "desc": "패딩턴 Station is an architectural triumph of 빅토리아 engineering, featuring three great arched trainsheds of wrought iron and glass 설계된 by Isambard Kingdom Brunel and Matthew Digby Wyatt in 1854. The elegant iron lattice work, ornamental ironwork, and soaring glass roof create a cathedral-like interior space of remarkable lightness and clarity, demonstrating how industrial materials could achieve aesthetic grace. The station's head building, with its Italianate arcading and polished materials, complements the engineering spectacle of the trainsheds, creating a harmonious dialogue between decorated exterior and utilitarian interior. 1급 지정 건축물 and recently restored to gleaming condition, it 남아있다 a seminal example of high 빅토리아 railway architecture and engineering aspiration.",
+        "desc": "패딩턴 역은 1854년에 이삼바르드 킹덤 브루넬과 매튜 디그비 와이어트가 설계한 3개의 거대한 아치형 단조철과 유리 열차 차고를 특징으로 하는 빅토리아 시대 공학의 건축학적 승리이다. 우아한 철 격자 공제, 장식용 철제 공예, 솟아오른 유리 지붕은 산업 자재가 어떻게 미학적 우아함을 성취할 수 있는지 보여주는 놀라운 가볍기와 명확함의 대성당 같은 내부 공간을 만든다. 역의 헤드 건물은 이탈리안식 아케이드와 광택 자재를 갖추고 있으며, 열차 차고의 공학 구경을 보완하고, 장식된 외부와 실용적 내부 사이의 조화로운 대화를 만든다. 1급 지정 건축물이자 최근 광택 완벽한 조건으로 복원되어, 높은 빅토리아 시대 열차역 건축과 공학적 열망의 중대한 사례로 남아 있다.",
         "hood": "패딩턴",
         "hours": "24/7",
         "lastEntry": "N/A",
@@ -540,7 +540,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0052": {
         "name": "Liverpool Street Station",
-        "desc": "Liverpool Street Station, 완성된 by Edward Wilson in 1874 and substantially expanded in 1894, 나타낸다 a pivotal moment in 빅토리아 railway architecture with its twin arched trainsheds of cast iron and glass. The building's eclectic 빅토리아 Gothic head building 특징이다 red brick, terracotta ornamentation, and ornamental ironwork that reflects the confidence and ornamental ambition of the era. The subsequent late-빅토리아 expansion (1894) introduced additional platforms and refined the structural system to accommodate growing traffic. Now a vibrant transport and shopping complex that has been carefully restored and integrated with contemporary retail while preserving the historic architectural fabric, it 남아있다 2급 우등 지정 건축물.",
+        "desc": "에드워드 윌슨이 1874년에 완성하고 1894년에 상당히 확장한 리버풀 스트리트 역은 단주철과 유리의 쌍둥이 아치형 열차 차고로 빅토리아 시대 열차역 건축의 중추적 순간을 나타낸다. 건물의 절충적인 빅토리아 시대 고딕 양식 헤드 건물은 적색 벽돌, 테라코타 장식, 시대의 자신감과 장식 야심을 반영하는 장식용 철제 공예를 특징으로 한다. 후속 후기 빅토리아 시대 확장(1894)은 추가 플랫폼을 도입했으며 증가하는 교통을 수용하도록 구조 시스템을 정교화했다. 현재 역사적 건축 구조를 조심스럽게 보존하면서 복원되고 현대 소매와 통합된 생기 있는 교통 및 쇼핑 복합단지로서, 2급 우등 지정 건축물로 남아 있다.",
         "hood": "런던 시티",
         "hours": "24/7",
         "lastEntry": "N/A",
@@ -551,7 +551,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0053": {
         "name": "배터시 발전소",
-        "desc": "배터시 발전소, 설계된 by 자일스 길버트 스콧, 서 있다 as an iconic 아르 데코 industrial monument 완성된 in two phases (A side 1933, B side 1953). Scott's distinctive brick cathedral—crowned with four monumental turbine halls and chimney stacks—나타낸다 the apogee of utilitarian industrial design elevated to architectural grandeur. The building's symmetrical composition, red and blue brick bonding patterns, and soaring 아르 데코 detailing transform what could have been mundane power generation into a celebrated civic landmark. Recently reimagined by WilkinsonEyre architects as a mixed-use development, the restored Grade II* building now hosts residential, commercial, and cultural spaces while preserving its extraordinary industrial character and engineering legacy.",
+        "desc": "자일스 길버트 스콧이 설계한 배터시 발전소는 두 단계(A측 1933, B측 1953)에 완성된 상징적인 아르데코 산업 기념물로 서 있다. 스콧의 독특한 벽돌 대성당—4개의 거대한 터빈 홀과 굴뚝 스택으로 관을 이루고 있음—은 건축 웅장으로 승격된 실용적 산업 설계의 정점을 나타낸다. 건물의 대칭적 구성, 적색과 청색 벽돌 결합 패턴, 솟아오른 아르데코 세부 장식은 평범할 수 있었을 전력 생산을 축하받는 시민 랜드마크로 변모시킨다. 최근 윌킨슨아이어 건축사가 혼합 용도 개발로 재개념화하여, 복원된 2급 우등 지정 건축물은 이제 주거, 상업, 문화 공간을 수용하면서 그 비상한 산업 특성과 공학 유산을 보존하고 있다.",
         "hood": "배터시",
         "hours": "Varies by tenant; public areas accessible during development opening hours",
         "lastEntry": "Varies",
@@ -562,7 +562,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0054": {
         "name": "Gasholder Park (킹스 크로스)",
-        "desc": "Gasholder Park 나타낸다 an innovative approach to heritage conservation and public space design, preserving three extraordinary 빅토리아 iron gasholders (circa 1860s) as sculptural focal points within a contemporary urban park by Bell Phillips Architects (2015). These extraordinary structures—towering frames of cast and wrought iron that once stored gas for London's heating and lighting—have been carefully dismantled and relocated to create monumental landscape 특징이다. The repurposing of industrial infrastructure as public art and social gathering space reflects contemporary ecological thinking while celebrating the honest beauty of 빅토리아 engineering. As a Scheduled Ancient 모뉴먼트 now transformed into beloved green space, it 증명하다 how industrial heritage can be sustainably integrated into contemporary urban life.",
+        "desc": "가스홀더 파크는 벨 필립스 건축사가 설계한 현대 도시공원(2015) 내에서 세 개의 비상한 빅토리아 시대 철 가스홀더(약 1860년대)를 조각적 초점으로 보존하는 유산 보존과 공공 공간 설계에 대한 혁신적 접근을 나타낸다. 런던의 난방과 조명을 위해 가스를 저장했던 주철과 단조철의 솟아오른 틀인 이 비상한 구조물들은 기념비적 경관 특징을 만들기 위해 조심스럽게 해체되고 재배치되었다. 산업 기반시설을 공공 미술과 사회 집합 공간으로 용도 변경하는 것은 현대 생태학적 사고를 반영하면서 빅토리아 시대 공학의 정직한 아름다움을 축하한다. 현재 사랑받는 녹색 공간으로 변모된 지정 고대 기념물로서, 산업 유산이 어떻게 현대 도시 생활에 지속 가능하게 통합될 수 있는지를 보여준다.",
         "hood": "킹스 크로스",
         "hours": "24/7 (park)",
         "lastEntry": "N/A",
@@ -573,7 +573,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0055": {
         "name": "코벤트 가든 Market",
-        "desc": "코벤트 가든 Market 병합한다 two centuries of London's architectural and social history—이니고 존스's elegant 17th-century piazza (1630s) with its Italianate arcaded walkways, and Charles Fowler's refined 빅토리아 market hall (1830) featuring cast-iron columns, glazed roof, and symmetrical arcading. The Grade I complex 나타낸다 the evolution of market design from elegant civic space to purposeful commerce, with Fowler's glass-and-iron pavilion demonstrating 빅토리아 technical sophistication and aesthetic refinement. Now a vibrant cultural, retail, and entertainment hub bustling with street performers, artisan vendors, and restaurants, it 남아있다 one of London's most beloved and architecturally significant public spaces, where Georgian elegance meets 빅토리아 practicality.",
+        "desc": "코벤트 가든 마켓은 런던의 2세기에 걸친 건축과 사회 역사를 병합한다—이니고 존스의 우아한 17세기 광장(1630년대)으로 이탈리안 아케이드 보행로를 갖춘 것과, 찰스 파울러의 정제된 빅토리아 시대 시장 홀(1830년)로 주철 기둥, 유리 지붕, 대칭적 아케이딩을 특징으로 한다. 1급 지정 복합건축물은 시장 설계의 진화를 우아한 시민 공간에서 실질적 상업으로 나타내며, 파울러의 유리와 철 파빌리온은 빅토리아 시대의 기술적 정교함과 미적 정제함을 보여준다. 현재 거리 공연자, 장인 상인, 레스토랑으로 분주한 활기찬 문화, 소매, 오락 허브로, 조지 왕조 우아함이 빅토리아 시대 실용성과 만나는 런던의 가장 사랑받는 그리고 건축학적으로 중요한 공공 공간 중 하나로 남아있다.",
         "hood": "코벤트 가든",
         "hours": "Market: Mon-Sun 10am-6pm (hours vary); restaurants/cafes extended",
         "lastEntry": "Closing time",
@@ -584,7 +584,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0056": {
         "name": "왕립오페라극장",
-        "desc": "The 왕립오페라극장, 설계된 by E.M. Barry in 1858, 전형화한다 빅토리아 grand theatre architecture with its rusticated stone 파사드, ornamental portico, and interior spaces of sumptuous gilt, plush velvet, and painted ceilings that evoke 19th-century theatrical opulence. The building's five-tiered auditorium, intimate box seating arrangement, and technical innovations establish it as a masterpiece of performance space design. The dramatic contemporary addition of the Floral Hall—a glass-roofed public foyer by Dixon Jones (1999)—제공한다 visual connection to the adjacent 코벤트 가든 Market while meeting modern accessibility and operational requirements. 1급 지정 건축물, it 남아있다 Britain's principal opera venue and an architectural beacon of cultural refinement.",
+        "desc": "로열 오페라 하우스는 1858년 E.M. 배리가 설계하여 식각된 석재 파사드, 장식적 포르티코, 그리고 19세기 극장의 호화로움을 불러일으키는 금박, 플러시 벨벳, 칠한 천장의 내부 공간을 갖춘 빅토리아 시대 웅장한 극장 건축을 대표한다. 5층 객석, 친밀한 박스 좌석 배치, 기술적 혁신을 갖춘 건물의 객석은 공연 공간 설계의 걸작을 확립한다. 딕슨 존스의 플로럴 홀(1999년)의 극적인 현대적 첨가—유리 지붕 공개 로비—는 인접한 코벤트 가든 마켓으로의 시각적 연결을 제공하면서 현대적 접근성과 운영 요구를 충족시킨다. 1급 지정으로, 영국의 주요 오페라 극장과 문화적 정제함의 건축학적 등대로 남아있다.",
         "hood": "코벤트 가든",
         "hours": "Box office Mon-Sat 10am-8pm; performances evenings and matinees",
         "lastEntry": "Performance-dependent",
@@ -595,7 +595,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0057": {
         "name": "London Coliseum",
-        "desc": "The London Coliseum, 설계된 by celebrated theatre architect Frank Matcham in 1904, 서 있다 as the largest theatre in London's West End and a masterpiece of 에드워드 시대 바로크 exuberance. The building's ornate Portland stone 파사드 특징이다 elaborate sculptural detailing, arched window openings, and a crowning dome visible throughout the West End streetscape. The interior dazzles with gilded plasterwork, ornamental panels, and a magnificent auditorium 설계된 for optimal sightlines and acoustics, embodying Matcham's genius for creating theatrical spectacle. 2급 우등 지정 건축물 and meticulously restored, it hosts major opera, dance, and musical productions, remaining one of London's most beloved and architecturally distinguished performance venues.",
+        "desc": "런던 콜로세움은 유명한 극장 건축가 프랭크 매친이 1904년 설계하여 런던 웨스트엔드의 가장 큰 극장으로 에드워드 시대 바로크 찬란함의 걸작으로 선다. 포틀랜드 석재 파사드는 정교한 조각 세부, 호 모양의 창 개구부, 웨스트엔드 거리풍경 전역에서 보이는 왕관 돔을 특징으로 한다. 내부는 금칠된 석고 세공, 장식적 패널, 그리고 최적의 시선 및 음향을 위해 설계된 웅장한 객석으로 눈부시며, 매친의 극장적 광경 창조의 재능을 구현한다. 2급* 지정으로 세심하게 복원되어, 주요 오페라, 무용, 뮤지컬 공연을 개최하며, 런던의 가장 사랑받는 그리고 건축학적으로 구별되는 공연 장소 중 하나로 남아있다.",
         "hood": "Charing Cross / West End",
         "hours": "Box office Mon-Sat 10am-8pm; performances vary",
         "lastEntry": "Performance-dependent",
@@ -606,7 +606,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0058": {
         "name": "Savoy Theatre",
-        "desc": "The Savoy Theatre, 설계된 by C.J. Phipps in 1881, 나타낸다 a pivotal moment in theatrical innovation as the first public building in the world to be lit by electricity, revolutionizing stage lighting and audience experience. The 빅토리아 exterior, while refined, conceals one of London's most spectacular 아르 데코 interiors, re설계된 by Basil Ionides in 1929 with geometric patterns, chrome detailing, and lavish tilework that epitomizes the Streamline Moderne aesthetic. The theatre's association with Gilbert and Sullivan operettas cemented its cultural significance, while its technological innovations established it as a model for theatrical modernity. 2급 우등 지정 건축물, it continues to host prestigious productions while celebrating London's theatrical heritage.",
+        "desc": "사보이 극장은 1881년 C.J. 피프스가 설계하여 세계 최초의 공개 건물로 전기로 점등되어 무대 조명과 관객 경험을 혁명화한 극장적 혁신의 중요한 순간을 대표한다. 빅토리아 시대 외관은 정제되어 있지만, 1929년 바질 이오니디스가 재설계한 런던의 가장 장관인 아르데코 내부 중 하나를 숨기며, 기하학적 패턴, 크롬 세부, 스트림라인 모더니즘 미학을 구현하는 호화로운 타일 작업으로 이루어져 있다. 극장의 길버트와 설리번 오페레타와의 연관은 문화적 중요성을 확립했으며, 기술적 혁신은 극장적 모더니티의 모델로서의 위치를 확립했다. 2급* 지정으로, 런던의 극장 유산을 기념하면서 명망 있는 공연을 계속 개최한다.",
         "hood": "스트랜드 / 웨스트민스터",
         "hours": "Box office Mon-Sat 10am-8pm; performances vary",
         "lastEntry": "Performance-dependent",
@@ -617,7 +617,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0059": {
         "name": "Daily Express Building",
-        "desc": "The Daily Express Building (1932) is a tour de force of 아르 데코 and Streamline Moderne design, featuring a striking 파사드 of polished black glass and chromium that gleams with 현대주의 precision along historic 플릿 스트리트. Designed by Ellis Clarke, Atkinson, and engineer Owen Williams, the building's streamlined horizontal banding, glass-block windows, and gleaming surfaces create an almost futuristic aesthetic that celebrated newspaper technology and journalistic modernity. The building's dramatic corner entrance and curvaceous ground floor windows capture the optimistic spirit of 1930s modernism applied to commercial purpose. 2급 우등 지정 건축물, it 남아있다 one of London's finest examples of early 20th-century commercial modernism and a beloved 아르 데코 icon.",
+        "desc": "데일리 익스프레스 빌딩(1932년)은 아르데코 및 스트림라인 모더니즘 설계의 걸작으로, 역사적인 플릿 스트릿을 따라 모더니스트 정밀함으로 빛나는 광택 검은 유리와 크로뮴의 눈에 띄는 파사드를 특징으로 한다. 엘리스 클라크, 앳킨슨, 엔지니어 오웬 윌리엄스가 설계한 건물의 스트림라인 수평 띠, 유리 블록 창, 빛나는 표면은 거의 미래적인 미학을 창조하여 신문 기술과 언론 모더니티를 축하했다. 건물의 극적인 모서리 입구와 곡선형 지상층 창은 상업적 목적에 적용된 1930년대 모더니즘의 낙관적 정신을 포착한다. 2급* 지정으로, 20세기 초 상업적 모더니즘의 런던의 가장 훌륭한 예 중 하나이자 사랑받는 아르데코 아이콘으로 남아있다.",
         "hood": "런던 시티 / 플릿 스트리트",
         "hours": "Exterior viewing only (24/7)",
         "lastEntry": "N/A",
@@ -628,7 +628,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0060": {
         "name": "Isokon Building (Lawn Road Flats)",
-        "desc": "The Isokon Building, 설계된 by 현대주의 visionary Wells Coates in 1934, 서 있다 as one of the world's finest examples of International Style residential architecture and a crucial sanctuary for Bauhaus artists fleeing Nazi Germany. The building's clean lines, horizontal banding, functional design, and ship-like aesthetic—complete with circular porthole windows and sleek balconies—embodies 현대주의 principles applied to communal living. The building housed luminaries including Walter Gropius, Marcel Breuer, and László Moholy-Nagy, establishing it as a nexus of twentieth-century artistic modernism. Now 1급 지정 건축물 and carefully restored, the Isokon 남아있다 an architectural monument to pre-war 현대주의 idealism and a tangible expression of London's cultural cosmopolitanism.",
+        "desc": "모더니스트 비전가 웰스 코츠가 1934년 설계한 아이소콘 빌딩은 국제 양식 주거 건축의 세계 최고 예 중 하나로 선 나치 독일을 탈출하는 바우하우스 예술가들을 위한 중요한 피난처로 선다. 깔끔한 선, 수평 띠, 기능적 설계, 원형 포트홀 창과 매끈한 발코니를 갖춘 배 같은 미학을 갖춘 건물은 집단 거주에 적용된 모더니스트 원칙을 구현한다. 건물은 발터 그로피우스, 마르셀 브로이어, 라슬로 모홀리-나기를 포함한 명인들을 수용하여 20세기 예술적 모더니즘의 중심지를 확립했다. 현재 1급 지정으로 세심하게 복원된 아이소콘은 전전(前戰) 모더니즘 이상주의의 건축학적 기념비이자 런던의 문화적 우주주의의 실질적 표현으로 남아있다.",
         "hood": "햄스테드",
         "hours": "Residents only (exterior viewing possible)",
         "lastEntry": "N/A",
@@ -639,7 +639,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0061": {
         "name": "하이포인트 I",
-        "desc": "하이포인트 I, 설계된 by Russian-born 현대주의 베르톨트 루베트킨 and his Tecton group in 1935, is widely recognized as one of the finest 현대주의 residential buildings in the world and a masterwork of 구성주의-influenced design applied to speculative housing. The building's elegant geometry, clean white 파사드s, rational floor plans, and horizontal ribbon windows demonstrate 현대주의 principles of efficiency and beauty, while its dramatic pilotis and open ground floor maximize public space and visual transparency. The building 있다 approximately 130 units while creating an imposing yet refined silhouette that dominates the 하이게이트 skyline. 1급 지정 건축물 and meticulously preserved, 하이포인트 I 남아있다 an icon of twentieth-century utopian 현대주의 thinking and architectural ambition.",
+        "desc": "러시아 태생 모더니스트 베르톨드 루베트킨과 그의 텍톤 그룹이 1935년 설계한 하이포인트 I는 널리 세계에서 가장 훌륭한 모더니스트 주거 건물 중 하나로 인정되며 투기적 주택에 적용된 구성주의적 영향의 걸작이다. 건물의 우아한 기하학, 깨끗한 흰 파사드, 합리적 층 평면, 수평 리본 창은 효율성과 미의 모더니스트 원칙을 보여주며, 극적인 필로티와 개방된 지상층은 공공 공간과 시각적 투명성을 극대화한다. 건물은 약 130개 단위를 수용하면서 하이게이트 스카이라인을 지배하는 인상적이면서 정제된 실루엣을 창조한다. 1급 지정으로 세심하게 보존된 하이포인트 I는 20세기 유토피아 모더니스트 사상과 건축학적 야심의 아이콘으로 남아있다.",
         "hood": "하이게이트",
         "hours": "Exterior viewing (24/7)",
         "lastEntry": "N/A",
@@ -650,7 +650,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0062": {
         "name": "상원 건물",
-        "desc": "상원 건물, 설계된 by Charles Holden in 1937, 나타낸다 London's boldest venture into American-style 아르 데코 skyscraper design, rising 210 feet as a monument to learning and institutional prestige. The building's distinctive setback 파사드, limestone cladding, and soaring tower create an imposing silhouette visible across 블룸즈베리 and beyond, while the interior 특징이다 refined 아르 데코 detail and grand ceremonial spaces. The building's stark 현대주의 symbolism—its fortress-like presence and totalitarian aesthetic—famously inspired George Orwell's dystopian novel *Nineteen Eighty-Four*, where it became the model for the terrifying Ministry of Truth. 2급 우등 지정 건축물, it 남아있다 London's most significant 아르 데코 institutional building and a masterpiece of interwar architectural ambition.",
+        "desc": "찰스 홀든이 1937년 설계한 세네이트 하우스는 학문과 기관적 위신의 기념비로 210피트 높이로 솟아있는 런던의 미국식 아르데코 고층 건물 설계로의 가장 대담한 모험을 나타낸다. 건물의 특이한 후퇴식 파사드, 석회석 클래딩, 솟아오르는 타워는 블룸즈베리와 그 너머에서 보이는 인상적 실루엣을 창조하며, 내부는 정제된 아르데코 세부와 웅장한 의식 공간을 특징으로 한다. 건물의 억제된 모더니즘 상징성—그 요새 같은 존재와 전체주의적 미학—은 유명하게 조지 오웰의 디스토피아 소설 '1984년'에 영감을 주었으며, 공포스러운 진리부(Ministry of Truth)의 모델이 되었다. 2급* 지정으로, 런던의 가장 중요한 아르데코 기관 건물이자 전간기 건축학적 야심의 걸작으로 남아있다.",
         "hood": "블룸즈베리",
         "hours": "Limited public access; check University of London events calendar",
         "lastEntry": "N/A",
@@ -661,7 +661,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0063": {
         "name": "서머셋 하우스",
-        "desc": "Designed by 윌리엄 챔버스 and constructed between 1776-1796, 서머셋 하우스 서 있다 as a masterpiece of English 신고전주의 architecture along the 템즈. The building 특징이다 a striking rusticated 파사드 with a grand courtyard lined with arcaded Corinthian columns, originally serving as government offices and royal residences. Today it 있다 the Courtauld Gallery, cultural exhibitions, and fountains that animate the courtyard. 1급 지정 건축물, it 남아있다 one of London's most important 18th-century civic structures and a focal point for cultural events.",
+        "desc": "윌리엄 체임버스가 설계하고 1776-1796년 사이에 건설된 서머셋 하우스는 템스강을 따라 영국 신고전주의 건축의 걸작으로 선다. 건물은 식각된 파사드와 원래 정부 사무소와 왕실 거주지로 봉사한 아케이드 코린스식 기둥이 늘어선 웅장한 중정을 특징으로 한다. 현재 코르토 갤러리, 문화 전시, 중정을 생동감 있게 하는 분수를 수용한다. 1급 지정으로, 런던의 가장 중요한 18세기 시민 구조 중 하나이자 문화 행사의 중심지로 남아있다.",
         "hood": "코벤트 가든 / 스트랜드",
         "hours": "10:00–18:00 (closed Mondays)",
         "lastEntry": "17:30",
@@ -672,7 +672,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0064": {
         "name": "왕립사법부",
-        "desc": "Completed in 1882, the 왕립사법부 나타낸다 the zenith of 빅토리아 고딕 리바이벌 design by architect 조지 에드먼드 스트리트, featuring ornate red brick and Portland stone 파사드s with pointed arches, turrets, and intricate stonework. The building is the largest non-ecclesiastical Gothic structure in the world, containing 88 courts arranged over 3.5 miles of corridors. Its Great Hall, with a vaulted ceiling and marble floor, 전형화한다 빅토리아 ambition and craftsmanship. 1급 지정 건축물 and a working courthouse, it 남아있다 one of London's most visually dramatic 빅토리아 buildings.",
+        "desc": "1882년 완성된 로열 코트 오브 저스티스는 건축가 조지 에드먼드 스트릿의 빅토리아 고딕 리바이벌 설계의 정점을 나타내며, 뾰족한 아치, 터렛, 정교한 석조 세공을 갖춘 장식적인 빨간 벽돌과 포틀랜드 석재 파사드를 특징으로 한다. 건물은 88개 법정을 3.5마일의 복도에 배치한 세계 최대 비종교적 고딕 구조이다. 그레이트 홀은 볼트 천장과 대리석 바닥으로 빅토리아 시대의 야심과 공예를 구현한다. 1급 지정으로 작동하는 법원으로서, 런던의 가장 시각적으로 드라마틱한 빅토리아 시대 건물 중 하나로 남아있다.",
         "hood": "스트랜드 / City",
         "hours": "09:00–16:00 (Mon–Fri, public areas only)",
         "lastEntry": "15:30",
@@ -683,7 +683,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0065": {
         "name": "존 소안 박물관",
-        "desc": "Sir John Soane's own residence and museum (1792–1837), this 1급 지정 건축물 townhouse 전시하다 the architect's unorthodox design genius with ingenious spatial manipulation, hidden skylights, and an eclectic collection of antiquities and art. The building compresses a Roman sarcophagus, Greek marbles, 르네상스 paintings, and Egyptian artifacts into just three narrow town있다, creating an immersive cabinet of wonders. Soane's use of mirrors, recessed walls, and cantilevered structures anticipates 현대주의 spatial innovation by a century. A UNESCO-listed collection that 남아있다 largely unchanged since his death.",
+        "desc": "존 소언 경의 자신의 거주지이자 박물관(1792–1837)인 이 1급 지정 타운하우스는 건축가의 비정통적 설계 천재를 교활한 공간 조작, 숨겨진 천창, 골동품과 미술품의 절충적 수집으로 선보인다. 건물은 로마 석관, 그리스 대리석상, 르네상스 회화, 이집트 유물을 단 3개의 좁은 타운하우스에 압축하여 경이로움의 몰입형 캐비닛을 창조한다. 소언의 거울, 오목한 벽, 캔틸레버 구조 사용은 1세기 모더니스트 공간 혁신을 선행한다. 그의 사후 대부분 변하지 않은 채로 남은 유네스코 지정 수집품이다.",
         "hood": "블룸즈베리 / Lincoln's Inn",
         "hours": "10:00–17:00 (Wed–Sun)",
         "lastEntry": "16:30",
@@ -694,7 +694,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0066": {
         "name": "더 모뉘먼트",
-        "desc": "Designed by Sir 크리스토퍼 렌 and Robert Hooke, the 모뉴먼트 (1671–1677) is a 62-meter Doric column of Portland stone commemorating the Great Fire of London (1666). Its height precisely equals its distance from the bakery on Pudding Lane where the fire began, creating an elegant geometric relationship to the event. The column 특징이다 a balcony 56 meters up offering panoramic City views, and a blazing urn finial symbolizes the fire's destruction and renewal. 1급 지정 건축물 and a Scheduled 모뉴먼트, it 남아있다 the city's most striking 바로크 monument and an icon of post-fire London reconstruction.",
+        "desc": "크리스토퍼 렌 경과 로버트 훅이 설계한 기념비(1671–1677)는 런던 대화재(1666)를 기념하는 포틀랜드 석재의 62미터 도릭식 기둥이다. 그 높이는 화재가 시작된 푸딩 레인의 베이커리로부터의 거리와 정확히 같아 사건으로 대한 우아한 기하학적 관계를 창조한다. 기둥은 파노라마 시티 뷰를 제공하는 56미터 높이의 발코니를 특징으로 하며, 불타는 항아리 피니얼은 화재의 파괴와 재생을 상징한다. 1급 지정이자 예정된 기념물로, 런던의 화재 이후 재건의 가장 눈에 띄는 바로크 기념비이자 아이콘으로 남아있다.",
         "hood": "모뉴먼트 / 런던 시티",
         "hours": "09:30–17:30 (daily)",
         "lastEntry": "17:00",
@@ -705,7 +705,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0067": {
         "name": "로열 하스피탈 첼시",
-        "desc": "Founded by Charles II and 설계된 by Sir 크리스토퍼 렌, the 로열 하스피탈 첼시 (완성된 1692) is an outstanding example of English 바로크 institutional architecture, housing retired military personnel (In-Pensioners). The complex 특징이다 a grand central courtyard, chapel with barrel-vault ceiling, elegant columned colonnades, and symmetrical residential blocks arranged with mathematical precision. 1급 지정 건축물, it 전형화한다 Wren's humanistic approach to institutional design, blending grandeur with domestic comfort for its residents.",
+        "desc": "찰스 2세가 설립하고 크리스토퍼 렌 경이 설계한 로열 호스피탈 첼시(1692년 완성)는 은퇴한 군인(인-펜셔너)을 수용하는 영국 바로크 기관 건축의 뛰어난 예이다. 복합건축물은 웅장한 중앙 중정, 배럴 볼트 천장의 예배당, 우아한 기둥 회랑, 수학적 정밀함으로 배치된 대칭적 주거 블록을 특징으로 한다. 1급 지정으로, 렌의 인도주의적 기관 설계 접근, 거주자를 위한 웅장함과 가정적 편안함 혼합을 구현한다.",
         "hood": "Chelsea",
         "hours": "10:00–12:00, 14:00–16:00 (Mon–Sun, grounds and museum)",
         "lastEntry": "15:30",
@@ -716,7 +716,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0068": {
         "name": "스펜서 하우스",
-        "desc": "스펜서 하우스 (1756–1766), 설계된 by 존 바디 and 제임스 스튜어트 for the Spencer family, is widely recognized as the finest surviving 18th-century London townhouse. Its gilded interiors feature exquisite plasterwork, painted ceilings, marble fireplaces, and furniture of exceptional craftsmanship across nine principal rooms. The house 전형화한다 팔라디오식 restraint externally and rococo opulence internally, with each room representing a distinct decorative character. 1급 지정 건축물 and meticulously restored, it 제공한다 an unparalleled glimpse into aristocratic Georgian domestic life.",
+        "desc": "존 바디와 제임스 스튜어트가 스펜서 가족을 위해 1756–1766년 설계한 스펜서 하우스는 널리 남아있는 가장 훌륭한 18세기 런던 타운하우스로 인정된다. 금칠된 내부는 9개 주요 방에 걸쳐 뛰어난 석고 세공, 칠한 천장, 대리석 벽로, 탁월한 공예의 가구를 특징으로 한다. 집은 외부적으로 팔라디오 절제와 내부적으로 로코코 호화로움을 구현하며, 각 방은 뚜렷한 장식적 성격을 나타낸다. 1급 지정으로 세심하게 복원된, 귀족 조지 왕조 가정 생활로의 비교할 수 없는 엿보기를 제공한다.",
         "hood": "세인트 제임스",
         "hours": "10:15–17:45 (Tues–Sun, by advance booking)",
         "lastEntry": "16:45",
@@ -727,7 +727,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0069": {
         "name": "2 윌로 로드",
-        "desc": "Designed and built by Hungarian-British architect 에르노 골드핑거 in 1939 for his own residence, 2 윌로 로드 is a pioneering 현대주의 terraced house that introduced Bauhaus and International Style principles to residential London. The home 특징이다 stark geometric forms, continuous ribbon windows, flat roof, exposed concrete frame, and open-plan interiors—radical for 1930s 햄스테드. Now owned by the 국민신탁 and 1급 지정 건축물, it contains Goldfinger's original furniture and artworks, serving as both dwelling and artistic manifesto.",
+        "desc": "헝가리계 영국 건축가 에르노 골드핑거가 1939년 자신의 거주지를 위해 설계하고 건설한 2 윌로우 로드는 바우하우스와 국제 양식 원칙을 주거 런던에 소개한 개척적 모더니스트 테라스 하우스이다. 집은 억제된 기하학적 형태, 연속 리본 창, 평지붕, 노출된 콘크리트 프레임, 개방형 인테리어를 특징으로 하며 1930년대 햄프스테드에는 급진적이다. 현재 내셔널 트러스트 소유이자 1급 지정으로, 골드핑거의 원본 가구와 예술 작품을 포함하며, 거주지이자 예술적 선언문으로 봉사한다.",
         "hood": "햄스테드",
         "hours": "11:00–17:00 (Tues–Sun, Mar–Oct; weekends only Nov–Feb)",
         "lastEntry": "16:30",
@@ -738,7 +738,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0070": {
         "name": "템플 교회",
-        "desc": "템플 교회 uniquely 결합한다 a 1185 round nave (one of only four in England, built by the Knights Templar) with a Gothic chancel added in 1240. The circular 로마네스크 nave derives from the Church of the Holy Sepulchre in Jerusalem, reflecting Templar pilgrimage traditions. The church 특징이다 ornate stone carved capitals, clustered columns, and marble effigies of Templar knights within. 1급 지정 건축물, a Scheduled 모뉴먼트, and still functioning as the spiritual home of the Inner and Middle 템플s legal societies, it is London's most architecturally distinctive medieval church.",
+        "desc": "템플 처치는 유일하게 1185년 원형 신전당(잉글랜드에 4개만 있는 중 하나, 기사 템플로 건설)과 1240년 추가된 고딕 성가대실을 결합한다. 원형 로마네스크 신전당은 예루살렘의 성 무덤 교회에서 파생되어 성지 순례 전통을 반영한다. 교회는 정교한 석조 조각 수도, 다발 기둥, 내부의 템플로 기사 대리석상을 특징으로 한다. 1급 지정이자 예정된 기념물로 여전히 내부 및 중간 템플 법률 협회의 영적 본거지로 기능하며, 런던의 가장 건축학적으로 특이한 중세 교회이다.",
         "hood": "템플 / City",
         "hours": "10:00–12:00, 14:00–16:00 (Wed–Sat)",
         "lastEntry": "15:45",
@@ -749,7 +749,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0071": {
         "name": "로이즈 1928 건물",
-        "desc": "Designed by 에드윈 쿠퍼 and 완성된 in 1928, the former 로이즈 Building is a masterpiece of 신고전주의 and Beaux-Arts design featuring a majestic 23-story 파사드 of Portland stone with coupled Corinthian columns, ornamental frieze, and classical moldings. Built for insurance market 로이즈 (now relocated to the 1986 high-tech building), it 전형화한다 the grandeur and confidence of 1920s Imperial commerce. The building's ornamental detail, symmetry, and refined proportions embody 에드워드 시대 Classicism. 2급 우등 지정 건축물, it recently re열렸다 as a luxury hotel while preserving its historic interiors.",
+        "desc": "에드윈 쿠퍼가 설계하고 1928년 완성된 전 로이즈 빌딩은 결합된 코린스식 기둥, 장식적 프리즈, 고전적 몰딩을 갖춘 포틀랜드 석재의 23층 파사드의 웅장함을 특징으로 하는 신고전주의와 보자르 설계의 걸작이다. 보험 시장 로이즈를 위해 건설(현재 1986년 첨단 건물로 이전), 1920년대 제국 상업의 웅장함과 자신감을 구현한다. 건물의 장식적 세부, 대칭, 정제된 비율은 에드워드 시대 고전주의를 구현한다. 2급* 지정으로 역사적 내부를 보존하면서 최근 럭셔리 호텔로 다시 문을 열었다.",
         "hood": "런던 시티",
         "hours": "Hotel lobby and dining publicly accessible",
         "lastEntry": "—",
@@ -760,7 +760,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0072": {
         "name": "바비칸 센터",
-        "desc": "Completed in 1982 by architects 챔벌린, 파웰 그리고 본, the 바비칸 센터 is Europe's largest arts and cultural centre and one of the world's finest 브루탈리즘 complexes. Rising 42 meters above ground, the fortress-like structure of exposed concrete, geometric forms, and fortress-like silhouette 통합한다 concert halls, theatres, galleries, and residential towers within a unified megastructure. The plaza 특징이다 elevated walkways, water 특징이다, and landscaped gardens creating a self-contained utopian urban village. 2급 지정 건축물, it revolutionized postwar cultural infrastructure and 남아있다 a beacon of ambitious public architecture.",
+        "desc": "1982년 건축가 챔벌린, 파월, 본이 완성한 바비칸 센터는 유럽의 가장 큰 미술 및 문화 센터이자 세계에서 가장 훌륭한 브루탈리즘 복합건축물 중 하나이다. 지상 42미터 높이로 솟아있는 노출된 콘크리트, 기하학적 형태, 요새 같은 실루엣의 요새 같은 구조는 통합 메가구조 내에서 콘서트 홀, 극장, 갤러리, 주거 타워를 통합한다. 광장은 상승된 보행로, 수경 시설, 조경 정원으로 자립적 유토피아 도시 마을을 창조한다. 2급 지정으로, 전후 문화 기반시설을 혁명화했으며 야심 찬 공공 건축의 등대로 남아있다.",
         "hood": "바비칸 / 런던 시티",
         "hours": "09:00–23:00 (daily, facility-dependent)",
         "lastEntry": "varies",
@@ -771,7 +771,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0073": {
         "name": "국립극장",
-        "desc": "Designed by renowned British architect 데니스 라스던 and 완성된 in 1976, the 국립극장 is a 브루탈리즘 masterpiece defining the 사우스 뱅크 cultural landscape. Its massive interlocking concrete platforms, stepped 파사드s, and layered terraces create a bold sculptural presence that frames the 템즈. The three auditoria (Olivier, Lyttelton, Dorfman) are ingeniously nested within the structure, with open lobbies and public spaces fostering democratic access to culture. 2급 우등 지정 건축물, it embodies postwar idealism and 남아있다 a triumph of functional 현대주의 architecture and theatrical innovation.",
+        "desc": "저명한 영국 건축가 데니스 래스던이 설계하고 1976년에 준공된 국립극장은 사우스뱅크의 문화 경관을 정의하는 브루탈리즘 걸작이다. 거대한 상호 잠금식 콘크리트 플랫폼, 계단식 파사드, 다층 테라스는 테임즈 강을 액자화하는 대담한 조형적 존재감을 만든다. 세 개의 극장 홀(올리비에, 릴텔턴, 도르프만)은 구조 내에 영리하게 중첩되어 있으며, 개방형 로비와 공공 공간은 문화에 대한 민주적 접근을 촉진한다. 2급* 지정 건축물로서, 전후 이상주의를 구현하고 기능적 현대주의 건축과 연극 혁신의 승리로 남아있다.",
         "hood": "사우스 뱅크 / 워털루",
         "hours": "10:00–23:00 (daily, depending on performances)",
         "lastEntry": "varies",
@@ -782,7 +782,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0074": {
         "name": "왕립 페스티벌 홀",
-        "desc": "Designed by LCC Architects 로버트 매튜 and 레슬리 마틴, the 왕립 페스티벌 홀 (1951) 서 있다 as the centrepiece of the Festival of Britain and a pioneering 현대주의 concert hall. Its clean horizontal lines, expansive glazing, and open public foyer epitomize the optimistic aesthetic of British postwar reconstruction and social renewal. The auditorium interior 특징이다 elegant wooden detailing and exceptional acoustics, while the building's transparent, people-centred design democratizes access to concert culture. 1급 지정 건축물, it set the template for postwar arts buildings and 남아있다 one of Europe's most-visited concert venues.",
+        "desc": "LCC 건축가 로버트 매튜와 레슬리 마틴이 설계한 로열 페스티벌 홀(1951)은 브리튼 축제의 중심이자 선구적인 현대주의 콘서트홀로 서 있다. 깔끔한 수평선, 광대한 유리 채광, 개방형 공중 로비는 전후 영국 재건과 사회 갱신의 낙관적 미학을 구현한다. 극장 내부는 우아한 목재 디테일과 탁월한 음향을 특징으로 하며, 건물의 투명하고 사람 중심적인 설계는 콘서트 문화에 대한 접근을 민주화한다. 1급 지정 건축물로서, 전후 예술 건물의 템플릿을 설정했으며 유럽에서 가장 많이 방문하는 콘서트홀 중 하나로 남아있다.",
         "hood": "사우스 뱅크 / 워털루",
         "hours": "10:00–22:00 (daily)",
         "lastEntry": "varies",
@@ -793,7 +793,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0075": {
         "name": "테이트 모던",
-        "desc": "테이트 모던 나타낸다 one of the world's greatest 적응적 재사용 projects, transforming 자일스 길버트 스콧's 1947 뱅크사이드 Power Station (a brick industrial icon) into a world-class contemporary art museum. Swiss architects 헤르조그 앤드 드 뫼롱's 2000 conversion inserted a striking top-lit turbine hall and transformed the industrial interiors into flexible gallery spaces while preserving the building's brutalist character. The 2016 Switch House extension by 헤르조그 앤드 드 뫼롱 adds a dramatic pyramidal silhouette and addresses the 템즈. 2급 우등 지정 건축물, 테이트 모던 is Britain's most-visited museum and a paradigm of 21st-century cultural regeneration.",
+        "desc": "테이트 모던은 세계 최고의 적응 재사용 프로젝트 중 하나로, 자일스 길버트 스콧의 1947년 뱅크사이드 화력 발전소(벽돌 산업 건축의 아이콘)를 세계 수준의 현대 미술관으로 변환했다. 스위스 건축가 헤르조그 & 더 뫼론의 2000년 개조는 인상적인 상부 채광 터빈홀을 삽입하고 산업 인테리어를 유연한 갤러리 공간으로 변환하면서 건물의 브루탈리즘 특성을 보존했다. 2016년 헤르조그 & 더 뫼론의 스위치 하우스 확장은 극적인 피라미드 실루엣을 추가하고 테임즈를 향한다. 2급* 지정 건축물로서, 테이트 모던은 영국에서 가장 많이 방문하는 박물관이며 21세기 문화 재생의 패러다임이다.",
         "hood": "뱅크사이드 / 사우스 뱅크",
         "hours": "10:00–18:00 (daily; Fri–Sat until 22:00)",
         "lastEntry": "17:30",
@@ -804,7 +804,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0076": {
         "name": "트렐릭 타워",
-        "desc": "Completed in 1972 and 설계된 by 에르노 골드핑거, 트렐릭 타워 is a 31-story 현대주의 residential tower and an iconic British 브루탈리즘 masterpiece. Its distinctive sculptural form 특징이다 a striking external service spine running the full height like a backbone, exposed concrete framework, and soaring glass-fronted elevation creating a bold vertical composition. The tower 있다 217 flats and pioneered innovative housing models combining high-density living with communal facilities. 2급 우등 지정 건축물 and a Pevsner highlight, it epitomizes ambitious social housing design and has become a cultural symbol of postwar utopian architecture.",
+        "desc": "1972년에 준공되고 에르노 골드핑거가 설계한 트렐릭 타워는 31층 현대주의 주거 타워이자 상징적인 영국 브루탈리즘 걸작이다. 독특한 조형적 형태는 척추뼈처럼 전체 높이를 따라 달리는 눈에 띄는 외부 서비스 척추, 노출 콘크리트 구조, 솟아오르는 유리 전면의 대담한 수직 구성을 특징으로 한다. 타워는 217개 주택을 수용하며 고밀도 거주와 공동 시설을 결합한 혁신적인 주택 모델의 선구자였다. 2급* 지정 건축물이자 페브스너 하이라이트로서, 야심 찬 사회 주택 설계를 구현하며 전후 유토피아 건축의 문화적 상징이 되었다.",
         "hood": "북 켄싱턴 / 노팅 힐",
         "hours": "—",
         "lastEntry": "—",
@@ -815,7 +815,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0077": {
         "name": "알렉산드라 로드 부동산",
-        "desc": "Completed in 1978, the 알렉산드라 로드 부동산 by 니브 브라운 and Camden Council Architects 나타낸다 one of the most ambitious and successful social housing schemes in British architectural history. Its dramatic sweeping brick 파사드 runs for 450 meters (1,500 feet), creating a unified sculptural composition of interlocking residential units, courtyards, and communal spaces that frame human activity and social interaction. The estate 통합한다 parking underground, pre봉사하다 generous green space, and 제공한다 520 family homes with exceptional spatial quality and dignity. 2급 우등 지정 건축물, it 증명하다 that collective housing need not sacrifice architectural excellence or community.",
+        "desc": "1978년에 준공된 알렉산드라 로드 에스테이트는 니브 브라운과 캠든 카운실 건축가들이 설계한 영국 건축 역사상 가장 야심 찬 성공적인 사회 주택 계획 중 하나를 나타낸다. 극적인 휘어진 벽돌 파사드는 450미터(1,500피트)를 따라 달리며, 상호 잠금식 주거 단위, 안뜰, 인적 활동과 사회적 상호작용을 액자화하는 공동 공간의 통일된 조형적 구성을 만든다. 에스테이트는 지하에 주차장을 통합하고, 넉넉한 녹지를 보존하며, 뛰어난 공간적 질과 존엄성을 갖춘 520개 가족 주택을 제공한다. 2급* 지정 건축물로서, 집단 주택이 건축적 우수성이나 공동체를 희생할 필요가 없음을 보여준다.",
         "hood": "스위스 코티지 / 초크 팜",
         "hours": "—",
         "lastEntry": "—",
@@ -826,7 +826,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0078": {
         "name": "발프론 타워",
-        "desc": "Designed by 에르노 골드핑거 and 완성된 in 1967, 발프론 타워 is a 27-story 브루탈리즘 residential tower in 포플러 and a sculptural masterpiece of 현대주의 social housing. The tower 특징이다 an external service spine (inspired by Kenzo Tange), bold concrete 구조 골조, and interlocking balconies creating dynamic visual rhythm and human-scale domestic 파사드s. Goldfinger famously lived in one of the flats to test livability, demonstrating his commitment to resident wellbeing. 2급 우등 지정 건축물, 발프론 타워 전형화한다 high-현대주의 confidence in collective housing as a transformative urban form.",
+        "desc": "에르노 골드핑거가 설계하고 1967년에 준공된 발프론 타워는 팝라르의 27층 브루탈리즘 주거 타워이자 현대주의 사회 주택의 조형적 걸작이다. 타워는 외부 서비스 척추(겐조 탕게의 영감을 받음), 대담한 콘크리트 구조 골격, 동적 시각적 리듬과 인간 척도의 가정용 파사드를 만드는 상호 잠금식 발코니를 특징으로 한다. 골드핑거는 거주 성능을 테스트하기 위해 한 아파트에 살고 있었으며, 거주자 복지에 대한 그의 헌신을 보여준다. 2급* 지정 건축물로서, 발프론 타워는 집단 주택을 변환적인 도시 형태로서의 고도 현대주의적 신뢰를 예시한다.",
         "hood": "포플러 / 독스 제도",
         "hours": "—",
         "lastEntry": "—",
@@ -837,7 +837,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0079": {
         "name": "디자인 박물관",
-        "desc": "The 디자인 박물관's 2016 conversion by OMA and 존 파우슨 변환한다 the 2급 우등 지정 건축물 영연방 기관 (1962) by RMJM—a pioneering 현대주의 cultural structure with iconic hyperbolic paraboloid roof—into a contemporary design museum. Pawson's refined minimal intervention pre봉사하다 the spatial grandeur and architectural integrity while creating luminous interior galleries that celebrate post-1945 design innovation. The iconic copper-clad roof continues to dominate the 켄싱턴 skyline. A masterclass in 적응적 재사용 respecting 현대주의 heritage, it 봉사하다 as both museum and monument to mid-century optimism.",
+        "desc": "디자인 뮤지엄의 2016년 OMA와 존 팟슨의 개조는 2급* 지정 영연방 연구소(1962)를 현대 디자인 박물관으로 변환하며, 이는 RMJM에 의한 상징적 쌍곡선 포물면 지붕을 가진 선구적인 현대주의 문화 구조이다. 팟슨의 정제된 최소한의 개입은 공간적 장엄함과 건축적 무결성을 보존하면서 1945년 이후 디자인 혁신을 축하하는 밝은 내부 갤러리를 만든다. 상징적인 구리 클래드 지붕은 켄싱턴 스카이라인을 계속 지배한다. 현대주의 유산을 존중하는 적응 재사용의 마스터클래스로서, 박물관과 중기 세기 낙관주의의 기념비로서 기능한다.",
         "hood": "켄싱턴 / 사우스 켄싱턴",
         "hours": "10:00–18:00 (daily)",
         "lastEntry": "17:30",
@@ -848,7 +848,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0080": {
         "name": "서펜타인 갤러리 & 파빌리온 Site",
-        "desc": "The 서펜타인 갤러리 occupies a 2급 지정 건축물 1934 tea pavilion converted into an art space in 1970, celebrating postwar artistic innovation. Since 2000, it has commissioned internationally renowned architects (자하 하디드, 렘 콜하스, 소우 후지모토, Diebedo Francis Kéré) to design annual temporary pavilions—a cultural phenomenon that 변환한다 the gallery's external forecourt into an architectural laboratory. Each summer pavilion becomes a sculptural artwork, social gathering space, and testing ground for speculative design. Combining heritage preservation, contemporary art, and architectural experimentation, the Serpentine 전형화한다 how cultural institutions drive innovation.",
+        "desc": "서펜타인 갤러리는 1970년에 예술 공간으로 개조된 1934년 2급 지정 찻집 파빌리온을 점유하여 전후 예술적 혁신을 기념한다. 2000년 이후, 국제적으로 저명한 건축가(자하 하디드, 렘 콜하스, 소우 후지모토, 디에베도 프랜시스 케레)들에게 연간 임시 파빌리온을 설계하도록 위탁해 왔다. 이는 갤러리의 외부 광장을 건축 실험실로 변환하는 문화 현상이다. 매년 여름 파빌리온은 조형 예술작품, 사회적 집회 공간, 투기적 설계의 실험장이 된다. 유산 보존, 현대 미술, 건축 실험을 결합하면서, 서펜타인은 문화 기관이 혁신을 주도하는 방식을 예시한다.",
         "hood": "켄싱턴 가든 / 사우스 켄싱턴",
         "hours": "10:00–18:00 (daily, seasonal closures)",
         "lastEntry": "17:45",
@@ -859,7 +859,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0081": {
         "name": "이코노미스트 빌딩",
-        "desc": "Designed by 앨리슨과 피터 스미스슨 in 1964, the 이코노미스트 빌딩 서 있다 as a defining New Brutalism landmark in 세인트 제임스. Three interconnected volumes clad in Portland stone and board-marked concrete form a distinctive piazza, demonstrating the Smithsons' principles of hierarchical composition and urban integration. The Grade II* cluster 전형화한다 late 20th-century British Modernism and 남아있다 one of London's most architecturally significant post-war ensembles.",
+        "desc": "앨리슨과 피터 스미스슨이 1964년 설계한 이코노미스트 빌딩은 세인트 제임스의 정의로운 뉴 브루탈리즘 랜드마크로 서 있다. 포틀랜드 석재와 판자 모양 콘크리트로 클래드된 세 개의 상호 연결된 건축 단위는 스미스슨의 계층적 구성과 도시 통합 원칙을 보여주는 독특한 피아차를 형성한다. 2급* 지정 클러스터는 20세기 후반 영국 현대주의를 예시하며 런던에서 가장 건축학적으로 중요한 전후 앙상블 중 하나로 남아있다.",
         "hood": "세인트 제임스",
         "hours": "exterior only",
         "lastEntry": "always",
@@ -870,7 +870,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0082": {
         "name": "왕립미술원",
-        "desc": "벌링턴 하우스, originally built in 1664 and home to the Royal Academy since 1869, underwent a transformative renovation by 데이비드 칩퍼필드 건축 완성된 in 2018. The project masterfully connected the historic 벌링턴 하우스 with Burlington Gardens through a contemporary intervention that respects the Grade I heritage fabric while introducing modern exhibition and teaching spaces. Chipperfield's sensitive design balance between preservation and innovation has made the RA a model for 21st-century museum expansion.",
+        "desc": "원래 1664년에 지어지고 1869년부터 왕립 예술 학원의 본거지인 벌링턴 하우스는 2018년에 준공된 데이비드 칩퍼필드 건축가의 혁신적 개조를 거쳤다. 이 프로젝트는 1급 유산 구조를 존중하면서 현대 전시 및 교육 공간을 도입하는 현대 개입을 통해 역사적 벌링턴 하우스를 벌링턴 가든과 영리하게 연결했다. 칩퍼필드의 보존과 혁신 사이의 민감한 설계 균형은 RA를 21세기 박물관 확장의 모델로 만들었다.",
         "hood": "메이페어",
         "hours": "10am-6pm (Tue-Sun), until 10pm Fridays",
         "lastEntry": "30 mins before close",
@@ -881,7 +881,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0083": {
         "name": "셀프리지스 듀크 스트리트",
-        "desc": "대니얼 번햄's iconic 1909 에드워드 시대 바로크 department store was sensitively augmented by 데이비드 칩퍼필드 건축 in 2003 with a translucent glass 파사드 addition on 듀크 스트리트. The contemporary intervention respects the Grade II* original while introducing a luminous, dematerialized presence that 창조한다 a striking dialogue between 에드워드 시대 pomp and 21st-century transparency. The 파사드 functions as both functional shopfront and architectural statement, exemplifying contextual modernism in a heritage retail environment.",
+        "desc": "대니엘 번햄의 상징적인 1909년 에드워드식 바로크 백화점은 2003년 데이비드 칩퍼필드 건축가에 의해 듀크 스트릿의 반투명 유리 파사드 추가로 민감하게 보강되었다. 현대 개입은 2급* 지정 원본을 존중하면서 에드워드식 호화와 21세기 투명성 사이의 인상적인 대화를 만드는 광선이 통과하는 비물질화된 존재감을 도입한다. 파사드는 기능적 상점 전면과 건축 진술로서 모두 기능하며, 유산 소매 환경에서 맥락적 현대주의를 예시한다.",
         "hood": "메이페어",
         "hours": "9:30am-8pm (Mon-Sat), 11:30am-6pm (Sun)",
         "lastEntry": "30 mins before close",
@@ -892,7 +892,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0084": {
         "name": "원 캐나다 스퀨어",
-        "desc": "세자르 펠리's 원 캐나다 스퀨어 (1991) 서 있다 235 metres tall, dominating the 카나리 워프 skyline with its distinctive stainless steel-clad pyramid-topped tower. As the UK's tallest building from 1991 to 2012, it established the visual identity of London's financial east end and introduced postmodern high-rise aesthetics to the capital. The Grade II structure 병합한다 commercial pragmatism with iconic formal expression, its gleaming pyramidal crown visible from across the 템즈.",
+        "desc": "세자르 펠리의 원 캐나다 스퀘어(1991)는 높이 235미터로 우뚝 서며 독특한 스테인리스 스틸 클래드 피라미드 꼭대기 타워로 카나리 워프 스카이라인을 지배한다. 1991년부터 2012년까지 영국에서 가장 높은 건물로서, 런던 금융 동쪽 끝의 시각적 정체성을 확립하고 후기 현대주의 고층 건축 미학을 수도에 도입했다. 2급 지정 구조는 상업적 실용성과 상징적 형식 표현을 합치며, 그 반짝이는 피라미드 왕관은 테임즈 전역에서 보인다.",
         "hood": "카나리 워프",
         "hours": "lobby access; observation deck varies",
         "lastEntry": "inquire on-site",
@@ -903,7 +903,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0085": {
         "name": "엘리자베스 여왕 올림픽 공원",
-        "desc": "엘리자베스 여왕 올림픽 공원 나타낸다 a transformative post-2012 landscape masterplan by 제임스 코너 필드 오퍼레이션스, converting Olympic venues into permanent public parkland. The 227-acre park 통합한다 iconic architecture with extensive green corridors, wetlands, and recreational spaces that serve both as spectacle and functional ecological zones. Corner's design philosophy emphasizes pedestrian networks, ecological recovery, and the strategic deployment of contemporary architectural landmarks within a coherent landscape framework.",
+        "desc": "퀸 엘리자베스 올림픽 파크는 제임스 코너 필드 오퍼레이션의 변환적 후속 2012년 랜드스케이프 마스터플랜으로 올림픽 장소를 영구 공공 공원지로 변환한다. 227에이커 공원은 상징적 건축을 광범위한 녹색 복도, 습지, 분광과 기능적 생태 영역으로 모두 작용하는 레크리에이션 공간과 통합한다. 코너의 설계 철학은 보행자 네트워크, 생태 회복, 그리고 일관된 경관 프레임워크 내 현대 건축 랜드마크의 전략적 배치를 강조한다.",
         "hood": "스트래포드",
         "hours": "dawn to dusk (park); venues vary",
         "lastEntry": "dusk",
@@ -914,7 +914,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0086": {
         "name": "런던 수생센터",
-        "desc": "자하 하디드 건축' 런던 수생센터 (2011) defines contemporary Olympic architecture through its undulating wave-form roof, a 160-metre span of biomorphic geometry that appears to float above two Olympic-standard pools. The Grade II* structure pioneered 매개변수적 설계 principles in sports infrastructure, with its flowing curves responding to movement, light, and structural efficiency. The building symbolizes London's 21st-century ambitions in 생물 모방 design and functional beauty.",
+        "desc": "자하 하디드 건축가의 런던 수생 센터(2011)는 파도 모양의 지붕, 움직임, 빛, 구조적 효율성에 반응하는 160미터 스팬의 생체 기하학을 나타나게 하는 지붕을 통해 현대 올림픽 건축을 정의한다. 2급* 지정 구조는 스포츠 기반시설에 매개변수 설계 원칙을 선구했으며, 그 흐르는 곡선은 움직임, 빛, 구조적 효율성에 반응한다. 건물은 런던의 21세기 생체 모방 설계와 기능적 미에 대한 야망을 상징한다.",
         "hood": "스트래포드",
         "hours": "6am-10pm (varies by day)",
         "lastEntry": "30 mins before close",
@@ -925,7 +925,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0087": {
         "name": "아르셀로미탈 오르빗",
-        "desc": "The 아르셀로미탈 오르빗, a 114.5-metre public artwork 설계된 by artist 아니시 카푸어 and engineer 세실 발몬드, 서 있다 as the UK's tallest public sculpture and Olympic Park's defining symbolic gesture. Its red lattice steel form evokes mobility and aspiration, with visitor platforms offering unprecedented perspectives across London. The tower 병합한다 fine art with engineering spectacle, embodying the cultural ambitions of the 2012 Olympics while providing lasting iconic presence.",
+        "desc": "아르셀로미탈 궤도는 예술가 아니시 카푸르와 엔지니어 세실 발몬드가 설계한 114.5미터 공공 예술 작품으로 영국에서 가장 높은 공공 조각과 올림픽 파크의 정의로운 상징적 제스처로 서 있다. 그 빨간 격자 강철 형태는 이동성과 열망을 연상시키며, 방문객 플랫폼은 런던 전역에 걸친 전례 없는 관점을 제공한다. 탑은 미술과 엔지니어링 분광을 합치며, 2012년 올림픽의 문화적 야망을 구현하면서 지속하는 상징적 존재감을 제공한다.",
         "hood": "스트래포드",
         "hours": "9am-5:30pm (varies seasonally)",
         "lastEntry": "30 mins before close",
@@ -936,7 +936,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0088": {
         "name": "런던 스타디움",
-        "desc": "포플러스 설계된 the Olympic Stadium (2012) as London's primary Olympic venue with an 80,000-capacity bowl defined by a flowing elliptical plan and innovative structural strategies. Following the Games, 포플러스 완성된 a transformative 2016 conversion adapting the stadium for West 햄 United, reducing capacity to 62,500 while retaining architectural integrity and adding dynamic architectural elements. The stadium 전형화한다 Olympic infrastructure flexibility and post-Games 적응적 재사용.",
+        "desc": "포풀러스는 올림픽 스타디움(2012)을 80,000용량 대야로 정의된 흐르는 타원형 계획과 혁신적인 구조 전략으로 런던의 주요 올림픽 장소로 설계했다. 경기 이후, 포풀러스는 2016년 변환적 개조를 완성하여 웨스트 햄 유나이티드를 위해 스타디움을 적응시켜, 용량을 62,500으로 줄이면서 건축적 무결성을 보존하고 동적 건축 요소를 추가했다. 스타디움은 올림픽 인프라 유연성과 경기 후 적응 재사용을 예시한다.",
         "hood": "스트래포드",
         "hours": "event-dependent; tours when available",
         "lastEntry": "varies",
@@ -947,7 +947,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0089": {
         "name": "미국 대사관 나인 엘름스",
-        "desc": "키에란팀벌레이크's 미국 대사관 at 나인 엘름스 (2018) presents a crystalline cube formed by layered ETFE plastic cushion 파사드, a material innovation that 제공한다 transparency while maintaining environmental performance and security. Surrounded by a protective moat and set within a landscaped plaza, the building 병합한다 diplomatic security requirements with contemporary architectural expression. The translucent, geometric form 나타낸다 21st-century institutional architecture balancing openness and protection.",
+        "desc": "키에란팀벌레이크의 나인 엘므 미국 대사관(2018)은 층화 ETFE 플라스틱 쿠션 파사드로 형성된 결정질 정육면체를 제시하며, 이는 투명성을 제공하면서 환경 성능과 보안을 유지하는 소재 혁신이다. 보호용 해자로 둘러싸여 있고 조경된 광장 내에 설정되어, 건물은 외교적 보안 요구사항을 현대 건축 표현과 합친다. 반투명한 기하학적 형태는 개방성과 보호를 균형잡는 21세기 제도 건축을 나타낸다.",
         "hood": "나인 엘름스",
         "hours": "exterior only; not open to public",
         "lastEntry": "always",
@@ -958,7 +958,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0090": {
         "name": "왕립발레학교 열망의 다리",
-        "desc": "윌킨슨 아이어's 열망의 다리 (2003) connects the 왕립오페라극장 to the 왕립발레학교 across the street through an innovative enclosed bridge featuring 23 aluminium square modules that rotate incrementally to create a spiraling form. This kinetic architectural gesture celebrates the connection between performance and training while creating a unified campus across fragmented urban fabric. The bridge 병합한다 structural engineering with expressive geometry, transforming a practical connection into an artistic statement.",
+        "desc": "윌킨슨 아이어의 포부의 다리(2003)는 로열 오페라 하우스를 거리 건너 로열 발레 학교와 연결하는 23개 알루미늄 정사각형 모듈이 회전하여 나선형을 만드는 혁신적인 밀폐 다리를 통해 연결한다. 이 운동 건축 제스처는 공연과 교육 사이의 연결을 축하하면서 조각화된 도시 구조 전역에 통일된 캠퍼스를 만든다. 다리는 구조 엔지니어링을 표현적 기하학과 합치며, 실질적 연결을 예술 진술로 변환한다.",
         "hood": "코벤트 가든",
         "hours": "not regularly open; visible from street",
         "lastEntry": "n/a",
@@ -969,7 +969,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0091": {
         "name": "후버 빌딩",
-        "desc": "월리스, 길버트 및 파트너스' 후버 빌딩 (1933) 서 있다 as one of Britain's most exuberant 아르 데코 structures, merging streamlined modernism with Egyptian Revival ornament and polychromatic glazed faience cladding. Originally a vacuum cleaner factory, this Grade II* landmark celebrates industrial modernity through bold geometry, vibrant turquoise and red tiling, and an aspirational functional aesthetic. Now repurposed as a Tesco supermarket, the 파사드 preservation maintains this extraordinary interwar monument.",
+        "desc": "월리스, 길버트 앤드 파트너스의 후버 빌딩(1933)은 영국에서 가장 화려한 아르데코 건축물 중 하나로, 스트림라인 모더니즘과 이집트 리바이벌 장식, 다채로운 유약칠한 테라코타 외장재를 융합했다. 원래 진공청소기 공장이었던 이 2급 지정 건축물은 대담한 기하학, 생생한 청록색과 빨간색 타일링, 그리고 열망적인 기능적 미학을 통해 산업적 모더니티를 기념한다. 현재는 테스코 슈퍼마켓으로 재용도 변경되었으나 파사드 보존이 이 뛰어난 인터워 기념비의 외관을 유지하고 있다.",
         "hood": "페리베일",
         "hours": "exterior only; Tesco interior 6am-midnight",
         "lastEntry": "dusk (exterior); midnight (store)",
@@ -980,7 +980,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0092": {
         "name": "하이게이트 묘지",
-        "desc": "하이게이트 묘지 comprises two Grade I/Grade II* sites of exceptional landscape and architectural significance. 스티브 게어리's West Cemetery (1839) introduced the 빅토리아 \"garden cemetery\" movement with 고딕 리바이벌 chapels, elaborate monuments, and romantic wooded setting. The East Cemetery (1860) extends this vision with dramatic Egyptian Avenue and Circle of Lebanon, creating a picturesque necropolis that functions as both burial ground and public landscape artwork. The cemeteries exemplify 19th-century commemorative architecture and horticultural design.",
+        "desc": "하이게이트 공동묘지는 뛰어난 조경 및 건축 의의를 가진 1급 및 2급 지정 건축물 2개 지역으로 구성되어 있다. 스티븐 게어리의 웨스트 공동묘지(1839)는 고딕 리바이벌 예배당, 정교한 기념물, 낭만적인 숲이 우거진 배경과 함께 빅토리아 시대의 \"정원 공동묘지\" 운동을 도입했다. 동쪽 공동묘지(1860)는 극적인 이집트 애비뉴와 레바논 원형극장으로 이 비전을 확장하여, 매장지이자 공공 조경 미술 작품으로 기능하는 그림 같은 네크로폴리스를 창조한다. 공동묘지들은 19세기의 기념 건축과 원예 설계의 전형을 보여준다.",
         "hood": "하이게이트",
         "hours": "10am-5pm (West-guided tours only), 10am-4:30pm (East-free access)",
         "lastEntry": "30 mins before close",
@@ -991,7 +991,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0093": {
         "name": "독스 제도 펌프장",
-        "desc": "존 아웃람's 독스 제도 펌프장 (1988) 나타낸다 postmodernism's most exuberant expression of utilitarian infrastructure, transformed into a chromatic temple celebrating sewage engineering. With its polychromatic tiling, monumental form, and audacious ornament, the Grade II* structure elevates water management into cultural spectacle. The station 서 있다 as one of London's most colourful and architecturally assertive buildings, challenging 현대주의 severity with joyous material excess.",
+        "desc": "존 아우트램의 아일 오브 독스 펌핑 스테이션(1988)은 포스트모더니즘이 공익 인프라를 하수 처리 공학을 기념하는 다채로운 사원으로 변환한 가장 화려한 표현이다. 다채로운 타일링, 거대한 형태, 담대한 장식으로 이 2급 지정 건축물은 수자원 관리를 문화적 광경으로 승격시킨다. 이 역사는 런던에서 가장 다채롭고 건축학적으로 주장적인 건물 중 하나로, 모더니스트의 엄격함에 기쁜 물질적 과잉으로 맞선다.",
         "hood": "독스 제도",
         "hours": "exterior only; not accessible internally",
         "lastEntry": "always",
@@ -1002,7 +1002,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0094": {
         "name": "더 브런스윅 센터",
-        "desc": "패트릭 호지킨슨's Brunswick Centre (1972) epitomizes 브루탈리즘 megastructure through its monumental stepped ziggurat form housing 482 apartments arranged around a central retail street. The Grade II structure 창조한다 an inward-looking community while maintaining visual drama through massive concrete terraces, dramatic voids, and hierarchical spatial organization. The building 전형화한다 1970s urbanism's ambitions for mixed-use density and sculptural residential form.",
+        "desc": "패트릭 호지킨슨의 브런즈윅 센터(1972)는 중앙 소매 거리 주변에 배열된 482개의 아파트를 수용하는 거대한 지그라트 형태를 통해 브루탈리즘 메가스트럭처를 구현한다. 2급 지정 건축물인 이 구조는 내향적인 커뮤니티를 창조하면서 거대한 콘크리트 테라스, 극적인 공허, 위계적 공간 구성을 통해 시각적 드라마를 유지한다. 이 건물은 1970년대 도시주의의 혼합용도 밀도와 조각적 주거 형태에 대한 야심을 구현한다.",
         "hood": "블룸즈베리",
         "hours": "plaza accessible; residential/retail hours vary",
         "lastEntry": "dusk (plaza)",
@@ -1013,7 +1013,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0095": {
         "name": "BAPS 스리 스와미나라얀 만디르",
-        "desc": "The BAPS 스리 스와미나라얀 만디르 (1995) 서 있다 as the largest traditional Hindu temple outside India, an extraordinary feat of craftsmanship employing 5,000 tonnes of Italian Carrara marble and Bulgarian limestone hand-carved by artisans following classical Hindu architectural principles. The complex 병합한다 ancient temple traditions with contemporary construction techniques, creating a gleaming white landmark in northwest London. The mandir 나타낸다 diaspora cultural assertion and traditional Hindu cosmology's physical manifestation in contemporary Britain.",
+        "desc": "합스 쉬리 스와미나라얀 만디르(1995)는 인도 외부에서 가장 큰 전통 힌두 사원으로 서 있으며, 5,000톤의 이탈리아 카라라 대리석과 불가리아 석회석을 고전 힌두 건축 원리에 따라 장인들이 수공으로 조각한 기술력의 놀라운 성과다. 이 복합체는 고대 사원 전통과 현대 건설 기법을 융합하여, 런던 북서부에 반짝이는 하얀 랜드마크를 창조한다. 이 만디르는 디아스포라 문화의 주장과 전통 힌두 우주론의 현대 영국에서의 물리적 현현을 나타낸다.",
         "hood": "니즈던",
         "hours": "9am-6pm (varies; call to confirm)",
         "lastEntry": "30 mins before close",
@@ -1024,7 +1024,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0096": {
         "name": "브로드윅 하우스",
-        "desc": "A pioneering 7-story office building by 리처드 로저스 파트너십, 완성된 in 1996. Early exemplar of Rogers' signature exposed-structure commercial design language, featuring prominent steel exoskeletons and transparency. The building 증명하다 the architect's commitment to expressing structural and mechanical systems on 파사드s. Located in central 소호, 브로드윅 하우스 나타낸다 a crucial moment in 1990s London commercial architecture and 남아있다 influential for its bold material honesty.",
+        "desc": "리처드 로저스 파트너십이 1996년에 완성한 선구적인 7층 오피스 건물이다. 로저스의 특성 있는 노출 구조 상업 설계 언어의 초기 대표 사례로, 두드러진 강철 외골격과 투명성을 특징으로 한다. 이 건물은 건축가의 파사드에 구조 및 기계 시스템을 표현하려는 의지를 보여준다. 중앙 소호에 위치한 브로드윅 하우스는 1990년대 런던 상업 건축에서의 결정적인 순간을 나타내며 담대한 물질적 정직성으로 영향력을 유지하고 있다.",
         "hood": "소호",
         "hours": "Business hours only",
         "lastEntry": "17:00",
@@ -1035,7 +1035,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0097": {
         "name": "30 그로즈베너 스퀨어 (1960 Embassy Building)",
-        "desc": "The former United States Embassy, 설계된 by 에에로 사아리넨 and 완성된 in 1960, 서 있다 as one of the most important American architectural works built in London. The 2급 우등 지정 건축물 building 특징이다 a distinctive 브루탈리즘-Modernist aesthetic with bold geometric forms and a travertine-clad 파사드. Saarinen's design 결합한다 fortress-like security with diplomatic grandeur, reflecting Cold War architectural tensions. The building has become Grade II* protected, testament to its architectural significance. Currently undergoing mixed-use redevelopment while maintaining the iconic exterior.",
+        "desc": "에로 사리넨이 설계하고 1960년에 완성한 전 미국 대사관은 런던에 건설된 가장 중요한 미국 건축 작품 중 하나로 서 있다. 2급 지정 건축물인 이 건물은 담대한 기하학적 형태와 트래버틴으로 클래딩된 파사드가 특징인 독특한 브루탈리스트-모더니스트 미학을 가지고 있다. 사리넨의 설계는 요새 같은 보안과 외교적 웅장함을 결합하여, 냉전 건축의 긴장을 반영한다. 이 건물은 2급 지정 보호 대상이 되었으며, 이는 그 건축학적 중요성의 증거다. 현재 상징적인 외부를 유지하면서 혼합용도 재개발을 진행 중이다.",
         "hood": "메이페어",
         "hours": "Not accessible",
         "lastEntry": null,
@@ -1046,7 +1046,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0098": {
         "name": "보신덩 영국 본사",
-        "desc": "Completed in 2018, DSDHA 건축 설계된 this striking 메이페어 headquarters for the international outerwear brand Bosideng. The 파사드 전시하다 an angular, sculptural composition of weathering corten steel and floor-to-ceiling glazing, creating dynamic visual contrasts. The material palette deliberately uses raw, oxidising steel to express industrial robustness while maintaining luxurious transparency. The building's form responds sensitively to the historic 메이페어 streetscape while making a bold contemporary statement. A standout example of 2010s luxury commercial architecture in London's most prestigious district.",
+        "desc": "2018년에 완성된 DSDHA 아키텍츠의 보시뎅 영국 본부는 국제 아웃웨어 브랜드 보시뎅을 위해 메이페어에 설계된 인상적인 건물이다. 파사드는 기상하는 코르텐 강철과 천장까지 이르는 유리창의 각진 조각적 구성을 선보이며, 역동적인 시각적 대조를 창조한다. 물질 팔레트는 의도적으로 산화되는 날 강철을 사용하여 산업적 견고성을 표현하면서 사치로운 투명성을 유지한다. 건물의 형태는 역사적 메이페어 가로변에 민감하게 반응하면서 담대한 현대적 진술을 한다. 런던 최고 명성의 지역에서 2010년대 럭셔리 상업 건축의 뛰어난 사례다.",
         "hood": "메이페어",
         "hours": "Business hours only",
         "lastEntry": "17:00",
@@ -1057,7 +1057,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0099": {
         "name": "우드 워프",
-        "desc": "An ambitious mixed-use masterplan extension of 카나리 워프 설계된 by the London-based 앨리스 앤드 모리슨 practice. 우드 워프 나타낸다 contemporary docklands regeneration combining offices, residences, retail, and public waterfront spaces. The development responds to the post-industrial Docklands context, emphasizing pedestrian connectivity and 템즈 riverfront activation. Currently under active development, the scheme 증명하다 current thinking on integrating high-density urban design with liveable public realm. Part of broader 카나리 워프 evolution toward mixed neighbourhoods rather than financial monoculture.",
+        "desc": "런던 기반 알리스 앤드 모리슨 사무소가 설계한 카나리 워프의 야심찬 혼합용도 마스터플랜 확장이다. 우드 워프는 사무실, 주거, 소매, 공공 수변 공간을 결합하는 현대 도크랜드 재생을 나타낸다. 이 개발은 산업 이후 도크랜드 맥락에 반응하여 보행자 연결성과 템스 강변 활성화를 강조한다. 현재 적극적으로 개발 중인 이 계획은 고밀도 도시 설계를 거주 가능한 공공 영역과 통합하는 현재의 생각을 보여준다. 더 넓은 카나리 워프 진화의 일부로 금융 단일 문화보다는 혼합 지역으로의 발전을 나타낸다.",
         "hood": "독스 제도",
         "hours": "Variable during development",
         "lastEntry": null,
@@ -1068,7 +1068,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0100": {
         "name": "드레이퍼스 홀",
-        "desc": "One of London's finest Livery Halls, 드레이퍼스 홀 originated in 1667 during post-Fire rebuilding but was substantially reconstructed with magnificent 빅토리아 interiors by 허버트 윌리엄스 in 1868-70. The 1급 지정 건축물 interior 전시하다 ornate plasterwork, marble columns, and period furnishings of exceptional quality. The early Georgian exterior conceals these opulent late-빅토리아 spaces, creating a striking contrast between street presence and interior splendour. 드레이퍼스 홀 전형화한다 the enduring wealth and craftsmanship traditions of the medieval guild system preserved in the modern City. A rare survivor demonstrating Livery Hall prestige and architectural ambition.",
+        "desc": "런던의 가장 훌륭한 라이버리 홀 중 하나인 드레이퍼스 홀은 1667년 런던 대화재 이후 재건 중에 시작되었지만 1868~70년 허버트 윌리엄스의 웅장한 빅토리아 시대 내부로 실질적으로 재건축되었다. 1급 지정 건축물인 이 내부는 예외적인 품질의 정교한 석고 작업, 대리석 기둥, 시대 가구를 선보인다. 초기 조지아 시대 외부는 이러한 사치스러운 후기 빅토리아 시대 공간을 숨겨 거리 존재감과 내부 화려함 사이의 놀라운 대조를 만든다. 드레이퍼스 홀은 현대 시티에 보존된 중세 길드 시스템의 지속적인 부와 장인정신 전통을 구현한다. 라이버리 홀의 명성과 건축학적 야심을 보여주는 희귀한 생존 사례다.",
         "hood": "런던 시티",
         "hours": "By appointment only",
         "lastEntry": null,
@@ -1079,7 +1079,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0101": {
         "name": "반브루 파크 부동산",
-        "desc": "Built in 1963 for London County Council, 반브루 파크 부동산 나타낸다 the same architectural practice responsible for the celebrated 바비칸 Estate. 챔벌린, 파웰 그리고 본's scheme 증명하다 their Modernist approach to large-scale social housing, employing bold sculptural forms and communal landscaping. The estate sits prominently above 그리니치, with buildings carefully positioned to respond to the topography and historic views across London. The architecture emphasizes community spaces, pedestrian priority, and architectural unity within a diverse composition. Vanbrugh Park 남아있다 a significant example of 1960s LCC housing ambition and 현대주의 urban planning.",
+        "desc": "1963년 런던 카운티 의회를 위해 건설된 반브루 파크 에스테이트는 찬양받는 바비칸 에스테이트를 담당한 동일한 건축 사무소로 대표된다. 챔벌린, 파웰 앤드 본의 계획은 담대한 조각적 형태와 공동 조경을 사용하는 그들의 모더니스트 대규모 사회주택 접근법을 보여준다. 이 에스테이트는 그리니치 위에 두드러지게 자리 잡고 있으며, 건물들은 지형과 런던 전역의 역사적 조망에 반응하도록 신중하게 배치되어 있다. 건축은 커뮤니티 공간, 보행자 우선성, 다양한 구성 내 건축 통일성을 강조한다. 반브루 파크는 1960년대 런던 카운티 의회 주택 야심과 모더니스트 도시 계획의 중요한 사례로 남아있다.",
         "hood": "Blackheath",
         "hours": "Daylight hours only",
         "lastEntry": "16:00",
@@ -1090,7 +1090,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0102": {
         "name": "랑엄 하우스 클로즈 (햄 커먼 플랫)",
-        "desc": "A seminal early 브루탈리즘 residential project 설계된 by 스털링과 고완 and 완성된 in 1958, 랑엄 하우스 클로즈 나타낸다 a watershed moment in British postwar architecture. Directly influenced by Le Corbusier's Maisons Jaoul in Paris, the scheme employs robust concrete construction, sculptural form, and intimate human-scale courtyards. 2급 우등 지정 건축물 status recognizes its significance as a foundational work of British Brutalism and a model for subsequent housing schemes. The building 증명하다 how Continental Modernism translated into a distinctly British context through material expression and spatial composition. A pilgrimage site for students of mid-century architecture and raw concrete design.",
+        "desc": "스털링 앤드 고완이 설계하고 1958년에 완성한 초기 브루탈리스트 주거 프로젝트는 영국 전후 건축에서 분수령을 이루는 순간을 나타낸다. 파리의 르 코르뷔지에 메종 자올에서 직접 영향을 받은 이 계획은 견고한 콘크리트 건설, 조각적 형태, 인간적 규모의 친밀한 안뜰을 사용한다. 2급 지정 건축물로의 지정은 영국 브루탈리즘의 기초 작업이자 이후 주택 계획의 모델로서의 의의를 인정한다. 건물은 대륙 모더니즘이 물질 표현과 공간 구성을 통해 어떻게 명확하게 영국적인 맥락으로 번역되었는지를 보여준다. 20세기 중반 건축과 노출 콘크리트 설계의 학생들을 위한 순례지다.",
         "hood": "햄, 리치몬드",
         "hours": "Viewable from public spaces only",
         "lastEntry": "17:00",
@@ -1101,7 +1101,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0103": {
         "name": "도슨 하이츠",
-        "desc": "Completed in 1972, 케이트 매킨토시's 도슨 하이츠 서 있다 as a heroic expression of 브루탈리즘 social housing, dramatically stepping down a steep 덜위치 hillside like an urban amphitheatre. Residents affectionately nicknamed it \"the Hilton\" for its luxurious spatial generosity and sculptural presence. The 2급 지정 건축물 complex employs exposed concrete terraces, communal gardens, and generous public thoroughfares to create a self-contained urban village. The building 전시하다 Macintosh's distinctive style combining architectural monumentality with genuine social purpose. 도슨 하이츠 남아있다 one of Britain's most architecturally significant and beloved social housing schemes of the 1970s.",
+        "desc": "1972년에 완성된 케이트 매킨토시의 도슨스 하이츠는 브루탈리스트 사회주택의 영웅적 표현으로, 급경사 덜위치 언덕을 도시 원형극장처럼 극적으로 계단식으로 내려간다. 거주자들은 사치스러운 공간적 너그러움과 조각적 존재감으로 인해 애정을 담아 \"힐튼\"이라고 별명을 붙였다. 2급 지정 건축물인 이 복합체는 노출 콘크리트 테라스, 공동 정원, 넉넉한 공공 통로를 사용하여 자급 자족하는 도시 마을을 창조한다. 건물은 건축적 기념성과 진정한 사회적 목적을 결합하는 매킨토시의 독특한 양식을 선보인다. 도슨스 하이츠는 1970년대 영국에서 가장 건축학적으로 중요하고 사랑받는 사회주택 계획 중 하나로 남아있다.",
         "hood": "펙엄",
         "hours": "Accessible during daylight",
         "lastEntry": "16:30",
@@ -1112,7 +1112,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0104": {
         "name": "오담스 워크",
-        "desc": "Designed by the Greater London Council Architects Department and 완성된 in 1981, 오담스 워크 나타낸다 sensitive infill development within the historic 코벤트 가든 conservation area. The mixed-use scheme 결합한다 housing with ground-floor retail, carefully responding to adjacent Georgian and 빅토리아 streetscapes through material palette and fenestration patterns. Rather than visual domination, the architects pursued contextual integration, using pitched roofs and brick 파사드s that respect neighbourhood character. 오담스 워크 증명하다 1980s public architecture's commitment to urban conservation and community-scaled development. An exemplary model of sensitive contemporary design within historic London streetscapes.",
+        "desc": "그레이터 런던 의회 건축 부서가 설계하고 1981년에 완성된 오담스 워크는 역사적 코벤트 가든 보존 지역 내 민감한 공지 개발을 나타낸다. 이 혼합용도 계획은 주거와 지상층 소매를 결합하여, 물질 팔레트와 창문 패턴을 통해 인접한 조지아 시대 및 빅토리아 시대 가로변에 신중하게 반응한다. 시각적 지배보다는 건축가들은 맥락적 통합을 추구했으며, 이웃 특성을 존중하는 피치 지붕과 벽돌 파사드를 사용했다. 오담스 워크는 1980년대 공공 건축의 도시 보존과 커뮤니티 규모 개발에 대한 헌신을 보여준다. 역사적 런던 가로변 내 민감한 현대 설계의 모범적인 사례다.",
         "hood": "코벤트 가든",
         "hours": "Shops open 10:00-18:00",
         "lastEntry": "18:00",
@@ -1123,7 +1123,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0105": {
         "name": "던본 로드 부동산",
-        "desc": "A pioneering social housing complex 설계된 by 케이트 매킨토시 with the London Borough of Lambeth Architects Department between 1966-69, 던본 로드 부동산 employs an innovative ziggurat form that dramatically steps the building profile down the 햄스테드 hillside. The 2급 지정 건축물 scheme uses sculptural concrete to create a series of terraced outdoor spaces and dramatic visual silhouettes. The ziggurat geometry maximizes light and views while maintaining density, demonstrating avant-garde approaches to collective housing. Macintosh's design vocabulary emphasizes geometric purity, structural expression, and social amenity. Dunboyne Road 서 있다 as a masterpiece of 1960s radical housing design.",
+        "desc": "1966~69년 사이 케이트 매킨토시와 런던 자치구 람베스 건축 부서가 설계한 선구적인 사회주택 복합체로, 던보인 로드 에스테이트는 건물 프로필을 행크프드 언덕 아래로 극적으로 계단식으로 내려가는 혁신적인 지그라트 형태를 사용한다. 2급 지정 건축물인 이 계획은 조각적 콘크리트를 사용하여 일련의 계단식 야외 공간과 극적인 시각적 실루엣을 창조한다. 지그라트 기하학은 밀도를 유지하면서 채광과 조망을 극대화하며, 집단 주거에 대한 전위 접근법을 보여준다. 매킨토시의 설계 어휘는 기하학적 순수성, 구조 표현, 사회 편의성을 강조한다. 던보인 로드는 1960년대 급진적 주택 설계의 걸작으로 서 있다.",
         "hood": "햄스테드",
         "hours": "Accessible from public walkways",
         "lastEntry": "16:00",
@@ -1134,7 +1134,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0106": {
         "name": "켄살 하우스",
-        "desc": "Designed by 맥스웰 프라이 in collaboration with 엘리자베스 덴비 and 완성된 in 1937, 켄살 하우스 서 있다 as a pioneering example of Continental Modernism applied to British social housing. The 2급 우등 지정 건축물 building 특징이다 the curved concrete forms that Fry encountered on the Continent, demonstrating how European architectural innovations could address London's housing shortage. The sculptural 파사드s combine 현대주의 principles with genuine social commitment, providing light-filled dwellings and communal amenities. 켄살 하우스 influenced generations of British housing architects and 남아있다 visually distinctive on the 래드브로크 그로브 streetscape. An architectural landmark bridging European modernism and London's social housing tradition.",
+        "desc": "맥스웰 프라이가 엘리자베스 덴비와 협력하여 설계하고 1937년에 완성한 켄살 하우스는 영국 사회주택에 적용된 대륙 모더니즘의 선구적인 사례로 서 있다. 2급 지정 건축물인 이 건물은 프라이가 대륙에서 만난 곡선 콘크리트 형태를 특징으로 하며, 유럽 건축 혁신이 런던의 주택 부족을 어떻게 해결할 수 있는지를 보여준다. 조각적 파사드는 모더니스트 원리와 진정한 사회적 헌신을 결합하여, 밝은 거주 공간과 공동 편의시설을 제공한다. 켄살 하우스는 수십 년간의 영국 주택 건축가에게 영향을 미쳤으며 라드브로크 그로브 가로변에서 시각적으로 독특하게 남아있다. 유럽 모더니즘과 런던의 사회주택 전통을 연결하는 건축적 랜드마크다.",
         "hood": "노팅 힐",
         "hours": "Viewable from public spaces only",
         "lastEntry": "17:00",
@@ -1145,7 +1145,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0107": {
         "name": "나인 엘름스 Development Area",
-        "desc": "An expansive regeneration area in 복스홀 anchored by the iconic 배터시 발전소 and new 미국 대사관, 나인 엘름스 Development Area 나타낸다 London's most ambitious docklands transformation of the 2010s-2020s. Master architects including Gehry Partners and 노먼 포스터 및 파트너스 are orchestrating mixed-use composition combining commercial, residential, cultural, and public spaces. The scheme reconnects the 템즈 riverfront and activates previously industrial wasteland with contemporary architectural statement. 배터시 발전소's 적응적 재사용 서 있다 as centerpiece, while the American embassy 증명하다 current diplomatic architecture. 나인 엘름스 전시하다 21st-century urban regeneration at metropolitan scale.",
+        "desc": "폭스홀의 광활한 재생 지역인 나인 엘름스 개발 지역은 상징적인 배터시 파워 스테이션과 새로운 미국 대사관으로 닻을 내린 2010년대-2020년대 런던의 가장 야심 찬 도크랜드 변환을 나타낸다. 게리 파트너스와 포스터 앤드 파트너스를 포함한 마스터 건축가들이 상업, 주거, 문화, 공공 공간을 결합하는 혼합용도 구성을 지휘하고 있다. 이 계획은 템스 강변을 다시 연결하고 이전의 산업 폐허지를 현대 건축 진술로 활성화한다. 배터시 파워 스테이션의 적응 재사용이 중심으로 서 있으며, 미국 대사관은 현재의 외교 건축을 보여준다. 나인 엘름스는 대도시 규모의 21세기 도시 재생을 선보인다.",
         "hood": "복스홀",
         "hours": "Variable by venue",
         "lastEntry": null,
@@ -1156,7 +1156,7 @@ var LOCS_KO_LONDON = {
   },
   "lon-0108": {
         "name": "세인트 팬크라스 르네상스 호텔",
-        "desc": "조지 길버트 스콧's 세인트 팬크라스 르네상스 호텔, 완성된 in 1873, ranks among 빅토리아 London's most magnificent 고딕 리바이벌 statements. While the adjacent station 전시하다 iron-and-glass engineering, this hotel building asserts Gothic ambition through decorative red brick, terracotta detailing, and soaring towers articulating the London skyline. The 1급 지정 건축물 building underwent comprehensive restoration by RHWL 건축 in 2011, recovering gilded interiors, ornate plasterwork, and period furnishings. Scott's design 병합한다 architectural fantasy with modern convenience, creating a masterwork of 빅토리아 optimism. Recently restored to contemporary luxury hospitality standards, 세인트 팬크라스 호텔 남아있다 one of London's most visually distinctive 빅토리아 achievements.",
+        "desc": "조지 길버트 스콧의 세인트 팬크래스 르네상스 호텔은 1873년에 완성되었으며, 빅토리아 시대 런던의 가장 웅장한 고딕 리바이벌 진술 중 하나로 순위를 매긴다. 인접한 역사가 철과 유리 공학을 선보이는 동안, 이 호텔 건물은 장식적 빨간 벽돌, 테라코타 상세 장식, 런던 스카이라인을 표현하는 솟아오르는 타워를 통해 고딕 야심을 주장한다. 1급 지정 건축물인 이 건물은 RHWL 건축가들에 의해 2011년 종합 복원을 받아 금칠한 내부, 정교한 석고 작업, 시대 가구를 회복했다. 스콧의 설계는 건축 환상을 현대 편의시설과 병합하여, 빅토리아 시대 낙관주의의 걸작을 창조한다. 최근 현대 럭셔리 접대 기준으로 복원되었으며, 세인트 팬크래스 호텔은 런던에서 가장 시각적으로 독특한 빅토리아 시대 성취 중 하나로 남아있다.",
         "hood": "킹스 크로스",
         "hours": "24 hours (hotel guests)",
         "lastEntry": null,
@@ -1166,14 +1166,14 @@ var LOCS_KO_LONDON = {
         "walkFrom": "British Library, 블룸즈베리"
   },
   "lon-0109": {
-        "name": "카나리 워프 Masterplan Area",
-        "desc": "The 카나리 워프 masterplan 나타낸다 London's most significant post-industrial urban transformation, beginning in the 1990s and continuing through the present day. 스키드모어, 오윙스 앤드 머릴 established the geometric order, while 세자르 펠리's 원 캐나다 스퀨어 (1991) became the defining tower defining London's changing skyline. 노먼 포스터 및 파트너스 and others contributed complementary architectural languages creating a coherent yet diverse urban ensemble. The development evolved from purely financial monoculture toward mixed-use neighbourhood incorporating residential, retail, cultural, and waterfront public spaces. 카나리 워프 증명하다 how docklands can transform into vibrant urban centres while maintaining architectural ambition and quality design. A contemporary London icon.",
+        "name": "카나리 워프 마스터플랜 지역",
+        "desc": "카나리 워프 마스터플랜은 1990년대에 시작되어 현재까지 이어지고 있는 런던 최대 규모의 탈산업화 도시 변환을 대표한다. 스키드모어, 오윙스 앤드 메릴이 기하학적 질서를 확립했고, 세자르 펠리의 원 캐나다 스퀘어(1991)가 런던의 변화하는 스카이라인을 규정하는 랜드마크 타워가 되었다. 포스터 앤드 파트너스를 비롯한 여러 건축사무소가 상호 보완적인 건축 언어를 제공하여 일관성 있으면서도 다양한 도시 앙상블을 창조했다. 이 개발은 순수한 금융 단일문화에서 주거, 상업, 문화, 수변 공공 공간을 통합하는 복합용도 지구로 진화해왔다. 카나리 워프는 도크랜드가 건축적 야심과 설계 품질을 유지하면서 활기찬 도심으로 탈바꿈할 수 있음을 증명하는 현대 런던의 아이콘이다.",
         "hood": "독스 제도",
-        "hours": "Variable by venue",
+        "hours": "시설별 상이",
         "lastEntry": null,
-        "admission": "Free (public areas)",
-        "tourInfo": "Self-guided walks; visitor information at South Dock",
-        "transit": "카나리 워프 Station (immediate), South Dock (0.15km)",
-        "walkFrom": "West India Dock, 템즈 경로"
+        "admission": "무료 (공공 구역)",
+        "tourInfo": "자유 산책 가능; 사우스 독에서 방문자 정보 제공",
+        "transit": "카나리 워프 역 (바로 앞), 사우스 독 (0.15km)",
+        "walkFrom": "웨스트 인디아 독, 템즈 패스"
   }
 };
