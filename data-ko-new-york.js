@@ -1393,24 +1393,24 @@ var LOCS_KO_NEW_YORK = {
     walkFrom: "Roosevelt Island Tram: waterfront를 따라 남쪽으로 10분 도보"
   },
   "nyc-0141": {
-        "name": "565 브룸 소호",
-        "desc": "2019년 완공된 565 브룸 소호는 렌조 피아노 빌딩 워크숍(RPBW)의 뉴욕 최초 주거 프로젝트이다. 30층 높이의 타워는 소호의 역사적인 주철 건물 지붕선 위로 약 100미터 솟아오르며, 완전 유리 파사드와 부드럽게 곡선 처리된 모서리를 가진 두 개의 날씬하고 대칭적인 볼륨으로 구성되어 있다. 크리스탈처럼 투명한 저철분 유리가 외관을 감싸고, 파리 소재 RDAI(레나 뒤마 건축 인테리어)가 설계한 내부는 석재, 화이트 오크, 유리, 콘크리트로 이루어진 솔직한 재료 팔레트를 사용한다. 92~234제곱미터 규모의 115개 아파트는 도시와 수변의 파노라마 전망을 제공한다. 구조적 특징으로는 12층에 위치한 66센티미터 두께의 전이 슬래브가 있어 상층부의 비정렬 기둥 하중을 하부 구조로 전달한다. 이 건물은 RPBW의 시그니처인 가벼움, 명쾌함, 시민적 감수성을 맨해튼에서 가장 역사 깊은 동네 중 하나에 구현했다.",
-        "hood": "소호 / 허드슨 스퀘어",
-        "hours": "개인 주거 건물 · 로비는 거리에서 관람 가능",
-        "admission": "개인 건물",
-        "transit": "1 → 휴스턴 스트리트 · C E → 스프링 스트리트",
-        "walkFrom": "소호 캐스트아이언 지구: 3분 · 허드슨 리버 파크: 5분"
+    name: "565 브룸 소호",
+    desc: "2019년 완공된 565 브룸 소호는 렌조 피아노 빌딩 워크숍(RPBW)의 뉴욕 최초 주거 프로젝트이다. 30층 높이의 타워는 소호의 역사적인 주철 건물 지붕선 위로 약 100미터 솟아오르며, 완전 유리 파사드와 부드럽게 곡선 처리된 모서리를 가진 두 개의 날씬하고 대칭적인 볼륨으로 구성되어 있다. 크리스탈처럼 투명한 저철분 유리가 외관을 감싸고, 파리 소재 RDAI(레나 뒤마 건축 인테리어)가 설계한 내부는 석재, 화이트 오크, 유리, 콘크리트로 이루어진 솔직한 재료 팔레트를 사용한다. 92~234제곱미터 규모의 115개 아파트는 도시와 수변의 파노라마 전망을 제공한다. 구조적 특징으로는 12층에 위치한 66센티미터 두께의 전이 슬래브가 있어 상층부의 비정렬 기둥 하중을 하부 구조로 전달한다. 이 건물은 RPBW의 시그니처인 가벼움, 명쾌함, 시민적 감수성을 맨해튼에서 가장 역사 깊은 동네 중 하나에 구현했다.",
+    hood: "소호 / 허드슨 스퀘어",
+    hours: "개인 주거 건물 · 로비는 거리에서 관람 가능",
+    admission: "개인 건물",
+    transit: "1 → 휴스턴 스트리트 · C E → 스프링 스트리트",
+    walkFrom: "소호 캐스트아이언 지구: 3분 · 허드슨 리버 파크: 5분"
   },
   "nyc-0142": {
-        "name": "Vessel",
-        "desc": "Vessel은 토마스 헤더윅이 설계하고 2019년 3월에 완공된 허드슨 야즈의 중심부에 위치한 16층 규모의 공개 등반 구조물이다. 이 구조물은 154개의 맞물리는 계단으로 이루어져 있으며, 2,500개의 계단과 80개의 랜딩이 중앙 아트리움 주위에 배열되어 지표면으로부터 46미터 높이까지 올라가는 벌집 모양의 내후성 강철 격자를 형성한다. 어느 두 층도 동일하지 않으며, 형태가 안쪽과 바깥쪽으로 테이퍼되면서 기하학이 변하여 방문객들이 동시에 여러 각도에서 서로를 관찰할 수 있는 3차원 네트워크를 만든다. 헤더윅은 이 설계를 \"다양한 종류의 공공 공간\"으로 묘사했으며, 조각 작품보다 더 상호작용적이고 기념물보다 더 건축적이다. 이 구조물은 뉴욕의 가장 인식도 높은 새로운 랜드마크 중 하나가 되었으며 허드슨 야즈 광장의 초점이 되었다.",
-        "hood": "Hudson Yards, West Side",
-        "hours": "매일 10:00 AM – 8:00 PM (마지막 입장 7:15 PM)",
-        "lastEntry": "7:15 PM",
-        "admission": "무료 reservation 필요 (timed entry ticket)",
-        "tourInfo": "무료 timed-entry ticket은 hudsonyardsnewyork.com에서 사전 reserve 필요. Stroller과 wheelchair accessible.",
-        "transit": "7 → 34 St–Hudson Yards",
-        "walkFrom": "High Line (남쪽 끝): 5분 · The Edge observation deck: 2분"
+    name: "Vessel",
+    desc: "Vessel은 토마스 헤더윅이 설계하고 2019년 3월에 완공된 허드슨 야즈의 중심부에 위치한 16층 규모의 공개 등반 구조물이다. 이 구조물은 154개의 맞물리는 계단으로 이루어져 있으며, 2,500개의 계단과 80개의 랜딩이 중앙 아트리움 주위에 배열되어 지표면으로부터 46미터 높이까지 올라가는 벌집 모양의 내후성 강철 격자를 형성한다. 어느 두 층도 동일하지 않으며, 형태가 안쪽과 바깥쪽으로 테이퍼되면서 기하학이 변하여 방문객들이 동시에 여러 각도에서 서로를 관찰할 수 있는 3차원 네트워크를 만든다. 헤더윅은 이 설계를 \"다양한 종류의 공공 공간\"으로 묘사했으며, 조각 작품보다 더 상호작용적이고 기념물보다 더 건축적이다. 이 구조물은 뉴욕의 가장 인식도 높은 새로운 랜드마크 중 하나가 되었으며 허드슨 야즈 광장의 초점이 되었다.",
+    hood: "Hudson Yards, West Side",
+    hours: "매일 10:00 AM – 8:00 PM (마지막 입장 7:15 PM)",
+    lastEntry: "7:15 PM",
+    admission: "무료 reservation 필요 (timed entry ticket)",
+    tourInfo: "무료 timed-entry ticket은 hudsonyardsnewyork.com에서 사전 reserve 필요. Stroller과 wheelchair accessible.",
+    transit: "7 → 34 St–Hudson Yards",
+    walkFrom: "High Line (남쪽 끝): 5분 · The Edge observation deck: 2분"
   },
   "nyc-0143": {
     name: "Little Island",
@@ -1491,26 +1491,6 @@ var LOCS_KO_NEW_YORK = {
     tourInfo: "민간 주거용 타워.",
     transit: "A, C → High St–Brooklyn Bridge",
     walkFrom: "Jane's Carousel: 2분"
-  },
-  "nyc-0151": {
-    name: "185 Plymouth Street",
-    desc: "Alloy Development의 2014년 적응적 재사용은 구 Brillo 창고를 8개의 대규모 로프트 주택으로 변환한다. 건물을 통해 조각된 중앙 공간은 채광통과 중정을 만들어 자연광을 깊숙이 실내로 가져오면서 극적인 내부 공간을 창조한다.",
-    hood: "DUMBO",
-    hours: "N/A",
-    admission: "N/A",
-    tourInfo: "민간 residence.",
-    transit: "A, C → High St–Brooklyn Bridge",
-    walkFrom: "St. Ann's Warehouse: 3분"
-  },
-  "nyc-0152": {
-    name: "168 Plymouth Street",
-    desc: "Alloy Development의 2022년 LEED Gold 전환은 1891년식 Round Arch 건물과 1921년식 Daylight Factory를 46개의 주택 유닛으로 통합한다. 현대적 펜트하우스 추가 구조가 복원된 역사적 구조물의 정상을 차지하여 산업 유산을 존중하면서 현대적 편의시설을 제공하는 수직 마을을 만든다.",
-    hood: "DUMBO",
-    hours: "N/A",
-    admission: "N/A",
-    tourInfo: "민간 residence.",
-    transit: "A, C → High St–Brooklyn Bridge",
-    walkFrom: "OLYMPIA DUMBO: 3분"
   },
   "nyc-0153": {
     name: "420 Kent Avenue",

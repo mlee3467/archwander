@@ -6121,7 +6121,9 @@ var LOCS_NEW_YORK = [
       'soho',
       'luxury',
       'curved facade',
-      'pritzker prize'
+      'pritzker prize',
+      'facade design',
+      'exterior'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/565_Broome_SoHo_Ando.jpg?width=800'
@@ -6133,7 +6135,7 @@ var LOCS_NEW_YORK = [
     name:'Little Island',
     cats:[
       'parks',
-      'landmarks'
+      'public space'
     ],
     cc:'c-park',
     styleGroups:[
@@ -6168,7 +6170,8 @@ var LOCS_NEW_YORK = [
       'hudson river',
       'pier 55',
       'meatpacking district',
-      'landscape'
+      'landscape',
+      'modular-design'
     ],
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/Little_Island_NYC_aerial.jpg?width=800',
@@ -6179,8 +6182,7 @@ var LOCS_NEW_YORK = [
     id:'nyc-0144',
     name:'St. Ann\'s Warehouse',
     cats:[
-      'cultural',
-      'historic'
+      'cultural'
     ],
     cc:'c-cul',
     styleGroups:[
@@ -6191,8 +6193,8 @@ var LOCS_NEW_YORK = [
     arch:'Marvel Architects',
     yr:2015,
     access:'open to public',
-    lat:40.7024,
-    lng:-73.9869,
+    lat:40.7036434,
+    lng:-73.9928126,
     addr:'45 Water St, Brooklyn 11201',
     hood:'DUMBO',
     desc:'Marvel Architects\' 2015 renovation of an 1860 tobacco warehouse demonstrates adaptive reuse principles. New construction is inserted within surviving brick walls with a glass brick clerestory providing natural light. The flexible theater space enables diverse performance configurations.',
@@ -6206,9 +6208,13 @@ var LOCS_NEW_YORK = [
     tags:[
       'adaptive-reuse',
       'theater',
-      'brick-architecture'
+      'brick-architecture',
+      'performance-venues',
+      'performing-arts',
+      'cultural'
     ],
-    photos:[]
+    photos:[],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7033506, lng:-73.99303 }
   },
   {
     id:'nyc-0145',
@@ -6228,8 +6234,8 @@ var LOCS_NEW_YORK = [
     arch:'S9 Architecture, Studio V Architecture',
     yr:2016,
     access:'open to public',
-    lat:40.7032,
-    lng:-74.0091,
+    lat:40.7035783,
+    lng:-73.9917827,
     addr:'55 Water St, Brooklyn 11201',
     hood:'DUMBO',
     desc:'2016 renovation by S9 Architecture and Studio V Architecture preserves seven historic 1869 Romanesque Revival warehouse buildings while adding 2.5 new floors. A dramatic open-air courtyard joins the complex, now home to the Time Out Market. The project balances heritage preservation with modern retail activation.',
@@ -6243,9 +6249,11 @@ var LOCS_NEW_YORK = [
     tags:[
       'adaptive-reuse',
       'shopping',
-      'romanesque-revival'
+      'romanesque-revival',
+      'restaurant'
     ],
-    photos:[]
+    photos:[],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7033262, lng:-73.9924804 }
   },
   {
     id:'nyc-0146',
@@ -6254,7 +6262,7 @@ var LOCS_NEW_YORK = [
       'residential',
       'skyscrapers'
     ],
-    cc:'c-sky',
+    cc:'c-res',
     styleGroups:[
       'contemporary',
       'parametric'
@@ -6279,13 +6287,15 @@ var LOCS_NEW_YORK = [
     tags:[
       'luxury-residential',
       'parametric-form',
-      'waterfront'
+      'waterfront',
+      'digital architecture'
     ],
-    photos:[]
+    photos:[],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7025616, lng:-73.9916436 }
   },
   {
     id:'nyc-0147',
-    name:'Dumbo Townhouses (Alloy)',
+    name:'Dumbo Townhouses',
     cats:[
       'residential'
     ],
@@ -6295,7 +6305,7 @@ var LOCS_NEW_YORK = [
     ],
     era:'2000–Present',
     city:'new-york',
-    arch:'Alloy Development (Jared Della Valle)',
+    arch:'Jared Della Valle',
     yr:2015,
     access:'restricted',
     lat:40.7032,
@@ -6313,9 +6323,15 @@ var LOCS_NEW_YORK = [
     tags:[
       'townhouses',
       'concrete-facade',
-      'contemporary'
+      'contemporary',
+      'luxury residential',
+      'jared della valle',
+      'alloy'
     ],
-    photos:[]
+    photos:[],
+    archs:[
+      'Alloy Development'
+    ]
   },
   {
     id:'nyc-0148',
@@ -6350,9 +6366,11 @@ var LOCS_NEW_YORK = [
     tags:[
       'all-electric',
       'sustainable',
-      'green-building'
+      'green-building',
+      'alloy'
     ],
-    photos:[]
+    photos:[],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.685766, lng:-73.9787712 }
   },
   {
     id:'nyc-0149',
@@ -6388,7 +6406,11 @@ var LOCS_NEW_YORK = [
       'schools',
       'sustainable'
     ],
-    photos:[]
+    photos:[],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.686423, lng:-73.9792681 },
+    archs:[
+      'Alloy Development'
+    ]
   },
   {
     id:'nyc-0150',
@@ -6398,12 +6420,11 @@ var LOCS_NEW_YORK = [
     ],
     cc:'c-res',
     styleGroups:[
-      'contemporary',
-      'sculptural'
+      'contemporary'
     ],
     era:'2000–Present',
     city:'new-york',
-    arch:'Alloy Development, SITU Studio',
+    arch:'SITU Studio',
     yr:2016,
     access:'restricted',
     lat:40.7046,
@@ -6421,79 +6442,15 @@ var LOCS_NEW_YORK = [
     tags:[
       'leed-gold',
       'concrete-sculpture',
-      'adaptive-reuse'
+      'situ',
+      'luxury residential',
+      'waterfront'
     ],
-    photos:[]
-  },
-  {
-    id:'nyc-0151',
-    name:'185 Plymouth Street',
-    cats:[
-      'residential'
-    ],
-    cc:'c-res',
-    styleGroups:[
-      'industrial',
-      'contemporary'
-    ],
-    era:'2000–Present',
-    city:'new-york',
-    arch:'Alloy Development',
-    yr:2014,
-    access:'restricted',
-    lat:40.7041,
-    lng:-73.9859,
-    addr:'185 Plymouth St, Brooklyn 11201',
-    hood:'DUMBO',
-    desc:'Alloy Development\'s 2014 adaptive reuse transforms the former Brillo warehouse into eight large loft residences. A central void carved through the building creates light wells and courtyards, bringing daylight deep into the interior while creating dramatic interior spaces.',
-    hours:'N/A',
-    lastEntry:'',
-    admission:'N/A',
-    tourOk:false,
-    tourInfo:'Private residences.',
-    transit:'A, C → High St–Brooklyn Bridge',
-    walkFrom:'St. Ann\'s Warehouse: 3 min',
-    tags:[
-      'adaptive-reuse',
-      'warehouse',
-      'industrial'
-    ],
-    photos:[]
-  },
-  {
-    id:'nyc-0152',
-    name:'168 Plymouth Street',
-    cats:[
-      'residential'
-    ],
-    cc:'c-res',
-    styleGroups:[
-      'historic',
-      'contemporary'
-    ],
-    era:'2000–Present',
-    city:'new-york',
-    arch:'Alloy Development',
-    yr:2022,
-    access:'restricted',
-    lat:40.7036,
-    lng:-73.9869,
-    addr:'168 Plymouth St, Brooklyn 11201',
-    hood:'DUMBO',
-    desc:'Alloy Development\'s 2022 LEED Gold conversion merges an 1891 Round Arch building with a 1921 Daylight Factory into 46 residential units. Contemporary penthouse additions crown the restored historic structures, creating a vertical village that honors industrial heritage while providing modern amenities.',
-    hours:'N/A',
-    lastEntry:'',
-    admission:'N/A',
-    tourOk:false,
-    tourInfo:'Private residences.',
-    transit:'A, C → High St–Brooklyn Bridge',
-    walkFrom:'OLYMPIA DUMBO: 3 min',
-    tags:[
-      'leed-gold',
-      'adaptive-reuse',
-      'mixed-era'
-    ],
-    photos:[]
+    photos:[],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7048492, lng:-73.9879847 },
+    archs:[
+      'Alloy Development'
+    ]
   },
   {
     id:'nyc-0153',
