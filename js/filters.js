@@ -198,6 +198,18 @@ function applyThemes() {
   if (mobBtn) mobBtn.classList.toggle('active', state.themes.length > 0);
   renderList();
   syncMarkers();
+  // Pulse the Route button to hint users can plan a route with filtered results
+  if (state.themes.length > 0) _pulseRouteBtn();
+}
+
+function _pulseRouteBtn() {
+  var desktop = document.getElementById('route-btn');
+  var mobile = document.getElementById('mob-route-btn');
+  [desktop, mobile].forEach(function(el) {
+    if (!el) return;
+    el.classList.add('pulse-hint');
+    setTimeout(function() { el.classList.remove('pulse-hint'); }, 2400);
+  });
 }
 
 function clearThemes() {

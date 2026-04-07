@@ -135,6 +135,15 @@
     }
     #route-btn:hover { background: linear-gradient(135deg, #E86AB5, #DF58B2); box-shadow: 0 2px 6px rgba(217,70,168,0.4); }
     #route-btn.active { background: linear-gradient(135deg, #C73D95, #B53588); box-shadow: 0 2px 8px rgba(181,53,136,0.5); }
+    /* ── Route button pulse hint after theme apply ── */
+    @keyframes pulse-hint {
+      0%   { transform: scale(1);    box-shadow: 0 1px 3px rgba(217,70,168,0.3); }
+      25%  { transform: scale(1.12); box-shadow: 0 0 12px rgba(217,70,168,0.6); }
+      50%  { transform: scale(1);    box-shadow: 0 1px 3px rgba(217,70,168,0.3); }
+      75%  { transform: scale(1.12); box-shadow: 0 0 12px rgba(217,70,168,0.6); }
+      100% { transform: scale(1);    box-shadow: 0 1px 3px rgba(217,70,168,0.3); }
+    }
+    .pulse-hint { animation: pulse-hint 1.2s ease 2; }
     /* ── Fav/Visited action buttons inside panel header ── */
     .p-action-row { display: flex; gap: 7px; margin-top: 7px; }
     .p-action-btn {
