@@ -9751,7 +9751,11 @@ var LOCS_NEW_YORK = [
       'renovation',
       'mansion',
       'museum mile',
-      'klimt'
+      'klimt',
+      'historic landmark',
+      'touristic',
+      'shopping',
+      'restaurant'
     ],
     photos:[]
   },
@@ -9794,7 +9798,8 @@ var LOCS_NEW_YORK = [
       'leed gold',
       'contemporary art',
       'sawtooth skylight',
-      'industrial'
+      'industrial',
+      'touristic'
     ],
     photos:[]
   },
@@ -9838,7 +9843,8 @@ var LOCS_NEW_YORK = [
       'williamsburg',
       'brooklyn',
       'domino',
-      'mixed-use'
+      'mixed-use',
+      'shopping'
     ],
     photos:[]
   },
@@ -10003,7 +10009,9 @@ var LOCS_NEW_YORK = [
       'greenwich village',
       'cast stone',
       'condominium',
-      'mixed-use'
+      'mixed-use',
+      'historic landmark',
+      'shopping'
     ],
     photos:[]
   },
@@ -10046,7 +10054,9 @@ var LOCS_NEW_YORK = [
       'aluminum foam',
       'contemporary art',
       'leed silver',
-      'mega gallery'
+      'mega gallery',
+      'touristic',
+      'shopping'
     ],
     photos:[]
   },
@@ -10091,7 +10101,11 @@ var LOCS_NEW_YORK = [
       'space frame',
       'green roof',
       'hudson yards',
-      'civic'
+      'civic',
+      'touristic',
+      'shopping',
+      'restaurant',
+      'pritzker prize'
     ],
     photos:[]
   },
@@ -10135,7 +10149,11 @@ var LOCS_NEW_YORK = [
       'skyscraper',
       'midtown',
       'art deco influenced',
-      'modernist'
+      'modernist',
+      'touristic',
+      'shopping',
+      'restaurant',
+      'pritzker prize'
     ],
     photos:[]
   },
@@ -10176,7 +10194,9 @@ var LOCS_NEW_YORK = [
       'office tower',
       'park avenue',
       'modernist',
-      'curtain wall'
+      'curtain wall',
+      'historic landmark',
+      'pritzker prize'
     ],
     photos:[]
   },
@@ -10220,7 +10240,9 @@ var LOCS_NEW_YORK = [
       'international style',
       'financial district',
       'office tower',
-      'aia award'
+      'aia award',
+      'historic landmark',
+      'pritzker prize'
     ],
     photos:[]
   },
@@ -10262,7 +10284,8 @@ var LOCS_NEW_YORK = [
       'limestone',
       'condominium',
       'midtown',
-      'lantern windows'
+      'lantern windows',
+      'pritzker prize'
     ],
     photos:[]
   },
@@ -10306,7 +10329,9 @@ var LOCS_NEW_YORK = [
       'glass',
       'battery park city',
       'leed gold',
-      'headquarters'
+      'headquarters',
+      'shopping',
+      'restaurant'
     ],
     photos:[]
   },
@@ -10348,7 +10373,8 @@ var LOCS_NEW_YORK = [
       'institutional',
       'lower manhattan',
       'bmcc',
-      'cuny'
+      'cuny',
+      'historic landmark'
     ],
     photos:[]
   },
@@ -10391,7 +10417,8 @@ var LOCS_NEW_YORK = [
       'lincoln center',
       'precast',
       'institutional',
-      'undulating facade'
+      'undulating facade',
+      'restaurant'
     ],
     photos:[]
   },
@@ -10434,7 +10461,9 @@ var LOCS_NEW_YORK = [
       'met life',
       'limestone',
       'office tower',
-      'madison square park'
+      'madison square park',
+      'historic landmark',
+      'touristic'
     ],
     photos:[]
   },
@@ -10479,7 +10508,8 @@ var LOCS_NEW_YORK = [
       'flatiron',
       'met life',
       'campanile',
-      'landmark'
+      'landmark',
+      'touristic'
     ],
     photos:[]
   },
@@ -10522,7 +10552,10 @@ var LOCS_NEW_YORK = [
       'gallery',
       'theater',
       'japanese garden',
-      'turtle bay'
+      'turtle bay',
+      'touristic',
+      'shopping',
+      'restaurant'
     ],
     photos:[]
   },
@@ -10567,7 +10600,8 @@ var LOCS_NEW_YORK = [
       'national historic landmark',
       'park avenue',
       'gutenberg bible',
-      'organ'
+      'organ',
+      'touristic'
     ],
     photos:[]
   },
@@ -10655,7 +10689,10 @@ var LOCS_NEW_YORK = [
       'esplanade',
       'landfill',
       'mixed-use',
-      'public space'
+      'public space',
+      'touristic',
+      'shopping',
+      'restaurant'
     ],
     photos:[]
   },
@@ -10700,7 +10737,8 @@ var LOCS_NEW_YORK = [
       'cooperative',
       'landmark',
       'residential',
-      'upper west side'
+      'upper west side',
+      'touristic'
     ],
     photos:[]
   },
@@ -10743,7 +10781,8 @@ var LOCS_NEW_YORK = [
       'landmark',
       'national historic landmark',
       'john lennon',
-      'central park west'
+      'central park west',
+      'touristic'
     ],
     photos:[]
   },
@@ -10788,7 +10827,8 @@ var LOCS_NEW_YORK = [
       'landmark',
       'residential',
       'upper west side',
-      'first twin tower'
+      'first twin tower',
+      'touristic'
     ],
     photos:[]
   },
@@ -10831,7 +10871,8 @@ var LOCS_NEW_YORK = [
       'hotel',
       'turtle bay',
       'reflective',
-      'chamfered'
+      'chamfered',
+      'pritzker prize'
     ],
     photos:[]
   },
@@ -10880,7 +10921,12 @@ var LOCS_NEW_YORK = [
       'studio gang',
       'hayden',
       'dinosaurs',
-      'upper west side'
+      'upper west side',
+      'historic landmark',
+      'touristic',
+      'shopping',
+      'restaurant',
+      'kids'
     ],
     photos:[]
   },
@@ -10925,7 +10971,10 @@ var LOCS_NEW_YORK = [
       'upper west side',
       'tiffany',
       'research',
-      'central park west'
+      'central park west',
+      'historic landmark',
+      'touristic',
+      'shopping'
     ],
     photos:[]
   },
@@ -11014,7 +11063,8 @@ var LOCS_NEW_YORK = [
       'upper west side',
       'mansard',
       'turrets',
-      'musicians'
+      'musicians',
+      'touristic'
     ],
     photos:[]
   },
@@ -11103,7 +11153,8 @@ var LOCS_NEW_YORK = [
       'greenpoint',
       'brooklyn',
       'skyscraper',
-      'mixed-income'
+      'mixed-income',
+      'pritzker prize'
     ],
     photos:[]
   },
@@ -11148,7 +11199,10 @@ var LOCS_NEW_YORK = [
       'astoria',
       'queens',
       'adaptive reuse',
-      'theater'
+      'theater',
+      'touristic',
+      'shopping',
+      'restaurant'
     ],
     photos:[]
   },
@@ -11193,7 +11247,11 @@ var LOCS_NEW_YORK = [
       'monastery',
       'fort tryon',
       'rockefeller',
-      'unicorn tapestries'
+      'unicorn tapestries',
+      'historic landmark',
+      'touristic',
+      'shopping',
+      'restaurant'
     ],
     photos:[]
   },
@@ -11239,7 +11297,8 @@ var LOCS_NEW_YORK = [
       'washington heights',
       'audubon terrace',
       'free museum',
-      'renaissance revival'
+      'renaissance revival',
+      'historic landmark'
     ],
     photos:[]
   },
@@ -11286,7 +11345,11 @@ var LOCS_NEW_YORK = [
       'rembrandt',
       'museum mile',
       'upper east side',
-      'renovation'
+      'renovation',
+      'historic landmark',
+      'touristic',
+      'shopping',
+      'restaurant'
     ],
     photos:[]
   },
@@ -11376,7 +11439,8 @@ var LOCS_NEW_YORK = [
       'city college',
       'ccny',
       'renovation',
-      'performing arts'
+      'performing arts',
+      'historic landmark'
     ],
     photos:[]
   },
@@ -11555,7 +11619,9 @@ var LOCS_NEW_YORK = [
       'tallest building',
       'race to the sky',
       'copper crown',
-      '1930'
+      '1930',
+      'historic landmark',
+      'touristic'
     ],
     photos:[]
   },
@@ -11599,7 +11665,9 @@ var LOCS_NEW_YORK = [
       'limestone',
       'neo-gothic',
       'earliest gothic skyscrapers',
-      'broadway'
+      'broadway',
+      'touristic',
+      'restaurant'
     ],
     photos:[]
   },
@@ -11644,7 +11712,8 @@ var LOCS_NEW_YORK = [
       'financial district',
       '9/11 damage',
       'residential conversion',
-      'belgian gothic'
+      'belgian gothic',
+      'historic landmark'
     ],
     photos:[]
   },
@@ -11734,7 +11803,10 @@ var LOCS_NEW_YORK = [
       'condominium',
       'midtown',
       'elliptical',
-      'arcade'
+      'arcade',
+      'touristic',
+      'shopping',
+      'restaurant'
     ],
     photos:[]
   },
@@ -11778,7 +11850,8 @@ var LOCS_NEW_YORK = [
       'glass',
       'curtain wall',
       'midtown',
-      'condominium'
+      'condominium',
+      'touristic'
     ],
     photos:[]
   },
@@ -11991,7 +12064,8 @@ var LOCS_NEW_YORK = [
       'children',
       'public space',
       'upper west side',
-      'innovative'
+      'innovative',
+      'kids'
     ],
     photos:[]
   },
@@ -12035,7 +12109,8 @@ var LOCS_NEW_YORK = [
       'children',
       'public space',
       'upper east side',
-      'thematic'
+      'thematic',
+      'kids'
     ],
     photos:[]
   },
@@ -12083,7 +12158,10 @@ var LOCS_NEW_YORK = [
       'barrel vault',
       'west chelsea',
       'leed platinum',
-      'romanesque'
+      'romanesque',
+      'historic landmark',
+      'shopping',
+      'restaurant'
     ],
     photos:[]
   },
@@ -12129,17 +12207,31 @@ var LOCS_NEW_YORK = [
       'sports',
       'concert venue',
       'drum shape',
-      'landmarks preservation'
+      'landmarks preservation',
+      'touristic',
+      'shopping',
+      'restaurant'
     ],
     photos:[]
   },
 {
     id:'nyc-0297',
     name:"Bronx Children's Museum",
+    cats:[
+      'cultural',
+      'adaptive-reuse'
+    ],
+    cc:'c-cul',
+    styleGroups:[
+      'adaptive reuse',
+      'contemporary'
+    ],
+    era:'2020s',
     city:'new-york',
-    type:'museum',
-    style:'Adaptive Reuse / Contemporary',
     arch:'O\'Neill McVoy Architects',
+    archs:[
+      'O\'Neill McVoy Architects'
+    ],
     yr:2022,
     access:'Ticketed',
     lat:40.823,
@@ -12165,17 +12257,31 @@ var LOCS_NEW_YORK = [
       'leed gold',
       'south bronx',
       'piaget',
-      'sustainable'
+      'sustainable',
+      'kids',
+      'touristic'
     ],
     photos:[]
   },
 {
     id:'nyc-0298',
     name:"Brooklyn Children's Museum",
+    cats:[
+      'cultural',
+      'expansion'
+    ],
+    cc:'c-cul',
+    styleGroups:[
+      'contemporary',
+      'modern'
+    ],
+    era:'2000–Present',
     city:'new-york',
-    type:'museum',
-    style:'Contemporary',
     arch:'Rafael Viñoly Architects (2008 expansion) · Hardy Holzman Pfeiffer (1977 building)',
+    archs:[
+      'Rafael Viñoly Architects',
+      'Hardy Holzman Pfeiffer Associates'
+    ],
     yr:2008,
     access:'Ticketed',
     lat:40.674,
@@ -12201,17 +12307,30 @@ var LOCS_NEW_YORK = [
       'crown heights',
       'worlds first',
       'underground',
-      'brower park'
+      'brower park',
+      'kids',
+      'touristic'
     ],
     photos:[]
   },
 {
     id:'nyc-0299',
     name:"425 Fifth Avenue",
+    cats:[
+      'residential',
+      'skyscrapers'
+    ],
+    cc:'c-res',
+    styleGroups:[
+      'postmodern',
+      'art deco'
+    ],
+    era:'2000–Present',
     city:'new-york',
-    type:'residential',
-    style:'Postmodern / Art Deco Revival',
     arch:'Michael Graves & Associates',
+    archs:[
+      'Michael Graves & Associates'
+    ],
     yr:2003,
     access:'POPS plaza',
     lat:40.751,
@@ -12243,10 +12362,19 @@ var LOCS_NEW_YORK = [
 {
     id:'nyc-0300',
     name:"The Impala",
+    cats:[
+      'residential'
+    ],
+    cc:'c-res',
+    styleGroups:[
+      'postmodern'
+    ],
+    era:'2000–Present',
     city:'new-york',
-    type:'residential',
-    style:'Postmodern',
     arch:'Michael Graves & Associates',
+    archs:[
+      'Michael Graves & Associates'
+    ],
     yr:2000,
     access:'Private exterior',
     lat:40.770,
