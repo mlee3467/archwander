@@ -1,6 +1,6 @@
 /* ============================================================
    ArchWander — New York Location Data
-   231 locations
+   233 locations
    ============================================================ */
 
 var LOCS_NEW_YORK = [
@@ -9617,6 +9617,95 @@ var LOCS_NEW_YORK = [
       'jersey city',
       'podium',
       'mixed-use'
+    ],
+    photos:[]
+  },
+  {
+    id:'nyc-0240',
+    name:'Perelman Performing Arts Center',
+    cats:[
+      'cultural',
+      'landmarks'
+    ],
+    cc:'c-cul',
+    styleGroups:[
+      'contemporary'
+    ],
+    era:'2000–Present',
+    city:'new-york',
+    arch:'REX Architecture',
+    archs:[
+      'REX Architecture'
+    ],
+    yr:2023,
+    access:'Ticketed',
+    lat:40.7115,
+    lng:-74.0133,
+    addr:'251 Fulton St, New York, NY 10007',
+    hood:'Financial District',
+    desc:'The Perelman Performing Arts Center, designed by REX Architecture under the direction of Joshua Prince-Ramus and completed in 2023, is a 138-foot translucent marble cube rising at the World Trade Center site. The 129,000-square-foot building is clad in approximately 5,000 panels of veined Portuguese marble, thin enough to glow from within when illuminated at night. Inside, three flexible theaters seating 450, 250, and 99 can be reconfigured into ten different spatial proportions and sixty-five distinct stage-audience arrangements through a system of movable walls and platforms. This mechanical adaptability allows the center to host opera, theater, dance, film, and music in radically different configurations without any permanent seating. The building fulfils a long-planned cultural component of the World Trade Center master plan and stands as one of the most technically innovative performing arts venues in the world.',
+    hours:'Box office & lobby: Mon–Sat 12 pm–6 pm · Performance days until showtime',
+    lastEntry:'',
+    admission:'Varies by performance · Some free events',
+    tourOk:false,
+    tourInfo:'',
+    transit:'E → World Trade Center · R W → Cortlandt St · 2 3 → Park Place',
+    walkFrom:'9/11 Memorial: 1 min · One World Observatory: 3 min · Brookfield Place: 5 min',
+    tags:[
+      'rex',
+      'rex architecture',
+      'joshua prince-ramus',
+      'performing arts',
+      'marble',
+      'translucent',
+      'world trade center',
+      'flexible theater',
+      'cultural center'
+    ],
+    photos:[]
+  },
+  {
+    id:'nyc-0241',
+    name:'Five Manhattan West',
+    cats:[
+      'commercial',
+      'adaptive-reuse'
+    ],
+    cc:'c-com',
+    styleGroups:[
+      'contemporary'
+    ],
+    era:'2000–Present',
+    city:'new-york',
+    arch:'REX Architecture',
+    archs:[
+      'REX Architecture'
+    ],
+    yr:2017,
+    access:'Lobby Only',
+    lat:40.7535,
+    lng:-73.9975,
+    addr:'450 W 33rd St, New York, NY 10001',
+    hood:'Hudson Yards',
+    desc:'Five Manhattan West, redesigned by REX Architecture and completed in 2017, is a dramatic transformation of a 1969 Brutalist office building originally designed by Davis Brody & Associates. The sixteen-story, 1.7-million-square-foot structure spans the Penn Station rail yard on massive bridge trusses and was reclad with a new pleated glass curtain wall that replaced the original precast concrete facade. The faceted glass skin folds at regular intervals to create a shimmering, prismatic effect that changes appearance throughout the day, turning a formerly anonymous mid-century building into a striking contemporary presence. The $350 million renovation also reconfigured the ground-floor lobby and retail spaces, opened a 30,000-square-foot outdoor plaza, and upgraded building systems to modern standards. The project demonstrated how creative recladding can reinvent aging commercial buildings without demolition, giving new life to existing infrastructure in the rapidly developing Manhattan West district.',
+    hours:'Lobby: Mon–Fri 7 am–7 pm · Plaza open daily',
+    lastEntry:'',
+    admission:'Free (lobby & plaza)',
+    tourOk:false,
+    tourInfo:'',
+    transit:'A C E → 34 St–Penn Station · 1 2 3 → 34 St–Penn Station · 7 → 34 St–Hudson Yards',
+    walkFrom:'Hudson Yards: 3 min · The Shed: 5 min · Moynihan Train Hall: 2 min',
+    tags:[
+      'rex',
+      'rex architecture',
+      'joshua prince-ramus',
+      'recladding',
+      'adaptive reuse',
+      'curtain wall',
+      'glass facade',
+      'hudson yards',
+      'manhattan west',
+      'brutalist renovation'
     ],
     photos:[]
   }
