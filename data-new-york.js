@@ -6592,7 +6592,9 @@ var LOCS_NEW_YORK = [
       'waterfront',
       'glass-towers',
       'public-space',
-      'affordable housing'
+      'affordable housing',
+      'massing',
+      'high-rise'
     ],
     photos:[],
     sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7095637, lng:-73.9685062 }
@@ -6627,7 +6629,9 @@ var LOCS_NEW_YORK = [
     tags:[
       'contextual-design',
       'terraces',
-      'residential'
+      'residential',
+      'massing',
+      'mid-rise'
     ],
     photos:[]
   },
@@ -6646,8 +6650,8 @@ var LOCS_NEW_YORK = [
     arch:'ODA Architecture',
     yr:2018,
     access:'restricted',
-    lat:40.689,
-    lng:-73.918,
+    lat:40.7010895,
+    lng:-73.9362502,
     addr:'10 Montieth St, Brooklyn 11206',
     hood:'Bushwick',
     desc:'ODA Architecture\'s 2018 seven-story rental on the former Rheingold Brewery site houses 500 units with modular design principles. Sloped roofs and integrated terraces reference industrial building typologies while creating distinctive roofscape. The massing respects surrounding warehouse-district character.',
@@ -6662,9 +6666,11 @@ var LOCS_NEW_YORK = [
       'modular-design',
       'sloped-roofs',
       'industrial-site',
-      'restaurant'
+      'massing',
+      'mid-rise'
     ],
-    photos:[]
+    photos:[],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7011742, lng:-73.9367048 }
   },
   {
     id:'nyc-0156',
@@ -6681,8 +6687,8 @@ var LOCS_NEW_YORK = [
     arch:'ODA Architecture',
     yr:2020,
     access:'restricted',
-    lat:40.6898,
-    lng:-73.9178,
+    lat:40.700455,
+    lng:-73.9334393,
     addr:'54 Noll St, Brooklyn 11206',
     hood:'Bushwick',
     desc:'ODA Architecture\'s 2020 1.2-million-square-foot complex on the former Rheingold Brewery site contains 911 apartments. A public park bisects the development, breaking the massive footprint into smaller blocks and providing community open space. The project transforms an industrial site into mixed-income housing.',
@@ -6696,10 +6702,12 @@ var LOCS_NEW_YORK = [
     tags:[
       'large-scale',
       'public-park',
-      'industrial-reuse',
-      'restaurant'
+      'facade design',
+      'massing',
+      'mid-rise'
     ],
-    photos:[]
+    photos:[],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7005816, lng:-73.933074 }
   },
   {
     id:'nyc-0157',
@@ -6733,16 +6741,18 @@ var LOCS_NEW_YORK = [
       'stepped-facade',
       'outdoor-spaces',
       'atrium',
-      'kids'
+      'facade design',
+      'mid-rise',
+      'massing'
     ],
-    photos:[]
+    photos:[],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7497929, lng:-73.9412394 }
   },
   {
     id:'nyc-0158',
     name:'Jazz at Lincoln Center',
     cats:[
-      'cultural',
-      'landmarks'
+      'cultural'
     ],
     cc:'c-cul',
     styleGroups:[
@@ -6772,7 +6782,9 @@ var LOCS_NEW_YORK = [
       'cultural-landmark',
       'touristic',
       'shopping',
-      'restaurant'
+      'restaurant',
+      'performance-venues',
+      'performing-arts'
     ],
     photos:[]
   },
