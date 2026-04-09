@@ -6756,16 +6756,15 @@ var LOCS_NEW_YORK = [
     ],
     cc:'c-cul',
     styleGroups:[
-      'contemporary',
-      'glass'
+      'contemporary'
     ],
     era:'2000–Present',
     city:'new-york',
     arch:'Rafael Viñoly Architects',
     yr:2004,
     access:'open to public',
-    lat:40.7682,
-    lng:-73.9832,
+    lat:40.768403,
+    lng:-73.9827919,
     addr:'10 Columbus Circle, New York 10019',
     hood:'Upper West Side',
     desc:'Rafael Viñoly\'s 2004 Jazz at Lincoln Center is the world\'s first facility built specifically for jazz. The complex houses three distinct concert venues including the glass-walled Appel Room, which projects performers against the backdrop of Central Park, creating an iconic connection between music and urban landscape.',
@@ -6786,7 +6785,8 @@ var LOCS_NEW_YORK = [
       'performance-venues',
       'performing-arts'
     ],
-    photos:[]
+    photos:[],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7682323, lng:-73.9823409 }
   },
   {
     id:'nyc-0159',
@@ -6795,7 +6795,7 @@ var LOCS_NEW_YORK = [
       'residential',
       'skyscrapers'
     ],
-    cc:'c-sky',
+    cc:'c-res',
     styleGroups:[
       'contemporary'
     ],
@@ -6819,12 +6819,10 @@ var LOCS_NEW_YORK = [
     tags:[
       'luxury-residential',
       'curved-form',
-      'financial-district',
-      'touristic',
-      'shopping',
-      'restaurant'
+      'financial-district'
     ],
-    photos:[]
+    photos:[],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7093283, lng:-74.0130256 }
   },
   {
     id:'nyc-0160',
@@ -6858,9 +6856,13 @@ var LOCS_NEW_YORK = [
       'parametric-design',
       'solar-carved',
       'office-building',
-      'shopping'
+      'shopping',
+      'digital architecture',
+      'facade design',
+      'massing'
     ],
-    photos:[]
+    photos:[],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7420067, lng:-74.0081441 }
   },
   {
     id:'nyc-0161',
@@ -6869,18 +6871,19 @@ var LOCS_NEW_YORK = [
       'residential',
       'skyscrapers'
     ],
-    cc:'c-sky',
+    cc:'c-res',
     styleGroups:[
       'contemporary',
-      'sculptural'
+      'sculptural',
+      'parametric'
     ],
     era:'2000–Present',
     city:'new-york',
     arch:'Studio Gang',
     yr:2022,
     access:'restricted',
-    lat:40.693,
-    lng:-73.987,
+    lat:40.6895222,
+    lng:-73.9849806,
     addr:'11 Hoyt St, Brooklyn 11217',
     hood:'Downtown Brooklyn',
     desc:'Studio Gang\'s 2022 57-story, 620-foot tower features an undulating scalloped precast concrete facade creating visual rhythm and varied unit layouts. The 481 residential units sit atop a 27,000-square-foot private park, creating a green oasis above the urban streetscape.',
@@ -6893,19 +6896,21 @@ var LOCS_NEW_YORK = [
     walkFrom:'Atlantic Avenue Terminal: 6 min',
     tags:[
       'scalloped-facade',
-      'rooftop-park',
-      'residential-tower',
       'shopping',
-      'restaurant'
+      'restaurant',
+      'parametric',
+      'digital architecture',
+      'facade design',
+      'high-rise'
     ],
-    photos:[]
+    photos:[],
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.6893244, lng:-73.9848722 }
   },
   {
     id:'nyc-0162',
     name:'Richard Gilder Center',
     cats:[
-      'cultural',
-      'landmarks'
+      'cultural'
     ],
     cc:'c-cul',
     styleGroups:[
@@ -6933,9 +6938,13 @@ var LOCS_NEW_YORK = [
       'cave-like',
       'institutional',
       'touristic',
-      'kids'
+      'kids',
+      'interior atrium',
+      'atrium',
+      'museum'
     ],
-    photos:[]
+    photos:[],
+    sv:{ heading:210, pitch:10, fov:90, source:'default', lat:40.7816047, lng:-73.9744282 }
   },
   {
     id:'nyc-0163',
@@ -6943,7 +6952,8 @@ var LOCS_NEW_YORK = [
     cats:[
       'academic',
       'institution',
-      'religious'
+      'religious',
+      'landmark'
     ],
     cc:'c-rel',
     styleGroups:[
@@ -6970,9 +6980,14 @@ var LOCS_NEW_YORK = [
       'gothic-revival',
       'theological-campus',
       'historic landmark',
-      'touristic'
+      'touristic',
+      'landmark',
+      'church'
     ],
-    photos:[]
+    photos:[],
+    archs:[
+      'Beyer Blinder Belle Architects'
+    ]
   },
   {
     id:'nyc-0164',
@@ -7007,7 +7022,8 @@ var LOCS_NEW_YORK = [
       'carillon',
       'landmark-tower',
       'historic landmark',
-      'touristic'
+      'touristic',
+      'church'
     ],
     photos:[]
   },
@@ -7018,7 +7034,7 @@ var LOCS_NEW_YORK = [
       'residential',
       'skyscrapers'
     ],
-    cc:'c-sky',
+    cc:'c-res',
     styleGroups:[
       'contemporary',
       'gothic revival'
@@ -7045,7 +7061,7 @@ var LOCS_NEW_YORK = [
       'luxury-residential',
       'contextual',
       'restaurant',
-      'kids'
+      'high-rise'
     ],
     photos:[]
   },
