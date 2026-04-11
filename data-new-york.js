@@ -4079,7 +4079,7 @@ var LOCS_NEW_YORK = [
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Silver_Towers_NYC.jpg/800px-Silver_Towers_NYC.jpg'
     ],
-    sv: { heading: 126, pitch: 17, fov: 90, source:'outdoor', lat:40.7267953, lng:-73.9982736 }
+    sv: { heading: 243, pitch: 2, fov: 97, source:'outdoor', lat:40.7267953, lng:-73.9982736 }
   },
   {
     id:'nyc-0092',
@@ -4124,7 +4124,7 @@ var LOCS_NEW_YORK = [
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/173_Perry_St_by_David_Shankbone.jpg/800px-173_Perry_St_by_David_Shankbone.jpg'
     ],
-    sv: { heading: 144, pitch: 10, fov: 99, source:'outdoor', lat:40.7346044, lng:-74.0100297 }
+    sv: { heading: 135, pitch: 10, fov: 117, source:'outdoor', lat:40.7346044, lng:-74.0100297 }
   },
   {
     id:'nyc-0093',
