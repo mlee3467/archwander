@@ -81,7 +81,7 @@ var T = {
     ifl_landmark: 'Landmarks',
     ifl_shopping: 'Shopping & Dining',
     ifl_luxres:   'Luxury Residential',
-    ifl_apply:    'Apply',
+    ifl_apply:    'Apply filter',
     ifl_clear:    '✕ Clear',
   },
   ko: {
