@@ -4035,7 +4035,7 @@ var LOCS_NEW_YORK = [
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Kips_Bay_Towers_jeh.jpg/800px-Kips_Bay_Towers_jeh.jpg'
     ],
-    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7416768, lng:-73.9761372 }
+    sv: { heading: 30, pitch: 25, fov: 90, source:'outdoor', lat:40.7416768, lng:-73.9761372 }
   },
   {
     id:'nyc-0091',
@@ -4079,7 +4079,7 @@ var LOCS_NEW_YORK = [
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Silver_Towers_NYC.jpg/800px-Silver_Towers_NYC.jpg'
     ],
-    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7267953, lng:-73.9982736 }
+    sv: { heading: 126, pitch: 17, fov: 90, source:'outdoor', lat:40.7267953, lng:-73.9982736 }
   },
   {
     id:'nyc-0092',
@@ -4101,7 +4101,7 @@ var LOCS_NEW_YORK = [
     access:'private',
     lat:40.7344364,
     lng:-74.0097048,
-    addr:'173–176 Perry St / 165 Charles St, New York, NY 10014',
+    addr: '176 Perry St, New York, NY 10014, United States',
     hood:'West Village',
     desc:'The Perry Street Towers are a series of three all-glass and white-panel residential buildings by Richard Meier in the West Village, completed in two phases: 173–176 Perry Street (2002) and 165 Charles Street (2005). The towers\' pure, austere aesthetic — floor-to-ceiling glass, white porcelain panels, and planar geometry — creates a radical formal contrast with the surrounding 19th-century brick rowhouses and cobblestone streets of the West Village. Meier brought his signature white minimalism, more familiar from his California houses and the Getty Center, to the compressed urban grain of Manhattan. The buildings remain among the most divisive works of architecture in the city — and among the most sought-after residential addresses.',
     hours:'Exterior: 24/7',
@@ -4124,7 +4124,7 @@ var LOCS_NEW_YORK = [
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/173_Perry_St_by_David_Shankbone.jpg/800px-173_Perry_St_by_David_Shankbone.jpg'
     ],
-    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7346044, lng:-74.0100297 }
+    sv: { heading: 144, pitch: 10, fov: 99, source:'outdoor', lat:40.7346044, lng:-74.0100297 }
   },
   {
     id:'nyc-0093',
