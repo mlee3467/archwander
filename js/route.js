@@ -14,10 +14,12 @@ var routeData      = null; // { distance, duration, steps: [...] }
 var routeWalkerMarker = null;
 var _walkerAnimId     = null;
 var _walkerSprites    = null;
-var _WALKER_FRAME_MS  = 280; // ms per stride frame
+var _walkerStaminaEl  = null;  // HUD DOM element
+var _walkerStamina    = 100;   // 0-100
+var _WALKER_FRAME_MS  = 280;   // ms per stride frame
 
-// 8×12 pixel art character — 2 stride frames (left / right foot forward)
-// Characters: 0=transparent 1=skin 2=jacket 3=pants/shoes 4=hair
+// 8×12 pixel art character: 0=transparent 1=skin 2=jacket 3=pants/shoes 4=hair
+// Frame 0: left foot forward  Frame 1: right foot forward
 var _WALKER_PX_FRAMES = [
   '00444400' + '04111140' + '04111140' + '00111100' +
   '02222220' + '22222222' + '02222220' +
@@ -46,67 +48,229 @@ function _buildWalkerSprites() {
   return _walkerSprites;
 }
 
-function _buildWalkerIcon(frameIdx, facingRight) {
+// badge: null | 'camera' | 'skull'
+function _buildWalkerIcon(frameIdx, facingRight, badge) {
   var sprites = _buildWalkerSprites();
-  var src = sprites[frameIdx % sprites.length];
+  var src = sprites[Math.min(frameIdx, sprites.length - 1)];
+  var topHtml = '';
+  if (badge === 'skull') {
+    topHtml = '<div style="font-size:10px;line-height:1;text-align:center;margin-bottom:1px;filter:drop-shadow(0 0 3px #f00)">💀</div>';
+  } else if (badge === 'camera') {
+    topHtml = '<div style="font-size:9px;line-height:1;text-align:center;margin-bottom:1px">📷</div>';
+  }
+  var extraH = badge ? 13 : 0;
   return L.divIcon({
     className: '',
-    html: '<img src="' + src + '" style="width:16px;height:24px;image-rendering:pixelated;display:block;' +
+    html: '<div style="display:flex;flex-direction:column;align-items:center">' +
+          topHtml +
+          '<img src="' + src + '" style="width:16px;height:24px;image-rendering:pixelated;display:block;' +
           (facingRight ? '' : 'transform:scaleX(-1);') +
-          'filter:drop-shadow(1px 1px 0 rgba(0,0,0,0.7))" draggable="false">',
-    iconSize: [16, 24],
-    iconAnchor: [8, 24]
+          'filter:drop-shadow(1px 1px 0 rgba(0,0,0,0.7))" draggable="false">' +
+          '</div>',
+    iconSize: [16, 24 + extraH],
+    iconAnchor: [8, 24 + extraH]
   });
 }
 
-function _startWalkerAnimation(coords) {
+// ── Stamina HUD ──────────────────────────────────────────────────
+function _createStaminaBar() {
+  _removeStaminaBar();
+  var el = document.createElement('div');
+  el.id = 'walker-stamina-hud';
+  el.style.cssText =
+    'position:fixed;bottom:76px;right:14px;z-index:9000;' +
+    'background:#111;border:2px solid #555;padding:5px 7px;' +
+    'font-family:"Press Start 2P",monospace;font-size:6px;color:#ccc;' +
+    'min-width:88px;box-shadow:3px 3px 0 rgba(0,0,0,0.7);pointer-events:none;' +
+    'border-radius:0;line-height:1.4';
+  el.innerHTML =
+    '<div style="margin-bottom:3px;letter-spacing:1px">STAMINA</div>' +
+    '<div style="background:#222;height:7px;position:relative;border:1px solid #444">' +
+      '<div id="walker-stamina-fill" style="height:100%;width:100%;background:#44ee44;transition:width 0.15s,background 0.3s"></div>' +
+    '</div>' +
+    '<div id="walker-stamina-status" style="margin-top:3px;font-size:5px;color:#888;min-height:6px"></div>';
+  document.body.appendChild(el);
+  _walkerStaminaEl = el;
+}
+
+function _updateStaminaBar(pct) {
+  var fill = document.getElementById('walker-stamina-fill');
+  var status = document.getElementById('walker-stamina-status');
+  if (!fill) return;
+  var p = Math.max(0, Math.min(100, pct));
+  fill.style.width = p + '%';
+  // Green → yellow → red
+  var r = p > 50 ? Math.round((100 - p) / 50 * 255) : 255;
+  var g = p > 50 ? 238 : Math.round(p / 50 * 238);
+  fill.style.background = 'rgb(' + r + ',' + g + ',0)';
+  // Low flicker
+  if (p < 20) fill.style.opacity = Math.random() > 0.25 ? '1' : '0.5';
+  else fill.style.opacity = '1';
+  // Status text
+  if (status) {
+    if (p <= 0) status.textContent = '!! EXHAUSTED !!';
+    else if (p < 20) status.textContent = 'CRITICAL';
+    else if (p < 50) status.textContent = 'TIRED';
+    else status.textContent = '';
+  }
+}
+
+function _removeStaminaBar() {
+  var el = document.getElementById('walker-stamina-hud');
+  if (el && el.parentNode) el.parentNode.removeChild(el);
+  _walkerStaminaEl = null;
+  _walkerStamina = 100;
+}
+
+// ── Photo Flash ──────────────────────────────────────────────────
+function _doPhotoFlash(latLng) {
+  try {
+    var container = map.getContainer();
+    var pt = map.latLngToContainerPoint(latLng);
+    var rect = container.getBoundingClientRect();
+    var flash = document.createElement('div');
+    flash.style.cssText =
+      'position:fixed;' +
+      'left:' + (rect.left + pt.x - 18) + 'px;' +
+      'top:'  + (rect.top  + pt.y - 38) + 'px;' +
+      'width:36px;height:36px;border-radius:50%;' +
+      'background:radial-gradient(circle,rgba(255,255,220,1) 10%,rgba(255,255,200,0) 70%);' +
+      'pointer-events:none;z-index:10000;opacity:1;transition:opacity 0.45s ease-out';
+    document.body.appendChild(flash);
+    flash.getBoundingClientRect(); // force reflow
+    setTimeout(function() { flash.style.opacity = '0'; }, 40);
+    setTimeout(function() { if (flash.parentNode) flash.parentNode.removeChild(flash); }, 520);
+  } catch(e) {}
+}
+
+// ── Nearest coord index helper ───────────────────────────────────
+function _closestCoordIdx(coords, lat, lng) {
+  var best = 0, bestDsq = Infinity;
+  for (var i = 0; i < coords.length; i++) {
+    var dl = coords[i][0] - lat, dn = coords[i][1] - lng;
+    var dsq = dl*dl + dn*dn;
+    if (dsq < bestDsq) { bestDsq = dsq; best = i; }
+  }
+  return best;
+}
+
+// ── Main animation ───────────────────────────────────────────────
+// coords: full path points. stopIndices: which coords[] positions are stop locations.
+function _startWalkerAnimation(coords, stopIndices) {
   _stopWalkerAnimation();
   if (!coords || coords.length < 2) return;
+  if (!stopIndices || stopIndices.length < 2) stopIndices = [0, coords.length - 1];
   _buildWalkerSprites();
+  _createStaminaBar();
+  _walkerStamina = 100;
 
-  // Pre-compute cumulative distances along path
-  var cumDist = [0];
-  for (var i = 1; i < coords.length; i++) {
-    var d = haversineM(coords[i-1][0], coords[i-1][1], coords[i][0], coords[i][1]);
-    cumDist.push(cumDist[i-1] + d);
+  // ── Build timeline ──
+  // Compute per-segment distances between consecutive stops
+  var PAUSE_MS = 750;
+  var segDists = [];
+  var totalTravelDist = 0;
+  for (var s = 0; s < stopIndices.length - 1; s++) {
+    var d = 0;
+    var from = stopIndices[s], to = stopIndices[s + 1];
+    for (var ci = from; ci < to && ci + 1 < coords.length; ci++) {
+      d += haversineM(coords[ci][0], coords[ci][1], coords[ci+1][0], coords[ci+1][1]);
+    }
+    segDists.push(d);
+    totalTravelDist += d;
   }
-  var totalDist = cumDist[cumDist.length - 1];
-  if (totalDist < 1) return;
+  if (totalTravelDist < 1) { _removeStaminaBar(); return; }
 
-  // Full loop duration: 30ms/m, clamped 15s–60s
-  var durationMs = Math.min(60000, Math.max(15000, totalDist * 30));
+  // Animation speed: 30ms/m, 15-60s travel time
+  var travelMs = Math.min(60000, Math.max(15000, totalTravelDist * 30));
 
-  routeWalkerMarker = L.marker(coords[0], {
-    icon: _buildWalkerIcon(0, true),
+  // Timeline entries: pause → travel → pause → travel → ...
+  var timeline = [];
+  var tCursor = 0;
+  // Pause at first stop
+  timeline.push({ type:'pause', t0:tCursor, t1:tCursor+PAUSE_MS, stopIdx:0 });
+  tCursor += PAUSE_MS;
+  for (var s = 0; s < stopIndices.length - 1; s++) {
+    var segMs = totalTravelDist > 0 ? (segDists[s] / totalTravelDist) * travelMs : travelMs;
+    timeline.push({ type:'travel', t0:tCursor, t1:tCursor+segMs, fromIdx:stopIndices[s], toIdx:stopIndices[s+1] });
+    tCursor += segMs;
+    timeline.push({ type:'pause', t0:tCursor, t1:tCursor+PAUSE_MS, stopIdx:s+1 });
+    tCursor += PAUSE_MS;
+  }
+  var timelineTotal = tCursor;
+
+  // Place walker at start
+  routeWalkerMarker = L.marker(coords[stopIndices[0]], {
+    icon: _buildWalkerIcon(0, true, 'camera'),
     zIndexOffset: 1000,
     interactive: false
   }).addTo(map);
 
-  var startTime = null;
+  var animRealStart = null;  // Date.now() equivalent via rAF timestamp
+  var lastTs = null;
+  var accumMs = 0;           // virtual clock (slows when exhausted)
+  var prevEntryType = null;
+  var prevStopIdx   = -1;
+
   function animate(ts) {
     if (!routeWalkerMarker) return;
-    if (!startTime) startTime = ts;
-    var elapsed = (ts - startTime) % durationMs;
-    var targetDist = (elapsed / durationMs) * totalDist;
+    if (!animRealStart) { animRealStart = ts; lastTs = ts; }
 
-    // Find segment via linear scan
-    var seg = 0;
-    for (var j = 1; j < cumDist.length; j++) {
-      if (cumDist[j] >= targetDist) { seg = j - 1; break; }
-      seg = j - 1;
+    var dt = ts - lastTs;
+    lastTs = ts;
+
+    // ── Stamina update ──
+    var realSec = (ts - animRealStart) / 1000;
+    // Drain: 100/90 per sec for first 30 real-seconds, then 200/90 per sec
+    var drained = realSec <= 30
+      ? realSec * (100 / 90)
+      : 30 * (100 / 90) + (realSec - 30) * (200 / 90);
+    _walkerStamina = Math.max(0, 100 - drained);
+    _updateStaminaBar(_walkerStamina);
+    var skulled = _walkerStamina <= 0;
+
+    // ── Advance virtual clock (0.3x speed when skull) ──
+    var speedMod = skulled ? 0.3 : 1.0;
+    accumMs = (accumMs + dt * speedMod) % timelineTotal;
+
+    // ── Find current timeline entry ──
+    var entry = timeline[timeline.length - 1];
+    for (var i = 0; i < timeline.length; i++) {
+      if (accumMs >= timeline[i].t0 && accumMs < timeline[i].t1) {
+        entry = timeline[i]; break;
+      }
     }
-    seg = Math.min(seg, coords.length - 2);
 
-    var segLen = cumDist[seg + 1] - cumDist[seg];
-    var t = segLen > 0 ? (targetDist - cumDist[seg]) / segLen : 0;
-    var lat = coords[seg][0] + t * (coords[seg+1][0] - coords[seg][0]);
-    var lng = coords[seg][1] + t * (coords[seg+1][1] - coords[seg][1]);
+    // ── Transition detection for flash ──
+    var isNewPause = entry.type === 'pause' &&
+      (prevEntryType !== 'pause' || prevStopIdx !== entry.stopIdx);
+    if (isNewPause) _doPhotoFlash(coords[stopIndices[entry.stopIdx]]);
+    prevEntryType = entry.type;
+    prevStopIdx   = entry.type === 'pause' ? entry.stopIdx : -1;
 
-    var facingRight = (coords[seg+1][1] - coords[seg][1]) >= 0;
-    var frameIdx = Math.floor(ts / _WALKER_FRAME_MS) % 2;
+    // ── Render ──
+    var badge = skulled ? 'skull' : (entry.type === 'pause' ? 'camera' : null);
 
-    routeWalkerMarker.setLatLng([lat, lng]);
-    routeWalkerMarker.setIcon(_buildWalkerIcon(frameIdx, facingRight));
+    if (entry.type === 'pause') {
+      var stopCoord = coords[stopIndices[entry.stopIdx]];
+      routeWalkerMarker.setLatLng(stopCoord);
+      routeWalkerMarker.setIcon(_buildWalkerIcon(0, true, badge));
+    } else {
+      var segProgress = (accumMs - entry.t0) / (entry.t1 - entry.t0);
+      segProgress = Math.max(0, Math.min(1, segProgress));
+      var from = entry.fromIdx, to = entry.toIdx;
+      var span = to - from;
+      var rawIdx = from + segProgress * span;
+      var c0 = Math.min(Math.floor(rawIdx), to - 1);
+      var c1 = Math.min(c0 + 1, to);
+      var ct = rawIdx - c0;
+      var lat = coords[c0][0] + ct * (coords[c1][0] - coords[c0][0]);
+      var lng = coords[c0][1] + ct * (coords[c1][1] - coords[c0][1]);
+      var facingRight = (coords[c1][1] - coords[c0][1]) >= 0;
+      var frameIdx = Math.floor(ts / _WALKER_FRAME_MS) % 2;
+      routeWalkerMarker.setLatLng([lat, lng]);
+      routeWalkerMarker.setIcon(_buildWalkerIcon(frameIdx, facingRight, badge));
+    }
+
     _walkerAnimId = requestAnimationFrame(animate);
   }
   _walkerAnimId = requestAnimationFrame(animate);
@@ -118,6 +282,7 @@ function _stopWalkerAnimation() {
     try { map.removeLayer(routeWalkerMarker); } catch(e) {}
     routeWalkerMarker = null;
   }
+  _removeStaminaBar();
 }
 
 // ── Route Panel UI ───────────────────────────────────────────────
@@ -573,7 +738,11 @@ function _displayRoute(route, ordered) {
     legs: route.legs || []
   };
   _renderRouteResult(routeData, ordered);
-  _startWalkerAnimation(coords);
+  // Find each stop's nearest index in the OSRM coords array
+  var stopIndices = ordered.map(function(loc) {
+    return _closestCoordIdx(coords, loc.lat, loc.lng);
+  });
+  _startWalkerAnimation(coords, stopIndices);
 }
 
 function _displayStraightRoute(ordered) {
@@ -611,7 +780,9 @@ function _displayStraightRoute(ordered) {
   var totalDur = totalDist / 1.33; // ~80m/min
   routeData = { distance: totalDist, duration: totalDur, stops: ordered.length, legs: [], estimated: true };
   _renderRouteResult(routeData, ordered);
-  _startWalkerAnimation(coords);
+  // For straight route, every coord is a stop
+  var stopIndices = coords.map(function(_, i) { return i; });
+  _startWalkerAnimation(coords, stopIndices);
 }
 
 function _renderRouteResult(data, ordered) {
