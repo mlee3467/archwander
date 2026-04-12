@@ -1,0 +1,25 @@
+{
+  "name": "ArchWander",
+  "short_name": "ArchWander",
+  "description": "Architecture tourism guide — explore cities through their buildings",
+  "start_url": "/archwander/",
+  "scope": "/archwander/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#F7F7F5",
+  "theme_color": "#111111",
+  "icons": [
+    {
+      "src": "img/Logo_favicon.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "img/logo_large.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
