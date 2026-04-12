@@ -18,13 +18,14 @@ var _walkerAnimId      = null;
 var _walkerSprites     = null;
 var _walkerDistCovered = 0;     // cumulative meters walked
 var _walkerRevealLine  = null;  // growing polyline that reveals the path
+var _walkerBlackLine   = null;  // black dotted overlay on walked path
 var _walkerRevealMs    = 0;     // reveal clock, always advances at full speed
 var _WALKER_FRAME_MS   = 190;   // ms per stride frame (1.5× faster)
 
 // ── Distance thresholds (80 m/min average walking pace) ──────────
 var _WLK_D30MIN  = 2400;   // 30 min  → 50% stamina, speed −50%
 var _WLK_D_EMPTY = 3600;   // ~45 min → stamina 0%, speed −75%
-var _WLK_D_STOP  = 5000;   // ~62 min → completely stopped, show rest icons
+var _WLK_D_STOP  = 6000;   // ~75 min → completely stopped, show rest icons
 
 // ── 16×16 B&W pixel art character ────────────────────────────────
 // Palette: 0=transparent  1=white  4=black
@@ -251,11 +252,11 @@ function _buildWalkerIcon(frameIdx, facingRight, dist, badge) {
   var g = p > 50 ? 200 : Math.round(p/50*200);
   var flickerOp = (p < 20 && !stopped) ? (0.45 + 0.55 * Math.abs(Math.sin(Date.now() / 120))) : 1;
   var barHtml =
-    '<div style="width:40px;height:4px;background:#1a1a1a;border:1px solid #555;' +
+    '<div style="width:40px;height:6px;background:#1a1a1a;border:1px solid #555;' +
     'margin-bottom:2px;overflow:hidden">' +
     '<div style="width:' + p + '%;height:100%;background:rgb(' + r + ',' + g + ',0);opacity:' + flickerOp.toFixed(2) + '"></div>' +
     '</div>';
-  var barH = 7;
+  var barH = 10;
 
   var containerW = 52;
   var aboveH = distH + badgeH + statusH + barH;
@@ -349,10 +350,15 @@ function _startWalkerAnimation(coords, stopIndices) {
     zIndexOffset: 1000, interactive: false
   }).addTo(map);
 
-  // Create reveal polyline (bright, grows as character walks at full speed)
+  // Create reveal polyline (bright pink, grows as character walks at full speed)
   _walkerRevealLine = L.polyline([coords[stopIndices[0]]], {
     color: '#D946A8', weight: 5, opacity: 0.85,
     dashArray: '4 4', lineCap: 'square'
+  }).addTo(map);
+  // Black dotted overlay on top of reveal line (drawn after so it's on top)
+  _walkerBlackLine = L.polyline([coords[stopIndices[0]]], {
+    color: '#000000', weight: 2, opacity: 0.45,
+    dashArray: '3 6', lineCap: 'round'
   }).addTo(map);
   _walkerRevealMs = 0;
 
@@ -394,6 +400,7 @@ function _startWalkerAnimation(coords, stopIndices) {
       );
     }
     if (_walkerRevealLine) _walkerRevealLine.setLatLngs(coords.slice(0, revealCoordIdx + 1));
+    if (_walkerBlackLine)  _walkerBlackLine.setLatLngs(coords.slice(0, revealCoordIdx + 1));
 
     // ── Speed mod from distance ──────────────────────────────────
     var stopped  = _walkerDistCovered >= _WLK_D_STOP;
@@ -474,6 +481,10 @@ function _stopWalkerAnimation() {
   if (_walkerRevealLine) {
     try { map.removeLayer(_walkerRevealLine); } catch(e) {}
     _walkerRevealLine = null;
+  }
+  if (_walkerBlackLine) {
+    try { map.removeLayer(_walkerBlackLine); } catch(e) {}
+    _walkerBlackLine = null;
   }
   _walkerDistCovered = 0;
   _walkerRevealMs    = 0;
@@ -907,9 +918,16 @@ function _displayRoute(route, ordered) {
   // Add numbered markers
   ordered.forEach(function(loc, i) {
     var icon = L.divIcon({
-      html: '<div style="background:#D946A8;color:white;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.3);font-family:Inter,sans-serif">' + (i + 1) + '</div>',
+      html: '<div style="display:flex;align-items:center;gap:4px;white-space:nowrap">' +
+            '<div style="background:#D946A8;color:white;width:24px;height:24px;border-radius:50%;' +
+            'display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;' +
+            'border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.3);font-family:Inter,sans-serif;flex-shrink:0">' + (i + 1) + '</div>' +
+            '<div style="font-size:9px;font-family:Inter,sans-serif;font-weight:600;color:#111;' +
+            'background:rgba(255,255,255,0.92);padding:2px 5px;border-radius:3px;' +
+            'box-shadow:0 1px 4px rgba(0,0,0,0.25);max-width:90px;overflow:hidden;text-overflow:ellipsis">' +
+            loc.name + '</div></div>',
       className: '',
-      iconSize: [24, 24],
+      iconSize: [120, 24],
       iconAnchor: [12, 12]
     });
     var m = L.marker([loc.lat, loc.lng], { icon: icon })
@@ -952,9 +970,16 @@ function _displayStraightRoute(ordered) {
   // Add numbered markers
   ordered.forEach(function(loc, i) {
     var icon = L.divIcon({
-      html: '<div style="background:#D946A8;color:white;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.3);font-family:Inter,sans-serif">' + (i + 1) + '</div>',
+      html: '<div style="display:flex;align-items:center;gap:4px;white-space:nowrap">' +
+            '<div style="background:#D946A8;color:white;width:24px;height:24px;border-radius:50%;' +
+            'display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;' +
+            'border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.3);font-family:Inter,sans-serif;flex-shrink:0">' + (i + 1) + '</div>' +
+            '<div style="font-size:9px;font-family:Inter,sans-serif;font-weight:600;color:#111;' +
+            'background:rgba(255,255,255,0.92);padding:2px 5px;border-radius:3px;' +
+            'box-shadow:0 1px 4px rgba(0,0,0,0.25);max-width:90px;overflow:hidden;text-overflow:ellipsis">' +
+            loc.name + '</div></div>',
       className: '',
-      iconSize: [24, 24],
+      iconSize: [120, 24],
       iconAnchor: [12, 12]
     });
     var m = L.marker([loc.lat, loc.lng], { icon: icon })
