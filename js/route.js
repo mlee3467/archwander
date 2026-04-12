@@ -20,28 +20,44 @@ var _walkerDistCovered = 0;   // cumulative meters walked (persists across loops
 var _WALKER_FRAME_MS  = 280;  // ms per stride frame
 
 // ── Distance thresholds (80 m/min average walking pace) ──────────
-var _WLK_D30MIN  = 2400;   // 30 min  → 50% stamina drained, speed −50%
-var _WLK_D_EMPTY = 3600;   // ~45 min → stamina hits 0 (2× drain rate from 2400 m)
-var _WLK_D_STOP  = 9600;   // 2 hr    → completely stopped, show rest icons
+var _WLK_D30MIN  = 2400;   // 30 min  → 50% stamina, speed −50%
+var _WLK_D_EMPTY = 3600;   // ~45 min → stamina 0%, speed −75%
+var _WLK_D_STOP  = 6000;   // ~75 min → completely stopped, show rest icons
 
-// ── 12×16 pixel art character: 0=transparent 1=skin 2=jacket 3=pants 4=hair ──
-// Each frame string = 12 cols × 16 rows = 192 chars
+// ── 12×12 pixel art character: 0=transparent 1=skin 2=shirt(green) 3=pants(brown) 4=hair/outline ──
+// Each frame string = 12 cols × 12 rows = 144 chars
+// Design inspired by classic outlined RPG pixel sprites
 var _WALKER_PX_FRAMES = [
   // Frame 0: stride A — left foot forward
-  '004444444400' + '044444444440' + '041111111140' + '041111111140' +
-  '001111111100' + '001111111100' +
-  '022222222220' + '222222222222' + '222222222222' + '022222222220' +
-  '002300000320' + '003300000330' + '333000000330' + '333000000030' +
-  '000000000000' + '000000000000',
+  '004444440000' + // R0  hair
+  '044111144000' + // R1  head
+  '041111114000' + // R2  face
+  '004111140000' + // R3  chin/neck
+  '042222224000' + // R4  body top
+  '422222224400' + // R5  body (arms out)
+  '422222224400' + // R6  body lower
+  '043333334000' + // R7  waist
+  '004300430000' + // R8  upper legs
+  '043300433000' + // R9  mid legs
+  '433000334000' + // R10 lower legs  — left forward
+  '330000034000',  // R11 feet        — left extends
+
   // Frame 1: stride B — right foot forward
-  '004444444400' + '044444444440' + '041111111140' + '041111111140' +
-  '001111111100' + '001111111100' +
-  '022222222220' + '222222222222' + '222222222222' + '022222222220' +
-  '002300000320' + '003300000330' + '003300000333' + '000300000333' +
-  '000000000000' + '000000000000'
+  '004444440000' + // R0-R9 identical to Frame 0
+  '044111144000' +
+  '041111114000' +
+  '004111140000' +
+  '042222224000' +
+  '422222224400' +
+  '422222224400' +
+  '043333334000' +
+  '004300430000' +
+  '043300433000' +
+  '043300033400' + // R10 lower legs  — right forward
+  '043000003300'   // R11 feet        — right extends
 ];
-var _WALKER_COLORS = { '0':null,'1':'#FFD0A0','2':'#4488EE','3':'#222244','4':'#5D3A1A' };
-var _WALKER_PX_W = 12, _WALKER_PX_H = 16, _WALKER_PX_SCALE = 2;
+var _WALKER_COLORS = { '0':null,'1':'#F2B07B','2':'#1E5C28','3':'#6B3621','4':'#111111' };
+var _WALKER_PX_W = 12, _WALKER_PX_H = 12, _WALKER_PX_SCALE = 2;
 
 function _buildWalkerSprites() {
   if (_walkerSprites) return _walkerSprites;
@@ -73,7 +89,7 @@ function _walkerGetSpeedMod(dist) {
   return 1.0;
 }
 
-// ── Icon builder — stamina bar + badge embedded in divIcon HTML ──
+// ── Icon builder — distance label + stamina bar + badge in divIcon HTML ──
 // badge: null | 'camera' | 'stopped'
 function _buildWalkerIcon(frameIdx, facingRight, dist, badge) {
   var sprites = _buildWalkerSprites();
@@ -81,16 +97,26 @@ function _buildWalkerIcon(frameIdx, facingRight, dist, badge) {
   var stamina = _walkerGetStamina(dist);
   var stopped = dist >= _WLK_D_STOP;
   var spriteW = _WALKER_PX_W * _WALKER_PX_SCALE;  // 24px
-  var spriteH = _WALKER_PX_H * _WALKER_PX_SCALE;  // 32px
+  var spriteH = _WALKER_PX_H * _WALKER_PX_SCALE;  // 24px
 
-  // Badge (above bar)
+  // Distance label (topmost)
+  var distStr = dist < 1000
+    ? Math.round(dist) + 'm'
+    : (dist / 1000).toFixed(2) + 'km';
+  var distHtml =
+    '<div style="font-size:6px;font-family:\'Press Start 2P\',monospace;color:#fff;' +
+    'background:rgba(0,0,0,0.72);padding:1px 3px;text-align:center;' +
+    'white-space:nowrap;margin-bottom:2px;letter-spacing:0.3px">' + distStr + '</div>';
+  var distH = 11;
+
+  // Badge (below distance)
   var badgeHtml = '';
   if (stopped) {
-    badgeHtml = '<div style="font-size:11px;line-height:1;text-align:center;margin-bottom:2px">☕🍔</div>';
+    badgeHtml = '<div style="font-size:22px;line-height:1;text-align:center;margin-bottom:2px">☕🍔</div>';
   } else if (badge === 'camera') {
     badgeHtml = '<div style="font-size:10px;line-height:1;text-align:center;margin-bottom:2px">📷</div>';
   }
-  var badgeH = badgeHtml ? 16 : 0;
+  var badgeH = stopped ? 28 : (badgeHtml ? 16 : 0);
 
   // Status label
   var statusTxt = '';
@@ -100,31 +126,32 @@ function _buildWalkerIcon(frameIdx, facingRight, dist, badge) {
   else if (stamina<20) { statusTxt = 'CRITICAL!';  statusColor = '#ff5555'; }
   else if (stamina<50) { statusTxt = 'TIRED';      statusColor = '#ffaa00'; }
   var statusHtml = statusTxt
-    ? '<div style="font-size:5px;font-family:\'Press Start 2P\',monospace;color:' + statusColor +
-      ';text-align:center;white-space:nowrap;margin-bottom:2px;letter-spacing:0.5px">' + statusTxt + '</div>'
+    ? '<div style="font-size:7px;font-family:\'Press Start 2P\',monospace;color:' + statusColor +
+      ';background:rgba(0,0,0,0.75);padding:1px 4px;' +
+      'text-align:center;white-space:nowrap;margin-bottom:2px;letter-spacing:0.5px">' + statusTxt + '</div>'
     : '';
-  var statusH = statusHtml ? 9 : 0;
+  var statusH = statusHtml ? 12 : 0;
 
-  // Stamina bar (36px wide)
+  // Stamina bar (40px wide)
   var p = Math.max(0, Math.min(100, stamina));
   var r = p > 50 ? Math.round((100-p)/50*255) : 255;
   var g = p > 50 ? 200 : Math.round(p/50*200);
   var flickerOp = (p < 20 && !stopped) ? (0.45 + 0.55 * Math.abs(Math.sin(Date.now() / 120))) : 1;
   var barHtml =
-    '<div style="width:36px;height:4px;background:#1a1a1a;border:1px solid #555;' +
+    '<div style="width:40px;height:4px;background:#1a1a1a;border:1px solid #555;' +
     'margin-bottom:2px;overflow:hidden">' +
     '<div style="width:' + p + '%;height:100%;background:rgb(' + r + ',' + g + ',0);opacity:' + flickerOp.toFixed(2) + '"></div>' +
     '</div>';
-  var barH = 7; // 4 + 2 border + 1 margin
+  var barH = 7;
 
-  var containerW = 44;
-  var aboveH = badgeH + statusH + barH;
+  var containerW = 52;
+  var aboveH = distH + badgeH + statusH + barH;
   var totalH  = aboveH + spriteH;
 
   return L.divIcon({
     className: '',
     html: '<div style="display:flex;flex-direction:column;align-items:center;width:' + containerW + 'px;pointer-events:none">' +
-          badgeHtml + statusHtml + barHtml +
+          distHtml + badgeHtml + statusHtml + barHtml +
           '<img src="' + src + '" style="width:' + spriteW + 'px;height:' + spriteH + 'px;' +
           'image-rendering:pixelated;display:block;' +
           (facingRight ? '' : 'transform:scaleX(-1);') +
@@ -265,7 +292,8 @@ function _startWalkerAnimation(coords, stopIndices) {
         var stopCoord = coords[stopIndices[entry.stopIdx]];
         routeWalkerMarker.setLatLng(stopCoord);
       }
-      var iconKey = 'p:' + badge + ':' + stamPct + ':' + (Math.floor(ts / 200) % 2);
+      var distKey = Math.floor(dist / 5); // update every 5 m
+      var iconKey = 'p:' + badge + ':' + stamPct + ':' + distKey + ':' + (Math.floor(ts / 200) % 2);
       if (iconKey !== lastIconKey) {
         routeWalkerMarker.setIcon(_buildWalkerIcon(0, true, dist, badge));
         lastIconKey = iconKey;
@@ -283,7 +311,8 @@ function _startWalkerAnimation(coords, stopIndices) {
 
       routeWalkerMarker.setLatLng([lat, lng]);
 
-      var iconKey2 = 't:' + frameIdx + ':' + (facingRight?1:0) + ':' + stamPct + ':' + (Math.floor(ts / 200) % 2);
+      var distKey2 = Math.floor(dist / 5);
+      var iconKey2 = 't:' + frameIdx + ':' + (facingRight?1:0) + ':' + stamPct + ':' + distKey2 + ':' + (Math.floor(ts / 200) % 2);
       if (iconKey2 !== lastIconKey) {
         routeWalkerMarker.setIcon(_buildWalkerIcon(frameIdx, facingRight, dist, null));
         lastIconKey = iconKey2;
