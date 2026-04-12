@@ -1366,6 +1366,9 @@ var LOCS_NEW_YORK = [
     lat:40.7126314,
     lng:-74.0083037,
     sv:{ heading:268.9, pitch:35.5, fov:180, source:'outdoor', lat:40.712431, lng:-74.0077642 },
+    svInt:[
+    { heading:108.9, pitch:13.4, fov:180, source:'default', lat:40.712458, lng:-74.008358, panoId:'CAoSFkNJSE0wb2dLRUlDQWdJREVuSnJHVmc.' }
+  ]
     addr:'233 Broadway, New York, NY 10279',
     hood:'Lower Manhattan',
     desc:'Cass Gilbert\'s Woolworth Building was the world\'s tallest building for 17 years upon its completion in 1913 and remains one of the finest skyscrapers ever built. President Woodrow Wilson illuminated it from Washington, D.C. on its opening night. Its Gothic terracotta cladding, pointed arches, and flying buttresses earned the nickname "Cathedral of Commerce." The gilded lobby—with its Byzantine mosaics, marble walls, and grotesque caricatures of Woolworth counting nickels—is among the most extraordinary interiors in New York.',
@@ -1441,7 +1444,11 @@ var LOCS_NEW_YORK = [
       'https://commons.wikimedia.org/wiki/Special:FilePath/2003-03-New-York-United-Nations-Secretariat-Building.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/United_Nations_Headquarters_-_Security_Council_chamber%2C_angled_view.jpg?width=800'
     ],
-    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7494762, lng:-73.9692635 }
+    sv:{ heading:120.5, pitch:23.5, fov:166, source:'outdoor', lat:40.7494676, lng:-73.9693532 },
+    svInt:[
+    { heading:105.2, pitch:-7.2, fov:180, source:'default', lat:40.7491281, lng:-73.9678382, panoId:'CAoSFkNJSE0wb2dLRUlDQWdJRHF6Wks1SGc.' },
+    { heading:123.4, pitch:13.6, fov:180, source:'default', lat:40.7496958, lng:-73.9681165, panoId:'CAoSFkNJSE0wb2dLRUlDQWdJQ1Vtc0h1YXc.' }
+  ]
   },
   {
     id:'nyc-0030',
@@ -1491,7 +1498,7 @@ var LOCS_NEW_YORK = [
       'https://commons.wikimedia.org/wiki/Special:FilePath/Lincoln_Center_Nov_2023_24.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Lincoln_Center_Nov_2023_12.jpg?width=800'
     ],
-    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7721243, lng:-73.9828613 }
+    sv:{ heading:300.2, pitch:7.6, fov:90, source:'outdoor', lat:40.7719891, lng:-73.9828161 }
   },
   {
     id:'nyc-0031',
