@@ -1496,7 +1496,7 @@ var LOCS_NEW_YORK = [
       'John Dinkeloo',
       'Kevin Roche'
     ],
-    sv:{ heading:210, pitch:10, fov:90, source:'default', lat:40.7499311, lng:-73.9710331 }
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7499311, lng:-73.9710331 }
   },
   {
     id:'nyc-0032',
@@ -1735,7 +1735,7 @@ var LOCS_NEW_YORK = [
       'https://commons.wikimedia.org/wiki/Special:FilePath/Ambassadors_Club%2C_TWA_Flight_Center%2C_John_F._Kennedy_International_Airport%2C_Jamaica%2C_Queens%2C_New_York_City%2C_NY_%2848589082067%29.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Departures_Board%2C_TWA_Flight_Center%2C_John_F._Kennedy_International_Airport%2C_Jamaica%2C_Queens%2C_New_York_City%2C_NY_%2848589187066%29.jpg?width=800'
     ],
-    sv:{ heading:210, pitch:10, fov:90, source:'default', lat:40.6458057, lng:-73.7776969 }
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.6458057, lng:-73.7776969 }
   },
   {
     id:'nyc-0037',
@@ -2852,7 +2852,7 @@ var LOCS_NEW_YORK = [
       'https://live.staticflickr.com/558/31969570440_59e06fed79_b.jpg',
       'https://live.staticflickr.com/2586/4130651435_111d2ece84_b.jpg'
     ],
-    sv:{ heading:210, pitch:10, fov:90, source:'default', lat:40.7603735, lng:-73.975051 }
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7603735, lng:-73.975051 }
   },
   {
     id:'nyc-0062',
@@ -3127,7 +3127,7 @@ var LOCS_NEW_YORK = [
       'https://commons.wikimedia.org/wiki/Special:FilePath/Yankee_Stadium%2C_New_York_-_panoramio.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Yankee_Stadium_upper_deck_2010.jpg?width=800'
     ],
-    sv:{ heading:210, pitch:10, fov:90, source:'default', lat:40.8293429, lng:-73.9277479 }
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.8293429, lng:-73.9277479 }
   },
   {
     id:'nyc-0068',
@@ -4403,7 +4403,7 @@ var LOCS_NEW_YORK = [
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Prada_Epicenter_NYC_OMA.jpg/800px-Prada_Epicenter_NYC_OMA.jpg'
     ],
-    sv:{ heading:210, pitch:10, fov:90, source:'default', lat:40.7243336, lng:-73.9978498 }
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7243336, lng:-73.9978498 }
   },
   {
     id:'nyc-0099',
@@ -5464,7 +5464,7 @@ var LOCS_NEW_YORK = [
     photos:[
       'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Moynihan_Train_Hall_interior_2021.jpg/800px-Moynihan_Train_Hall_interior_2021.jpg'
     ],
-    sv:{ heading:210, pitch:10, fov:90, source:'default', lat:40.751256, lng:-73.9951837 }
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.751256, lng:-73.9951837 }
   },
   {
     id:'nyc-0123',
@@ -6945,7 +6945,7 @@ var LOCS_NEW_YORK = [
       'museum'
     ],
     photos:[],
-    sv:{ heading:210, pitch:10, fov:90, source:'default', lat:40.7816047, lng:-73.9744282 }
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7816047, lng:-73.9744282 }
   },
   {
     id:'nyc-0163',
@@ -7145,7 +7145,7 @@ var LOCS_NEW_YORK = [
       'performing-arts'
     ],
     photos:[],
-    sv:{ heading:210, pitch:10, fov:90, source:'default', lat:40.8172765, lng:-73.9587969 }
+    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.8172765, lng:-73.9587969 }
   },
   {
     id:'nyc-0168',
