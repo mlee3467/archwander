@@ -46,9 +46,11 @@ function gotoPhoto(idx) {
   // Toggle exterior SV iframe
   if (svExt) svExt.style.display = isSVExt ? '' : 'none';
 
-  // Toggle interior SV iframes — show only the matching one
+  // Toggle interior SV divs — show only the matching one, init JS API on first show
   svIntFrames.forEach(function(fr, fi) {
-    fr.style.display = (isSVInt && fi === intRelIdx) ? '' : 'none';
+    var show = isSVInt && fi === intRelIdx;
+    fr.style.display = show ? '' : 'none';
+    if (show && typeof initIntSVPane === 'function') initIntSVPane(fr);
   });
 
   gallery.classList.toggle('sv-mode', isSV);

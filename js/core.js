@@ -1,3 +1,71 @@
+// ══════════════════════════════════════════════════════════════════
+// GOOGLE MAPS JS API — Interior Street View (fully interactive)
+// The Embed API (iframe) only supports interactive panoramas via pano=ID.
+// With location=lat,lng&source=default it shows a static image.
+// The JS API handles both modes interactively, so we use it for interior slides.
+// ══════════════════════════════════════════════════════════════════
+var _mapsJsState = 'idle'; // 'idle' | 'loading' | 'ready'
+var _mapsJsQueue = [];
+
+function _loadMapsJS(cb) {
+  if (_mapsJsState === 'ready') { cb(); return; }
+  _mapsJsQueue.push(cb);
+  if (_mapsJsState === 'loading') return;
+  _mapsJsState = 'loading';
+  var s = document.createElement('script');
+  s.src = 'https://maps.googleapis.com/maps/api/js?key=' + GOOGLE_MAPS_API_KEY +
+          '&v=weekly&callback=_onMapsJsReady';
+  s.async = true;
+  s.onerror = function() { _mapsJsState = 'idle'; _mapsJsQueue = []; };
+  document.head.appendChild(s);
+}
+window._onMapsJsReady = function() {
+  _mapsJsState = 'ready';
+  _mapsJsQueue.forEach(function(fn) { try { fn(); } catch(e) {} });
+  _mapsJsQueue = [];
+};
+
+function _fovToZoom(fov) {
+  // zoom 1 ≡ 90° FOV (same formula as sv-tool)
+  return Math.log2(180 / Math.max(10, Math.min(100, +fov)));
+}
+
+function initIntSVPane(div) {
+  if (div.dataset.svInit) return; // already initialized
+  div.dataset.svInit = '1';
+  var cfg;
+  try { cfg = JSON.parse(div.dataset.svCfg || '{}'); } catch(e) { return; }
+  _loadMapsJS(function() {
+    var opts = {
+      pov:                  { heading: cfg.h || 0, pitch: cfg.p || 0 },
+      zoom:                 _fovToZoom(cfg.f || 90),
+      addressControl:       false,
+      fullscreenControl:    true,
+      motionTracking:       false,
+      motionTrackingControl:false,
+      linksControl:         false,
+      enableCloseButton:    false,
+      showRoadLabels:       false
+    };
+    if (cfg.panoId) {
+      opts.pano = cfg.panoId;
+    } else {
+      opts.position = { lat: cfg.lat, lng: cfg.lng };
+      opts.source   = google.maps.StreetViewSource.DEFAULT;
+    }
+    var pano = new google.maps.StreetViewPanorama(div, opts);
+    pano.addListener('status_changed', function() {
+      if (pano.getStatus() === google.maps.StreetViewStatus.ZERO_RESULTS) {
+        div.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;' +
+          'height:100%;color:#888;background:#111;font-size:13px;letter-spacing:0.3px">' +
+          'Interior view not available</div>';
+        delete div.dataset.svInit; // allow retry if location changes
+      }
+    });
+  });
+}
+
+// ══════════════════════════════════════════════════════════════════
 // ANALYTICS — User Behaviour Tracking
 // ══════════════════════════════════════════════════════════════════
 // Stores per-location click and search counts in localStorage.
@@ -294,33 +362,23 @@ function openLoc(loc) {
     gallery.insertBefore(svIframe, gallery.querySelector('.g-btn'));
     if (!hasPhotos) gallery.classList.add('sv-mode');
 
-    // ── Interior SV slides (one per entry in svIntArr) ──
+    // ── Interior SV slides (Google Maps JS API — fully interactive) ──
+    // Uses StreetViewPanorama (not Embed iframe) so both panoId and
+    // location+source=DEFAULT modes show interactive 360° panoramas.
     svIntArr.forEach(function(si, i) {
-      var svIntIframe = document.createElement('iframe');
-      svIntIframe.className = 'sv-fallback-int';
-      svIntIframe.dataset.intIndex = i;
-      svIntIframe.setAttribute('loading', 'lazy');
-      svIntIframe.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
-      svIntIframe.setAttribute('allowfullscreen', '');
-      svIntIframe.style.display = 'none';
-      var siH = (si.heading != null) ? si.heading : 0;
-      var siP = (si.pitch   != null) ? si.pitch   : 0;
-      var siF = Math.min(100, Math.max(10, (si.fov != null) ? si.fov : 90)); // Embed API: 10–100
-      var intSrc;
-      if (si.panoId) {
-        intSrc = 'https://www.google.com/maps/embed/v1/streetview?key=' +
-          GOOGLE_MAPS_API_KEY + '&pano=' + si.panoId +
-          '&heading=' + siH + '&pitch=' + siP + '&fov=' + siF;
-      } else {
-        var siS   = si.source || 'default';
-        var siLat = (si.lat != null) ? si.lat : loc.lat;
-        var siLng = (si.lng != null) ? si.lng : loc.lng;
-        intSrc = 'https://www.google.com/maps/embed/v1/streetview?key=' +
-          GOOGLE_MAPS_API_KEY + '&location=' + siLat + ',' + siLng +
-          '&heading=' + siH + '&pitch=' + siP + '&fov=' + siF + '&source=' + siS;
-      }
-      svIntIframe.src = intSrc;
-      gallery.insertBefore(svIntIframe, gallery.querySelector('.g-btn'));
+      var svIntDiv = document.createElement('div');
+      svIntDiv.className = 'sv-fallback-int';
+      svIntDiv.dataset.intIndex = i;
+      svIntDiv.style.display = 'none';
+      svIntDiv.dataset.svCfg = JSON.stringify({
+        panoId: si.panoId || null,
+        lat: (si.lat != null) ? si.lat : loc.lat,
+        lng: (si.lng != null) ? si.lng : loc.lng,
+        h: (si.heading != null) ? si.heading : 0,
+        p: (si.pitch   != null) ? si.pitch   : 0,
+        f: Math.min(100, Math.max(10, (si.fov != null) ? si.fov : 90))
+      });
+      gallery.insertBefore(svIntDiv, gallery.querySelector('.g-btn'));
     });
   }
 
