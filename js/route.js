@@ -13,51 +13,141 @@ var routeData      = null; // { distance, duration, steps: [...] }
 // ── Pixel Walker Animation ───────────────────────────────────────
 // Character type: Canvas-rendered pixel art → dataURL → <img> in Leaflet divIcon.
 // All graphics are coded/generated at runtime — no external image files.
-var routeWalkerMarker = null;
-var _walkerAnimId     = null;
-var _walkerSprites    = null;
-var _walkerDistCovered = 0;   // cumulative meters walked (persists across loops)
-var _WALKER_FRAME_MS  = 280;  // ms per stride frame
+var routeWalkerMarker  = null;
+var _walkerAnimId      = null;
+var _walkerSprites     = null;
+var _walkerDistCovered = 0;     // cumulative meters walked
+var _walkerRevealLine  = null;  // growing polyline that reveals the path
+var _walkerRevealMs    = 0;     // reveal clock, always advances at full speed
+var _WALKER_FRAME_MS   = 190;   // ms per stride frame (1.5× faster)
 
 // ── Distance thresholds (80 m/min average walking pace) ──────────
 var _WLK_D30MIN  = 2400;   // 30 min  → 50% stamina, speed −50%
 var _WLK_D_EMPTY = 3600;   // ~45 min → stamina 0%, speed −75%
-var _WLK_D_STOP  = 6000;   // ~75 min → completely stopped, show rest icons
+var _WLK_D_STOP  = 5000;   // ~62 min → completely stopped, show rest icons
 
-// ── 12×12 pixel art character: 0=transparent 1=skin 2=shirt(green) 3=pants(brown) 4=hair/outline ──
-// Each frame string = 12 cols × 12 rows = 144 chars
-// Design inspired by classic outlined RPG pixel sprites
+// ── 16×16 B&W pixel art character ────────────────────────────────
+// Palette: 0=transparent  1=white  4=black
+// 6 frames: [0,1]=happy  [2,3]=tired  [4,5]=exhausted  (×2 strides each)
+// Each frame string = 16 cols × 16 rows = 256 chars
 var _WALKER_PX_FRAMES = [
-  // Frame 0: stride A — left foot forward
-  '004444440000' + // R0  hair
-  '044111144000' + // R1  head
-  '041111114000' + // R2  face
-  '004111140000' + // R3  chin/neck
-  '042222224000' + // R4  body top
-  '422222224400' + // R5  body (arms out)
-  '422222224400' + // R6  body lower
-  '043333334000' + // R7  waist
-  '004300430000' + // R8  upper legs
-  '043300433000' + // R9  mid legs
-  '433000334000' + // R10 lower legs  — left forward
-  '330000034000',  // R11 feet        — left extends
+  // ── Frame 0: HAPPY, Stride A (left foot forward) ─────────────
+  '0004444444440000' +  // R0  head top arch
+  '0041111111114000' +  // R1  head upper
+  '0411111111111400' +  // R2  face full width
+  '0411441111441400' +  // R3  eyes top  (2×2 at col 4-5, col 10-11)
+  '0411441111441400' +  // R4  eyes bot
+  '0411111111111400' +  // R5  nose area
+  '0411411111411400' +  // R6  smile corners (col 4, col 11)
+  '0411144444111400' +  // R7  smile arc (cols 5-9)
+  '0041111111114000' +  // R8  chin
+  '0441111111114400' +  // R9  shoulders / body top
+  '0441111111114400' +  // R10 body middle
+  '0004411111440000' +  // R11 hips
+  '0000440044000000' +  // R12 upper legs
+  '0000440044000000' +  // R13 lower legs
+  '0004400044000000' +  // R14 stride A: left leg shifts left
+  '0044000044000000',   // R15 stride A: left foot extends
 
-  // Frame 1: stride B — right foot forward
-  '004444440000' + // R0-R9 identical to Frame 0
-  '044111144000' +
-  '041111114000' +
-  '004111140000' +
-  '042222224000' +
-  '422222224400' +
-  '422222224400' +
-  '043333334000' +
-  '004300430000' +
-  '043300433000' +
-  '043300033400' + // R10 lower legs  — right forward
-  '043000003300'   // R11 feet        — right extends
+  // ── Frame 1: HAPPY, Stride B (right foot forward) ────────────
+  '0004444444440000' +
+  '0041111111114000' +
+  '0411111111111400' +
+  '0411441111441400' +
+  '0411441111441400' +
+  '0411111111111400' +
+  '0411411111411400' +
+  '0411144444111400' +
+  '0041111111114000' +
+  '0441111111114400' +
+  '0441111111114400' +
+  '0004411111440000' +
+  '0000440044000000' +
+  '0000440044000000' +
+  '0000440004400000' +  // R14 stride B: right leg shifts right
+  '0000440000440000',   // R15 stride B: right foot extends
+
+  // ── Frame 2: TIRED, Stride A ─────────────────────────────────
+  '0004444444440000' +
+  '0041111111114000' +
+  '0411111111111400' +
+  '0411111111111400' +  // R3 tired: upper eye row empty (half-closed lid)
+  '0411441111441400' +  // R4 tired: only lower eye row visible
+  '0411111111111400' +
+  '0411111111111400' +  // R6 tired: no smile corners
+  '0411144444411400' +  // R7 tired: flat mouth (cols 5-10)
+  '0041111111114000' +
+  '0441111111114400' +
+  '0441111111114400' +
+  '0004411111440000' +
+  '0000440044000000' +
+  '0000440044000000' +
+  '0004400044000000' +
+  '0044000044000000',
+
+  // ── Frame 3: TIRED, Stride B ─────────────────────────────────
+  '0004444444440000' +
+  '0041111111114000' +
+  '0411111111111400' +
+  '0411111111111400' +
+  '0411441111441400' +
+  '0411111111111400' +
+  '0411111111111400' +
+  '0411144444411400' +
+  '0041111111114000' +
+  '0441111111114400' +
+  '0441111111114400' +
+  '0004411111440000' +
+  '0000440044000000' +
+  '0000440044000000' +
+  '0000440004400000' +
+  '0000440000440000',
+
+  // ── Frame 4: EXHAUSTED, Stride A ─────────────────────────────
+  '0004444444440000' +
+  '0041111111114000' +
+  '0411111111111400' +
+  '0411411111141400' +  // R3 X-eyes top: col4=4 (\), col11=4 (/)
+  '0411141111411400' +  // R4 X-eyes bot: col5=4 (\), col10=4 (/)
+  '0411111111111400' +
+  '0411144444111400' +  // R6 frown arc (top of arc comes first = ∩ shape)
+  '0411411111411400' +  // R7 frown corners (lower = ends droop down)
+  '0041111111114000' +
+  '0441111111114400' +
+  '0441111111114400' +
+  '0004411111440000' +
+  '0000440044000000' +
+  '0000440044000000' +
+  '0004400044000000' +
+  '0044000044000000',
+
+  // ── Frame 5: EXHAUSTED, Stride B ─────────────────────────────
+  '0004444444440000' +
+  '0041111111114000' +
+  '0411111111111400' +
+  '0411411111141400' +
+  '0411141111411400' +
+  '0411111111111400' +
+  '0411144444111400' +
+  '0411411111411400' +
+  '0041111111114000' +
+  '0441111111114400' +
+  '0441111111114400' +
+  '0004411111440000' +
+  '0000440044000000' +
+  '0000440044000000' +
+  '0000440004400000' +
+  '0000440000440000'
 ];
-var _WALKER_COLORS = { '0':null,'1':'#F2B07B','2':'#1E5C28','3':'#6B3621','4':'#111111' };
-var _WALKER_PX_W = 12, _WALKER_PX_H = 12, _WALKER_PX_SCALE = 2;
+var _WALKER_COLORS = { '0':null, '1':'#ffffff', '4':'#111111' };
+var _WALKER_PX_W = 16, _WALKER_PX_H = 16, _WALKER_PX_SCALE = 2;
+
+// Select base frame index from distance walked
+function _walkerGetBaseFrame(dist) {
+  if (dist < _WLK_D30MIN)  return 0;  // happy   → frames 0,1
+  if (dist < _WLK_D_EMPTY) return 2;  // tired   → frames 2,3
+  return 4;                            // exhausted → frames 4,5
+}
 
 function _buildWalkerSprites() {
   if (_walkerSprites) return _walkerSprites;
@@ -93,7 +183,8 @@ function _walkerGetSpeedMod(dist) {
 // badge: null | 'camera' | 'stopped'
 function _buildWalkerIcon(frameIdx, facingRight, dist, badge) {
   var sprites = _buildWalkerSprites();
-  var src = sprites[Math.min(frameIdx, sprites.length - 1)];
+  var baseFrame = _walkerGetBaseFrame(dist);
+  var src = sprites[Math.min(frameIdx + baseFrame, sprites.length - 1)];
   var stamina = _walkerGetStamina(dist);
   var stopped = dist >= _WLK_D_STOP;
   var spriteW = _WALKER_PX_W * _WALKER_PX_SCALE;  // 24px
@@ -112,7 +203,9 @@ function _buildWalkerIcon(frameIdx, facingRight, dist, badge) {
   // Badge (below distance)
   var badgeHtml = '';
   if (stopped) {
-    badgeHtml = '<div style="font-size:22px;line-height:1;text-align:center;margin-bottom:2px">☕🍔</div>';
+    badgeHtml = '<div style="display:flex;flex-direction:row;justify-content:center;gap:1px;margin-bottom:2px">' +
+                '<span style="font-size:20px;line-height:1">☕</span>' +
+                '<span style="font-size:20px;line-height:1">🍔</span></div>';
   } else if (badge === 'camera') {
     badgeHtml = '<div style="font-size:10px;line-height:1;text-align:center;margin-bottom:2px">📷</div>';
   }
@@ -128,7 +221,7 @@ function _buildWalkerIcon(frameIdx, facingRight, dist, badge) {
   var statusHtml = statusTxt
     ? '<div style="font-size:7px;font-family:\'Press Start 2P\',monospace;color:' + statusColor +
       ';background:rgba(0,0,0,0.75);padding:1px 4px;' +
-      'text-align:center;white-space:nowrap;margin-bottom:2px;letter-spacing:0.5px">' + statusTxt + '</div>'
+      'text-align:center;white-space:nowrap;margin-top:-2px;margin-bottom:2px;letter-spacing:0.5px">' + statusTxt + '</div>'
     : '';
   var statusH = statusHtml ? 12 : 0;
 
@@ -213,8 +306,8 @@ function _startWalkerAnimation(coords, stopIndices) {
   }
   if (totalTravelDist < 1) return;
 
-  // Travel duration: 30ms/m, clamped 15-60s
-  var travelMs = Math.min(60000, Math.max(15000, totalTravelDist * 30));
+  // Travel duration: 20ms/m, clamped 10-40s (1.5× faster than before)
+  var travelMs = Math.min(40000, Math.max(10000, totalTravelDist * 20));
 
   // pause → travel → pause → travel → ...
   var timeline = [], tCursor = 0;
@@ -236,6 +329,13 @@ function _startWalkerAnimation(coords, stopIndices) {
     zIndexOffset: 1000, interactive: false
   }).addTo(map);
 
+  // Create reveal polyline (bright, grows as character walks at full speed)
+  _walkerRevealLine = L.polyline([coords[stopIndices[0]]], {
+    color: '#D946A8', weight: 5, opacity: 0.85,
+    dashArray: '4 4', lineCap: 'square'
+  }).addTo(map);
+  _walkerRevealMs = 0;
+
   // Animation state
   var lastTs = null, accumMs = 0;
   var prevEntryType = null, prevStopIdx = -1;
@@ -253,6 +353,27 @@ function _startWalkerAnimation(coords, stopIndices) {
     if (!lastTs) lastTs = ts;
     var dt = Math.min(ts - lastTs, 80); // cap to avoid big jumps
     lastTs = ts;
+
+    // ── Reveal path at full speed (independent of character stamina) ─
+    _walkerRevealMs = (_walkerRevealMs + dt) % timelineTotal;
+    var revealAccum = _walkerRevealMs;
+    var revealEntry = timeline[timeline.length - 1];
+    for (var ri = 0; ri < timeline.length; ri++) {
+      if (revealAccum >= timeline[ri].t0 && revealAccum < timeline[ri].t1) {
+        revealEntry = timeline[ri]; break;
+      }
+    }
+    var revealCoordIdx;
+    if (revealEntry.type === 'pause') {
+      revealCoordIdx = stopIndices[revealEntry.stopIdx];
+    } else {
+      var revealProg = Math.max(0, Math.min(1, (revealAccum - revealEntry.t0) / (revealEntry.t1 - revealEntry.t0)));
+      revealCoordIdx = Math.min(
+        Math.floor(revealEntry.fromIdx + revealProg * (revealEntry.toIdx - revealEntry.fromIdx)),
+        revealEntry.toIdx
+      );
+    }
+    if (_walkerRevealLine) _walkerRevealLine.setLatLngs(coords.slice(0, revealCoordIdx + 1));
 
     // ── Speed mod from distance ──────────────────────────────────
     var stopped  = _walkerDistCovered >= _WLK_D_STOP;
@@ -330,7 +451,12 @@ function _stopWalkerAnimation() {
     try { map.removeLayer(routeWalkerMarker); } catch(e) {}
     routeWalkerMarker = null;
   }
+  if (_walkerRevealLine) {
+    try { map.removeLayer(_walkerRevealLine); } catch(e) {}
+    _walkerRevealLine = null;
+  }
   _walkerDistCovered = 0;
+  _walkerRevealMs    = 0;
 }
 
 // ── Route Panel UI ───────────────────────────────────────────────
@@ -751,11 +877,11 @@ function _optimizeOrder(locs) {
 function _displayRoute(route, ordered) {
   clearRoute();
 
-  // Draw polyline
+  // Draw dim full-path polyline (reveal line grows over it)
   var coords = route.geometry.coordinates.map(function(c) { return [c[1], c[0]]; });
   routeLine = L.polyline(coords, {
-    color: '#D946A8', weight: 5, opacity: 0.85,
-    dashArray: '10,7', lineCap: 'round'
+    color: '#D946A8', weight: 5, opacity: 0.15,
+    dashArray: '4 4', lineCap: 'square'
   }).addTo(map);
 
   // Add numbered markers
@@ -796,11 +922,11 @@ function _displayRoute(route, ordered) {
 function _displayStraightRoute(ordered) {
   clearRoute();
 
-  // Draw straight lines between stops
+  // Draw dim full-path polyline (reveal line grows over it)
   var coords = ordered.map(function(loc) { return [loc.lat, loc.lng]; });
   routeLine = L.polyline(coords, {
-    color: '#D946A8', weight: 4, opacity: 0.7,
-    dashArray: '6,8', lineCap: 'round'
+    color: '#D946A8', weight: 5, opacity: 0.15,
+    dashArray: '4 4', lineCap: 'square'
   }).addTo(map);
 
   // Add numbered markers
