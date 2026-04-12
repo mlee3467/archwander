@@ -49,24 +49,37 @@ function _refreshMarkerIcon(id) {
 }
 
 function _buildLocIcon(loc) {
-  // Pixel-art diamond marker: square rotated 45° — no border-radius, hard shadow
-  const S = 20;
+  // Pixel-art FLAG marker: vertical pole + colored flag rectangle (RPG map style)
   const color = _ccMeta(loc).color;
-  const fav = isFav(loc.id);
-  const vis = isVisited(loc.id);
-  const fill = vis ? 'white' : color;
-  const borderColor = '#1a1a1a';
-  // Hard offset shadow (no blur) = pixel art feel
-  const shadow = vis
-    ? '3px 3px 0 rgba(0,0,0,0.2)'
-    : '3px 3px 0 rgba(0,0,0,0.4)';
-  const starOverlay = fav
-    ? `<span style="position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;font-size:20px;color:#FF5F00;-webkit-text-stroke:1.5px white;paint-order:stroke fill;transform:rotate(45deg);line-height:1">★</span>`
+  const fav   = isFav(loc.id);
+  const vis   = isVisited(loc.id);
+  const fill  = vis ? '#f0f0ec' : color;
+  // Flag dimensions (all in px)
+  const poleW = 2, poleH = 22;
+  const flagW = 11, flagH = 9;
+  const totalW = poleW + flagW + 2; // +2 for right border
+  // Star inside flag for favorites
+  const star = fav
+    ? `<span style="position:absolute;inset:0;display:flex;align-items:center;` +
+      `justify-content:center;font-size:7px;color:#FF5F00;` +
+      `-webkit-text-stroke:0.5px white;line-height:1">★</span>`
     : '';
   return L.divIcon({
     className: '',
-    html: `<div class="m-pin-wrap"><div style="position:relative;width:${S}px;height:${S}px;background:${fill};transform:rotate(-45deg);border:2.5px solid ${borderColor};box-shadow:${shadow}">${starOverlay}</div></div>`,
-    iconSize: [S, S], iconAnchor: [S/2, S]
+    html:
+      `<div style="position:relative;width:${totalW}px;height:${poleH}px">` +
+        // Pole (full height, 2 px wide)
+        `<div style="position:absolute;left:0;top:0;width:${poleW}px;height:${poleH}px;background:#1a1a1a"></div>` +
+        // Flag body (hard pixel shadow, no blur)
+        `<div style="position:relative;position:absolute;left:${poleW}px;top:1px;` +
+             `width:${flagW}px;height:${flagH}px;background:${fill};` +
+             `border:2px solid #1a1a1a;border-left:none;` +
+             `box-shadow:2px 2px 0 rgba(0,0,0,0.38)">${star}</div>` +
+        // Base foot
+        `<div style="position:absolute;bottom:0;left:-2px;width:6px;height:2px;background:#1a1a1a"></div>` +
+      `</div>`,
+    iconSize:   [totalW, poleH],
+    iconAnchor: [1, poleH]   // anchor = bottom-centre of pole
   });
 }
 
