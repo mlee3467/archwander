@@ -184,6 +184,7 @@ const FILTER_DB = {
     'ds+r',
     'dubuffet sculpture',
     'dumbo',
+    'eagle gargoyles',
     'east river',
     'east village',
     'edge',
@@ -220,6 +221,7 @@ const FILTER_DB = {
     'frank lloyd wright',
     'free access',
     'free entry',
+    'free lobby',
     'french renaissance',
     'full block',
     'fumihiko maki',
@@ -623,6 +625,7 @@ const FILTER_DB = {
     'Various (NYC Parks Dept.)',
     'Wallace Harrison',
     'Weiss/Manfredi',
+    'William Van Alen',
     'Zaha Hadid',
     'Zion & Breen Associates (landscape)',
     'Álvaro Siza'
