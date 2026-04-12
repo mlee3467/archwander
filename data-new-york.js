@@ -1215,7 +1215,9 @@ var LOCS_NEW_YORK = [
     lat:40.7560713,
     lng:-73.990109,
     sv:{ heading:91.4, pitch:25.9, fov:180, source:'outdoor', lat:40.7560935, lng:-73.9906381 },
-    svIntNA: true
+    svInt:[
+    { heading:156.2, pitch:-2.1, fov:180, source:'default', lat:40.7562571, lng:-73.9899428, panoId:'CAoSFkNJSE0wb2dLRUlDQWdJRFozdGJrTWc.' }
+  ]
     addr:'620 8th Ave, New York, NY 10018',
     hood:'Midtown West / Hell\'s Kitchen',
     desc:'Renzo Piano\'s New York Times Building is one of the most technically sophisticated skyscrapers in New York. Its distinctive exterior is wrapped in a second skin of ceramic tubes that modulate light, reduce glare, and give the tower a luminous, ethereal quality that changes with the light of day. The 52-story tower achieves LEED Silver certification and includes a publicly accessible lobby garden. The building exemplifies Piano\'s philosophy of transparency and light in architecture.',
@@ -1312,7 +1314,11 @@ var LOCS_NEW_YORK = [
     city:'new-york',
     lat:40.76134920000001,
     lng:-73.9773325,
-    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.76134920000001, lng:-73.9773325 },
+    sv:{ heading:65.6, pitch:8.3, fov:158, source:'outdoor', lat:40.7612747, lng:-73.9778762 },
+    svInt:[
+    { heading:291.5, pitch:15.6, fov:164, source:'default', lat:40.761402, lng:-73.977616, panoId:'CAoSFkNJSE0wb2dLRUlDQWdJRGMtZl8xWnc.' },
+    { heading:153.2, pitch:0.6, fov:90, source:'default', lat:40.7615186, lng:-73.9771127, panoId:'CAoSFkNJSE0wb2dLRUlDQWdJQ080X1BjUXc.' }
+  ]
     addr:'11 W 53rd St, New York, NY 10019',
     hood:'Midtown East',
     desc:'The Museum of Modern Art houses the world\'s most important collection of modern and contemporary art. The current building—the result of a major 2004 expansion by Japanese architect Yoshio Taniguchi—doubled the gallery space to 630,000 square feet. Taniguchi\'s design is defined by pure geometric volumes, generous natural light, and the serene Abby Aldrich Rockefeller Sculpture Garden, which has anchored the museum since 1939. A second expansion by Diller Scofidio + Renfro followed in 2019.',
@@ -1359,7 +1365,7 @@ var LOCS_NEW_YORK = [
     city:'new-york',
     lat:40.7126314,
     lng:-74.0083037,
-    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7126314, lng:-74.0083037 },
+    sv:{ heading:268.9, pitch:35.5, fov:180, source:'outdoor', lat:40.712431, lng:-74.0077642 },
     addr:'233 Broadway, New York, NY 10279',
     hood:'Lower Manhattan',
     desc:'Cass Gilbert\'s Woolworth Building was the world\'s tallest building for 17 years upon its completion in 1913 and remains one of the finest skyscrapers ever built. President Woodrow Wilson illuminated it from Washington, D.C. on its opening night. Its Gothic terracotta cladding, pointed arches, and flying buttresses earned the nickname "Cathedral of Commerce." The gilded lobby—with its Byzantine mosaics, marble walls, and grotesque caricatures of Woolworth counting nickels—is among the most extraordinary interiors in New York.',
