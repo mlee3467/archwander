@@ -953,7 +953,7 @@ var LOCS_NEW_YORK = [
       'https://commons.wikimedia.org/wiki/Special:FilePath/W_57th_St_Nov_2020_160.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/Hearst_Tower_Lobby_October_2006.jpg?width=800'
     ],
-    sv:{ heading:323.2, pitch:26.9, fov:178, source:'outdoor', lat:40.7659504, lng:-73.9831322 },
+    sv:{ heading:324.9, pitch:27.4, fov:164, source:'outdoor', lat:40.7659504, lng:-73.9831322 },
     svIntNA: true
   },
   {
@@ -1003,7 +1003,8 @@ var LOCS_NEW_YORK = [
     photos:[
       'https://commons.wikimedia.org/wiki/Special:FilePath/New_Museum_in_New_York_City_2015.JPG?width=800'
     ],
-    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7225612, lng:-73.9932795 }
+    sv:{ heading:126.5, pitch:26.4, fov:180, source:'outdoor', lat:40.7225404, lng:-73.9932763 },
+    svInt:{ heading:347.6, pitch:4.2, fov:90, source:'default', lat:40.7222216, lng:-73.9927691 }
   },
   {
     id:'nyc-0021',
@@ -1023,7 +1024,8 @@ var LOCS_NEW_YORK = [
     city:'new-york',
     lat:40.7455869,
     lng:-74.00765670000001,
-    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7455869, lng:-74.00765670000001 },
+    sv:{ heading:106, pitch:23.9, fov:159, source:'outdoor', lat:40.7458562, lng:-74.0082789 },
+    svIntNA: true
     addr:'555 W 18th St, New York, NY 10011',
     hood:'West Chelsea',
     desc:'Frank Gehry\'s IAC/InterActiveCorp headquarters is his first New York building and the first completed Gehry building in Manhattan. Ten floors of undulating white glass panels evoke billowing sails—a deliberate departure from Manhattan\'s rectilinear grid. The building sits at the south end of the High Line corridor and is considered a catalyst for the transformation of West Chelsea into a world-class arts and architecture destination.',
@@ -1070,7 +1072,8 @@ var LOCS_NEW_YORK = [
     city:'new-york',
     lat:40.7176412,
     lng:-74.006259,
-    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7176412, lng:-74.006259 },
+    sv:{ heading:285.3, pitch:26.9, fov:180, source:'outdoor', lat:40.7176014, lng:-74.0058354 },
+    svInt:{ heading:278, pitch:18.3, fov:168, source:'default', lat:40.7175465, lng:-74.0060652 }
     addr:'56 Leonard St, New York, NY 10013',
     hood:'Tribeca',
     desc:'Nicknamed the "Jenga Tower" for its stacked and cantilevered volumes, 56 Leonard Street by Herzog & de Meuron is one of the most distinctive residential skyscrapers in New York. Each of its 57 floors steps out or in at irregular intervals, creating 145 unique residences and a constantly shifting sculptural silhouette. Anish Kapoor\'s large-scale outdoor sculpture "Tango" anchors the building\'s public plaza at street level.',
@@ -1115,7 +1118,8 @@ var LOCS_NEW_YORK = [
     city:'new-york',
     lat:40.7617561,
     lng:-73.9719035,
-    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7617561, lng:-73.9719035 },
+    sv:{ heading:249.5, pitch:36.7, fov:180, source:'outdoor', lat:40.7618024, lng:-73.9711615 },
+    svIntNA: true
     addr:'432 Park Ave, New York, NY 10022',
     hood:'Midtown East',
     desc:'At 1,396 feet, 432 Park Avenue is the tallest residential building in the Western Hemisphere. Rafael Viñoly\'s austere concrete grid tower—its 96-story shaft rising from a square footprint just 93 feet per side—is inspired by a wastebasket designed by Josef Hoffmann. The extreme slenderness ratio (1:15) required innovative structural engineering including eight mechanical floors that act as vibration dampers. Its silhouette has fundamentally altered the Manhattan skyline.',
@@ -1187,7 +1191,8 @@ var LOCS_NEW_YORK = [
       'https://commons.wikimedia.org/wiki/Special:FilePath/One_WTC_From_W_Hotel_7-28-10.JPG?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/11_Memorial_Museum_-_steel_beams_in_foundation.jpg?width=800'
     ],
-    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7119837, lng:-74.013565 }
+    sv:{ heading:27.5, pitch:-16, fov:180, source:'outdoor', lat:40.7119062, lng:-74.0133453 },
+    svIntNA: true
   },
   {
     id:'nyc-0025',
@@ -1209,7 +1214,8 @@ var LOCS_NEW_YORK = [
     city:'new-york',
     lat:40.7560713,
     lng:-73.990109,
-    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7560713, lng:-73.990109 },
+    sv:{ heading:91.4, pitch:25.9, fov:180, source:'outdoor', lat:40.7560935, lng:-73.9906381 },
+    svIntNA: true
     addr:'620 8th Ave, New York, NY 10018',
     hood:'Midtown West / Hell\'s Kitchen',
     desc:'Renzo Piano\'s New York Times Building is one of the most technically sophisticated skyscrapers in New York. Its distinctive exterior is wrapped in a second skin of ceramic tubes that modulate light, reduce glare, and give the tower a luminous, ethereal quality that changes with the light of day. The 52-story tower achieves LEED Silver certification and includes a publicly accessible lobby garden. The building exemplifies Piano\'s philosophy of transparency and light in architecture.',
@@ -1286,7 +1292,8 @@ var LOCS_NEW_YORK = [
       'https://commons.wikimedia.org/wiki/Special:FilePath/Metropolitan_Museum_of_Art%2C_New_York_City_NY%2C_entrance.jpg?width=800',
       'https://commons.wikimedia.org/wiki/Special:FilePath/People_in_the_rooftop_bar_of_the_Metropolitan_Museum_of_Art%2C_New_York%2C_2007.jpg?width=800'
     ],
-    sv:{ heading:210, pitch:10, fov:90, source:'outdoor', lat:40.7790161, lng:-73.9624606 }
+    sv:{ heading:301.4, pitch:8.3, fov:157, source:'outdoor', lat:40.7789391, lng:-73.9622102 },
+    svInt:{ heading:304.9, pitch:12.8, fov:180, source:'default', lat:40.7803198, lng:-73.9625755 }
   },
   {
     id:'nyc-0027',
