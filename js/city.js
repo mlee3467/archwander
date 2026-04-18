@@ -292,6 +292,8 @@ function _dbRowToLoc(row) {
     walkFrom:    row.walk_from    || '',
     tags:        row.tags         || [],
     photos:      row.photos       || [],
+    sv:          row.sv           || null,
+    svInt:       row.sv_int       || null,
   };
 }
 
