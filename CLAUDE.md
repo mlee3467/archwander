@@ -4,9 +4,10 @@
 ArchWander는 건축/도시 여행 가이드 웹앱이야. 모듈식 HTML/CSS/JS 구성이며 GitHub Pages로 배포 중.
 
 - **메인 앱**: `index.html` (HTML shell, ~490줄) + `css/styles.css` + `js/*.js` (12 모듈)
-- **데이터**: `data-seoul.js`, `data-new-york.js`, `data-london.js`, `data-tokyo.js` (lazy loading)
-- **번역**: `data-ko-*.js` (도시별 한국어, lazy loading)
-- **도구**: `Archwander_tools/` 폴더 내 (로컬 전용, GitHub Pages 미배포)
+- **데이터**: Supabase `locations` 테이블로 서빙 (URL: bfhheauvuvrkdeajfjzy.supabase.co)
+  - 로컬 백업: `data-*.js`, `data-ko-*.js` → private repo `mlee3467/archwander_data`
+  - public repo에는 data 파일 없음 (`.gitignore` 처리됨)
+- **도구**: `Archwander_tools/` 폴더 내 — `mlee3467/archwander_data` private repo에도 동기화됨
 
 ## 파일 구조 (컴포넌트 분리)
 ```
@@ -27,9 +28,19 @@ js/init.js          ← 부팅, 관리자 패널, SW 등록
 ```
 
 ## Git / 배포 정보
-- **Remote**: `origin/main` (GitHub)
-- **배포**: GitHub Pages (main 브랜치 자동 배포)
-- **작업 순서**: 파일 수정 → `git add` → `git commit` → `git push origin main`
+- **Public repo**: `mlee3467/archwander` → GitHub Pages 자동 배포
+- **Private repo**: `mlee3467/archwander_data` → data-*.js + Archwander_tools 보관
+- **PAT**: `archwander_data` private repo의 `SESSION_HANDOFF.md` 참조
+- **Push 방법**: 항상 `/tmp/aw_push` 신규 클론 사용 (Windows FUSE lock 방지)
+  ```bash
+  rm -rf /tmp/aw_push && git clone https://mlee3467:[PAT]@github.com/mlee3467/ArchWander.git /tmp/aw_push
+  cd /tmp/aw_push && git config user.email "mj.lee@bluehole.net" && git config user.name "MJ Lee"
+  git add [파일] && git commit -m "..." && git push origin main
+  ```
+- **Private repo push**:
+  ```bash
+  rm -rf /tmp/aw_data && git clone https://mlee3467:[PAT]@github.com/mlee3467/archwander_data.git /tmp/aw_data
+  ```
 - ⚠️ `git pull --rebase` 나 `git rebase` 는 절대 사용하지 마. 충돌 발생 시 `git pull origin main` (merge 방식)으로만.
 
 ## 주요 시스템
