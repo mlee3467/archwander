@@ -29,3 +29,9 @@ photo_updates.json
 
 # Logs
 *.log
+
+# Location data — served from Supabase (private)
+data-*.js
+!data-audio-*.js
+!data-filter-db.js
+!data-feedback.js
