@@ -73,6 +73,8 @@ window.addEventListener('load', function() {
     return loadCityData(city);
   }).then(function() {
     _postInitMap();
+    // Auto-activate Near Me mode on launch
+    if (typeof toggleNearMe === 'function') toggleNearMe();
     // Show GPS location marker on map (passive, without activating walk filter)
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(

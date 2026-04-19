@@ -564,7 +564,6 @@ function _createRoutePanel() {
       '<div class="route-top-actions" id="route-top-actions">' +
         '<button class="route-btn route-btn-calc" id="route-top-calc" onclick="calcRoute()" style="display:none">🚶 <span class="rt-calc-text">' + (LANG === 'ko' ? '경로 계산' : 'Calculate Route') + '</span></button>' +
         '<button class="route-btn route-btn-clear" id="route-top-clear" onclick="clearRouteSelection()" style="display:none">✕ <span class="rt-clear-text">' + (LANG === 'ko' ? '전체 삭제' : 'Clear Route') + '</span></button>' +
-        '<button class="route-btn route-btn-pdf" id="route-top-pdf" onclick="exportRoutePDF()" style="display:none">📄 <span class="rt-pdf-text">' + (LANG === 'ko' ? 'PDF' : 'PDF') + '</span></button>' +
       '</div>' +
       '<div class="route-time-row">' +
         '<label class="route-time-label">🕐 <span class="rt-time-text">' + (LANG === 'ko' ? '시작 시간' : 'Start time') + '</span></label>' +
@@ -781,10 +780,8 @@ function _refreshRouteUI() {
   // Top action buttons: show calc when ≥2, clear when ≥1
   var topCalc = document.getElementById('route-top-calc');
   var topClear = document.getElementById('route-top-clear');
-  var topPdf = document.getElementById('route-top-pdf');
   if (topCalc) topCalc.style.display = routeLocations.length >= 2 ? 'inline-flex' : 'none';
   if (topClear) topClear.style.display = routeLocations.length >= 1 ? 'inline-flex' : 'none';
-  if (topPdf) topPdf.style.display = routeData ? 'inline-flex' : 'none';
 
   // Update hood list item states
   var items = document.querySelectorAll('.route-loc-item');
@@ -1058,18 +1055,8 @@ function _renderRouteResult(data, ordered) {
   });
   html += '</div>';
 
-  // Export button
-  html += '<div class="route-export-actions">' +
-    '<button class="route-btn route-btn-pdf" onclick="exportRoutePDF()">📄 ' +
-      (LANG === 'ko' ? 'PDF 내보내기' : 'Export PDF') + '</button>' +
-  '</div>';
-
   resultDiv.style.display = 'block';
   resultDiv.innerHTML = html;
-
-  // Show top PDF button
-  var topPdf = document.getElementById('route-top-pdf');
-  if (topPdf) topPdf.style.display = 'inline-flex';
 }
 
 function clearRoute() {

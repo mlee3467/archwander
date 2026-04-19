@@ -47,6 +47,9 @@ function buildFilters() {
       hoodWrap.appendChild(b);
     });
   }
+
+  // Render I Feel Like inline chips after data is loaded
+  renderIflInline();
 }
 
 function buildChipGroup(containerId, items, key, labelFn, valueFn) {
@@ -109,13 +112,45 @@ function setFilter(key, val) {
 
 function setSort(val) { state.sort = val; renderList(); }
 
+function toggleMoreFilters() {
+  var body = document.getElementById('more-filters-body');
+  var arr  = document.getElementById('more-filters-arr');
+  var btn  = document.getElementById('more-filters-btn');
+  var open = body.style.display !== 'none';
+  body.style.display = open ? 'none' : 'block';
+  if (arr) arr.textContent = open ? '▼' : '▲';
+  if (btn) btn.classList.toggle('open', !open);
+}
+
+// ── I Feel Like — inline (sidebar, always visible) ─────────────
+function renderIflInline() {
+  var wrap = document.getElementById('ifl-inline');
+  if (!wrap) return;
+  wrap.innerHTML = THEME_DEFS.map(function(td) {
+    var sel = state.themes.includes(td.key);
+    var label = t('ifl_' + td.key);
+    return '<button class="ifl-chip' + (sel ? ' selected' : '') + '" onclick="toggleIflChip(\'' + td.key + '\')">' +
+      '<span class="ifl-chip-icon">' + td.icon + '</span>' +
+      '<span class="ifl-chip-label">' + label + '</span>' +
+      '</button>';
+  }).join('');
+}
+
+function toggleIflChip(key) {
+  var idx = state.themes.indexOf(key);
+  if (idx >= 0) state.themes.splice(idx, 1);
+  else state.themes.push(key);
+  renderIflInline();
+  updateClearBtn();
+  renderList();
+  syncMarkers();
+  if (state.themes.length > 0) _pulseRouteBtn();
+}
+
 function clearAllFilters() {
   // Also clear "I feel like…" themes
   state.themes = [];
-  var iflBtn = document.getElementById('ifl-btn');
-  var mobIflBtn = document.getElementById('mob-ifl-btn');
-  if (iflBtn) iflBtn.classList.remove('active');
-  if (mobIflBtn) mobIflBtn.classList.remove('active');
+  renderIflInline();
   ['cat','style','era','access','arch','hood','fav'].forEach(k => {
     state[k] = _MULTI_KEYS.has(k) ? [] : 'All';
     const bodyId = `body-${k}`;
