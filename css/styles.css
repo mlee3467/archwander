@@ -1710,6 +1710,53 @@
   display: flex; gap: 8px;
 }
 
+/* Header right group (clear + close) */
+.route-hdr-right {
+  display: flex; align-items: center; gap: 6px;
+}
+.route-hdr-right .route-btn-clear {
+  padding: 5px 10px; font-size: 11px; border-radius: 6px;
+}
+
+/* Simplified stop list (v0.3) */
+.route-stop-list { padding: 4px 0; }
+.route-stop-beyond { opacity: 0.5; }
+
+/* Route marker popup */
+.route-marker-popup .leaflet-popup-content-wrapper {
+  padding: 0; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+  border: none; overflow: hidden;
+}
+.route-marker-popup .leaflet-popup-content { margin: 0; }
+.route-marker-popup .leaflet-popup-tip-container { display: none; }
+
+.rmp-box {
+  min-width: 180px; max-width: 240px;
+  padding: 12px 14px;
+  font-family: Inter, -apple-system, sans-serif;
+}
+.rmp-name {
+  font-size: 13px; font-weight: 600; color: #111;
+  margin-bottom: 4px;
+}
+.rmp-meta {
+  font-size: 11px; color: #666; margin-bottom: 8px;
+}
+.rmp-beyond {
+  font-size: 11px; color: #f59e0b; background: #fffbeb;
+  border: 1px solid #fcd34d; border-radius: 5px;
+  padding: 3px 7px; margin-bottom: 8px;
+}
+.rmp-remove {
+  display: block; width: 100%;
+  padding: 7px 10px; border-radius: 7px;
+  background: #fef2f2; border: 1px solid #fecaca;
+  color: #ef4444; font-size: 12px; font-weight: 600;
+  cursor: pointer; font-family: inherit;
+  transition: background 0.12s;
+}
+.rmp-remove:hover { background: #fee2e2; border-color: #f87171; }
+
 /* Peek handle (hidden by default, shown when minimized on mobile) */
 .route-peek-handle {
   display: none;
