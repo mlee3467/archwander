@@ -13,36 +13,91 @@
       color-scheme: only light;
     }
 
-    /* ── Force light mode — Chrome forced-dark-mode override ──────
-       color-scheme:only light blocks the browser-level inversion,
-       but Chrome's Force Dark flag can still slip through on some
-       versions. Explicitly re-declaring the palette inside the dark
-       media query is the only universal fix.                      */
+    /* ── Force light mode — Chrome / Safari dark-mode override ───────
+       IMPORTANT: CSS custom properties do NOT support !important.
+       Writing "--bg: #fff !important" is invalid and silently ignored.
+       Instead we: (a) re-declare variables without !important so the
+       cascade still uses light values; (b) explicitly override regular
+       properties with !important on key structural elements.
+       An inline <style> + JS in <head> handle the compositor-level
+       filter that Chrome's "Force Dark Mode" flag can apply.          */
     @media (prefers-color-scheme: dark) {
       :root {
-        --bg: #F7F7F5 !important;
-        --surface: #FFFFFF !important;
-        --border: #E8E8E4 !important;
-        --text-primary: #111111 !important;
-        --text-secondary: #787878 !important;
-        --accent: #111111 !important;
-        color-scheme: only light !important;
+        /* Re-declare without !important — custom props don't support it */
+        --bg: #F7F7F5;
+        --surface: #FFFFFF;
+        --border: #E8E8E4;
+        --text-primary: #111111;
+        --text-secondary: #787878;
+        --accent: #111111;
+        color-scheme: only light;
       }
       html {
         background-color: #F7F7F5 !important;
         color: #111111 !important;
         color-scheme: only light !important;
-        /* Undo any forced inversion applied as a filter */
         filter: none !important;
+        -webkit-filter: none !important;
       }
       body {
         background-color: #F7F7F5 !important;
         color: #111111 !important;
       }
-      /* Form controls inherit system dark styling — force light */
-      input, textarea, select, button {
+      /* Structural elements — explicit colors so hardcoded hex isn't inverted */
+      header {
+        background-color: #FFFFFF !important;
+        color: #111111 !important;
+        border-color: #E8E8E4 !important;
+      }
+      .sidebar {
+        background-color: #FFFFFF !important;
+        color: #111111 !important;
+      }
+      .list-wrap, .list-inner, #list-inner {
+        background-color: #F7F7F5 !important;
+        color: #111111 !important;
+      }
+      .loc-card {
+        background-color: #FFFFFF !important;
+        color: #111111 !important;
+        border-color: #E8E8E4 !important;
+      }
+      .loc-name { color: #111111 !important; }
+      .loc-meta, .loc-hood { color: #787878 !important; }
+      .panel, .detail-panel {
+        background-color: #FFFFFF !important;
+        color: #111111 !important;
+      }
+      .panel-header {
+        background-color: #FFFFFF !important;
+        color: #111111 !important;
+        border-color: #E8E8E4 !important;
+      }
+      .tabs { background-color: #FFFFFF !important; border-color: #E8E8E4 !important; }
+      .tab { color: #787878 !important; }
+      .tab.active { color: #111111 !important; }
+      .detail-section { background-color: #FFFFFF !important; color: #111111 !important; }
+      h2, h3, h4 { color: #111111 !important; }
+      p, li, span:not(.badge):not(.tag) { color: inherit; }
+      .route-panel {
+        background-color: #FFFFFF !important;
+        color: #111111 !important;
+      }
+      .route-panel * { color-scheme: only light; }
+      #search {
+        background-color: #F7F7F5 !important;
+        color: #111111 !important;
+        border-color: #E8E8E4 !important;
+      }
+      /* Form controls */
+      input, textarea, select {
+        background-color: #FFFFFF !important;
+        color: #111111 !important;
         color-scheme: only light;
       }
+      button { color-scheme: only light; }
+      /* Landing screens — already dark-styled, leave untouched */
+      #landing-splash, #ifl-select-screen { filter: none !important; }
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
