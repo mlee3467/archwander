@@ -14,16 +14,17 @@
     }
 
     /* ── Force light mode — Chrome / Safari dark-mode override ───────
-       IMPORTANT: CSS custom properties do NOT support !important.
-       Writing "--bg: #fff !important" is invalid and silently ignored.
-       Instead we: (a) re-declare variables without !important so the
-       cascade still uses light values; (b) explicitly override regular
-       properties with !important on key structural elements.
-       An inline <style> + JS in <head> handle the compositor-level
-       filter that Chrome's "Force Dark Mode" flag can apply.          */
+       Strategy: tell the browser this page is light-only via color-scheme.
+       The <html style="color-scheme:only light"> attribute + inline <style>
+       + meta tag together cover all browser entry points.
+
+       In the dark media query we only re-declare CSS variables (no !important
+       — custom props don't support it) and force backgrounds on light elements.
+       We do NOT force `color` globally: dark-background screens (landing,
+       IFL selector) have white text that would become invisible.             */
     @media (prefers-color-scheme: dark) {
       :root {
-        /* Re-declare without !important — custom props don't support it */
+        /* Re-declare with same light values — custom props ignore !important */
         --bg: #F7F7F5;
         --surface: #FFFFFF;
         --border: #E8E8E4;
@@ -33,17 +34,17 @@
         color-scheme: only light;
       }
       html {
-        background-color: #F7F7F5 !important;
-        color: #111111 !important;
         color-scheme: only light !important;
         filter: none !important;
         -webkit-filter: none !important;
+        /* No color:#111 here — would make dark-bg landing screen text invisible */
       }
+
+      /* Light-background structural elements: force both bg AND fg */
       body {
         background-color: #F7F7F5 !important;
-        color: #111111 !important;
+        /* color intentionally omitted — dark screens need white text */
       }
-      /* Structural elements — explicit colors so hardcoded hex isn't inverted */
       header {
         background-color: #FFFFFF !important;
         color: #111111 !important;
@@ -77,27 +78,33 @@
       .tab { color: #787878 !important; }
       .tab.active { color: #111111 !important; }
       .detail-section { background-color: #FFFFFF !important; color: #111111 !important; }
-      h2, h3, h4 { color: #111111 !important; }
-      p, li, span:not(.badge):not(.tag) { color: inherit; }
+      h2.loc-name-h2, h3, .detail-label { color: #111111 !important; }
       .route-panel {
         background-color: #FFFFFF !important;
         color: #111111 !important;
       }
-      .route-panel * { color-scheme: only light; }
       #search {
         background-color: #F7F7F5 !important;
         color: #111111 !important;
         border-color: #E8E8E4 !important;
       }
-      /* Form controls */
       input, textarea, select {
         background-color: #FFFFFF !important;
         color: #111111 !important;
         color-scheme: only light;
       }
       button { color-scheme: only light; }
-      /* Landing screens — already dark-styled, leave untouched */
-      #landing-splash, #ifl-select-screen { filter: none !important; }
+
+      /* Dark-background screens — explicitly preserve dark bg + white text */
+      #landing-splash,
+      #landing-screen,
+      #ifl-select-screen {
+        filter: none !important;
+        /* backgrounds already hardcoded dark — let them stay as designed */
+      }
+      #landing-screen .landing-btn-title { color: #ffffff !important; }
+      #landing-screen .landing-btn-sub   { color: rgba(255,255,255,0.38) !important; }
+      #landing-screen .landing-hdr-city  { color: rgba(255,255,255,0.35) !important; }
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }

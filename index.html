@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="color-scheme:only light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
@@ -19,23 +19,25 @@
   <!-- has inline-style specificity and fires before external sheets load, -->
   <!-- blocking Chrome/Safari forced-dark at the earliest possible point.  -->
   <style>
-    :root, html {
-      color-scheme: only light !important;
-      background-color: #F7F7F5 !important;
-      color: #111111 !important;
-    }
+    /* Inline: runs before external CSS — Chrome/Safari forced dark opt-out.
+       color-scheme:only light tells the browser this page is light-only.
+       DO NOT set color:#111 globally here — dark landing screens have white
+       text that would become invisible against their dark backgrounds.      */
+    :root, html { color-scheme: only light !important; }
   </style>
-  <!-- JS backup: sets inline style on <html> before DOMContentLoaded -->
+  <!-- JS backup: sets color-scheme on <html> inline before DOMContentLoaded -->
   <script>
     (function(){
       try {
-        if (!window.matchMedia || !window.matchMedia('(prefers-color-scheme:dark)').matches) return;
         var h = document.documentElement;
+        // Declare light-only at the inline-style level (highest specificity)
         h.style.setProperty('color-scheme', 'only light');
-        h.style.setProperty('background-color', '#F7F7F5');
-        h.style.setProperty('color', '#111111');
-        h.style.setProperty('filter', 'none');
-        h.style.setProperty('-webkit-filter', 'none');
+        // Only block filter-based inversions — do NOT force text color globally
+        // because dark-background screens (landing, IFL) need white text.
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches) {
+          h.style.setProperty('filter', 'none');
+          h.style.setProperty('-webkit-filter', 'none');
+        }
       } catch(e) {}
     })();
   </script>
@@ -47,7 +49,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
-  <link rel="stylesheet" href="css/styles.css?v=20260419c">
+  <link rel="stylesheet" href="css/styles.css?v=20260419d">
 </head>
 <body>
 
@@ -634,18 +636,18 @@
   </div>
 </div>
 
-<script src="js/config.js?v=20260419c"></script>
-<script src="js/i18n.js?v=20260419c"></script>
-<script src="js/map.js?v=20260419c"></script>
-<script src="js/filters.js?v=20260419c"></script>
-<script src="js/core.js?v=20260419c"></script>
-<script src="js/audio.js?v=20260419c"></script>
-<script src="js/ui.js?v=20260419c"></script>
-<script src="js/walk.js?v=20260419c"></script>
-<script src="js/city.js?v=20260419c"></script>
-<script src="js/route.js?v=20260419c"></script>
-<script src="js/landing.js?v=20260419c"></script>
-<script src="js/init.js?v=20260419c"></script>
+<script src="js/config.js?v=20260419d"></script>
+<script src="js/i18n.js?v=20260419d"></script>
+<script src="js/map.js?v=20260419d"></script>
+<script src="js/filters.js?v=20260419d"></script>
+<script src="js/core.js?v=20260419d"></script>
+<script src="js/audio.js?v=20260419d"></script>
+<script src="js/ui.js?v=20260419d"></script>
+<script src="js/walk.js?v=20260419d"></script>
+<script src="js/city.js?v=20260419d"></script>
+<script src="js/route.js?v=20260419d"></script>
+<script src="js/landing.js?v=20260419d"></script>
+<script src="js/init.js?v=20260419d"></script>
 </body>
 
 </html>
