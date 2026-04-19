@@ -425,17 +425,32 @@
       display: flex; flex-direction: column; overflow: hidden;
       flex-shrink: 0; z-index: 200; position: relative;
     }
-    /* Sidebar top: filter active indicator */
+    /* Sidebar top: filter section header */
     .sb-top {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 9px 14px 8px;
+      padding: 7px 14px 6px;
       border-bottom: 1px solid var(--border);
-      background: #111;
+      background: var(--bg);
     }
-    .sb-top-label { font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: #fff; display: flex; align-items: center; gap: 5px; }
-    .sb-clear { font-size: 11px; color: #9db4ff; background: none; border: none; cursor: pointer; padding: 2px 6px; border-radius: 4px; display: none; }
+    .sb-top-label { font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-secondary); display: flex; align-items: center; gap: 5px; }
+    .sb-clear { font-size: 11px; color: #4F46E5; background: none; border: none; cursor: pointer; padding: 2px 6px; border-radius: 4px; display: none; }
     .sb-clear.show { display: block; }
-    .sb-clear:hover { background: rgba(255,255,255,0.15); }
+    .sb-clear:hover { background: rgba(79,70,229,0.08); }
+
+    /* Filter toggle button */
+    .sb-filter-toggle {
+      display: flex; align-items: center; gap: 6px;
+      width: 100%; padding: 9px 14px;
+      background: var(--surface); border: none; border-bottom: 1px solid var(--border);
+      font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;
+      color: var(--text-primary); cursor: pointer; font-family: inherit;
+      transition: background 0.12s; flex-shrink: 0;
+    }
+    .sb-filter-toggle:hover { background: var(--bg); }
+    .sb-filter-toggle .sb-filter-arr { margin-left: auto; font-size: 9px; color: #999; transition: transform 0.2s; }
+    .sb-filter-toggle.open .sb-filter-arr { transform: rotate(180deg); }
+    .sb-ft-dot { width: 6px; height: 6px; border-radius: 50%; background: #4F46E5; display: none; flex-shrink: 0; }
+    .sb-ft-dot.show { display: block; }
 
     /* Filter sections */
     .fsec { border-bottom: 1px solid var(--border); }
@@ -501,7 +516,7 @@
       padding: 4px 10px; border-radius: 20px;
       border: 1px solid var(--border); font-size: 11px;
       font-family: inherit; cursor: pointer;
-      background: white; color: rgb(80,80,80); transition: all 0.15s;
+      background: white; color: #111; transition: all 0.15s;
       text-transform: capitalize;
     }
     .chip.active {
@@ -1124,13 +1139,14 @@
 
     /* ── SIDEBAR SECTIONS ─────────────────────────────────── */
     .sb-filters {
-      overflow: hidden; flex-shrink: 0;
+      overflow-y: auto; flex-shrink: 0;
       display: flex; flex-direction: column;
       border-bottom: 1px solid var(--border);
-      height: 240px; /* initial height; drag-resizable via dh-fl */
+      max-height: 50vh;
+      background: var(--surface);
     }
-    /* Architect / Neighborhood sections — capped height, scrollable */
-    #fsec-arch, #fsec-hood { flex-shrink: 0; }
+    /* Neighborhood section — scrollable list, capped height */
+    #fsec-hood { flex-shrink: 0; }
     .sb-list-wrap { display: flex; flex-direction: column; flex: 1; overflow: hidden; min-height: 80px; }
 
     /* ── MOBILE ─────────────────────────────────────────── */
@@ -1383,11 +1399,10 @@
 
       .drag-h { display: none; }
       .sb-filters {
-        flex: 1; height: auto; min-height: 0;
-        overflow-y: auto; display: block;
+        max-height: 55vh; overflow-y: auto; display: flex;
         -webkit-overflow-scrolling: touch;
       }
-      .fsec-body.arch-list, .fsec-body.hood-list { max-height: 200px; }
+      .fsec-body.hood-list { max-height: 200px; }
 
       /* Mobile walk bar: show only the slider (GPS/Pin selection via My Location popup) */
       .walk-loc-btn { display: none !important; }

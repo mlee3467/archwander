@@ -49,7 +49,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
-  <link rel="stylesheet" href="css/styles.css?v=20260419k">
+  <link rel="stylesheet" href="css/styles.css?v=20260419l">
 </head>
 <body>
 
@@ -362,18 +362,6 @@
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
     Home
   </button>
-  <button class="mob-action-btn" id="mob-near-btn" onclick="toggleNearMe(); closeMobileActions();">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg>
-    <span class="mob-near-text">My Location</span>
-  </button>
-  <button class="mob-action-btn" id="mob-fav-btn" onclick="toggleFavFilter(); closeMobileActions();">
-    <span style="font-size:14px;line-height:1;flex-shrink:0">&#9734;</span>
-    <span class="mob-fav-text">Favorites</span>
-  </button>
-  <button class="mob-action-btn" id="mob-route-btn" onclick="openRoutePanel(); closeMobileActions();">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 17l6-6 4 4 8-8"/><path d="M17 7h4v4"/></svg>
-    <span class="mob-route-text">Route</span>
-  </button>
 </div>
 
 <!-- Near Me bar — slides in below header when Find Near Me is active -->
@@ -451,114 +439,6 @@
 <div class="app">
   <aside class="sidebar" id="sidebar">
 
-    <!-- Filters section (resizable height) -->
-    <div class="sb-filters" id="sb-filters">
-
-      <!-- Top bar -->
-      <div class="sb-top">
-        <span class="sb-top-label"><span style="font-size:13px">✨</span> I feel like…</span>
-        <button class="sb-clear" id="sb-clear" onclick="clearAllFilters()">✕ Clear all</button>
-      </div>
-
-      <!-- I Feel Like — inline theme grid (always visible) -->
-      <div class="ifl-inline" id="ifl-inline">
-        <!-- Populated by renderIflInline() in filters.js after city data loads -->
-      </div>
-
-      <!-- Access filter — practical, always visible -->
-      <div class="fsec open" id="fsec-access">
-        <button class="fsec-hdr" onclick="toggleFsec('access')">
-          <span>Access</span>
-          <span class="fsec-dot" id="dot-access"></span>
-          <span class="fsec-reset" id="reset-access" onclick="event.stopPropagation();setFilter('access','All')" title="Clear access filter">✕ Clear</span>
-          <span class="fsec-arr">▼</span>
-        </button>
-        <div class="fsec-body" id="body-access"></div>
-      </div>
-
-      <!-- More filters — collapsed by default -->
-      <div class="fsec-more-wrap">
-        <button class="fsec-more-btn" id="more-filters-btn" onclick="toggleMoreFilters()">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
-          More filters
-          <span class="fsec-arr" id="more-filters-arr">▼</span>
-        </button>
-        <div id="more-filters-body" style="display:none">
-
-          <!-- Category -->
-          <div class="fsec" id="fsec-cat">
-            <button class="fsec-hdr" onclick="toggleFsec('cat')">
-              <span>Category</span>
-              <span class="fsec-dot" id="dot-cat"></span>
-              <span class="fsec-reset" id="reset-cat" onclick="event.stopPropagation();setFilter('cat','All')" title="Clear">✕ Clear</span>
-              <span class="fsec-arr">▼</span>
-            </button>
-            <div class="fsec-body" id="body-cat"></div>
-          </div>
-
-          <!-- Style -->
-          <div class="fsec" id="fsec-style">
-            <button class="fsec-hdr" onclick="toggleFsec('style')">
-              <span>Style</span>
-              <span class="fsec-dot" id="dot-style"></span>
-              <span class="fsec-reset" id="reset-style" onclick="event.stopPropagation();setFilter('style','All')" title="Clear">✕ Clear</span>
-              <span class="fsec-arr">▼</span>
-            </button>
-            <div class="fsec-body" id="body-style"></div>
-          </div>
-
-          <!-- Era -->
-          <div class="fsec" id="fsec-era">
-            <button class="fsec-hdr" onclick="toggleFsec('era')">
-              <span>Era</span>
-              <span class="fsec-dot" id="dot-era"></span>
-              <span class="fsec-reset" id="reset-era" onclick="event.stopPropagation();setFilter('era','All')" title="Clear">✕ Clear</span>
-              <span class="fsec-arr">▼</span>
-            </button>
-            <div class="fsec-body" id="body-era"></div>
-          </div>
-
-          <!-- Architect -->
-          <div class="fsec" id="fsec-arch">
-            <button class="fsec-hdr" onclick="toggleFsec('arch')">
-              <span>Architect</span>
-              <span class="fsec-dot" id="dot-arch"></span>
-              <span class="fsec-reset" id="reset-arch" onclick="event.stopPropagation();setFilter('arch','All')" title="Clear">✕ Clear</span>
-              <span class="fsec-arr">▼</span>
-            </button>
-            <div class="fsec-body arch-list" id="body-arch"></div>
-          </div>
-
-          <!-- Neighborhood -->
-          <div class="fsec" id="fsec-hood">
-            <button class="fsec-hdr" onclick="toggleFsec('hood')">
-              <span>Neighborhood</span>
-              <span class="fsec-dot" id="dot-hood"></span>
-              <span class="fsec-reset" id="reset-hood" onclick="event.stopPropagation();setFilter('hood','All')" title="Clear">✕ Clear</span>
-              <span class="fsec-arr">▼</span>
-            </button>
-            <div class="fsec-body hood-list" id="body-hood"></div>
-          </div>
-
-          <!-- Favorites -->
-          <div class="fsec" id="fsec-fav">
-            <button class="fsec-hdr" onclick="toggleFsec('fav')">
-              <span>Favorites</span>
-              <span class="fsec-dot" id="dot-fav"></span>
-              <span class="fsec-reset" id="reset-fav" onclick="event.stopPropagation();setFilter('fav','All')" title="Clear">✕ Clear</span>
-              <span class="fsec-arr">▼</span>
-            </button>
-            <div class="fsec-body chip-wrap" id="body-fav"></div>
-          </div>
-
-        </div><!-- /more-filters-body -->
-      </div><!-- /fsec-more-wrap -->
-
-    </div><!-- /sb-filters -->
-
-    <!-- Drag handle: between Filters and List -->
-    <div class="drag-h" id="dh-fl"></div>
-
     <!-- Action buttons — My Location / Favorites / Route / I Feel Like -->
     <div class="sb-actions" id="sb-actions">
       <button class="sba-btn" id="sba-loc" onclick="_sbaMyLocation()">
@@ -578,6 +458,91 @@
         <span class="sba-label">I Feel<br>Like</span>
       </button>
     </div>
+
+    <!-- Filter toggle button -->
+    <button class="sb-filter-toggle" id="sb-filter-toggle" onclick="toggleSbFilters()">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+      Filters
+      <span class="sb-ft-dot" id="sb-ft-dot"></span>
+      <span class="sb-filter-arr" id="sb-filter-arr">▼</span>
+    </button>
+
+    <!-- Filters section (hidden by default) -->
+    <div class="sb-filters" id="sb-filters" style="display:none">
+
+      <!-- Top bar -->
+      <div class="sb-top">
+        <span class="sb-top-label">Filters</span>
+        <button class="sb-clear" id="sb-clear" onclick="clearAllFilters()">✕ Clear all</button>
+      </div>
+
+      <!-- Category -->
+      <div class="fsec" id="fsec-cat">
+        <button class="fsec-hdr" onclick="toggleFsec('cat')">
+          <span>Category</span>
+          <span class="fsec-dot" id="dot-cat"></span>
+          <span class="fsec-reset" id="reset-cat" onclick="event.stopPropagation();setFilter('cat','All')" title="Clear">✕ Clear</span>
+          <span class="fsec-arr">▼</span>
+        </button>
+        <div class="fsec-body" id="body-cat"></div>
+      </div>
+
+      <!-- Neighborhood -->
+      <div class="fsec" id="fsec-hood">
+        <button class="fsec-hdr" onclick="toggleFsec('hood')">
+          <span>Neighborhood</span>
+          <span class="fsec-dot" id="dot-hood"></span>
+          <span class="fsec-reset" id="reset-hood" onclick="event.stopPropagation();setFilter('hood','All')" title="Clear">✕ Clear</span>
+          <span class="fsec-arr">▼</span>
+        </button>
+        <div class="fsec-body hood-list" id="body-hood"></div>
+      </div>
+
+      <!-- Access -->
+      <div class="fsec" id="fsec-access">
+        <button class="fsec-hdr" onclick="toggleFsec('access')">
+          <span>Access</span>
+          <span class="fsec-dot" id="dot-access"></span>
+          <span class="fsec-reset" id="reset-access" onclick="event.stopPropagation();setFilter('access','All')" title="Clear">✕ Clear</span>
+          <span class="fsec-arr">▼</span>
+        </button>
+        <div class="fsec-body" id="body-access"></div>
+      </div>
+
+      <!-- Built Era -->
+      <div class="fsec" id="fsec-era">
+        <button class="fsec-hdr" onclick="toggleFsec('era')">
+          <span>Built Era</span>
+          <span class="fsec-dot" id="dot-era"></span>
+          <span class="fsec-reset" id="reset-era" onclick="event.stopPropagation();setFilter('era','All')" title="Clear">✕ Clear</span>
+          <span class="fsec-arr">▼</span>
+        </button>
+        <div class="fsec-body" id="body-era"></div>
+      </div>
+
+      <!-- Style -->
+      <div class="fsec" id="fsec-style">
+        <button class="fsec-hdr" onclick="toggleFsec('style')">
+          <span>Style</span>
+          <span class="fsec-dot" id="dot-style"></span>
+          <span class="fsec-reset" id="reset-style" onclick="event.stopPropagation();setFilter('style','All')" title="Clear">✕ Clear</span>
+          <span class="fsec-arr">▼</span>
+        </button>
+        <div class="fsec-body" id="body-style"></div>
+      </div>
+
+      <!-- Favorites -->
+      <div class="fsec" id="fsec-fav">
+        <button class="fsec-hdr" onclick="toggleFsec('fav')">
+          <span>Favorites</span>
+          <span class="fsec-dot" id="dot-fav"></span>
+          <span class="fsec-reset" id="reset-fav" onclick="event.stopPropagation();setFilter('fav','All')" title="Clear">✕ Clear</span>
+          <span class="fsec-arr">▼</span>
+        </button>
+        <div class="fsec-body chip-wrap" id="body-fav"></div>
+      </div>
+
+    </div><!-- /sb-filters -->
 
     <!-- My Journey — shown when visited/saved items exist -->
     <div id="passport-stats" style="display:none"></div>
@@ -709,18 +674,18 @@
   </div>
 </div>
 
-<script src="js/config.js?v=20260419k"></script>
-<script src="js/i18n.js?v=20260419k"></script>
-<script src="js/map.js?v=20260419k"></script>
-<script src="js/filters.js?v=20260419k"></script>
-<script src="js/core.js?v=20260419k"></script>
-<script src="js/audio.js?v=20260419k"></script>
-<script src="js/ui.js?v=20260419k"></script>
-<script src="js/walk.js?v=20260419k"></script>
-<script src="js/city.js?v=20260419k"></script>
-<script src="js/route.js?v=20260419k"></script>
-<script src="js/landing.js?v=20260419k"></script>
-<script src="js/init.js?v=20260419k"></script>
+<script src="js/config.js?v=20260419l"></script>
+<script src="js/i18n.js?v=20260419l"></script>
+<script src="js/map.js?v=20260419l"></script>
+<script src="js/filters.js?v=20260419l"></script>
+<script src="js/core.js?v=20260419l"></script>
+<script src="js/audio.js?v=20260419l"></script>
+<script src="js/ui.js?v=20260419l"></script>
+<script src="js/walk.js?v=20260419l"></script>
+<script src="js/city.js?v=20260419l"></script>
+<script src="js/route.js?v=20260419l"></script>
+<script src="js/landing.js?v=20260419l"></script>
+<script src="js/init.js?v=20260419l"></script>
 </body>
 
 </html>

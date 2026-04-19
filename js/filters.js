@@ -22,17 +22,19 @@ function buildFilters() {
   buildChipGroup('body-fav', ['All', '★ Favorites', '✓ Visited'], 'fav',
     v => v, v => v);
 
-  // Architect — scrollable list
+  // Architect — scrollable list (optional section, may be absent from DOM)
   const archWrap = document.getElementById('body-arch');
-  archWrap.innerHTML = '';
-  ['All', ...ARCHITECTS].forEach(a => {
-    const b = document.createElement('button');
-    b.className = 'arch-item' + (a === 'All' ? ' active' : '');
-    b.textContent = a;
-    b.title = a;
-    b.onclick = () => setFilter('arch', a);
-    archWrap.appendChild(b);
-  });
+  if (archWrap) {
+    archWrap.innerHTML = '';
+    ['All', ...ARCHITECTS].forEach(a => {
+      const b = document.createElement('button');
+      b.className = 'arch-item' + (a === 'All' ? ' active' : '');
+      b.textContent = a;
+      b.title = a;
+      b.onclick = () => setFilter('arch', a);
+      archWrap.appendChild(b);
+    });
+  }
 
   // Neighborhood — scrollable list (same pattern as Architect)
   const hoodWrap = document.getElementById('body-hood');
@@ -114,6 +116,7 @@ function setSort(val) { state.sort = val; renderList(); }
 
 function toggleMoreFilters() {
   var body = document.getElementById('more-filters-body');
+  if (!body) return;
   var arr  = document.getElementById('more-filters-arr');
   var btn  = document.getElementById('more-filters-btn');
   var open = body.style.display !== 'none';
@@ -173,7 +176,21 @@ function updateClearBtn() {
   const active = ['cat','style','era','access','arch','hood','fav'].some(k =>
     _MULTI_KEYS.has(k) ? state[k].length > 0 : state[k] !== 'All'
   ) || state.themes.length > 0;
-  document.getElementById('sb-clear').classList.toggle('show', active);
+  var clr = document.getElementById('sb-clear');
+  if (clr) clr.classList.toggle('show', active);
+  var dot = document.getElementById('sb-ft-dot');
+  if (dot) dot.classList.toggle('show', active);
+}
+
+function toggleSbFilters() {
+  var panel = document.getElementById('sb-filters');
+  var btn   = document.getElementById('sb-filter-toggle');
+  var arr   = document.getElementById('sb-filter-arr');
+  if (!panel) return;
+  var open = panel.style.display !== 'none';
+  panel.style.display = open ? 'none' : 'flex';
+  if (btn) btn.classList.toggle('open', !open);
+  if (arr) arr.textContent = open ? '▼' : '▲';
 }
 
 function toggleFsec(id) {
