@@ -10,9 +10,41 @@
       --header-h: 80px;
       --mob-header-h: 70px;
       --safe-top: env(safe-area-inset-top, 0px);
-      /* Prevent Chrome/Android auto-dark-mode from inverting colors */
       color-scheme: only light;
     }
+
+    /* ── Force light mode — Chrome forced-dark-mode override ──────
+       color-scheme:only light blocks the browser-level inversion,
+       but Chrome's Force Dark flag can still slip through on some
+       versions. Explicitly re-declaring the palette inside the dark
+       media query is the only universal fix.                      */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #F7F7F5 !important;
+        --surface: #FFFFFF !important;
+        --border: #E8E8E4 !important;
+        --text-primary: #111111 !important;
+        --text-secondary: #787878 !important;
+        --accent: #111111 !important;
+        color-scheme: only light !important;
+      }
+      html {
+        background-color: #F7F7F5 !important;
+        color: #111111 !important;
+        color-scheme: only light !important;
+        /* Undo any forced inversion applied as a filter */
+        filter: none !important;
+      }
+      body {
+        background-color: #F7F7F5 !important;
+        color: #111111 !important;
+      }
+      /* Form controls inherit system dark styling — force light */
+      input, textarea, select, button {
+        color-scheme: only light;
+      }
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { color-scheme: only light; }
     body {
