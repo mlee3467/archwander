@@ -839,7 +839,7 @@ function _showRouteMarkerPopup(loc, beyondLimit) {
     ? '<div class="rmp-beyond">⚠ ' + (LANG === 'ko' ? '6km 범위 밖' : 'Beyond 6km') + '</div>'
     : '';
 
-  // Thumbnail: first photo or Street View static API
+  // Thumbnail: first photo (img) or interactive Street View (iframe)
   var thumbHtml = '';
   if (loc.photos && loc.photos.length > 0) {
     var pUrl = loc.photos[0];
@@ -850,25 +850,35 @@ function _showRouteMarkerPopup(loc, beyondLimit) {
     thumbHtml = '<div class="rmp-thumb"><img src="' + pUrl + '" loading="lazy"' +
       ' onerror="this.parentNode.style.display=\'none\'"></div>';
   } else if (loc.sv && typeof GOOGLE_MAPS_API_KEY !== 'undefined' && GOOGLE_MAPS_API_KEY) {
+    // Interactive Street View embed (Google Maps Embed API)
     var svLat = loc.sv.lat || loc.lat;
     var svLng = loc.sv.lng || loc.lng;
-    var svUrl = 'https://maps.googleapis.com/maps/api/streetview?size=400x160' +
-      '&location=' + svLat + ',' + svLng +
+    var svQ = 'key=' + GOOGLE_MAPS_API_KEY +
       '&heading=' + (loc.sv.heading || 0) +
       '&pitch=' + (loc.sv.pitch || 0) +
-      '&fov=' + (loc.sv.fov || 90) +
-      '&key=' + GOOGLE_MAPS_API_KEY;
-    thumbHtml = '<div class="rmp-thumb"><img src="' + svUrl + '" loading="lazy"' +
-      ' onerror="this.parentNode.style.display=\'none\'"></div>';
+      '&fov=' + (loc.sv.fov || 90);
+    // Prefer panoId (exact panorama) over coordinate search
+    if (loc.sv.panoId) {
+      svQ += '&pano=' + loc.sv.panoId;
+    } else {
+      svQ += '&location=' + svLat + ',' + svLng;
+    }
+    var svSrc = 'https://www.google.com/maps/embed/v1/streetview?' + svQ;
+    thumbHtml = '<div class="rmp-thumb">' +
+      '<iframe src="' + svSrc + '" allowfullscreen' +
+      ' allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"' +
+      ' loading="lazy"></iframe>' +
+      '</div>';
   }
 
   var el = document.createElement('div');
   el.id = 'route-custom-popup';
   el.className = 'route-custom-popup';
+  // rmp-close sits at popup root (absolute, z:10) — floats over thumb or body
   el.innerHTML =
+    '<button class="rmp-close" onclick="_closeRouteCustomPopup()" aria-label="close">✕</button>' +
     thumbHtml +
     '<div class="rmp-body">' +
-      '<button class="rmp-close" onclick="_closeRouteCustomPopup()" aria-label="close">✕</button>' +
       '<div class="rmp-name">' + _escHtml(loc.name) + '</div>' +
       '<div class="rmp-meta">' +
         '<span class="cat-badge ' + catClass + '" style="font-size:10px">' + catBadge + '</span>' +

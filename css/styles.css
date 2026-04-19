@@ -1822,25 +1822,30 @@
 /* Route marker popup (custom DOM, works on mobile) */
 .route-custom-popup {
   background: #fff;
-  border-radius: 12px;
+  border-radius: 12px; overflow: hidden;
   box-shadow: 0 6px 24px rgba(0,0,0,0.20), 0 1px 4px rgba(0,0,0,0.10);
-  padding: 14px 14px 12px;
-  min-width: 180px; max-width: 260px;
+  padding: 0;
+  min-width: 220px; max-width: 280px;
   font-family: Inter, -apple-system, sans-serif;
   position: fixed; /* overridden by JS */
   z-index: 3000;
   pointer-events: all;
+  /* needed so absolute rmp-close is positioned relative to popup root */
+  isolation: isolate;
 }
 .rmp-close {
-  position: absolute; top: 8px; right: 8px;
-  background: none; border: none; cursor: pointer;
-  color: #bbb; font-size: 14px; line-height: 1;
-  padding: 2px 5px; border-radius: 4px;
+  /* floats over the thumb (or body if no thumb) */
+  position: absolute; top: 7px; right: 7px;
+  background: rgba(0,0,0,0.45); border: none; cursor: pointer;
+  color: #fff; font-size: 13px; line-height: 1;
+  width: 24px; height: 24px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 10;
 }
-.rmp-close:hover { color: #555; background: #f3f3f0; }
+.rmp-close:hover { background: rgba(0,0,0,0.7); }
 .rmp-name {
   font-size: 13px; font-weight: 700; color: #111;
-  margin-bottom: 5px; padding-right: 20px;
+  margin-bottom: 5px; padding-right: 26px; /* space for close btn */
 }
 .rmp-meta {
   font-size: 11px; color: #666; margin-bottom: 8px;
@@ -2385,20 +2390,23 @@
 .srf-label { letter-spacing: -0.3px; }
 
 /* ═══════════════════════════════════════════════════════════════
-   ROUTE CUSTOM POPUP — photo thumbnail
+   ROUTE CUSTOM POPUP — photo / SV thumbnail
    ═══════════════════════════════════════════════════════════════ */
-.route-custom-popup {
-  border-radius: 12px; overflow: hidden;
-}
 .rmp-thumb {
-  width: 100%; height: 110px; overflow: hidden;
+  width: 100%; height: 140px; overflow: hidden;
   background: #111; flex-shrink: 0;
+  position: relative;
 }
 .rmp-thumb img {
   width: 100%; height: 100%; object-fit: cover; display: block;
 }
+/* Interactive Street View iframe */
+.rmp-thumb iframe {
+  width: 100%; height: 100%; border: none; display: block;
+  pointer-events: auto;
+}
 .rmp-body {
-  padding: 10px 12px 10px;
+  padding: 10px 12px 12px;
   position: relative;
   background: #fff;
 }
