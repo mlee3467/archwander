@@ -64,6 +64,8 @@ function _doFullMapInit(afterFn) {
     return loadCityData(city);
   }).then(function() {
     _postInitMap();
+    // Render passport stats (reads from localStorage — works before city data)
+    if (typeof _updatePassportStats === 'function') _updatePassportStats();
     if (afterFn) {
       afterFn();
     } else {

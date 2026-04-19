@@ -4,11 +4,12 @@
 // Neighborhood-based walking routes with OSRM routing.
 // Extends the existing Near Me system.
 
-var routeActive    = false;
-var routeLocations = [];   // ordered list of locations in the route
-var routeLine      = null; // Leaflet polyline for the route
-var routeMarkers   = [];   // numbered step markers on map
-var routeData      = null; // { distance, duration, steps: [...] }
+var routeActive      = false;
+var routeLocations   = [];   // ordered list of locations in the route
+var routeLine        = null; // Leaflet polyline for the route
+var routeMarkers     = [];   // numbered step markers on map
+var routeData        = null; // { distance, duration, steps: [...] }
+var _routeSkipAnim   = false; // true when remove triggered — skip animation, show final instantly
 
 // ── Pixel Walker Animation ───────────────────────────────────────
 // Character type: Canvas-rendered pixel art → dataURL → <img> in Leaflet divIcon.
@@ -202,18 +203,20 @@ function _buildRouteMarkerIcon(num, name, visited, beyondLimit) {
   var labelBg   = beyondLimit ? 'rgba(255,255,255,0.55)' : 'rgba(255,255,255,0.92)';
   return L.divIcon({
     html:
-      '<div style="display:flex;align-items:center;gap:4px;white-space:nowrap">' +
-        '<div style="background:' + circleBg + ';color:white;width:24px;height:24px;border-radius:50%;' +
-        'display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;' +
-        'border:2px solid ' + circleBdr + ';box-shadow:0 2px 6px rgba(0,0,0,0.3);font-family:Inter,sans-serif;flex-shrink:0">' + num + '</div>' +
+      '<div style="display:flex;align-items:center;gap:4px;white-space:nowrap;cursor:pointer;pointer-events:auto">' +
+        '<div style="background:' + circleBg + ';color:white;width:28px;height:28px;border-radius:50%;' +
+        'display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;' +
+        'border:2px solid ' + circleBdr + ';box-shadow:0 2px 6px rgba(0,0,0,0.3);font-family:Inter,sans-serif;' +
+        'flex-shrink:0;pointer-events:auto">' + num + '</div>' +
         '<div style="font-size:9px;font-family:Inter,sans-serif;font-weight:600;color:' + labelCol + ';' +
         'background:' + labelBg + ';padding:2px 5px;border-radius:3px;' +
-        'box-shadow:0 1px 4px rgba(0,0,0,0.25);max-width:90px;overflow:hidden;text-overflow:ellipsis">' +
+        'box-shadow:0 1px 4px rgba(0,0,0,0.25);max-width:90px;overflow:hidden;text-overflow:ellipsis;' +
+        'pointer-events:auto">' +
         _escHtml(name) + '</div>' +
       '</div>',
     className: '',
-    iconSize:   [120, 24],
-    iconAnchor: [12, 12]
+    iconSize:   [130, 28],
+    iconAnchor: [14, 14]
   });
 }
 
@@ -333,7 +336,8 @@ function _closestCoordIdx(coords, lat, lng) {
 
 // ── Main animation ────────────────────────────────────────────────
 // coords: full path points.  stopIndices: which coords[] are stop locations.
-function _startWalkerAnimation(coords, stopIndices, ordered) {
+function _startWalkerAnimation(coords, stopIndices, ordered, cumDistAtStop) {
+  cumDistAtStop = cumDistAtStop || [];
   _stopWalkerAnimation();
   if (!coords || coords.length < 2) return;
   if (!stopIndices || stopIndices.length < 2) stopIndices = [0, coords.length - 1];
@@ -441,16 +445,34 @@ function _startWalkerAnimation(coords, stopIndices, ordered) {
     var stopped  = _walkerDistCovered >= _WLK_D_STOP;
     var speedMod = _walkerGetSpeedMod(_walkerDistCovered);
 
-    // ── Advance virtual clock ────────────────────────────────────
+    // ── Advance virtual clock (no loop — play once and stop) ─────
     if (!stopped) {
       var virtualDt = dt * speedMod;
-      // Find current entry before advancing (to accumulate distance)
       var preEntry = _findEntry();
       if (preEntry.type === 'travel') {
         var segMs = preEntry.t1 - preEntry.t0;
         if (segMs > 0) _walkerDistCovered += (virtualDt / segMs) * preEntry.segDistM;
       }
-      accumMs = (accumMs + virtualDt) % timelineTotal;
+      accumMs = Math.min(accumMs + virtualDt, timelineTotal - 1);
+    }
+
+    // ── Animation complete — stop at final stop ──────────────────
+    if (accumMs >= timelineTotal - 1 && !stopped) {
+      var finalIdx = stopIndices[stopIndices.length - 1];
+      if (routeWalkerMarker) routeWalkerMarker.setLatLng(coords[finalIdx]);
+      // Show full reveal line
+      if (_walkerRevealLine) _walkerRevealLine.setLatLngs(coords);
+      // Mark all stops visited
+      if (_walkerPassedStops) {
+        for (var fi = 0; fi < stopIndices.length; fi++) {
+          if (!_walkerPassedStops.has(fi) && ordered[fi]) {
+            _walkerPassedStops.add(fi);
+            if (routeMarkers[fi]) routeMarkers[fi].setIcon(_buildRouteMarkerIcon(fi+1, ordered[fi].name, true, cumDistAtStop[fi] > _WLK_D_STOP));
+          }
+        }
+      }
+      // Leave walker visible at final position — don't loop
+      return;
     }
 
     // ── Resolve current entry ────────────────────────────────────
@@ -535,6 +557,7 @@ function _getRouteLocs() {
 
 function openRoutePanel() {
   routeActive = true;
+  if (typeof _updateSetRouteFab === 'function') _updateSetRouteFab(); // hide FAB
   if (!document.getElementById('route-panel')) _createRoutePanel();
   var panel = document.getElementById('route-panel');
   panel.classList.remove('minimized');
@@ -549,6 +572,7 @@ function openRoutePanel() {
 function closeRoutePanel() {
   routeActive = false;
   _closeRouteCustomPopup();
+  if (typeof _updateSetRouteFab === 'function') _updateSetRouteFab(); // re-show FAB
   var panel = document.getElementById('route-panel');
   if (panel) { panel.classList.remove('visible'); panel.classList.remove('minimized'); }
   clearRoute();
@@ -585,8 +609,12 @@ function removeRouteStop(locId) {
   _closeRouteCustomPopup();
   routeLocations = routeLocations.filter(function(l) { return l.id !== locId; });
   _refreshRouteUI();
-  if (routeLocations.length >= 2) calcRoute();
-  else clearRoute();
+  if (routeLocations.length >= 2) {
+    _routeSkipAnim = true; // instant redraw — no animation restart
+    calcRoute();
+  } else {
+    clearRoute();
+  }
 }
 
 function _refreshRouteUI() {
@@ -735,7 +763,19 @@ function _displayRoute(route, ordered) {
   map.fitBounds(L.latLngBounds(coords), { padding: [60, 60] });
   routeData = { distance: route.distance, duration: route.duration, stops: ordered.length, legs: route.legs || [] };
   _renderRouteResult(routeData, ordered, cumDistAtStop);
-  _startWalkerAnimation(coords, stopIndices, ordered);
+
+  if (_routeSkipAnim) {
+    _routeSkipAnim = false;
+    // Instant final state: draw full reveal line, mark all stops as visited
+    _walkerRevealLine = L.polyline(coords, {
+      color: '#D946A8', weight: 5, opacity: 0.85, dashArray: '4 4', lineCap: 'square'
+    }).addTo(map);
+    routeMarkers.forEach(function(m, i) {
+      if (ordered[i]) m.setIcon(_buildRouteMarkerIcon(i+1, ordered[i].name, true, (cumDistAtStop[i]||0) > _WLK_D_STOP));
+    });
+  } else {
+    _startWalkerAnimation(coords, stopIndices, ordered, cumDistAtStop);
+  }
 }
 
 function _displayStraightRoute(ordered) {
@@ -774,7 +814,18 @@ function _displayStraightRoute(ordered) {
   routeData = { distance: running, duration: running / 1.33, stops: ordered.length, legs: [], estimated: true };
   _renderRouteResult(routeData, ordered, cumDistAtStop);
   var stopIndices = coords.map(function(_, i) { return i; });
-  _startWalkerAnimation(coords, stopIndices, ordered);
+
+  if (_routeSkipAnim) {
+    _routeSkipAnim = false;
+    _walkerRevealLine = L.polyline(coords, {
+      color: '#D946A8', weight: 5, opacity: 0.85, dashArray: '4 4', lineCap: 'square'
+    }).addTo(map);
+    routeMarkers.forEach(function(m, i) {
+      if (ordered[i]) m.setIcon(_buildRouteMarkerIcon(i+1, ordered[i].name, true, (cumDistAtStop[i]||0) > _WLK_D_STOP));
+    });
+  } else {
+    _startWalkerAnimation(coords, stopIndices, ordered, cumDistAtStop);
+  }
 }
 
 // ── Route Marker Popup (custom DOM — works on mobile) ────────────
@@ -788,20 +839,46 @@ function _showRouteMarkerPopup(loc, beyondLimit) {
     ? '<div class="rmp-beyond">⚠ ' + (LANG === 'ko' ? '6km 범위 밖' : 'Beyond 6km') + '</div>'
     : '';
 
+  // Thumbnail: first photo or Street View static API
+  var thumbHtml = '';
+  if (loc.photos && loc.photos.length > 0) {
+    var pUrl = loc.photos[0];
+    // Wikimedia: force small width
+    if (pUrl.indexOf('wikimedia') >= 0 || pUrl.indexOf('commons') >= 0) {
+      pUrl = pUrl.replace(/[?&]width=\d+/, '') + (pUrl.indexOf('?') >= 0 ? '&' : '?') + 'width=400';
+    }
+    thumbHtml = '<div class="rmp-thumb"><img src="' + pUrl + '" loading="lazy"' +
+      ' onerror="this.parentNode.style.display=\'none\'"></div>';
+  } else if (loc.sv && typeof GOOGLE_MAPS_API_KEY !== 'undefined' && GOOGLE_MAPS_API_KEY) {
+    var svLat = loc.sv.lat || loc.lat;
+    var svLng = loc.sv.lng || loc.lng;
+    var svUrl = 'https://maps.googleapis.com/maps/api/streetview?size=400x160' +
+      '&location=' + svLat + ',' + svLng +
+      '&heading=' + (loc.sv.heading || 0) +
+      '&pitch=' + (loc.sv.pitch || 0) +
+      '&fov=' + (loc.sv.fov || 90) +
+      '&key=' + GOOGLE_MAPS_API_KEY;
+    thumbHtml = '<div class="rmp-thumb"><img src="' + svUrl + '" loading="lazy"' +
+      ' onerror="this.parentNode.style.display=\'none\'"></div>';
+  }
+
   var el = document.createElement('div');
   el.id = 'route-custom-popup';
   el.className = 'route-custom-popup';
   el.innerHTML =
-    '<button class="rmp-close" onclick="_closeRouteCustomPopup()" aria-label="close">✕</button>' +
-    '<div class="rmp-name">' + _escHtml(loc.name) + '</div>' +
-    '<div class="rmp-meta">' +
-      '<span class="cat-badge ' + catClass + '" style="font-size:10px">' + catBadge + '</span>' +
-      (loc.hood ? '<span style="color:#888"> · ' + _escHtml(loc.hood) + '</span>' : '') +
-    '</div>' +
-    beyondNote +
-    '<button class="rmp-remove" onclick="_routePopupRemove(\'' + loc.id + '\')">✕ ' +
-      (LANG === 'ko' ? '루트에서 제거' : 'Remove from route') +
-    '</button>';
+    thumbHtml +
+    '<div class="rmp-body">' +
+      '<button class="rmp-close" onclick="_closeRouteCustomPopup()" aria-label="close">✕</button>' +
+      '<div class="rmp-name">' + _escHtml(loc.name) + '</div>' +
+      '<div class="rmp-meta">' +
+        '<span class="cat-badge ' + catClass + '" style="font-size:10px">' + catBadge + '</span>' +
+        (loc.hood ? '<span style="color:#888"> · ' + _escHtml(loc.hood) + '</span>' : '') +
+      '</div>' +
+      beyondNote +
+      '<button class="rmp-remove" onclick="_routePopupRemove(\'' + loc.id + '\')">✕ ' +
+        (LANG === 'ko' ? '루트에서 제거' : 'Remove from route') +
+      '</button>' +
+    '</div>';
   document.body.appendChild(el);
 
   var isMobile = window.innerWidth <= 900;

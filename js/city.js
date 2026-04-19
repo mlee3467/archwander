@@ -1,7 +1,9 @@
 // FAVORITES & VISITED
 // ══════════════════════════════════════════════════════════════════
-var _FAV_KEY = 'archwander_favs_v1';
-var _VIS_KEY = 'archwander_visited_v1';
+var _FAV_KEY      = 'archwander_favs_v1';
+var _VIS_KEY      = 'archwander_visited_v1';
+var _VIS_DATE_KEY = 'aw_visit_dates_v1';
+var _VIS_NOTE_KEY = 'aw_visit_notes_v1';
 var _favSet = new Set(JSON.parse(localStorage.getItem(_FAV_KEY) || '[]'));
 var _visSet = new Set(JSON.parse(localStorage.getItem(_VIS_KEY) || '[]'));
 var _favFilterActive = false;
@@ -12,20 +14,161 @@ function _saveVis()  { localStorage.setItem(_VIS_KEY, JSON.stringify([..._visSet
 function isFav(id)     { return _favSet.has(id); }
 function isVisited(id) { return _visSet.has(id); }
 
+// ── Visit date helpers ────────────────────────────────────────────
+function _readVisitDates() { try { return JSON.parse(localStorage.getItem(_VIS_DATE_KEY) || '{}'); } catch(e) { return {}; } }
+function _readVisitNotes() { try { return JSON.parse(localStorage.getItem(_VIS_NOTE_KEY) || '{}'); } catch(e) { return {}; } }
+function getVisitDate(id) { return _readVisitDates()[id] || ''; }
+function getVisitNote(id) { return _readVisitNotes()[id] || ''; }
+function setVisitDate(id, date) {
+  var d = _readVisitDates();
+  if (date) d[id] = date; else delete d[id];
+  localStorage.setItem(_VIS_DATE_KEY, JSON.stringify(d));
+}
+function setVisitNote(id, note) {
+  var n = _readVisitNotes();
+  if (note) n[id] = note; else delete n[id];
+  localStorage.setItem(_VIS_NOTE_KEY, JSON.stringify(n));
+}
+function saveVisitDateFromUI(id) {
+  var el = document.getElementById('visit-date-' + id);
+  if (el) setVisitDate(id, el.value);
+}
+function saveVisitNoteFromUI(id) {
+  var el  = document.getElementById('visit-note-' + id);
+  var btn = document.getElementById('visit-note-save-' + id);
+  if (!el) return;
+  setVisitNote(id, el.value.trim());
+  if (btn) {
+    btn.textContent = '✓';
+    setTimeout(function() { if (btn) btn.textContent = LANG === 'ko' ? '저장' : 'Save'; }, 1200);
+  }
+}
+
+// Build the visit-date + note sub-section HTML
+function _buildVisitSectionHTML(id) {
+  var date  = getVisitDate(id);
+  var note  = getVisitNote(id);
+  var isKo  = LANG === 'ko';
+  var safeNote = (note || '').replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+  return '<div class="vs-row">' +
+      '<span class="vs-label">' + (isKo ? '방문일' : 'Visit date') + '</span>' +
+      '<input type="date" class="vs-date-input" id="visit-date-' + id + '"' +
+        ' value="' + (date || '') + '" onchange="saveVisitDateFromUI(\'' + id + '\')">' +
+    '</div>' +
+    '<div class="vs-row">' +
+      '<input type="text" class="vs-note-input" id="visit-note-' + id + '"' +
+        ' value="' + safeNote + '"' +
+        ' placeholder="' + (isKo ? '한 줄 메모 (선택)' : 'One-line note (optional)') + '" maxlength="140">' +
+      '<button class="vs-save-btn" id="visit-note-save-' + id + '"' +
+        ' onclick="saveVisitNoteFromUI(\'' + id + '\')">' + (isKo ? '저장' : 'Save') + '</button>' +
+    '</div>';
+}
+
+// Called after toggling visited — refreshes the panel sub-section in place
+function _updateVisitSection(id) {
+  var sec = document.getElementById('visit-section-' + id);
+  if (!sec) return;
+  if (_visSet.has(id)) {
+    sec.innerHTML = _buildVisitSectionHTML(id);
+    sec.style.display = '';
+  } else {
+    sec.style.display = 'none';
+  }
+}
+
 function toggleFav(id) {
   if (_favSet.has(id)) _favSet.delete(id); else _favSet.add(id);
   _saveFavs();
   _updateFavBtns(id);
   _refreshMarkerIcon(id);
   if (_favFilterActive) _applyFavFilter();
+  _updatePassportStats();
 }
 
 function toggleVisited(id) {
-  if (_visSet.has(id)) _visSet.delete(id); else _visSet.add(id);
+  var wasVisited = _visSet.has(id);
+  if (wasVisited) _visSet.delete(id); else _visSet.add(id);
   _saveVis();
+  // Auto-record today when first marking visited; keep date if re-toggling
+  if (!wasVisited && !getVisitDate(id)) {
+    setVisitDate(id, new Date().toISOString().slice(0, 10));
+  }
   _updateFavBtns(id);
+  _updateVisitSection(id);
   _refreshMarkerIcon(id);
   if (_favFilterActive) _applyFavFilter();
+  _updatePassportStats();
+}
+
+// ── My Passport stats ────────────────────────────────────────────
+function _updatePassportStats() {
+  var el = document.getElementById('passport-stats');
+  if (!el) return;
+  var isKo = typeof LANG !== 'undefined' && LANG === 'ko';
+  var visArr = [..._visSet];
+  var favArr = [..._favSet];
+  var total  = visArr.length;
+  var totalF = favArr.length;
+  if (total === 0 && totalF === 0) { el.innerHTML = ''; el.style.display = 'none'; return; }
+  el.style.display = '';
+
+  // Per-city breakdown of visited
+  var cityMeta = typeof CITY_META !== 'undefined' ? CITY_META : {};
+  var cityOrder = Object.keys(cityMeta);
+  // Build counts from LOCS
+  var visByCity = {};
+  cityOrder.forEach(function(c) { visByCity[c] = 0; });
+  if (typeof LOCS !== 'undefined') {
+    LOCS.forEach(function(l) {
+      if (_visSet.has(l.id) && visByCity.hasOwnProperty(l.city)) {
+        visByCity[l.city]++;
+      }
+    });
+  }
+  // Most recent visit
+  var dates = _readVisitDates();
+  var recentId = null, recentDate = '';
+  Object.keys(dates).forEach(function(id) {
+    if (_visSet.has(id) && dates[id] > recentDate) {
+      recentDate = dates[id]; recentId = id;
+    }
+  });
+  var recentName = '';
+  if (recentId && typeof LOCS !== 'undefined') {
+    var rLoc = LOCS.find(function(l) { return l.id === recentId; });
+    if (rLoc) recentName = rLoc.name;
+  }
+
+  // City bars
+  var maxCityVis = Math.max(1, Math.max.apply(null, cityOrder.map(function(c) { return visByCity[c] || 0; })));
+  var cityBars = cityOrder.filter(function(c) { return (visByCity[c] || 0) > 0; }).map(function(c) {
+    var count = visByCity[c] || 0;
+    var pct   = Math.round((count / maxCityVis) * 100);
+    // Short label for passport bar: "NYC", "SEL", "LON", "TKY"
+    var label = c.toUpperCase();
+    return '<div class="pp-city-row">' +
+      '<span class="pp-city-lbl">' + label + '</span>' +
+      '<div class="pp-city-track"><div class="pp-city-fill" style="width:' + pct + '%"></div></div>' +
+      '<span class="pp-city-num">' + count + '</span>' +
+    '</div>';
+  }).join('');
+
+  var recentHtml = recentName
+    ? '<div class="pp-recent">' + (isKo ? '최근: ' : 'Recent: ') + '<span>' + recentName + '</span></div>'
+    : '';
+
+  el.innerHTML =
+    '<div class="pp-hdr">' +
+      '<span class="pp-icon">🏛</span>' +
+      '<span class="pp-title">' + (isKo ? '내 건축 여행' : 'My Journey') + '</span>' +
+    '</div>' +
+    '<div class="pp-counts">' +
+      '<span class="pp-count-vis"><span class="pp-num">' + total + '</span> ' + (isKo ? '방문' : 'visited') + '</span>' +
+      '<span class="pp-sep">·</span>' +
+      '<span class="pp-count-fav"><span class="pp-num">' + totalF + '</span> ' + (isKo ? '저장' : 'saved') + '</span>' +
+    '</div>' +
+    (cityBars ? '<div class="pp-cities">' + cityBars + '</div>' : '') +
+    recentHtml;
 }
 
 function _updateFavBtns(id) {
@@ -58,28 +201,37 @@ function _buildLocIcon(loc) {
   const poleW = 2, poleH = 22;
   const flagW = 11, flagH = 9;
   const totalW = poleW + flagW + 2; // +2 for right border
-  // Star inside flag for favorites
+  // ★ inside flag for favorites (orange)
   const star = fav
     ? `<span style="position:absolute;inset:0;display:flex;align-items:center;` +
       `justify-content:center;font-size:7px;color:#FF5F00;` +
       `-webkit-text-stroke:0.5px white;line-height:1">★</span>`
     : '';
+  // ✓ badge below base for visited (green dot)
+  const visBadge = vis
+    ? `<div style="position:absolute;bottom:-6px;left:-1px;` +
+      `width:7px;height:7px;border-radius:50%;` +
+      `background:#22c55e;border:1.5px solid #fff;` +
+      `box-shadow:0 1px 3px rgba(0,0,0,0.4)"></div>`
+    : '';
   return L.divIcon({
     className: '',
     html:
-      `<div style="position:relative;width:${totalW}px;height:${poleH}px">` +
-        // Pole (full height, 2 px wide)
+      `<div style="position:relative;width:${totalW}px;height:${poleH + 6}px">` +
+        // Pole
         `<div style="position:absolute;left:0;top:0;width:${poleW}px;height:${poleH}px;background:#1a1a1a"></div>` +
-        // Flag body (hard pixel shadow, no blur)
-        `<div style="position:relative;position:absolute;left:${poleW}px;top:1px;` +
+        // Flag body
+        `<div style="position:absolute;left:${poleW}px;top:1px;` +
              `width:${flagW}px;height:${flagH}px;background:${fill};` +
              `border:2px solid #1a1a1a;border-left:none;` +
              `box-shadow:2px 2px 0 rgba(0,0,0,0.38)">${star}</div>` +
         // Base foot
-        `<div style="position:absolute;bottom:0;left:-2px;width:6px;height:2px;background:#1a1a1a"></div>` +
+        `<div style="position:absolute;bottom:6px;left:-2px;width:6px;height:2px;background:#1a1a1a"></div>` +
+        // Visited green dot
+        visBadge +
       `</div>`,
-    iconSize:   [totalW, poleH],
-    iconAnchor: [1, poleH]   // anchor = bottom-centre of pole
+    iconSize:   [totalW, poleH + 6],
+    iconAnchor: [1, poleH]   // anchor = bottom of pole
   });
 }
 

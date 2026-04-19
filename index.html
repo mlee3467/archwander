@@ -49,7 +49,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
-  <link rel="stylesheet" href="css/styles.css?v=20260419d">
+  <link rel="stylesheet" href="css/styles.css?v=20260419e">
 </head>
 <body>
 
@@ -407,6 +407,9 @@
 <div class="app">
   <aside class="sidebar" id="sidebar">
 
+    <!-- My Passport stats — shown when any visited/saved items exist -->
+    <div id="passport-stats" style="display:none"></div>
+
     <!-- Filters section (resizable height) -->
     <div class="sb-filters" id="sb-filters">
 
@@ -565,6 +568,12 @@
   </div>
 </div>
 
+<!-- Floating "Set Route" FAB — mobile only, shown when Near Me + origin set -->
+<button id="set-route-fab" onclick="_setRouteFabTap()" style="display:none">
+  <span class="srf-icon">🗺</span>
+  <span class="srf-label">Set Route</span>
+</button>
+
 <div id="panel-backdrop" onclick="closePanel()"></div>
 
   <div id="map"></div>
@@ -636,18 +645,18 @@
   </div>
 </div>
 
-<script src="js/config.js?v=20260419d"></script>
-<script src="js/i18n.js?v=20260419d"></script>
-<script src="js/map.js?v=20260419d"></script>
-<script src="js/filters.js?v=20260419d"></script>
-<script src="js/core.js?v=20260419d"></script>
-<script src="js/audio.js?v=20260419d"></script>
-<script src="js/ui.js?v=20260419d"></script>
-<script src="js/walk.js?v=20260419d"></script>
-<script src="js/city.js?v=20260419d"></script>
-<script src="js/route.js?v=20260419d"></script>
-<script src="js/landing.js?v=20260419d"></script>
-<script src="js/init.js?v=20260419d"></script>
+<script src="js/config.js?v=20260419e"></script>
+<script src="js/i18n.js?v=20260419e"></script>
+<script src="js/map.js?v=20260419e"></script>
+<script src="js/filters.js?v=20260419e"></script>
+<script src="js/core.js?v=20260419e"></script>
+<script src="js/audio.js?v=20260419e"></script>
+<script src="js/ui.js?v=20260419e"></script>
+<script src="js/walk.js?v=20260419e"></script>
+<script src="js/city.js?v=20260419e"></script>
+<script src="js/route.js?v=20260419e"></script>
+<script src="js/landing.js?v=20260419e"></script>
+<script src="js/init.js?v=20260419e"></script>
 </body>
 
 </html>

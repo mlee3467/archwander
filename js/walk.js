@@ -147,6 +147,7 @@ function _fullDeactivate() {
   document.getElementById('walk-pin-btn').classList.remove('active', 'locating');
   var wrb = document.getElementById('walk-route-btn');
   if (wrb) wrb.style.display = 'none';
+  _updateSetRouteFab();
   renderList();
   syncMarkers();
   // Refresh route planner to show all locations again
@@ -216,6 +217,21 @@ function _setMarkerWalkMode(active) {
   m.setIcon(active ? _walkingPersonIcon() : _personMarkerIcon());
 }
 
+// ── Set Route FAB (mobile only) ──────────────────────────────────
+function _updateSetRouteFab() {
+  var fab = document.getElementById('set-route-fab');
+  if (!fab) return;
+  var show = nearMeActive && walkOrigin && window.innerWidth <= 900 && !routeActive;
+  fab.style.display = show ? 'flex' : 'none';
+  if (typeof LANG !== 'undefined') {
+    var lbl = fab.querySelector('.srf-label');
+    if (lbl) lbl.textContent = LANG === 'ko' ? '루트 설정' : 'Set Route';
+  }
+}
+function _setRouteFabTap() {
+  if (typeof openRoutePanel === 'function') openRoutePanel();
+}
+
 function _setWalkOrigin(lat, lng, mode) {
   walkOrigin = { lat, lng };
   walkActive = true;
@@ -250,9 +266,11 @@ function _setWalkOrigin(lat, lng, mode) {
   }
 
   _runWalkFilter();
-  // Show route button in walk bar
+  // Show route button in walk bar (desktop)
   var wrb = document.getElementById('walk-route-btn');
   if (wrb) wrb.style.display = '';
+  // Show floating FAB (mobile)
+  _updateSetRouteFab();
 }
 
 function _runWalkFilter() {
