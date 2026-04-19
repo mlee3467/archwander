@@ -110,13 +110,12 @@ window.addEventListener('load', function() {
   var _isMobile    = window.innerWidth <= 900;
   var _firstVisit  = !localStorage.getItem('aw_landing_seen');
 
-  if (_isMobile && _firstVisit) {
-    // Init map tiles immediately → map becomes transparent bg behind landing
+  if (_isMobile) {
+    // Always show splash on mobile (logo shown every session)
     _initMapTiles();
-    // City data deferred until user picks a mode in the landing popup
     if (typeof showSplash === 'function') showSplash();
   } else {
-    // Desktop, or returning mobile user → init map immediately
+    // Desktop → init map immediately
     _mapInited = true;
     _doFullMapInit();
   }

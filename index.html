@@ -49,7 +49,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
-  <link rel="stylesheet" href="css/styles.css?v=20260419h">
+  <link rel="stylesheet" href="css/styles.css?v=20260419i">
 </head>
 <body>
 
@@ -431,11 +431,25 @@
 <!-- Hidden file input for JSON import -->
 <input type="file" id="fav-import-file" accept=".json" style="display:none" onchange="_handleFavFileSelected(event)">
 
+<!-- ── MY LOCATION POPUP (center modal, GPS or Pin) ────────── -->
+<div id="my-loc-popup" style="display:none">
+  <div class="mlp-box">
+    <div class="mlp-title">내 위치 설정</div>
+    <div class="mlp-subtitle">Select location method</div>
+    <button class="mlp-btn" id="mlp-gps-btn" onclick="_mlpUseGPS()">
+      <span class="mlp-btn-icon">📡</span>
+      <span class="mlp-btn-text">GPS 자동 감지<span class="mlp-btn-sub">Auto locate</span></span>
+    </button>
+    <button class="mlp-btn" id="mlp-pin-btn" onclick="_mlpDropPin()">
+      <span class="mlp-btn-icon">📌</span>
+      <span class="mlp-btn-text">직접 핀 설정<span class="mlp-btn-sub">Tap map to place</span></span>
+    </button>
+    <button class="mlp-cancel" onclick="_closeMyLocPopup()">닫기</button>
+  </div>
+</div>
+
 <div class="app">
   <aside class="sidebar" id="sidebar">
-
-    <!-- My Passport stats — shown when any visited/saved items exist -->
-    <div id="passport-stats" style="display:none"></div>
 
     <!-- Filters section (resizable height) -->
     <div class="sb-filters" id="sb-filters">
@@ -544,6 +558,29 @@
 
     <!-- Drag handle: between Filters and List -->
     <div class="drag-h" id="dh-fl"></div>
+
+    <!-- Action buttons — My Location / Favorites / Route / I Feel Like -->
+    <div class="sb-actions" id="sb-actions">
+      <button class="sba-btn" id="sba-loc" onclick="_sbaMyLocation()">
+        <span class="sba-icon">📍</span>
+        <span class="sba-label">My<br>Location</span>
+      </button>
+      <button class="sba-btn" id="sba-fav" onclick="_sbaFavorites()">
+        <span class="sba-icon">♥</span>
+        <span class="sba-label">Favorites</span>
+      </button>
+      <button class="sba-btn" id="sba-route" onclick="_sbaRoute()">
+        <span class="sba-icon">🗺</span>
+        <span class="sba-label">Route</span>
+      </button>
+      <button class="sba-btn" id="sba-ifl" onclick="_sbaIfl()">
+        <span class="sba-icon">✨</span>
+        <span class="sba-label">I Feel<br>Like</span>
+      </button>
+    </div>
+
+    <!-- My Journey — shown when visited/saved items exist -->
+    <div id="passport-stats" style="display:none"></div>
 
     <!-- Location list (flex: 1, fills remaining space) -->
     <div class="sb-list-wrap">
@@ -672,18 +709,18 @@
   </div>
 </div>
 
-<script src="js/config.js?v=20260419h"></script>
-<script src="js/i18n.js?v=20260419h"></script>
-<script src="js/map.js?v=20260419h"></script>
-<script src="js/filters.js?v=20260419h"></script>
-<script src="js/core.js?v=20260419h"></script>
-<script src="js/audio.js?v=20260419h"></script>
-<script src="js/ui.js?v=20260419h"></script>
-<script src="js/walk.js?v=20260419h"></script>
-<script src="js/city.js?v=20260419h"></script>
-<script src="js/route.js?v=20260419h"></script>
-<script src="js/landing.js?v=20260419h"></script>
-<script src="js/init.js?v=20260419h"></script>
+<script src="js/config.js?v=20260419i"></script>
+<script src="js/i18n.js?v=20260419i"></script>
+<script src="js/map.js?v=20260419i"></script>
+<script src="js/filters.js?v=20260419i"></script>
+<script src="js/core.js?v=20260419i"></script>
+<script src="js/audio.js?v=20260419i"></script>
+<script src="js/ui.js?v=20260419i"></script>
+<script src="js/walk.js?v=20260419i"></script>
+<script src="js/city.js?v=20260419i"></script>
+<script src="js/route.js?v=20260419i"></script>
+<script src="js/landing.js?v=20260419i"></script>
+<script src="js/init.js?v=20260419i"></script>
 </body>
 
 </html>

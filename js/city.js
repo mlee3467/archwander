@@ -157,6 +157,22 @@ function _updatePassportStats() {
     ? '<div class="pp-recent">' + (isKo ? '최근: ' : 'Recent: ') + '<span>' + recentName + '</span></div>'
     : '';
 
+  var legendHtml =
+    '<div class="pp-legend">' +
+      '<div class="pp-legend-row">' +
+        '<span class="pp-legend-icon pp-leg-vis">✓</span>' +
+        '<span class="pp-legend-desc">' + (isKo ? '방문 완료 — 체크마크로 기록, 날짜 자동 저장' : 'Visited — marked with ✓, date auto-saved') + '</span>' +
+      '</div>' +
+      '<div class="pp-legend-row">' +
+        '<span class="pp-legend-icon pp-leg-fav">♥</span>' +
+        '<span class="pp-legend-desc">' + (isKo ? '즐겨찾기 — 가고 싶은 곳 저장' : 'Favorites — places you want to visit') + '</span>' +
+      '</div>' +
+      '<div class="pp-legend-row">' +
+        '<span class="pp-legend-icon pp-leg-route">🗺</span>' +
+        '<span class="pp-legend-desc">' + (isKo ? '루트 — 계획한 도보 코스' : 'Route — your planned walking course') + '</span>' +
+      '</div>' +
+    '</div>';
+
   el.innerHTML =
     '<div class="pp-hdr">' +
       '<span class="pp-icon">🏛</span>' +
@@ -165,10 +181,11 @@ function _updatePassportStats() {
     '<div class="pp-counts">' +
       '<span class="pp-count-vis"><span class="pp-num">' + total + '</span> ' + (isKo ? '방문' : 'visited') + '</span>' +
       '<span class="pp-sep">·</span>' +
-      '<span class="pp-count-fav"><span class="pp-num">' + totalF + '</span> ' + (isKo ? '저장' : 'saved') + '</span>' +
+      '<span class="pp-count-fav"><span class="pp-num">' + totalF + '</span> ' + (isKo ? '즐겨찾기' : 'favorites') + '</span>' +
     '</div>' +
     (cityBars ? '<div class="pp-cities">' + cityBars + '</div>' : '') +
-    recentHtml;
+    recentHtml +
+    legendHtml;
 }
 
 function _updateFavBtns(id) {

@@ -485,17 +485,23 @@
       line-height: 1.5;
     }
     .arch-item:hover, .hood-item:hover { background: var(--bg); color: #111; }
-    .arch-item.active, .hood-item.active { background: #111; color: white; }
+    .arch-item.active, .hood-item.active {
+      background: #111; color: white;
+      border-color: rgba(255,255,255,0.3);
+    }
 
     /* Filter chips */
     .chip {
       padding: 4px 10px; border-radius: 20px;
       border: 1px solid var(--border); font-size: 11px;
       font-family: inherit; cursor: pointer;
-      background: white; color: var(--text-secondary); transition: all 0.15s;
+      background: white; color: rgb(80,80,80); transition: all 0.15s;
       text-transform: capitalize;
     }
-    .chip.active { background: rgb(0,0,255); border-color: rgb(0,0,255); color: white; }
+    .chip.active {
+      background: #111; border-color: rgba(255,255,255,0.3); color: white;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.25);
+    }
 
     /* Sort + results bar */
     .list-bar {
@@ -530,8 +536,8 @@
     }
     .ifl-chip:hover { border-color: rgba(255,255,255,0.35); background: rgba(255,255,255,0.13); }
     .ifl-chip.selected {
-      border-color: #6699ff;
-      background: rgba(51,102,255,0.25);
+      border-color: rgba(255,255,255,0.4);
+      background: #111;
       color: #fff;
     }
     .ifl-chip-icon { font-size: 16px; line-height: 1; flex-shrink: 0; }
@@ -1376,6 +1382,21 @@
         -webkit-overflow-scrolling: touch;
       }
       .fsec-body.arch-list, .fsec-body.hood-list { max-height: 200px; }
+
+      /* Mobile walk bar: show only the slider (GPS/Pin selection via My Location popup) */
+      .walk-loc-btn { display: none !important; }
+      .walk-bar-sep { display: none !important; }
+      .walk-desc { display: none !important; }
+      /* Bigger slider for mobile touch */
+      #walk-slider {
+        flex: 1; max-width: none; height: 6px;
+        accent-color: #4F46E5;
+      }
+      #walk-slider::-webkit-slider-thumb {
+        width: 26px; height: 26px;
+      }
+      #walk-label { font-size: 14px; font-weight: 700; }
+      #walk-bar { min-height: 54px; padding: 0 20px; gap: 14px; }
     }
     
     @media (max-width: 480px) {
@@ -2548,3 +2569,148 @@
   pointer-events: auto;
 }
 .clp-go.ready:active { opacity: 0.75; }
+
+/* ═══════════════════════════════════════════════════════════════
+   SIDEBAR ACTION BUTTONS  (My Location / Favorites / Route / IFL)
+   ═══════════════════════════════════════════════════════════════ */
+.sb-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 10px 12px 8px;
+  flex-shrink: 0;
+}
+.sba-btn {
+  background: #111;
+  border: 2px solid rgba(255,255,255,0.18);
+  border-radius: 18px;
+  padding: 16px 13px 14px;
+  display: flex; flex-direction: column;
+  align-items: flex-start;
+  cursor: pointer; text-align: left;
+  font-family: Inter, -apple-system, sans-serif;
+  color: #fff;
+  -webkit-tap-highlight-color: transparent;
+  position: relative; overflow: hidden;
+  transition: transform 0.12s ease, background 0.12s ease;
+}
+/* Click ripple animation */
+.sba-btn::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: rgba(255,255,255,0.12);
+  opacity: 0;
+  border-radius: inherit;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+.sba-btn:active {
+  transform: scale(0.93);
+  background: #2a2a2a;
+}
+.sba-btn:active::after {
+  opacity: 1;
+  transition: none;
+}
+.sba-icon {
+  font-size: 22px; line-height: 1;
+  margin-bottom: 10px; display: block;
+}
+.sba-label {
+  font-size: 12px; font-weight: 700;
+  line-height: 1.35; color: #fff;
+}
+/* Active state for toggled buttons */
+.sba-btn.sba-active {
+  background: #D946A8;
+  border-color: rgba(255,255,255,0.25);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MY LOCATION POPUP  (center modal)
+   ═══════════════════════════════════════════════════════════════ */
+#my-loc-popup {
+  position: fixed; inset: 0; z-index: 9990;
+  display: none; flex-direction: column;
+  align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.38);
+  font-family: Inter, -apple-system, sans-serif;
+  opacity: 0; transition: opacity 0.22s ease;
+}
+#my-loc-popup.visible {
+  display: flex; opacity: 1;
+}
+.mlp-box {
+  background: #fff;
+  border-radius: 22px;
+  padding: 24px 20px 16px;
+  width: calc(100% - 48px);
+  max-width: 340px;
+  box-shadow: 0 12px 48px rgba(0,0,0,0.28);
+}
+.mlp-title {
+  font-size: 18px; font-weight: 800; color: #111;
+  margin-bottom: 3px;
+}
+.mlp-subtitle {
+  font-size: 12px; color: rgba(0,0,0,0.4);
+  margin-bottom: 18px;
+}
+.mlp-btn {
+  width: 100%; padding: 14px 16px;
+  background: #fff;
+  border: 1.5px solid rgba(0,0,0,0.09);
+  border-radius: 15px;
+  display: flex; align-items: center; gap: 14px;
+  cursor: pointer; margin-bottom: 9px;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.15s, transform 0.1s;
+  text-align: left;
+}
+.mlp-btn:active {
+  background: #f4f4f4; transform: scale(0.98);
+}
+.mlp-btn-icon { font-size: 28px; line-height: 1; flex-shrink: 0; }
+.mlp-btn-text {
+  display: flex; flex-direction: column;
+  font-size: 14px; font-weight: 700; color: #111;
+}
+.mlp-btn-sub {
+  font-size: 11px; font-weight: 400;
+  color: rgba(0,0,0,0.42); margin-top: 2px;
+}
+.mlp-cancel {
+  display: block; width: 100%;
+  padding: 12px 0; border: none;
+  background: none;
+  font-size: 14px; font-weight: 500;
+  color: rgba(0,0,0,0.38);
+  cursor: pointer; font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+  margin-top: 4px;
+}
+.mlp-cancel:active { color: rgba(0,0,0,0.7); }
+
+/* My Journey legend (visited / favorites / route explanation) */
+.pp-legend {
+  margin-top: 8px;
+  border-top: 1px solid var(--border);
+  padding-top: 8px;
+  display: flex; flex-direction: column; gap: 5px;
+}
+.pp-legend-row {
+  display: flex; align-items: flex-start; gap: 8px;
+}
+.pp-legend-icon {
+  font-size: 11px; font-weight: 800;
+  width: 18px; height: 18px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 1px;
+}
+.pp-leg-vis  { background: #22c55e; color: #fff; font-size: 9px; }
+.pp-leg-fav  { background: #D946A8; color: #fff; font-size: 10px; }
+.pp-leg-route { background: #111; color: #fff; font-size: 9px; }
+.pp-legend-desc {
+  font-size: 10.5px; color: rgb(80,80,80);
+  line-height: 1.45;
+}

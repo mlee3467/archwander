@@ -8,14 +8,24 @@ var _mapInited = false;  // true once _doFullMapInit has been called
 
 function showSplash() {
   var el = document.getElementById('landing-splash');
-  if (!el) { showLandingScreen(); return; }
+  var _firstVisit = !localStorage.getItem('aw_landing_seen');
+  if (!el) {
+    if (_firstVisit) showLandingScreen();
+    else _ensureMapInit();
+    return;
+  }
   el.style.display = 'flex';
   setTimeout(function() {
     el.classList.add('fade-out');
     setTimeout(function() {
       el.style.display = 'none';
       el.classList.remove('fade-out');
-      showLandingScreen();
+      if (_firstVisit) {
+        showLandingScreen();
+      } else {
+        // Returning user: skip landing, go straight to map
+        _ensureMapInit();
+      }
     }, 500);
   }, 1300);
 }
@@ -297,6 +307,59 @@ function _landingToast(msg) {
     el.style.opacity = '0';
     setTimeout(function() { if (el.parentNode) el.parentNode.removeChild(el); }, 400);
   }, 2200);
+}
+
+// ── Sidebar action button handlers ─────────────────────────────
+
+function _sbaMyLocation() {
+  if (typeof closeSidebar === 'function') closeSidebar();
+  var popup = document.getElementById('my-loc-popup');
+  if (!popup) return;
+  popup.style.display = 'flex';
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() { popup.classList.add('visible'); });
+  });
+}
+
+function _closeMyLocPopup() {
+  var popup = document.getElementById('my-loc-popup');
+  if (!popup) return;
+  popup.classList.remove('visible');
+  setTimeout(function() { popup.style.display = 'none'; }, 220);
+}
+
+function _mlpUseGPS() {
+  _closeMyLocPopup();
+  _ensureMapInit(function() {
+    if (typeof toggleNearMe === 'function' && !nearMeActive) toggleNearMe();
+    setTimeout(function() {
+      if (typeof locateUserGPS === 'function') locateUserGPS();
+    }, 180);
+  });
+}
+
+function _mlpDropPin() {
+  _closeMyLocPopup();
+  _ensureMapInit(function() {
+    if (typeof toggleNearMe === 'function' && !nearMeActive) toggleNearMe();
+    setTimeout(function() {
+      if (typeof startPinDrop === 'function') startPinDrop();
+    }, 180);
+  });
+}
+
+function _sbaFavorites() {
+  if (typeof closeSidebar === 'function') closeSidebar();
+  if (typeof toggleFavFilter === 'function') toggleFavFilter();
+}
+
+function _sbaRoute() {
+  if (typeof closeSidebar === 'function') closeSidebar();
+  if (typeof openRoutePanel === 'function') openRoutePanel();
+}
+
+function _sbaIfl() {
+  landingGoIfl();
 }
 
 // ══════════════════════════════════════════════════════════════════
