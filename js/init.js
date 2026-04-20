@@ -73,6 +73,8 @@ function _doFullMapInit(afterFn) {
     return loadCityData(city);
   }).then(function() {
     _initMapTiles();  // no-op if tiles already initialized
+    // Always refresh markers after city data loads (fixes empty-map on first boot)
+    if (typeof refreshApp === 'function') refreshApp();
     // Render passport stats (reads from localStorage — works before city data)
     if (typeof _updatePassportStats === 'function') _updatePassportStats();
     if (afterFn) {
