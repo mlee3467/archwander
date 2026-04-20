@@ -10,6 +10,8 @@ var routeLine        = null; // Leaflet polyline for the route
 var routeMarkers     = [];   // numbered step markers on map
 var routeData        = null; // { distance, duration, steps: [...] }
 var _routeSkipAnim   = false; // true when remove triggered — skip animation, show final instantly
+var _rpsSelectedHoods = new Set(); // selected hoods in the presel modal (multi-select)
+var _SAVED_ROUTE_KEY = 'aw_saved_route_v1';
 
 // ── Pixel Walker Animation ───────────────────────────────────────
 // Character type: Canvas-rendered pixel art → dataURL → <img> in Leaflet divIcon.
@@ -560,11 +562,15 @@ function openRoutePanel() {
   panel.classList.remove('minimized');
   panel.classList.add('visible');
 
+  // If we already have route locations (e.g. "Back to Map" was pressed), restore UI
+  if (routeLocations.length > 0) {
+    _refreshRouteUI();
+    return;
+  }
+
   // If too many locations, show pre-selection modal first
   var locs = _getRouteLocs();
   if (locs.length > _ROUTE_PRESEL_THRESHOLD) {
-    routeLocations = [];
-    _refreshRouteUI();
     _showRoutePreselModal(locs);
     return;
   }
@@ -572,7 +578,6 @@ function openRoutePanel() {
   // Auto-populate from current filtered list
   routeLocations = locs.slice();
   _refreshRouteUI();
-  // Auto-calculate immediately
   if (routeLocations.length >= 2) calcRoute();
 }
 
@@ -590,13 +595,17 @@ function _createRoutePanel() {
   div.id = 'route-panel';
   div.className = 'route-panel';
   div.innerHTML =
-    '<div class="route-panel-hdr">' +
+    '<div class="route-panel-hdr" style="position:relative">' +
+      '<button class="route-panel-back" onclick="_routePanelBack()" title="' + (LANG === 'ko' ? '지도로 돌아가기' : 'Back to map') + '">←</button>' +
       '<span class="route-panel-title">🗺 ' + (LANG === 'ko' ? '루트 플래너' : 'Route Planner') + '</span>' +
       '<div class="route-hdr-right">' +
+        '<button class="route-btn-save" onclick="_saveMyRoute()" title="' + (LANG === 'ko' ? '루트 저장' : 'Save route') + '">💾</button>' +
+        '<button class="route-btn-load" onclick="_loadMyRoute()" title="' + (LANG === 'ko' ? '저장된 루트 불러오기' : 'Load saved route') + '">📂</button>' +
         '<button class="route-btn route-btn-clear" id="route-top-clear" onclick="clearRouteSelection()" style="display:none">✕ ' +
           (LANG === 'ko' ? '초기화' : 'Clear') + '</button>' +
-        '<button class="route-panel-close" onclick="closeRoutePanel()">✕</button>' +
+        '<button class="route-panel-close" onclick="closeRoutePanel()" title="' + (LANG === 'ko' ? '닫기 및 초기화' : 'Close & clear') + '">✕</button>' +
       '</div>' +
+      '<div class="route-save-toast" id="route-save-toast"></div>' +
     '</div>' +
     '<div class="route-panel-body" id="route-panel-body">' +
       '<div class="route-stop-list" id="route-sel-list"></div>' +
@@ -610,6 +619,53 @@ function clearRouteSelection() {
   routeLocations = [];
   clearRoute();
   _refreshRouteUI();
+}
+
+// Hide route panel without clearing route state (Back to Map)
+function _routePanelBack() {
+  var panel = document.getElementById('route-panel');
+  if (panel) panel.classList.remove('visible');
+  // Keep routeActive, routeLocations, and drawn route intact
+}
+
+// Save current route to localStorage
+function _saveMyRoute() {
+  if (!routeLocations.length) return;
+  var ids = routeLocations.map(function(l) { return l.id; });
+  localStorage.setItem(_SAVED_ROUTE_KEY, JSON.stringify(ids));
+  var toast = document.getElementById('route-save-toast');
+  if (toast) {
+    var ko = LANG === 'ko';
+    toast.textContent = ko ? '루트 저장됨 ✓' : 'Route saved ✓';
+    toast.style.opacity = '1';
+    setTimeout(function() { if (toast) toast.style.opacity = '0'; }, 2000);
+  }
+}
+
+// Load saved route from localStorage
+function _loadMyRoute() {
+  var saved = localStorage.getItem(_SAVED_ROUTE_KEY);
+  if (!saved) {
+    var ko = LANG === 'ko';
+    var toast = document.getElementById('route-save-toast');
+    if (toast) {
+      toast.textContent = ko ? '저장된 루트 없음' : 'No saved route';
+      toast.style.opacity = '1';
+      setTimeout(function() { if (toast) toast.style.opacity = '0'; }, 1800);
+    }
+    return;
+  }
+  try {
+    var ids = JSON.parse(saved);
+    var allLocs = typeof LOCS !== 'undefined' ? LOCS : [];
+    var loaded = ids.map(function(id) {
+      return allLocs.find(function(l) { return l.id === id; });
+    }).filter(Boolean);
+    if (!loaded.length) return;
+    routeLocations = loaded;
+    _refreshRouteUI();
+    if (routeLocations.length >= 2) calcRoute();
+  } catch(e) { console.warn('[Route] Load failed:', e); }
 }
 
 function removeRouteStop(locId) {
@@ -1137,9 +1193,9 @@ function _showRoutePreselModal(locs) {
 
   var ko = typeof LANG !== 'undefined' && LANG === 'ko';
   var chipsHtml = hoods.map(function(h) {
-    var cnt = hoodCount[h] || 0;
-    return '<button class="rps-hood-chip" onclick="_routePreselHood(\'' +
-      h.replace(/\\/g,'\\\\').replace(/'/g,"\\'") + '\')">' +
+    var cnt  = hoodCount[h] || 0;
+    var hEsc = h.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+    return '<button class="rps-hood-chip" data-hood="' + _escHtml(h) + '" onclick="_rpsToggleHood(\'' + hEsc + '\')">' +
       _escHtml(h) + ' <span style="opacity:0.5;font-size:11px">(' + cnt + ')</span></button>';
   }).join('');
 
@@ -1150,8 +1206,8 @@ function _showRoutePreselModal(locs) {
       '</div>' +
       '<div class="rps-sub">' +
         (ko
-          ? '동네를 선택해 필터링하거나, 전체 위치로 바로 진행하거나, 직접 선택 모드를 사용하세요.'
-          : 'Filter by neighborhood, proceed with all locations, or pick manually.') +
+          ? '동네를 하나 이상 선택한 뒤 진행하거나, 전체 위치로 바로 진행하거나, 직접 선택 모드를 사용하세요.'
+          : 'Select one or more neighborhoods then proceed, proceed with all, or pick manually.') +
       '</div>' +
       '<div class="rps-section-label">' + (ko ? '동네 선택' : 'Choose a neighborhood') + '</div>' +
       '<div class="rps-hoods">' + (chipsHtml || ('<span style="color:#999;font-size:12px">' + (ko ? '동네 정보 없음' : 'No neighborhood data') + '</span>')) + '</div>' +
@@ -1172,16 +1228,37 @@ function _showRoutePreselModal(locs) {
   overlay.classList.add('open');
 }
 
-function _routePreselProceed() {
-  _closeRoutePresel();
-  // Use all current routeLocations without any neighborhood filter
-  _refreshRouteUI();
-  if (routeLocations.length >= 2) calcRoute();
+function _rpsToggleHood(hood) {
+  if (_rpsSelectedHoods.has(hood)) {
+    _rpsSelectedHoods.delete(hood);
+  } else {
+    _rpsSelectedHoods.add(hood);
+  }
+  // Update chip visual state
+  var chips = document.querySelectorAll('.rps-hood-chip');
+  chips.forEach(function(chip) {
+    if (chip.dataset.hood === hood) chip.classList.toggle('selected', _rpsSelectedHoods.has(hood));
+  });
+  // Update Proceed button to show selected count
+  var proceedBtn = document.querySelector('.rps-proceed-btn');
+  if (proceedBtn) {
+    var ko = typeof LANG !== 'undefined' && LANG === 'ko';
+    var n = _rpsSelectedHoods.size;
+    proceedBtn.textContent = n > 0
+      ? '▶ ' + (ko ? '선택 진행 (' + n + ')' : 'Proceed (' + n + ' hoods)')
+      : '▶ ' + (ko ? '전체 진행' : 'Proceed');
+  }
 }
 
-function _routePreselHood(hood) {
+function _routePreselProceed() {
+  var allLocs = _getRouteLocs();
+  if (_rpsSelectedHoods.size > 0) {
+    var sel = _rpsSelectedHoods;
+    routeLocations = allLocs.filter(function(l) { return l.hood && sel.has(l.hood); });
+  } else {
+    routeLocations = allLocs.slice();
+  }
   _closeRoutePresel();
-  routeLocations = _getRouteLocs().filter(function(l) { return l.hood === hood; });
   _refreshRouteUI();
   if (routeLocations.length >= 2) calcRoute();
 }
@@ -1195,6 +1272,7 @@ function _routePreselManual() {
 }
 
 function _closeRoutePresel(andClosePanel) {
+  _rpsSelectedHoods.clear();
   var overlay = document.getElementById('route-presel-overlay');
   if (overlay) overlay.classList.remove('open');
   if (andClosePanel) {

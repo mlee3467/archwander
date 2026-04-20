@@ -78,10 +78,13 @@ function _doFullMapInit(afterFn) {
     if (afterFn) {
       afterFn();
     }
-    // Show GPS blue dot (passive — no walk filter activation)
+    // Show GPS blue dot + center map on user's actual location
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        function(pos) { _showUserLocationMarker(pos.coords.latitude, pos.coords.longitude); },
+        function(pos) {
+          _showUserLocationMarker(pos.coords.latitude, pos.coords.longitude);
+          if (window.map) map.setView([pos.coords.latitude, pos.coords.longitude], map.getZoom(), { animate: true });
+        },
         function() {},
         { timeout: 5000, maximumAge: 300000 }
       );
@@ -189,6 +192,27 @@ window.addEventListener('load', function() {
   setupBodyDrag('dh-sec-style', 'body-style', 30, 220);
   setupBodyDrag('dh-sec-era',    'body-era',    30, 220);
   setupBodyDrag('dh-sec-access', 'body-access', 30, 180);
+
+  // ── Mobile panel drag handle: swipe up → fullscreen, swipe down → collapse ──
+  (function() {
+    var panelEl = document.getElementById('panel');
+    var handle  = document.getElementById('panel-drag-handle');
+    if (!panelEl || !handle) return;
+    var _dragStartY = 0;
+    handle.addEventListener('touchstart', function(e) {
+      _dragStartY = e.touches[0].clientY;
+    }, { passive: true });
+    handle.addEventListener('touchend', function(e) {
+      if (window.innerWidth > 900 || !panelEl.classList.contains('open')) return;
+      var dy = e.changedTouches[0].clientY - _dragStartY;
+      var isFullscreen = panelEl.classList.contains('panel-fullscreen');
+      if (!isFullscreen && dy < -40) {
+        panelEl.classList.add('panel-fullscreen');
+      } else if (isFullscreen && dy > 40) {
+        panelEl.classList.remove('panel-fullscreen');
+      }
+    }, { passive: true });
+  })();
 });
 
 // ══════════════════════════════════════════════════════════════════

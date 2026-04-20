@@ -461,17 +461,30 @@ function openLoc(loc) {
 
   if (window.innerWidth <= 900) document.getElementById('sidebar').classList.remove('open');
   const bd2=document.getElementById('sidebar-backdrop');if(bd2)bd2.classList.remove('visible');
+
+  // Hide radius ctrl button while detail panel is open
+  var _rctrl = document.getElementById('walk-radius-ctrl-btn');
+  if (_rctrl) _rctrl.style.display = 'none';
 }
 
 function closePanel() {
   if (typeof agStop === 'function') agStop();
   _agLoaded = null; // reset so audio tab reloads when re-opening same location
   _clearWalkRoute();
-  document.getElementById('panel').classList.remove('open');
+  var _panelEl = document.getElementById('panel');
+  _panelEl.classList.remove('open');
+  _panelEl.classList.remove('panel-fullscreen'); // reset full-screen state
   const _pb2 = document.getElementById('panel-backdrop'); if (_pb2) _pb2.classList.remove('visible');
   activeLoc = null;
   renderList();
   updateMarkerSize();
+
+  // Restore radius ctrl button if Near Me is active and float is dismissed
+  var _rctrl = document.getElementById('walk-radius-ctrl-btn');
+  if (_rctrl && typeof nearMeActive !== 'undefined' && nearMeActive) {
+    var _wrf = document.getElementById('walk-radius-float');
+    if (_wrf && !_wrf.classList.contains('visible')) _rctrl.style.display = 'flex';
+  }
 }
 
 // ══════════════════════════════════════════════════════════════════
