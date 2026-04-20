@@ -8,7 +8,7 @@
       --sidebar-w: 300px;
       --panel-w: 420px;
       --header-h: 80px;
-      --mob-header-h: 18px;
+      --mob-header-h: 35px;
       --safe-top: env(safe-area-inset-top, 0px);
       color-scheme: only light;
     }
@@ -1255,12 +1255,13 @@
       #header-star-btn {
         display: flex; align-items: center; justify-content: center;
         width: 34px; height: 34px;
-        background: none; border: none; cursor: pointer;
+        border: 1px solid var(--border); border-radius: 8px;
+        background: white; cursor: pointer;
         font-size: 16px; line-height: 1; flex-shrink: 0;
-        color: var(--text-secondary); -webkit-tap-highlight-color: transparent;
-        transition: color 0.12s;
+        -webkit-tap-highlight-color: transparent;
+        transition: background 0.12s;
       }
-      #header-star-btn:active { color: var(--text-primary); }
+      #header-star-btn:active { background: var(--border); }
       /* Hide city and lang from mobile header (moved to sidebar) */
       #city-select-mobile { display: none !important; }
       #lang-dropdown { display: none !important; }
@@ -2707,7 +2708,7 @@
   flex-shrink: 0;
 }
 .sba-btn {
-  background: rgb(60,60,60);
+  background: rgb(100,100,100);
   border: 2px solid rgba(255,255,255,0.12);
   border-radius: 18px;
   padding: 16px 13px 14px;

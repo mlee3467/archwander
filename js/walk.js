@@ -126,8 +126,7 @@ function toggleNearMe() {
   var nearBtn = document.getElementById('near-me-btn');
   if (nearBtn) nearBtn.classList.toggle('active', nearMeActive);
   if (nearMeActive) {
-    var wb = document.getElementById('walk-bar');
-    wb.classList.add('visible');  // height transition handles show
+    // Walk bar stays hidden until a location is actually provided (_setWalkOrigin)
     history.pushState({ view: 'nearMe' }, '');
   } else {
     _fullDeactivate();
@@ -242,6 +241,10 @@ function _setRouteFabTap() {
 function _setWalkOrigin(lat, lng, mode) {
   walkOrigin = { lat, lng };
   walkActive = true;
+
+  // Show walk bar now that a location has been provided
+  var wb = document.getElementById('walk-bar');
+  if (wb) wb.classList.add('visible');
 
   // Clear old markers
   if (userMarker)    { userMarker.remove();    userMarker    = null; }
