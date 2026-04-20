@@ -84,12 +84,15 @@ function _doFullMapInit(afterFn) {
     if (afterFn) {
       afterFn();
     }
-    // Show GPS blue dot + center map on user's actual location
+    // Show GPS blue dot; only re-center map if no default city is set
     if (navigator.geolocation) {
+      var _hasDefaultCity = !!localStorage.getItem('AW_DEFAULT_CITY');
       navigator.geolocation.getCurrentPosition(
         function(pos) {
           _showUserLocationMarker(pos.coords.latitude, pos.coords.longitude);
-          if (window.map) map.setView([pos.coords.latitude, pos.coords.longitude], map.getZoom(), { animate: true });
+          if (!_hasDefaultCity && window.map) {
+            map.setView([pos.coords.latitude, pos.coords.longitude], map.getZoom(), { animate: true });
+          }
         },
         function() {},
         { timeout: 5000, maximumAge: 300000 }
