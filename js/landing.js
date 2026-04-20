@@ -35,7 +35,11 @@ function showLandingScreen() {
   if (!el) return;
   el.style.display = 'flex';
   requestAnimationFrame(function() {
-    requestAnimationFrame(function() { el.classList.add('visible'); });
+    requestAnimationFrame(function() {
+      el.classList.add('visible');
+      // Push history so the Android/iOS back button returns to the map
+      history.pushState({ view: 'landing' }, '');
+    });
   });
 }
 
@@ -53,10 +57,16 @@ function hideLandingScreen(cb) {
 // Called by logo tap (mobile) or Home button in action bar
 
 function goHome() {
-  if (window.innerWidth > 900) { location.reload(); return; }
-  // Close any open mobile action bar first
+  // Close any open mobile action bar / sidebar first
   if (typeof closeMobileActions === 'function') closeMobileActions();
+  if (typeof closeSidebar === 'function') closeSidebar();
   showLandingScreen();
+}
+
+// Sync the sidebar city <select> with the current activeCity
+function _syncSbCitySelect() {
+  var sel = document.getElementById('sb-city-select');
+  if (sel && typeof activeCity !== 'undefined') sel.value = activeCity;
 }
 
 // ── City & Location popup ────────────────────────────────────────

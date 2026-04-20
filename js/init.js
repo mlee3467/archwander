@@ -69,6 +69,7 @@ function _doFullMapInit(afterFn) {
     activeCityKey = CITY_META[city].key;
     var _msel = document.getElementById('city-select-mobile');
     if (_msel) _msel.value = city;
+    if (typeof _syncSbCitySelect === 'function') _syncSbCitySelect();
     return loadCityData(city);
   }).then(function() {
     _initMapTiles();  // no-op if tiles already initialized
@@ -151,6 +152,23 @@ window.addEventListener('load', function() {
   window.addEventListener('popstate', function(e) {
     const st = e.state;
     if (!st) { history.pushState({ view: 'main' }, ''); return; }
+
+    // If landing screen is visible → hide it, return to map
+    var _landing = document.getElementById('landing-screen');
+    if (_landing && _landing.classList.contains('visible')) {
+      if (!_mapInited) {
+        // Map not yet initialized — reload to avoid blank screen
+        location.reload(); return;
+      }
+      if (typeof hideLandingScreen === 'function') hideLandingScreen();
+      return;
+    }
+    // If IFL select screen is visible → go back to landing
+    var _iflSel = document.getElementById('ifl-select-screen');
+    if (_iflSel && _iflSel.classList.contains('visible')) {
+      if (typeof iflSelBack === 'function') iflSelBack();
+      return;
+    }
     // If in walk-path mode → exit walk-path, restore panel
     if (walkPathMode) {
       toggleWalkPathMode();

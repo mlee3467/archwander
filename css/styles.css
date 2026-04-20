@@ -8,7 +8,7 @@
       --sidebar-w: 300px;
       --panel-w: 420px;
       --header-h: 80px;
-      --mob-header-h: 35px;
+      --mob-header-h: 18px;
       --safe-top: env(safe-area-inset-top, 0px);
       color-scheme: only light;
     }
@@ -313,18 +313,15 @@
     .fav-import-cancel:hover { color: #666; }
 
     /* ── Walk bar (below header) ───────────────────────── */
+    /* Uses height transition (not display:none) to eliminate iOS ghost-strip */
     #walk-bar {
-      display: none; min-height: 44px; background: #EEF2FF;
-      border-bottom: 1px solid #C7D2FE; padding: 0 18px;
+      display: flex; height: 0; min-height: 0; overflow: hidden;
+      transition: height 0.22s cubic-bezier(.4,0,.2,1);
+      background: #EEF2FF; border-bottom: 1px solid #C7D2FE; padding: 0 18px;
       align-items: center; gap: 10px; font-size: 12px; color: #4338CA;
-      flex-shrink: 0; z-index: 999; flex-wrap: wrap;
+      flex-shrink: 0; z-index: 999; flex-wrap: nowrap;
     }
-    #walk-bar.visible { display: flex; }
-    /* Aggressive hide — prevents iOS Safari ghost strip after close */
-    #walk-bar:not(.visible) {
-      display: none !important; height: 0 !important; min-height: 0 !important;
-      overflow: hidden !important; border: none !important; padding: 0 !important;
-    }
+    #walk-bar.visible { height: 44px; overflow: visible; }
     /* Location picker buttons inside walk-bar */
     .walk-loc-btn {
       height: 28px; padding: 0 10px; border-radius: 6px; border: 1px solid #A5B4FC;
@@ -412,6 +409,9 @@
       }
       .lang-overlay.open { display: block; }
     }
+
+    /* ✦ landing button: hidden on desktop, shown by mobile CSS */
+    #header-star-btn { display: none; }
 
     #menu-btn {
       display: none; width: 34px; height: 34px;
@@ -1235,9 +1235,9 @@
       /* ── Mobile single-row header ── */
       header {
         display: flex; align-items: center; gap: 8px;
-        min-height: calc(var(--mob-header-h) + var(--safe-top));
+        height: calc(var(--mob-header-h) + var(--safe-top));
         padding: env(safe-area-inset-top, 0px) 10px 0;
-        /* no fixed height — let min-height + padding control actual height */
+        overflow: visible; /* allow logo/hamburger to overlap map slightly */
       }
       .header-row1 {
         display: contents;
@@ -1246,10 +1246,21 @@
       .header-row2 { display: none !important; }
       .logo { flex-shrink: 0; }
       .logo-img { height: 24px; }
-      .search-wrap { flex: 1; min-width: 0; max-width: none; }
-      #search { height: 26px; font-size: 11px; padding: 0 10px 0 30px; }
-      .search-icon { left: 9px; }
+      /* Hide search and map toggle from slim mobile header */
+      .search-wrap { display: none !important; }
+      .search-icon { display: none; }
+      .map-toggle { display: none !important; }
       #menu-btn { display: flex; flex-shrink: 0; }
+      /* ✦ landing button — mobile only */
+      #header-star-btn {
+        display: flex; align-items: center; justify-content: center;
+        width: 34px; height: 34px;
+        background: none; border: none; cursor: pointer;
+        font-size: 16px; line-height: 1; flex-shrink: 0;
+        color: var(--text-secondary); -webkit-tap-highlight-color: transparent;
+        transition: color 0.12s;
+      }
+      #header-star-btn:active { color: var(--text-primary); }
       /* Hide city and lang from mobile header (moved to sidebar) */
       #city-select-mobile { display: none !important; }
       #lang-dropdown { display: none !important; }
@@ -1402,7 +1413,8 @@
         width: 26px; height: 26px;
       }
       #walk-label { font-size: 14px; font-weight: 700; }
-      #walk-bar { min-height: 54px; padding: 0 20px; gap: 14px; }
+      #walk-bar.visible { height: 54px; }
+      #walk-bar { padding: 0 20px; gap: 14px; }
     }
     
     @media (max-width: 480px) {
@@ -2588,7 +2600,11 @@
   background: var(--bg);
   flex-shrink: 0;
 }
-.sb-lang-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-secondary); }
+/* Language/City labels match the Filters toggle style */
+.sb-lang-label, .sb-city-label {
+  font-size: 11px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.5px; color: var(--text-primary);
+}
 .sb-lang-btns { display: flex; gap: 4px; }
 .sb-lang-opt {
   padding: 3px 10px; border-radius: 12px;
@@ -2601,6 +2617,26 @@
   background: #111; border-color: #111; color: #fff;
 }
 .sb-lang-opt:hover:not(.active) { border-color: #999; color: var(--text-primary); }
+
+/* ── Sidebar city selector row ─────────────────────────────── */
+.sb-city-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+  flex-shrink: 0;
+}
+#sb-city-select {
+  padding: 4px 22px 4px 8px; border-radius: 8px;
+  border: 1.5px solid var(--border);
+  background: var(--surface); color: var(--text-primary);
+  font-size: 11px; font-weight: 600; font-family: inherit;
+  cursor: pointer; appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2.8'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 6px center;
+  transition: border-color 0.15s;
+}
+#sb-city-select:focus { outline: none; border-color: #111; }
 
 /* ── Review Filtered List button ───────────────────────────── */
 .sb-review-btn {
@@ -2671,15 +2707,15 @@
   flex-shrink: 0;
 }
 .sba-btn {
-  background: #111;
-  border: 2px solid rgba(255,255,255,0.18);
+  background: rgb(60,60,60);
+  border: 2px solid rgba(255,255,255,0.12);
   border-radius: 18px;
   padding: 16px 13px 14px;
   display: flex; flex-direction: column;
   align-items: flex-start;
   cursor: pointer; text-align: left;
   font-family: Inter, -apple-system, sans-serif;
-  color: #fff;
+  color: #FFAC00;
   -webkit-tap-highlight-color: transparent;
   position: relative; overflow: hidden;
   transition: transform 0.12s ease, background 0.12s ease;
@@ -2696,7 +2732,7 @@
 }
 .sba-btn:active {
   transform: scale(0.93);
-  background: #2a2a2a;
+  background: rgb(20,20,20);
 }
 .sba-btn:active::after {
   opacity: 1;
@@ -2708,7 +2744,7 @@
 }
 .sba-label {
   font-size: 12px; font-weight: 700;
-  line-height: 1.35; color: #fff;
+  line-height: 1.35; color: #FFAC00;
 }
 /* Active state for toggled buttons */
 .sba-btn.sba-active {

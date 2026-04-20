@@ -127,14 +127,7 @@ function toggleNearMe() {
   if (nearBtn) nearBtn.classList.toggle('active', nearMeActive);
   if (nearMeActive) {
     var wb = document.getElementById('walk-bar');
-    // Clear all collapse overrides before making visible
-    wb.style.display = '';
-    wb.style.height = '';
-    wb.style.minHeight = '';
-    wb.style.overflow = '';
-    wb.style.border = '';
-    wb.style.padding = '';
-    wb.classList.add('visible');
+    wb.classList.add('visible');  // height transition handles show
     history.pushState({ view: 'nearMe' }, '');
   } else {
     _fullDeactivate();
@@ -151,14 +144,10 @@ function _fullDeactivate() {
   if (pinDropMarker) { pinDropMarker.remove(); pinDropMarker = null; }
   _clearWalkOverlay();
   var wb = document.getElementById('walk-bar');
-  wb.classList.remove('visible');
-  // Force full collapse — display:none + height:0 to defeat iOS Safari ghost strip
-  wb.style.display = 'none';
+  wb.classList.remove('visible');  // CSS height transition collapses to 0
+  // Also force-collapse inline in case CSS hasn't applied yet (belt + suspenders)
   wb.style.height = '0';
-  wb.style.minHeight = '0';
   wb.style.overflow = 'hidden';
-  wb.style.border = 'none';
-  wb.style.padding = '0';
   var nearBtn = document.getElementById('near-me-btn');
   if (nearBtn) nearBtn.classList.remove('active');
   document.getElementById('walk-gps-btn').classList.remove('active', 'locating');

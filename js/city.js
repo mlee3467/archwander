@@ -588,9 +588,10 @@ function selectCity(city) {
     if (walkActive) clearWalkFilter();
     // Fly map to city center
     if (window.map) map.flyTo([meta.lat, meta.lng], meta.zoom, { duration: 1.2 });
-    // Sync mobile city select
+    // Sync mobile city select + sidebar city select
     var _msel = document.getElementById('city-select-mobile');
     if (_msel) _msel.value = city;
+    if (typeof _syncSbCitySelect === 'function') _syncSbCitySelect();
     refreshApp();
   }).catch(function(err) {
     console.error('[selectCity] Failed to load data for', city, err);
