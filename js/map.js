@@ -229,18 +229,19 @@ function _showMapMarkerPopup(loc) {
       pUrl = pUrl.replace(/[?&]width=\d+/, '') + (pUrl.indexOf('?') >= 0 ? '&' : '?') + 'width=400';
     }
     thumbHtml = '<div class="rmp-thumb">' +
-      '<img src="' + pUrl + '" loading="lazy" onerror="this.parentNode.style.display=\'none\'">' +
+      '<img src="' + pUrl + '" onerror="this.parentNode.style.display=\'none\'">' +
       '</div>';
   } else if (svEmbedSrc) {
     thumbHtml = '<div class="rmp-sv-wrap" style="height:160px">' +
       '<div class="rmp-sv-pane rmp-sv-outdoor">' +
-      '<iframe src="' + svEmbedSrc + '" allowfullscreen allow="' + SV_ALLOW + '" loading="lazy"></iframe>' +
+      '<iframe src="' + svEmbedSrc + '" allowfullscreen allow="' + SV_ALLOW + '"></iframe>' +
       '</div></div>';
   }
 
   var el = document.createElement('div');
   el.id = 'map-marker-popup';
   el.className = 'route-custom-popup';
+  el.style.width = '280px';  // fix width so offsetWidth is reliable before layout
   el.innerHTML =
     '<button class="rmp-close" onclick="_closeMapMarkerPopup()" aria-label="close">✕</button>' +
     thumbHtml +

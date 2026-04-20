@@ -199,14 +199,14 @@ function _openPpList(type) {
   var existing = document.getElementById('aw-pp-list');
   if (existing && existing.parentNode) existing.parentNode.removeChild(existing);
 
-  var isKo  = typeof LANG !== 'undefined' && LANG === 'ko';
+  var isKo      = typeof LANG !== 'undefined' && LANG === 'ko';
   var isFavType = (type === 'fav');
-  var ids   = isFavType ? [..._favSet] : [..._visSet];
-  var title = isFavType
+  var ids       = isFavType ? [..._favSet] : [..._visSet];
+  var title     = isFavType
     ? (isKo ? '⭐ 즐겨찾기' : '⭐ Favorites')
     : (isKo ? '✓ 방문한 곳' : '✓ Visited');
 
-  // Build loc objects from LOCS (cross all cities)
+  // Build loc objects across ALL cities
   var locs = [];
   if (typeof LOCS !== 'undefined') {
     ids.forEach(function(id) {
@@ -214,27 +214,40 @@ function _openPpList(type) {
       if (l) locs.push(l);
     });
   } else {
-    // LOCS not yet loaded — show IDs only
-    ids.forEach(function(id) { locs.push({ id: id, name: id }); });
+    ids.forEach(function(id) { locs.push({ id: id, name: id, city: '' }); });
   }
 
-  // Sort visited by most recent date; favs by city then name
-  if (!isFavType) {
-    var dates = _readVisitDates();
-    locs.sort(function(a, b) {
-      var da = dates[a.id] || '';
-      var db = dates[b.id] || '';
-      return db > da ? 1 : db < da ? -1 : 0;
-    });
-  } else {
-    locs.sort(function(a, b) {
-      var ca = (a.city || ''), cb = (b.city || '');
-      if (ca !== cb) return ca < cb ? -1 : 1;
-      return (a.name || '') < (b.name || '') ? -1 : 1;
-    });
-  }
+  // City order follows CITY_META definition order
+  var cityOrder = typeof CITY_META !== 'undefined' ? Object.keys(CITY_META) : [];
+  var cityKeyOf = {};  // 'new-york' → 'nyc' etc.
+  cityOrder.forEach(function(code) { cityKeyOf[CITY_META[code].key] = code; });
 
-  // Build rows HTML
+  // Group by city
+  var byCity = {};
+  cityOrder.forEach(function(code) { byCity[code] = []; });
+  var unknown = [];
+  locs.forEach(function(l) {
+    var code = cityKeyOf[l.city];
+    if (code) byCity[code].push(l);
+    else unknown.push(l);
+  });
+
+  // Sort within each city: visited → newest first; favs → name a→z
+  var dates2 = _readVisitDates();
+  cityOrder.forEach(function(code) {
+    if (!isFavType) {
+      byCity[code].sort(function(a, b) {
+        var da = dates2[a.id] || '', db = dates2[b.id] || '';
+        return db > da ? 1 : db < da ? -1 : 0;
+      });
+    } else {
+      byCity[code].sort(function(a, b) {
+        return (a.name || '') < (b.name || '') ? -1 : 1;
+      });
+    }
+  });
+
+  // Build HTML — city sections
   var rowsHtml = '';
   if (!locs.length) {
     rowsHtml = '<div class="arm-empty">' +
@@ -243,25 +256,42 @@ function _openPpList(type) {
         : (isKo ? '방문 기록이 없습니다' : 'No visited places yet')) +
     '</div>';
   } else {
-    var dates2 = _readVisitDates();
-    rowsHtml = locs.map(function(l) {
-      var catBadge = (typeof _pCat === 'function') ? _pCat(l) : (l.cat || '');
-      var catClass = (typeof CAT_CC_MAP !== 'undefined' && CAT_CC_MAP[catBadge]) ? CAT_CC_MAP[catBadge] : 'c-lmk';
-      var hood = l.hood ? '<span class="arm-tag">' + l.hood + '</span>' : '';
-      var yr   = l.yr   ? '<span class="arm-tag">' + l.yr + '</span>' : '';
-      var dateStr = (!isFavType && dates2[l.id]) ? '<span class="arm-tag arm-tag-date">' + new Date(dates2[l.id]).toLocaleDateString() + '</span>' : '';
-      var bothBadges = (isFav(l.id) && isVisited(l.id))
-        ? '<span style="font-size:10px;margin-left:4px">⭐✓</span>' : '';
-      return '<div class="arm-route-row" style="cursor:pointer" onclick="_closePpList();if(typeof openLocById===\'function\')openLocById(\'' + l.id + '\')">' +
-        '<div class="arm-route-main">' +
-          '<div class="arm-route-name">' + (l.name || l.id) + bothBadges + '</div>' +
-          '<div class="arm-route-meta">' +
-            (catBadge ? '<span class="cat-badge ' + catClass + '" style="font-size:10px">' + catBadge + '</span>' : '') +
-            hood + yr + dateStr +
-          '</div>' +
+    var allSections = [];
+    cityOrder.concat(unknown.length ? ['__unknown'] : []).forEach(function(code) {
+      var group = (code === '__unknown') ? unknown : byCity[code];
+      if (!group || !group.length) return;
+      var cityMeta = (typeof CITY_META !== 'undefined' && CITY_META[code]) ? CITY_META[code] : null;
+      var cityLabel = cityMeta ? cityMeta.label : (isKo ? '기타' : 'Other');
+      var sectionHtml =
+        '<div style="padding:8px 14px 4px;font-size:10px;font-weight:700;' +
+          'color:#aaa;letter-spacing:0.06em;text-transform:uppercase;' +
+          'border-bottom:1px solid #f0f0f0;background:#fafaf8">' +
+          cityLabel + ' <span style="font-weight:400">(' + group.length + ')</span>' +
         '</div>' +
-      '</div>';
-    }).join('');
+        group.map(function(l) {
+          var catBadge = (typeof _pCat === 'function') ? _pCat(l) : (l.cat || '');
+          var catClass = (typeof CAT_CC_MAP !== 'undefined' && CAT_CC_MAP[catBadge]) ? CAT_CC_MAP[catBadge] : 'c-lmk';
+          var hood    = l.hood ? '<span class="arm-tag">' + l.hood + '</span>' : '';
+          var yr      = l.yr   ? '<span class="arm-tag">' + l.yr + '</span>' : '';
+          var dateStr = (!isFavType && dates2[l.id])
+            ? '<span class="arm-tag arm-tag-date">' + new Date(dates2[l.id]).toLocaleDateString() + '</span>' : '';
+          var bothBadges = (isFav(l.id) && isVisited(l.id))
+            ? '<span style="font-size:10px;margin-left:4px">⭐✓</span>' : '';
+          return '<div class="arm-route-row" style="cursor:pointer" ' +
+              'onclick="_ppListOpenLoc(\'' + l.id + '\',\'' + (l.city || '') + '\')">' +
+            '<div class="arm-route-main">' +
+              '<div class="arm-route-name">' + (l.name || l.id) + bothBadges + '</div>' +
+              '<div class="arm-route-meta">' +
+                (catBadge ? '<span class="cat-badge ' + catClass + '" style="font-size:10px">' + catBadge + '</span>' : '') +
+                hood + yr + dateStr +
+              '</div>' +
+            '</div>' +
+            '<span style="font-size:16px;color:#ccc;flex-shrink:0">›</span>' +
+          '</div>';
+        }).join('');
+      allSections.push(sectionHtml);
+    });
+    rowsHtml = allSections.join('');
   }
 
   var overlay = document.createElement('div');
@@ -270,17 +300,17 @@ function _openPpList(type) {
   overlay.addEventListener('click', function(e) {
     if (e.target === overlay) _closePpList();
   });
-
   var panel = document.createElement('div');
   panel.className = 'arm-panel';
   panel.innerHTML =
     '<div class="arm-header">' +
       '<button class="arm-back" onclick="_closePpList()">⬅</button>' +
-      '<span class="arm-title">' + title + ' <span style="font-size:12px;font-weight:400;color:#aaa">(' + locs.length + ')</span></span>' +
+      '<span class="arm-title">' + title +
+        ' <span style="font-size:12px;font-weight:400;color:#aaa">(' + locs.length + ')</span>' +
+      '</span>' +
       '<button class="arm-close" onclick="_closePpList()">✕</button>' +
     '</div>' +
     '<div class="arm-scrollable">' + rowsHtml + '</div>';
-
   overlay.appendChild(panel);
   document.body.appendChild(overlay);
 }
@@ -288,6 +318,51 @@ function _openPpList(type) {
 function _closePpList() {
   var overlay = document.getElementById('aw-pp-list');
   if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
+}
+
+// Called when user taps a row in the visited/favs list popup
+function _ppListOpenLoc(locId, locCityKey) {
+  _closePpList();
+  if (typeof closeSidebar === 'function') closeSidebar();
+
+  // Find the short city code (e.g. 'nyc') from loc.city value (e.g. 'new-york')
+  var cityCode = null;
+  if (typeof CITY_META !== 'undefined') {
+    Object.keys(CITY_META).forEach(function(k) {
+      if (CITY_META[k].key === locCityKey) cityCode = k;
+    });
+  }
+
+  function _doOpenLoc() {
+    // Switch active city state if different (without extra flyTo city center)
+    if (cityCode && cityCode !== activeCity) {
+      var meta = CITY_META[cityCode];
+      activeCity    = cityCode;
+      activeCityKey = meta.key;
+      if (typeof refreshApp === 'function') refreshApp();
+    }
+    // Find location object
+    var loc = (typeof LOCS !== 'undefined') ? LOCS.find(function(l) { return l.id === locId; }) : null;
+    if (!loc) return;
+    // Fly to location
+    if (window.map) map.flyTo([loc.lat, loc.lng], 17, { duration: 1.2 });
+    // After fly: show mini popup + activate favorites mode
+    setTimeout(function() {
+      if (typeof _showMapMarkerPopup === 'function') _showMapMarkerPopup(loc);
+      if (!_favFilterActive && typeof toggleFavFilter === 'function') toggleFavFilter();
+    }, 1400);
+  }
+
+  if (!cityCode || cityCode === activeCity) {
+    _doOpenLoc();
+  } else {
+    // Load city data first (no-op if already loaded), then open
+    if (typeof loadCityData === 'function') {
+      loadCityData(cityCode).then(_doOpenLoc).catch(_doOpenLoc);
+    } else {
+      setTimeout(_doOpenLoc, 800);
+    }
+  }
 }
 
 function _updateFavBtns(id) {
@@ -327,9 +402,9 @@ function _buildLocIcon(loc, scale) {
   const footH  = Math.round(6  * scale);
   const totalW = poleW + flagW + Math.round(2 * scale);
 
-  // ★ at TOP of pole — always 14px, above the flag body
-  const starSize = 14;
-  const topPad   = fav ? (starSize + 1) : 0;  // extra space above pole for star
+  // ★ at TOP of pole — 28px normally (2x permanent upgrade), 56px in favorites mode (scale≥2)
+  const starSize = scale >= 2 ? 56 : 28;
+  const topPad   = fav ? (starSize + 2) : 0;  // extra space above pole for star
   const totalH   = topPad + poleH + footH;
 
   const star = fav
