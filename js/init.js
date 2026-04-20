@@ -77,9 +77,6 @@ function _doFullMapInit(afterFn) {
     if (typeof _updatePassportStats === 'function') _updatePassportStats();
     if (afterFn) {
       afterFn();
-    } else {
-      // Default: auto Near Me on launch
-      if (typeof toggleNearMe === 'function') toggleNearMe();
     }
     // Show GPS blue dot (passive — no walk filter activation)
     if (navigator.geolocation) {

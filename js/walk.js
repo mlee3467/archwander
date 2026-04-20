@@ -147,6 +147,8 @@ function _fullDeactivate() {
   if (wb) { wb.classList.remove('visible'); wb.style.height = '0'; wb.style.overflow = 'hidden'; }
   var wrf = document.getElementById('walk-radius-float');
   if (wrf) wrf.classList.remove('visible');
+  var _wctrl = document.getElementById('walk-radius-ctrl-btn');
+  if (_wctrl) _wctrl.style.display = 'none';
   var nearBtn = document.getElementById('near-me-btn');
   if (nearBtn) nearBtn.classList.remove('active');
   document.getElementById('walk-gps-btn').classList.remove('active', 'locating');
@@ -160,10 +162,79 @@ function _fullDeactivate() {
   if (typeof refreshRouteList === 'function') refreshRouteList();
 }
 
-// Just hide the floating slider card without deactivating Near Me
+// Just hide the floating slider card; show radius-ctrl button below Set-Route FAB
 function _closeWalkFloat() {
   var wrf = document.getElementById('walk-radius-float');
   if (wrf) wrf.classList.remove('visible');
+  var ctrl = document.getElementById('walk-radius-ctrl-btn');
+  if (ctrl) ctrl.style.display = 'flex';
+}
+
+// Reopen the float from the radius-ctrl button
+function _reopenWalkFloat() {
+  var wrf = document.getElementById('walk-radius-float');
+  if (wrf) {
+    // Reset to center position each time it reopens
+    wrf.style.left = '';
+    wrf.style.top  = '';
+    wrf.style.transform = '';
+    wrf.classList.add('visible');
+    _initWalkFloatDrag();
+  }
+  var ctrl = document.getElementById('walk-radius-ctrl-btn');
+  if (ctrl) ctrl.style.display = 'none';
+}
+
+// Initialize drag-to-reposition on the walk-radius-float
+function _initWalkFloatDrag() {
+  var el = document.getElementById('walk-radius-float');
+  if (!el || el._dragInited) return;
+  el._dragInited = true;
+  var drag = { active: false, sx: 0, sy: 0, ox: 0, oy: 0 };
+
+  function _startDrag(clientX, clientY) {
+    var rect = el.getBoundingClientRect();
+    drag.active = true;
+    drag.sx = clientX; drag.sy = clientY;
+    drag.ox = rect.left + rect.width  / 2;
+    drag.oy = rect.top  + rect.height / 2;
+    el.style.left = drag.ox + 'px';
+    el.style.top  = drag.oy + 'px';
+    el.style.transform = 'translate(-50%,-50%)';
+    el.style.cursor = 'grabbing';
+  }
+  function _applyDrag(clientX, clientY) {
+    var nx = drag.ox + (clientX - drag.sx);
+    var ny = drag.oy + (clientY - drag.sy);
+    var hw = el.offsetWidth  / 2 + 8;
+    var hh = el.offsetHeight / 2 + 8;
+    el.style.left = Math.max(hw, Math.min(window.innerWidth  - hw, nx)) + 'px';
+    el.style.top  = Math.max(hh, Math.min(window.innerHeight - hh, ny)) + 'px';
+  }
+  function _endDrag() { drag.active = false; el.style.cursor = 'grab'; }
+
+  el.addEventListener('mousedown', function(e) {
+    if (e.target.closest && e.target.closest('.wrf-close')) return;
+    if (e.target.tagName === 'INPUT') return;
+    _startDrag(e.clientX, e.clientY);
+    e.preventDefault();
+  });
+  el.addEventListener('touchstart', function(e) {
+    if (e.target.closest && e.target.closest('.wrf-close')) return;
+    if (e.target.tagName === 'INPUT') return;
+    _startDrag(e.touches[0].clientX, e.touches[0].clientY);
+  }, { passive: true });
+  document.addEventListener('mousemove', function(e) {
+    if (!drag.active) return;
+    _applyDrag(e.clientX, e.clientY);
+  });
+  document.addEventListener('touchmove', function(e) {
+    if (!drag.active) return;
+    e.preventDefault();
+    _applyDrag(e.touches[0].clientX, e.touches[0].clientY);
+  }, { passive: false });
+  document.addEventListener('mouseup',  _endDrag);
+  document.addEventListener('touchend', _endDrag);
 }
 
 // Alias kept so selectCity() still works unchanged
@@ -250,7 +321,15 @@ function _setWalkOrigin(lat, lng, mode) {
 
   // Show floating radius card now that a location has been provided
   var wrf = document.getElementById('walk-radius-float');
-  if (wrf) wrf.classList.add('visible');
+  if (wrf) {
+    // Reset to default center position on each new origin
+    wrf.style.left = ''; wrf.style.top = ''; wrf.style.transform = '';
+    wrf.classList.add('visible');
+  }
+  // Hide radius ctrl button (float is now open)
+  var _wctrl = document.getElementById('walk-radius-ctrl-btn');
+  if (_wctrl) _wctrl.style.display = 'none';
+  _initWalkFloatDrag();
 
   // Clear old markers
   if (userMarker)    { userMarker.remove();    userMarker    = null; }

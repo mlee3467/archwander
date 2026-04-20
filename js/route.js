@@ -1150,15 +1150,18 @@ function _showRoutePreselModal(locs) {
       '</div>' +
       '<div class="rps-sub">' +
         (ko
-          ? '동네를 선택하면 해당 지역만 루트로 로드됩니다.<br>또는 직접 선택 모드로 시작하세요.'
-          : 'Select a neighborhood to load just that area,<br>or start in manual selection mode.') +
+          ? '동네를 선택해 필터링하거나, 전체 위치로 바로 진행하거나, 직접 선택 모드를 사용하세요.'
+          : 'Filter by neighborhood, proceed with all locations, or pick manually.') +
       '</div>' +
       '<div class="rps-section-label">' + (ko ? '동네 선택' : 'Choose a neighborhood') + '</div>' +
       '<div class="rps-hoods">' + (chipsHtml || ('<span style="color:#999;font-size:12px">' + (ko ? '동네 정보 없음' : 'No neighborhood data') + '</span>')) + '</div>' +
       '<div class="rps-divider"><span>' + (ko ? '또는' : 'or') + '</span></div>' +
       '<div class="rps-btns">' +
+        '<button class="rps-proceed-btn" onclick="_routePreselProceed()">' +
+          '▶ ' + (ko ? '전체 진행' : 'Proceed') +
+        '</button>' +
         '<button class="rps-manual-btn" onclick="_routePreselManual()">' +
-          '📍 ' + (ko ? '직접 선택' : 'Manual select') +
+          '📍 ' + (ko ? '직접 선택' : 'Manual') +
         '</button>' +
         '<button class="rps-cancel-btn" onclick="_closeRoutePresel(true)">' +
           (ko ? '취소' : 'Cancel') +
@@ -1167,6 +1170,13 @@ function _showRoutePreselModal(locs) {
     '</div>';
 
   overlay.classList.add('open');
+}
+
+function _routePreselProceed() {
+  _closeRoutePresel();
+  // Use all current routeLocations without any neighborhood filter
+  _refreshRouteUI();
+  if (routeLocations.length >= 2) calcRoute();
 }
 
 function _routePreselHood(hood) {

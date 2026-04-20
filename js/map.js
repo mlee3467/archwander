@@ -3,6 +3,7 @@
 // ══════════════════════════════════════════════════════════════════
 var map, streetLayer, satLayer, markers = [], userMarker = null;
 var clusterGroup = null;   // Leaflet.markercluster group
+var _mapMarkerPopupActive = null; // currently shown map marker mini-popup
 // ── Walk filter state ──────────────────────────────────────────────
 var walkOrigin    = null;   // { lat, lng } GPS position or dropped pin
 var walkActive    = false;  // is walk filter currently on?
@@ -186,8 +187,98 @@ function addMarker(loc) {
   const icon = _buildLocIcon(loc);
   const m = L.marker([loc.lat, loc.lng], { icon })
     .bindTooltip(_displayName(loc), { direction:'top', offset:[0,-26], opacity:0.94 })
-    .on('click', () => openLoc(loc));
+    .on('click', () => _showMapMarkerPopup(loc));
   clusterGroup.addLayer(m);
   markers.push({ loc, m });
+}
+
+// ── Map marker mini-popup ────────────────────────────────────────
+function _closeMapMarkerPopup() {
+  var el = document.getElementById('map-marker-popup');
+  if (el && el.parentNode) el.parentNode.removeChild(el);
+  _mapMarkerPopupActive = null;
+}
+
+function _showMapMarkerPopup(loc) {
+  _closeMapMarkerPopup();
+
+  var catBadge = (typeof _pCat === 'function') ? _pCat(loc) : (loc.cat || '');
+  var catClass = (typeof CAT_CC_MAP !== 'undefined' && CAT_CC_MAP[catBadge]) ? CAT_CC_MAP[catBadge] : 'c-lmk';
+  var _lang    = (typeof LANG !== 'undefined') ? LANG : 'en';
+  var _esc     = (typeof _escHtml === 'function') ? _escHtml : function(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); };
+
+  // Thumbnail: SV (orientation-aware) → photo → nothing
+  var thumbHtml  = '';
+  var hasSvKey   = (typeof GOOGLE_MAPS_API_KEY !== 'undefined') && GOOGLE_MAPS_API_KEY;
+  var svEmbedSrc = '';
+  if (loc.sv && hasSvKey) {
+    var svLat = loc.sv.lat || loc.lat;
+    var svLng = loc.sv.lng || loc.lng;
+    var svQ = 'key=' + GOOGLE_MAPS_API_KEY +
+      '&heading=' + (loc.sv.heading || 0) +
+      '&pitch='   + (loc.sv.pitch   || 0) +
+      '&fov='     + (loc.sv.fov     || 90);
+    if (loc.sv.panoId) svQ += '&pano=' + loc.sv.panoId;
+    else               svQ += '&location=' + svLat + ',' + svLng;
+    svEmbedSrc = 'https://www.google.com/maps/embed/v1/streetview?' + svQ;
+  }
+  var SV_ALLOW = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; magnetometer; picture-in-picture';
+  if (svEmbedSrc) {
+    thumbHtml = '<div class="rmp-sv-wrap" style="height:160px">' +
+      '<div class="rmp-sv-pane rmp-sv-outdoor">' +
+      '<iframe src="' + svEmbedSrc + '" allowfullscreen allow="' + SV_ALLOW + '" loading="lazy"></iframe>' +
+      '</div></div>';
+  } else if (loc.photos && loc.photos.length > 0) {
+    var pUrl = loc.photos[0];
+    if (pUrl.indexOf('wikimedia') >= 0 || pUrl.indexOf('commons') >= 0) {
+      pUrl = pUrl.replace(/[?&]width=\d+/, '') + (pUrl.indexOf('?') >= 0 ? '&' : '?') + 'width=400';
+    }
+    thumbHtml = '<div class="rmp-thumb">' +
+      '<img src="' + pUrl + '" loading="lazy" onerror="this.parentNode.style.display=\'none\'">' +
+      '</div>';
+  }
+
+  var el = document.createElement('div');
+  el.id = 'map-marker-popup';
+  el.className = 'route-custom-popup';
+  el.innerHTML =
+    '<button class="rmp-close" onclick="_closeMapMarkerPopup()" aria-label="close">✕</button>' +
+    thumbHtml +
+    '<div class="rmp-body">' +
+      '<div class="rmp-name" onclick="_closeMapMarkerPopup();openLocById(\'' + loc.id + '\')" style="cursor:pointer;text-decoration:underline;text-underline-offset:2px">' +
+        _esc(loc.name) +
+      '</div>' +
+      '<div class="rmp-meta">' +
+        '<span class="cat-badge ' + catClass + '" style="font-size:10px">' + catBadge + '</span>' +
+        (loc.hood ? '<span style="color:#888"> · ' + _esc(loc.hood) + '</span>' : '') +
+        (loc.yr   ? '<span style="color:#888"> · ' + loc.yr + '</span>' : '') +
+      '</div>' +
+      '<button class="rmp-open-btn" onclick="_closeMapMarkerPopup();openLocById(\'' + loc.id + '\')">' +
+        (_lang === 'ko' ? '상세 보기 →' : 'View details →') +
+      '</button>' +
+    '</div>';
+  document.body.appendChild(el);
+
+  var isMobile = window.innerWidth <= 900;
+  if (isMobile) {
+    el.style.cssText = 'position:fixed;bottom:64px;left:50%;transform:translateX(-50%);z-index:3000;';
+  } else {
+    var pt  = map.latLngToContainerPoint([loc.lat, loc.lng]);
+    var box = map.getContainer().getBoundingClientRect();
+    var sx  = box.left + pt.x;
+    var sy  = box.top  + pt.y;
+    var pw  = el.offsetWidth  || 220;
+    var ph  = el.offsetHeight || 120;
+    var left = Math.max(8, Math.min(sx - pw / 2, window.innerWidth  - pw - 8));
+    var top  = Math.max(8, Math.min(sy - ph - 16, window.innerHeight - ph - 8));
+    el.style.cssText = 'position:fixed;left:' + left + 'px;top:' + top + 'px;z-index:3000;';
+  }
+
+  _mapMarkerPopupActive = el;
+
+  // Auto-close when user taps elsewhere on the map
+  setTimeout(function() {
+    map.once('click', function() { _closeMapMarkerPopup(); });
+  }, 80);
 }
 

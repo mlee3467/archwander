@@ -329,6 +329,7 @@
       position: fixed;
       top: 58%; left: 50%;
       transform: translate(-50%, -50%);
+      cursor: grab;
       z-index: 1200;
       background: rgba(255,255,255,0.96);
       backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
@@ -2403,6 +2404,29 @@
 /* ═══════════════════════════════════════════════════════════════
    FLOATING SET ROUTE FAB  (mobile, Near Me active)
    ═══════════════════════════════════════════════════════════════ */
+/* Radius control button — shown after walk-float is dismissed */
+#walk-radius-ctrl-btn {
+  position: fixed;
+  bottom: 148px; left: 50%; transform: translateX(-50%);
+  z-index: 2400;
+  align-items: center; gap: 6px;
+  padding: 8px 18px;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  color: #4338CA; border: 1.5px solid #C7D2FE; border-radius: 20px;
+  font-size: 12px; font-weight: 600; font-family: Inter, sans-serif;
+  box-shadow: 0 3px 14px rgba(79,70,229,0.18);
+  cursor: pointer; white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.12s, box-shadow 0.12s;
+}
+#walk-radius-ctrl-btn:active {
+  background: #EEF2FF;
+  box-shadow: 0 1px 6px rgba(79,70,229,0.12);
+}
+.wrc-icon { font-size: 14px; line-height: 1; }
+.wrc-label { letter-spacing: -0.2px; }
+
 #set-route-fab {
   position: fixed;
   bottom: 90px; left: 50%; transform: translateX(-50%);
@@ -2890,21 +2914,36 @@
   top: 50%; left: 0; right: 0; height: 1px; background: #E5E7EB; z-index: 0;
 }
 .rps-divider span { background: white; padding: 0 8px; position: relative; z-index: 1; }
-.rps-btns { display: flex; gap: 8px; margin-top: 4px; }
+.rps-btns { display: flex; gap: 8px; margin-top: 4px; flex-wrap: wrap; }
+.rps-proceed-btn {
+  flex: 1; min-width: 80px; padding: 11px; border-radius: 11px;
+  background: #4F46E5; color: white; border: none;
+  font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit;
+  transition: opacity 0.12s;
+}
+.rps-proceed-btn:active { opacity: 0.75; }
 .rps-manual-btn {
-  flex: 1; padding: 11px; border-radius: 11px;
+  flex: 1; min-width: 80px; padding: 11px; border-radius: 11px;
   background: #111; color: white; border: none;
   font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit;
   transition: opacity 0.12s;
 }
 .rps-manual-btn:active { opacity: 0.7; }
 .rps-cancel-btn {
-  flex: 1; padding: 11px; border-radius: 11px;
+  flex: 1; min-width: 80px; padding: 11px; border-radius: 11px;
   background: #F3F4F6; color: #374151; border: none;
   font-size: 13px; cursor: pointer; font-family: inherit;
   transition: background 0.12s;
 }
 .rps-cancel-btn:active { background: #E5E7EB; }
+/* "View details" button in map marker mini-popup */
+.rmp-open-btn {
+  width: 100%; margin-top: 8px; padding: 7px 10px; border-radius: 8px;
+  background: #111; color: #fff; border: none;
+  font-size: 12px; font-weight: 600; font-family: inherit; cursor: pointer;
+  transition: opacity 0.12s; text-align: center;
+}
+.rmp-open-btn:active { opacity: 0.75; }
 
 /* ─────────────────────────────────────────────────────────────
    ROUTE 6KM WARNING DIALOG
