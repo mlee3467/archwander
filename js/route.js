@@ -625,7 +625,13 @@ function clearRouteSelection() {
 // Hide route panel without clearing route state (Back to Map)
 function _routePanelBack() {
   var panel = document.getElementById('route-panel');
-  if (panel) panel.classList.remove('visible');
+  if (!panel) return;
+  // On mobile, if a route has been built keep the minimized peek bar visible
+  if (window.innerWidth <= 900 && routeLocations.length >= 2) {
+    _minimizeRoutePanelMobile();
+  } else {
+    panel.classList.remove('visible');
+  }
   // Keep routeActive, routeLocations, and drawn route intact
 }
 
@@ -1576,9 +1582,6 @@ function _showRoutePreselModal(locs) {
           ? '동네를 하나 이상 선택한 뒤 진행하거나, 전체 위치로 바로 진행하거나, 직접 선택 모드를 사용하세요.'
           : 'Select one or more neighborhoods then proceed, proceed with all, or pick manually.') +
       '</div>' +
-      '<div class="rps-section-label">' + (ko ? '동네 선택' : 'Choose a neighborhood') + '</div>' +
-      '<div class="rps-hoods">' + (chipsHtml || ('<span style="color:#999;font-size:12px">' + (ko ? '동네 정보 없음' : 'No neighborhood data') + '</span>')) + '</div>' +
-      '<div class="rps-divider"><span>' + (ko ? '또는' : 'or') + '</span></div>' +
       '<div class="rps-btns">' +
         '<button class="rps-proceed-btn" onclick="_routePreselProceed()">' +
           '▶ ' + (ko ? '전체 진행' : 'Proceed') +
@@ -1590,6 +1593,11 @@ function _showRoutePreselModal(locs) {
           (ko ? '취소' : 'Cancel') +
         '</button>' +
       '</div>' +
+      '<div class="rps-section-label">' + (ko ? '동네 선택' : 'Choose a neighborhood') + '</div>' +
+      '<div class="rps-hoods">' + (chipsHtml || ('<span style="color:#999;font-size:12px">' + (ko ? '동네 정보 없음' : 'No neighborhood data') + '</span>')) + '</div>' +
+      '<button class="rps-set-loc-btn" onclick="_closeRoutePresel(true);if(typeof _sbaMyLocation===\'function\')_sbaMyLocation();">' +
+        '📍 ' + (ko ? '내 위치 설정' : 'Set My Location') +
+      '</button>' +
     '</div>';
 
   overlay.classList.add('open');

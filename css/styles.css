@@ -2406,7 +2406,7 @@
 .pp-counts {
   display: flex; align-items: center; gap: 8px; margin-bottom: 8px;
 }
-.pp-count-vis, .pp-count-fav {
+.pp-count-vis, .pp-count-fav, .pp-count-route {
   font-size: 11px; color: var(--text-secondary);
 }
 .pp-num {
@@ -2980,6 +2980,13 @@
   transition: background 0.12s;
 }
 .rps-cancel-btn:active { background: #E5E7EB; }
+.rps-set-loc-btn {
+  width: 100%; margin-top: 10px; padding: 11px; border-radius: 11px;
+  background: #EEF2FF; color: #4338CA; border: 1px solid #C7D2FE;
+  font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit;
+  transition: background 0.12s;
+}
+.rps-set-loc-btn:active { background: #E0E7FF; }
 /* "View details" button in map marker mini-popup */
 .rmp-open-btn {
   width: 100%; margin-top: 8px; padding: 7px 10px; border-radius: 8px;

@@ -126,8 +126,6 @@ function toggleNearMe() {
   var nearBtn = document.getElementById('near-me-btn');
   if (nearBtn) nearBtn.classList.toggle('active', nearMeActive);
   if (nearMeActive) {
-    var wb = document.getElementById('walk-bar');
-    if (wb) wb.classList.add('visible');  // show GPS/Pin buttons immediately
     history.pushState({ view: 'nearMe' }, '');
   } else {
     _fullDeactivate();
