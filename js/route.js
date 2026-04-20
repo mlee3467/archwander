@@ -11,7 +11,8 @@ var routeMarkers     = [];   // numbered step markers on map
 var routeData        = null; // { distance, duration, steps: [...] }
 var _routeSkipAnim   = false; // true when remove triggered — skip animation, show final instantly
 var _rpsSelectedHoods = new Set(); // selected hoods in the presel modal (multi-select)
-var _SAVED_ROUTE_KEY = 'aw_saved_route_v1';
+var _SAVED_ROUTE_KEY  = 'aw_saved_route_v1';   // legacy (unused)
+var _SAVED_ROUTES_KEY = 'aw_saved_routes_v2';  // current: array of named routes
 
 // ── Pixel Walker Animation ───────────────────────────────────────
 // Character type: Canvas-rendered pixel art → dataURL → <img> in Leaflet divIcon.
@@ -628,44 +629,246 @@ function _routePanelBack() {
   // Keep routeActive, routeLocations, and drawn route intact
 }
 
-// Save current route to localStorage
+// ── Saved Routes Storage ─────────────────────────────────────────
+
+function _getSavedRoutes() {
+  try { return JSON.parse(localStorage.getItem(_SAVED_ROUTES_KEY) || '[]'); }
+  catch(e) { return []; }
+}
+function _putSavedRoutes(routes) {
+  localStorage.setItem(_SAVED_ROUTES_KEY, JSON.stringify(routes));
+}
+
+// Generate default name: e.g. "seoul-gangnam-15mins-01"
+function _generateDefaultRouteName() {
+  var city = (typeof activeCityKey !== 'undefined' && activeCityKey) ? activeCityKey : 'city';
+
+  // Most common neighborhood
+  var hoodCount = {};
+  routeLocations.forEach(function(l) {
+    if (l.hood) hoodCount[l.hood] = (hoodCount[l.hood] || 0) + 1;
+  });
+  var hood = 'area', maxCnt = 0;
+  Object.keys(hoodCount).forEach(function(h) {
+    if (hoodCount[h] > maxCnt) { maxCnt = hoodCount[h]; hood = h; }
+  });
+  var hoodSlug = hood.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') || 'area';
+
+  // Duration
+  var durMin = 15;
+  if (routeData && routeData.duration) durMin = Math.ceil(routeData.duration / 60);
+  else if (routeLocations.length > 0) durMin = routeLocations.length * 5;
+  var durRounded = Math.max(5, Math.round(durMin / 5) * 5);
+  var durStr = durRounded + 'mins';
+
+  // Auto-increment index
+  var saved = _getSavedRoutes();
+  var prefix = city + '-' + hoodSlug + '-' + durStr + '-';
+  var maxIdx = 0;
+  saved.forEach(function(r) {
+    if (r.name && r.name.indexOf(prefix) === 0) {
+      var n = parseInt(r.name.slice(prefix.length), 10);
+      if (!isNaN(n) && n > maxIdx) maxIdx = n;
+    }
+  });
+  return prefix + String(maxIdx + 1).padStart(2, '0');
+}
+
+// Show save dialog with editable name
 function _saveMyRoute() {
   if (!routeLocations.length) return;
-  var ids = routeLocations.map(function(l) { return l.id; });
-  localStorage.setItem(_SAVED_ROUTE_KEY, JSON.stringify(ids));
-  var toast = document.getElementById('route-save-toast');
-  if (toast) {
-    var ko = LANG === 'ko';
-    toast.textContent = ko ? '루트 저장됨 ✓' : 'Route saved ✓';
-    toast.style.opacity = '1';
-    setTimeout(function() { if (toast) toast.style.opacity = '0'; }, 2000);
+  var defaultName = _generateDefaultRouteName();
+  var existing = document.getElementById('aw-save-route-dialog');
+  if (existing && existing.parentNode) existing.parentNode.removeChild(existing);
+
+  var ko = typeof LANG !== 'undefined' && LANG === 'ko';
+  var dlg = document.createElement('div');
+  dlg.id = 'aw-save-route-dialog';
+  dlg.className = 'aw-dialog-overlay';
+  dlg.innerHTML =
+    '<div class="aw-dialog-box">' +
+      '<div class="aw-dialog-title">' + (ko ? '루트 저장' : 'Save Route') + '</div>' +
+      '<div class="aw-dialog-sub">' + (ko ? '루트 이름을 설정하세요' : 'Name this route') + '</div>' +
+      '<input class="aw-dialog-input" id="aw-route-name-input" type="text"' +
+        ' value="' + _escHtml(defaultName) + '" maxlength="60" autocomplete="off" spellcheck="false">' +
+      '<div class="aw-dialog-btns">' +
+        '<button class="aw-dialog-btn aw-dialog-cancel" onclick="_cancelSaveRoute()">✕&nbsp;' + (ko ? '취소' : 'Cancel') + '</button>' +
+        '<button class="aw-dialog-btn aw-dialog-confirm" onclick="_confirmSaveRoute()">✓&nbsp;' + (ko ? '저장' : 'Save') + '</button>' +
+      '</div>' +
+    '</div>';
+  dlg.addEventListener('click', function(e) { if (e.target === dlg) _cancelSaveRoute(); });
+  document.body.appendChild(dlg);
+  var inp = document.getElementById('aw-route-name-input');
+  if (inp) {
+    inp.focus(); inp.select();
+    inp.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') _confirmSaveRoute();
+      if (e.key === 'Escape') _cancelSaveRoute();
+    });
   }
 }
 
-// Load saved route from localStorage
-function _loadMyRoute() {
-  var saved = localStorage.getItem(_SAVED_ROUTE_KEY);
-  if (!saved) {
-    var ko = LANG === 'ko';
-    var toast = document.getElementById('route-save-toast');
-    if (toast) {
-      toast.textContent = ko ? '저장된 루트 없음' : 'No saved route';
-      toast.style.opacity = '1';
-      setTimeout(function() { if (toast) toast.style.opacity = '0'; }, 1800);
-    }
+function _cancelSaveRoute() {
+  var dlg = document.getElementById('aw-save-route-dialog');
+  if (dlg && dlg.parentNode) dlg.parentNode.removeChild(dlg);
+}
+
+function _confirmSaveRoute() {
+  var inp = document.getElementById('aw-route-name-input');
+  var name = inp ? inp.value.trim() : '';
+  if (!name) name = _generateDefaultRouteName();
+
+  var hoodCount = {};
+  routeLocations.forEach(function(l) {
+    if (l.hood) hoodCount[l.hood] = (hoodCount[l.hood] || 0) + 1;
+  });
+  var topHood = '', maxCnt = 0;
+  Object.keys(hoodCount).forEach(function(h) {
+    if (hoodCount[h] > maxCnt) { maxCnt = hoodCount[h]; topHood = h; }
+  });
+
+  var entry = {
+    id:          'r-' + Date.now(),
+    name:        name,
+    city:        (typeof activeCityKey !== 'undefined') ? activeCityKey : '',
+    locationIds: routeLocations.map(function(l) { return l.id; }),
+    stops:       routeLocations.length,
+    hood:        topHood,
+    duration:    routeData ? Math.round(routeData.duration) : 0,
+    distance:    routeData ? Math.round(routeData.distance) : 0,
+    savedAt:     Date.now()
+  };
+  var routes = _getSavedRoutes();
+  routes.push(entry);
+  _putSavedRoutes(routes);
+  _cancelSaveRoute();
+
+  var toast = document.getElementById('route-save-toast');
+  if (toast) {
+    var ko = typeof LANG !== 'undefined' && LANG === 'ko';
+    toast.textContent = (ko ? '저장됨 ✓ ' : 'Saved ✓ ') + name;
+    toast.style.opacity = '1';
+    setTimeout(function() { if (toast) toast.style.opacity = '0'; }, 2500);
+  }
+}
+
+// Open the saved routes list overlay (also called by 📂 button in panel)
+function _loadMyRoute() { _openSavedRoutesOverlay(); }
+
+// ── Saved Routes Overlay ─────────────────────────────────────────
+
+function _openSavedRoutesOverlay() {
+  var existing = document.getElementById('aw-saved-routes-overlay');
+  if (existing && existing.parentNode) existing.parentNode.removeChild(existing);
+  var routes = _getSavedRoutes();
+  var ko = typeof LANG !== 'undefined' && LANG === 'ko';
+  var overlay = document.createElement('div');
+  overlay.id = 'aw-saved-routes-overlay';
+  overlay.className = 'aw-saved-routes-overlay';
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) _closeSavedRoutesOverlay();
+  });
+  _renderSavedRoutesPanel(overlay, routes, ko);
+  document.body.appendChild(overlay);
+}
+
+function _renderSavedRoutesPanel(overlay, routes, ko) {
+  var rowsHtml = '';
+  if (!routes.length) {
+    rowsHtml = '<div class="asr-empty">' + (ko ? '저장된 루트가 없습니다' : 'No saved routes yet') + '</div>';
+  } else {
+    rowsHtml = routes.slice().reverse().map(function(r) {
+      var durMin  = r.duration ? Math.ceil(r.duration / 60) : 0;
+      var durStr  = durMin > 0
+        ? (durMin < 60 ? durMin + (ko ? '분' : 'min')
+          : Math.floor(durMin/60) + (ko ? 'h ' : 'h ') + (durMin%60) + (ko ? '분' : 'min'))
+        : '—';
+      var distStr = r.distance > 0
+        ? (r.distance < 1000 ? Math.round(r.distance) + 'm' : (r.distance/1000).toFixed(1) + 'km')
+        : '—';
+      var dateStr = r.savedAt ? new Date(r.savedAt).toLocaleDateString() : '';
+      return '<div class="asr-row">' +
+        '<div class="asr-row-main">' +
+          '<div class="asr-row-name">' + _escHtml(r.name) + '</div>' +
+          '<div class="asr-row-meta">' +
+            (r.city ? '<span class="asr-tag">' + _escHtml(r.city) + (r.hood ? ' · ' + _escHtml(r.hood) : '') + '</span>' : '') +
+            (r.stops ? '<span class="asr-tag">📍 ' + r.stops + (ko ? '개' : ' stops') + '</span>' : '') +
+            (durStr !== '—' ? '<span class="asr-tag">⏱ ' + durStr + '</span>' : '') +
+            (distStr !== '—' ? '<span class="asr-tag">🚶 ' + distStr + '</span>' : '') +
+            (dateStr ? '<span class="asr-tag asr-date">' + dateStr + '</span>' : '') +
+          '</div>' +
+        '</div>' +
+        '<div class="asr-row-btns">' +
+          '<button class="asr-load-btn" onclick="_loadSavedRouteById(\'' + r.id + '\')">' + (ko ? '불러오기' : 'Load') + '</button>' +
+          '<button class="asr-del-btn"  onclick="_deleteSavedRoute(\'' + r.id + '\')">🗑</button>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
+  overlay.innerHTML =
+    '<div class="asr-panel">' +
+      '<div class="asr-header">' +
+        '<span class="asr-title">🗂&nbsp;' + (ko ? '저장된 루트' : 'Saved Routes') + '</span>' +
+        '<div class="asr-header-btns">' +
+          (routes.length > 0 ? '<button class="asr-export-btn" onclick="_exportSavedRoutesJson()">⬇&nbsp;JSON</button>' : '') +
+          '<button class="asr-close-btn" onclick="_closeSavedRoutesOverlay()">✕</button>' +
+        '</div>' +
+      '</div>' +
+      '<div class="asr-list">' + rowsHtml + '</div>' +
+    '</div>';
+}
+
+function _closeSavedRoutesOverlay() {
+  var el = document.getElementById('aw-saved-routes-overlay');
+  if (el && el.parentNode) el.parentNode.removeChild(el);
+}
+
+function _loadSavedRouteById(id) {
+  var routes = _getSavedRoutes();
+  var found  = routes.find(function(r) { return r.id === id; });
+  if (!found) return;
+  var allLocs = typeof LOCS !== 'undefined' ? LOCS : [];
+  var loaded  = found.locationIds.map(function(lid) {
+    return allLocs.find(function(l) { return l.id === lid; });
+  }).filter(Boolean);
+  if (!loaded.length) {
+    var ko = typeof LANG !== 'undefined' && LANG === 'ko';
+    alert(ko ? '현재 도시 데이터에서 위치를 찾을 수 없습니다.' : 'Could not find locations in current city data.');
     return;
   }
-  try {
-    var ids = JSON.parse(saved);
-    var allLocs = typeof LOCS !== 'undefined' ? LOCS : [];
-    var loaded = ids.map(function(id) {
-      return allLocs.find(function(l) { return l.id === id; });
-    }).filter(Boolean);
-    if (!loaded.length) return;
-    routeLocations = loaded;
-    _refreshRouteUI();
-    if (routeLocations.length >= 2) calcRoute();
-  } catch(e) { console.warn('[Route] Load failed:', e); }
+  _closeSavedRoutesOverlay();
+  routeLocations = loaded;
+  if (!document.getElementById('route-panel')) _createRoutePanel();
+  var panel = document.getElementById('route-panel');
+  panel.classList.remove('minimized');
+  panel.classList.add('visible');
+  routeActive = true;
+  if (typeof _updateSetRouteFab === 'function') _updateSetRouteFab();
+  _refreshRouteUI();
+  if (routeLocations.length >= 2) calcRoute();
+}
+
+function _deleteSavedRoute(id) {
+  var routes = _getSavedRoutes().filter(function(r) { return r.id !== id; });
+  _putSavedRoutes(routes);
+  var overlay = document.getElementById('aw-saved-routes-overlay');
+  if (overlay) {
+    var ko = typeof LANG !== 'undefined' && LANG === 'ko';
+    _renderSavedRoutesPanel(overlay, routes, ko);
+  }
+}
+
+function _exportSavedRoutesJson() {
+  var routes = _getSavedRoutes();
+  var json   = JSON.stringify(routes, null, 2);
+  var blob   = new Blob([json], { type: 'application/json' });
+  var url    = URL.createObjectURL(blob);
+  var a      = document.createElement('a');
+  a.href = url;
+  a.download = 'archwander-routes-' + new Date().toISOString().slice(0, 10) + '.json';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function() { URL.revokeObjectURL(url); if (a.parentNode) a.parentNode.removeChild(a); }, 1000);
 }
 
 function removeRouteStop(locId) {

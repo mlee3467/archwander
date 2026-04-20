@@ -49,7 +49,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
-  <link rel="stylesheet" href="css/styles.css?v=20260420x">
+  <link rel="stylesheet" href="css/styles.css?v=20260420y">
 </head>
 <body>
 
@@ -457,7 +457,7 @@
       </select>
     </div>
 
-    <!-- Action buttons — My Location / Favorites / Route / I Feel Like -->
+    <!-- Action buttons — My Location / Favorites / Route / I Feel Like / Saved Routes -->
     <div class="sb-actions" id="sb-actions">
       <button class="sba-btn" id="sba-loc" onclick="_sbaMyLocation()">
         <span class="sba-icon">📍</span>
@@ -474,6 +474,10 @@
       <button class="sba-btn" id="sba-ifl" onclick="_sbaIfl()">
         <span class="sba-icon">✨</span>
         <span class="sba-label">I Feel<br>Like</span>
+      </button>
+      <button class="sba-btn sba-btn-wide" id="sba-saved-routes" onclick="_openSavedRoutesOverlay()">
+        <span class="sba-icon">🗂</span>
+        <span class="sba-label">Saved Routes</span>
       </button>
     </div>
 
@@ -708,18 +712,18 @@
   </div>
 </div>
 
-<script src="js/config.js?v=20260420x"></script>
-<script src="js/i18n.js?v=20260420x"></script>
-<script src="js/map.js?v=20260420x"></script>
-<script src="js/filters.js?v=20260420x"></script>
-<script src="js/core.js?v=20260420x"></script>
-<script src="js/audio.js?v=20260420x"></script>
-<script src="js/ui.js?v=20260420x"></script>
-<script src="js/walk.js?v=20260420x"></script>
-<script src="js/city.js?v=20260420x"></script>
-<script src="js/route.js?v=20260420x"></script>
-<script src="js/landing.js?v=20260420x"></script>
-<script src="js/init.js?v=20260420x"></script>
+<script src="js/config.js?v=20260420y"></script>
+<script src="js/i18n.js?v=20260420y"></script>
+<script src="js/map.js?v=20260420y"></script>
+<script src="js/filters.js?v=20260420y"></script>
+<script src="js/core.js?v=20260420y"></script>
+<script src="js/audio.js?v=20260420y"></script>
+<script src="js/ui.js?v=20260420y"></script>
+<script src="js/walk.js?v=20260420y"></script>
+<script src="js/city.js?v=20260420y"></script>
+<script src="js/route.js?v=20260420y"></script>
+<script src="js/landing.js?v=20260420y"></script>
+<script src="js/init.js?v=20260420y"></script>
 </body>
 
 </html>
