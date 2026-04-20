@@ -322,6 +322,38 @@
       flex-shrink: 0; z-index: 999; flex-wrap: nowrap;
     }
     #walk-bar.visible { height: 44px; overflow: visible; }
+
+    /* ── Floating walk-radius card (center screen after location set) ── */
+    #walk-radius-float {
+      display: none;
+      position: fixed;
+      top: 58%; left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1200;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(0,0,0,0.12);
+      border-radius: 28px;
+      padding: 14px 18px 14px 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.1);
+      flex-direction: row; align-items: center; gap: 10px;
+      min-width: 260px; max-width: calc(100vw - 40px);
+    }
+    #walk-radius-float.visible { display: flex; }
+    .wrf-icon { font-size: 20px; line-height: 1; flex-shrink: 0; }
+    #walk-label { font-weight: 700; font-size: 15px; color: #4338CA;
+      min-width: 52px; text-align: center; flex-shrink: 0; }
+    #walk-slider { flex: 1; min-width: 80px; accent-color: #4F46E5; cursor: pointer; }
+    .wrf-desc { font-size: 11px; color: #6366F1; flex-shrink: 0; white-space: nowrap; }
+    .wrf-close {
+      margin-left: 4px; width: 24px; height: 24px; border-radius: 50%;
+      border: none; background: rgba(0,0,0,0.08); cursor: pointer;
+      font-size: 13px; line-height: 1; display: flex; align-items: center;
+      justify-content: center; flex-shrink: 0; color: #444;
+      transition: background 0.12s;
+    }
+    .wrf-close:hover { background: rgba(0,0,0,0.18); }
+
     /* Location picker buttons inside walk-bar */
     .walk-loc-btn {
       height: 28px; padding: 0 10px; border-radius: 6px; border: 1px solid #A5B4FC;
@@ -336,12 +368,6 @@
     .walk-bar-sep {
       width: 1px; height: 20px; background: #C7D2FE; flex-shrink: 0; margin: 0 2px;
     }
-    #walk-label { font-weight: 600; min-width: 40px; flex-shrink: 0; }
-    #walk-slider {
-      flex: 1; min-width: 80px; max-width: 220px; accent-color: #4F46E5;
-      cursor: pointer;
-    }
-    .walk-desc { color: #6366F1; }
     #walk-close-btn {
       margin-left: auto; padding: 3px 10px; border: 1px solid #A5B4FC; border-radius: 6px;
       background: white; font-size: 11px; font-family: inherit; cursor: pointer;
@@ -2673,36 +2699,22 @@
   flex-shrink: 0;
 }
 .sba-btn {
-  background: rgb(100,100,100);
-  border: 2px solid rgba(255,255,255,0.12);
+  background: #ffffff;
+  border: 2px solid #111111;
   border-radius: 18px;
   padding: 16px 13px 14px;
   display: flex; flex-direction: column;
   align-items: flex-start;
   cursor: pointer; text-align: left;
   font-family: Inter, -apple-system, sans-serif;
-  color: #FFAC00;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.14), 0 1px 4px rgba(0,0,0,0.08);
   -webkit-tap-highlight-color: transparent;
   position: relative; overflow: hidden;
   transition: transform 0.12s ease, background 0.12s ease;
 }
-/* Click ripple animation */
-.sba-btn::after {
-  content: '';
-  position: absolute; inset: 0;
-  background: rgba(255,255,255,0.12);
-  opacity: 0;
-  border-radius: inherit;
-  transition: opacity 0.35s ease;
-  pointer-events: none;
-}
 .sba-btn:active {
   transform: scale(0.93);
-  background: rgb(20,20,20);
-}
-.sba-btn:active::after {
-  opacity: 1;
-  transition: none;
+  background: #111111;
 }
 .sba-icon {
   font-size: 22px; line-height: 1;
@@ -2710,13 +2722,16 @@
 }
 .sba-label {
   font-size: 12px; font-weight: 700;
-  line-height: 1.35; color: #FFAC00;
+  line-height: 1.35; color: #111111;
+  transition: color 0.12s;
 }
-/* Active state for toggled buttons */
+.sba-btn:active .sba-label { color: #FFAC00; }
+/* Active/toggled state */
 .sba-btn.sba-active {
-  background: #D946A8;
-  border-color: rgba(255,255,255,0.25);
+  background: #111111;
+  border-color: #111111;
 }
+.sba-btn.sba-active .sba-label { color: #FFAC00; }
 
 /* ═══════════════════════════════════════════════════════════════
    MY LOCATION POPUP  (center modal)

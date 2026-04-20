@@ -126,7 +126,8 @@ function toggleNearMe() {
   var nearBtn = document.getElementById('near-me-btn');
   if (nearBtn) nearBtn.classList.toggle('active', nearMeActive);
   if (nearMeActive) {
-    // Walk bar stays hidden until a location is actually provided (_setWalkOrigin)
+    var wb = document.getElementById('walk-bar');
+    if (wb) wb.classList.add('visible');  // show GPS/Pin buttons immediately
     history.pushState({ view: 'nearMe' }, '');
   } else {
     _fullDeactivate();
@@ -143,10 +144,9 @@ function _fullDeactivate() {
   if (pinDropMarker) { pinDropMarker.remove(); pinDropMarker = null; }
   _clearWalkOverlay();
   var wb = document.getElementById('walk-bar');
-  wb.classList.remove('visible');  // CSS height transition collapses to 0
-  // Also force-collapse inline in case CSS hasn't applied yet (belt + suspenders)
-  wb.style.height = '0';
-  wb.style.overflow = 'hidden';
+  if (wb) { wb.classList.remove('visible'); wb.style.height = '0'; wb.style.overflow = 'hidden'; }
+  var wrf = document.getElementById('walk-radius-float');
+  if (wrf) wrf.classList.remove('visible');
   var nearBtn = document.getElementById('near-me-btn');
   if (nearBtn) nearBtn.classList.remove('active');
   document.getElementById('walk-gps-btn').classList.remove('active', 'locating');
@@ -158,6 +158,12 @@ function _fullDeactivate() {
   syncMarkers();
   // Refresh route planner to show all locations again
   if (typeof refreshRouteList === 'function') refreshRouteList();
+}
+
+// Just hide the floating slider card without deactivating Near Me
+function _closeWalkFloat() {
+  var wrf = document.getElementById('walk-radius-float');
+  if (wrf) wrf.classList.remove('visible');
 }
 
 // Alias kept so selectCity() still works unchanged
@@ -242,9 +248,9 @@ function _setWalkOrigin(lat, lng, mode) {
   walkOrigin = { lat, lng };
   walkActive = true;
 
-  // Show walk bar now that a location has been provided
-  var wb = document.getElementById('walk-bar');
-  if (wb) wb.classList.add('visible');
+  // Show floating radius card now that a location has been provided
+  var wrf = document.getElementById('walk-radius-float');
+  if (wrf) wrf.classList.add('visible');
 
   // Clear old markers
   if (userMarker)    { userMarker.remove();    userMarker    = null; }

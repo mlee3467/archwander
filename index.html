@@ -49,7 +49,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
-  <link rel="stylesheet" href="css/styles.css?v=20260420q">
+  <link rel="stylesheet" href="css/styles.css?v=20260420r">
 </head>
 <body>
 
@@ -374,14 +374,17 @@
     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" style="flex-shrink:0"><path d="M3 17l6-6 4 4 8-8"/><path d="M17 7h4v4"/></svg>
     Route
   </button>
-  <span class="walk-bar-sep"></span>
-  <!-- Walking distance slider -->
-  <span style="font-size:20px;line-height:1;flex-shrink:0;opacity:0.85;user-select:none">🚶︎</span>
-  <span id="walk-label">15 min</span>
-  <input type="range" id="walk-slider" min="1" max="60" step="1" value="15">
-  <span class="walk-desc">walking radius</span>
   <!-- Close -->
   <button id="walk-close-btn" onclick="_fullDeactivate()" title="Close Near Me">✕ Close</button>
+</div>
+
+<!-- Floating walk-radius card — appears after GPS/pin location is set -->
+<div id="walk-radius-float">
+  <span class="wrf-icon">🚶</span>
+  <span id="walk-label">15 min</span>
+  <input type="range" id="walk-slider" min="1" max="60" step="1" value="15">
+  <span class="wrf-desc">walking radius</span>
+  <button class="wrf-close" onclick="_closeWalkFloat()" title="Close">✕</button>
 </div>
 
 <!-- Fav Export/Import bar -->
@@ -698,18 +701,18 @@
   </div>
 </div>
 
-<script src="js/config.js?v=20260420q"></script>
-<script src="js/i18n.js?v=20260420q"></script>
-<script src="js/map.js?v=20260420q"></script>
-<script src="js/filters.js?v=20260420q"></script>
-<script src="js/core.js?v=20260420q"></script>
-<script src="js/audio.js?v=20260420q"></script>
-<script src="js/ui.js?v=20260420q"></script>
-<script src="js/walk.js?v=20260420q"></script>
-<script src="js/city.js?v=20260420q"></script>
-<script src="js/route.js?v=20260420q"></script>
-<script src="js/landing.js?v=20260420q"></script>
-<script src="js/init.js?v=20260420q"></script>
+<script src="js/config.js?v=20260420r"></script>
+<script src="js/i18n.js?v=20260420r"></script>
+<script src="js/map.js?v=20260420r"></script>
+<script src="js/filters.js?v=20260420r"></script>
+<script src="js/core.js?v=20260420r"></script>
+<script src="js/audio.js?v=20260420r"></script>
+<script src="js/ui.js?v=20260420r"></script>
+<script src="js/walk.js?v=20260420r"></script>
+<script src="js/city.js?v=20260420r"></script>
+<script src="js/route.js?v=20260420r"></script>
+<script src="js/landing.js?v=20260420r"></script>
+<script src="js/init.js?v=20260420r"></script>
 </body>
 
 </html>

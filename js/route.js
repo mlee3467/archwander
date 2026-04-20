@@ -855,32 +855,40 @@ function _showRouteMarkerPopup(loc, beyondLimit) {
     : '';
 
   // Thumbnail: first photo (img) or interactive Street View (iframe)
+  // Build SV iframe HTML if available (used as primary or photo-fail fallback)
   var thumbHtml = '';
+  var hasSvKey = typeof GOOGLE_MAPS_API_KEY !== 'undefined' && GOOGLE_MAPS_API_KEY;
+  var svThumbSrc = '';
+  if (loc.sv && hasSvKey) {
+    var svLat = loc.sv.lat || loc.lat;
+    var svLng = loc.sv.lng || loc.lng;
+    var svQ = 'key=' + GOOGLE_MAPS_API_KEY +
+      '&heading=' + (loc.sv.heading || 0) +
+      '&pitch='   + (loc.sv.pitch   || 0) +
+      '&fov='     + (loc.sv.fov     || 90);
+    if (loc.sv.panoId) svQ += '&pano=' + loc.sv.panoId;
+    else               svQ += '&location=' + svLat + ',' + svLng;
+    svThumbSrc = 'https://www.google.com/maps/embed/v1/streetview?' + svQ;
+  }
   if (loc.photos && loc.photos.length > 0) {
     var pUrl = loc.photos[0];
     // Wikimedia: force small width
     if (pUrl.indexOf('wikimedia') >= 0 || pUrl.indexOf('commons') >= 0) {
       pUrl = pUrl.replace(/[?&]width=\d+/, '') + (pUrl.indexOf('?') >= 0 ? '&' : '?') + 'width=400';
     }
-    thumbHtml = '<div class="rmp-thumb"><img src="' + pUrl + '" loading="lazy"' +
-      ' onerror="this.parentNode.style.display=\'none\'"></div>';
-  } else if (loc.sv && typeof GOOGLE_MAPS_API_KEY !== 'undefined' && GOOGLE_MAPS_API_KEY) {
-    // Interactive Street View embed (Google Maps Embed API)
-    var svLat = loc.sv.lat || loc.lat;
-    var svLng = loc.sv.lng || loc.lng;
-    var svQ = 'key=' + GOOGLE_MAPS_API_KEY +
-      '&heading=' + (loc.sv.heading || 0) +
-      '&pitch=' + (loc.sv.pitch || 0) +
-      '&fov=' + (loc.sv.fov || 90);
-    // Prefer panoId (exact panorama) over coordinate search
-    if (loc.sv.panoId) {
-      svQ += '&pano=' + loc.sv.panoId;
-    } else {
-      svQ += '&location=' + svLat + ',' + svLng;
-    }
-    var svSrc = 'https://www.google.com/maps/embed/v1/streetview?' + svQ;
+    var svFbHtml = svThumbSrc
+      ? '<iframe class="rmp-sv-fb" src="' + svThumbSrc + '" style="display:none;position:absolute;inset:0;width:100%;height:100%;border:none" allowfullscreen loading="lazy"></iframe>'
+      : '';
+    var onErr = svThumbSrc
+      ? 'this.style.display=\'none\';var f=this.parentNode.querySelector(\'.rmp-sv-fb\');if(f)f.style.display=\'\''
+      : 'this.parentNode.style.display=\'none\'';
+    thumbHtml = '<div class="rmp-thumb" style="position:relative">' +
+      '<img src="' + pUrl + '" loading="lazy" onerror="' + onErr + '">' +
+      svFbHtml + '</div>';
+  } else if (svThumbSrc) {
+    // No photos — show SV directly
     thumbHtml = '<div class="rmp-thumb">' +
-      '<iframe src="' + svSrc + '" allowfullscreen' +
+      '<iframe src="' + svThumbSrc + '" allowfullscreen' +
       ' allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"' +
       ' loading="lazy"></iframe>' +
       '</div>';
