@@ -8,7 +8,7 @@
       --sidebar-w: 300px;
       --panel-w: 420px;
       --header-h: 80px;
-      --mob-header-h: 35px;
+      --mob-header-h: 52px;
       --safe-top: env(safe-area-inset-top, 0px);
       color-scheme: only light;
     }
@@ -1237,20 +1237,23 @@
         display: flex; align-items: center; gap: 8px;
         height: calc(var(--mob-header-h) + var(--safe-top));
         padding: env(safe-area-inset-top, 0px) 10px 0;
-        overflow: visible; /* allow logo/hamburger to overlap map slightly */
+        overflow: hidden;
       }
       .header-row1 {
         display: contents;
       }
       /* Row 2: hidden on mobile (near-me/fav/route are in sidebar actions) */
       .header-row2 { display: none !important; }
-      .logo { flex-shrink: 0; }
-      .logo-img { height: 24px; }
-      /* Hide search and map toggle from slim mobile header */
-      .search-wrap { display: none !important; }
-      .search-icon { display: none; }
+      .logo { flex-shrink: 0; order: 1; }
+      .logo-img { height: 26px; }
+      /* Search: visible, fills remaining space, ordered after logo */
+      .search-wrap { display: flex !important; flex: 1; max-width: none; order: 2; min-width: 0; }
+      .search-icon { display: block; }
+      #search { height: 36px; font-size: 13px; }
       .map-toggle { display: none !important; }
-      #menu-btn { display: flex; flex-shrink: 0; }
+      /* ✦ and ☰ buttons: right side */
+      #header-star-btn { order: 3; }
+      #menu-btn { display: flex; flex-shrink: 0; order: 4; }
       /* ✦ landing button — mobile only */
       #header-star-btn {
         display: flex; align-items: center; justify-content: center;
@@ -1324,45 +1327,7 @@
       /* ── Hide header action buttons on mobile (use action bar instead) ── */
       #near-me-btn, #fav-btn, #route-btn, #ifl-btn { display: none !important; }
 
-      /* ── Mobile Action Bar ── */
-      #mobile-action-bar {
-        display: none;
-        position: fixed;
-        top: calc(var(--mob-header-h) + var(--safe-top));
-        left: 0; right: 0;
-        z-index: 410;
-        background: var(--surface);
-        border-bottom: 1px solid var(--border);
-        padding: 6px 12px;
-        gap: 6px 8px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        flex-wrap: wrap;
-      }
-      #mobile-action-bar.open { display: flex; }
-      /* When action bar is open, push sidebar & backdrop below it (2-row = ~84px) */
-      #mobile-action-bar.open ~ .app .sidebar {
-        top: calc(var(--mob-header-h) + var(--safe-top) + 84px);
-      }
-      #mobile-action-bar.open ~ #sidebar-backdrop {
-        top: calc(var(--mob-header-h) + var(--safe-top) + 84px);
-      }
-      .mob-action-btn {
-        display: flex; align-items: center; justify-content: center; gap: 5px;
-        padding: 7px 14px; border: none; border-radius: 8px;
-        font-size: 12px; font-weight: 600; font-family: Inter, -apple-system, sans-serif;
-        cursor: pointer; white-space: nowrap;
-        color: white;
-        flex: 1 1 calc(50% - 4px);
-        min-width: 0;
-        box-sizing: border-box;
-      }
-      #mob-near-btn { background: linear-gradient(135deg, #6366F1, #4F46E5); box-shadow: 0 1px 3px rgba(79,70,229,0.3); }
-      #mob-near-btn svg { stroke: white; }
-      #mob-fav-btn { background: linear-gradient(135deg, #FF7A1A, #FF5F00); box-shadow: 0 1px 3px rgba(255,95,0,0.3); }
-      #mob-route-btn { background: linear-gradient(135deg, #E052A0, #D946A8); box-shadow: 0 1px 3px rgba(217,70,168,0.3); }
-      #mob-route-btn svg { stroke: white; }
-      #mob-ifl-btn { background: linear-gradient(135deg, #22C55E, #16A34A); box-shadow: 0 1px 3px rgba(22,163,74,0.3); }
-      #mob-ifl-btn.active { background: linear-gradient(135deg, #15803D, #166534); }
+      /* Mobile action bar removed — hamburger opens sidebar directly */
 
       /* ── Sidebar backdrop ── */
       #sidebar-backdrop { display: none; position: fixed; top: calc(var(--mob-header-h) + var(--safe-top)); left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4); z-index: 350; }
