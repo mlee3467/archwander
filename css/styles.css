@@ -2294,22 +2294,25 @@
 #ifl-select-screen.visible { opacity: 1; }
 
 .ifl-sel-hdr {
+  position: relative;
   display: flex; align-items: center; gap: 10px;
-  padding: 16px 20px 14px;
+  padding: 16px 56px 14px 20px;
   flex-shrink: 0;
 }
 .ifl-sel-back {
   background: none; border: none;
   color: rgba(255,255,255,0.5); cursor: pointer;
   padding: 4px; display: flex; align-items: center;
+  flex-shrink: 0;
   -webkit-tap-highlight-color: transparent;
 }
 .ifl-sel-back:active { color: #fff; }
 .ifl-sel-x {
+  position: absolute; top: 50%; right: 20px;
+  transform: translateY(-50%);
   background: rgba(255,255,255,0.12); border: none; border-radius: 50%;
-  width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;
-  font-size: 13px; color: rgba(255,255,255,0.6); cursor: pointer;
-  flex-shrink: 0; margin-left: auto;
+  width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+  font-size: 14px; color: rgba(255,255,255,0.75); cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   transition: background 0.12s, color 0.12s;
 }
