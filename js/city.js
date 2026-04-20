@@ -403,13 +403,18 @@ function _refreshMarkerIcon(id) {
 }
 
 function _buildLocIcon(loc, scale) {
-  // Pixel-art FLAG marker: vertical pole + colored flag rectangle (RPG map style)
+  // Pixel-art FLAG marker: pole + flag rectangle with SVG symbol inside
+  // Fav   → yellow flag + white pixel star
+  // Vis   → category-color flag + white pixel checkmark
+  // Both  → yellow flag + star + green checkmark overlay
   // scale=2 used when fav filter is active for fav/visited markers
   scale = scale || 1;
   const color  = _ccMeta(loc).color;
   const fav    = isFav(loc.id);
   const vis    = isVisited(loc.id);
-  const fill   = vis ? '#f0f0ec' : color;
+
+  // Flag fill: gold for fav, neutral for vis-only, category color otherwise
+  const fill = fav ? '#F5C400' : (vis ? '#e8e8e2' : color);
 
   const poleW  = Math.round(2  * scale);
   const poleH  = Math.round(22 * scale);
@@ -417,56 +422,65 @@ function _buildLocIcon(loc, scale) {
   const flagH  = Math.round(9  * scale);
   const footH  = Math.round(6  * scale);
   const totalW = poleW + flagW + Math.round(2 * scale);
-
-  // ★ overlapping the top of the flag — fixed small size regardless of scale
-  const starSize = 16;  // small, consistent across all modes
-  const topPad   = 0;   // no extra space; star floats above via negative positioning
-  const totalH   = poleH + footH;
-
-  // Position star so it slightly overlaps the top of the flag body
-  // flag top is at y=topPad + 1*scale = 1*scale from pole top
-  // star bottom third sits at the flag top area
-  const starTop  = Math.round(poleH * 0.05);  // 5% down from pole top → mostly above flag
-  const star = fav
-    ? `<span style="position:absolute;left:-1px;top:${starTop}px;` +
-      `font-size:${starSize}px;color:#FF5F00;` +
-      `-webkit-text-stroke:0.5px white;line-height:1;pointer-events:none">★</span>`
-    : '';
-
-  // Green dot badge at pole base (visited)
-  const dotSize  = Math.round(7 * scale);
-  const visBadge = vis
-    ? `<div style="position:absolute;top:${topPad + poleH}px;left:-1px;` +
-      `width:${dotSize}px;height:${dotSize}px;border-radius:50%;` +
-      `background:#22c55e;border:1.5px solid #fff;` +
-      `box-shadow:0 1px 3px rgba(0,0,0,0.4)"></div>`
-    : '';
-
+  const totalH = poleH + footH;
   const borderW = Math.ceil(2 * scale);
+
+  // ── SVG symbol inside the flag ────────────────────────────────
+  // SVG is placed over the flag interior (inside the border)
+  const innerW = flagW - borderW * 2;
+  const innerH = flagH - borderW * 2;
+  const svgL   = poleW + borderW;                    // left edge of inner flag
+  const svgT   = Math.round(1 * scale) + borderW;   // top edge of inner flag
+
+  // 5-point star (viewBox 0 0 10 9, white fill)
+  const starD  = 'M5,0.5 L6.2,3.6 L9.5,3.6 L7,5.6 L8,8.5 L5,6.7 L2,8.5 L3,5.6 L0.5,3.6 L3.8,3.6 Z';
+  // Checkmark (viewBox 0 0 10 9)
+  const checkD = 'M1,4.5 L3.5,7 L9,2';
+
+  let svgInner = '';
+  if (fav && vis) {
+    svgInner =
+      `<path d="${starD}" fill="white" stroke="none"/>` +
+      `<path d="${checkD}" fill="none" stroke="#16a34a" ` +
+        `stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>`;
+  } else if (fav) {
+    svgInner =
+      `<path d="${starD}" fill="white" stroke="none"/>`;
+  } else if (vis) {
+    svgInner =
+      `<path d="${checkD}" fill="none" stroke="white" ` +
+        `stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`;
+  }
+
+  const svgOverlay = (fav || vis)
+    ? `<svg style="position:absolute;left:${svgL}px;top:${svgT}px;pointer-events:none;overflow:visible" ` +
+        `width="${innerW}" height="${innerH}" viewBox="0 0 10 9" ` +
+        `xmlns="http://www.w3.org/2000/svg">` +
+        svgInner +
+      `</svg>`
+    : '';
 
   return L.divIcon({
     className: '',
     html:
-      `<div style="position:relative;width:${totalW}px;height:${totalH}px">` +
-        // Star at top of pole
-        star +
+      `<div style="position:relative;width:${totalW}px;height:${totalH}px;overflow:visible">` +
         // Pole
-        `<div style="position:absolute;left:0;top:${topPad}px;` +
+        `<div style="position:absolute;left:0;top:0;` +
           `width:${poleW}px;height:${poleH}px;background:#1a1a1a"></div>` +
         // Flag body
-        `<div style="position:absolute;left:${poleW}px;top:${topPad + Math.round(1 * scale)}px;` +
+        `<div style="position:absolute;left:${poleW}px;top:${Math.round(1 * scale)}px;` +
           `width:${flagW}px;height:${flagH}px;background:${fill};` +
           `border:${borderW}px solid #1a1a1a;border-left:none;` +
           `box-shadow:${Math.round(2*scale)}px ${Math.round(2*scale)}px 0 rgba(0,0,0,0.38)"></div>` +
+        // Symbol overlay (SVG star / checkmark)
+        svgOverlay +
         // Base foot
         `<div style="position:absolute;bottom:${footH}px;left:-2px;` +
           `width:${Math.round(6*scale)}px;height:${Math.round(2*scale)}px;` +
           `background:#1a1a1a"></div>` +
-        // Visited green dot
-        visBadge +
       `</div>`,
     iconSize:   [totalW, totalH],
-    iconAnchor: [1, topPad + poleH]  // anchor = bottom of pole
+    iconAnchor: [1, poleH]
   });
 }
 

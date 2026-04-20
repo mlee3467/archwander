@@ -24,12 +24,12 @@ var _walkerDistCovered = 0;     // cumulative meters walked
 var _walkerRevealLine  = null;  // growing polyline that reveals the walked path
 var _walkerRevealMs    = 0;     // reveal clock, always advances at full speed
 var _walkerPassedStops = null;  // Set of stopIndices already visited
-var _WALKER_FRAME_MS   = 60;    // ms per stride frame (3× faster total — 2× from prev)
+var _WALKER_FRAME_MS   = 240;   // ms per stride frame (25% of previous speed)
 
-// ── Distance thresholds (80 m/min average walking pace) ──────────
-var _WLK_D30MIN  = 2400;   // 30 min  → 50% stamina, speed −50%
-var _WLK_D_EMPTY = 3600;   // ~45 min → stamina 0%, speed −75%
-var _WLK_D_STOP  = 6000;   // ~75 min → completely stopped, show rest icons
+// ── Distance thresholds (absolute distances) ──────────────────────
+var _WLK_D30MIN  = 2000;   // 0–2000m   → happy/normal
+var _WLK_D_EMPTY = 4000;   // 2000–4000m → tired
+var _WLK_D_STOP  = 6000;   // 4000–6000m → exhausted; 6000m+ → rest
 
 // ── 16×16 B&W pixel art character ────────────────────────────────
 // Palette: 0=transparent  1=white  4=black
@@ -357,9 +357,7 @@ function _startWalkerAnimation(coords, stopIndices, ordered, cumDistAtStop) {
   if (totalTravelDist < 1) return;
 
   // Set stamina thresholds to equal thirds of this route's total distance
-  _WLK_D30MIN  = totalTravelDist / 3;        // 0–1/3  → fresh
-  _WLK_D_EMPTY = totalTravelDist * 2 / 3;    // 1/3–2/3 → tired
-  _WLK_D_STOP  = totalTravelDist;            // 2/3–end → exhausted, then stopped
+  // Distance thresholds are fixed absolute values (not per-route proportional)
 
   // Travel duration: 10ms/m, clamped 5-20s (2× faster than before)
   var travelMs = Math.min(10000, Math.max(2500, totalTravelDist * 5));
