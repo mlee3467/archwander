@@ -604,7 +604,7 @@ function _createRoutePanel() {
   div.className = 'route-panel';
   div.innerHTML =
     '<div class="route-panel-hdr" style="position:relative">' +
-      '<button class="route-panel-back" onclick="_routePanelBack()" title="' + (LANG === 'ko' ? '지도로 돌아가기' : 'Back to map') + '">⬅</button>' +
+      '<button class="route-panel-back" onclick="_routePanelBack()" title="' + (LANG === 'ko' ? '지도로 돌아가기' : 'Back to map') + '">◀ </button>' +
       '<span class="route-panel-title">🗺 ' + (LANG === 'ko' ? '루트 플래너' : 'Route Planner') + '</span>' +
       '<div class="route-hdr-right">' +
         '<button class="route-btn-save" onclick="_saveMyRoute()" title="' + (LANG === 'ko' ? '루트 저장' : 'Save route') + '">💾</button>' +
@@ -863,7 +863,7 @@ function _rmRender(level) {
 
 function _rmHomeHTML(ko) {
   return '<div class="arm-header">' +
-    '<button class="arm-back" onclick="_closeRouteManager()">⬅</button>' +
+    '<button class="arm-back" onclick="_closeRouteManager()">◀ </button>' +
     '<span class="arm-title">🗺&nbsp;' + (ko ? '루트 매니저' : 'Route Manager') + '</span>' +
     '<button class="arm-close" onclick="_closeRouteManager()">✕</button>' +
   '</div>' +
@@ -927,7 +927,7 @@ function _rmSavedHTML(ko) {
     }).join('');
   }
   return '<div class="arm-header">' +
-    '<button class="arm-back" onclick="_rmRender(\'home\')">⬅</button>' +
+    '<button class="arm-back" onclick="_rmRender(\'home\')">◀ </button>' +
     '<span class="arm-title">📂&nbsp;' + (ko ? '저장된 루트' : 'Saved Routes') + '</span>' +
     '<button class="arm-close" onclick="_closeRouteManager()">✕</button>' +
   '</div>' +
@@ -941,7 +941,7 @@ function _rmSettingsHTML(ko) {
   var maxKm = (_routeMaxDistM / 1000).toFixed(1);
   var radius = typeof walkRadius !== 'undefined' ? walkRadius : 15;
   return '<div class="arm-header">' +
-    '<button class="arm-back" onclick="_rmRender(\'home\')">⬅</button>' +
+    '<button class="arm-back" onclick="_rmRender(\'home\')">◀ </button>' +
     '<span class="arm-title">⚙&nbsp;' + (ko ? '루트 설정' : 'Route Settings') + '</span>' +
     '<button class="arm-close" onclick="_closeRouteManager()">✕</button>' +
   '</div>' +

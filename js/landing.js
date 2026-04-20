@@ -234,6 +234,18 @@ function iflSelBack() {
   }
 }
 
+// X button: close IFL screen and go directly to map (no landing)
+function _iflClose() {
+  var iflSel = document.getElementById('ifl-select-screen');
+  if (iflSel) {
+    iflSel.classList.remove('visible');
+    setTimeout(function() { iflSel.style.display = 'none'; }, 280);
+  }
+  _iflFromSidebar = false;
+  localStorage.setItem('aw_landing_seen', '1');
+  _ensureMapInit();
+}
+
 function _renderIflSelectScreen() {
   var body = document.getElementById('ifl-sel-body');
   if (!body || typeof THEME_DEFS === 'undefined') return;
@@ -424,7 +436,7 @@ function _openMyPage() {
   overlay.innerHTML =
     '<div class="arm-panel" id="my-page-panel" style="max-width:420px">' +
       '<div class="arm-header">' +
-        '<button class="arm-back" onclick="_closeMyPage()">⬅</button>' +
+        '<button class="arm-back" onclick="_closeMyPage()">◀ </button>' +
         '<span class="arm-title">' + (isKo ? '마이 페이지' : 'My Page') + '</span>' +
       '</div>' +
       '<div class="arm-body" style="padding:16px 16px 32px">' +

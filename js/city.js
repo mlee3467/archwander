@@ -216,7 +216,7 @@ function _openPpList(type) {
   panel.className = 'arm-panel';
   panel.innerHTML =
     '<div class="arm-header">' +
-      '<button class="arm-back" onclick="_closePpList()">⬅</button>' +
+      '<button class="arm-back" onclick="_closePpList()">◀ </button>' +
       '<span class="arm-title">' + title +
         ' <span style="font-size:12px;font-weight:400;color:#aaa">(' + ids.length + ')</span>' +
       '</span>' +
@@ -403,83 +403,118 @@ function _refreshMarkerIcon(id) {
 }
 
 function _buildLocIcon(loc, scale) {
-  // Pixel-art FLAG marker: pole + flag rectangle with SVG symbol inside
-  // Fav   → yellow flag + white pixel star
-  // Vis   → category-color flag + white pixel checkmark
-  // Both  → yellow flag + star + green checkmark overlay
-  // scale=2 used when fav filter is active for fav/visited markers
+  // FLAG marker — the symbol IS the flag:
+  //   Normal  → rectangular flag (category color, CSS divs)
+  //   Fav     → 5-point star shape (gold + dark border)
+  //   Visited → thick ✓ stroke shape (category color + dark border)
+  //   Both    → star + green ✓ overlay
   scale = scale || 1;
-  const color  = _ccMeta(loc).color;
-  const fav    = isFav(loc.id);
-  const vis    = isVisited(loc.id);
+  const color = _ccMeta(loc).color;
+  const fav   = isFav(loc.id);
+  const vis   = isVisited(loc.id);
 
-  // Flag fill: gold for fav, neutral for vis-only, category color otherwise
-  const fill = fav ? '#F5C400' : (vis ? '#e8e8e2' : color);
-
-  const poleW  = Math.round(2  * scale);
-  const poleH  = Math.round(22 * scale);
-  const flagW  = Math.round(11 * scale);
-  const flagH  = Math.round(9  * scale);
-  const footH  = Math.round(6  * scale);
-  const totalW = poleW + flagW + Math.round(2 * scale);
+  const poleW = Math.round(2  * scale);
+  const poleH = Math.round(22 * scale);
+  const footH = Math.round(6  * scale);
   const totalH = poleH + footH;
-  const borderW = Math.ceil(2 * scale);
 
-  // ── SVG symbol inside the flag ────────────────────────────────
-  // SVG is placed over the flag interior (inside the border)
-  const innerW = flagW - borderW * 2;
-  const innerH = flagH - borderW * 2;
-  const svgL   = poleW + borderW;                    // left edge of inner flag
-  const svgT   = Math.round(1 * scale) + borderW;   // top edge of inner flag
-
-  // 5-point star (viewBox 0 0 10 9, white fill)
-  const starD  = 'M5,0.5 L6.2,3.6 L9.5,3.6 L7,5.6 L8,8.5 L5,6.7 L2,8.5 L3,5.6 L0.5,3.6 L3.8,3.6 Z';
-  // Checkmark (viewBox 0 0 10 9)
-  const checkD = 'M1,4.5 L3.5,7 L9,2';
-
-  let svgInner = '';
-  if (fav && vis) {
-    svgInner =
-      `<path d="${starD}" fill="white" stroke="none"/>` +
-      `<path d="${checkD}" fill="none" stroke="#16a34a" ` +
-        `stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>`;
-  } else if (fav) {
-    svgInner =
-      `<path d="${starD}" fill="white" stroke="none"/>`;
-  } else if (vis) {
-    svgInner =
-      `<path d="${checkD}" fill="none" stroke="white" ` +
-        `stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`;
+  // ── Normal: plain CSS flag ────────────────────────────────────
+  if (!fav && !vis) {
+    const flagW  = Math.round(11 * scale);
+    const flagH  = Math.round(9  * scale);
+    const bw     = Math.ceil(2 * scale);
+    const totalW = poleW + flagW + Math.round(2 * scale);
+    return L.divIcon({
+      className: '',
+      html:
+        `<div style="position:relative;width:${totalW}px;height:${totalH}px">` +
+          `<div style="position:absolute;left:0;top:0;width:${poleW}px;height:${poleH}px;background:#1a1a1a"></div>` +
+          `<div style="position:absolute;left:${poleW}px;top:${Math.round(scale)}px;` +
+            `width:${flagW}px;height:${flagH}px;background:${color};` +
+            `border:${bw}px solid #1a1a1a;border-left:none;` +
+            `box-shadow:${Math.round(2*scale)}px ${Math.round(2*scale)}px 0 rgba(0,0,0,0.38)"></div>` +
+          `<div style="position:absolute;bottom:${footH}px;left:-2px;` +
+            `width:${Math.round(6*scale)}px;height:${Math.round(2*scale)}px;background:#1a1a1a"></div>` +
+        `</div>`,
+      iconSize:   [totalW, totalH],
+      iconAnchor: [1, poleH]
+    });
   }
 
-  const svgOverlay = (fav || vis)
-    ? `<svg style="position:absolute;left:${svgL}px;top:${svgT}px;pointer-events:none;overflow:visible" ` +
-        `width="${innerW}" height="${innerH}" viewBox="0 0 10 9" ` +
-        `xmlns="http://www.w3.org/2000/svg">` +
-        svgInner +
-      `</svg>`
-    : '';
+  // ── Symbol geometry ───────────────────────────────────────────
+  // Symbol "hangs" from the pole top, centered vertically around ~36% of poleH
+  const symCY = Math.round(poleH * 0.36);
+
+  // 5-point star: outer radius sR, inner radius sr
+  const sR  = Math.round(7 * scale);
+  const sr  = Math.round(3 * scale);
+  const sCX = poleW + sR + Math.round(scale);
+  const sCY = symCY;
+  let starPts = '';
+  for (let i = 0; i < 10; i++) {
+    const a = (i * 36 - 90) * Math.PI / 180;
+    const r = i % 2 === 0 ? sR : sr;
+    starPts += `${(sCX + r * Math.cos(a)).toFixed(1)},${(sCY + r * Math.sin(a)).toFixed(1)} `;
+  }
+  const starW = poleW + (sR * 2) + Math.round(3 * scale);
+
+  // Checkmark: thick open path, starts near pole
+  const ckTW = Math.round(13 * scale);
+  const ckX0 = poleW + Math.round(scale);
+  const ckY0 = symCY + Math.round(1.5 * scale);
+  const ckXM = poleW + Math.round(4.5 * scale);
+  const ckYM = symCY + Math.round(4 * scale);
+  const ckX1 = poleW + ckTW;
+  const ckY1 = symCY - Math.round(3.5 * scale);
+  const ckSW = Math.round(3.5 * scale);
+  const checkW = poleW + ckTW + Math.round(2 * scale);
+
+  const svgW = fav ? starW : checkW;
+  const shad = Math.round(2 * scale);
+  const bdr  = (Math.ceil(1.5 * scale)).toFixed(1);
+  const filterId = `ds${poleH}`;
+
+  // ── Symbol SVG paths ──────────────────────────────────────────
+  let symSVG = '';
+  if (fav) {
+    symSVG = `<polygon points="${starPts.trim()}" fill="#F5C400" stroke="#1a1a1a" stroke-width="${bdr}" stroke-linejoin="round"/>`;
+    if (vis) {
+      // Green checkmark inside star
+      const cr = Math.round(3 * scale);
+      symSVG +=
+        `<path d="M${(sCX - cr).toFixed(1)},${sCY.toFixed(1)} ` +
+          `L${(sCX - cr * 0.1).toFixed(1)},${(sCY + cr).toFixed(1)} ` +
+          `L${(sCX + cr).toFixed(1)},${(sCY - cr).toFixed(1)}" ` +
+          `fill="none" stroke="#16a34a" stroke-width="${Math.round(1.8*scale)}" ` +
+          `stroke-linecap="round" stroke-linejoin="round"/>`;
+    }
+  } else {
+    // Checkmark: border pass then color pass
+    symSVG =
+      `<path d="M${ckX0},${ckY0} L${ckXM},${ckYM} L${ckX1},${ckY1}" fill="none" ` +
+        `stroke="#1a1a1a" stroke-width="${(ckSW + Math.round(1.5*scale)).toFixed(1)}" ` +
+        `stroke-linecap="round" stroke-linejoin="round"/>` +
+      `<path d="M${ckX0},${ckY0} L${ckXM},${ckYM} L${ckX1},${ckY1}" fill="none" ` +
+        `stroke="${color}" stroke-width="${ckSW}" ` +
+        `stroke-linecap="round" stroke-linejoin="round"/>`;
+  }
+
+  const svgHtml =
+    `<svg xmlns="http://www.w3.org/2000/svg" ` +
+      `style="position:absolute;left:0;top:0;overflow:visible;pointer-events:none" ` +
+      `width="${svgW}" height="${totalH}">` +
+      `<defs><filter id="${filterId}">` +
+        `<feDropShadow dx="${(shad*0.7).toFixed(1)}" dy="${(shad*0.7).toFixed(1)}" stdDeviation="1" flood-opacity="0.38"/>` +
+      `</filter></defs>` +
+      `<rect x="0" y="0" width="${poleW}" height="${poleH}" fill="#1a1a1a"/>` +
+      `<g filter="url(#${filterId})">${symSVG}</g>` +
+      `<rect x="-2" y="${poleH - Math.round(2*scale)}" width="${Math.round(6*scale)}" height="${Math.round(2*scale)}" fill="#1a1a1a"/>` +
+    `</svg>`;
 
   return L.divIcon({
     className: '',
-    html:
-      `<div style="position:relative;width:${totalW}px;height:${totalH}px;overflow:visible">` +
-        // Pole
-        `<div style="position:absolute;left:0;top:0;` +
-          `width:${poleW}px;height:${poleH}px;background:#1a1a1a"></div>` +
-        // Flag body
-        `<div style="position:absolute;left:${poleW}px;top:${Math.round(1 * scale)}px;` +
-          `width:${flagW}px;height:${flagH}px;background:${fill};` +
-          `border:${borderW}px solid #1a1a1a;border-left:none;` +
-          `box-shadow:${Math.round(2*scale)}px ${Math.round(2*scale)}px 0 rgba(0,0,0,0.38)"></div>` +
-        // Symbol overlay (SVG star / checkmark)
-        svgOverlay +
-        // Base foot
-        `<div style="position:absolute;bottom:${footH}px;left:-2px;` +
-          `width:${Math.round(6*scale)}px;height:${Math.round(2*scale)}px;` +
-          `background:#1a1a1a"></div>` +
-      `</div>`,
-    iconSize:   [totalW, totalH],
+    html: `<div style="position:relative;width:${svgW}px;height:${totalH}px;overflow:visible">${svgHtml}</div>`,
+    iconSize:   [svgW, totalH],
     iconAnchor: [1, poleH]
   });
 }

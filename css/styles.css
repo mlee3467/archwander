@@ -2305,6 +2305,15 @@
   -webkit-tap-highlight-color: transparent;
 }
 .ifl-sel-back:active { color: #fff; }
+.ifl-sel-x {
+  background: rgba(255,255,255,0.12); border: none; border-radius: 50%;
+  width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;
+  font-size: 13px; color: rgba(255,255,255,0.6); cursor: pointer;
+  flex-shrink: 0; margin-left: auto;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.12s, color 0.12s;
+}
+.ifl-sel-x:active { background: rgba(255,255,255,0.25); color: #fff; }
 .ifl-sel-title {
   color: #fff; font-size: 18px; font-weight: 700;
   flex: 1; letter-spacing: -0.3px;
