@@ -638,7 +638,7 @@ function _initCityByGPS() {
         console.log('[GPS] error:', err.code, err.message, '→ fallback nyc');
         resolve('nyc');
       },
-      { enableHighAccuracy: false, timeout: 10000, maximumAge: 600000 }
+      { enableHighAccuracy: false, timeout: 5000, maximumAge: 300000 }
     );
   });
 }

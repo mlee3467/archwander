@@ -27,7 +27,7 @@ function showSplash() {
         _ensureMapInit();
       }
     }, 500);
-  }, 1300);
+  }, 1500);  // 1500 + 500ms fade = 2s total splash
 }
 
 function showLandingScreen() {

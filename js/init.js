@@ -70,6 +70,10 @@ function _doFullMapInit(afterFn) {
     var _msel = document.getElementById('city-select-mobile');
     if (_msel) _msel.value = city;
     if (typeof _syncSbCitySelect === 'function') _syncSbCitySelect();
+    // If map was already pre-initialized (mobile path or desktop fast-init),
+    // fly immediately to the GPS-detected city so the map shows the right place.
+    var _cm = CITY_META[city];
+    if (window.map && _cm) map.setView([_cm.lat, _cm.lng], _cm.zoom, { animate: false });
     return loadCityData(city);
   }).then(function() {
     _initMapTiles();  // no-op if tiles already initialized
@@ -114,13 +118,17 @@ window.addEventListener('load', function() {
   var _firstVisit  = !localStorage.getItem('aw_landing_seen');
 
   if (_isMobile) {
-    // Always show splash on mobile (logo shown every session)
+    // Mobile: pre-init map at NYC fallback so it's visible behind splash/landing;
+    // _doFullMapInit will snap to GPS-detected city via map.setView when GPS resolves.
+    if (!activeCity) { activeCity = 'nyc'; activeCityKey = 'new-york'; }
     _initMapTiles();
     if (typeof showSplash === 'function') showSplash();
   } else {
-    // Desktop → init map immediately
+    // Desktop: show map immediately (at NYC fallback), then GPS snaps to correct city.
     _mapInited = true;
-    _doFullMapInit();
+    if (!activeCity) { activeCity = 'nyc'; activeCityKey = 'new-york'; }
+    _initMapTiles();   // renders immediately so there's no blank-map wait
+    _doFullMapInit();  // GPS → setView(correct city) → loadData → refreshApp
   }
 
   // ── Walk slider: re-filter on change ──────────────────────────
