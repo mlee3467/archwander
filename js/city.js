@@ -109,7 +109,8 @@ function _updatePassportStats() {
   var favArr = [..._favSet];
   var total  = visArr.length;
   var totalF = favArr.length;
-  if (total === 0 && totalF === 0) { el.innerHTML = ''; el.style.display = 'none'; return; }
+  var totalR = typeof _getSavedRoutes === 'function' ? _getSavedRoutes().length : 0;
+  if (total === 0 && totalF === 0 && totalR === 0) { el.innerHTML = ''; el.style.display = 'none'; return; }
   el.style.display = '';
 
   // Per-city breakdown of visited
@@ -181,7 +182,10 @@ function _updatePassportStats() {
     '<div class="pp-counts">' +
       '<span class="pp-count-vis"><span class="pp-num">' + total + '</span> ' + (isKo ? '방문' : 'visited') + '</span>' +
       '<span class="pp-sep">·</span>' +
-      '<span class="pp-count-fav"><span class="pp-num">' + totalF + '</span> ' + (isKo ? '즐겨찾기' : 'favorites') + '</span>' +
+      '<span class="pp-count-fav"><span class="pp-num">' + totalF + '</span> ' + (isKo ? '즐겨찾기' : 'favs') + '</span>' +
+      '<span class="pp-sep">·</span>' +
+      '<span class="pp-count-route" onclick="if(typeof _openRouteManager===\'function\')_openRouteManager(\'saved\')" style="cursor:pointer" title="' + (isKo ? '저장된 루트 보기' : 'View saved routes') + '">' +
+        '<span class="pp-num">' + totalR + '</span> ' + (isKo ? '루트' : 'routes') + '</span>' +
     '</div>' +
     (cityBars ? '<div class="pp-cities">' + cityBars + '</div>' : '') +
     recentHtml +

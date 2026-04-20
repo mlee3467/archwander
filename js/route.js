@@ -629,6 +629,28 @@ function _routePanelBack() {
   // Keep routeActive, routeLocations, and drawn route intact
 }
 
+// ══════════════════════════════════════════════════════════════════
+// ROUTE SETTINGS (persisted)
+// ══════════════════════════════════════════════════════════════════
+
+var _ROUTE_SETTINGS_KEY = 'aw_route_settings_v1';
+var _routeMaxDistM      = 6000;   // max before 6km warning
+var _routeAnimEnabled   = true;   // walker animation
+
+(function _loadRouteSettings() {
+  try {
+    var s = JSON.parse(localStorage.getItem(_ROUTE_SETTINGS_KEY) || '{}');
+    if (typeof s.maxDistM    === 'number') { _routeMaxDistM = s.maxDistM; _WLK_D_STOP = s.maxDistM; }
+    if (typeof s.animEnabled === 'boolean') _routeAnimEnabled = s.animEnabled;
+  } catch(e) {}
+})();
+
+function _saveRouteSettings() {
+  localStorage.setItem(_ROUTE_SETTINGS_KEY, JSON.stringify({
+    maxDistM: _routeMaxDistM, animEnabled: _routeAnimEnabled
+  }));
+}
+
 // ── Saved Routes Storage ─────────────────────────────────────────
 
 function _getSavedRoutes() {
@@ -752,77 +774,10 @@ function _confirmSaveRoute() {
   }
 }
 
-// Open the saved routes list overlay (also called by 📂 button in panel)
-function _loadMyRoute() { _openSavedRoutesOverlay(); }
+// 📂 button in route panel → open manager at saved-routes level
+function _loadMyRoute() { _openRouteManager('saved'); }
 
-// ── Saved Routes Overlay ─────────────────────────────────────────
-
-function _openSavedRoutesOverlay() {
-  var existing = document.getElementById('aw-saved-routes-overlay');
-  if (existing && existing.parentNode) existing.parentNode.removeChild(existing);
-  var routes = _getSavedRoutes();
-  var ko = typeof LANG !== 'undefined' && LANG === 'ko';
-  var overlay = document.createElement('div');
-  overlay.id = 'aw-saved-routes-overlay';
-  overlay.className = 'aw-saved-routes-overlay';
-  overlay.addEventListener('click', function(e) {
-    if (e.target === overlay) _closeSavedRoutesOverlay();
-  });
-  _renderSavedRoutesPanel(overlay, routes, ko);
-  document.body.appendChild(overlay);
-}
-
-function _renderSavedRoutesPanel(overlay, routes, ko) {
-  var rowsHtml = '';
-  if (!routes.length) {
-    rowsHtml = '<div class="asr-empty">' + (ko ? '저장된 루트가 없습니다' : 'No saved routes yet') + '</div>';
-  } else {
-    rowsHtml = routes.slice().reverse().map(function(r) {
-      var durMin  = r.duration ? Math.ceil(r.duration / 60) : 0;
-      var durStr  = durMin > 0
-        ? (durMin < 60 ? durMin + (ko ? '분' : 'min')
-          : Math.floor(durMin/60) + (ko ? 'h ' : 'h ') + (durMin%60) + (ko ? '분' : 'min'))
-        : '—';
-      var distStr = r.distance > 0
-        ? (r.distance < 1000 ? Math.round(r.distance) + 'm' : (r.distance/1000).toFixed(1) + 'km')
-        : '—';
-      var dateStr = r.savedAt ? new Date(r.savedAt).toLocaleDateString() : '';
-      return '<div class="asr-row">' +
-        '<div class="asr-row-main">' +
-          '<div class="asr-row-name">' + _escHtml(r.name) + '</div>' +
-          '<div class="asr-row-meta">' +
-            (r.city ? '<span class="asr-tag">' + _escHtml(r.city) + (r.hood ? ' · ' + _escHtml(r.hood) : '') + '</span>' : '') +
-            (r.stops ? '<span class="asr-tag">📍 ' + r.stops + (ko ? '개' : ' stops') + '</span>' : '') +
-            (durStr !== '—' ? '<span class="asr-tag">⏱ ' + durStr + '</span>' : '') +
-            (distStr !== '—' ? '<span class="asr-tag">🚶 ' + distStr + '</span>' : '') +
-            (dateStr ? '<span class="asr-tag asr-date">' + dateStr + '</span>' : '') +
-          '</div>' +
-        '</div>' +
-        '<div class="asr-row-btns">' +
-          '<button class="asr-load-btn" onclick="_loadSavedRouteById(\'' + r.id + '\')">' + (ko ? '불러오기' : 'Load') + '</button>' +
-          '<button class="asr-del-btn"  onclick="_deleteSavedRoute(\'' + r.id + '\')">🗑</button>' +
-        '</div>' +
-      '</div>';
-    }).join('');
-  }
-  overlay.innerHTML =
-    '<div class="asr-panel">' +
-      '<div class="asr-header">' +
-        '<span class="asr-title">🗂&nbsp;' + (ko ? '저장된 루트' : 'Saved Routes') + '</span>' +
-        '<div class="asr-header-btns">' +
-          (routes.length > 0 ? '<button class="asr-export-btn" onclick="_exportSavedRoutesJson()">⬇&nbsp;JSON</button>' : '') +
-          '<button class="asr-close-btn" onclick="_closeSavedRoutesOverlay()">✕</button>' +
-        '</div>' +
-      '</div>' +
-      '<div class="asr-list">' + rowsHtml + '</div>' +
-    '</div>';
-}
-
-function _closeSavedRoutesOverlay() {
-  var el = document.getElementById('aw-saved-routes-overlay');
-  if (el && el.parentNode) el.parentNode.removeChild(el);
-}
-
+// Load a specific saved route into the planner
 function _loadSavedRouteById(id) {
   var routes = _getSavedRoutes();
   var found  = routes.find(function(r) { return r.id === id; });
@@ -836,7 +791,7 @@ function _loadSavedRouteById(id) {
     alert(ko ? '현재 도시 데이터에서 위치를 찾을 수 없습니다.' : 'Could not find locations in current city data.');
     return;
   }
-  _closeSavedRoutesOverlay();
+  _closeRouteManager();
   routeLocations = loaded;
   if (!document.getElementById('route-panel')) _createRoutePanel();
   var panel = document.getElementById('route-panel');
@@ -848,14 +803,223 @@ function _loadSavedRouteById(id) {
   if (routeLocations.length >= 2) calcRoute();
 }
 
-function _deleteSavedRoute(id) {
+// ══════════════════════════════════════════════════════════════════
+// ROUTE MANAGER POPUP  (multi-level: home → saved | settings)
+// ══════════════════════════════════════════════════════════════════
+
+function _openRouteManager(startLevel) {
+  var existing = document.getElementById('aw-route-manager');
+  if (existing && existing.parentNode) existing.parentNode.removeChild(existing);
+
+  var overlay = document.createElement('div');
+  overlay.id  = 'aw-route-manager';
+  overlay.className = 'arm-overlay';
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) _closeRouteManager();
+  });
+  var panel = document.createElement('div');
+  panel.className = 'arm-panel';
+  panel.id = 'arm-panel';
+  overlay.appendChild(panel);
+  document.body.appendChild(overlay);
+  _rmRender(startLevel || 'home');
+}
+
+function _closeRouteManager() {
+  var el = document.getElementById('aw-route-manager');
+  if (el && el.parentNode) el.parentNode.removeChild(el);
+}
+
+function _rmRender(level) {
+  var panel = document.getElementById('arm-panel');
+  if (!panel) return;
+  var ko = typeof LANG !== 'undefined' && LANG === 'ko';
+  if      (level === 'home')     panel.innerHTML = _rmHomeHTML(ko);
+  else if (level === 'saved')    panel.innerHTML = _rmSavedHTML(ko);
+  else if (level === 'settings') panel.innerHTML = _rmSettingsHTML(ko);
+}
+
+function _rmHomeHTML(ko) {
+  return '<div class="arm-header">' +
+    '<span class="arm-title">🗺&nbsp;' + (ko ? '루트 매니저' : 'Route Manager') + '</span>' +
+    '<button class="arm-close" onclick="_closeRouteManager()">✕</button>' +
+  '</div>' +
+  '<div class="arm-menu">' +
+    '<button class="arm-item arm-item-create" onclick="_rmCreateRoute()">' +
+      '<span class="arm-item-icon">▶</span>' +
+      '<span class="arm-item-text">' +
+        '<span class="arm-item-label">' + (ko ? '루트 만들기' : 'Create Route') + '</span>' +
+        '<span class="arm-item-sub">' + (ko ? '현재 필터를 기반으로 루트 생성' : 'Build from current filter') + '</span>' +
+      '</span>' +
+    '</button>' +
+    '<button class="arm-item" onclick="_rmRender(\'saved\')">' +
+      '<span class="arm-item-icon">📂</span>' +
+      '<span class="arm-item-text">' +
+        '<span class="arm-item-label">' + (ko ? '저장된 루트' : 'Saved Routes') + '</span>' +
+        '<span class="arm-item-sub">' + (ko ? '저장된 루트 목록에서 선택' : 'Load from your saved routes') + '</span>' +
+      '</span>' +
+      '<span class="arm-item-arrow">›</span>' +
+    '</button>' +
+    '<button class="arm-item" onclick="_rmRender(\'settings\')">' +
+      '<span class="arm-item-icon">⚙</span>' +
+      '<span class="arm-item-text">' +
+        '<span class="arm-item-label">' + (ko ? '루트 설정' : 'Route Settings') + '</span>' +
+        '<span class="arm-item-sub">' + (ko ? '반경, 거리, 애니메이션 설정' : 'Radius, distance, animation') + '</span>' +
+      '</span>' +
+      '<span class="arm-item-arrow">›</span>' +
+    '</button>' +
+  '</div>';
+}
+
+function _rmSavedHTML(ko) {
+  var routes = _getSavedRoutes();
+  var rowsHtml = '';
+  if (!routes.length) {
+    rowsHtml = '<div class="arm-empty">' + (ko ? '저장된 루트가 없습니다' : 'No saved routes yet') + '</div>';
+  } else {
+    rowsHtml = routes.slice().reverse().map(function(r) {
+      var durMin  = r.duration ? Math.ceil(r.duration / 60) : 0;
+      var durStr  = durMin > 0
+        ? (durMin < 60 ? durMin + (ko ? '분' : 'min') : Math.floor(durMin/60) + 'h ' + (durMin%60) + (ko ? '분' : 'min'))
+        : '—';
+      var distStr = r.distance > 0
+        ? (r.distance < 1000 ? Math.round(r.distance) + 'm' : (r.distance/1000).toFixed(1) + 'km') : '—';
+      var dateStr = r.savedAt ? new Date(r.savedAt).toLocaleDateString() : '';
+      return '<div class="arm-route-row">' +
+        '<div class="arm-route-main">' +
+          '<div class="arm-route-name">' + _escHtml(r.name) + '</div>' +
+          '<div class="arm-route-meta">' +
+            (r.city ? '<span class="arm-tag">' + _escHtml(r.city) + (r.hood ? ' · ' + _escHtml(r.hood) : '') + '</span>' : '') +
+            (r.stops ? '<span class="arm-tag">📍 ' + r.stops + (ko ? '개' : '') + '</span>' : '') +
+            (durStr !== '—' ? '<span class="arm-tag">⏱ ' + durStr + '</span>' : '') +
+            (distStr !== '—' ? '<span class="arm-tag">🚶 ' + distStr + '</span>' : '') +
+            (dateStr ? '<span class="arm-tag arm-tag-date">' + dateStr + '</span>' : '') +
+          '</div>' +
+        '</div>' +
+        '<div class="arm-route-btns">' +
+          '<button class="arm-load-btn" onclick="_rmLoadRoute(\'' + r.id + '\')">' + (ko ? '불러오기' : 'Load') + '</button>' +
+          '<button class="arm-del-btn"  onclick="_rmDeleteRoute(\'' + r.id + '\')">🗑</button>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
+  return '<div class="arm-header">' +
+    '<button class="arm-back" onclick="_rmRender(\'home\')">←</button>' +
+    '<span class="arm-title">📂&nbsp;' + (ko ? '저장된 루트' : 'Saved Routes') + '</span>' +
+    '<button class="arm-close" onclick="_closeRouteManager()">✕</button>' +
+  '</div>' +
+  '<div class="arm-scrollable">' + rowsHtml + '</div>' +
+  (routes.length > 0
+    ? '<div class="arm-footer"><button class="arm-export-btn" onclick="_exportSavedRoutesJson()">⬇&nbsp;' + (ko ? 'JSON 내보내기' : 'Export JSON') + '</button></div>'
+    : '');
+}
+
+function _rmSettingsHTML(ko) {
+  var maxKm = (_routeMaxDistM / 1000).toFixed(1);
+  var radius = typeof walkRadius !== 'undefined' ? walkRadius : 15;
+  return '<div class="arm-header">' +
+    '<button class="arm-back" onclick="_rmRender(\'home\')">←</button>' +
+    '<span class="arm-title">⚙&nbsp;' + (ko ? '루트 설정' : 'Route Settings') + '</span>' +
+    '<button class="arm-close" onclick="_closeRouteManager()">✕</button>' +
+  '</div>' +
+  '<div class="arm-settings">' +
+    '<div class="arm-srow">' +
+      '<div class="arm-slabel">' +
+        '<span class="arm-sname">' + (ko ? '기본 도보 반경' : 'Default Walk Radius') + '</span>' +
+        '<span class="arm-sdesc">' + (ko ? 'Near Me 기본 반경 (분)' : 'Near Me default radius') + '</span>' +
+      '</div>' +
+      '<div class="arm-sctrl">' +
+        '<input type="number" class="arm-num" id="arm-walk-radius" value="' + radius + '" min="5" max="60" step="5">' +
+        '<span class="arm-unit">' + (ko ? '분' : 'min') + '</span>' +
+      '</div>' +
+    '</div>' +
+    '<div class="arm-srow">' +
+      '<div class="arm-slabel">' +
+        '<span class="arm-sname">' + (ko ? '최대 루트 거리' : 'Max Route Distance') + '</span>' +
+        '<span class="arm-sdesc">' + (ko ? '초과 시 경고 표시' : 'Warning threshold') + '</span>' +
+      '</div>' +
+      '<div class="arm-sctrl">' +
+        '<input type="number" class="arm-num" id="arm-max-dist" value="' + maxKm + '" min="1" max="30" step="0.5">' +
+        '<span class="arm-unit">km</span>' +
+      '</div>' +
+    '</div>' +
+    '<div class="arm-srow">' +
+      '<div class="arm-slabel">' +
+        '<span class="arm-sname">' + (ko ? '루트 애니메이션' : 'Route Animation') + '</span>' +
+        '<span class="arm-sdesc">' + (ko ? '워커 캐릭터 애니메이션' : 'Walker character animation') + '</span>' +
+      '</div>' +
+      '<div class="arm-sctrl">' +
+        '<label class="arm-toggle">' +
+          '<input type="checkbox" id="arm-anim-toggle"' + (_routeAnimEnabled ? ' checked' : '') + ' onchange="_routeAnimEnabled=this.checked">' +
+          '<span class="arm-toggle-track"><span class="arm-toggle-thumb"></span></span>' +
+        '</label>' +
+      '</div>' +
+    '</div>' +
+    '<div class="arm-srow arm-srow-apply">' +
+      '<button class="arm-apply-btn" onclick="_rmApplySettings()">' + (ko ? '설정 저장' : 'Apply & Save') + '</button>' +
+    '</div>' +
+    '<div class="arm-srow arm-srow-export">' +
+      '<div class="arm-slabel">' +
+        '<span class="arm-sname">' + (ko ? '루트 데이터 내보내기' : 'Export Route Data') + '</span>' +
+        '<span class="arm-sdesc">' + (ko ? '저장된 모든 루트를 JSON으로' : 'All saved routes as JSON') + '</span>' +
+      '</div>' +
+      '<button class="arm-export-inline" onclick="_exportSavedRoutesJson()">⬇ JSON</button>' +
+    '</div>' +
+  '</div>';
+}
+
+function _rmCreateRoute() {
+  _closeRouteManager();
+  openRoutePanel();
+}
+
+function _rmLoadRoute(id) {
+  _loadSavedRouteById(id);
+}
+
+function _rmDeleteRoute(id) {
   var routes = _getSavedRoutes().filter(function(r) { return r.id !== id; });
   _putSavedRoutes(routes);
-  var overlay = document.getElementById('aw-saved-routes-overlay');
-  if (overlay) {
-    var ko = typeof LANG !== 'undefined' && LANG === 'ko';
-    _renderSavedRoutesPanel(overlay, routes, ko);
+  _rmRender('saved');
+}
+
+function _rmApplySettings() {
+  var rInp = document.getElementById('arm-walk-radius');
+  var dInp = document.getElementById('arm-max-dist');
+  if (rInp) {
+    var r = parseInt(rInp.value, 10);
+    if (!isNaN(r) && r >= 5 && r <= 60 && typeof walkRadius !== 'undefined') {
+      walkRadius = r;
+      var sl = document.getElementById('walk-slider'), lb = document.getElementById('walk-label');
+      if (sl) sl.value = r;
+      if (lb) lb.textContent = r + ' min';
+    }
   }
+  if (dInp) {
+    var d = parseFloat(dInp.value);
+    if (!isNaN(d) && d >= 1 && d <= 30) {
+      _routeMaxDistM = Math.round(d * 1000);
+      _WLK_D_STOP    = _routeMaxDistM;
+    }
+  }
+  _saveRouteSettings();
+  // Success toast inside panel
+  var panel = document.getElementById('arm-panel');
+  if (!panel) return;
+  var prev = panel.querySelector('.arm-toast');
+  if (prev) prev.parentNode.removeChild(prev);
+  var t = document.createElement('div');
+  t.className = 'arm-toast';
+  var ko = typeof LANG !== 'undefined' && LANG === 'ko';
+  t.textContent = ko ? '설정 저장됨 ✓' : 'Settings saved ✓';
+  panel.appendChild(t);
+  setTimeout(function() { if (t.parentNode) t.parentNode.removeChild(t); }, 2200);
+}
+
+// Shared export (called from multiple levels)
+function _deleteSavedRoute(id) {
+  // alias used by old code paths; route manager is the canonical UI now
+  _rmDeleteRoute(id);
 }
 
 function _exportSavedRoutesJson() {

@@ -365,7 +365,7 @@ function _sbaFavorites() {
 
 function _sbaRoute() {
   if (typeof closeSidebar === 'function') closeSidebar();
-  if (typeof openRoutePanel === 'function') openRoutePanel();
+  if (typeof _openRouteManager === 'function') _openRouteManager('home');
 }
 
 function _sbaIfl() {

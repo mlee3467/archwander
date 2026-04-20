@@ -2815,12 +2815,14 @@
   transition: color 0.12s;
 }
 .sba-btn:active .sba-label { color: #FFAC00; }
+.sba-btn:active .sba-icon  { filter: none; }  /* restore emoji color on press */
 /* Active/toggled state */
 .sba-btn.sba-active {
   background: #111111;
   border-color: #111111;
 }
 .sba-btn.sba-active .sba-label { color: #FFAC00; }
+.sba-btn.sba-active .sba-icon  { filter: none; }  /* restore emoji color when toggled on */
 
 /* ═══════════════════════════════════════════════════════════════
    MY LOCATION POPUP  (center modal)
@@ -3102,22 +3104,151 @@
 }
 .asr-del-btn:hover { background: #fff0f0; border-color: #ffcccc; }
 
-/* ── Wide (5th) sidebar action button ───────────────────────── */
-.sba-btn.sba-btn-wide {
-  grid-column: span 2;
-  flex-direction: row;
-  padding: 11px 16px;
-  gap: 10px;
-  align-items: center;
-  border-radius: 14px;
+/* ═══════════════════════════════════════════════════════════════
+   ROUTE MANAGER POPUP  (multi-level: home → saved | settings)
+   ═══════════════════════════════════════════════════════════════ */
+.arm-overlay {
+  position: fixed; inset: 0; z-index: 9450;
+  background: rgba(0,0,0,0.45);
+  display: flex; align-items: flex-end; justify-content: center;
+  font-family: Inter, -apple-system, sans-serif;
 }
-.sba-btn.sba-btn-wide .sba-icon {
-  font-size: 18px; margin-bottom: 0;
+@media (min-width: 901px) { .arm-overlay { align-items: center; } }
+.arm-panel {
+  background: #fff; border-radius: 20px 20px 0 0;
+  width: 100%; max-width: 480px; max-height: 82vh;
+  display: flex; flex-direction: column; overflow: hidden;
+  box-shadow: 0 -4px 32px rgba(0,0,0,0.18);
+  position: relative;
 }
-.sba-btn.sba-btn-wide .sba-label {
-  font-size: 12px; font-weight: 700; color: #111;
+@media (min-width: 901px) { .arm-panel { border-radius: 16px; max-height: 74vh; } }
+
+/* ── Header (shared) ── */
+.arm-header {
+  display: flex; align-items: center; gap: 6px;
+  padding: 15px 14px 13px; border-bottom: 1px solid #eee; flex-shrink: 0;
 }
-.sba-btn.sba-btn-wide:active .sba-label { color: #FFAC00; }
+.arm-title { flex: 1; font-size: 15px; font-weight: 700; color: #111; }
+.arm-back {
+  background: none; border: none; font-size: 20px; font-weight: 700;
+  color: #555; cursor: pointer; padding: 0 8px 0 2px; line-height: 1;
+}
+.arm-back:hover { color: #111; }
+.arm-close {
+  background: none; border: none; font-size: 17px;
+  color: #888; cursor: pointer; padding: 2px 4px; line-height: 1;
+}
+
+/* ── Home: 3-button menu ── */
+.arm-menu { padding: 10px 12px 14px; display: flex; flex-direction: column; gap: 8px; }
+.arm-item {
+  display: flex; align-items: center; gap: 14px;
+  background: #f9f9f7; border: 1px solid #e8e8e4; border-radius: 14px;
+  padding: 14px 16px; cursor: pointer; text-align: left; width: 100%;
+  font-family: inherit; transition: background 0.12s;
+}
+.arm-item:hover { background: #f0f0ec; }
+.arm-item-icon { font-size: 20px; flex-shrink: 0; }
+.arm-item-text { flex: 1; min-width: 0; }
+.arm-item-label { display: block; font-size: 13px; font-weight: 700; color: #111; }
+.arm-item-sub   { display: block; font-size: 11px; color: #888; margin-top: 2px; }
+.arm-item-arrow { font-size: 18px; color: #ccc; flex-shrink: 0; }
+.arm-item-create { background: #111; border-color: #111; }
+.arm-item-create:hover { background: #333; border-color: #333; }
+.arm-item-create .arm-item-label { color: #fff; }
+.arm-item-create .arm-item-sub   { color: rgba(255,255,255,0.6); }
+
+/* ── Saved Routes list ── */
+.arm-scrollable { flex: 1; overflow-y: auto; }
+.arm-empty { padding: 36px 16px; text-align: center; font-size: 13px; color: #aaa; }
+.arm-footer { padding: 10px 14px; border-top: 1px solid #eee; flex-shrink: 0; }
+.arm-export-btn {
+  width: 100%; padding: 10px; border-radius: 8px;
+  background: #f4f4f4; border: none; font-size: 12px; font-weight: 600;
+  color: #555; cursor: pointer; font-family: inherit;
+}
+.arm-export-btn:hover { background: #e8e8e8; }
+.arm-route-row {
+  display: flex; align-items: center; padding: 12px 14px; gap: 10px;
+  border-bottom: 1px solid #f0f0f0;
+}
+.arm-route-row:last-child { border-bottom: none; }
+.arm-route-main { flex: 1; min-width: 0; }
+.arm-route-name {
+  font-size: 13px; font-weight: 600; color: #111;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 5px;
+}
+.arm-route-meta { display: flex; flex-wrap: wrap; gap: 4px; }
+.arm-tag {
+  font-size: 10px; color: #777;
+  background: #f5f5f5; border-radius: 4px; padding: 2px 6px;
+}
+.arm-tag-date { color: #bbb; }
+.arm-route-btns { display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
+.arm-load-btn {
+  background: #111; color: #fff; border: none; border-radius: 7px;
+  padding: 7px 12px; font-size: 11px; font-weight: 600;
+  cursor: pointer; font-family: inherit; white-space: nowrap;
+}
+.arm-load-btn:hover { background: #333; }
+.arm-del-btn {
+  background: none; border: 1px solid #eee; border-radius: 7px;
+  padding: 5px 9px; font-size: 13px; cursor: pointer; color: #999; line-height: 1;
+}
+.arm-del-btn:hover { background: #fff0f0; border-color: #ffcccc; }
+
+/* ── Settings ── */
+.arm-settings { flex: 1; overflow-y: auto; padding: 2px 0 8px; }
+.arm-srow {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 16px; border-bottom: 1px solid #f2f2f0; gap: 14px;
+}
+.arm-srow:last-child { border-bottom: none; }
+.arm-slabel { flex: 1; min-width: 0; }
+.arm-sname { display: block; font-size: 13px; font-weight: 600; color: #111; }
+.arm-sdesc { display: block; font-size: 11px; color: #888; margin-top: 2px; }
+.arm-sctrl { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.arm-num {
+  width: 58px; padding: 6px 8px; border: 1.5px solid #ddd;
+  border-radius: 7px; font-size: 13px; font-family: inherit;
+  color: #111; text-align: center; outline: none;
+}
+.arm-num:focus { border-color: #111; }
+.arm-unit { font-size: 11px; color: #888; }
+/* Toggle */
+.arm-toggle { position: relative; display: inline-block; width: 42px; height: 24px; cursor: pointer; }
+.arm-toggle input { opacity: 0; width: 0; height: 0; }
+.arm-toggle-track {
+  position: absolute; inset: 0; background: #ddd; border-radius: 24px;
+  transition: background 0.2s;
+}
+.arm-toggle-thumb {
+  position: absolute; width: 18px; height: 18px;
+  left: 3px; top: 3px; background: #fff; border-radius: 50%;
+  transition: transform 0.2s; box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+.arm-toggle input:checked ~ .arm-toggle-track { background: #111; }
+.arm-toggle input:checked ~ .arm-toggle-track .arm-toggle-thumb { transform: translateX(18px); }
+.arm-srow-apply { justify-content: center; padding: 16px; }
+.arm-apply-btn {
+  background: #111; color: #fff; border: none; border-radius: 10px;
+  padding: 10px 28px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit;
+}
+.arm-apply-btn:hover { background: #333; }
+.arm-srow-export { background: #fafafa; }
+.arm-export-inline {
+  background: #f0f0f0; border: none; border-radius: 7px;
+  padding: 7px 12px; font-size: 11px; font-weight: 600;
+  color: #555; cursor: pointer; font-family: inherit; flex-shrink: 0;
+}
+.arm-export-inline:hover { background: #e4e4e4; }
+/* Toast inside panel */
+.arm-toast {
+  position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
+  background: #111; color: #fff; font-size: 12px; padding: 7px 18px;
+  border-radius: 20px; white-space: nowrap; pointer-events: none;
+  z-index: 1;
+}
 
 /* ─────────────────────────────────────────────────────────────
    ROUTE 6KM WARNING DIALOG
