@@ -30,7 +30,5 @@ photo_updates.json
 # Logs
 *.log
 
-# Location data — served from Supabase (private)
-# Only audio guide files are public (loaded by audio.js)
+# Location + audio data — all served from Supabase (private)
 data-*.js
-!data-audio-*.js

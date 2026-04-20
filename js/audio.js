@@ -1,33 +1,10 @@
 // AUDIO GUIDE — Web Speech API
 // ══════════════════════════════════════════════════════════════════
 
-// Audio data registry — populated on demand via dynamic <script> load
-// Each city has EN and KO variants; the correct one is chosen by LANG at load time
-var _AUDIO_CITY_MAP = {
-  'new-york': {
-    en: { varName: 'AUDIO_EN_NYC', file: 'data-audio-en-new-york.js' },
-    ko: { varName: 'AUDIO_KO_NYC', file: 'data-audio-ko-new-york.js' },
-  },
-  'seoul': {
-    en: { varName: 'AUDIO_EN_SEL', file: 'data-audio-en-seoul.js' },
-    ko: { varName: 'AUDIO_KO_SEL', file: 'data-audio-ko-seoul.js' },
-  },
-  'london': {
-    en: { varName: 'AUDIO_EN_LON', file: 'data-audio-en-london.js' },
-    ko: { varName: 'AUDIO_KO_LON', file: 'data-audio-ko-london.js' },
-  },
-  'tokyo': {
-    en: { varName: 'AUDIO_EN_TKY', file: 'data-audio-en-tokyo.js' },
-    ko: { varName: 'AUDIO_KO_TKY', file: 'data-audio-ko-tokyo.js' },
-  },
-};
-// Helper: get the audio meta for current language (fallback to 'en')
-function _agMeta(city) {
-  const cityMap = _AUDIO_CITY_MAP[city];
-  if (!cityMap) return null;
-  return cityMap[LANG] || cityMap['en'] || null;
-}
-var _agLoadedCities = new Set(); // tracks which city files are already in DOM
+// Audio data cache — keyed by 'city:lang'
+// Populated on demand from Supabase `audio_guides` table (replaces data-audio-*.js)
+var _agCache = {};          // { 'new-york:en': { 'nyc-0001': { title, script }, ... } }
+var _agLoadedCities = new Set(); // tracks which city+lang are already fetched
 var _agSynth    = window.speechSynthesis || null;
 var _agUtter    = null;
 var _agPlaying  = false;
@@ -160,46 +137,58 @@ function buildAudioGuideShell() {
   return `<div id="ag-root"><div class="ag-loading"><div class="ag-spinner"></div><span>${t('ag_loading')}</span></div></div>`;
 }
 
-/* -- Dynamic lazy-load of city audio data file -------------------------- */
+/* -- Lazy-load audio data from Supabase audio_guides table ------------- */
 function _agLoadCityFile(city) {
-  return new Promise((resolve) => {
-    const meta = _agMeta(city);
-    if (!meta) return resolve(false); // city/lang not yet supported
-    const cacheKey = city + ':' + LANG; // track per city+lang
+  return new Promise(function(resolve) {
+    var cacheKey = city + ':' + LANG;
     // Already loaded?
-    if (_agLoadedCities.has(cacheKey) || window[meta.varName]) {
-      _agLoadedCities.add(cacheKey);
-      return resolve(true);
+    if (_agLoadedCities.has(cacheKey)) return resolve(true);
+    // Need Supabase client
+    if (typeof _supabase === 'undefined' || !_supabase) {
+      console.warn('[AudioGuide] Supabase not available');
+      return resolve(false);
     }
-    // Remove any previous failed script tag for this file
-    const prev = document.querySelector(`script[src="${meta.file}"]`);
-    if (prev) prev.remove();
-
-    const s = document.createElement('script');
-    s.src = meta.file;
-    s.onload = () => {
-      // window[meta.varName] must be set by the file (as window.X = {...})
-      if (window[meta.varName]) {
+    // Fetch from Supabase (try current LANG, fallback to 'en')
+    function _fetchLang(lang) {
+      return _supabase
+        .from('audio_guides')
+        .select('loc_id, title, script')
+        .eq('city', city)
+        .eq('lang', lang);
+    }
+    _fetchLang(LANG).then(function(result) {
+      if (!result.error && result.data && result.data.length > 0) {
+        var map = {};
+        result.data.forEach(function(row) { map[row.loc_id] = { title: row.title, script: row.script }; });
+        _agCache[cacheKey] = map;
         _agLoadedCities.add(cacheKey);
-        resolve(true);
+        return resolve(true);
+      }
+      // No rows for this lang — try 'en' fallback
+      if (LANG !== 'en') {
+        _fetchLang('en').then(function(r2) {
+          if (!r2.error && r2.data && r2.data.length > 0) {
+            var map = {};
+            r2.data.forEach(function(row) { map[row.loc_id] = { title: row.title, script: row.script }; });
+            _agCache[cacheKey] = map;
+            _agLoadedCities.add(cacheKey);
+            resolve(true);
+          } else {
+            console.warn('[AudioGuide] No audio data for', city, LANG);
+            resolve(false);
+          }
+        });
       } else {
-        console.warn('[AudioGuide] File loaded but variable not found:', meta.varName);
+        console.warn('[AudioGuide] No audio data for', city, LANG);
         resolve(false);
       }
-    };
-    s.onerror = () => {
-      console.warn('[AudioGuide] Failed to load audio file:', meta.file);
-      resolve(false); // graceful — file may not exist yet
-    };
-    document.head.appendChild(s);
+    });
   });
 }
 
 /* -- Returns the audio data object for the current city --------------- */
 function _agGetData(city) {
-  const meta = _agMeta(city);
-  if (!meta) return null;
-  return window[meta.varName] || null;
+  return _agCache[city + ':' + LANG] || null;
 }
 
 /* -- Estimate listening time (avg 130 wpm) ----------------------------- */
