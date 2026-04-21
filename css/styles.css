@@ -441,8 +441,16 @@
       .lang-overlay.open { display: block; }
     }
 
-    /* ✦ landing button: hidden on desktop, shown by mobile CSS */
-    #header-star-btn { display: none; }
+    /* ✦ landing button: shown on desktop (left of map-toggle) */
+    #header-star-btn {
+      height: 34px; width: 34px; padding: 0;
+      border: 1px solid var(--border); border-radius: 8px;
+      background: white; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-size: 15px; color: #111;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    #header-star-btn:hover { background: #f3f3f0; border-color: #ccc; }
 
     #menu-btn {
       display: none; width: 34px; height: 34px;
