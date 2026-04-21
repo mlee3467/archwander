@@ -66,6 +66,14 @@ function goHome() {
   showLandingScreen();
 }
 
+// Close landing screen and go to map (X button)
+function _landingClose() {
+  hideLandingScreen(function() {
+    localStorage.setItem('aw_landing_seen', '1');
+    _ensureMapInit();
+  });
+}
+
 // Sync the sidebar city <select> with the current activeCity
 function _syncSbCitySelect() {
   var sel = document.getElementById('sb-city-select');
