@@ -2228,15 +2228,14 @@
 }
 .landing-hdr-city { flex: 1; }
 .landing-close-btn {
-  width: 32px; height: 32px; border-radius: 50%;
-  background: rgba(255,255,255,0.12); border: none;
-  color: rgba(255,255,255,0.65); font-size: 14px;
+  background: none; border: none;
+  color: rgba(255,255,255,0.75); font-size: 18px; font-weight: 300;
   display: flex; align-items: center; justify-content: center;
-  cursor: pointer; flex-shrink: 0;
+  cursor: pointer; flex-shrink: 0; padding: 4px 8px;
   -webkit-tap-highlight-color: transparent;
-  transition: background 0.12s, color 0.12s;
+  transition: color 0.12s;
 }
-.landing-close-btn:active { background: rgba(255,255,255,0.25); color: #fff; }
+.landing-close-btn:active { color: #fff; }
 .landing-hdr-city {
   font-size: 11px; color: rgba(255,255,255,0.35);
   letter-spacing: 0.3px;
