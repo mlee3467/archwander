@@ -1,3 +1,21 @@
+// ── iOS 13+ DeviceOrientation permission for Street View gyroscope ──
+// Must be called within a user-gesture context (tap, click).
+// Once granted it persists for the session and enables gyroscope in
+// child iframes that carry allow="gyroscope".
+var _motionPermissionGranted = false;
+function _requestMotionPermission() {
+  if (_motionPermissionGranted) return;
+  if (typeof DeviceOrientationEvent !== 'undefined' &&
+      typeof DeviceOrientationEvent.requestPermission === 'function') {
+    DeviceOrientationEvent.requestPermission()
+      .then(function(state) { _motionPermissionGranted = (state === 'granted'); })
+      .catch(function() {});
+  } else {
+    // Non-iOS or older iOS — no permission needed
+    _motionPermissionGranted = true;
+  }
+}
+
 // ── Hard refresh: purge SW caches, keep localStorage (favs/visits) ──
 function hardRefresh() {
   if (!confirm('캐시를 삭제하고 새로고침합니다.\n즐겨찾기/방문 데이터는 유지됩니다.\n\nClear cache and reload?\nFavorites & visits will be kept.')) return;

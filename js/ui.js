@@ -44,7 +44,11 @@ function gotoPhoto(idx) {
   imgs.forEach(function(img, i) { img.classList.toggle('active', !isSV && i === idx); });
 
   // Toggle exterior SV iframe
-  if (svExt) svExt.style.display = isSVExt ? '' : 'none';
+  if (svExt) {
+    svExt.style.display = isSVExt ? '' : 'none';
+    // Request iOS gyroscope permission when SV becomes visible (user-gesture context)
+    if (isSVExt && typeof _requestMotionPermission === 'function') _requestMotionPermission();
+  }
 
   // Toggle interior SV divs — show only the matching one, init JS API on first show
   svIntFrames.forEach(function(fr, fi) {

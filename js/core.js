@@ -396,6 +396,7 @@ function openLoc(loc) {
     svIframe.setAttribute('loading', 'lazy');
     svIframe.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
     svIframe.setAttribute('allowfullscreen', '');
+    svIframe.setAttribute('allow', 'accelerometer; gyroscope; magnetometer; fullscreen');
     var svH   = (loc.sv && loc.sv.heading != null) ? loc.sv.heading : 210;
     var svP   = (loc.sv && loc.sv.pitch   != null) ? loc.sv.pitch   : 10;
     var svF   = Math.min(100, Math.max(10, (loc.sv && loc.sv.fov != null) ? loc.sv.fov : 90)); // Embed API: 10–100

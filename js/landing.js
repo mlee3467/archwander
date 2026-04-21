@@ -804,22 +804,30 @@ function _renderLuckyCard(screen, seen) {
   // ── Media section: photo → Street View → placeholder ──────────
   var photos = (loc.photos && loc.photos.length) ? loc.photos : [];
   var hasSVKey = typeof GOOGLE_MAPS_API_KEY === 'string' && GOOGLE_MAPS_API_KEY;
+  var _SV_ALLOW = 'accelerometer; gyroscope; magnetometer; fullscreen';
   var mediaInner;
   if (photos.length) {
     mediaInner = '<img class="ilk-card-img" src="' + photos[0] + '" loading="eager"' +
-      ' onerror="this.style.display=\'none\';this.nextElementSibling && (this.nextElementSibling.style.display=\'flex\')">' +
-      '<div class="ilk-card-no-photo" style="display:none;position:absolute;inset:0"></div>';
+      ' onerror="this.style.display=\'none\';this.nextElementSibling && (this.nextElementSibling.style.display=\'\')">' +
+      '<div class="ilk-card-no-photo" style="display:none"></div>';
   } else if (hasSVKey && loc.lat && loc.lng) {
-    var svLat = (loc.sv && loc.sv.lat) ? loc.sv.lat : loc.lat;
-    var svLng = (loc.sv && loc.sv.lng) ? loc.sv.lng : loc.lng;
-    var svH   = (loc.sv && loc.sv.h  != null) ? loc.sv.h  : 0;
-    var svP   = (loc.sv && loc.sv.p  != null) ? loc.sv.p  : 5;
+    // Use correct field names matching core.js / map.js data schema
+    var svLat = (loc.sv && loc.sv.lat     != null) ? loc.sv.lat     : loc.lat;
+    var svLng = (loc.sv && loc.sv.lng     != null) ? loc.sv.lng     : loc.lng;
+    var svH   = (loc.sv && loc.sv.heading != null) ? loc.sv.heading : 0;
+    var svP   = (loc.sv && loc.sv.pitch   != null) ? loc.sv.pitch   : 5;
     var svFov = Math.min(100, Math.max(10, (loc.sv && loc.sv.fov != null) ? loc.sv.fov : 80));
-    var svSrc = 'https://www.google.com/maps/embed/v1/streetview?key=' + GOOGLE_MAPS_API_KEY +
-      '&location=' + svLat + ',' + svLng +
-      '&heading=' + svH + '&pitch=' + svP + '&fov=' + svFov;
-    mediaInner = '<iframe class="ilk-card-sv" src="' + svSrc + '" frameborder="0" allowfullscreen></iframe>' +
-      '<div class="ilk-card-sv-overlay"></div>';
+    // panoId takes priority over lat/lng (same as map.js / core.js)
+    var svQ = 'key=' + GOOGLE_MAPS_API_KEY + '&heading=' + svH + '&pitch=' + svP + '&fov=' + svFov;
+    if (loc.sv && loc.sv.panoId) svQ += '&pano=' + loc.sv.panoId;
+    else svQ += '&location=' + svLat + ',' + svLng;
+    var svSrc = 'https://www.google.com/maps/embed/v1/streetview?' + svQ;
+    // pointer-events:none lets swipe touch events pass through to the card
+    mediaInner = '<iframe class="ilk-card-sv" src="' + svSrc + '"' +
+      ' frameborder="0" referrerpolicy="no-referrer-when-downgrade"' +
+      ' allowfullscreen allow="' + _SV_ALLOW + '"></iframe>';
+    // Request iOS gyroscope permission from parent (must happen in user-gesture context)
+    if (typeof _requestMotionPermission === 'function') _requestMotionPermission();
   } else {
     mediaInner = '<div class="ilk-card-no-photo"></div>';
   }

@@ -2473,11 +2473,10 @@
   width: 100%; height: 100%; object-fit: cover; display: block;
 }
 .ilk-card-sv {
-  width: 100%; height: 100%; border: none; display: block;
-}
-/* Transparent overlay so swipe touch events aren't absorbed by the iframe */
-.ilk-card-sv-overlay {
-  position: absolute; inset: 0; z-index: 1; background: transparent;
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  border: none; display: block;
+  /* Let swipe touch events pass through to parent card */
+  pointer-events: none;
 }
 .ilk-card-no-photo {
   width: 100%; height: 100%;

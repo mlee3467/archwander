@@ -235,8 +235,11 @@ function _showMapMarkerPopup(loc) {
   } else if (svEmbedSrc) {
     thumbHtml = '<div class="rmp-sv-wrap" style="height:160px">' +
       '<div class="rmp-sv-pane rmp-sv-outdoor">' +
-      '<iframe src="' + svEmbedSrc + '" allowfullscreen allow="' + SV_ALLOW + '"></iframe>' +
+      '<iframe src="' + svEmbedSrc + '" allowfullscreen allow="' + SV_ALLOW + '"' +
+      ' referrerpolicy="no-referrer-when-downgrade"></iframe>' +
       '</div></div>';
+    // Request iOS gyroscope permission from parent context (user-gesture)
+    if (typeof _requestMotionPermission === 'function') _requestMotionPermission();
   }
 
   var el = document.createElement('div');
