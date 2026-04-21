@@ -306,16 +306,17 @@ function _setMarkerWalkMode(active) {
 function _updateSetRouteFab() {
   var fab = document.getElementById('set-route-fab');
   var exitBtn = document.getElementById('walk-exit-btn');
-  var show = nearMeActive && walkOrigin && window.innerWidth <= 900 && !routeActive;
+  var showRoute = nearMeActive && walkOrigin && !routeActive;
+  var showExit  = nearMeActive && walkOrigin;
   if (fab) {
-    fab.style.display = show ? 'flex' : 'none';
+    fab.style.display = showRoute ? 'flex' : 'none';
     if (typeof LANG !== 'undefined') {
       var lbl = fab.querySelector('.srf-label');
       if (lbl) lbl.textContent = LANG === 'ko' ? '루트 설정' : 'Set Route';
     }
   }
   if (exitBtn) {
-    exitBtn.style.display = show ? 'flex' : 'none';
+    exitBtn.style.display = showExit ? 'flex' : 'none';
     if (typeof LANG !== 'undefined') {
       var exlbl = exitBtn.querySelector('.wex-label');
       if (exlbl) exlbl.textContent = LANG === 'ko' ? '나가기' : 'Exit';

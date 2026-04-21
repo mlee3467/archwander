@@ -2533,6 +2533,21 @@
 #walk-exit-btn:active { background: #f0f0f0; }
 .wex-label { letter-spacing: -0.1px; }
 
+/* Desktop: Near Me FABs — side by side at bottom center, no bottom nav offset */
+@media (min-width: 901px) {
+  #set-route-fab {
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(calc(-100% - 6px));  /* left of center */
+  }
+  #set-route-fab:active { transform: translateX(calc(-100% - 6px)); }
+  #walk-exit-btn {
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(6px);  /* right of center */
+  }
+}
+
 /* ═══════════════════════════════════════════════════════════════
    ROUTE CUSTOM POPUP — photo / SV thumbnail
    ═══════════════════════════════════════════════════════════════ */
