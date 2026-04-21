@@ -141,12 +141,14 @@ window.addEventListener('load', function() {
     if (!activeCity) { activeCity = 'nyc'; activeCityKey = 'new-york'; }
     _initMapTiles();
     if (typeof showSplash === 'function') showSplash();
+    if (typeof _scheduleMidnightReset === 'function') _scheduleMidnightReset();
   } else {
     // Desktop: show map immediately (at NYC fallback), then GPS snaps to correct city.
     _mapInited = true;
     if (!activeCity) { activeCity = 'nyc'; activeCityKey = 'new-york'; }
     _initMapTiles();   // renders immediately so there's no blank-map wait
     _doFullMapInit();  // GPS → setView(correct city) → loadData → refreshApp
+    if (typeof _scheduleMidnightReset === 'function') _scheduleMidnightReset();
   }
 
   // ── Walk slider: re-filter on change ──────────────────────────

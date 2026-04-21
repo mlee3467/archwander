@@ -713,7 +713,24 @@ var _luckyTouchY = 0;
 var _luckyDragging = false;
 
 function _luckyTodayStr() {
-  return new Date().toISOString().slice(0, 10);
+  // Use LOCAL date so reset happens at local midnight (not UTC midnight)
+  var d = new Date();
+  return d.getFullYear() + '-' +
+    String(d.getMonth() + 1).padStart(2, '0') + '-' +
+    String(d.getDate()).padStart(2, '0');
+}
+
+// Schedule an automatic reset at the next local midnight
+// (handles case where user leaves the page open past 00:00)
+function _scheduleMidnightReset() {
+  var now = new Date();
+  var midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
+  var ms = midnight - now;
+  setTimeout(function() {
+    // Invalidate stored date → next _luckyGetSeen() call will reset seen list
+    localStorage.setItem(_LUCKY_KEY_DATE, '');
+    _scheduleMidnightReset(); // reschedule for the following midnight
+  }, ms);
 }
 
 function _luckyGetSeen() {
