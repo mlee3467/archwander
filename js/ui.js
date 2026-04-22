@@ -36,8 +36,10 @@ function gotoPhoto(idx) {
   var svExt = gallery.querySelector('.sv-fallback');
   var svIntFrames = Array.from(gallery.querySelectorAll('.sv-fallback-int'));
   var photoCount = activeLoc && activeLoc.photos ? activeLoc.photos.length : 0;
-  var isSVExt = !!svExt && idx === photoCount;
-  var intRelIdx = idx - photoCount - 1; // index into svIntFrames (0-based), -1 if not interior
+  var hasExtSV = !!svExt; // check actual DOM — exterior SV only exists when loc.sv was configured
+  var isSVExt = hasExtSV && idx === photoCount;
+  // intRelIdx accounts for whether exterior SV slot exists (avoids off-by-one when sv is null)
+  var intRelIdx = idx - photoCount - (hasExtSV ? 1 : 0);
   var isSVInt = svIntFrames.length > 0 && intRelIdx >= 0 && intRelIdx < svIntFrames.length;
   var isSV = isSVExt || isSVInt;
 
@@ -95,7 +97,7 @@ function updateGLabel() {
   var hasSV = _hasApiKey && !!activeLoc.sv; // exterior SV only when sv is configured
   var svIntArr = _hasApiKey ? (Array.isArray(activeLoc.svInt) ? activeLoc.svInt : (activeLoc.svInt ? [activeLoc.svInt] : [])) : [];
   var isSVExt = hasSV && photoIdx === photoCount;
-  var intRelIdx = photoIdx - photoCount - 1;
+  var intRelIdx = photoIdx - photoCount - (hasSV ? 1 : 0); // consistent with gotoPhoto
   var isSVInt = svIntArr.length > 0 && intRelIdx >= 0 && intRelIdx < svIntArr.length;
   var label;
   if (isSVInt) {
