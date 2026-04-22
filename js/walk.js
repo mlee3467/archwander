@@ -12,6 +12,33 @@ function saveReport(report) {
     reports.unshift(report);
     localStorage.setItem(REPORTS_KEY, JSON.stringify(reports));
   } catch(e) { console.warn('Report save failed', e); }
+  // Also persist to Supabase (fire-and-forget)
+  _submitToSupabase('reports', {
+    loc_id:     report.locId,
+    loc_name:   report.locName,
+    city:       report.city,
+    type:       report.type,
+    type_label: report.typeLabel,
+    desc:       report.desc,
+    lang:       report.lang
+  });
+}
+
+function _submitToSupabase(table, data) {
+  try {
+    if (typeof SUPABASE_URL === 'undefined' || !SUPABASE_URL) return;
+    if (typeof SUPABASE_ANON_KEY === 'undefined' || !SUPABASE_ANON_KEY) return;
+    fetch(SUPABASE_URL + '/rest/v1/' + table, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(data)
+    }).catch(function(e) { console.warn('Supabase submit failed (' + table + '):', e.message); });
+  } catch(e) { /* silent */ }
 }
 
 function openReportModal() {

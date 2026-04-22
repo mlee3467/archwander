@@ -304,6 +304,18 @@ function saveReview(locId, review) {
     data[locId].reviews.unshift(review);
     localStorage.setItem(REVIEWS_KEY, JSON.stringify(data));
   } catch(e) { console.warn('Review save failed', e); }
+  // Also persist to Supabase (fire-and-forget)
+  if (typeof _submitToSupabase === 'function') {
+    _submitToSupabase('reviews', {
+      loc_id:   locId,
+      loc_name: (typeof activeLoc !== 'undefined' && activeLoc?.id === locId) ? activeLoc.name : null,
+      city:     (typeof activeLoc !== 'undefined' && activeLoc?.id === locId) ? activeLoc.city : null,
+      stars:    review.stars,
+      name:     review.name,
+      text:     review.text,
+      lang:     typeof LANG !== 'undefined' ? LANG : 'en'
+    });
+  }
 }
 
 function starsHtml(n, total = 5, size = 14) {
