@@ -19,7 +19,7 @@ function saveReport(report) {
     city:       report.city,
     type:       report.type,
     type_label: report.typeLabel,
-    desc:       report.desc,
+    details:    report.desc,
     lang:       report.lang
   });
 }
