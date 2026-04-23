@@ -611,6 +611,43 @@
   </div>
 </div>
 <!-- Report Issue Modal -->
+<!-- Share sheet -->
+<div class="share-sheet-overlay" id="share-sheet-overlay" onclick="closeShareSheet()">
+  <div class="share-sheet" id="share-sheet" onclick="event.stopPropagation()">
+    <div class="share-sheet-title">Share Location</div>
+    <div class="share-copy-row">
+      <input class="share-url-input" id="share-url-input" readonly>
+      <button class="share-copy-btn" id="share-copy-btn" onclick="shareAction('copy')">Copy</button>
+    </div>
+    <div class="share-platforms">
+      <button class="share-plat-btn" onclick="shareAction('facebook')">
+        <span class="share-plat-icon">📘</span><span class="share-plat-label">Facebook</span>
+      </button>
+      <button class="share-plat-btn" onclick="shareAction('x')">
+        <span class="share-plat-icon">𝕏</span><span class="share-plat-label">X</span>
+      </button>
+      <button class="share-plat-btn" onclick="shareAction('threads')">
+        <span class="share-plat-icon">🧵</span><span class="share-plat-label">Threads</span>
+      </button>
+      <button class="share-plat-btn" onclick="shareAction('instagram')">
+        <span class="share-plat-icon">📷</span><span class="share-plat-label">Instagram</span>
+      </button>
+      <button class="share-plat-btn share-whatsapp" onclick="shareAction('whatsapp')">
+        <span class="share-plat-icon">💬</span><span class="share-plat-label">WhatsApp</span>
+      </button>
+      <button class="share-plat-btn share-kakao" onclick="shareAction('kakao')">
+        <span class="share-plat-icon">💛</span><span class="share-plat-label">KakaoTalk</span>
+      </button>
+      <button class="share-plat-btn share-line" onclick="shareAction('line')">
+        <span class="share-plat-icon">💚</span><span class="share-plat-label">LINE</span>
+      </button>
+      <button class="share-plat-btn" onclick="shareAction('native')">
+        <span class="share-plat-icon">⬆️</span><span class="share-plat-label">More…</span>
+      </button>
+    </div>
+  </div>
+</div>
+
 <div class="report-modal-overlay" id="report-modal-overlay" onclick="handleReportOverlayClick(event)">
   <div class="report-modal-box" onclick="event.stopPropagation()">
     <div class="report-modal-header">

@@ -495,3 +495,124 @@ function submitReview(locId) {
 }
 
 // ══════════════════════════════════════════════════════════════════
+
+// ══════════════════════════════════════════════════════════════════
+// SHARE
+// ══════════════════════════════════════════════════════════════════
+function _shareUrl() {
+  if (!activeLoc) return '';
+  return `https://www.google.com/maps/search/?api=1&query=${activeLoc.lat},${activeLoc.lng}`;
+}
+function _shareText() {
+  if (!activeLoc) return '';
+  return `${activeLoc.name} — ArchWander\n${_shareUrl()}`;
+}
+
+function openShareSheet(e) {
+  if (!activeLoc) return;
+  e && e.stopPropagation();
+
+  const url     = _shareUrl();
+  const overlay = document.getElementById('share-sheet-overlay');
+  const sheet   = document.getElementById('share-sheet');
+  const input   = document.getElementById('share-url-input');
+  const copyBtn = document.getElementById('share-copy-btn');
+
+  input.value = url;
+  copyBtn.textContent = 'Copy';
+  copyBtn.classList.remove('copied');
+  sheet.style.transform = '';
+  overlay.classList.add('open');
+
+  // Position sheet near the share button
+  const btn = document.getElementById('p-share-btn');
+  if (btn) {
+    const r      = btn.getBoundingClientRect();
+    const sheetW = 272;
+    let left = Math.min(r.left, window.innerWidth - sheetW - 12);
+    left = Math.max(8, left);
+    let top = r.bottom + 6;
+    if (top + 250 > window.innerHeight) top = r.top - 252;
+    sheet.style.left = left + 'px';
+    sheet.style.top  = top  + 'px';
+  } else {
+    sheet.style.left      = '50%';
+    sheet.style.top       = '50%';
+    sheet.style.transform = 'translate(-50%,-50%)';
+  }
+}
+
+function closeShareSheet() {
+  document.getElementById('share-sheet-overlay').classList.remove('open');
+}
+
+function shareAction(platform) {
+  const url  = _shareUrl();
+  const text = _shareText();
+  const enc  = encodeURIComponent;
+
+  switch (platform) {
+    case 'copy':
+      navigator.clipboard.writeText(url).then(() => {
+        const btn = document.getElementById('share-copy-btn');
+        btn.textContent = '✓ Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+      }).catch(() => { document.getElementById('share-url-input').select(); });
+      break;
+
+    case 'facebook':
+      window.open(`https://www.facebook.com/sharer/sharer.php?u=${enc(url)}`, '_blank', 'width=600,height=400');
+      closeShareSheet(); break;
+
+    case 'x':
+      window.open(`https://twitter.com/intent/tweet?text=${enc(activeLoc.name)}&url=${enc(url)}`, '_blank', 'width=600,height=400');
+      closeShareSheet(); break;
+
+    case 'threads':
+      window.open(`https://www.threads.net/intent/post?text=${enc(text)}`, '_blank', 'width=600,height=500');
+      closeShareSheet(); break;
+
+    case 'instagram':
+      navigator.clipboard.writeText(url).then(() => {
+        alert('링크 복사됨! Instagram 앱에 붙여넣기 하세요.');
+      }).catch(() => { document.getElementById('share-url-input').select(); });
+      break;
+
+    case 'whatsapp':
+      window.open(`https://wa.me/?text=${enc(text)}`, '_blank');
+      closeShareSheet(); break;
+
+    case 'kakao':
+      if (/iPhone|iPad|Android/i.test(navigator.userAgent)) {
+        window.open(`kakaotalk://msg/send?text=${enc(text)}`, '_blank');
+        setTimeout(() => {
+          navigator.clipboard.writeText(url).catch(() => {});
+        }, 300);
+      } else {
+        navigator.clipboard.writeText(url).then(() => {
+          alert('링크 복사됨! KakaoTalk에 붙여넣기 하세요.');
+        });
+      }
+      break;
+
+    case 'line':
+      window.open(`https://line.me/R/msg/text/?${enc(text)}`, '_blank');
+      closeShareSheet(); break;
+
+    case 'native':
+      if (navigator.share) {
+        navigator.share({ title: activeLoc.name, text: `${activeLoc.name} — ArchWander`, url })
+          .catch(() => {});
+        closeShareSheet();
+      } else {
+        navigator.clipboard.writeText(url).then(() => {
+          const btn = document.getElementById('share-copy-btn');
+          btn.textContent = '✓ Copied!';
+          btn.classList.add('copied');
+          setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+        });
+      }
+      break;
+  }
+}

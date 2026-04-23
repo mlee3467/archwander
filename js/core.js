@@ -470,6 +470,7 @@ function openLoc(loc) {
     <div class="p-action-row">
       <button class="p-action-btn${isFav(loc.id)?' fav-active':''}" id="p-fav-btn" onclick="toggleFav('${loc.id}')"><span class="act-icon">${isFav(loc.id)?'★':'☆'}</span> ${t('fav_label')}</button>
       <button class="p-action-btn${isVisited(loc.id)?' vis-active':''}" id="p-vis-btn" onclick="toggleVisited('${loc.id}')"><span class="act-icon">${isVisited(loc.id)?'✓':'○'}</span> ${t('vis_label')}</button>
+      <button class="p-action-btn" id="p-share-btn" onclick="openShareSheet(event)"><span class="act-icon">↑</span> Share</button>
     </div>
     <div class="visit-section" id="visit-section-${loc.id}" ${isVisited(loc.id)?'':'style="display:none"'}>
       ${isVisited(loc.id) ? (typeof _buildVisitSectionHTML === 'function' ? _buildVisitSectionHTML(loc.id) : '') : ''}
