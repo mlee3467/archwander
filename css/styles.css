@@ -3651,6 +3651,13 @@
 .mpp-btn-delete {
   background: #fff0f0; color: #c0392b; border-color: #f5c6c6;
 }
+.mpp-btn-dbrefresh {
+  background: #eaf4ff; color: #1a6fb5; border-color: #b3d7f5;
+  width: 100%;
+}
+.mpp-btn-dbrefresh:disabled {
+  opacity: 0.6; cursor: not-allowed;
+}
 
 /* ── City grid ── */
 .mpp-city-grid {

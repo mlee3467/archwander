@@ -508,6 +508,20 @@ function _openMyPage() {
           '<div class="mpp-coming-soon">🚧 ' + (isKo ? '더 많은 통계 준비 중' : 'More stats coming soon') + '</div>' +
         '</div>' +
 
+        // ── Section 4: DB Refresh ───────────────────────────────
+        '<div class="mpp-section">' +
+          '<div class="mpp-sec-title">' + (isKo ? '🔄 데이터 새로고침' : '🔄 Data Refresh') + '</div>' +
+          '<div class="mpp-sec-sub">' + (isKo
+            ? 'Supabase에서 최신 위치 데이터를 강제로 불러옵니다. 로컬 캐시를 우회하며, 즐겨찾기·방문 데이터는 유지됩니다.'
+            : 'Force-fetch the latest location data from Supabase, bypassing the local cache. Favorites & visits are kept.') + '</div>' +
+          '<div class="mpp-btn-row">' +
+            '<button id="mpp-db-refresh-btn" class="mpp-btn mpp-btn-dbrefresh" onclick="_mpForceDbRefresh()">' +
+              (isKo ? '🔄 DB에서 최신 데이터 불러오기' : '🔄 Reload from Database') +
+            '</button>' +
+          '</div>' +
+          '<div id="mpp-db-refresh-status" style="font-size:11px;margin-top:8px;min-height:16px;color:#888;line-height:1.4"></div>' +
+        '</div>' +
+
       '</div>' +
     '</div>' +
     // hidden file input for import
@@ -531,6 +545,82 @@ function _closeMyPage() {
   setTimeout(function() {
     if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
   }, 280);
+}
+
+// ── Force DB refresh ─────────────────────────────────────────────
+function _mpForceDbRefresh() {
+  var isKo = (typeof LANG !== 'undefined') ? LANG === 'ko' : false;
+  var btn    = document.getElementById('mpp-db-refresh-btn');
+  var status = document.getElementById('mpp-db-refresh-status');
+
+  // Collect cities that were loaded (reload those; fall back to active city)
+  var citiesToReload = [];
+  if (typeof _loadedCities !== 'undefined') {
+    citiesToReload = Object.keys(_loadedCities).filter(function(k) { return _loadedCities[k]; });
+  }
+  if (!citiesToReload.length && typeof activeCity !== 'undefined') {
+    citiesToReload = [activeCity];
+  }
+  if (!citiesToReload.length) {
+    citiesToReload = ['nyc', 'sel', 'lon', 'tky'];
+  }
+
+  // Update button to loading state
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = isKo ? '⏳ 불러오는 중…' : '⏳ Loading…';
+    btn.style.opacity = '0.7';
+  }
+  if (status) { status.textContent = ''; status.style.color = '#888'; }
+
+  // ── Wipe local caches ──────────────────────────────────────────
+  // _loadedCities flags
+  if (typeof _loadedCities !== 'undefined') {
+    Object.keys(_loadedCities).forEach(function(k) { delete _loadedCities[k]; });
+  }
+  // LOCS array (keep the array reference, just empty it)
+  if (typeof LOCS !== 'undefined') LOCS.length = 0;
+  // LOCS_KO translations
+  if (typeof LOCS_KO !== 'undefined') {
+    Object.keys(LOCS_KO).forEach(function(k) { delete LOCS_KO[k]; });
+  }
+
+  // ── Reload from Supabase (or data-*.js fallback) ───────────────
+  var start    = Date.now();
+  var promises = citiesToReload.map(function(code) {
+    return (typeof loadCityData === 'function') ? loadCityData(code) : Promise.resolve();
+  });
+
+  Promise.all(promises).then(function() {
+    var elapsed = ((Date.now() - start) / 1000).toFixed(1);
+    var total   = (typeof LOCS !== 'undefined') ? LOCS.length : 0;
+
+    if (typeof refreshApp === 'function')              refreshApp();
+    if (typeof _updatePassportStats === 'function')    _updatePassportStats();
+
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = isKo ? '🔄 DB에서 최신 데이터 불러오기' : '🔄 Reload from Database';
+      btn.style.opacity = '';
+    }
+    if (status) {
+      status.style.color = '#27ae60';
+      status.textContent = isKo
+        ? '✅ ' + total + '개 장소 업데이트 완료 (' + elapsed + 's)'
+        : '✅ ' + total + ' locations updated (' + elapsed + 's)';
+    }
+  }).catch(function(err) {
+    console.error('[mypage] DB refresh error:', err);
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = isKo ? '🔄 DB에서 최신 데이터 불러오기' : '🔄 Reload from Database';
+      btn.style.opacity = '';
+    }
+    if (status) {
+      status.style.color = '#c0392b';
+      status.textContent = (isKo ? '❌ 오류: ' : '❌ Error: ') + (err.message || String(err));
+    }
+  });
 }
 
 // ── Default city picker ──────────────────────────────────────────
