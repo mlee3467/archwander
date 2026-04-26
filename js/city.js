@@ -733,12 +733,12 @@ function _loadCityDataSupabase(cityCode, meta) {
     .then(function(result) {
       if (result.error) throw result.error;
       var freshLocs = result.data.map(_dbRowToLoc);
-      // Merge with any localStorage edits (admin panel changes)
-      var merged    = _mergeLocsFromStorage(freshLocs);
-      var cityIds   = new Set(freshLocs.map(function(l) { return l.id; }));
-      var cityMerged = merged.filter(function(l) { return cityIds.has(l.id); });
+      // Supabase is the single source of truth — do NOT merge with localStorage.
+      // _mergeLocsFromStorage() was previously used here but caused stale data:
+      // existing IDs in localStorage['archwander_locs_v2'] silently overrode
+      // fresh DB values, so coordinate/field updates were never reflected.
       var existingIds = new Set(LOCS.map(function(l) { return l.id; }));
-      cityMerged.forEach(function(l) {
+      freshLocs.forEach(function(l) {
         if (!existingIds.has(l.id)) LOCS.push(l);
       });
       // Merge Korean translations from ko_* columns
