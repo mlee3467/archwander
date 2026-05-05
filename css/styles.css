@@ -3698,3 +3698,63 @@
 .mpp-coming-soon {
   font-size: 12px; color: #aaa; text-align: center; padding: 6px 0 2px;
 }
+
+/* ── Search autocomplete dropdown ──────────────────────── */
+#search-ac {
+  display: none;
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0; right: 0;
+  background: #fff;
+  border: 1px solid #e0e0dc;
+  border-radius: 10px;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.13);
+  z-index: 9999;
+  overflow: hidden;
+  max-height: 340px;
+  overflow-y: auto;
+}
+#search-ac.open { display: block; }
+.ac-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 13px;
+  cursor: pointer;
+  transition: background 0.1s;
+  border-bottom: 1px solid #f3f3f0;
+}
+.ac-item:last-child { border-bottom: none; }
+.ac-item:hover,
+.ac-item.ac-focused { background: #f5f5f0; }
+.ac-thumb {
+  width: 36px; height: 36px; border-radius: 6px;
+  object-fit: cover; flex-shrink: 0; background: #e8e8e4;
+}
+.ac-body { flex: 1; min-width: 0; }
+.ac-name {
+  font-size: 12px; font-weight: 600; color: #111;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ac-name mark {
+  background: #fef3c7; color: #92400e;
+  border-radius: 2px; padding: 0 1px; font-weight: 700;
+}
+.ac-meta {
+  font-size: 10.5px; color: #999; margin-top: 1px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ac-meta mark {
+  background: transparent; color: #c2410c; font-weight: 600;
+}
+.ac-badge {
+  font-size: 9px; font-weight: 700; color: #6b7280;
+  background: #f3f4f6; border-radius: 3px; padding: 1px 5px;
+  flex-shrink: 0; white-space: nowrap;
+}
+.ac-footer {
+  padding: 7px 13px;
+  font-size: 11px; color: #aaa; text-align: center;
+  background: #fafaf8; cursor: pointer;
+}
+.ac-footer:hover { color: #555; background: #f3f3f0; }

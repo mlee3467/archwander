@@ -191,11 +191,173 @@ function getFiltered() {
   return list;
 }
 
-document.getElementById('search').addEventListener('input', function() {
-  state.query = this.value;
-  renderList();
-  syncMarkers();
-});
+// ══════════════════════════════════════════════════════════════════
+// SEARCH AUTOCOMPLETE
+// ══════════════════════════════════════════════════════════════════
+(function() {
+  var searchEl = document.getElementById('search');
+  var acEl     = document.getElementById('search-ac');
+  var acIdx    = -1;   // keyboard-focused item index
+  var AC_MAX   = 8;    // max suggestions shown
+  var _acOpen  = false;
+
+  // Escape HTML for safe innerHTML injection
+  function _esc(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  // Wrap matched substring in <mark>
+  function _highlight(text, q) {
+    if (!q) return _esc(text);
+    var idx = text.toLowerCase().indexOf(q.toLowerCase());
+    if (idx < 0) return _esc(text);
+    return _esc(text.slice(0, idx))
+      + '<mark>' + _esc(text.slice(idx, idx + q.length)) + '</mark>'
+      + _esc(text.slice(idx + q.length));
+  }
+
+  // First photo URL for a loc (or empty string)
+  function _acThumb(loc) {
+    var photos = loc.photos || [];
+    return photos.length ? photos[0] : '';
+  }
+
+  function closeAc() {
+    acEl.classList.remove('open');
+    acEl.innerHTML = '';
+    acIdx = -1;
+    _acOpen = false;
+  }
+
+  function openAc(items, q, totalMatches) {
+    acIdx = -1;
+    var html = items.map(function(loc, i) {
+      var thumb = _acThumb(loc);
+      var thumbHtml = thumb
+        ? '<img class="ac-thumb" src="' + thumb + '" loading="lazy" onerror="this.style.display=\'none\'">'
+        : '<div class="ac-thumb"></div>';
+
+      // Check if addr matched (vs name matched)
+      var nameMatch = loc.name.toLowerCase().includes(q.toLowerCase());
+      var addrStr   = loc.addr || '';
+      var metaText  = addrStr
+        ? (nameMatch ? _esc(addrStr) : _highlight(addrStr, q))
+        : (_esc(loc.hood || '') + (loc.yr ? ' · ' + loc.yr : ''));
+
+      var badge = loc.city
+        ? '<span class="ac-badge">' + _esc(loc.city.replace('-',' ')) + '</span>'
+        : '';
+
+      return '<div class="ac-item" data-id="' + loc.id + '" data-idx="' + i + '"'
+        + ' onmousedown="event.preventDefault()" onclick="_acSelect(\'' + loc.id + '\')">'
+        + thumbHtml
+        + '<div class="ac-body">'
+        + '<div class="ac-name">' + _highlight(loc.name, q) + '</div>'
+        + '<div class="ac-meta">' + metaText + '</div>'
+        + '</div>'
+        + badge
+        + '</div>';
+    }).join('');
+
+    // Footer showing total count if more than AC_MAX
+    if (totalMatches > AC_MAX) {
+      html += '<div class="ac-footer" onmousedown="event.preventDefault()" onclick="_acCommit()">'
+        + '↵  ' + totalMatches + '개 검색결과 모두 보기</div>';
+    }
+
+    acEl.innerHTML = html;
+    acEl.classList.add('open');
+    _acOpen = true;
+  }
+
+  function _updateFocus() {
+    var items = acEl.querySelectorAll('.ac-item');
+    items.forEach(function(el, i) {
+      el.classList.toggle('ac-focused', i === acIdx);
+    });
+  }
+
+  // Commit current search (close AC, keep query → list already filtered)
+  window._acCommit = function() {
+    closeAc();
+    searchEl.blur();
+  };
+
+  // Select a specific location from AC
+  window._acSelect = function(id) {
+    closeAc();
+    searchEl.value = '';
+    state.query = '';
+    renderList();
+    syncMarkers();
+    openLocById(id);
+  };
+
+  // Input handler — update list AND autocomplete
+  searchEl.addEventListener('input', function() {
+    state.query = this.value;
+    renderList();
+    syncMarkers();
+
+    var q = this.value.trim();
+    if (q.length < 1) { closeAc(); return; }
+
+    // Collect candidates from active city
+    var ql = q.toLowerCase();
+    var cityLocs = LOCS.filter(function(l) { return l.city === activeCityKey; });
+
+    // Score: 0=name-starts, 1=name-contains, 2=addr-contains
+    var scored = [];
+    cityLocs.forEach(function(l) {
+      var nl = l.name.toLowerCase();
+      var al = (l.addr || '').toLowerCase();
+      if (nl.startsWith(ql))        scored.push({ loc:l, score:0 });
+      else if (nl.includes(ql))     scored.push({ loc:l, score:1 });
+      else if (al.includes(ql))     scored.push({ loc:l, score:2 });
+    });
+    scored.sort(function(a,b) { return a.score - b.score || a.loc.name.length - b.loc.name.length; });
+
+    if (!scored.length) { closeAc(); return; }
+    openAc(scored.slice(0, AC_MAX).map(function(s){ return s.loc; }), q, scored.length);
+  });
+
+  // Keyboard navigation
+  searchEl.addEventListener('keydown', function(e) {
+    if (!_acOpen) {
+      if (e.key === 'Escape') { this.value = ''; state.query = ''; renderList(); syncMarkers(); }
+      return;
+    }
+    var items = acEl.querySelectorAll('.ac-item');
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      acIdx = Math.min(acIdx + 1, items.length - 1);
+      _updateFocus();
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      acIdx = Math.max(acIdx - 1, -1);
+      _updateFocus();
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      if (acIdx >= 0 && items[acIdx]) {
+        var id = items[acIdx].dataset.id;
+        if (id) { _acSelect(id); return; }
+      }
+      _acCommit();
+    } else if (e.key === 'Escape') {
+      closeAc();
+    }
+  });
+
+  // Close AC on blur (slight delay so click fires first)
+  searchEl.addEventListener('blur', function() {
+    setTimeout(closeAc, 150);
+  });
+
+  // Close AC on outside click
+  document.addEventListener('mousedown', function(e) {
+    if (!acEl.contains(e.target) && e.target !== searchEl) closeAc();
+  });
+})();
 
 // ══════════════════════════════════════════════════════════════════
 // RENDER LIST
