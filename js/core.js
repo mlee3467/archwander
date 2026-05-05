@@ -307,10 +307,11 @@ function getFiltered() {
     var cityLocs = LOCS.filter(function(l) { return l.city === activeCityKey; });
 
     // Score: 0=name-starts, 1=name-contains, 2=addr-contains
+    // Zip codes (\d{5}) are stripped from addr before matching
     var scored = [];
     cityLocs.forEach(function(l) {
       var nl = l.name.toLowerCase();
-      var al = (l.addr || '').toLowerCase();
+      var al = (l.addr || '').toLowerCase().replace(/\b\d{5}(-\d{4})?\b/g, '');
       if (nl.startsWith(ql))        scored.push({ loc:l, score:0 });
       else if (nl.includes(ql))     scored.push({ loc:l, score:1 });
       else if (al.includes(ql))     scored.push({ loc:l, score:2 });
