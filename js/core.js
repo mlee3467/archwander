@@ -144,7 +144,8 @@ function _awTrackSearchDebounced(locIds) {
 // ══════════════════════════════════════════════════════════════════
 // FILTERED + SORTED LIST
 // ══════════════════════════════════════════════════════════════════
-function getFiltered() {
+function getFiltered(opts) {
+  const skipQuery = opts && opts.skipQuery;
   let list = LOCS.filter(l => l.city === activeCityKey);
   if (state.cat.length)    list = list.filter(l => state.cat.some(c => _allCats(l).includes(c)));
   if (state.style.length)  list = list.filter(l => state.style.some(s => _allSGs(l).includes(s)));
@@ -156,7 +157,7 @@ function getFiltered() {
   if (state.hood  !== 'All') list = list.filter(l => l.hood === state.hood);
   if (state.fav === '★ Favorites') list = list.filter(l => _favSet.has(l.id));
   if (state.fav === '✓ Visited')   list = list.filter(l => _visSet.has(l.id));
-  if (state.query) {
+  if (!skipQuery && state.query) {
     const q = state.query.toLowerCase();
     list = list.filter(l =>
       l.name.toLowerCase().includes(q) || (l.arch||'').toLowerCase().includes(q) ||
@@ -309,9 +310,10 @@ function getFiltered() {
     var q = this.value.trim();
     if (q.length < 1) { closeAc(); return; }
 
-    // Collect candidates from currently filtered list (respects active filters)
+    // Collect candidates: respect active filters but NOT the text query
+    // (text matching is handled by the scoring loop below)
     var ql = q.toLowerCase();
-    var cityLocs = getFiltered();
+    var cityLocs = getFiltered({ skipQuery: true });
 
     // Score: 0=name-starts, 1=name-contains, 2=addr-contains, 3=arch-contains
     // Zip codes (\d{5}) are stripped from addr before matching
