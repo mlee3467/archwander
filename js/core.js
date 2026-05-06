@@ -217,10 +217,21 @@ function getFiltered(opts) {
       + _esc(text.slice(idx + q.length));
   }
 
-  // First photo URL for a loc (or empty string)
+  // Thumbnail URL: first photo, or Street View Static API fallback
   function _acThumb(loc) {
     var photos = loc.photos || [];
-    return photos.length ? photos[0] : '';
+    if (photos.length) return photos[0];
+    // Street View Static API fallback (72×72 @ 2× for retina)
+    var sv = loc.sv;
+    if (!sv || !sv.lat || !sv.lng) return '';
+    return 'https://maps.googleapis.com/maps/api/streetview'
+         + '?size=72x72'
+         + '&location=' + sv.lat + ',' + sv.lng
+         + '&heading='  + (sv.heading || 0)
+         + '&pitch='    + (sv.pitch   || 0)
+         + '&fov='      + (sv.fov     || 90)
+         + '&return_error_code=true'
+         + '&key='      + GOOGLE_MAPS_API_KEY;
   }
 
   function closeAc() {
@@ -237,7 +248,7 @@ function getFiltered(opts) {
       var score = item.score;
       var thumb = _acThumb(loc);
       var thumbHtml = thumb
-        ? '<img class="ac-thumb" src="' + thumb + '" loading="lazy" onerror="this.style.display=\'none\'">'
+        ? '<img class="ac-thumb" src="' + thumb + '" loading="eager" onerror="this.style.display=\'none\'">'
         : '<div class="ac-thumb"></div>';
 
       // Meta line: arch match → show architect; addr match → highlight addr; name match → plain addr
