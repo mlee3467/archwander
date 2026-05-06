@@ -229,20 +229,27 @@ function getFiltered() {
     _acOpen = false;
   }
 
-  function openAc(items, q, totalMatches) {
+  function openAc(scoredItems, q, totalMatches) {
     acIdx = -1;
-    var html = items.map(function(loc, i) {
+    var html = scoredItems.map(function(item, i) {
+      var loc   = item.loc;
+      var score = item.score;
       var thumb = _acThumb(loc);
       var thumbHtml = thumb
         ? '<img class="ac-thumb" src="' + thumb + '" loading="lazy" onerror="this.style.display=\'none\'">'
         : '<div class="ac-thumb"></div>';
 
-      // Check if addr matched (vs name matched)
-      var nameMatch = loc.name.toLowerCase().includes(q.toLowerCase());
-      var addrStr   = loc.addr || '';
-      var metaText  = addrStr
-        ? (nameMatch ? _esc(addrStr) : _highlight(addrStr, q))
-        : (_esc(loc.hood || '') + (loc.yr ? ' · ' + loc.yr : ''));
+      // Meta line: arch match → show architect; addr match → highlight addr; name match → plain addr
+      var metaText;
+      if (score === 3) {
+        var archStr = loc.arch || (loc.archs && loc.archs[0]) || '';
+        metaText = '🏛 ' + _highlight(archStr, q);
+      } else {
+        var addrStr = loc.addr || '';
+        metaText = addrStr
+          ? (score <= 1 ? _esc(addrStr) : _highlight(addrStr, q))
+          : (_esc(loc.hood || '') + (loc.yr ? ' · ' + loc.yr : ''));
+      }
 
       var badge = loc.city
         ? '<span class="ac-badge">' + _esc(loc.city.replace('-',' ')) + '</span>'
@@ -306,20 +313,23 @@ function getFiltered() {
     var ql = q.toLowerCase();
     var cityLocs = LOCS.filter(function(l) { return l.city === activeCityKey; });
 
-    // Score: 0=name-starts, 1=name-contains, 2=addr-contains
+    // Score: 0=name-starts, 1=name-contains, 2=addr-contains, 3=arch-contains
     // Zip codes (\d{5}) are stripped from addr before matching
     var scored = [];
     cityLocs.forEach(function(l) {
       var nl = l.name.toLowerCase();
       var al = (l.addr || '').toLowerCase().replace(/\b\d{5}(-\d{4})?\b/g, '');
+      var archMatch = (l.arch || '').toLowerCase().includes(ql) ||
+                      (l.archs || []).some(function(a){ return a.toLowerCase().includes(ql); });
       if (nl.startsWith(ql))        scored.push({ loc:l, score:0 });
       else if (nl.includes(ql))     scored.push({ loc:l, score:1 });
       else if (al.includes(ql))     scored.push({ loc:l, score:2 });
+      else if (archMatch)           scored.push({ loc:l, score:3 });
     });
     scored.sort(function(a,b) { return a.score - b.score || a.loc.name.length - b.loc.name.length; });
 
     if (!scored.length) { closeAc(); return; }
-    openAc(scored.slice(0, AC_MAX).map(function(s){ return s.loc; }), q, scored.length);
+    openAc(scored.slice(0, AC_MAX), q, scored.length);
   });
 
   // Keyboard navigation
