@@ -309,9 +309,9 @@ function getFiltered() {
     var q = this.value.trim();
     if (q.length < 1) { closeAc(); return; }
 
-    // Collect candidates from active city
+    // Collect candidates from currently filtered list (respects active filters)
     var ql = q.toLowerCase();
-    var cityLocs = LOCS.filter(function(l) { return l.city === activeCityKey; });
+    var cityLocs = getFiltered();
 
     // Score: 0=name-starts, 1=name-contains, 2=addr-contains, 3=arch-contains
     // Zip codes (\d{5}) are stripped from addr before matching
