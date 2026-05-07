@@ -217,21 +217,10 @@ function getFiltered(opts) {
       + _esc(text.slice(idx + q.length));
   }
 
-  // Thumbnail URL: first photo, or Street View Static API fallback
+  // Thumbnail URL: first photo only (SV Static API removed — quota concerns)
   function _acThumb(loc) {
     var photos = loc.photos || [];
-    if (photos.length) return photos[0];
-    // Street View Static API fallback (72×72 @ 2× for retina)
-    var sv = loc.sv;
-    if (!sv || !sv.lat || !sv.lng) return '';
-    return 'https://maps.googleapis.com/maps/api/streetview'
-         + '?size=72x72'
-         + '&location=' + sv.lat + ',' + sv.lng
-         + '&heading='  + (sv.heading || 0)
-         + '&pitch='    + (sv.pitch   || 0)
-         + '&fov='      + (sv.fov     || 90)
-         + '&return_error_code=true'
-         + '&key='      + GOOGLE_MAPS_API_KEY;
+    return photos.length ? photos[0] : '';
   }
 
   function closeAc() {
