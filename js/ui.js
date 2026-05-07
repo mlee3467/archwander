@@ -52,11 +52,9 @@ function gotoPhoto(idx) {
     if (isSVExt && typeof _requestMotionPermission === 'function') _requestMotionPermission();
   }
 
-  // Toggle interior SV divs — show only the matching one, init JS API on first show
+  // Toggle interior SV iframes — show only the matching one
   svIntFrames.forEach(function(fr, fi) {
-    var show = isSVInt && fi === intRelIdx;
-    fr.style.display = show ? '' : 'none';
-    if (show && typeof initIntSVPane === 'function') initIntSVPane(fr);
+    fr.style.display = (isSVInt && fi === intRelIdx) ? '' : 'none';
   });
 
   gallery.classList.toggle('sv-mode', isSV);

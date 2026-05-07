@@ -1354,16 +1354,18 @@ function _showRouteMarkerPopup(loc, beyondLimit) {
     if (hasInt) {
       for (var ji = 0; ji < svIntArr.length; ji++) {
         var si = svIntArr[ji];
-        var svCfgObj = {
-          panoId: si.panoId || null,
-          lat:    (si.lat     != null) ? si.lat     : loc.lat,
-          lng:    (si.lng     != null) ? si.lng     : loc.lng,
-          h:      (si.heading != null) ? si.heading : 0,
-          p:      (si.pitch   != null) ? si.pitch   : 0,
-          f:      Math.min(100, Math.max(10, (si.fov != null) ? si.fov : 90))
-        };
-        var svCfgStr = JSON.stringify(svCfgObj).replace(/'/g, '&#39;');
-        intPanes += '<div class="rmp-sv-pane rmp-sv-interior" data-sv-cfg=\'' + svCfgStr + '\' style="display:none"></div>';
+        var siH = (si.heading != null) ? si.heading : 0;
+        var siP = (si.pitch   != null) ? si.pitch   : 0;
+        var siF = Math.min(100, Math.max(10, (si.fov != null) ? si.fov : 90));
+        var siBase = 'https://www.google.com/maps/embed/v1/streetview?key=' +
+          GOOGLE_MAPS_API_KEY + '&heading=' + siH + '&pitch=' + siP + '&fov=' + siF;
+        var siSrc = si.panoId
+          ? siBase + '&pano=' + si.panoId
+          : siBase + '&location=' + ((si.lat != null) ? si.lat : loc.lat) +
+            ',' + ((si.lng != null) ? si.lng : loc.lng);
+        intPanes += '<div class="rmp-sv-pane rmp-sv-interior" style="display:none">' +
+          '<iframe src="' + siSrc + '" allow="' + SV_ALLOW + '" allowfullscreen loading="lazy"' +
+          ' referrerpolicy="no-referrer-when-downgrade"></iframe></div>';
       }
     }
     thumbHtml = '<div class="rmp-sv-wrap">' + togBar + outdoorPane + intPanes + '</div>';
@@ -1456,10 +1458,6 @@ function _rmpSvToggle(btn, mode) {
       var pane = interiors[b];
       if (b === idx) {
         pane.style.display = '';
-        if (!pane._svInited) {
-          pane._svInited = true;
-          if (typeof initIntSVPane === 'function') initIntSVPane(pane);
-        }
       } else {
         pane.style.display = 'none';
       }
