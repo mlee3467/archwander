@@ -241,7 +241,16 @@ function getFiltered(opts) {
     _acOpen = false;
   }
 
+  // Position the dropdown below the search input (fixed coords)
+  function _positionAc() {
+    var r = searchEl.getBoundingClientRect();
+    acEl.style.top   = (r.bottom + 4) + 'px';
+    acEl.style.left  = r.left + 'px';
+    acEl.style.width = r.width + 'px';
+  }
+
   function openAc(scoredItems, q, totalMatches) {
+    _positionAc();
     acIdx = -1;
     var html = scoredItems.map(function(item, i) {
       var loc   = item.loc;

@@ -3702,9 +3702,8 @@
 /* ── Search autocomplete dropdown ──────────────────────── */
 #search-ac {
   display: none;
-  position: absolute;
-  top: calc(100% + 4px);
-  left: 0; right: 0;
+  position: fixed;   /* fixed so header overflow:hidden can't clip it */
+  /* top/left/width set dynamically by JS via getBoundingClientRect */
   background: #fff;
   border: 1px solid #e0e0dc;
   border-radius: 10px;
