@@ -248,6 +248,8 @@ function applyThemes() {
   var mobBtn = document.getElementById('mob-ifl-btn');
   if (btn) btn.classList.toggle('active', state.themes.length > 0);
   if (mobBtn) mobBtn.classList.toggle('active', state.themes.length > 0);
+  var sbaIfl = document.getElementById('sba-ifl');
+  if (sbaIfl) sbaIfl.classList.toggle('sba-active', state.themes.length > 0);
   updateClearBtn();
   renderList();
   syncMarkers();
@@ -273,6 +275,8 @@ function clearThemes() {
   var mobBtn = document.getElementById('mob-ifl-btn');
   if (btn) btn.classList.remove('active');
   if (mobBtn) mobBtn.classList.remove('active');
+  var sbaIflClear = document.getElementById('sba-ifl');
+  if (sbaIflClear) sbaIflClear.classList.remove('sba-active');
   closeThemeModal();
   updateClearBtn();
   renderList();

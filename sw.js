@@ -1,6 +1,6 @@
 // ArchWander Service Worker
 // Strategy: app framework = Network First, external resources = Cache First
-const APP_CACHE = 'aw-app-v3';
+const APP_CACHE = 'aw-app-v0.3';
 const EXT_CACHE = 'aw-ext-v2';
 
 // App framework files — always fetch fresh, cache as fallback for offline
