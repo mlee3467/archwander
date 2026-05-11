@@ -1104,9 +1104,6 @@ function _refreshRouteUI() {
 }
 
 function _routeLocName(loc) {
-  if (LANG === 'ko' && typeof LOCS_KO !== 'undefined' && LOCS_KO[loc.id] && LOCS_KO[loc.id].name) {
-    return LOCS_KO[loc.id].name + ' <span style="color:#999;font-size:0.85em">' + _escHtml(loc.name) + '</span>';
-  }
   return _escHtml(loc.name);
 }
 

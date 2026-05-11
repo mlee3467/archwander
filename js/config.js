@@ -1,6 +1,3 @@
-// Translation priority: LOCS_KO (static, data-ko-*.js) → localStorage cache → API (MyMemory/DeepL)
-// data-ko.js combines city-specific data-ko-{city}.js files (same pattern as data.js).
-
 // ══════════════════════════════════════════════════════════════════
 // DATA
 // ══════════════════════════════════════════════════════════════════
@@ -11,8 +8,6 @@
 // ══════════════════════════════════════════════════════════════════
 // LOCS is populated by the lazy loader — starts empty
 var LOCS = [];
-// LOCS_KO is populated by lazy loader — Korean translations per city
-var LOCS_KO = {};
 
 // Merge newly added locations from freshly loaded data into localStorage snapshot
 function _mergeLocsFromStorage(freshLocs) {
@@ -136,12 +131,6 @@ var MAPTILER_STYLE   = 'streets-v2'; // 'streets-v2' | 'basic-v2' | 'topo-v2' | 
 // Thunderforest — fallback if MapTiler key is empty. Free: 150,000 tiles/month.
 var THUNDERFOREST_API_KEY = ''; // disabled — using CartoDB Voyager raster
 var THUNDERFOREST_STYLE   = 'pioneer'; // 'transport' | 'cycle' | 'atlas' | 'pioneer' | 'landscape'
-
-// DeepL API (optional) — translates location descriptions, hours, directions etc.
-// Free tier: 500,000 characters/month.
-// Sign up at deepl.com/pro-api → Free plan → copy Auth Key (ends with :fx).
-// Leave empty to use MyMemory (free, no key, lower quality, 5K chars/day).
-var DEEPL_API_KEY = '';
 
 // Google Maps Embed — Street View fallback for locations without photos.
 // Free: 28,000 loads/month. Secure with HTTP Referrer restriction in Google Cloud Console.

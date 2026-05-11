@@ -634,10 +634,10 @@ function _handleFavFileSelected(event) {
 // CITY SELECTOR + LAZY LOADING
 // ══════════════════════════════════════════════════════════════════
 var CITY_META = {
-  nyc: { key: 'new-york', label: '🗽 New York', localLang: 'en', lat: 40.7580, lng: -73.9855, zoom: 12, dataVar: 'LOCS_NEW_YORK', koVar: 'LOCS_KO_NEW_YORK' },
-  sel: { key: 'seoul',    label: '🏙 Seoul',    localLang: 'ko', lat: 37.5663, lng: 126.9779, zoom: 13, dataVar: 'LOCS_SEOUL',    koVar: 'LOCS_KO_SEOUL' },
-  lon: { key: 'london',   label: '🎡 London',   localLang: 'en', lat: 51.5101, lng: -0.0763,  zoom: 13, dataVar: 'LOCS_LONDON',   koVar: 'LOCS_KO_LONDON' },
-  tky: { key: 'tokyo',    label: '🗼 Tokyo',    localLang: 'ja', lat: 35.6895, lng: 139.6917, zoom: 13, dataVar: 'LOCS_TOKYO',    koVar: 'LOCS_KO_TOKYO' }
+  nyc: { key: 'new-york', label: '🗽 New York', localLang: 'en', lat: 40.7580, lng: -73.9855, zoom: 12, dataVar: 'LOCS_NEW_YORK' },
+  sel: { key: 'seoul',    label: '🏙 Seoul',    localLang: 'ko', lat: 37.5663, lng: 126.9779, zoom: 13, dataVar: 'LOCS_SEOUL'    },
+  lon: { key: 'london',   label: '🎡 London',   localLang: 'en', lat: 51.5101, lng: -0.0763,  zoom: 13, dataVar: 'LOCS_LONDON'   },
+  tky: { key: 'tokyo',    label: '🗼 Tokyo',    localLang: 'ja', lat: 35.6895, lng: 139.6917, zoom: 13, dataVar: 'LOCS_TOKYO'    }
 };
 
 // Track which city data files have been loaded
@@ -677,15 +677,6 @@ function _mergeCityLocs(cityCode, meta) {
   });
   _loadedCities[cityCode] = true;
   console.log('[lazy] Loaded ' + meta.key + ': ' + freshLocs.length + ' locations');
-}
-
-// Merge Korean translations for a city into LOCS_KO
-function _mergeKO(meta) {
-  var koData = _getGlobal(meta.koVar);
-  if (koData && typeof LOCS_KO !== 'undefined') {
-    Object.assign(LOCS_KO, koData);
-    console.log('[lazy] Merged KO translations for ' + meta.key);
-  }
 }
 
 // ── DB row → LOCS object ─────────────────────────────────────
@@ -741,20 +732,6 @@ function _loadCityDataSupabase(cityCode, meta) {
       freshLocs.forEach(function(l) {
         if (!existingIds.has(l.id)) LOCS.push(l);
       });
-      // Merge Korean translations from ko_* columns
-      result.data.forEach(function(row) {
-        if (row.ko_name || row.ko_desc) {
-          LOCS_KO[row.id] = {
-            name:      row.ko_name      || '',
-            desc:      row.ko_desc      || '',
-            hood:      row.ko_hood      || '',
-            hours:     row.ko_hours     || '',
-            admission: row.ko_admission || '',
-            transit:   row.ko_transit   || '',
-            walkFrom:  row.ko_walk_from || '',
-          };
-        }
-      });
       _loadedCities[cityCode] = true;
       console.log('[supabase] Loaded', meta.key + ':', freshLocs.length, 'locations');
     });
@@ -774,15 +751,11 @@ function loadCityData(cityCode) {
   // ── Legacy script path (폴백) ──
   if (_getGlobal(meta.dataVar)) {
     _mergeCityLocs(cityCode, meta);
-    _mergeKO(meta);
     return Promise.resolve();
   }
   var cb = '?_=' + Date.now();
   return _loadScript('data-' + meta.key + '.js' + cb).then(function() {
     _mergeCityLocs(cityCode, meta);
-    return _loadScript('data-ko-' + meta.key + '.js' + cb)
-      .then(function() { _mergeKO(meta); })
-      .catch(function() { /* ko optional */ });
   });
 }
 
@@ -802,24 +775,19 @@ function _cityLocalLang(loc) {
   return 'en';
 }
 
-// Get a field value in the city's local language (from LOCS_KO or loc.local* fields)
+// Get a field value in the city's local language (from loc.local* fields)
 function _localField(loc, field) {
   const ll = _cityLocalLang(loc);
   if (ll === 'en') return loc[field] || '';                    // English city — original English value
-  if (ll === 'ko') return (typeof LOCS_KO !== 'undefined' && LOCS_KO[loc.id]?.[field]) || '';
   // ja, fr, etc. — stored in data file as localName, localAddr, localHood
   const key = 'local' + field.charAt(0).toUpperCase() + field.slice(1);
   return loc[key] || '';
 }
 
 // Generic bilingual field:  uiValue / localValue  (when UI lang ≠ city local lang)
-// transVal = optional pre-computed UI-language value (from runtime translation system)
 function _biField(loc, field, transVal) {
   const ll = _cityLocalLang(loc);
-  // UI-language value: trans > LOCS_KO > raw English
-  const ui = transVal
-    || ((LANG === 'ko' && typeof LOCS_KO !== 'undefined' && LOCS_KO[loc.id]?.[field]) ? LOCS_KO[loc.id][field] : '')
-    || loc[field] || '';
+  const ui = transVal || loc[field] || '';
   if (LANG === ll) return ui;                                  // same language → single value
   const local = _localField(loc, field);
   if (!local || local === ui) return ui;

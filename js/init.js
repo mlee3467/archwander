@@ -529,10 +529,6 @@ function confirmResetStorage() {
         cityLocs.forEach(function(l) { LOCS.push(l); });
       }
     } catch(e) { /* city not yet loaded */ }
-    try {
-      var koData = (0, eval)(meta.koVar);
-      if (koData) Object.assign(LOCS_KO, koData);
-    } catch(e) { /* ko not yet loaded */ }
   });
   refreshApp();
   renderAdminTable();

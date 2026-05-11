@@ -194,8 +194,6 @@ async function exportPDF() {
 
     // ── Helpers (reuse global _displayName/_displayAddr/_displayHood) ──
     function _tf(loc, field) {
-      if (LANG === 'ko' && typeof LOCS_KO !== 'undefined' && LOCS_KO[loc.id]?.[field])
-        return LOCS_KO[loc.id][field];
       return loc[field] || '';
     }
     function _biName(loc, idx) {

@@ -366,22 +366,6 @@
       <option value="lon">🎡 London</option>
       <option value="tky">🗼 Tokyo</option>
     </select>
-    <div id="lang-overlay" class="lang-overlay" onclick="closeLangMenu()"></div>
-    <div class="lang-dropdown" id="lang-dropdown">
-      <button id="lang-btn" aria-label="Select language" onclick="toggleLangMenu()" title="Language / 언어">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-        <span id="lang-current">EN</span>
-        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" style="flex-shrink:0;opacity:0.5"><path d="m6 9 6 6 6-6"/></svg>
-      </button>
-      <div id="lang-menu" class="lang-menu">
-        <button class="lang-opt" onclick="setLang('en')">
-          <span class="lo-check" id="check-en">✓</span> English
-        </button>
-        <button class="lang-opt" onclick="setLang('ko')">
-          <span class="lo-check" id="check-ko"></span> 한국어
-        </button>
-      </div>
-    </div>
     <button id="refresh-btn" onclick="hardRefresh()" title="Clear cache & reload" style="background:none;border:1px solid rgba(255,255,255,0.2);color:#fff;border-radius:6px;padding:3px 6px;cursor:pointer;font-size:11px;opacity:0.5;margin-left:2px;flex-shrink:0;line-height:1" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'">↻</button>
   </div>
 </header>
@@ -464,15 +448,6 @@
 
 <div class="app">
   <aside class="sidebar" id="sidebar">
-
-    <!-- Language toggle row (mobile) -->
-    <div class="sb-lang-row" id="sb-lang-row">
-      <span class="sb-lang-label">Language</span>
-      <div class="sb-lang-btns">
-        <button id="sblang-en" class="sb-lang-opt active" onclick="setLang('en')">EN</button>
-        <button id="sblang-ko" class="sb-lang-opt" onclick="setLang('ko')">KO</button>
-      </div>
-    </div>
 
     <!-- City selector row (mobile) -->
     <div class="sb-city-row" id="sb-city-row">
@@ -724,11 +699,6 @@
     </div>
     <div class="panel-scroll">
       <div class="panel-head" id="panel-head"></div>
-      <!-- Translation loading bar — shown only during API translation (hidden on cache hit) -->
-      <div id="trans-bar">
-        <div class="trans-dots"><span></span><span></span><span></span></div>
-        <span class="trans-msg">한국어로 번역 중...</span>
-      </div>
       <div class="tabs">
         <div class="tab active" data-tab="overview" onclick="switchTab('overview')">Overview</div>
         <div class="tab" data-tab="visit" onclick="switchTab('visit')">Visit</div>

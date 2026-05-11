@@ -602,13 +602,9 @@ function openLoc(loc) {
     </div>
   `;
 
-  // Always render English immediately (instant), then apply Korean on-demand.
-  // applyLocTranslation() serves from localStorage cache (instant) or API (~200-500ms).
-  _hideTransBar();
   document.getElementById('pane-overview').innerHTML = buildOverviewTab(loc, {});
   document.getElementById('pane-visit').innerHTML    = buildVisitTab(loc, {});
   document.getElementById('pane-here').innerHTML     = buildDirectionsTab(loc, {});
-  if (LANG === 'ko') applyLocTranslation(loc);
   document.getElementById('pane-audio').innerHTML   = buildAudioGuideShell();
   document.getElementById('pane-reviews').innerHTML  = buildReviewsTab(loc);
 
