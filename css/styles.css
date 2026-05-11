@@ -115,6 +115,18 @@
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { color-scheme: only light; }
+
+    /* ── Keyboard focus ring (accessibility) ─────────────────
+       outline:none throughout the codebase hides focus for
+       mouse/touch users (intentional), but WCAG requires a
+       visible indicator for keyboard navigation.
+       :focus-visible fires only on keyboard focus, so this
+       restores the ring without affecting pointer interactions. */
+    :focus-visible {
+      outline: 2px solid #4f46e5 !important;
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
     body {
       font-family: 'Inter', -apple-system, sans-serif;
       background: var(--bg); color: var(--text-primary);

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>ArchWander</title>
+  <title>ArchWander — Architectural Travel Guide</title>
   <link rel="icon" type="image/png" href="img/Logo_favicon.png">
   <!-- PWA manifest — enables "Add to Home Screen" for background audio on iOS/Android -->
   <link rel="manifest" href="manifest.json">
@@ -14,6 +14,19 @@
   <link rel="apple-touch-icon" href="img/logo_large.png">
   <meta name="theme-color" content="#111111">
   <meta name="color-scheme" content="only light">
+  <!-- SEO -->
+  <meta name="description" content="Discover iconic architecture in New York, Seoul, London, and Tokyo. Curated guides to buildings, landmarks, and hidden gems for design-minded travelers.">
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://mlee3467.github.io/archwander/">
+  <meta property="og:title"       content="ArchWander — Architectural Travel Guide">
+  <meta property="og:description" content="Curated architectural travel guides for New York, Seoul, London, and Tokyo.">
+  <meta property="og:image"       content="https://mlee3467.github.io/archwander/img/og-image.jpg">
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="ArchWander — Architectural Travel Guide">
+  <meta name="twitter:description" content="Curated architectural travel guides for New York, Seoul, London, and Tokyo.">
+  <meta name="twitter:image"       content="https://mlee3467.github.io/archwander/img/og-image.jpg">
   <!-- ── Inline light-mode lock — runs before ANY external CSS loads ── -->
   <!-- CSS custom properties don't support !important; this inline style   -->
   <!-- has inline-style specificity and fires before external sheets load, -->
@@ -319,35 +332,35 @@
     <img src="img/Logo_small.png" alt="ArchWander" class="logo-img">
   </div>
   <div class="header-row1">
-    <button id="menu-btn" onclick="toggleMobileActions()">&#9776;</button>
+    <button id="menu-btn" aria-label="Menu" onclick="toggleMobileActions()">&#9776;</button>
     <div class="search-wrap">
       <svg class="search-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2.2">
         <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
       </svg>
-      <input type="text" id="search" placeholder="Search buildings, architects, styles…" autocomplete="off">
+      <input type="text" id="search" aria-label="Search locations" placeholder="Search buildings, architects, styles…" autocomplete="off">
       <div id="search-ac"></div>
     </div>
     <!-- ✦ button: mobile=in grid row1; desktop=left of map-toggle -->
-    <button id="header-star-btn" onclick="goHome()" title="Menu">✦</button>
+    <button id="header-star-btn" aria-label="Home" onclick="goHome()" title="Menu">✦</button>
     <div class="map-toggle">
-      <button class="active" id="btn-street" onclick="setMapType('street')">Street</button>
-      <button id="btn-sat" onclick="setMapType('satellite')">Satellite</button>
+      <button class="active" id="btn-street" aria-label="Street map view" onclick="setMapType('street')">Street</button>
+      <button id="btn-sat" aria-label="Satellite map view" onclick="setMapType('satellite')">Satellite</button>
     </div>
   </div>
   <div class="header-row2">
-    <button id="near-me-btn" onclick="toggleNearMe()" title="Find architecture near a location">
+    <button id="near-me-btn" aria-label="Find architecture near my location" onclick="toggleNearMe()" title="Find architecture near a location">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="flex-shrink:0"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg>
       <span class="near-text">My Location</span>
     </button>
-    <button id="fav-btn" onclick="toggleFavFilter()" title="Show favorites & visited">
+    <button id="fav-btn" aria-label="Show favorites and visited" onclick="toggleFavFilter()" title="Show favorites & visited">
       <span style="font-size:14px;line-height:1;flex-shrink:0">&#9734;</span>
       <span class="fav-text">Favorites</span>
     </button>
-    <button id="route-btn" onclick="openRoutePanel()" title="Plan a walking route">
+    <button id="route-btn" aria-label="Plan a walking route" onclick="openRoutePanel()" title="Plan a walking route">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="flex-shrink:0"><path d="M3 17l6-6 4 4 8-8"/><path d="M17 7h4v4"/></svg>
       <span class="route-text">Route</span>
     </button>
-    <select id="city-select-mobile" onchange="selectCity(this.value)">
+    <select id="city-select-mobile" aria-label="Select city" onchange="selectCity(this.value)">
       <option value="nyc">🗽 New York</option>
       <option value="sel">🏙️ Seoul</option>
       <option value="lon">🎡 London</option>
@@ -355,7 +368,7 @@
     </select>
     <div id="lang-overlay" class="lang-overlay" onclick="closeLangMenu()"></div>
     <div class="lang-dropdown" id="lang-dropdown">
-      <button id="lang-btn" onclick="toggleLangMenu()" title="Language / 언어">
+      <button id="lang-btn" aria-label="Select language" onclick="toggleLangMenu()" title="Language / 언어">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
         <span id="lang-current">EN</span>
         <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" style="flex-shrink:0;opacity:0.5"><path d="m6 9 6 6 6-6"/></svg>
