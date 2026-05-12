@@ -3017,42 +3017,48 @@
   flex-shrink: 0;
 }
 .sba-btn {
-  background: #ffffff;
-  border: 1px solid #111111;
+  border: none;
   border-radius: 18px;
-  padding: 16px 13px 14px;
+  padding: 12px 10px 14px;
   display: flex; flex-direction: column;
-  align-items: flex-start;
-  cursor: pointer; text-align: left;
+  align-items: center; justify-content: flex-start;
+  gap: 6px;
+  cursor: pointer; text-align: center;
   font-family: Inter, -apple-system, sans-serif;
-  box-shadow: 0 3px 12px rgba(0,0,0,0.14), 0 1px 4px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.09), 0 1px 3px rgba(0,0,0,0.06);
   -webkit-tap-highlight-color: transparent;
   position: relative; overflow: hidden;
-  transition: transform 0.12s ease, background 0.12s ease;
+  transition: transform 0.12s ease, filter 0.12s ease;
 }
+/* Per-button pastel radial gradients */
+#sba-loc   { background: radial-gradient(circle at 50% 65%, #ffffff 0%, #B8D9F6 100%); }
+#sba-fav   { background: radial-gradient(circle at 50% 65%, #ffffff 0%, #FFE49A 100%); }
+#sba-route { background: radial-gradient(circle at 50% 65%, #ffffff 0%, #A8E8C4 100%); }
+#sba-ifl   { background: radial-gradient(circle at 50% 65%, #ffffff 0%, #D4C0F8 100%); }
 .sba-btn:active {
   transform: scale(0.93);
-  background: #111111;
+  filter: brightness(0.88);
 }
 .sba-icon {
-  font-size: 22px; line-height: 1;
-  margin-bottom: 10px; display: block;
-  filter: grayscale(1);
+  display: flex; align-items: center; justify-content: center;
+  color: #3a3a3a;
+  flex: 1;
 }
 .sba-label {
-  font-size: 12px; font-weight: 700;
-  line-height: 1.35; color: #111111;
+  font-size: 11px; font-weight: 700;
+  line-height: 1.3; color: #2a2a2a;
+  text-align: center;
   transition: color 0.12s;
 }
-.sba-btn:active .sba-label { color: #FFAC00; }
-.sba-btn:active .sba-icon  { filter: none; }  /* restore emoji color on press */
+.sba-btn:active .sba-label { color: #111; }
+.sba-btn:active .sba-icon  { color: #111; }
 /* Active/toggled state */
 .sba-btn.sba-active {
-  background: #111111;
-  border-color: #111111;
+  filter: brightness(0.84);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.14), inset 0 1px 3px rgba(0,0,0,0.08);
 }
-.sba-btn.sba-active .sba-label { color: #FFAC00; }
-.sba-btn.sba-active .sba-icon  { filter: none; }  /* restore emoji color when toggled on */
+.sba-btn.sba-active .sba-label { color: #111; }
+.sba-btn.sba-active .sba-icon  { color: #111; }
 /* ═══════════════════════════════════════════════════════════════
    MY LOCATION POPUP  (center modal)
    ═══════════════════════════════════════════════════════════════ */
