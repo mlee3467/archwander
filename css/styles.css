@@ -3652,7 +3652,11 @@
 .ac-item.ac-focused { background: #f5f5f0; }
 .ac-thumb {
   width: 36px; height: 36px; border-radius: 6px;
-  object-fit: cover; flex-shrink: 0; background: #e8e8e4;
+  flex-shrink: 0; background: #e8e8e4;
+  display: flex; align-items: center; justify-content: center;
+}
+.ac-thumb-icon {
+  width: 22px; height: 22px; object-fit: contain; flex-shrink: 0;
 }
 .ac-body { flex: 1; min-width: 0; }
 .ac-name {

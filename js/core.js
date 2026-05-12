@@ -155,10 +155,10 @@ function getFiltered(opts) {
       + _esc(text.slice(idx + q.length));
   }
 
-  // Thumbnail URL: first photo only (SV Static API removed — quota concerns)
+  // Thumbnail: category icon PNG from CC_META (local, always loads instantly)
   function _acThumb(loc) {
-    var photos = loc.photos || [];
-    return photos.length ? photos[0] : '';
+    var meta = (typeof _ccMeta === 'function') ? _ccMeta(loc) : null;
+    return meta ? { icon: meta.icon, bg: meta.bg } : null;
   }
 
   function closeAc() {
@@ -184,7 +184,9 @@ function getFiltered(opts) {
       var score = item.score;
       var thumb = _acThumb(loc);
       var thumbHtml = thumb
-        ? '<img class="ac-thumb" src="' + thumb + '" loading="eager" onerror="this.style.display=\'none\'">'
+        ? '<div class="ac-thumb" style="background:' + thumb.bg + '">'
+          + '<img class="ac-thumb-icon" src="' + thumb.icon + '">'
+          + '</div>'
         : '<div class="ac-thumb"></div>';
 
       // Meta line: arch match → show architect; addr match → highlight addr; name match → plain addr
