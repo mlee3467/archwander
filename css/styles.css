@@ -2906,7 +2906,7 @@
 
 /* ── Sidebar city selector row ─────────────────────────────── */
 .sb-city-row {
-  display: flex; align-items: center; justify-content: space-between;
+  display: flex; align-items: center; justify-content: flex-start;
   padding: 8px 14px;
   border-bottom: 1px solid var(--border);
   background: var(--bg);

@@ -86,23 +86,23 @@
     <button class="landing-btn landing-btn-city" onclick="landingGoCity()">
       <span class="landing-btn-icon">📍</span>
       <span class="landing-btn-title">City &amp; My<br>Location</span>
-      <span class="landing-btn-sub">도시 · 내 위치 설정</span>
+      <span class="landing-btn-sub">City & location</span>
     </button>
     <button class="landing-btn landing-btn-ifl" onclick="landingGoIfl()">
       <span class="landing-btn-icon">✨</span>
       <span class="landing-btn-title">I Feel<br>Like…</span>
-      <span class="landing-btn-sub">테마로 탐색</span>
+      <span class="landing-btn-sub">Explore by theme</span>
     </button>
     <button class="landing-btn landing-btn-rec" onclick="landingGoRec()">
       <span class="landing-coming-soon">Coming soon</span>
       <span class="landing-btn-icon">🗺</span>
       <span class="landing-btn-title">Archwander<br>Picks</span>
-      <span class="landing-btn-sub">큐레이션 코스</span>
+      <span class="landing-btn-sub">Curated routes</span>
     </button>
     <button class="landing-btn landing-btn-lucky" onclick="landingGoLucky()">
       <span class="landing-btn-icon">🎲</span>
       <span class="landing-btn-title">I Feel<br>Lucky</span>
-      <span class="landing-btn-sub">오늘의 건축 추천</span>
+      <span class="landing-btn-sub">Today's picks</span>
     </button>
   </div>
 </div>
@@ -114,7 +114,7 @@
     <span class="ifl-sel-title">Discover</span>
     <button class="ifl-sel-x" onclick="_iflClose()">✕</button>
   </div>
-  <div class="ifl-sel-subtitle">어떤 건축을 탐험하고 싶나요?</div>
+  <div class="ifl-sel-subtitle">What would you like to explore?</div>
   <div class="ifl-sel-body" id="ifl-sel-body"></div>
   <div class="ifl-sel-footer">
     <button class="ifl-sel-go" id="ifl-sel-go" onclick="iflSelConfirm()">View all →</button>
@@ -148,17 +148,17 @@
     <div class="clp-loc-row">
       <button class="clp-loc-btn" id="clp-gps-btn" onclick="_clpUseGPS()">
         <span class="clp-loc-icon">📡</span>
-        <span class="clp-loc-text">GPS 자동 감지</span>
+        <span class="clp-loc-text">Use GPS</span>
         <span class="clp-loc-sub">Auto locate</span>
       </button>
       <button class="clp-loc-btn" id="clp-pin-btn" onclick="_clpDropPin()">
         <span class="clp-loc-icon">📌</span>
-        <span class="clp-loc-text">직접 핀 설정</span>
+        <span class="clp-loc-text">Drop a pin</span>
         <span class="clp-loc-sub">Place on map</span>
       </button>
     </div>
 
-    <button class="clp-go" id="clp-go-btn" onclick="_clpConfirm()">탐색 시작 →</button>
+    <button class="clp-go" id="clp-go-btn" onclick="_clpConfirm()">Explore →</button>
   </div>
 </div>
 
@@ -432,17 +432,17 @@
 <!-- ── MY LOCATION POPUP (center modal, GPS or Pin) ────────── -->
 <div id="my-loc-popup" style="display:none">
   <div class="mlp-box">
-    <div class="mlp-title">내 위치 설정</div>
+    <div class="mlp-title">Set My Location</div>
     <div class="mlp-subtitle">Select location method</div>
     <button class="mlp-btn" id="mlp-gps-btn" onclick="_mlpUseGPS()">
       <span class="mlp-btn-icon">📡</span>
-      <span class="mlp-btn-text">GPS 자동 감지<span class="mlp-btn-sub">Auto locate</span></span>
+      <span class="mlp-btn-text">Use GPS<span class="mlp-btn-sub">Auto locate</span></span>
     </button>
     <button class="mlp-btn" id="mlp-pin-btn" onclick="_mlpDropPin()">
       <span class="mlp-btn-icon">📌</span>
-      <span class="mlp-btn-text">직접 핀 설정<span class="mlp-btn-sub">Tap map to place</span></span>
+      <span class="mlp-btn-text">Drop a pin<span class="mlp-btn-sub">Tap map to place</span></span>
     </button>
-    <button class="mlp-cancel" onclick="_closeMyLocPopup()">닫기</button>
+    <button class="mlp-cancel" onclick="_closeMyLocPopup()">Close</button>
   </div>
 </div>
 
@@ -451,7 +451,6 @@
 
     <!-- City selector row (mobile) -->
     <div class="sb-city-row" id="sb-city-row">
-      <span class="sb-city-label">City</span>
       <select id="sb-city-select" onchange="selectCity(this.value)">
         <option value="nyc">🗽 New York</option>
         <option value="sel">🏙 Seoul</option>

@@ -87,10 +87,10 @@ var _clpLocMode      = null;  // 'gps' | 'pin'
 var _iflFromSidebar  = false; // true when IFL screen opened from sidebar (not landing)
 
 var _CLP_CITIES = [
-  { meta: 'nyc', flag: '🗽', name: 'New York', sub: '뉴욕'  },
-  { meta: 'sel', flag: '🏙', name: 'Seoul',    sub: '서울'  },
-  { meta: 'lon', flag: '🎡', name: 'London',   sub: '런던'  },
-  { meta: 'tky', flag: '🗼', name: 'Tokyo',    sub: '도쿄'  }
+  { meta: 'nyc', flag: '🗽', name: 'New York', sub: 'USA'    },
+  { meta: 'sel', flag: '🏙', name: 'Seoul',    sub: 'Korea'  },
+  { meta: 'lon', flag: '🎡', name: 'London',   sub: 'UK'     },
+  { meta: 'tky', flag: '🗼', name: 'Tokyo',    sub: 'Japan'  }
 ];
 
 function _openCityLocPopup() {
