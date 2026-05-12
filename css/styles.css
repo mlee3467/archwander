@@ -3654,9 +3654,11 @@
   width: 36px; height: 36px; border-radius: 6px;
   flex-shrink: 0; background: #e8e8e4;
   display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
 }
 .ac-thumb-icon {
-  width: 22px; height: 22px; object-fit: contain; flex-shrink: 0;
+  width: 30px; height: 30px; object-fit: contain; flex-shrink: 0;
+  mix-blend-mode: multiply;
 }
 .ac-body { flex: 1; min-width: 0; }
 .ac-name {
