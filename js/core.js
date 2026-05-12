@@ -201,8 +201,11 @@ function getFiltered(opts) {
           : (_esc(loc.hood || '') + (loc.yr ? ' · ' + loc.yr : ''));
       }
 
-      var badge = loc.city
-        ? '<span class="ac-badge">' + _esc(loc.city.replace('-',' ')) + '</span>'
+      var ccM   = (typeof _ccMeta === 'function') ? _ccMeta(loc) : null;
+      var ccLbl = (typeof CC_LABEL !== 'undefined' && loc.cc) ? (CC_LABEL[loc.cc] || '') : '';
+      var badge = ccLbl
+        ? '<span class="ac-badge" style="background:' + (ccM ? ccM.bg : '#e8e8e4')
+          + ';color:' + (ccM ? ccM.color : '#555') + '">' + _esc(ccLbl) + '</span>'
         : '';
 
       return '<div class="ac-item" data-id="' + loc.id + '" data-idx="' + i + '"'
