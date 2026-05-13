@@ -3018,7 +3018,7 @@
 }
 .sba-btn {
   border: none;
-  border-radius: 18px;
+  border-radius: 9px;
   padding: 12px 10px 14px;
   display: flex; flex-direction: column;
   align-items: center; justify-content: flex-start;
@@ -3030,11 +3030,11 @@
   position: relative; overflow: hidden;
   transition: transform 0.12s ease, filter 0.12s ease;
 }
-/* Per-button conic gradients: same-hue family + white */
-#sba-loc   { background: conic-gradient(from 160deg at 50% 50%, #ffffff 0deg, #BDD8F2 80deg, #6AAED8 180deg, #BDD8F2 280deg, #ffffff 360deg); }   /* blues */
-#sba-fav   { background: conic-gradient(from 160deg at 50% 50%, #ffffff 0deg, #FFE898 80deg, #F5B830 180deg, #FFE898 280deg, #ffffff 360deg); }   /* ambers */
-#sba-route { background: conic-gradient(from 160deg at 50% 50%, #ffffff 0deg, #B0E8C8 80deg, #44B880 180deg, #B0E8C8 280deg, #ffffff 360deg); }   /* greens */
-#sba-ifl   { background: conic-gradient(from 160deg at 50% 50%, #ffffff 0deg, #DCC8F8 80deg, #9E6EE8 180deg, #DCC8F8 280deg, #ffffff 360deg); }   /* purples */
+/* Per-button radial gradients: bright center → deep edge (same hue family) */
+#sba-loc   { background: radial-gradient(circle at 50% 50%, #EAF4FD 0%, #90C4E8 55%, #3A82BE 100%); }  /* light → deep blue */
+#sba-fav   { background: radial-gradient(circle at 50% 50%, #FFFAE8 0%, #FFD060 55%, #E08A10 100%); }  /* light → deep amber */
+#sba-route { background: radial-gradient(circle at 50% 50%, #EAFAF2 0%, #7AD4A4 55%, #1E9458 100%); }  /* light → deep green */
+#sba-ifl   { background: radial-gradient(circle at 50% 50%, #F5F0FF 0%, #C4A0F0 55%, #7040C8 100%); }  /* light → deep purple */
 .sba-btn:active {
   transform: scale(0.93);
   filter: brightness(0.88);
