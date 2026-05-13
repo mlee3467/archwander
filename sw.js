@@ -62,6 +62,9 @@ self.addEventListener('fetch', e => {
   // ── External resources: Cache First ───────────────────────
   // Map tiles, CDN scripts, fonts, Wikimedia images, etc.
   // These are large and rarely change — cache for performance
+  // Skip non-http(s) schemes (e.g. chrome-extension://) — cannot be cached
+  if (url.protocol !== 'http:' && url.protocol !== 'https:') return;
+
   if (url.origin !== self.location.origin) {
     e.respondWith(
       caches.match(e.request).then(r => r || fetch(e.request).then(res => {
