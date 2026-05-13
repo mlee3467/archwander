@@ -188,6 +188,13 @@ function addMarker(loc) {
   const m = L.marker([loc.lat, loc.lng], { icon })
     .bindTooltip(_displayName(loc), { direction:'top', offset:[0,-26], opacity:0.94 })
     .on('click', () => _showMapMarkerPopup(loc));
+  // Re-apply highlight class after Leaflet recreates the element (spiderfy/animate)
+  m.on('add', function() {
+    if (typeof _highlightedMarkerId !== 'undefined' && _highlightedMarkerId === loc.id) {
+      var el = m.getElement();
+      if (el) el.classList.add('marker-highlight');
+    }
+  });
   clusterGroup.addLayer(m);
   markers.push({ loc, m });
 }
@@ -197,10 +204,16 @@ function _closeMapMarkerPopup() {
   var el = document.getElementById('map-marker-popup');
   if (el && el.parentNode) el.parentNode.removeChild(el);
   _mapMarkerPopupActive = null;
+  // Clear marker highlight only if no panel is open
+  if (!document.getElementById('panel')?.classList.contains('open')) {
+    if (typeof clearMarkerHighlight === 'function') clearMarkerHighlight();
+  }
 }
 
 function _showMapMarkerPopup(loc) {
   _closeMapMarkerPopup();
+  // Highlight this marker
+  if (typeof highlightMarker === 'function') highlightMarker(loc.id);
 
   var catBadge = (typeof _pCat === 'function') ? _pCat(loc) : (loc.cat || '');
   var catClass = (typeof CAT_CC_MAP !== 'undefined' && CAT_CC_MAP[catBadge]) ? CAT_CC_MAP[catBadge] : 'c-lmk';

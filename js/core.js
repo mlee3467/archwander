@@ -471,6 +471,11 @@ function openLoc(loc) {
   _closeListOverlay();  // close list overlay if open
   activeLoc = loc;
   map.flyTo([loc.lat, loc.lng], 16, { duration:1.1 });
+  // Highlight the corresponding map marker
+  if (typeof highlightMarker === 'function') {
+    // Slight delay so cluster can spiderfy/reveal the marker after flyTo
+    setTimeout(function() { highlightMarker(loc.id); }, 350);
+  }
 
   // Gallery
   photoIdx = 0;
@@ -636,6 +641,7 @@ function closePanel() {
   _panelEl.classList.remove('panel-fullscreen'); // reset full-screen state
   const _pb2 = document.getElementById('panel-backdrop'); if (_pb2) _pb2.classList.remove('visible');
   activeLoc = null;
+  if (typeof clearMarkerHighlight === 'function') clearMarkerHighlight();
   renderList();
   updateMarkerSize();
 

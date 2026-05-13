@@ -402,6 +402,35 @@ function _refreshMarkerIcon(id) {
   entry.m.setIcon(_buildLocIcon(loc, scale));
 }
 
+// ── Marker highlight (active selection glow) ──────────────────
+var _highlightedMarkerId = null;
+
+function highlightMarker(id) {
+  // Clear previous highlight
+  clearMarkerHighlight();
+  if (!id) return;
+  const entry = markers.find(e => e.loc.id === id);
+  if (!entry) return;
+  const el = entry.m.getElement();
+  if (!el) return;
+  el.classList.add('marker-highlight');
+  _highlightedMarkerId = id;
+  // Ensure highlighted marker renders on top of siblings
+  entry.m.setZIndexOffset(1000);
+}
+
+function clearMarkerHighlight() {
+  if (!_highlightedMarkerId) return;
+  const entry = markers.find(e => e.loc.id === _highlightedMarkerId);
+  if (entry) {
+    const el = entry.m.getElement();
+    if (el) el.classList.remove('marker-highlight');
+    entry.m.setZIndexOffset(0);
+  }
+  _highlightedMarkerId = null;
+}
+// ──────────────────────────────────────────────────────────────
+
 function _buildLocIcon(loc, scale) {
   // Markers:
   //   Normal      → pole + rectangular flag (category color)

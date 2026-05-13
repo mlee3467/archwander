@@ -3693,3 +3693,24 @@
   background: #fafaf8; cursor: pointer;
 }
 .ac-footer:hover { color: #555; background: #f3f3f0; }
+
+/* ── Highlighted / active map marker ──────────────────────────── */
+/* Applied via JS when a location is selected (search, click, panel open) */
+.marker-highlight {
+  z-index: 9999 !important;
+  animation: marker-glow 1.1s ease-in-out infinite alternate;
+  transform-origin: bottom center;
+  will-change: filter;
+}
+
+@keyframes marker-glow {
+  from {
+    filter: drop-shadow(0 0 3px rgba(255,210,0,0.85))
+            drop-shadow(0 0 6px rgba(255,140,0,0.55));
+  }
+  to {
+    filter: drop-shadow(0 0 9px rgba(255,225,0,1.0))
+            drop-shadow(0 0 18px rgba(255,165,0,0.75))
+            drop-shadow(0 0 2px rgba(255,255,255,0.9));
+  }
+}
