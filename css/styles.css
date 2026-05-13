@@ -3030,11 +3030,11 @@
   position: relative; overflow: hidden;
   transition: transform 0.12s ease, filter 0.12s ease;
 }
-/* Per-button 3-stop radial gradients: color center → light pastel → white edge */
-#sba-loc   { background: radial-gradient(circle at 50% 50%, #6AAED4 0%, #C8E8F8 55%, #ffffff 100%); }  /* teal-blue center */
-#sba-fav   { background: radial-gradient(circle at 50% 50%, #F0A060 0%, #FFF0B0 55%, #ffffff 100%); }  /* orange center */
-#sba-route { background: radial-gradient(circle at 50% 50%, #48B8A0 0%, #C0EED4 55%, #ffffff 100%); }  /* teal-cyan center */
-#sba-ifl   { background: radial-gradient(circle at 50% 50%, #C060C0 0%, #E8D0FF 55%, #ffffff 100%); }  /* magenta-pink center */
+/* Per-button conic gradients: 3 distinct hue stops + white loop-back */
+#sba-loc   { background: conic-gradient(from 200deg at 50% 50%, #A8D4F4, #F4B8CC, #A8ECD8, #A8D4F4); }  /* sky-blue → rose → mint */
+#sba-fav   { background: conic-gradient(from 200deg at 50% 50%, #FFD96A, #70CEC4, #FFB090, #FFD96A); }  /* gold → teal → peach */
+#sba-route { background: conic-gradient(from 200deg at 50% 50%, #90D8A8, #C4A0F4, #F4E080, #90D8A8); }  /* sage → violet → lemon */
+#sba-ifl   { background: conic-gradient(from 200deg at 50% 50%, #D0A8F4, #F4A878, #7CC8F0, #D0A8F4); }  /* lavender → coral → sky */
 .sba-btn:active {
   transform: scale(0.93);
   filter: brightness(0.88);
