@@ -472,9 +472,12 @@ function openLoc(loc) {
   activeLoc = loc;
   map.flyTo([loc.lat, loc.lng], 16, { duration:1.1 });
   // Highlight the corresponding map marker
+  // Wait for flyTo to finish (moveend) so the marker is declustered + visible
   if (typeof highlightMarker === 'function') {
-    // Slight delay so cluster can spiderfy/reveal the marker after flyTo
-    setTimeout(function() { highlightMarker(loc.id, true); }, 350);
+    var _hlId = loc.id;
+    map.once('moveend', function() {
+      setTimeout(function() { highlightMarker(_hlId, true); }, 80);
+    });
   }
 
   // Gallery

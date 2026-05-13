@@ -3697,17 +3697,28 @@
 /* ── Highlighted / active map marker ──────────────────────────── */
 /* Applied via JS: highlightMarker(id)           → glow only      */
 /*                 highlightMarker(id, true)      → glow + blink   */
+/*                                                                  */
+/* IMPORTANT: Leaflet positions markers via transform:translate3d() */
+/* on the outer .leaflet-marker-icon element.                       */
+/* → filter/opacity go on the outer el (.marker-highlight)         */
+/* → transform:scale goes on the inner child div only              */
 .marker-highlight {
   z-index: 9999 !important;
   animation: marker-glow 0.85s ease-in-out infinite alternate;
+  will-change: filter;
+}
+
+/* Scale the inner icon wrapper — keeps Leaflet's translate3d intact */
+.marker-highlight > div {
+  animation: marker-scale 0.85s ease-in-out infinite alternate;
   transform-origin: bottom center;
-  will-change: filter, transform;
+  will-change: transform;
 }
 
 /* Blink variant: add .marker-blink alongside .marker-highlight */
 .marker-highlight.marker-blink {
   animation: marker-glow 0.85s ease-in-out infinite alternate,
-             marker-blink 1.0s step-end infinite;
+             marker-blink 1.1s ease-in-out infinite;
 }
 
 @keyframes marker-glow {
@@ -3715,18 +3726,21 @@
     filter: drop-shadow(0 0 5px  rgba(255,220,0,1.0))
             drop-shadow(0 0 10px rgba(255,150,0,0.8))
             drop-shadow(0 0 2px  rgba(255,255,255,0.7));
-    transform: scale(1.0);
   }
   to {
     filter: drop-shadow(0 0 14px rgba(255,235,0,1.0))
             drop-shadow(0 0 28px rgba(255,170,0,0.95))
             drop-shadow(0 0 48px rgba(255,210,0,0.55))
             drop-shadow(0 0 4px  rgba(255,255,255,1.0));
-    transform: scale(1.2);
   }
 }
 
+@keyframes marker-scale {
+  from { transform: scale(1.0); }
+  to   { transform: scale(1.22); }
+}
+
 @keyframes marker-blink {
-  0%, 100% { opacity: 1;    }
-  50%       { opacity: 0.1; }
+  0%, 100% { opacity: 1;   }
+  50%      { opacity: 0.1; }
 }
