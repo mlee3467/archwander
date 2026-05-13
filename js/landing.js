@@ -91,7 +91,7 @@ var _CLP_CITIES = [
   { meta: 'sel', flag: '🏙', name: 'Seoul',    sub: 'Korea'  },
   { meta: 'lon', flag: '🎡', name: 'London',   sub: 'UK'     },
   { meta: 'tky', flag: '🗼', name: 'Tokyo',    sub: 'Japan'  },
-  { meta: 'chi', flag: '🏙', name: 'Chicago',  sub: 'USA'    }
+  { meta: 'chi', flag: '🌬️', name: 'Chicago',  sub: 'USA'    }
 ];
 
 function _openCityLocPopup() {
