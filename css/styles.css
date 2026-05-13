@@ -3030,11 +3030,11 @@
   position: relative; overflow: hidden;
   transition: transform 0.12s ease, filter 0.12s ease;
 }
-/* Per-button radial gradients: white center → light pastel 45% → cross-hue saturated edge */
-#sba-loc   { background: radial-gradient(circle at 50% 50%, #ffffff 0%, #C8E6F8 45%, #4A9EC8 100%); }  /* white → sky → teal-blue */
-#sba-fav   { background: radial-gradient(circle at 50% 50%, #ffffff 0%, #FFF3A8 45%, #F09030 100%); }  /* white → light yellow → warm orange */
-#sba-route { background: radial-gradient(circle at 50% 50%, #ffffff 0%, #BCEEDD 45%, #28A898 100%); }  /* white → mint → teal-cyan */
-#sba-ifl   { background: radial-gradient(circle at 50% 50%, #ffffff 0%, #E4D0FF 45%, #C030A8 100%); }  /* white → light lavender → magenta-pink */
+/* Per-button radial gradients: white center → light pastel 45% → soft pastel edge */
+#sba-loc   { background: radial-gradient(circle at 50% 50%, #ffffff 0%, #DFF0FB 45%, #9ACDE8 100%); }  /* white → pale sky → soft teal-blue */
+#sba-fav   { background: radial-gradient(circle at 50% 50%, #ffffff 0%, #FFFAD0 45%, #FECB80 100%); }  /* white → pale yellow → soft peach-orange */
+#sba-route { background: radial-gradient(circle at 50% 50%, #ffffff 0%, #D8F5EA 45%, #7AD4C4 100%); }  /* white → pale mint → soft teal-cyan */
+#sba-ifl   { background: radial-gradient(circle at 50% 50%, #ffffff 0%, #F0E6FF 45%, #E090D0 100%); }  /* white → pale lavender → soft magenta-pink */
 .sba-btn:active {
   transform: scale(0.93);
   filter: brightness(0.88);
