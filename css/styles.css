@@ -3030,11 +3030,11 @@
   position: relative; overflow: hidden;
   transition: transform 0.12s ease, filter 0.12s ease;
 }
-/* Per-button radial gradients: bright center → pastel edge (same hue family) */
-#sba-loc   { background: radial-gradient(circle at 50% 50%, #EAF4FD 0%, #90C4E8 55%, #7AB8E8 100%); }  /* light → pastel blue */
-#sba-fav   { background: radial-gradient(circle at 50% 50%, #FFFAE8 0%, #FFD060 55%, #F5B870 100%); }  /* light → pastel amber */
-#sba-route { background: radial-gradient(circle at 50% 50%, #EAFAF2 0%, #7AD4A4 55%, #60C890 100%); }  /* light → pastel green */
-#sba-ifl   { background: radial-gradient(circle at 50% 50%, #F5F0FF 0%, #C4A0F0 55%, #B088E8 100%); }  /* light → pastel purple */
+/* Per-button radial gradients: white center → light pastel 45% → cross-hue saturated edge */
+#sba-loc   { background: radial-gradient(circle at 50% 50%, #ffffff 0%, #C8E6F8 45%, #4A9EC8 100%); }  /* white → sky → teal-blue */
+#sba-fav   { background: radial-gradient(circle at 50% 50%, #ffffff 0%, #FFF3A8 45%, #F09030 100%); }  /* white → light yellow → warm orange */
+#sba-route { background: radial-gradient(circle at 50% 50%, #ffffff 0%, #BCEEDD 45%, #28A898 100%); }  /* white → mint → teal-cyan */
+#sba-ifl   { background: radial-gradient(circle at 50% 50%, #ffffff 0%, #E4D0FF 45%, #C030A8 100%); }  /* white → light lavender → magenta-pink */
 .sba-btn:active {
   transform: scale(0.93);
   filter: brightness(0.88);
