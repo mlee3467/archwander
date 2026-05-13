@@ -449,7 +449,7 @@ function _fillAdmForm(loc) {
 // ── ID Generation ─────────────────────────────────────────────────────────
 // Format: {city-prefix}-{4-digit sequential}  e.g. nyc-0140, sel-0047, lon-0023, tok-0045
 // Numbers are NEVER reused after deletion.
-var CITY_ID_PREFIX = { 'new-york':'nyc', 'seoul':'sel', 'london':'lon', 'tokyo':'tok' };
+var CITY_ID_PREFIX = { 'new-york':'nyc', 'seoul':'sel', 'london':'lon', 'tokyo':'tok', 'chicago':'chi' };
 
 function generateLocationId(cityValue) {
   const prefix = CITY_ID_PREFIX[cityValue] || cityValue.replace(/[^a-z]/g,'').slice(0,3);
