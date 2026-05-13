@@ -3030,11 +3030,11 @@
   position: relative; overflow: hidden;
   transition: transform 0.12s ease, filter 0.12s ease;
 }
-/* Per-button 3-stop radial gradients: white center → light pastel → saturated edge */
-#sba-loc   { background: radial-gradient(circle at 50% 65%, #ffffff 0%, #D4ECFA 45%, #7BBDE8 100%); }
-#sba-fav   { background: radial-gradient(circle at 50% 65%, #ffffff 0%, #FFF0B8 45%, #F5C842 100%); }
-#sba-route { background: radial-gradient(circle at 50% 65%, #ffffff 0%, #C4EED8 45%, #5DC896 100%); }
-#sba-ifl   { background: radial-gradient(circle at 50% 65%, #ffffff 0%, #E4D4FF 45%, #B090EE 100%); }
+/* Per-button 3-stop radial gradients: white → main pastel → cross-hue edge */
+#sba-loc   { background: radial-gradient(circle at 50% 65%, #ffffff 0%, #C8E8F8 45%, #6AAED4 100%); }  /* blue → teal edge */
+#sba-fav   { background: radial-gradient(circle at 50% 65%, #ffffff 0%, #FFF0B0 45%, #F0A060 100%); }  /* yellow → warm orange edge */
+#sba-route { background: radial-gradient(circle at 50% 65%, #ffffff 0%, #C0EED4 45%, #48B8A0 100%); }  /* green → teal-cyan edge */
+#sba-ifl   { background: radial-gradient(circle at 50% 65%, #ffffff 0%, #E8D0FF 45%, #C060C0 100%); }  /* purple → magenta-pink edge */
 .sba-btn:active {
   transform: scale(0.93);
   filter: brightness(0.88);
