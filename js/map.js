@@ -188,11 +188,16 @@ function addMarker(loc) {
   const m = L.marker([loc.lat, loc.lng], { icon })
     .bindTooltip(_displayName(loc), { direction:'top', offset:[0,-26], opacity:0.94 })
     .on('click', () => _showMapMarkerPopup(loc));
-  // Re-apply highlight class after Leaflet recreates the element (spiderfy/animate)
+  // Re-apply highlight (+ blink) class after Leaflet recreates the element (spiderfy/animate)
   m.on('add', function() {
     if (typeof _highlightedMarkerId !== 'undefined' && _highlightedMarkerId === loc.id) {
       var el = m.getElement();
-      if (el) el.classList.add('marker-highlight');
+      if (el) {
+        el.classList.add('marker-highlight');
+        if (typeof _highlightBlinkActive !== 'undefined' && _highlightBlinkActive) {
+          el.classList.add('marker-blink');
+        }
+      }
     }
   });
   clusterGroup.addLayer(m);

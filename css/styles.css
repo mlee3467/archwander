@@ -3695,22 +3695,38 @@
 .ac-footer:hover { color: #555; background: #f3f3f0; }
 
 /* ── Highlighted / active map marker ──────────────────────────── */
-/* Applied via JS when a location is selected (search, click, panel open) */
+/* Applied via JS: highlightMarker(id)           → glow only      */
+/*                 highlightMarker(id, true)      → glow + blink   */
 .marker-highlight {
   z-index: 9999 !important;
-  animation: marker-glow 1.1s ease-in-out infinite alternate;
+  animation: marker-glow 0.85s ease-in-out infinite alternate;
   transform-origin: bottom center;
-  will-change: filter;
+  will-change: filter, transform;
+}
+
+/* Blink variant: add .marker-blink alongside .marker-highlight */
+.marker-highlight.marker-blink {
+  animation: marker-glow 0.85s ease-in-out infinite alternate,
+             marker-blink 1.0s step-end infinite;
 }
 
 @keyframes marker-glow {
   from {
-    filter: drop-shadow(0 0 3px rgba(255,210,0,0.85))
-            drop-shadow(0 0 6px rgba(255,140,0,0.55));
+    filter: drop-shadow(0 0 5px  rgba(255,220,0,1.0))
+            drop-shadow(0 0 10px rgba(255,150,0,0.8))
+            drop-shadow(0 0 2px  rgba(255,255,255,0.7));
+    transform: scale(1.0);
   }
   to {
-    filter: drop-shadow(0 0 9px rgba(255,225,0,1.0))
-            drop-shadow(0 0 18px rgba(255,165,0,0.75))
-            drop-shadow(0 0 2px rgba(255,255,255,0.9));
+    filter: drop-shadow(0 0 14px rgba(255,235,0,1.0))
+            drop-shadow(0 0 28px rgba(255,170,0,0.95))
+            drop-shadow(0 0 48px rgba(255,210,0,0.55))
+            drop-shadow(0 0 4px  rgba(255,255,255,1.0));
+    transform: scale(1.2);
   }
+}
+
+@keyframes marker-blink {
+  0%, 100% { opacity: 1;    }
+  50%       { opacity: 0.1; }
 }

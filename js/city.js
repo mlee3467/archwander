@@ -403,10 +403,12 @@ function _refreshMarkerIcon(id) {
 }
 
 // ── Marker highlight (active selection glow) ──────────────────
-var _highlightedMarkerId = null;
+var _highlightedMarkerId  = null;
+var _highlightBlinkActive = false;  // whether blink class is on
 
-function highlightMarker(id) {
-  // Clear previous highlight
+// highlightMarker(id)         — glow only (default)
+// highlightMarker(id, true)   — glow + blink
+function highlightMarker(id, blink) {
   clearMarkerHighlight();
   if (!id) return;
   const entry = markers.find(e => e.loc.id === id);
@@ -414,7 +416,9 @@ function highlightMarker(id) {
   const el = entry.m.getElement();
   if (!el) return;
   el.classList.add('marker-highlight');
-  _highlightedMarkerId = id;
+  if (blink) el.classList.add('marker-blink');
+  _highlightedMarkerId  = id;
+  _highlightBlinkActive = !!blink;
   // Ensure highlighted marker renders on top of siblings
   entry.m.setZIndexOffset(1000);
 }
@@ -424,10 +428,14 @@ function clearMarkerHighlight() {
   const entry = markers.find(e => e.loc.id === _highlightedMarkerId);
   if (entry) {
     const el = entry.m.getElement();
-    if (el) el.classList.remove('marker-highlight');
+    if (el) {
+      el.classList.remove('marker-highlight');
+      el.classList.remove('marker-blink');
+    }
     entry.m.setZIndexOffset(0);
   }
-  _highlightedMarkerId = null;
+  _highlightedMarkerId  = null;
+  _highlightBlinkActive = false;
 }
 // ──────────────────────────────────────────────────────────────
 
