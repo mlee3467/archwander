@@ -717,24 +717,26 @@ function _dbRowToLoc(row) {
 
 // ── Supabase city load ────────────────────────────────────────
 function _loadCityDataSupabase(cityCode, meta) {
-  return _supabase
-    .from('locations')
-    .select('*')
-    .eq('city', meta.key)
-    .then(function(result) {
-      if (result.error) throw result.error;
-      var freshLocs = result.data.map(_dbRowToLoc);
-      // Supabase is the single source of truth — do NOT merge with localStorage.
-      // _mergeLocsFromStorage() was previously used here but caused stale data:
-      // existing IDs in localStorage['archwander_locs_v2'] silently overrode
-      // fresh DB values, so coordinate/field updates were never reflected.
-      var existingIds = new Set(LOCS.map(function(l) { return l.id; }));
-      freshLocs.forEach(function(l) {
-        if (!existingIds.has(l.id)) LOCS.push(l);
+  return _ensureSupabaseAuth().then(function() {
+    return _supabase
+      .from('locations')
+      .select('*')
+      .eq('city', meta.key)
+      .then(function(result) {
+        if (result.error) throw result.error;
+        var freshLocs = result.data.map(_dbRowToLoc);
+        // Supabase is the single source of truth — do NOT merge with localStorage.
+        // _mergeLocsFromStorage() was previously used here but caused stale data:
+        // existing IDs in localStorage['archwander_locs_v2'] silently overrode
+        // fresh DB values, so coordinate/field updates were never reflected.
+        var existingIds = new Set(LOCS.map(function(l) { return l.id; }));
+        freshLocs.forEach(function(l) {
+          if (!existingIds.has(l.id)) LOCS.push(l);
+        });
+        _loadedCities[cityCode] = true;
+        console.log('[supabase] Loaded', meta.key + ':', freshLocs.length, 'locations');
       });
-      _loadedCities[cityCode] = true;
-      console.log('[supabase] Loaded', meta.key + ':', freshLocs.length, 'locations');
-    });
+  });
 }
 
 // Load city data on demand.

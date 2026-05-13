@@ -156,7 +156,9 @@ function _agLoadCityFile(city) {
         .eq('city', city)
         .eq('lang', lang);
     }
-    _fetchLang(LANG).then(function(result) {
+    _ensureSupabaseAuth().then(function() {
+    return _fetchLang(LANG);
+    }).then(function(result) {
       if (!result.error && result.data && result.data.length > 0) {
         var map = {};
         result.data.forEach(function(row) { map[row.loc_id] = { title: row.title, script: row.script }; });

@@ -145,5 +145,51 @@ var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYm
 
 // Supabase 클라이언트 초기화 (URL/KEY 없으면 로컬 JS 파일 폴백)
 var _supabase = (SUPABASE_URL && SUPABASE_ANON_KEY && typeof supabase !== 'undefined')
-  ? supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+  ? supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+      auth: { persistSession: true, autoRefreshToken: true }
+    })
   : null;
+
+// ── Anonymous Auth gate ───────────────────────────────────────────
+// All Supabase data fetches must call _ensureSupabaseAuth() first.
+// On first call: checks for existing session, otherwise signs in anonymously.
+// Supabase RLS requires role = 'authenticated' — anon key alone is blocked.
+var _sbAuthReady   = false;
+var _sbAuthPromise = null;
+
+function _ensureSupabaseAuth() {
+  if (!_supabase)        return Promise.resolve();
+  if (_sbAuthReady)      return Promise.resolve();
+  if (_sbAuthPromise)    return _sbAuthPromise;
+
+  _sbAuthPromise = _supabase.auth.getSession()
+    .then(function(res) {
+      if (res.data && res.data.session) {
+        // Existing valid session found (localStorage)
+        _sbAuthReady = true;
+        return;
+      }
+      // No session — sign in anonymously
+      return _supabase.auth.signInAnonymously().then(function(r) {
+        if (r.error) console.warn('[auth] signInAnonymously failed:', r.error.message);
+        _sbAuthReady = true;
+      });
+    })
+    .catch(function(e) {
+      console.warn('[auth] Session check error:', e.message);
+      _sbAuthReady = true; // don't block app on auth failure
+    });
+
+  return _sbAuthPromise;
+}
+
+// Helper: get current session access_token (falls back to anon key)
+function _sbToken() {
+  if (!_supabase) return SUPABASE_ANON_KEY;
+  var s = _supabase.auth.session ? _supabase.auth.session() : null;
+  // v2 API
+  if (!s) {
+    try { s = JSON.parse(localStorage.getItem('sb-' + SUPABASE_URL.split('//')[1].split('.')[0] + '-auth-token')); } catch(e) {}
+  }
+  return (s && s.access_token) ? s.access_token : SUPABASE_ANON_KEY;
+}

@@ -28,16 +28,28 @@ function _submitToSupabase(table, data) {
   try {
     if (typeof SUPABASE_URL === 'undefined' || !SUPABASE_URL) return;
     if (typeof SUPABASE_ANON_KEY === 'undefined' || !SUPABASE_ANON_KEY) return;
-    fetch(SUPABASE_URL + '/rest/v1/' + table, {
-      method: 'POST',
-      headers: {
-        'apikey': SUPABASE_ANON_KEY,
-        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
-        'Content-Type': 'application/json',
-        'Prefer': 'return=minimal'
-      },
-      body: JSON.stringify(data)
-    }).catch(function(e) { console.warn('Supabase submit failed (' + table + '):', e.message); });
+    // Use session JWT if available (required when RLS enforces authenticated role)
+    var _doPost = function(token) {
+      fetch(SUPABASE_URL + '/rest/v1/' + table, {
+        method: 'POST',
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': 'Bearer ' + token,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify(data)
+      }).catch(function(e) { console.warn('Supabase submit failed (' + table + '):', e.message); });
+    };
+    if (typeof _supabase !== 'undefined' && _supabase) {
+      _supabase.auth.getSession().then(function(res) {
+        var token = (res.data && res.data.session && res.data.session.access_token)
+          ? res.data.session.access_token : SUPABASE_ANON_KEY;
+        _doPost(token);
+      }).catch(function() { _doPost(SUPABASE_ANON_KEY); });
+    } else {
+      _doPost(SUPABASE_ANON_KEY);
+    }
   } catch(e) { /* silent */ }
 }
 
