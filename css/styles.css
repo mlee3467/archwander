@@ -3705,7 +3705,24 @@
 .marker-highlight {
   z-index: 9999 !important;
   animation: marker-glow 0.85s ease-in-out infinite alternate;
+  overflow: visible !important;
   will-change: filter;
+}
+
+/* Red expanding ring — centered on the marker element */
+.marker-highlight::before {
+  content: '';
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  border: 2.5px solid rgba(220, 30, 30, 0.95);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.6);
+  animation: marker-ring 1.4s ease-out infinite;
+  pointer-events: none;
+  box-sizing: border-box;
 }
 
 /* Scale the inner icon wrapper — keeps Leaflet's translate3d intact */
@@ -3733,6 +3750,13 @@
             drop-shadow(0 0 48px rgba(255,210,0,0.55))
             drop-shadow(0 0 4px  rgba(255,255,255,1.0));
   }
+}
+
+/* Ring expands outward and fades — repeating sonar pulse */
+@keyframes marker-ring {
+  0%   { transform: translate(-50%, -50%) scale(0.6);  opacity: 1;   border-width: 3px; }
+  60%  { transform: translate(-50%, -50%) scale(1.6);  opacity: 0.5; border-width: 2px; }
+  100% { transform: translate(-50%, -50%) scale(2.1);  opacity: 0;   border-width: 1px; }
 }
 
 @keyframes marker-scale {

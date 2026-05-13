@@ -284,7 +284,8 @@ function _showMapMarkerPopup(loc) {
 
   var isMobile = window.innerWidth <= 900;
   if (isMobile) {
-    el.style.cssText = 'position:fixed;bottom:64px;left:50%;transform:translateX(-50%);z-index:3000;';
+    // Fixed at bottom — enough space above for the marker animation to show
+    el.style.cssText = 'position:fixed;bottom:90px;left:50%;transform:translateX(-50%);z-index:3000;';
   } else {
     var pt  = map.latLngToContainerPoint([loc.lat, loc.lng]);
     var box = map.getContainer().getBoundingClientRect();
@@ -293,7 +294,8 @@ function _showMapMarkerPopup(loc) {
     var pw  = el.offsetWidth  || 220;
     var ph  = el.offsetHeight || 120;
     var left = Math.max(8, Math.min(sx - pw / 2, window.innerWidth  - pw - 8));
-    var top  = Math.max(8, Math.min(sy - ph - 16, window.innerHeight - ph - 8));
+    // +80px extra clearance so the ring + glow animation is fully visible
+    var top  = Math.max(8, Math.min(sy - ph - 80, window.innerHeight - ph - 8));
     el.style.cssText = 'position:fixed;left:' + left + 'px;top:' + top + 'px;z-index:3000;';
   }
 
