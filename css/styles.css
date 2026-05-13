@@ -3030,11 +3030,11 @@
   position: relative; overflow: hidden;
   transition: transform 0.12s ease, filter 0.12s ease;
 }
-/* Per-button radial gradients: white center → light pastel 45% → soft pastel edge */
-#sba-loc   { background: radial-gradient(circle at 50% 50%, #ffffff 0%, #DFF0FB 45%, #9ACDE8 100%); }  /* white → pale sky → soft teal-blue */
-#sba-fav   { background: radial-gradient(circle at 50% 50%, #ffffff 0%, #FFFAD0 45%, #FECB80 100%); }  /* white → pale yellow → soft peach-orange */
-#sba-route { background: radial-gradient(circle at 50% 50%, #ffffff 0%, #D8F5EA 45%, #7AD4C4 100%); }  /* white → pale mint → soft teal-cyan */
-#sba-ifl   { background: radial-gradient(circle at 50% 50%, #ffffff 0%, #F0E6FF 45%, #E090D0 100%); }  /* white → pale lavender → soft magenta-pink */
+/* Per-button radial gradients: white center → tinted mid → key color edge */
+#sba-loc   { background: radial-gradient(circle at 50% 50%, #ffffff 0%, #FFCECE 45%, #FF8F8F 100%); }
+#sba-fav   { background: radial-gradient(circle at 50% 50%, #ffffff 0%, #FFF8E5 45%, #FFF1CB 100%); }
+#sba-route { background: radial-gradient(circle at 50% 50%, #ffffff 0%, #E0F2FD 45%, #C2E2FA 100%); }
+#sba-ifl   { background: radial-gradient(circle at 50% 50%, #ffffff 0%, #DDD4F4 45%, #B7A3E3 100%); }
 .sba-btn:active {
   transform: scale(0.93);
   filter: brightness(0.88);
