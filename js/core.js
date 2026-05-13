@@ -474,7 +474,7 @@ function openLoc(loc) {
   // Highlight the corresponding map marker
   if (typeof highlightMarker === 'function') {
     // Slight delay so cluster can spiderfy/reveal the marker after flyTo
-    setTimeout(function() { highlightMarker(loc.id); }, 350);
+    setTimeout(function() { highlightMarker(loc.id, true); }, 350);
   }
 
   // Gallery

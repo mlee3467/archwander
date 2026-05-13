@@ -218,7 +218,7 @@ function _closeMapMarkerPopup() {
 function _showMapMarkerPopup(loc) {
   _closeMapMarkerPopup();
   // Highlight this marker
-  if (typeof highlightMarker === 'function') highlightMarker(loc.id);
+  if (typeof highlightMarker === 'function') highlightMarker(loc.id, true);
 
   var catBadge = (typeof _pCat === 'function') ? _pCat(loc) : (loc.cat || '');
   var catClass = (typeof CAT_CC_MAP !== 'undefined' && CAT_CC_MAP[catBadge]) ? CAT_CC_MAP[catBadge] : 'c-lmk';
