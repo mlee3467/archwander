@@ -75,20 +75,6 @@ var T = {
     fav_imp_success:'Favorites imported successfully!',
     fav_imp_invalid:'Invalid file format. Please select a valid ArchWander favorites JSON file.',
     fav_exp_empty:'No favorites or visited locations to export.',
-    ifl_title:    'I feel like exploring…',
-    ifl_btn:      'I feel like…',
-    ifl_historic: 'Historic',
-    ifl_modern:   'Modern Space',
-    ifl_pritzker: 'Pritzker Prize Winners',
-    ifl_kids:     'Kid-friendly Space',
-    ifl_nature:   'Nature & Green',
-    ifl_tourist:  'Tourist Highlights',
-    ifl_skyscraper:'Skyscrapers',
-    ifl_landmark: 'Landmarks',
-    ifl_shopping: 'Shopping & Dining',
-    ifl_luxres:   'Luxury Residential',
-    ifl_apply:    'Apply filter',
-    ifl_clear:    '✕ Clear',
   }
 };
 
@@ -171,15 +157,6 @@ function applyLang() {
   const fimOvr = document.getElementById('fav-import-overwrite');if(fimOvr) fimOvr.textContent = t('fav_imp_overwrite');
   const fimApp = document.getElementById('fav-import-append');  if (fimApp) fimApp.textContent = t('fav_imp_append');
   const fimCnl = document.getElementById('fav-import-cancel');  if (fimCnl) fimCnl.textContent = t('fav_imp_cancel');
-  // "I feel like…" button text
-  const iflText = document.querySelector('#ifl-btn .ifl-text');
-  if (iflText) iflText.textContent = t('ifl_btn');
-  const mobIflText = document.querySelector('.mob-ifl-text');
-  if (mobIflText) mobIflText.textContent = t('ifl_btn');
-  const iflApplyBtn = document.getElementById('ifl-apply-btn');
-  if (iflApplyBtn) iflApplyBtn.textContent = t('ifl_apply');
-  const iflClearBtn = document.getElementById('ifl-clear-btn');
-  if (iflClearBtn) iflClearBtn.textContent = t('ifl_clear');
   // Rebuild dynamic content
   buildFilters();
   renderList();

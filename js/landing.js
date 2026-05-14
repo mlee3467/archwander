@@ -84,7 +84,6 @@ function _syncSbCitySelect() {
 
 var _clpSelectedCity = null;
 var _clpLocMode      = null;  // 'gps' | 'pin'
-var _iflFromSidebar  = false; // true when IFL screen opened from sidebar (not landing)
 
 var _CLP_CITIES = [
   { meta: 'nyc', flag: '🗽', name: 'New York', sub: 'USA'    },
@@ -200,23 +199,6 @@ function landingGoCity() {
   _openCityLocPopup();
 }
 
-function landingGoIfl() {
-  // Show IFL theme selector — no map init yet
-  var landing = document.getElementById('landing-screen');
-  var iflSel  = document.getElementById('ifl-select-screen');
-  if (landing) landing.classList.remove('visible');
-  setTimeout(function() {
-    if (landing) landing.style.display = 'none';
-    if (iflSel) {
-      _renderIflSelectScreen();
-      iflSel.style.display = 'flex';
-      requestAnimationFrame(function() {
-        requestAnimationFrame(function() { iflSel.classList.add('visible'); });
-      });
-    }
-  }, 200);
-}
-
 function landingGoRec() {
   _landingToast(LANG === 'ko' ? '🚧 준비 중입니다' : '🚧 Coming soon');
 }
@@ -227,97 +209,6 @@ function landingGoMyPage() {
     _ensureMapInit(function() {
       _openMyPage();
     });
-  });
-}
-
-// ── IFL select screen ────────────────────────────────────────────
-
-function iflSelBack() {
-  var iflSel = document.getElementById('ifl-select-screen');
-  if (iflSel) {
-    iflSel.classList.remove('visible');
-    setTimeout(function() { iflSel.style.display = 'none'; }, 280);
-  }
-  if (_iflFromSidebar) {
-    _iflFromSidebar = false;
-    // Came from sidebar — just close the IFL screen, no landing
-  } else {
-    showLandingScreen();
-  }
-}
-
-// X button: close IFL screen and go directly to map (no landing)
-function _iflClose() {
-  var iflSel = document.getElementById('ifl-select-screen');
-  if (iflSel) {
-    iflSel.classList.remove('visible');
-    setTimeout(function() { iflSel.style.display = 'none'; }, 280);
-  }
-  _iflFromSidebar = false;
-  localStorage.setItem('aw_landing_seen', '1');
-  _ensureMapInit();
-}
-
-function _renderIflSelectScreen() {
-  var body = document.getElementById('ifl-sel-body');
-  if (!body || typeof THEME_DEFS === 'undefined') return;
-  body.innerHTML = THEME_DEFS.map(function(td) {
-    var sel = state && state.themes && state.themes.includes(td.key);
-    var label = typeof t === 'function' ? t('ifl_' + td.key) : td.key;
-    return '<button class="ifl-sel-chip' + (sel ? ' selected' : '') +
-      '" data-key="' + td.key + '" onclick="_iflSelToggle(\'' + td.key + '\')">' +
-      '<span class="ifl-sel-icon">' + td.icon + '</span>' +
-      '<span class="ifl-sel-label">' + label + '</span>' +
-    '</button>';
-  }).join('');
-  _updateIflSelGo();
-}
-
-function _iflSelToggle(key) {
-  if (!state || !state.themes) return;
-  var idx = state.themes.indexOf(key);
-  if (idx >= 0) state.themes.splice(idx, 1);
-  else state.themes.push(key);
-  document.querySelectorAll('#ifl-sel-body .ifl-sel-chip').forEach(function(btn) {
-    btn.classList.toggle('selected', state.themes.includes(btn.getAttribute('data-key')));
-  });
-  _updateIflSelGo();
-}
-
-function _updateIflSelGo() {
-  var btn = document.getElementById('ifl-sel-go');
-  if (!btn) return;
-  var count = (state && state.themes) ? state.themes.length : 0;
-  if (count > 0) {
-    btn.textContent = LANG === 'ko'
-      ? count + '개 테마로 탐색 →'
-      : 'Explore ' + count + ' theme' + (count > 1 ? 's' : '') + ' →';
-    btn.classList.add('has-theme');
-  } else {
-    btn.textContent = LANG === 'ko' ? '테마 없이 모두 보기 →' : 'View all →';
-    btn.classList.remove('has-theme');
-  }
-}
-
-function iflSelConfirm() {
-  localStorage.setItem('aw_landing_seen', '1');
-  var iflSel = document.getElementById('ifl-select-screen');
-  if (iflSel) {
-    iflSel.classList.remove('visible');
-    setTimeout(function() { iflSel.style.display = 'none'; }, 280);
-  }
-  _ensureMapInit(function() {
-    if (typeof renderIflInline === 'function') renderIflInline();
-    if (typeof updateClearBtn === 'function') updateClearBtn();
-    if (typeof renderList === 'function') renderList();
-    if (typeof syncMarkers === 'function') syncMarkers();
-    // Mark IFL button active if themes were selected
-    var sbaIfl = document.getElementById('sba-ifl');
-    if (sbaIfl && typeof state !== 'undefined') sbaIfl.classList.toggle('sba-active', state.themes.length > 0);
-    // Also activate Near Me so user sees filtered nearby results
-    if (typeof nearMeActive !== 'undefined' && !nearMeActive) {
-      if (typeof toggleNearMe === 'function') toggleNearMe();
-    }
   });
 }
 
@@ -398,11 +289,6 @@ function _sbaFavorites() {
 function _sbaRoute() {
   if (typeof closeSidebar === 'function') closeSidebar();
   if (typeof _openRouteManager === 'function') _openRouteManager('home');
-}
-
-function _sbaIfl() {
-  _iflFromSidebar = true;
-  landingGoIfl();
 }
 
 // Sidebar My Page button (replaces IFL in sidebar)
@@ -917,6 +803,36 @@ function _sbaFwil() {
   _fwilStep = 1;
   _fwilLoadSaves();
   _fwilOpenScreen();
+}
+
+function _sbaExplore() {
+  var popup  = document.getElementById('explore-popup');
+  var overlay = document.getElementById('explore-overlay');
+  if (!popup) return;
+  var isOpen = popup.style.display !== 'none';
+  if (isOpen) {
+    _sbaExploreClose();
+  } else {
+    overlay.style.display = 'block';
+    popup.style.display = 'flex';
+  }
+  // Toggle active state on the button
+  var btn = document.getElementById('sba-likable');
+  if (btn) btn.classList.toggle('sba-active', !isOpen);
+}
+
+function _sbaExploreClose() {
+  var popup   = document.getElementById('explore-popup');
+  var overlay = document.getElementById('explore-overlay');
+  if (popup)   popup.style.display = 'none';
+  if (overlay) overlay.style.display = 'none';
+  var btn = document.getElementById('sba-likable');
+  if (btn) btn.classList.remove('sba-active');
+}
+
+function _sbaLucky() {
+  if (typeof closeSidebar === 'function') closeSidebar();
+  _ensureMapInit(function() { _openIflLucky(); });
 }
 
 function _fwilOpenScreen() {

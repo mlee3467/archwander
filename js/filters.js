@@ -50,8 +50,6 @@ function buildFilters() {
     });
   }
 
-  // Render I Feel Like inline chips after data is loaded
-  renderIflInline();
 }
 
 function buildChipGroup(containerId, items, key, labelFn, valueFn) {
@@ -125,35 +123,7 @@ function toggleMoreFilters() {
   if (btn) btn.classList.toggle('open', !open);
 }
 
-// ── I Feel Like — inline (sidebar, always visible) ─────────────
-function renderIflInline() {
-  var wrap = document.getElementById('ifl-inline');
-  if (!wrap) return;
-  wrap.innerHTML = THEME_DEFS.map(function(td) {
-    var sel = state.themes.includes(td.key);
-    var label = t('ifl_' + td.key);
-    return '<button class="ifl-chip' + (sel ? ' selected' : '') + '" onclick="toggleIflChip(\'' + td.key + '\')">' +
-      '<span class="ifl-chip-icon">' + td.icon + '</span>' +
-      '<span class="ifl-chip-label">' + label + '</span>' +
-      '</button>';
-  }).join('');
-}
-
-function toggleIflChip(key) {
-  var idx = state.themes.indexOf(key);
-  if (idx >= 0) state.themes.splice(idx, 1);
-  else state.themes.push(key);
-  renderIflInline();
-  updateClearBtn();
-  renderList();
-  syncMarkers();
-  if (state.themes.length > 0) _pulseRouteBtn();
-}
-
 function clearAllFilters() {
-  // Also clear "I feel like…" themes
-  state.themes = [];
-  renderIflInline();
   ['cat','style','era','access','arch','hood','fav'].forEach(k => {
     state[k] = _MULTI_KEYS.has(k) ? [] : 'All';
     const bodyId = `body-${k}`;
@@ -175,7 +145,7 @@ function clearAllFilters() {
 function updateClearBtn() {
   const active = ['cat','style','era','access','arch','hood','fav'].some(k =>
     _MULTI_KEYS.has(k) ? state[k].length > 0 : state[k] !== 'All'
-  ) || state.themes.length > 0;
+  );
   var clr = document.getElementById('sb-clear');
   if (clr) clr.classList.toggle('show', active);
   var dot = document.getElementById('sb-ft-dot');
@@ -196,83 +166,6 @@ function toggleSbFilters() {
 function toggleFsec(id) {
   const sec = document.getElementById(`fsec-${id}`);
   sec.classList.toggle('open');
-}
-
-// ══════════════════════════════════════════════════════════════════
-// "I FEEL LIKE…" THEME MODAL
-// ══════════════════════════════════════════════════════════════════
-var _iflSelection = []; // temporary selection inside modal
-
-function openThemeModal() {
-  _iflSelection = state.themes.slice(); // copy current active themes
-  _renderThemeCards();
-  document.getElementById('ifl-overlay').classList.add('open');
-  document.getElementById('ifl-modal').classList.add('open');
-  _updateIflTitle();
-}
-
-function closeThemeModal() {
-  document.getElementById('ifl-overlay').classList.remove('open');
-  document.getElementById('ifl-modal').classList.remove('open');
-}
-
-function _renderThemeCards() {
-  const body = document.getElementById('ifl-body');
-  body.innerHTML = THEME_DEFS.map(function(td) {
-    const label = t('ifl_' + td.key);
-    const sel = _iflSelection.includes(td.key);
-    return '<button class="ifl-card' + (sel ? ' selected' : '') + '" data-theme="' + td.key + '" onclick="_toggleThemeCard(\'' + td.key + '\')">' +
-      '<span class="ifl-card-icon">' + td.icon + '</span>' +
-      '<span class="ifl-card-label">' + label + '</span>' +
-      '</button>';
-  }).join('');
-}
-
-function _toggleThemeCard(key) {
-  const idx = _iflSelection.indexOf(key);
-  if (idx >= 0) _iflSelection.splice(idx, 1);
-  else _iflSelection.push(key);
-  _renderThemeCards();
-}
-
-function _updateIflTitle() {
-  const el = document.getElementById('ifl-title');
-  if (el) el.textContent = t('ifl_title');
-}
-
-function applyThemes() {
-  state.themes = _iflSelection.slice();
-  closeThemeModal();
-  // Update button active state
-  var likable = document.getElementById('sba-likable');
-  if (likable) likable.classList.toggle('sba-active', state.themes.length > 0);
-  updateClearBtn();
-  renderList();
-  syncMarkers();
-  // Pulse the Route button to hint users can plan a route with filtered results
-  if (state.themes.length > 0) _pulseRouteBtn();
-}
-
-function _pulseRouteBtn() {
-  var desktop = document.getElementById('route-btn');
-  var mobile = document.getElementById('mob-route-btn');
-  [desktop, mobile].forEach(function(el) {
-    if (!el) return;
-    el.classList.add('pulse-hint');
-    setTimeout(function() { el.classList.remove('pulse-hint'); }, 5000);
-  });
-}
-
-function clearThemes() {
-  _iflSelection = [];
-  state.themes = [];
-  _renderThemeCards();
-  var likable = document.getElementById('sba-likable');
-  if (likable) likable.classList.remove('sba-active');
-  closeThemeModal();
-  updateClearBtn();
-  renderList();
-  syncMarkers();
 }
 
 // ══════════════════════════════════════════════════════════════════

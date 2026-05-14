@@ -115,20 +115,6 @@
   </div>
 </div>
 
-<!-- ── IFL THEME SELECT SCREEN ──────────────────────────── -->
-<div id="ifl-select-screen" style="display:none">
-  <div class="ifl-sel-hdr">
-    <button class="ifl-sel-back" onclick="iflSelBack()">◀ </button>
-    <span class="ifl-sel-title">Discover</span>
-    <button class="ifl-sel-x" onclick="_iflClose()">✕</button>
-  </div>
-  <div class="ifl-sel-subtitle">What would you like to explore?</div>
-  <div class="ifl-sel-body" id="ifl-sel-body"></div>
-  <div class="ifl-sel-footer">
-    <button class="ifl-sel-go" id="ifl-sel-go" onclick="iflSelConfirm()">View all →</button>
-  </div>
-</div>
-
 <!-- ── FIND WHAT I LIKE (FWIL) SCREEN ───────────────────── -->
 <div id="fwil-screen" style="display:none">
   <div class="fwil-hdr">
@@ -518,7 +504,7 @@
 
     <!-- Action buttons — Likable Places / My Location / Favorites / Route / My Page -->
     <div class="sb-actions" id="sb-actions">
-      <button class="sba-btn" id="sba-likable" onclick="openThemeModal()">
+      <button class="sba-btn" id="sba-likable" onclick="_sbaExplore()">
         <span class="sba-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="10.5" cy="10.5" r="6.5"/>
@@ -816,26 +802,33 @@
   <button class="pwa-close-btn" onclick="pwaDismiss()">✕</button>
 </div>
 
-<!-- ── "I FEEL LIKE…" THEME MODAL ────────────────────────── -->
-<div id="ifl-overlay" class="ifl-overlay" onclick="closeThemeModal()"></div>
-<div id="ifl-modal" class="ifl-modal">
-  <div class="ifl-header">
-    <span class="ifl-title" id="ifl-title">Discover</span>
-    <button class="ifl-close" onclick="closeThemeModal()">✕</button>
-  </div>
-  <div class="ifl-body" id="ifl-body">
-    <!-- Theme cards injected by JS -->
-  </div>
-  <div class="ifl-footer">
-    <div class="ifl-footer-row1">
-      <button class="ifl-clear-btn" id="ifl-clear-btn" onclick="clearThemes()">✕ Clear</button>
-      <button class="ifl-apply-btn" id="ifl-apply-btn" onclick="applyThemes()">Apply filter</button>
+<!-- ── EXPLORE POPUP ──────────────────────────────────────── -->
+<div id="explore-overlay" onclick="_sbaExploreClose()" style="display:none"></div>
+<div id="explore-popup" style="display:none">
+  <button class="explore-popup-btn" onclick="_sbaExploreClose();_sbaFwil()">
+    <span class="explore-popup-icon">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="10.5" cy="10.5" r="6.5"/>
+        <line x1="15.5" y1="15.5" x2="21" y2="21"/>
+      </svg>
+    </span>
+    <div class="explore-popup-text">
+      <span class="explore-popup-title">Find what I like</span>
+      <span class="explore-popup-sub">Match places to my taste</span>
     </div>
-    <button class="ifl-route-btn" onclick="applyThemes(); closeThemeModal(); openRoutePanel();">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" style="flex-shrink:0"><path d="M3 17l6-6 4 4 8-8"/><path d="M17 7h4v4"/></svg>
-      Route
-    </button>
-  </div>
+  </button>
+  <button class="explore-popup-btn" onclick="_sbaExploreClose();_sbaLucky()">
+    <span class="explore-popup-icon">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="9"/>
+        <path d="M8 12l2.5 2.5L16 9"/>
+      </svg>
+    </span>
+    <div class="explore-popup-text">
+      <span class="explore-popup-title">I feel lucky</span>
+      <span class="explore-popup-sub">Surprise me with a random pick</span>
+    </div>
+  </button>
 </div>
 
 <script src="js/config.js?v=20260421i"></script>
