@@ -3677,82 +3677,107 @@
 /* ═══════════════════════════════════════════════════════════════ */
 /* FIND WHAT I LIKE (FWIL)                                        */
 /* ═══════════════════════════════════════════════════════════════ */
+/* FWIL backdrop + centered modal */
 #fwil-screen {
   position: fixed; inset: 0; z-index: 5200;
-  background: #111; color: #fff;
-  flex-direction: column; align-items: stretch;
-  opacity: 0; transition: opacity 0.28s ease;
-  overflow: hidden;
+  background: rgba(0,0,0,0.45);
+  display: none;
+  align-items: center; justify-content: center;
+  flex-direction: column;
+  opacity: 0; transition: opacity 0.22s ease;
+  padding: 16px;
+  font-family: Inter, -apple-system, sans-serif;
 }
 #fwil-screen.visible { opacity: 1; }
+/* Inner panel */
+#fwil-screen > * {
+  position: relative;
+}
+#fwil-panel {
+  background: #fff;
+  border-radius: 20px;
+  width: 100%; max-width: 520px;
+  max-height: 82vh;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  color: #111;
+  animation: fwil-in 0.22s ease;
+}
+@keyframes fwil-in {
+  from { transform: translateY(12px) scale(0.98); opacity: 0; }
+  to   { transform: translateY(0) scale(1); opacity: 1; }
+}
 
 .fwil-hdr {
   display: flex; align-items: center; justify-content: space-between;
   padding: 14px 16px 10px;
-  background: #1a1a1a; border-bottom: 1px solid #2a2a2a;
-  flex-shrink: 0;
+  background: #fff; border-bottom: 1px solid #eee;
+  flex-shrink: 0; border-radius: 20px 20px 0 0;
 }
 .fwil-back {
-  background: none; border: none; color: #aaa; font-size: 18px;
+  background: none; border: none; color: #888; font-size: 18px;
   cursor: pointer; padding: 6px 10px; border-radius: 8px;
 }
-.fwil-back:hover { color: #fff; background: rgba(255,255,255,0.08); }
+.fwil-back:hover { color: #111; background: #f0f0ee; }
 .fwil-hdr-center {
   display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1;
 }
-.fwil-hdr-title { font-size: 15px; font-weight: 700; color: #fff; }
+.fwil-hdr-title { font-size: 15px; font-weight: 700; color: #111; }
 .fwil-steps { display: flex; gap: 6px; }
 .fwil-step-dot {
   width: 7px; height: 7px; border-radius: 50%;
-  background: #444; transition: background 0.2s;
+  background: #ddd; transition: background 0.2s;
 }
 .fwil-step-dot.active { background: #f5a623; }
 .fwil-close-btn {
-  background: none; border: none; color: #666; font-size: 18px;
+  background: none; border: none; color: #aaa; font-size: 18px;
   cursor: pointer; padding: 6px 10px; border-radius: 8px;
 }
-.fwil-close-btn:hover { color: #fff; background: rgba(255,255,255,0.08); }
+.fwil-close-btn:hover { color: #111; background: #f0f0ee; }
 
 .fwil-step-subtitle {
   padding: 14px 18px 6px;
-  font-size: 13px; color: #888; flex-shrink: 0;
+  font-size: 13px; color: #555; flex-shrink: 0;
+  background: #fff;
 }
 
 /* Persona container (scrollable body) */
 .fwil-tag-container {
   flex: 1; overflow-y: auto; padding: 12px 14px 16px;
   -webkit-overflow-scrolling: touch;
+  background: #fff;
 }
 
 /* Saved preferences row */
 .fwil-saves-row {
-  background: rgba(255,255,255,0.04); border-radius: 12px;
+  background: #f7f7f5; border-radius: 12px;
   padding: 10px 14px; margin-bottom: 14px;
-  border: 1px solid #2a2a2a;
+  border: 1px solid #eee;
 }
 .fwil-saves-title {
-  font-size: 12px; color: #aaa; cursor: pointer;
+  font-size: 12px; color: #888; cursor: pointer;
   display: flex; align-items: center; gap: 6px;
 }
-.fwil-saves-title:hover { color: #fff; }
+.fwil-saves-title:hover { color: #111; }
 .fwil-saves-list { margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
 .fwil-save-item {
   display: flex; justify-content: space-between; align-items: center;
-  background: rgba(255,255,255,0.06); border-radius: 8px;
-  padding: 9px 12px; cursor: pointer; border: 1px solid transparent;
+  background: #fff; border-radius: 8px;
+  padding: 9px 12px; cursor: pointer; border: 1px solid #eee;
   transition: border-color 0.15s;
 }
 .fwil-save-item:hover { border-color: #f5a623; }
-.fwil-save-name { font-size: 13px; font-weight: 600; color: #eee; }
-.fwil-save-meta { font-size: 11px; color: #777; }
+.fwil-save-name { font-size: 13px; font-weight: 600; color: #111; }
+.fwil-save-meta { font-size: 11px; color: #888; }
 
 /* Persona grid — 2 columns */
 .fwil-persona-grid {
   display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
 }
 .fwil-persona-card {
-  background: rgba(255,255,255,0.04);
-  border: 1.5px solid #2a2a2a;
+  background: #f9f9f7;
+  border: 1.5px solid #e8e8e4;
   border-radius: 16px; padding: 16px 12px 14px;
   display: flex; flex-direction: column; align-items: center; gap: 5px;
   cursor: pointer; text-align: center;
@@ -3760,36 +3785,36 @@
   -webkit-tap-highlight-color: transparent;
 }
 .fwil-persona-card:hover {
-  border-color: rgba(245,166,35,0.5);
+  border-color: rgba(245,166,35,0.6);
   background: rgba(245,166,35,0.06);
 }
 .fwil-persona-card.selected {
   border-color: #f5a623;
-  background: rgba(245,166,35,0.13);
+  background: rgba(245,166,35,0.10);
 }
 .fwil-persona-icon { font-size: 26px; line-height: 1; margin-bottom: 2px; }
 .fwil-persona-name {
-  font-size: 12px; font-weight: 700; color: #fff; line-height: 1.2;
+  font-size: 12px; font-weight: 700; color: #111; line-height: 1.2;
 }
-.fwil-persona-card.selected .fwil-persona-name { color: #f5a623; }
+.fwil-persona-card.selected .fwil-persona-name { color: #c87f00; }
 .fwil-persona-hint {
-  font-size: 10px; color: #666; line-height: 1.4;
+  font-size: 10px; color: #888; line-height: 1.4;
 }
 .fwil-persona-card.selected .fwil-persona-hint { color: #a87720; }
 
 /* Footer */
 .fwil-footer {
-  padding: 12px 16px; background: #1a1a1a;
-  border-top: 1px solid #2a2a2a; flex-shrink: 0;
+  padding: 12px 16px; background: #fff;
+  border-top: 1px solid #eee; flex-shrink: 0;
 }
 .fwil-next-btn {
   width: 100%; padding: 14px; border-radius: 12px;
-  background: #333; border: none; color: #888;
+  background: #f0f0ee; border: none; color: #888;
   font-size: 14px; font-weight: 600; cursor: not-allowed;
   transition: background 0.2s, color 0.2s;
 }
 .fwil-next-btn.ready {
-  background: #f5a623; color: #111; cursor: pointer;
+  background: #f5a623; color: #fff; cursor: pointer;
 }
 .fwil-next-btn.ready:hover { background: #e09410; }
 
@@ -3798,8 +3823,8 @@
   display: flex; gap: 16px; justify-content: center;
 }
 .fwil-loc-btn {
-  background: rgba(255,255,255,0.06);
-  border: 2px solid rgba(255,255,255,0.12);
+  background: #f9f9f7;
+  border: 2px solid #e8e8e4;
   border-radius: 16px; padding: 20px 24px;
   display: flex; flex-direction: column; align-items: center; gap: 6px;
   cursor: pointer; min-width: 120px; transition: border-color 0.15s, background 0.15s;
@@ -3808,7 +3833,7 @@
   border-color: #f5a623; background: rgba(245,166,35,0.1);
 }
 .fwil-loc-icon { font-size: 28px; }
-.fwil-loc-label { font-size: 13px; font-weight: 700; color: #fff; }
+.fwil-loc-label { font-size: 13px; font-weight: 700; color: #111; }
 .fwil-loc-sub { font-size: 11px; color: #888; }
 
 /* Save Modal */

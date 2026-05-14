@@ -1286,46 +1286,9 @@ var _luckyTouchX = 0;
 var _luckyTouchY = 0;
 var _luckyDragging = false;
 
-// City → IANA timezone map (GPS-detected city takes priority; EST fallback)
-var _CITY_TIMEZONE = {
-  'new-york': 'America/New_York',
-  'seoul':    'Asia/Seoul',
-  'london':   'Europe/London',
-  'tokyo':    'Asia/Tokyo'
-};
-
-function _luckyGetTimezone() {
-  if (typeof activeCityKey !== 'undefined' && activeCityKey && _CITY_TIMEZONE[activeCityKey]) {
-    return _CITY_TIMEZONE[activeCityKey];
-  }
-  return 'America/New_York'; // EST fallback when GPS unavailable
-}
-
 function _luckyTodayStr() {
-  // Use GPS-detected city's timezone for date string
-  return new Intl.DateTimeFormat('en-CA', { timeZone: _luckyGetTimezone() }).format(new Date());
-}
-
-// Schedule an automatic reset at the next midnight in the active city's timezone
-// (handles case where user leaves the page open past 00:00)
-function _scheduleMidnightReset() {
-  var tz = _luckyGetTimezone();
-  var now = new Date();
-  // Get current time parts in the target timezone
-  var f = new Intl.DateTimeFormat('en-US', {
-    timeZone: tz,
-    hour: '2-digit', minute: '2-digit', second: '2-digit',
-    hour12: false
-  });
-  var parts = {};
-  f.formatToParts(now).forEach(function(x) { parts[x.type] = x.value; });
-  var secsNow = parseInt(parts.hour) * 3600 + parseInt(parts.minute) * 60 + parseInt(parts.second);
-  var msUntilMidnight = (86400 - secsNow) * 1000;
-  setTimeout(function() {
-    // Invalidate stored date → next _luckyGetSeen() call will reset seen list
-    localStorage.setItem(_LUCKY_KEY_DATE, '');
-    _scheduleMidnightReset(); // reschedule for the following midnight
-  }, msUntilMidnight);
+  // Use UTC date for consistent daily reset regardless of city/timezone
+  return new Date().toISOString().slice(0, 10); // 'YYYY-MM-DD' UTC
 }
 
 function _luckyGetSeen() {
