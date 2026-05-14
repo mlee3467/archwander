@@ -102,17 +102,8 @@ function getFiltered(opts) {
       (l.style||'').toLowerCase().includes(q) || (l.hood||'').toLowerCase().includes(q) ||
       _allSGs(l).some(s => s.toLowerCase().includes(q)) ||
       _allCats(l).some(c => c.toLowerCase().includes(q)) ||
-      l.tags.some(t => t.toLowerCase().includes(q))
+      (l.tags || []).some(t => t && t.toLowerCase().includes(q))
     );
-  }
-  // "I feel like…" theme filter (OR logic across selected themes)
-  if (state.themes.length) {
-    list = list.filter(function(l) {
-      return state.themes.some(function(tk) {
-        var td = THEME_DEFS.find(function(d){ return d.key === tk; });
-        return td && td.filter(l);
-      });
-    });
   }
   // Walk distance filter
   if (walkActive && walkOrigin) {

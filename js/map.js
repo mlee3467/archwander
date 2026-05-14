@@ -81,8 +81,8 @@ function initMap() {
   ARCHITECTS = [...new Set(initLocs.flatMap(l => l.archs || [l.arch]))].sort();
   NEIGHBORHOODS = [...new Set(initLocs.map(l => l.hood).filter(Boolean))].sort();
   initLocs.forEach(addMarker);
-  buildFilters();
-  renderList();
+  // buildFilters / renderList are skipped here — LOCS is always empty at
+  // initMap() time (data loads async). refreshApp() handles both after data arrives.
   applyLang();
   // Translation is now fully on-demand — no prefetch on startup
   // Update badge with city-specific count
