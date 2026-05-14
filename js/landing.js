@@ -1275,8 +1275,8 @@ function fwilCreateRoute() {
 // ══════════════════════════════════════════════════════════════════
 
 var _LUCKY_LIMIT   = 10;
-var _LUCKY_KEY_DATE  = 'aw_lucky_date';
-var _LUCKY_KEY_SEEN  = 'aw_lucky_seen';
+var _LUCKY_KEY_DATE  = 'aw_lucky_date_v2'; // v2: UTC-based (old key discarded)
+var _LUCKY_KEY_SEEN  = 'aw_lucky_seen_v2'; // v2: reset with new key
 var _LUCKY_KEY_LIKED = 'aw_lucky_liked';
 
 var _luckyQueue  = [];
@@ -1363,8 +1363,18 @@ function _renderLuckyCard(screen, seen) {
   var actions  = document.getElementById('ilk-actions');
   if (!cardArea) return;
 
+  // Guard: if queue is empty but seen < limit, LOCS may not be loaded yet — show error
   if (_luckyIndex >= _luckyQueue.length) {
-    _showLuckyResults(screen, seen || _luckyGetSeen());
+    var seenNow = seen || _luckyGetSeen();
+    if (seenNow.length < _LUCKY_LIMIT && _luckyQueue.length === 0) {
+      // LOCS not loaded yet or no locations — show friendly message instead of results
+      if (cardArea) cardArea.innerHTML =
+        '<div style="color:rgba(255,255,255,0.6);font-size:14px;text-align:center;padding:32px 16px">' +
+        'No locations loaded yet.<br>Please wait for the map to finish loading.' +
+        '</div>';
+      return;
+    }
+    _showLuckyResults(screen, seenNow);
     return;
   }
 
