@@ -175,65 +175,50 @@ function setupHDrag(handleId, targetId, minW, maxW) {
   const handle = document.getElementById(handleId);
   const target = document.getElementById(targetId);
   if (!handle || !target) return;
-  let dragging = false, startX = 0, startW = 0;
 
-  // Use window-level CAPTURE phase listeners so drag events are intercepted
-  // before Leaflet's bubble-phase handlers can consume them. This is more
-  // reliable than setPointerCapture which Leaflet can steal on its container.
+  // Overlay approach: on mousedown, cover the entire screen with a transparent
+  // fixed div that owns all mouse events. This is immune to Leaflet or any
+  // other element stealing pointer focus during drag.
+  function _startDrag(startX, startW) {
+    handle.classList.add('dragging');
+
+    var overlay = document.createElement('div');
+    overlay.style.cssText = 'position:fixed;inset:0;z-index:99999;cursor:ew-resize;';
+    document.body.appendChild(overlay);
+
+    function onMove(e) {
+      var cx = e.clientX !== undefined ? e.clientX : e.touches[0].clientX;
+      var w = Math.max(minW, Math.min(maxW, startW + cx - startX));
+      target.style.width = w + 'px';
+      document.documentElement.style.setProperty('--sidebar-w', w + 'px');
+      if (typeof map !== 'undefined' && map) map.invalidateSize();
+    }
+    function onEnd() {
+      handle.classList.remove('dragging');
+      overlay.removeEventListener('mousemove', onMove);
+      overlay.removeEventListener('mouseup', onEnd);
+      overlay.removeEventListener('touchmove', onMove);
+      overlay.removeEventListener('touchend', onEnd);
+      document.body.removeChild(overlay);
+    }
+
+    overlay.addEventListener('mousemove', onMove);
+    overlay.addEventListener('mouseup', onEnd);
+    overlay.addEventListener('touchmove', onMove, { passive: false });
+    overlay.addEventListener('touchend', onEnd);
+  }
+
   handle.addEventListener('mousedown', function(e) {
     if (e.button !== 0) return;
     e.preventDefault();
     e.stopPropagation();
-    dragging = true;
-    startX = e.clientX;
-    startW = target.offsetWidth;
-    handle.classList.add('dragging');
-    document.body.style.cursor = 'ew-resize';
-    document.body.style.userSelect = 'none';
+    _startDrag(e.clientX, target.offsetWidth);
   });
 
-  window.addEventListener('mousemove', function(e) {
-    if (!dragging) return;
-    e.preventDefault();
-    const w = Math.max(minW, Math.min(maxW, startW + e.clientX - startX));
-    target.style.width = w + 'px';
-    document.documentElement.style.setProperty('--sidebar-w', w + 'px');
-    if (typeof map !== 'undefined' && map) map.invalidateSize();
-  }, { capture: true });
-
-  window.addEventListener('mouseup', function(e) {
-    if (!dragging) return;
-    dragging = false;
-    handle.classList.remove('dragging');
-    document.body.style.cursor = '';
-    document.body.style.userSelect = '';
-  }, { capture: true });
-
-  // Touch support
   handle.addEventListener('touchstart', function(e) {
     e.preventDefault();
-    dragging = true;
-    startX = e.touches[0].clientX;
-    startW = target.offsetWidth;
-    handle.classList.add('dragging');
+    _startDrag(e.touches[0].clientX, target.offsetWidth);
   }, { passive: false });
-
-  window.addEventListener('touchmove', function(e) {
-    if (!dragging) return;
-    e.preventDefault();
-    const w = Math.max(minW, Math.min(maxW, startW + e.touches[0].clientX - startX));
-    target.style.width = w + 'px';
-    document.documentElement.style.setProperty('--sidebar-w', w + 'px');
-    if (typeof map !== 'undefined' && map) map.invalidateSize();
-  }, { capture: true, passive: false });
-
-  window.addEventListener('touchend', function(e) {
-    if (!dragging) return;
-    dragging = false;
-    handle.classList.remove('dragging');
-    document.body.style.cursor = '';
-    document.body.style.userSelect = '';
-  }, { capture: true });
 }
 
 // Drag-resize from LEFT edge (for right panel — dragging left = wider)
