@@ -140,13 +140,21 @@ window.addEventListener('load', function() {
     // _doFullMapInit will snap to GPS-detected city via map.setView when GPS resolves.
     if (!activeCity) { activeCity = 'nyc'; activeCityKey = 'new-york'; }
     _initMapTiles();
+    // Pre-load default city data so markers appear immediately (before GPS resolves)
+    loadCityData(activeCity).then(function() {
+      if (typeof refreshApp === 'function') refreshApp();
+    }).catch(function() {});
     if (typeof showSplash === 'function') showSplash();
     if (typeof _scheduleMidnightReset === 'function') _scheduleMidnightReset();
   } else {
-    // Desktop: show map immediately (at NYC fallback), then GPS snaps to correct city.
+    // Desktop: show map immediately, pre-load default city data, then GPS snaps to correct city.
     _mapInited = true;
     if (!activeCity) { activeCity = 'nyc'; activeCityKey = 'new-york'; }
     _initMapTiles();   // renders immediately so there's no blank-map wait
+    // Pre-load default city data so markers appear right away — GPS switch updates them later
+    loadCityData(activeCity).then(function() {
+      if (typeof refreshApp === 'function') refreshApp();
+    }).catch(function() {});
     _doFullMapInit();  // GPS → setView(correct city) → loadData → refreshApp
     if (typeof _scheduleMidnightReset === 'function') _scheduleMidnightReset();
   }
@@ -191,12 +199,6 @@ window.addEventListener('load', function() {
         location.reload(); return;
       }
       if (typeof hideLandingScreen === 'function') hideLandingScreen();
-      return;
-    }
-    // If IFL select screen is visible → go back to landing
-    var _iflSel = document.getElementById('ifl-select-screen');
-    if (_iflSel && _iflSel.classList.contains('visible')) {
-      if (typeof iflSelBack === 'function') iflSelBack();
       return;
     }
     // If in walk-path mode → exit walk-path, restore panel

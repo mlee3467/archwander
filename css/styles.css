@@ -1131,7 +1131,7 @@
 
     /* ── RESIZE HANDLES ──────────────────────────────────── */
     .sb-resize {
-      position: absolute; right: -3px; top: 0; bottom: 0; width: 6px;
+      position: absolute; right: 0; top: 0; bottom: 0; width: 6px;
       cursor: ew-resize; z-index: 300;
       background: transparent; transition: background 0.15s;
     }

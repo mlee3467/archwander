@@ -225,48 +225,12 @@ function _showMapMarkerPopup(loc) {
   var _lang    = (typeof LANG !== 'undefined') ? LANG : 'en';
   var _esc     = (typeof _escHtml === 'function') ? _escHtml : function(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); };
 
-  // Thumbnail: photo → SV fallback (only if no photo available)
-  var thumbHtml  = '';
-  var hasSvKey   = (typeof GOOGLE_MAPS_API_KEY !== 'undefined') && GOOGLE_MAPS_API_KEY;
-  var svEmbedSrc = '';
-  if (loc.sv && hasSvKey) {
-    var svLat = loc.sv.lat || loc.lat;
-    var svLng = loc.sv.lng || loc.lng;
-    var svQ = 'key=' + GOOGLE_MAPS_API_KEY +
-      '&heading=' + (loc.sv.heading || 0) +
-      '&pitch='   + (loc.sv.pitch   || 0) +
-      '&fov='     + (loc.sv.fov     || 90);
-    if (loc.sv.panoId) svQ += '&pano=' + loc.sv.panoId;
-    else               svQ += '&location=' + svLat + ',' + svLng;
-    svEmbedSrc = 'https://www.google.com/maps/embed/v1/streetview?' + svQ;
-  }
-  var SV_ALLOW = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; magnetometer; picture-in-picture';
-  if (loc.photos && loc.photos.length > 0) {
-    var pUrl = loc.photos[0];
-    // Use popup-sized thumbnail — 400px is enough for a 280px popup at 2x retina
-    if (typeof photoUrl === 'function') {
-      pUrl = photoUrl(pUrl, true, 'popup');
-    }
-    thumbHtml = '<div class="rmp-thumb">' +
-      '<img src="' + pUrl + '" onerror="this.parentNode.style.display=\'none\'">' +
-      '</div>';
-  } else if (svEmbedSrc) {
-    thumbHtml = '<div class="rmp-sv-wrap" style="height:160px">' +
-      '<div class="rmp-sv-pane rmp-sv-outdoor">' +
-      '<iframe src="' + svEmbedSrc + '" allowfullscreen allow="' + SV_ALLOW + '"' +
-      ' referrerpolicy="no-referrer-when-downgrade"></iframe>' +
-      '</div></div>';
-    // Request iOS gyroscope permission from parent context (user-gesture)
-    if (typeof _requestMotionPermission === 'function') _requestMotionPermission();
-  }
-
   var el = document.createElement('div');
   el.id = 'map-marker-popup';
   el.className = 'route-custom-popup';
   el.style.width = '280px';  // fix width so offsetWidth is reliable before layout
   el.innerHTML =
     '<button class="rmp-close" onclick="_closeMapMarkerPopup()" aria-label="close">✕</button>' +
-    thumbHtml +
     '<div class="rmp-body">' +
       '<div class="rmp-name" onclick="_closeMapMarkerPopup();openLocById(\'' + loc.id + '\')" style="cursor:pointer;text-decoration:underline;text-underline-offset:2px">' +
         _esc(loc.name) +
