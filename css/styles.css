@@ -1130,12 +1130,16 @@
     .drag-h:hover::after, .drag-h.dragging::after { background: #888; }
 
     /* ── RESIZE HANDLES ──────────────────────────────────── */
+    /* sb-resize is a sibling of .sidebar inside .app (position:relative),
+       so overflow:hidden on .sidebar cannot clip it */
     .sb-resize {
-      position: absolute; right: 0; top: 0; bottom: 0; width: 6px;
+      position: absolute;
+      left: calc(var(--sidebar-w, 300px) - 3px);
+      top: 0; bottom: 0; width: 8px;
       cursor: ew-resize; z-index: 300;
       background: transparent; transition: background 0.15s;
     }
-    .sb-resize:hover, .sb-resize.dragging { background: rgba(0,0,0,0.15); }
+    .sb-resize:hover, .sb-resize.dragging { background: rgba(0,0,0,0.18); }
     .panel-resize {
       position: absolute; left: -3px; top: 0; bottom: 0; width: 6px;
       cursor: ew-resize; z-index: 600;
@@ -1359,6 +1363,9 @@
 
       /* ── Map zoom buttons: move up to avoid phone toolbar ── */
       .leaflet-bottom.leaflet-right { bottom: 60px; }
+
+      /* ── Hide resize handle on mobile (sidebar is flyout, not resizable) ── */
+      .sb-resize { display: none !important; }
 
       /* ── Hide header action buttons on mobile (use action bar instead) ── */
       #near-me-btn, #fav-btn, #route-btn, #ifl-btn { display: none !important; }
@@ -1960,6 +1967,39 @@
   0% { transform: scale(0.5); opacity: 1; }
   100% { transform: scale(1.5); opacity: 0; }
 }
+
+/* ── SV FULLSCREEN MODAL ──────────────────────────────────── */
+#sv-fullscreen {
+  position: fixed; inset: 0; z-index: 9000;
+  background: #000;
+}
+#sv-fullscreen-frame {
+  width: 100%; height: 100%; border: none; display: block;
+  /* pointer-events auto — user can interact with Street View */
+}
+#sv-fullscreen-close {
+  position: absolute; top: 14px; right: 14px; z-index: 9001;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(0,0,0,0.55); color: #fff;
+  border: 1px solid rgba(255,255,255,0.3);
+  font-size: 18px; cursor: pointer; display: flex;
+  align-items: center; justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ── LUCKY CARD SV HINT OVERLAY ──────────────────────────── */
+.ilk-sv-hint {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 10px 14px;
+  background: linear-gradient(to top, rgba(0,0,0,0.62) 0%, transparent 100%);
+  color: #fff; font-size: 12px; font-weight: 500;
+  cursor: pointer; text-align: center;
+  pointer-events: auto;
+  letter-spacing: 0.2px;
+  -webkit-tap-highlight-color: transparent;
+  z-index: 2;
+}
+.ilk-sv-hint:hover { opacity: 0.85; }
 
 /* Mobile route panel */
 @media (max-width: 900px) {
@@ -2887,11 +2927,11 @@
   color: #111;
 }
 /* Per-button diagonal gradients — coolors palette #edeec9 → #77bfa3 */
-#sba-likable { background: linear-gradient(135deg, #f5f6e4 0%, #edeec9 100%); }
-#sba-loc     { background: linear-gradient(135deg, #edf2e4 0%, #dde7c7 100%); }
-#sba-fav     { background: linear-gradient(135deg, #d9ead7 0%, #bfd8bd 100%); }
-#sba-route   { background: linear-gradient(135deg, #c0ddc8 0%, #98c9a3 100%); }
-#sba-ifl     { background: linear-gradient(135deg, #a3d3c1 0%, #77bfa3 100%); }
+#sba-likable { background: linear-gradient(135deg, #cfe4b2 0%, #8cb369 100%); }
+#sba-loc     { background: linear-gradient(135deg, #fdf8d0 0%, #f4e285 100%); }
+#sba-fav     { background: linear-gradient(135deg, #fadfc0 0%, #f4a259 100%); }
+#sba-route   { background: linear-gradient(135deg, #a8cec8 0%, #5b8e7d 100%); }
+#sba-ifl     { background: linear-gradient(135deg, #e4a4a8 0%, #bc4b51 100%); }
 .sba-btn:active {
   transform: scale(0.96);
   filter: brightness(0.90);

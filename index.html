@@ -651,10 +651,10 @@
       Review filtered list
     </button>
 
-    <!-- Right-edge horizontal resize handle -->
-    <div class="sb-resize" id="sb-resize"></div>
-
   </aside>
+
+  <!-- Sidebar right-edge resize handle (outside aside, no overflow:hidden clipping) -->
+  <div class="sb-resize" id="sb-resize" title="Drag to resize sidebar"></div>
 <div id="sidebar-backdrop" onclick="closeSidebar()"></div>
 
 <!-- ── LIST OVERLAY (filtered locations, opened via "Review filtered list") -->
@@ -760,6 +760,14 @@
 </button>
 
 <div id="panel-backdrop" onclick="closePanel()"></div>
+
+<!-- ── SV FULLSCREEN MODAL (for lucky card street view interaction) ── -->
+<div id="sv-fullscreen" style="display:none">
+  <button id="sv-fullscreen-close" onclick="_closeSVFull()">✕</button>
+  <iframe id="sv-fullscreen-frame" src="" frameborder="0"
+    referrerpolicy="no-referrer-when-downgrade" allowfullscreen
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; magnetometer; picture-in-picture"></iframe>
+</div>
 
   <div id="map"></div>
 

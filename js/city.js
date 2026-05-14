@@ -754,7 +754,30 @@ function _dbRowToLoc(row) {
 }
 
 // ── Supabase city load ────────────────────────────────────────
+// ── Supabase city data cache (localStorage) ──────────────────────
+// Key: 'aw_sb_' + cityCode. Stores raw loc objects for instant startup.
+// Supabase fetch always runs to keep cache fresh; cache just unblocks first paint.
+var _SB_CACHE_PREFIX = 'aw_sb_';
+
 function _loadCityDataSupabase(cityCode, meta) {
+  // ① Try localStorage cache first — resolves immediately for fast markers
+  var cacheKey = _SB_CACHE_PREFIX + cityCode;
+  var cachedStr = null;
+  try { cachedStr = localStorage.getItem(cacheKey); } catch(e) {}
+  if (cachedStr) {
+    try {
+      var cachedLocs = JSON.parse(cachedStr);
+      var existingIds = new Set(LOCS.map(function(l) { return l.id; }));
+      cachedLocs.forEach(function(l) { if (!existingIds.has(l.id)) LOCS.push(l); });
+      _loadedCities[cityCode] = true;
+      console.log('[cache] Restored', meta.key + ':', cachedLocs.length, 'locations');
+      // Refresh from Supabase in background to keep cache up-to-date
+      _refreshCityDataBackground(cityCode, meta, cacheKey);
+      return Promise.resolve();
+    } catch(e) { /* corrupt cache — fall through to normal fetch */ }
+  }
+
+  // ② No cache — fetch from Supabase synchronously (first-ever load)
   return _ensureSupabaseAuth().then(function() {
     return _supabase
       .from('locations')
@@ -763,18 +786,35 @@ function _loadCityDataSupabase(cityCode, meta) {
       .then(function(result) {
         if (result.error) throw result.error;
         var freshLocs = result.data.map(_dbRowToLoc);
-        // Supabase is the single source of truth — do NOT merge with localStorage.
-        // _mergeLocsFromStorage() was previously used here but caused stale data:
-        // existing IDs in localStorage['archwander_locs_v2'] silently overrode
-        // fresh DB values, so coordinate/field updates were never reflected.
         var existingIds = new Set(LOCS.map(function(l) { return l.id; }));
-        freshLocs.forEach(function(l) {
-          if (!existingIds.has(l.id)) LOCS.push(l);
-        });
+        freshLocs.forEach(function(l) { if (!existingIds.has(l.id)) LOCS.push(l); });
         _loadedCities[cityCode] = true;
+        // Save to cache for instant load next time
+        try { localStorage.setItem(cacheKey, JSON.stringify(freshLocs)); } catch(e) {}
         console.log('[supabase] Loaded', meta.key + ':', freshLocs.length, 'locations');
       });
   });
+}
+
+function _refreshCityDataBackground(cityCode, meta, cacheKey) {
+  _ensureSupabaseAuth().then(function() {
+    return _supabase.from('locations').select('*').eq('city', meta.key);
+  }).then(function(result) {
+    if (!result || result.error) return;
+    var freshLocs = result.data.map(_dbRowToLoc);
+    // Update cache with latest data
+    try { localStorage.setItem(cacheKey, JSON.stringify(freshLocs)); } catch(e) {}
+    // Merge any NEW locations not yet in LOCS
+    var existingIds = new Set(LOCS.map(function(l) { return l.id; }));
+    var added = 0;
+    freshLocs.forEach(function(l) {
+      if (!existingIds.has(l.id)) { LOCS.push(l); added++; }
+    });
+    if (added > 0) {
+      console.log('[cache] Background refresh added', added, 'new locations for', meta.key);
+      if (typeof refreshApp === 'function') refreshApp();
+    }
+  }).catch(function() {});
 }
 
 // Load city data on demand.

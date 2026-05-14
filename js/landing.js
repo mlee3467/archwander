@@ -835,6 +835,21 @@ function _sbaLucky() {
   _ensureMapInit(function() { _openIflLucky(); });
 }
 
+// ── SV Fullscreen Modal ──────────────────────────────────────────
+function _openSVFull(encodedSrc) {
+  var modal = document.getElementById('sv-fullscreen');
+  var frame = document.getElementById('sv-fullscreen-frame');
+  if (!modal || !frame) return;
+  frame.src = decodeURIComponent(encodedSrc);
+  modal.style.display = 'block';
+}
+function _closeSVFull() {
+  var modal = document.getElementById('sv-fullscreen');
+  var frame = document.getElementById('sv-fullscreen-frame');
+  if (modal) modal.style.display = 'none';
+  if (frame) frame.src = '';  // stop SV video/audio
+}
+
 function _fwilOpenScreen() {
   var el = document.getElementById('fwil-screen');
   if (!el) return;
@@ -1410,10 +1425,14 @@ function _renderLuckyCard(screen, seen) {
     if (loc.sv && loc.sv.panoId) svQ += '&pano=' + loc.sv.panoId;
     else svQ += '&location=' + svLat + ',' + svLng;
     var svSrc = 'https://www.google.com/maps/embed/v1/streetview?' + svQ;
-    // pointer-events:none lets swipe touch events pass through to the card
+    // pointer-events:none on iframe lets swipe events pass through to the card;
+    // "Tap to explore" hint opens full-screen modal for interactive SV
+    var _svEnc = encodeURIComponent(svSrc);
     mediaInner = '<iframe class="ilk-card-sv" src="' + svSrc + '"' +
       ' frameborder="0" referrerpolicy="no-referrer-when-downgrade"' +
-      ' allowfullscreen allow="' + _SV_ALLOW + '"></iframe>';
+      ' allowfullscreen allow="' + _SV_ALLOW + '"></iframe>' +
+      '<div class="ilk-sv-hint" onclick="event.stopPropagation();_openSVFull(\'' + _svEnc + '\')">' +
+      '↗ Tap to explore Street View</div>';
     // Request iOS gyroscope permission from parent (must happen in user-gesture context)
     if (typeof _requestMotionPermission === 'function') _requestMotionPermission();
   } else {
