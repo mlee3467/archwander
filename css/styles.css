@@ -1988,18 +1988,21 @@
 }
 
 /* ── LUCKY CARD SV HINT OVERLAY ──────────────────────────── */
-.ilk-sv-hint {
+/* Full-area overlay so tapping anywhere on the SV opens the interactive modal */
+.ilk-sv-overlay {
+  position: absolute; inset: 0; z-index: 2;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  pointer-events: auto;
+}
+.ilk-sv-label {
   position: absolute; bottom: 0; left: 0; right: 0;
   padding: 10px 14px;
   background: linear-gradient(to top, rgba(0,0,0,0.62) 0%, transparent 100%);
   color: #fff; font-size: 12px; font-weight: 500;
-  cursor: pointer; text-align: center;
-  pointer-events: auto;
-  letter-spacing: 0.2px;
-  -webkit-tap-highlight-color: transparent;
-  z-index: 2;
+  text-align: center; letter-spacing: 0.2px;
 }
-.ilk-sv-hint:hover { opacity: 0.85; }
+.ilk-sv-overlay:hover .ilk-sv-label { opacity: 0.85; }
 
 /* Mobile route panel */
 @media (max-width: 900px) {

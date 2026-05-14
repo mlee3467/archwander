@@ -1426,13 +1426,15 @@ function _renderLuckyCard(screen, seen) {
     else svQ += '&location=' + svLat + ',' + svLng;
     var svSrc = 'https://www.google.com/maps/embed/v1/streetview?' + svQ;
     // pointer-events:none on iframe lets swipe events pass through to the card;
-    // "Tap to explore" hint opens full-screen modal for interactive SV
+    // Full-area overlay opens interactive full-screen SV on tap (not just bottom hint)
     var _svEnc = encodeURIComponent(svSrc);
+    var _svLabel = (typeof LANG !== 'undefined' && LANG === 'ko') ? '↗ 스트리트뷰 탐색' : '↗ Tap to explore Street View';
     mediaInner = '<iframe class="ilk-card-sv" src="' + svSrc + '"' +
       ' frameborder="0" referrerpolicy="no-referrer-when-downgrade"' +
       ' allowfullscreen allow="' + _SV_ALLOW + '"></iframe>' +
-      '<div class="ilk-sv-hint" onclick="event.stopPropagation();_openSVFull(\'' + _svEnc + '\')">' +
-      '↗ Tap to explore Street View</div>';
+      '<div class="ilk-sv-overlay" onclick="event.stopPropagation();_openSVFull(\'' + _svEnc + '\')">' +
+        '<div class="ilk-sv-label">' + _svLabel + '</div>' +
+      '</div>';
     // Request iOS gyroscope permission from parent (must happen in user-gesture context)
     if (typeof _requestMotionPermission === 'function') _requestMotionPermission();
   } else {

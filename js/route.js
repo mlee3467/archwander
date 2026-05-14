@@ -13,6 +13,7 @@ var _routeSkipAnim   = false; // true when remove triggered — skip animation, 
 var _rpsSelectedHoods = new Set(); // selected hoods in the presel modal (multi-select)
 var _SAVED_ROUTE_KEY  = 'aw_saved_route_v1';   // legacy (unused)
 var _SAVED_ROUTES_KEY = 'aw_saved_routes_v2';  // current: array of named routes
+var routeOriginMarker = null; // green start marker at walkOrigin
 
 // ── Pixel Walker Animation ───────────────────────────────────────
 // Character type: Canvas-rendered pixel art → dataURL → <img> in Leaflet divIcon.
@@ -192,6 +193,26 @@ function _buildWalkerSprites() {
   return _walkerSpriteCache[_WALKER_PAL_HAPPY['1']];
 }
 
+// ── Start Marker Icon Builder ────────────────────────────────────
+function _buildStartMarkerIcon() {
+  var ko = typeof LANG !== 'undefined' && LANG === 'ko';
+  return L.divIcon({
+    html:
+      '<div style="display:flex;align-items:center;gap:4px;white-space:nowrap">' +
+        '<div style="background:#22c55e;color:white;width:28px;height:28px;border-radius:50%;' +
+        'display:flex;align-items:center;justify-content:center;font-size:14px;' +
+        'border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.35);flex-shrink:0">📍</div>' +
+        '<div style="font-size:9px;font-family:Inter,sans-serif;font-weight:600;color:#111;' +
+        'background:rgba(255,255,255,0.92);padding:2px 5px;border-radius:3px;' +
+        'box-shadow:0 1px 4px rgba(0,0,0,0.25)">' +
+        (ko ? '출발' : 'Start') + '</div>' +
+      '</div>',
+    className: '',
+    iconSize: [100, 28],
+    iconAnchor: [14, 14]
+  });
+}
+
 // ── Route Marker Icon Builder ────────────────────────────────────
 // visited=false → pink; visited=true → black; beyondLimit → gray
 function _buildRouteMarkerIcon(num, name, visited, beyondLimit) {
@@ -334,7 +355,7 @@ function _closestCoordIdx(coords, lat, lng) {
 
 // ── Main animation ────────────────────────────────────────────────
 // coords: full path points.  stopIndices: which coords[] are stop locations.
-function _startWalkerAnimation(coords, stopIndices, ordered, cumDistAtStop) {
+function _startWalkerAnimation(coords, stopIndices, ordered, cumDistAtStop, hasOrigin) {
   cumDistAtStop = cumDistAtStop || [];
   _stopWalkerAnimation();
   if (!coords || coords.length < 2) return;
@@ -435,8 +456,10 @@ function _startWalkerAnimation(coords, stopIndices, ordered, cumDistAtStop) {
       for (var vi = 0; vi < stopIndices.length; vi++) {
         if (!_walkerPassedStops.has(vi) && revealCoordIdx >= stopIndices[vi]) {
           _walkerPassedStops.add(vi);
-          if (routeMarkers[vi] && ordered[vi]) {
-            routeMarkers[vi].setIcon(_buildRouteMarkerIcon(vi + 1, ordered[vi].name, true));
+          // If hasOrigin, vi=0 is origin (no routeMarker); stops are at vi-1
+          var mIdx = hasOrigin ? vi - 1 : vi;
+          if (mIdx >= 0 && routeMarkers[mIdx] && ordered[mIdx]) {
+            routeMarkers[mIdx].setIcon(_buildRouteMarkerIcon(mIdx + 1, ordered[mIdx].name, true, (cumDistAtStop[vi] || 0) > _WLK_D_STOP));
           }
         }
       }
@@ -466,9 +489,10 @@ function _startWalkerAnimation(coords, stopIndices, ordered, cumDistAtStop) {
       // Mark all stops visited
       if (_walkerPassedStops) {
         for (var fi = 0; fi < stopIndices.length; fi++) {
-          if (!_walkerPassedStops.has(fi) && ordered[fi]) {
+          var mIdx = hasOrigin ? fi - 1 : fi;
+          if (mIdx >= 0 && !_walkerPassedStops.has(fi) && ordered[mIdx]) {
             _walkerPassedStops.add(fi);
-            if (routeMarkers[fi]) routeMarkers[fi].setIcon(_buildRouteMarkerIcon(fi+1, ordered[fi].name, true, cumDistAtStop[fi] > _WLK_D_STOP));
+            if (routeMarkers[mIdx]) routeMarkers[mIdx].setIcon(_buildRouteMarkerIcon(mIdx+1, ordered[mIdx].name, true, (cumDistAtStop[fi] || 0) > _WLK_D_STOP));
           }
         }
       }
@@ -1116,12 +1140,18 @@ function _escHtml(s) {
 function calcRoute() {
   if (routeLocations.length < 2) return;
 
-  // Optimize order using nearest-neighbor heuristic
-  var ordered = _optimizeOrder(routeLocations);
+  // Detect origin (GPS / dropped pin from Near Me / Set My Location)
+  var origin = (typeof walkOrigin !== 'undefined' && walkOrigin && walkOrigin.lat) ? walkOrigin : null;
+
+  // Optimize order — start from location closest to origin if available
+  var ordered = _optimizeOrder(routeLocations, origin);
   routeLocations = ordered;
   _refreshRouteUI();
 
-  var coords = ordered.map(function(loc) { return loc.lng + ',' + loc.lat; }).join(';');
+  // Build OSRM coordinate string: prepend origin if available
+  var coordParts = ordered.map(function(loc) { return loc.lng + ',' + loc.lat; });
+  if (origin) coordParts.unshift(origin.lng + ',' + origin.lat);
+  var coords = coordParts.join(';');
   var url = 'https://routing.openstreetmap.de/routed-foot/route/v1/driving/' + coords +
             '?overview=full&geometries=geojson&steps=true';
 
@@ -1136,12 +1166,12 @@ function calcRoute() {
     .then(function(res) { return res.json(); })
     .then(function(data) {
       if (!data.routes || !data.routes.length) throw new Error('No route found');
-      _displayRoute(data.routes[0], ordered);
+      _displayRoute(data.routes[0], ordered, origin);
       _minimizeRoutePanelMobile();
     })
     .catch(function(err) {
       console.warn('[route] OSRM failed:', err);
-      _displayStraightRoute(ordered);
+      _displayStraightRoute(ordered, origin);
       _minimizeRoutePanelMobile();
     });
 }
@@ -1169,11 +1199,20 @@ function _restoreRoutePanel() {
   if (panel) panel.classList.remove('minimized');
 }
 
-function _optimizeOrder(locs) {
-  // Nearest-neighbor heuristic from the first location
+function _optimizeOrder(locs, origin) {
+  // Nearest-neighbor heuristic; if origin provided, start from closest loc to it
   if (locs.length <= 2) return locs.slice();
-  var remaining = locs.slice(1);
-  var ordered = [locs[0]];
+  var startIdx = 0;
+  if (origin) {
+    var minD = Infinity;
+    for (var oi = 0; oi < locs.length; oi++) {
+      var d = haversineM(origin.lat, origin.lng, locs[oi].lat, locs[oi].lng);
+      if (d < minD) { minD = d; startIdx = oi; }
+    }
+  }
+  var remaining = locs.slice();
+  remaining.splice(startIdx, 1);
+  var ordered = [locs[startIdx]];
   while (remaining.length > 0) {
     var last = ordered[ordered.length - 1];
     var nearestIdx = 0;
@@ -1188,13 +1227,15 @@ function _optimizeOrder(locs) {
   return ordered;
 }
 
-function _displayRoute(route, ordered) {
+function _displayRoute(route, ordered, origin) {
   clearRoute();
 
   var coords = route.geometry.coordinates.map(function(c) { return [c[1], c[0]]; });
   routeLine = null;
 
-  // Cumulative distance at each stop via OSRM leg distances
+  // Cumulative distance at each stop via OSRM leg distances.
+  // If origin is present, legs[0] = origin→stop1, legs[1..] = stop1→stop2…
+  // cumDistAtStop[0] = 0 (origin or stop1), cumDistAtStop[i+offset] = dist at stop i
   var cumDistAtStop = [0];
   var cumDist = 0;
   if (route.legs) {
@@ -1203,10 +1244,22 @@ function _displayRoute(route, ordered) {
       cumDistAtStop.push(cumDist);
     });
   }
+  // With origin: cumDistAtStop = [0, d_o→1, d_o→1+d_1→2, ...]  length=N+1
+  // Without:     cumDistAtStop = [0, d_1→2, ...]                length=N
+
+  // Place start marker at origin
+  if (origin) {
+    routeOriginMarker = L.marker([origin.lat, origin.lng], {
+      icon: _buildStartMarkerIcon(), zIndexOffset: 800
+    }).addTo(map);
+  }
 
   var stopIndices = [];
+  if (origin) stopIndices.push(_closestCoordIdx(coords, origin.lat, origin.lng));
+
   ordered.forEach(function(loc, i) {
-    var distAtStop = cumDistAtStop[i] || 0;
+    // With origin: distAtStop is cumDistAtStop[i+1]; without: cumDistAtStop[i]
+    var distAtStop = origin ? (cumDistAtStop[i + 1] || 0) : (cumDistAtStop[i] || 0);
     var beyondLimit = distAtStop > _WLK_D_STOP;
     var m = L.marker([loc.lat, loc.lng], {
       icon: _buildRouteMarkerIcon(i + 1, loc.name, false, beyondLimit),
@@ -1225,43 +1278,53 @@ function _displayRoute(route, ordered) {
   });
 
   map.fitBounds(L.latLngBounds(coords), { padding: [60, 60] });
+  // route.distance already includes origin leg since we passed origin to OSRM
   routeData = { distance: route.distance, duration: route.duration, stops: ordered.length, legs: route.legs || [] };
-  _renderRouteResult(routeData, ordered, cumDistAtStop);
-  // Hide regular flag markers for route stops (numbered markers now show instead)
+  _renderRouteResult(routeData, ordered, origin ? cumDistAtStop.slice(1) : cumDistAtStop);
   if (typeof syncMarkers === 'function') syncMarkers();
-  // Warn if total route exceeds 6km
   _check6kmWarning();
 
   if (_routeSkipAnim) {
     _routeSkipAnim = false;
-    // Instant final state: draw full reveal line, mark all stops as visited
     _walkerRevealLine = L.polyline(coords, {
       color: '#D946A8', weight: 5, opacity: 0.85, dashArray: '4 4', lineCap: 'square'
     }).addTo(map);
     routeMarkers.forEach(function(m, i) {
-      if (ordered[i]) m.setIcon(_buildRouteMarkerIcon(i+1, ordered[i].name, true, (cumDistAtStop[i]||0) > _WLK_D_STOP));
+      var d = origin ? (cumDistAtStop[i + 1] || 0) : (cumDistAtStop[i] || 0);
+      if (ordered[i]) m.setIcon(_buildRouteMarkerIcon(i+1, ordered[i].name, true, d > _WLK_D_STOP));
     });
   } else {
-    _startWalkerAnimation(coords, stopIndices, ordered, cumDistAtStop);
+    _startWalkerAnimation(coords, stopIndices, ordered, cumDistAtStop, !!origin);
   }
 }
 
-function _displayStraightRoute(ordered) {
+function _displayStraightRoute(ordered, origin) {
   clearRoute();
 
+  // If origin provided, prepend it so the straight-line path starts from there
   var coords = ordered.map(function(loc) { return [loc.lat, loc.lng]; });
+  if (origin) coords.unshift([origin.lat, origin.lng]);
   routeLine = null;
 
   // Compute cumulative straight-line distances
   var cumDistAtStop = [0];
   var running = 0;
-  for (var i = 1; i < ordered.length; i++) {
-    running += haversineM(ordered[i-1].lat, ordered[i-1].lng, ordered[i].lat, ordered[i].lng);
+  for (var i = 1; i < coords.length; i++) {
+    running += haversineM(coords[i-1][0], coords[i-1][1], coords[i][0], coords[i][1]);
     cumDistAtStop.push(running);
+  }
+  // With origin: cumDistAtStop = [0, d_o→1, ...] length=N+1
+  // Without:     cumDistAtStop = [0, d_1→2, ...]  length=N
+
+  // Place start marker at origin
+  if (origin) {
+    routeOriginMarker = L.marker([origin.lat, origin.lng], {
+      icon: _buildStartMarkerIcon(), zIndexOffset: 800
+    }).addTo(map);
   }
 
   ordered.forEach(function(loc, i) {
-    var distAtStop = cumDistAtStop[i] || 0;
+    var distAtStop = origin ? (cumDistAtStop[i + 1] || 0) : (cumDistAtStop[i] || 0);
     var beyondLimit = distAtStop > _WLK_D_STOP;
     var m = L.marker([loc.lat, loc.lng], {
       icon: _buildRouteMarkerIcon(i + 1, loc.name, false, beyondLimit),
@@ -1280,12 +1343,14 @@ function _displayStraightRoute(ordered) {
 
   map.fitBounds(L.latLngBounds(coords), { padding: [60, 60] });
   routeData = { distance: running, duration: running / 1.33, stops: ordered.length, legs: [], estimated: true };
-  _renderRouteResult(routeData, ordered, cumDistAtStop);
-  // Hide regular flag markers for route stops (numbered markers now show instead)
+  _renderRouteResult(routeData, ordered, origin ? cumDistAtStop.slice(1) : cumDistAtStop);
   if (typeof syncMarkers === 'function') syncMarkers();
-  // Warn if total route exceeds 6km
   _check6kmWarning();
-  var stopIndices = coords.map(function(_, i) { return i; });
+
+  // Stop indices: with origin, coords[0] = origin; stops are at indices 1..N
+  var stopIndices = [];
+  if (origin) stopIndices.push(0); // origin
+  for (var si = (origin ? 1 : 0); si < coords.length; si++) stopIndices.push(si);
 
   if (_routeSkipAnim) {
     _routeSkipAnim = false;
@@ -1293,10 +1358,11 @@ function _displayStraightRoute(ordered) {
       color: '#D946A8', weight: 5, opacity: 0.85, dashArray: '4 4', lineCap: 'square'
     }).addTo(map);
     routeMarkers.forEach(function(m, i) {
-      if (ordered[i]) m.setIcon(_buildRouteMarkerIcon(i+1, ordered[i].name, true, (cumDistAtStop[i]||0) > _WLK_D_STOP));
+      var d = origin ? (cumDistAtStop[i + 1] || 0) : (cumDistAtStop[i] || 0);
+      if (ordered[i]) m.setIcon(_buildRouteMarkerIcon(i+1, ordered[i].name, true, d > _WLK_D_STOP));
     });
   } else {
-    _startWalkerAnimation(coords, stopIndices, ordered, cumDistAtStop);
+    _startWalkerAnimation(coords, stopIndices, ordered, cumDistAtStop, !!origin);
   }
 }
 
@@ -1531,6 +1597,7 @@ function clearRoute() {
   _closeRouteCustomPopup();
   if (routeLine) { try { map.removeLayer(routeLine); } catch(e) {} routeLine = null; }
   routeMarkers.forEach(function(m) { try { map.removeLayer(m); } catch(e) {} });
+  if (routeOriginMarker) { try { map.removeLayer(routeOriginMarker); } catch(e) {} routeOriginMarker = null; }
   routeMarkers = [];
   routeData = null;
   var resultDiv = document.getElementById('route-result');
