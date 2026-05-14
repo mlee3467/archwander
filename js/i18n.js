@@ -40,6 +40,7 @@ var T = {
     mob_near:     'My Location',
     mob_fav:      'Favorites',
     mob_route:    'Route',
+    sba_likable:  'Likable\nplaces',
     sba_loc:      'My Location',
     sba_fav:      'Favorites',
     sba_route:    'Route',
@@ -156,7 +157,7 @@ function applyLang() {
   const mobRoute = document.querySelector('.mob-route-text');
   if (mobRoute) mobRoute.textContent = t('mob_route');
   // Sidebar action buttons
-  ['loc','fav','route','ifl'].forEach(function(k) {
+  ['likable','loc','fav','route','ifl'].forEach(function(k) {
     var el = document.getElementById('sba-' + k + '-label');
     if (el) el.innerHTML = t('sba_' + k).replace(/\n/g, '<br>');
   });

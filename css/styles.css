@@ -3039,6 +3039,10 @@
   transition: transform 0.12s ease, filter 0.12s ease;
 }
 /* Per-button diagonal gradients (top-left → bottom-right) */
+#sba-likable {
+  background: linear-gradient(135deg, #d1fae5 0%, #34d399 100%);
+  color: #065f46;
+}
 #sba-loc   {
   background: linear-gradient(135deg, #fde8e8 0%, #f9a8a8 100%);
   color: #9b2222;

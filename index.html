@@ -397,8 +397,7 @@
       <input type="text" id="search" aria-label="Search locations" placeholder="Search buildings, architects, styles…" autocomplete="off">
       <div id="search-ac"></div>
     </div>
-    <!-- ✦ button: mobile=in grid row1; desktop=left of map-toggle -->
-    <button id="header-star-btn" aria-label="Home" onclick="goHome()" title="Menu">✦</button>
+    <!-- map-toggle (IFL button moved to sidebar as "Likable places") -->
     <div class="map-toggle">
       <button class="active" id="btn-street" aria-label="Street map view" onclick="setMapType('street')">Street</button>
       <button id="btn-sat" aria-label="Satellite map view" onclick="setMapType('satellite')">Satellite</button>
@@ -517,8 +516,12 @@
       </select>
     </div>
 
-    <!-- Action buttons — My Location / Favorites / Route / My Page -->
+    <!-- Action buttons — Likable Places / My Location / Favorites / Route / My Page -->
     <div class="sb-actions" id="sb-actions">
+      <button class="sba-btn" id="sba-likable" onclick="openThemeModal()">
+        <span class="sba-icon" style="font-size:20px;line-height:1">✨</span>
+        <span class="sba-label" id="sba-likable-label">Likable places</span>
+      </button>
       <button class="sba-btn" id="sba-loc" onclick="_sbaMyLocation()">
         <span class="sba-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">

@@ -244,12 +244,8 @@ function applyThemes() {
   state.themes = _iflSelection.slice();
   closeThemeModal();
   // Update button active state
-  var btn = document.getElementById('ifl-btn');
-  var mobBtn = document.getElementById('mob-ifl-btn');
-  if (btn) btn.classList.toggle('active', state.themes.length > 0);
-  if (mobBtn) mobBtn.classList.toggle('active', state.themes.length > 0);
-  var sbaIfl = document.getElementById('sba-ifl');
-  if (sbaIfl) sbaIfl.classList.toggle('sba-active', state.themes.length > 0);
+  var likable = document.getElementById('sba-likable');
+  if (likable) likable.classList.toggle('sba-active', state.themes.length > 0);
   updateClearBtn();
   renderList();
   syncMarkers();
@@ -271,12 +267,8 @@ function clearThemes() {
   _iflSelection = [];
   state.themes = [];
   _renderThemeCards();
-  var btn = document.getElementById('ifl-btn');
-  var mobBtn = document.getElementById('mob-ifl-btn');
-  if (btn) btn.classList.remove('active');
-  if (mobBtn) mobBtn.classList.remove('active');
-  var sbaIflClear = document.getElementById('sba-ifl');
-  if (sbaIflClear) sbaIflClear.classList.remove('sba-active');
+  var likable = document.getElementById('sba-likable');
+  if (likable) likable.classList.remove('sba-active');
   closeThemeModal();
   updateClearBtn();
   renderList();
