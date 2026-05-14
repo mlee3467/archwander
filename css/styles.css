@@ -3026,10 +3026,10 @@
 .sba-btn {
   border: none;
   border-radius: 12px;
-  padding: 0 18px;
+  padding: 0 16px 0 18px;
   height: 58px;
   display: flex; flex-direction: row;
-  align-items: center; justify-content: center;
+  align-items: center; justify-content: flex-start;
   gap: 13px;
   cursor: pointer;
   font-family: Inter, -apple-system, sans-serif;
@@ -3037,28 +3037,14 @@
   -webkit-tap-highlight-color: transparent;
   position: relative; overflow: hidden;
   transition: transform 0.12s ease, filter 0.12s ease;
+  color: #111;
 }
 /* Per-button diagonal gradients — coolors palette #edeec9 → #77bfa3 */
-#sba-likable {
-  background: linear-gradient(135deg, #f5f6e4 0%, #edeec9 100%);
-  color: #4a4e1e;
-}
-#sba-loc   {
-  background: linear-gradient(135deg, #edf2e4 0%, #dde7c7 100%);
-  color: #3a4e24;
-}
-#sba-fav   {
-  background: linear-gradient(135deg, #d9ead7 0%, #bfd8bd 100%);
-  color: #2d5229;
-}
-#sba-route {
-  background: linear-gradient(135deg, #c0ddc8 0%, #98c9a3 100%);
-  color: #1c4a30;
-}
-#sba-ifl   {
-  background: linear-gradient(135deg, #a3d3c1 0%, #77bfa3 100%);
-  color: #144535;
-}
+#sba-likable { background: linear-gradient(135deg, #f5f6e4 0%, #edeec9 100%); }
+#sba-loc     { background: linear-gradient(135deg, #edf2e4 0%, #dde7c7 100%); }
+#sba-fav     { background: linear-gradient(135deg, #d9ead7 0%, #bfd8bd 100%); }
+#sba-route   { background: linear-gradient(135deg, #c0ddc8 0%, #98c9a3 100%); }
+#sba-ifl     { background: linear-gradient(135deg, #a3d3c1 0%, #77bfa3 100%); }
 .sba-btn:active {
   transform: scale(0.96);
   filter: brightness(0.90);
@@ -3066,11 +3052,12 @@
 .sba-icon {
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
+  width: 26px;
 }
 .sba-label {
-  font-size: 13px; font-weight: 700;
+  font-size: 13px; font-weight: 600;
   line-height: 1.2; white-space: nowrap;
-  transition: color 0.12s;
+  text-align: left;
 }
 /* Active/toggled state */
 .sba-btn.sba-active {
