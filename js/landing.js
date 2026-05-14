@@ -803,6 +803,511 @@ function _mpHandleFileSelected(event) {
 }
 
 // ══════════════════════════════════════════════════════════════════
+// FIND WHAT I LIKE (FWIL) — Preference-based discovery
+// ══════════════════════════════════════════════════════════════════
+
+var _fwilFromSidebar  = false;
+var _fwilSelectedTags = [];
+var _fwilSaves        = [];   // array of { name, tags, savedAt }
+var _fwilTop5         = [];   // computed top-5 locations
+var _FWIL_WALK_M      = 1250; // ~15 min walk radius in metres
+var _FWIL_SAVE_KEY    = 'aw_fwil_saves';
+var _fwilStep         = 1;    // current step (1=tags, 2=location)
+
+// ── 13 tag groups ───────────────────────────────────────────────
+var _FWIL_GROUPS = [
+  { key:'modernism',    label:'Modernism',       labelKo:'모더니즘',       color:'#4a90d9', test: function(t){ return /modern|bauhaus|international style|mid.century|functionali/i.test(t); } },
+  { key:'brutalism',   label:'Brutalism',        labelKo:'브루탈리즘',     color:'#7b7b7b', test: function(t){ return /brutal|concrete|raw concrete/i.test(t); } },
+  { key:'historic',    label:'Historic',         labelKo:'역사',           color:'#b8860b', test: function(t){ return /historic|heritage|colonial|classical|beaux.arts|gothic|roman|baroque|victorian|neoclassic|19th|18th|17th|renaissance/i.test(t); } },
+  { key:'contemporary',label:'Contemporary',     labelKo:'현대',           color:'#2ecc71', test: function(t){ return /contemporary|21st|2000s|recent|new build/i.test(t); } },
+  { key:'skyline',     label:'Skyline / Towers', labelKo:'스카이라인',     color:'#3498db', test: function(t){ return /skyscraper|tower|high.rise|tall|supertall|megatall/i.test(t); } },
+  { key:'public',      label:'Public Space',     labelKo:'공공공간',       color:'#27ae60', test: function(t){ return /park|plaza|square|garden|promenade|waterfront|public space|greenway|trail/i.test(t); } },
+  { key:'cultural',    label:'Culture & Arts',   labelKo:'문화예술',       color:'#9b59b6', test: function(t){ return /museum|gallery|art|theater|theatre|opera|concert|library|cultural|exhibition/i.test(t); } },
+  { key:'religious',   label:'Religious',        labelKo:'종교건축',       color:'#e67e22', test: function(t){ return /church|cathedral|chapel|temple|mosque|synagogue|shrine|religious|sacred/i.test(t); } },
+  { key:'infra',       label:'Infrastructure',   labelKo:'인프라',         color:'#e74c3c', test: function(t){ return /bridge|station|airport|transport|infrastructure|railway|subway|metro|tunnel|dam|port|harbor/i.test(t); } },
+  { key:'residential', label:'Residential',      labelKo:'주거',           color:'#f39c12', test: function(t){ return /residential|housing|apartment|condo|townhouse|rowhouse|social housing|co-op/i.test(t); } },
+  { key:'commercial',  label:'Commercial',       labelKo:'상업',           color:'#1abc9c', test: function(t){ return /commercial|office|hotel|retail|shopping|market|mixed.use|business|corporate/i.test(t); } },
+  { key:'landscape',   label:'Landscape',        labelKo:'조경',           color:'#16a085', test: function(t){ return /landscape|urban design|masterplan|urban planning|streetscape|boulevard|greenery/i.test(t); } },
+  { key:'academic',    label:'Academic',         labelKo:'교육',           color:'#8e44ad', test: function(t){ return /university|campus|school|academic|college|education|research/i.test(t); } }
+];
+
+function _fwilGroupOf(tag) {
+  var tl = (tag || '').toLowerCase();
+  for (var i = 0; i < _FWIL_GROUPS.length; i++) {
+    if (_FWIL_GROUPS[i].test(tl)) return _FWIL_GROUPS[i].key;
+  }
+  return 'more';
+}
+
+// ── Entry points ─────────────────────────────────────────────────
+function landingGoFwil() {
+  _fwilFromSidebar = false;
+  _fwilSelectedTags = [];
+  _fwilStep = 1;
+  _fwilLoadSaves();
+  var landing = document.getElementById('landing-screen');
+  if (landing) landing.classList.remove('visible');
+  setTimeout(function() {
+    if (landing) landing.style.display = 'none';
+    _fwilOpenScreen();
+  }, 200);
+}
+
+function _sbaFwil() {
+  _fwilFromSidebar = true;
+  if (typeof closeSidebar === 'function') closeSidebar();
+  _fwilSelectedTags = [];
+  _fwilStep = 1;
+  _fwilLoadSaves();
+  _fwilOpenScreen();
+}
+
+function _fwilOpenScreen() {
+  var el = document.getElementById('fwil-screen');
+  if (!el) return;
+  _fwilBuildTagGrid();
+  _fwilShowStep(1);
+  el.style.display = 'flex';
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() { el.classList.add('visible'); });
+  });
+}
+
+function fwilBack() {
+  if (_fwilStep === 2) {
+    _fwilShowStep(1);
+    return;
+  }
+  // Step 1 back
+  var el = document.getElementById('fwil-screen');
+  if (el) {
+    el.classList.remove('visible');
+    setTimeout(function() { el.style.display = 'none'; }, 280);
+  }
+  if (_fwilFromSidebar) {
+    _fwilFromSidebar = false;
+  } else {
+    showLandingScreen();
+  }
+}
+
+function fwilClose() {
+  var el = document.getElementById('fwil-screen');
+  if (el) {
+    el.classList.remove('visible');
+    setTimeout(function() { el.style.display = 'none'; }, 280);
+  }
+  _fwilFromSidebar = false;
+  localStorage.setItem('aw_landing_seen', '1');
+  _ensureMapInit();
+}
+
+function _fwilShowStep(n) {
+  _fwilStep = n;
+  var s1 = document.getElementById('fwil-step1');
+  var s2 = document.getElementById('fwil-step2');
+  if (s1) s1.style.display = n === 1 ? 'flex' : 'none';
+  if (s2) s2.style.display = n === 2 ? 'flex' : 'none';
+  // Update step indicator
+  var dots = document.querySelectorAll('.fwil-step-dot');
+  dots.forEach(function(d, i) { d.classList.toggle('active', i + 1 === n); });
+}
+
+// ── Tag Grid (Step 1) ────────────────────────────────────────────
+function _fwilBuildTagGrid() {
+  var container = document.getElementById('fwil-tag-container');
+  if (!container) return;
+  var isKo = (typeof LANG !== 'undefined') && LANG === 'ko';
+
+  // Collect all tags from current city locations
+  var cityKey = (typeof activeCityKey !== 'undefined' && activeCityKey) ? activeCityKey : null;
+  var locs = (typeof LOCS !== 'undefined' ? LOCS : []).filter(function(l) {
+    return !cityKey || l.city === cityKey;
+  });
+
+  // Collect tags + cats
+  var tagSet = {};
+  locs.forEach(function(l) {
+    var arr = (l.tags || []).concat(l.cats || []);
+    arr.forEach(function(tg) {
+      if (tg && tg.length > 1) tagSet[tg] = (tagSet[tg] || 0) + 1;
+    });
+  });
+
+  // Collect architect names
+  var archSet = {};
+  locs.forEach(function(l) {
+    var names = l.archs || (l.arch ? [l.arch] : []);
+    names.forEach(function(n) { if (n) archSet[n] = (archSet[n] || 0) + 1; });
+  });
+
+  // Group tags
+  var groups = {};
+  _FWIL_GROUPS.forEach(function(g) { groups[g.key] = []; });
+  groups['arch'] = [];
+  groups['more'] = [];
+
+  Object.keys(tagSet).forEach(function(tag) {
+    var gk = _fwilGroupOf(tag);
+    groups[gk].push(tag);
+  });
+
+  // Top architects (max 15)
+  var archList = Object.keys(archSet).sort(function(a,b) { return archSet[b]-archSet[a]; }).slice(0, 15);
+  groups['arch'] = archList;
+
+  // Build HTML
+  var html = '';
+
+  // Saved preferences row (if any)
+  _fwilLoadSaves();
+  if (_fwilSaves.length > 0) {
+    html += '<div class="fwil-saves-row" id="fwil-saves-row">' +
+      '<div class="fwil-saves-title" onclick="fwilToggleSaves()">' +
+        '📂 ' + (isKo ? '저장된 취향 불러오기' : 'Load saved preferences') +
+        ' <span id="fwil-saves-arrow">▾</span>' +
+      '</div>' +
+      '<div class="fwil-saves-list" id="fwil-saves-list" style="display:none">' +
+        _fwilSavesListHtml() +
+      '</div>' +
+    '</div>';
+  }
+
+  // Groups
+  var groupOrder = _FWIL_GROUPS.map(function(g) { return g.key; }).concat(['arch','more']);
+  groupOrder.forEach(function(gk) {
+    var tags = groups[gk];
+    if (!tags || !tags.length) return;
+    var meta = _FWIL_GROUPS.find(function(g) { return g.key === gk; });
+    var gLabel, gColor;
+    if (gk === 'arch') {
+      gLabel  = isKo ? '건축가' : 'Architects';
+      gColor  = '#c0392b';
+    } else if (gk === 'more') {
+      gLabel  = isKo ? '더보기' : 'More';
+      gColor  = '#555';
+    } else {
+      gLabel  = isKo ? meta.labelKo : meta.label;
+      gColor  = meta.color;
+    }
+    html += _fwilGroupHtml(gLabel, gColor, tags, isKo);
+  });
+
+  container.innerHTML = html;
+  _fwilUpdateNextBtn();
+}
+
+function _fwilGroupHtml(label, color, tags, isKo) {
+  var chips = tags.map(function(tag) {
+    var sel = _fwilSelectedTags.indexOf(tag) !== -1;
+    return '<button class="fwil-chip' + (sel ? ' selected' : '') + '" ' +
+      'style="--chip-color:' + color + '" ' +
+      'onclick="fwilToggleTag(\'' + tag.replace(/'/g, "\\'") + '\')">' +
+      tag + '</button>';
+  }).join('');
+  return '<div class="fwil-group">' +
+    '<div class="fwil-group-label" style="color:' + color + '">' + label + '</div>' +
+    '<div class="fwil-chips">' + chips + '</div>' +
+  '</div>';
+}
+
+function fwilToggleTag(tag) {
+  var idx = _fwilSelectedTags.indexOf(tag);
+  if (idx >= 0) _fwilSelectedTags.splice(idx, 1);
+  else           _fwilSelectedTags.push(tag);
+  // Toggle chip class
+  var chips = document.querySelectorAll('.fwil-chip');
+  chips.forEach(function(c) {
+    if (c.textContent.trim() === tag) c.classList.toggle('selected', _fwilSelectedTags.indexOf(tag) !== -1);
+  });
+  _fwilUpdateNextBtn();
+}
+
+function _fwilUpdateNextBtn() {
+  var btn = document.getElementById('fwil-next-btn');
+  if (!btn) return;
+  var isKo = (typeof LANG !== 'undefined') && LANG === 'ko';
+  var n = _fwilSelectedTags.length;
+  if (n > 0) {
+    btn.textContent = isKo ? n + '개 선택 · 다음 →' : n + ' selected · Next →';
+    btn.classList.add('ready');
+  } else {
+    btn.textContent = isKo ? '태그를 선택하세요' : 'Select tags to continue';
+    btn.classList.remove('ready');
+  }
+}
+
+function fwilStep1Next() {
+  if (!_fwilSelectedTags.length) return;
+  _fwilShowSaveModal();
+}
+
+// ── Save Modal ───────────────────────────────────────────────────
+function _fwilLoadSaves() {
+  try { _fwilSaves = JSON.parse(localStorage.getItem(_FWIL_SAVE_KEY) || '[]'); } catch(e) { _fwilSaves = []; }
+}
+
+function _fwilSavesListHtml() {
+  var isKo = (typeof LANG !== 'undefined') && LANG === 'ko';
+  return _fwilSaves.map(function(s, i) {
+    var date = s.savedAt ? new Date(s.savedAt).toLocaleDateString() : '';
+    return '<div class="fwil-save-item" onclick="fwilLoadFromSlot(' + i + ')">' +
+      '<div class="fwil-save-name">' + (s.name || ('Slot ' + (i+1))) + '</div>' +
+      '<div class="fwil-save-meta">' + s.tags.length + (isKo ? '개 태그' : ' tags') + (date ? ' · ' + date : '') + '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function fwilToggleSaves() {
+  var list  = document.getElementById('fwil-saves-list');
+  var arrow = document.getElementById('fwil-saves-arrow');
+  if (!list) return;
+  var open = list.style.display !== 'none';
+  list.style.display  = open ? 'none' : 'block';
+  if (arrow) arrow.textContent = open ? '▾' : '▴';
+}
+
+function fwilLoadFromSlot(idx) {
+  _fwilLoadSaves();
+  var s = _fwilSaves[idx];
+  if (!s) return;
+  _fwilSelectedTags = s.tags.slice();
+  _fwilBuildTagGrid();
+  // Close saves panel
+  var list = document.getElementById('fwil-saves-list');
+  var arrow = document.getElementById('fwil-saves-arrow');
+  if (list) list.style.display = 'none';
+  if (arrow) arrow.textContent = '▾';
+}
+
+function _fwilShowSaveModal() {
+  var modal = document.getElementById('fwil-save-modal');
+  if (!modal) { _fwilShowStep(2); return; }
+  var isKo = (typeof LANG !== 'undefined') && LANG === 'ko';
+  _fwilLoadSaves();
+  // Build slot buttons
+  var slotsHtml = '';
+  for (var i = 0; i < 5; i++) {
+    var s = _fwilSaves[i];
+    if (s) {
+      slotsHtml += '<button class="fwil-slot-btn occupied" onclick="fwilSaveToSlot(' + i + ')">' +
+        '<span class="fwil-slot-name">' + (s.name || ('Slot ' + (i+1))) + '</span>' +
+        '<span class="fwil-slot-cnt">' + s.tags.length + (isKo ? '개' : ' tags') + '</span>' +
+      '</button>';
+    } else {
+      slotsHtml += '<button class="fwil-slot-btn empty" onclick="fwilSaveToSlot(' + i + ')">' +
+        '<span>+ ' + (isKo ? '새로 저장' : 'Save here') + '</span>' +
+      '</button>';
+    }
+  }
+  var body = modal.querySelector('.fwil-modal-body');
+  if (body) {
+    body.innerHTML =
+      '<div class="fwil-modal-title">' + (isKo ? '취향 저장 (선택)' : 'Save preferences (optional)') + '</div>' +
+      '<div class="fwil-modal-sub">' + (isKo ? '다음에도 이 선택을 불러올 수 있어요.' : 'Load these choices next time.') + '</div>' +
+      '<div class="fwil-slots">' + slotsHtml + '</div>' +
+      '<button class="fwil-skip-btn" onclick="fwilSaveSkip()">' + (isKo ? '저장 안 함 →' : 'Skip →') + '</button>';
+  }
+  modal.style.display = 'flex';
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() { modal.classList.add('visible'); });
+  });
+}
+
+function _fwilCloseModal() {
+  var modal = document.getElementById('fwil-save-modal');
+  if (!modal) return;
+  modal.classList.remove('visible');
+  setTimeout(function() { modal.style.display = 'none'; }, 220);
+}
+
+function fwilSaveToSlot(idx) {
+  _fwilLoadSaves();
+  var isKo = (typeof LANG !== 'undefined') && LANG === 'ko';
+  var existing = _fwilSaves[idx];
+  var defaultName = existing ? existing.name : (isKo ? ('취향 ' + (idx + 1)) : ('Preset ' + (idx + 1)));
+  var name = prompt(isKo ? '이름을 입력하세요:' : 'Enter a name:', defaultName);
+  if (name === null) return; // cancelled
+  _fwilSaves[idx] = { name: name || defaultName, tags: _fwilSelectedTags.slice(), savedAt: new Date().toISOString() };
+  // Ensure array is 5 items (pad with null)
+  while (_fwilSaves.length < 5) _fwilSaves.push(null);
+  try { localStorage.setItem(_FWIL_SAVE_KEY, JSON.stringify(_fwilSaves.filter(Boolean))); } catch(e) {}
+  _fwilCloseModal();
+  _fwilShowStep(2);
+}
+
+function fwilSaveSkip() {
+  _fwilCloseModal();
+  _fwilShowStep(2);
+}
+
+// ── Step 2: Location Mode ────────────────────────────────────────
+function fwilUseGPS() {
+  var g = document.getElementById('fwil-gps-btn');
+  var p = document.getElementById('fwil-pin-btn');
+  if (g) g.classList.add('selected');
+  if (p) p.classList.remove('selected');
+  // Close FWIL screen and activate GPS + watch for origin
+  fwilClose();
+  _ensureMapInit(function() {
+    if (typeof toggleNearMe === 'function' && !nearMeActive) toggleNearMe();
+    setTimeout(function() {
+      if (typeof locateUserGPS === 'function') locateUserGPS();
+    }, 200);
+    _fwilWatchForLocation();
+  });
+}
+
+function fwilDropPin() {
+  var g = document.getElementById('fwil-gps-btn');
+  var p = document.getElementById('fwil-pin-btn');
+  if (g) g.classList.remove('selected');
+  if (p) p.classList.add('selected');
+  // Close FWIL screen and activate pin drop + watch for origin
+  fwilClose();
+  _ensureMapInit(function() {
+    if (typeof toggleNearMe === 'function' && !nearMeActive) toggleNearMe();
+    setTimeout(function() {
+      if (typeof startPinDrop === 'function') startPinDrop();
+    }, 200);
+    _fwilWatchForLocation();
+  });
+}
+
+// Poll until walkOrigin is set (GPS/pin), then compute top 5
+function _fwilWatchForLocation() {
+  var tries = 0;
+  var iv = setInterval(function() {
+    tries++;
+    if (typeof walkOrigin !== 'undefined' && walkOrigin && walkOrigin.lat) {
+      clearInterval(iv);
+      _fwilComputeTop5();
+    }
+    if (tries >= 60) { clearInterval(iv); } // 30s timeout
+  }, 500);
+}
+
+// ── Top-5 computation ────────────────────────────────────────────
+function _fwilComputeTop5() {
+  if (!walkOrigin || !walkOrigin.lat) return;
+  var cityKey = (typeof activeCityKey !== 'undefined' && activeCityKey) ? activeCityKey : null;
+  var locs = (typeof LOCS !== 'undefined' ? LOCS : []).filter(function(l) {
+    return !cityKey || l.city === cityKey;
+  });
+
+  // Score each location
+  var scored = [];
+  locs.forEach(function(l) {
+    var dist = (typeof haversineM === 'function')
+      ? haversineM(walkOrigin.lat, walkOrigin.lng, l.lat, l.lng)
+      : 99999;
+    if (dist > _FWIL_WALK_M) return;
+    var matchTags = (l.tags || []).concat(l.cats || []);
+    var score = 0;
+    _fwilSelectedTags.forEach(function(sel) {
+      if (matchTags.indexOf(sel) !== -1) score++;
+      // Also match architect names
+      var names = l.archs || (l.arch ? [l.arch] : []);
+      if (names.indexOf(sel) !== -1) score++;
+    });
+    if (score > 0) scored.push({ loc: l, score: score, dist: dist });
+  });
+
+  // Sort: score desc, then dist asc
+  scored.sort(function(a, b) {
+    if (b.score !== a.score) return b.score - a.score;
+    return a.dist - b.dist;
+  });
+
+  _fwilTop5 = scored.slice(0, 5).map(function(s) { return s.loc; });
+
+  if (_fwilTop5.length === 0) {
+    var isKo = (typeof LANG !== 'undefined') && LANG === 'ko';
+    if (typeof _landingToast === 'function') {
+      _landingToast(isKo ? '😔 주변에 매칭되는 장소가 없습니다' : '😔 No matching places nearby');
+    }
+    return;
+  }
+
+  _fwilShowResultOverlay();
+}
+
+// ── Result Overlay ───────────────────────────────────────────────
+function _fwilShowResultOverlay() {
+  var el = document.getElementById('fwil-result');
+  if (!el) return;
+  var isKo = (typeof LANG !== 'undefined') && LANG === 'ko';
+
+  // Highlight top-5 on map
+  if (typeof map !== 'undefined' && map && _fwilTop5.length) {
+    // Fit map to top-5 bounds
+    var bounds = L.latLngBounds(_fwilTop5.map(function(l) { return [l.lat, l.lng]; }));
+    if (walkOrigin) bounds.extend([walkOrigin.lat, walkOrigin.lng]);
+    map.fitBounds(bounds.pad(0.2));
+  }
+
+  // Build list
+  var listHtml = _fwilTop5.map(function(loc, i) {
+    var photos = loc.photos && loc.photos.length ? loc.photos : [];
+    var imgUrl = photos.length
+      ? (typeof photoUrl === 'function' ? photoUrl(photos[0], true, 'popup') : photos[0])
+      : '';
+    var imgHtml = imgUrl
+      ? '<img src="' + imgUrl + '" onerror="this.style.display=\'none\'" style="width:44px;height:44px;object-fit:cover;border-radius:8px;flex-shrink:0">'
+      : '<div style="width:44px;height:44px;border-radius:8px;background:#2a2a2a;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#666;font-size:18px">📍</div>';
+    return '<div class="fwil-res-item" onclick="fwilResClick(\'' + loc.id + '\')">' +
+      '<span class="fwil-res-rank">' + (i + 1) + '</span>' +
+      imgHtml +
+      '<div class="fwil-res-info">' +
+        '<div class="fwil-res-name">' + (loc.name || '') + '</div>' +
+        '<div class="fwil-res-meta">' + (loc.cat || '') + (loc.hood ? ' · ' + loc.hood : '') + '</div>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+
+  el.innerHTML =
+    '<div class="fwil-result-panel">' +
+      '<div class="fwil-result-header">' +
+        '<span class="fwil-result-title">🎯 ' + (isKo ? '내 취향 Top 5' : 'Top 5 For You') + '</span>' +
+        '<button class="fwil-result-close" onclick="fwilResultClose()">✕</button>' +
+      '</div>' +
+      '<div class="fwil-result-list">' + listHtml + '</div>' +
+      '<button class="fwil-route-btn" onclick="fwilCreateRoute()">' +
+        '🗺 ' + (isKo ? '루트 만들기' : 'Create Route') +
+      '</button>' +
+    '</div>';
+
+  el.style.display = 'flex';
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() { el.classList.add('visible'); });
+  });
+}
+
+function fwilResClick(locId) {
+  fwilResultClose();
+  if (typeof openLocById === 'function') openLocById(locId);
+}
+
+function fwilResultClose() {
+  var el = document.getElementById('fwil-result');
+  if (!el) return;
+  el.classList.remove('visible');
+  setTimeout(function() { el.style.display = 'none'; }, 280);
+}
+
+function fwilCreateRoute() {
+  fwilResultClose();
+  if (typeof routeLocations !== 'undefined' && _fwilTop5.length) {
+    routeLocations = _fwilTop5.slice();
+  }
+  if (typeof openRoutePanel === 'function') openRoutePanel();
+  else if (typeof _openRouteManager === 'function') _openRouteManager('home');
+  if (_fwilTop5.length && typeof calcRoute === 'function') {
+    setTimeout(function() { calcRoute(); }, 400);
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════
 // I FEEL LUCKY — Daily card swipe system
 // ══════════════════════════════════════════════════════════════════
 

@@ -88,10 +88,10 @@
       <span class="landing-btn-title">City &amp; My<br>Location</span>
       <span class="landing-btn-sub">City & location</span>
     </button>
-    <button class="landing-btn landing-btn-ifl" onclick="landingGoIfl()">
-      <span class="landing-btn-icon">✨</span>
-      <span class="landing-btn-title">I Feel<br>Like…</span>
-      <span class="landing-btn-sub">Explore by theme</span>
+    <button class="landing-btn landing-btn-ifl" onclick="landingGoFwil()">
+      <span class="landing-btn-icon">🔍</span>
+      <span class="landing-btn-title">Find What<br>I Like</span>
+      <span class="landing-btn-sub">My preferences</span>
     </button>
     <button class="landing-btn landing-btn-rec" onclick="landingGoRec()">
       <span class="landing-coming-soon">Coming soon</span>
@@ -120,6 +120,55 @@
     <button class="ifl-sel-go" id="ifl-sel-go" onclick="iflSelConfirm()">View all →</button>
   </div>
 </div>
+
+<!-- ── FIND WHAT I LIKE (FWIL) SCREEN ───────────────────── -->
+<div id="fwil-screen" style="display:none">
+  <div class="fwil-hdr">
+    <button class="fwil-back" onclick="fwilBack()">◀</button>
+    <div class="fwil-hdr-center">
+      <span class="fwil-hdr-title">🔍 Find What I Like</span>
+      <div class="fwil-steps">
+        <span class="fwil-step-dot active"></span>
+        <span class="fwil-step-dot"></span>
+      </div>
+    </div>
+    <button class="fwil-close-btn" onclick="fwilClose()">✕</button>
+  </div>
+
+  <!-- Step 1: Tag selection -->
+  <div id="fwil-step1" style="display:flex;flex-direction:column;flex:1;overflow:hidden">
+    <div class="fwil-step-subtitle">What do you love about architecture?</div>
+    <div class="fwil-tag-container" id="fwil-tag-container"></div>
+    <div class="fwil-footer">
+      <button class="fwil-next-btn" id="fwil-next-btn" onclick="fwilStep1Next()">Select tags to continue</button>
+    </div>
+  </div>
+
+  <!-- Step 2: Location mode -->
+  <div id="fwil-step2" style="display:none;flex-direction:column;flex:1;align-items:center;justify-content:center;padding:32px 24px">
+    <div class="fwil-step-subtitle" style="text-align:center;margin-bottom:32px">How should I find your location?</div>
+    <div class="fwil-loc-row">
+      <button class="fwil-loc-btn" id="fwil-gps-btn" onclick="fwilUseGPS()">
+        <span class="fwil-loc-icon">📡</span>
+        <span class="fwil-loc-label">Use GPS</span>
+        <span class="fwil-loc-sub">Auto locate</span>
+      </button>
+      <button class="fwil-loc-btn" id="fwil-pin-btn" onclick="fwilDropPin()">
+        <span class="fwil-loc-icon">📌</span>
+        <span class="fwil-loc-label">Drop a pin</span>
+        <span class="fwil-loc-sub">Place on map</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ── FWIL SAVE MODAL ───────────────────────────────────── -->
+<div id="fwil-save-modal" style="display:none">
+  <div class="fwil-modal-body"></div>
+</div>
+
+<!-- ── FWIL RESULT OVERLAY (fixed over map) ─────────────── -->
+<div id="fwil-result" style="display:none"></div>
 
 <!-- ── I FEEL LUCKY CARD SCREEN ──────────────────────────── -->
 <div id="ifl-lucky-screen" style="display:none">
