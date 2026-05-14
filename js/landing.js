@@ -1105,11 +1105,31 @@ function _fwilCloseModal() {
   setTimeout(function() { modal.style.display = 'none'; }, 220);
 }
 
+// Generate default save name: cityname_MMDDYYYY_01 (increments if taken)
+function _fwilDefaultSaveName() {
+  var cityKey = (typeof activeCityKey !== 'undefined' && activeCityKey) ? activeCityKey
+              : (typeof activeCity   !== 'undefined' && activeCity)   ? activeCity : 'city';
+  var cityClean = cityKey.replace(/-/g, '').toLowerCase(); // 'new-york' → 'newyork'
+  var now  = new Date();
+  var mm   = String(now.getMonth() + 1).padStart(2, '0');
+  var dd   = String(now.getDate()).padStart(2, '0');
+  var yyyy = now.getFullYear();
+  var base = cityClean + '_' + mm + dd + yyyy;
+  _fwilLoadSaves();
+  var taken = _fwilSaves.filter(Boolean).map(function(s) { return s.name || ''; });
+  var n = 1, candidate;
+  do {
+    candidate = base + '_' + String(n).padStart(2, '0');
+    n++;
+  } while (taken.indexOf(candidate) !== -1);
+  return candidate;
+}
+
 function fwilSaveToSlot(idx) {
   _fwilLoadSaves();
   var isKo = (typeof LANG !== 'undefined') && LANG === 'ko';
-  var existing = _fwilSaves[idx];
-  var defaultName = existing ? existing.name : (isKo ? ('취향 ' + (idx + 1)) : ('Preset ' + (idx + 1)));
+  var existing    = _fwilSaves[idx];
+  var defaultName = existing ? existing.name : _fwilDefaultSaveName();
   var name = prompt(isKo ? '이름을 입력하세요:' : 'Enter a name:', defaultName);
   if (name === null) return;
   _fwilSaves[idx] = { name: name || defaultName, personas: _fwilSelectedPersonas.slice(), savedAt: new Date().toISOString() };
@@ -1170,7 +1190,35 @@ function _fwilWatchForLocation() {
   }, 500);
 }
 
-// ── Top-5 computation ────────────────────────────────────────────
+// ── Top-5 computation (with 4km route cap) ───────────────────────
+var _FWIL_MAX_ROUTE_M = 4000;
+
+// Nearest-neighbor tour order starting from origin
+function _fwilNNRoute(origin, locs) {
+  var remaining = locs.slice();
+  var route = [], cur = origin;
+  while (remaining.length) {
+    var bestI = 0, bestD = Infinity;
+    for (var i = 0; i < remaining.length; i++) {
+      var d = haversineM(cur.lat, cur.lng, remaining[i].lat, remaining[i].lng);
+      if (d < bestD) { bestD = d; bestI = i; }
+    }
+    cur = remaining.splice(bestI, 1)[0];
+    route.push(cur);
+  }
+  return route;
+}
+
+// Total path distance: origin → stop1 → stop2 → …
+function _fwilRouteDist(origin, locs) {
+  var total = 0, cur = origin;
+  locs.forEach(function(l) {
+    total += haversineM(cur.lat, cur.lng, l.lat, l.lng);
+    cur = l;
+  });
+  return total;
+}
+
 function _fwilComputeTop5() {
   if (!walkOrigin || !walkOrigin.lat) return;
   var cityKey = (typeof activeCityKey !== 'undefined' && activeCityKey) ? activeCityKey : null;
@@ -1178,37 +1226,53 @@ function _fwilComputeTop5() {
     return !cityKey || l.city === cityKey;
   });
 
-  // Score each location
+  // ① Score every location within the 15-min walk radius
   var scored = [];
   locs.forEach(function(l) {
-    var dist = (typeof haversineM === 'function')
-      ? haversineM(walkOrigin.lat, walkOrigin.lng, l.lat, l.lng)
-      : 99999;
+    var dist = haversineM(walkOrigin.lat, walkOrigin.lng, l.lat, l.lng);
     if (dist > _FWIL_WALK_M) return;
     var matchTags = (l.tags || []).concat(l.cats || []);
     var score = 0;
     _fwilSelectedTags.forEach(function(sel) {
-      if (matchTags.indexOf(sel) !== -1) score++;
-      // Also match architect names
+      var sl = sel.toLowerCase();
+      matchTags.forEach(function(t) { if ((t || '').toLowerCase() === sl) score++; });
       var names = l.archs || (l.arch ? [l.arch] : []);
-      if (names.indexOf(sel) !== -1) score++;
+      names.forEach(function(n)  { if ((n || '').toLowerCase() === sl) score++; });
     });
     if (score > 0) scored.push({ loc: l, score: score, dist: dist });
   });
 
-  // Sort: score desc, then dist asc
+  if (!scored.length) {
+    var isKo = (typeof LANG !== 'undefined') && LANG === 'ko';
+    _landingToast(isKo ? '😔 주변에 매칭되는 장소가 없습니다' : '😔 No matching places nearby');
+    return;
+  }
+
+  // ② Sort: preference score desc → distance from origin asc
   scored.sort(function(a, b) {
     if (b.score !== a.score) return b.score - a.score;
     return a.dist - b.dist;
   });
 
-  _fwilTop5 = scored.slice(0, 5).map(function(s) { return s.loc; });
+  // ③ Start with top 5 (or fewer) candidates
+  var candidates = scored.slice(0, 5).map(function(s) { return s.loc; });
+  var origin = { lat: walkOrigin.lat, lng: walkOrigin.lng };
 
-  if (_fwilTop5.length === 0) {
-    var isKo = (typeof LANG !== 'undefined') && LANG === 'ko';
-    if (typeof _landingToast === 'function') {
-      _landingToast(isKo ? '😔 주변에 매칭되는 장소가 없습니다' : '😔 No matching places nearby');
+  // ④ Enforce 4km cap: order by nearest-neighbor, then trim last stop while over budget
+  while (candidates.length > 0) {
+    var ordered = _fwilNNRoute(origin, candidates);
+    if (_fwilRouteDist(origin, ordered) <= _FWIL_MAX_ROUTE_M) {
+      _fwilTop5 = ordered;
+      break;
     }
+    // Remove the last stop in the NN-ordered route (it contributes the longest final leg)
+    var lastLoc = ordered[ordered.length - 1];
+    candidates = candidates.filter(function(c) { return c !== lastLoc; });
+  }
+
+  if (!_fwilTop5 || !_fwilTop5.length) {
+    var isKo2 = (typeof LANG !== 'undefined') && LANG === 'ko';
+    _landingToast(isKo2 ? '😔 4km 이내에 매칭 장소가 없습니다' : '😔 No matching places within 4km route');
     return;
   }
 
