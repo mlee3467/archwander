@@ -136,21 +136,16 @@ function refreshApp() {
     if (el) el.innerHTML = '';
   });
   cityLocs.forEach(addMarker);
-  console.log('[refreshApp] addMarker done, markers.length=' + markers.length);
-  // Always sync markers directly — don't rely solely on clearAllFilters chain
-  try { syncMarkers(); } catch(e) { console.error('[refreshApp] syncMarkers error:', e); }
-  // Also rebuild filters and reset state (may call syncMarkers again — that's ok)
-  try { buildFilters(); } catch(e) { console.error('[refreshApp] buildFilters error:', e); }
-  try { clearAllFilters(); } catch(e) { console.error('[refreshApp] clearAllFilters error:', e); }
+  console.log('[refreshApp] addMarker done, markers=' + markers.length);
+  // Sync markers immediately — don't rely solely on clearAllFilters chain
+  if (typeof syncMarkers === 'function') syncMarkers();
+  buildFilters();
+  clearAllFilters();
   if (activeLoc) closePanel();
   // Update badge
   const badge = document.getElementById('pilot-badge');
   if (badge) badge.textContent = `🗺 ArchWander · Pilot v0.2 · ${cityLocs.length} Locations`;
-  // Force Leaflet to recalculate viewport after adding markers
-  if (typeof map !== 'undefined' && map) {
-    setTimeout(function() { try { map.invalidateSize(); } catch(e) {} }, 50);
-  }
-  console.log('[refreshApp] done, clusterGroup layers=' + (clusterGroup ? clusterGroup.getLayers().length : 'n/a'));
+  console.log('[refreshApp] done, cluster=' + (clusterGroup ? clusterGroup.getLayers().length : '?'));
 }
 
 // ══════════════════════════════════════════════════════════════════
