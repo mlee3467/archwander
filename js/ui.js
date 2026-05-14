@@ -175,35 +175,38 @@ function setupHDrag(handleId, targetId, minW, maxW) {
   const handle = document.getElementById(handleId);
   const target = document.getElementById(targetId);
   if (!handle || !target) return;
-  let dragging = false, startX = 0, startW = 0;
+  let startX = 0, startW = 0;
 
-  const start = x => {
-    dragging = true; startX = x; startW = target.offsetWidth;
+  // Use Pointer Capture so mousemove events are delivered to the handle
+  // even when the pointer drifts over the Leaflet map layer (which would
+  // otherwise steal them via its own event listeners).
+  handle.addEventListener('pointerdown', function(e) {
+    e.preventDefault();
+    startX = e.clientX; startW = target.offsetWidth;
+    handle.setPointerCapture(e.pointerId);
     handle.classList.add('dragging');
     document.body.style.cursor = 'ew-resize';
     document.body.style.userSelect = 'none';
-  };
-  const move = x => {
-    if (!dragging) return;
-    const w = Math.max(minW, Math.min(maxW, startW + x - startX));
+  });
+  handle.addEventListener('pointermove', function(e) {
+    if (!handle.hasPointerCapture(e.pointerId)) return;
+    const w = Math.max(minW, Math.min(maxW, startW + e.clientX - startX));
     target.style.width = w + 'px';
     document.documentElement.style.setProperty('--sidebar-w', w + 'px');
-    if (map) map.invalidateSize();
-  };
-  const end = () => {
-    if (!dragging) return;
-    dragging = false;
+    if (typeof map !== 'undefined' && map) map.invalidateSize();
+  });
+  handle.addEventListener('pointerup', function(e) {
+    if (!handle.hasPointerCapture(e.pointerId)) return;
+    handle.releasePointerCapture(e.pointerId);
     handle.classList.remove('dragging');
     document.body.style.cursor = '';
     document.body.style.userSelect = '';
-  };
-
-  handle.addEventListener('mousedown', e => { e.preventDefault(); start(e.clientX); });
-  document.addEventListener('mousemove', e => move(e.clientX));
-  document.addEventListener('mouseup', end);
-  handle.addEventListener('touchstart', e => { e.preventDefault(); start(e.touches[0].clientX); }, { passive: false });
-  document.addEventListener('touchmove', e => { if (dragging) { e.preventDefault(); move(e.touches[0].clientX); } }, { passive: false });
-  document.addEventListener('touchend', end);
+  });
+  handle.addEventListener('pointercancel', function(e) {
+    handle.classList.remove('dragging');
+    document.body.style.cursor = '';
+    document.body.style.userSelect = '';
+  });
 }
 
 // Drag-resize from LEFT edge (for right panel — dragging left = wider)

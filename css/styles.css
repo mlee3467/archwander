@@ -2911,8 +2911,10 @@
   flex-shrink: 0;
 }
 .sba-btn {
-  border: none;
-  border-radius: 10px;
+  /* Pixel-retro style: flat gray fill, hard 2px border, offset drop shadow */
+  background: #d8d8d8;
+  border: 2px solid #1a1a1a;
+  border-radius: 2px;
   padding: 0 14px 0 16px;
   height: 40px;
   display: flex; flex-direction: row;
@@ -2920,21 +2922,24 @@
   gap: 11px;
   cursor: pointer;
   font-family: Inter, -apple-system, sans-serif;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.09), 0 1px 3px rgba(0,0,0,0.06);
+  /* Hard offset shadow — no blur, Game Boy / Win95 aesthetic */
+  box-shadow: 3px 3px 0 #1a1a1a;
   -webkit-tap-highlight-color: transparent;
   position: relative; overflow: hidden;
-  transition: transform 0.12s ease, filter 0.12s ease;
-  color: #111;
+  transition: none;
+  color: #1a1a1a;
 }
-/* Per-button diagonal gradients — coolors palette #edeec9 → #77bfa3 */
-#sba-likable { background: linear-gradient(135deg, #cfe4b2 0%, #8cb369 100%); }
-#sba-loc     { background: linear-gradient(135deg, #fdf8d0 0%, #f4e285 100%); }
-#sba-fav     { background: linear-gradient(135deg, #fadfc0 0%, #f4a259 100%); }
-#sba-route   { background: linear-gradient(135deg, #a8cec8 0%, #5b8e7d 100%); }
-#sba-ifl     { background: linear-gradient(135deg, #e4a4a8 0%, #bc4b51 100%); }
+/* All 5 buttons share the same grayscale — no individual colors */
+#sba-likable, #sba-loc, #sba-fav, #sba-route, #sba-ifl { background: #d8d8d8; }
+.sba-btn:hover {
+  background: #cacaca;
+  transform: translate(1px, 1px);
+  box-shadow: 2px 2px 0 #1a1a1a;
+}
 .sba-btn:active {
-  transform: scale(0.96);
-  filter: brightness(0.90);
+  background: #b8b8b8;
+  transform: translate(3px, 3px);
+  box-shadow: none;
 }
 .sba-icon {
   display: flex; align-items: center; justify-content: center;
@@ -2946,10 +2951,11 @@
   line-height: 1.2; white-space: nowrap;
   text-align: left;
 }
-/* Active/toggled state */
+/* Active/toggled state — pressed-in look */
 .sba-btn.sba-active {
-  filter: brightness(0.82);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.18), inset 0 1px 3px rgba(0,0,0,0.10);
+  background: #b8b8b8;
+  transform: translate(3px, 3px);
+  box-shadow: none;
 }
 /* ── Explore popup ────────────────────────────────────────── */
 #explore-overlay {

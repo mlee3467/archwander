@@ -117,6 +117,7 @@ function _doFullMapInit(afterFn) {
   }).catch(function(err) {
     console.error('[boot] Failed to load initial city data:', err);
     _initMapTiles();  // ensure map exists even on error
+    if (typeof refreshApp === 'function') refreshApp();
     if (afterFn) afterFn();
   });
 }
@@ -173,6 +174,20 @@ window.addEventListener('load', function() {
   }, 480);
   setupHDrag('sb-resize', 'sidebar', 220, 700);
   setupHDragLeft('panel-resize', 'panel', 300, 900);
+
+  // ── Marker safety net: if data loaded but markers didn't render, retry ──
+  // Catches race conditions between pre-load resolution and map initialization.
+  setTimeout(function() {
+    try {
+      if (typeof LOCS !== 'undefined' && LOCS.length > 0 &&
+          typeof clusterGroup !== 'undefined' && clusterGroup &&
+          clusterGroup.getLayers && clusterGroup.getLayers().length === 0 &&
+          typeof refreshApp === 'function') {
+        console.log('[boot] retry: markers empty but LOCS has data — calling refreshApp()');
+        refreshApp();
+      }
+    } catch(e) {}
+  }, 2500);
 
   // ── Walk-path-mode: tap collapsed panel handle to restore ─────
   document.getElementById('panel').addEventListener('click', function(e) {
