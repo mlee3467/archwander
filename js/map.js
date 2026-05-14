@@ -127,6 +127,10 @@ function toggleLegend() {
 function refreshApp() {
   const cityLocs = LOCS.filter(l => l.city === activeCityKey);
   console.log('[refreshApp] city=' + activeCityKey + ' locs=' + cityLocs.length + ' LOCS_total=' + LOCS.length);
+  if (cityLocs.length === 0 && LOCS.length === 0) {
+    console.error('[refreshApp] LOCS is empty — data has not loaded yet. Will be called again when data arrives.');
+    return; // exit early — no point building empty UI
+  }
   ARCHITECTS = [...new Set(cityLocs.flatMap(l => l.archs || [l.arch]))].sort();
   NEIGHBORHOODS = [...new Set(cityLocs.map(l => l.hood).filter(Boolean))].sort();
   if (clusterGroup) clusterGroup.clearLayers();

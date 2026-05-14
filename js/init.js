@@ -159,16 +159,21 @@ window.addEventListener('load', function() {
     if (!activeCity) { activeCity = 'nyc'; activeCityKey = 'new-york'; }
     _initMapTiles();   // renders immediately so there's no blank-map wait
     console.log('[boot] desktop init, activeCity=' + activeCity + ' activeCityKey=' + activeCityKey);
+    // Pre-warm Supabase auth immediately so it's ready when data fetches start
+    if (typeof _ensureSupabaseAuth === 'function') _ensureSupabaseAuth();
     // Pre-load default city data so markers appear right away — GPS switch updates them later
     // Small delay ensures map container has correct dimensions before markers are placed
-    setTimeout(function() {
+    var _preLoad = function(attempt) {
       loadCityData(activeCity).then(function() {
-        console.log('[boot] pre-load resolved, LOCS=' + LOCS.length + ', calling refreshApp');
+        console.log('[boot] pre-load resolved (attempt ' + attempt + '), LOCS=' + LOCS.length + ', calling refreshApp');
         if (typeof refreshApp === 'function') refreshApp();
       }).catch(function(err) {
-        console.warn('[boot] pre-load failed:', err);
+        console.warn('[boot] pre-load failed (attempt ' + attempt + '):', err && err.message ? err.message : err);
+        // Retry once after 2s in case Supabase auth/network was not ready
+        if (attempt < 2) setTimeout(function() { _preLoad(attempt + 1); }, 2000);
       });
-    }, 100);
+    };
+    setTimeout(function() { _preLoad(1); }, 100);
     _doFullMapInit();  // GPS → setView(correct city) → loadData → refreshApp
     if (typeof _scheduleMidnightReset === 'function') _scheduleMidnightReset();
   }
