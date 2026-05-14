@@ -803,46 +803,103 @@ function _mpHandleFileSelected(event) {
 }
 
 // ══════════════════════════════════════════════════════════════════
-// FIND WHAT I LIKE (FWIL) — Preference-based discovery
+// FIND WHAT I LIKE (FWIL) — Persona-based discovery
 // ══════════════════════════════════════════════════════════════════
 
-var _fwilFromSidebar  = false;
-var _fwilSelectedTags = [];
-var _fwilSaves        = [];   // array of { name, tags, savedAt }
-var _fwilTop5         = [];   // computed top-5 locations
-var _FWIL_WALK_M      = 1250; // ~15 min walk radius in metres
-var _FWIL_SAVE_KEY    = 'aw_fwil_saves';
-var _fwilStep         = 1;    // current step (1=tags, 2=location)
+var _fwilFromSidebar    = false;
+var _fwilSelectedPersonas = [];  // array of persona keys
+var _fwilSelectedTags   = [];    // expanded from personas on proceed
+var _fwilSaves          = [];    // array of { name, personas, savedAt }
+var _fwilTop5           = [];    // computed top-5 locations
+var _FWIL_WALK_M        = 1250;  // ~15 min walk radius in metres
+var _FWIL_SAVE_KEY      = 'aw_fwil_saves';
+var _fwilStep           = 1;     // current step (1=personas, 2=location)
 
-// ── 13 tag groups ───────────────────────────────────────────────
-var _FWIL_GROUPS = [
-  { key:'modernism',    label:'Modernism',       labelKo:'모더니즘',       color:'#4a90d9', test: function(t){ return /modern|bauhaus|international style|mid.century|functionali/i.test(t); } },
-  { key:'brutalism',   label:'Brutalism',        labelKo:'브루탈리즘',     color:'#7b7b7b', test: function(t){ return /brutal|concrete|raw concrete/i.test(t); } },
-  { key:'historic',    label:'Historic',         labelKo:'역사',           color:'#b8860b', test: function(t){ return /historic|heritage|colonial|classical|beaux.arts|gothic|roman|baroque|victorian|neoclassic|19th|18th|17th|renaissance/i.test(t); } },
-  { key:'contemporary',label:'Contemporary',     labelKo:'현대',           color:'#2ecc71', test: function(t){ return /contemporary|21st|2000s|recent|new build/i.test(t); } },
-  { key:'skyline',     label:'Skyline / Towers', labelKo:'스카이라인',     color:'#3498db', test: function(t){ return /skyscraper|tower|high.rise|tall|supertall|megatall/i.test(t); } },
-  { key:'public',      label:'Public Space',     labelKo:'공공공간',       color:'#27ae60', test: function(t){ return /park|plaza|square|garden|promenade|waterfront|public space|greenway|trail/i.test(t); } },
-  { key:'cultural',    label:'Culture & Arts',   labelKo:'문화예술',       color:'#9b59b6', test: function(t){ return /museum|gallery|art|theater|theatre|opera|concert|library|cultural|exhibition/i.test(t); } },
-  { key:'religious',   label:'Religious',        labelKo:'종교건축',       color:'#e67e22', test: function(t){ return /church|cathedral|chapel|temple|mosque|synagogue|shrine|religious|sacred/i.test(t); } },
-  { key:'infra',       label:'Infrastructure',   labelKo:'인프라',         color:'#e74c3c', test: function(t){ return /bridge|station|airport|transport|infrastructure|railway|subway|metro|tunnel|dam|port|harbor/i.test(t); } },
-  { key:'residential', label:'Residential',      labelKo:'주거',           color:'#f39c12', test: function(t){ return /residential|housing|apartment|condo|townhouse|rowhouse|social housing|co-op/i.test(t); } },
-  { key:'commercial',  label:'Commercial',       labelKo:'상업',           color:'#1abc9c', test: function(t){ return /commercial|office|hotel|retail|shopping|market|mixed.use|business|corporate/i.test(t); } },
-  { key:'landscape',   label:'Landscape',        labelKo:'조경',           color:'#16a085', test: function(t){ return /landscape|urban design|masterplan|urban planning|streetscape|boulevard|greenery/i.test(t); } },
-  { key:'academic',    label:'Academic',         labelKo:'교육',           color:'#8e44ad', test: function(t){ return /university|campus|school|academic|college|education|research/i.test(t); } }
+// ── 8 Traveler Personas ──────────────────────────────────────────
+var _FWIL_PERSONAS = [
+  {
+    key: 'classicist',
+    icon: '🏛',
+    label: 'The Classicist',    labelKo: '클래식 러버',
+    hint:  'Beaux-Arts · Gothic · Heritage', hintKo: '클래식 · 고딕 · 역사건축',
+    tags: ['beaux-arts','gothic','classical','heritage','historic','neoclassical',
+           'baroque','colonial','victorian','renaissance','romanesque',
+           '19th century','18th century','historic district']
+  },
+  {
+    key: 'brutalist',
+    icon: '⬛',
+    label: 'The Brutalist',     labelKo: '브루탈리스트',
+    hint:  'Concrete · Raw · Bold',          hintKo: '콘크리트 · 날것의 미학',
+    tags: ['brutalism','concrete','raw concrete','exposed structure','brutalist',
+           'new brutalism']
+  },
+  {
+    key: 'modernist',
+    icon: '◻',
+    label: 'The Modernist',     labelKo: '모더니스트',
+    hint:  'Bauhaus · Midcentury · Minimal', hintKo: '바우하우스 · 기능주의',
+    tags: ['modernism','bauhaus','international style','mid-century','functionalism',
+           'minimalism','modern','rationalism','postmodernism','deconstructivism',
+           '20th century']
+  },
+  {
+    key: 'urbanist',
+    icon: '🏙',
+    label: 'The Urbanist',      labelKo: '어바니스트',
+    hint:  'Skyscrapers · Towers · Skyline', hintKo: '고층빌딩 · 스카이라인',
+    tags: ['skyscraper','tower','high-rise','supertall','megatall','skyline',
+           'contemporary','21st century','mixed-use','commercial','office']
+  },
+  {
+    key: 'naturalist',
+    icon: '🌿',
+    label: 'Park Lover',        labelKo: '자연 탐험가',
+    hint:  'Parks · Gardens · Waterfront',   hintKo: '공원 · 정원 · 워터프론트',
+    tags: ['park','garden','plaza','square','greenway','landscape','public space',
+           'promenade','waterfront','trail','green','botanical','nature']
+  },
+  {
+    key: 'culturist',
+    icon: '🎨',
+    label: 'Culture Seeker',    labelKo: '컬처 시커',
+    hint:  'Museum · Gallery · Theater',     hintKo: '미술관 · 갤러리 · 공연장',
+    tags: ['museum','gallery','art','theater','theatre','opera','concert hall',
+           'library','cultural','exhibition','performing arts','arts center']
+  },
+  {
+    key: 'engineer',
+    icon: '🌉',
+    label: 'The Engineer',      labelKo: '엔지니어',
+    hint:  'Bridges · Stations · Infra',     hintKo: '교량 · 역사 · 인프라',
+    tags: ['bridge','station','railway station','infrastructure','railway','metro',
+           'subway','tunnel','dam','port','harbor','transport hub','airport']
+  },
+  {
+    key: 'wanderer',
+    icon: '🔭',
+    label: 'The Wanderer',      labelKo: '탐험가',
+    hint:  'Hidden · Residential · Sacred',  hintKo: '숨겨진 곳 · 주거 · 종교',
+    tags: ['residential','housing','social housing','apartment','townhouse',
+           'church','cathedral','chapel','temple','mosque','shrine','synagogue',
+           'religious','academic','university','campus','school']
+  }
 ];
 
-function _fwilGroupOf(tag) {
-  var tl = (tag || '').toLowerCase();
-  for (var i = 0; i < _FWIL_GROUPS.length; i++) {
-    if (_FWIL_GROUPS[i].test(tl)) return _FWIL_GROUPS[i].key;
-  }
-  return 'more';
+// Expand selected persona keys → flat tag array (deduplicated)
+function _fwilExpandPersonaTags() {
+  var tagSet = {};
+  _fwilSelectedPersonas.forEach(function(key) {
+    var p = _FWIL_PERSONAS.find(function(x) { return x.key === key; });
+    if (p) p.tags.forEach(function(t) { tagSet[t] = true; });
+  });
+  return Object.keys(tagSet);
 }
 
 // ── Entry points ─────────────────────────────────────────────────
 function landingGoFwil() {
   _fwilFromSidebar = false;
-  _fwilSelectedTags = [];
+  _fwilSelectedPersonas = [];
   _fwilStep = 1;
   _fwilLoadSaves();
   var landing = document.getElementById('landing-screen');
@@ -856,7 +913,7 @@ function landingGoFwil() {
 function _sbaFwil() {
   _fwilFromSidebar = true;
   if (typeof closeSidebar === 'function') closeSidebar();
-  _fwilSelectedTags = [];
+  _fwilSelectedPersonas = [];
   _fwilStep = 1;
   _fwilLoadSaves();
   _fwilOpenScreen();
@@ -865,7 +922,7 @@ function _sbaFwil() {
 function _fwilOpenScreen() {
   var el = document.getElementById('fwil-screen');
   if (!el) return;
-  _fwilBuildTagGrid();
+  _fwilBuildPersonaGrid();
   _fwilShowStep(1);
   el.style.display = 'flex';
   requestAnimationFrame(function() {
@@ -874,29 +931,15 @@ function _fwilOpenScreen() {
 }
 
 function fwilBack() {
-  if (_fwilStep === 2) {
-    _fwilShowStep(1);
-    return;
-  }
-  // Step 1 back
+  if (_fwilStep === 2) { _fwilShowStep(1); return; }
   var el = document.getElementById('fwil-screen');
-  if (el) {
-    el.classList.remove('visible');
-    setTimeout(function() { el.style.display = 'none'; }, 280);
-  }
-  if (_fwilFromSidebar) {
-    _fwilFromSidebar = false;
-  } else {
-    showLandingScreen();
-  }
+  if (el) { el.classList.remove('visible'); setTimeout(function() { el.style.display = 'none'; }, 280); }
+  if (_fwilFromSidebar) { _fwilFromSidebar = false; } else { showLandingScreen(); }
 }
 
 function fwilClose() {
   var el = document.getElementById('fwil-screen');
-  if (el) {
-    el.classList.remove('visible');
-    setTimeout(function() { el.style.display = 'none'; }, 280);
-  }
+  if (el) { el.classList.remove('visible'); setTimeout(function() { el.style.display = 'none'; }, 280); }
   _fwilFromSidebar = false;
   localStorage.setItem('aw_landing_seen', '1');
   _ensureMapInit();
@@ -908,58 +951,20 @@ function _fwilShowStep(n) {
   var s2 = document.getElementById('fwil-step2');
   if (s1) s1.style.display = n === 1 ? 'flex' : 'none';
   if (s2) s2.style.display = n === 2 ? 'flex' : 'none';
-  // Update step indicator
-  var dots = document.querySelectorAll('.fwil-step-dot');
-  dots.forEach(function(d, i) { d.classList.toggle('active', i + 1 === n); });
+  document.querySelectorAll('.fwil-step-dot').forEach(function(d, i) {
+    d.classList.toggle('active', i + 1 === n);
+  });
 }
 
-// ── Tag Grid (Step 1) ────────────────────────────────────────────
-function _fwilBuildTagGrid() {
+// ── Persona Grid (Step 1) ────────────────────────────────────────
+function _fwilBuildPersonaGrid() {
   var container = document.getElementById('fwil-tag-container');
   if (!container) return;
   var isKo = (typeof LANG !== 'undefined') && LANG === 'ko';
 
-  // Collect all tags from current city locations
-  var cityKey = (typeof activeCityKey !== 'undefined' && activeCityKey) ? activeCityKey : null;
-  var locs = (typeof LOCS !== 'undefined' ? LOCS : []).filter(function(l) {
-    return !cityKey || l.city === cityKey;
-  });
-
-  // Collect tags + cats
-  var tagSet = {};
-  locs.forEach(function(l) {
-    var arr = (l.tags || []).concat(l.cats || []);
-    arr.forEach(function(tg) {
-      if (tg && tg.length > 1) tagSet[tg] = (tagSet[tg] || 0) + 1;
-    });
-  });
-
-  // Collect architect names
-  var archSet = {};
-  locs.forEach(function(l) {
-    var names = l.archs || (l.arch ? [l.arch] : []);
-    names.forEach(function(n) { if (n) archSet[n] = (archSet[n] || 0) + 1; });
-  });
-
-  // Group tags
-  var groups = {};
-  _FWIL_GROUPS.forEach(function(g) { groups[g.key] = []; });
-  groups['arch'] = [];
-  groups['more'] = [];
-
-  Object.keys(tagSet).forEach(function(tag) {
-    var gk = _fwilGroupOf(tag);
-    groups[gk].push(tag);
-  });
-
-  // Top architects (max 15)
-  var archList = Object.keys(archSet).sort(function(a,b) { return archSet[b]-archSet[a]; }).slice(0, 15);
-  groups['arch'] = archList;
-
-  // Build HTML
   var html = '';
 
-  // Saved preferences row (if any)
+  // Saved preferences row
   _fwilLoadSaves();
   if (_fwilSaves.length > 0) {
     html += '<div class="fwil-saves-row" id="fwil-saves-row">' +
@@ -973,52 +978,31 @@ function _fwilBuildTagGrid() {
     '</div>';
   }
 
-  // Groups
-  var groupOrder = _FWIL_GROUPS.map(function(g) { return g.key; }).concat(['arch','more']);
-  groupOrder.forEach(function(gk) {
-    var tags = groups[gk];
-    if (!tags || !tags.length) return;
-    var meta = _FWIL_GROUPS.find(function(g) { return g.key === gk; });
-    var gLabel, gColor;
-    if (gk === 'arch') {
-      gLabel  = isKo ? '건축가' : 'Architects';
-      gColor  = '#c0392b';
-    } else if (gk === 'more') {
-      gLabel  = isKo ? '더보기' : 'More';
-      gColor  = '#555';
-    } else {
-      gLabel  = isKo ? meta.labelKo : meta.label;
-      gColor  = meta.color;
-    }
-    html += _fwilGroupHtml(gLabel, gColor, tags, isKo);
+  // Persona cards
+  html += '<div class="fwil-persona-grid">';
+  _FWIL_PERSONAS.forEach(function(p) {
+    var sel = _fwilSelectedPersonas.indexOf(p.key) !== -1;
+    html += '<button class="fwil-persona-card' + (sel ? ' selected' : '') + '" ' +
+      'onclick="fwilTogglePersona(\'' + p.key + '\')">' +
+      '<div class="fwil-persona-icon">' + p.icon + '</div>' +
+      '<div class="fwil-persona-name">' + (isKo ? p.labelKo : p.label) + '</div>' +
+      '<div class="fwil-persona-hint">' + (isKo ? p.hintKo : p.hint) + '</div>' +
+    '</button>';
   });
+  html += '</div>';
 
   container.innerHTML = html;
   _fwilUpdateNextBtn();
 }
 
-function _fwilGroupHtml(label, color, tags, isKo) {
-  var chips = tags.map(function(tag) {
-    var sel = _fwilSelectedTags.indexOf(tag) !== -1;
-    return '<button class="fwil-chip' + (sel ? ' selected' : '') + '" ' +
-      'style="--chip-color:' + color + '" ' +
-      'onclick="fwilToggleTag(\'' + tag.replace(/'/g, "\\'") + '\')">' +
-      tag + '</button>';
-  }).join('');
-  return '<div class="fwil-group">' +
-    '<div class="fwil-group-label" style="color:' + color + '">' + label + '</div>' +
-    '<div class="fwil-chips">' + chips + '</div>' +
-  '</div>';
-}
-
-function fwilToggleTag(tag) {
-  var idx = _fwilSelectedTags.indexOf(tag);
-  if (idx >= 0) _fwilSelectedTags.splice(idx, 1);
-  else           _fwilSelectedTags.push(tag);
-  // Toggle chip class
-  var chips = document.querySelectorAll('.fwil-chip');
-  chips.forEach(function(c) {
-    if (c.textContent.trim() === tag) c.classList.toggle('selected', _fwilSelectedTags.indexOf(tag) !== -1);
+function fwilTogglePersona(key) {
+  var idx = _fwilSelectedPersonas.indexOf(key);
+  if (idx >= 0) _fwilSelectedPersonas.splice(idx, 1);
+  else          _fwilSelectedPersonas.push(key);
+  // Toggle card class
+  document.querySelectorAll('.fwil-persona-card').forEach(function(card) {
+    var cardKey = card.getAttribute('onclick').replace(/fwilTogglePersona\('|'\)/g, '');
+    card.classList.toggle('selected', _fwilSelectedPersonas.indexOf(cardKey) !== -1);
   });
   _fwilUpdateNextBtn();
 }
@@ -1027,18 +1011,19 @@ function _fwilUpdateNextBtn() {
   var btn = document.getElementById('fwil-next-btn');
   if (!btn) return;
   var isKo = (typeof LANG !== 'undefined') && LANG === 'ko';
-  var n = _fwilSelectedTags.length;
+  var n = _fwilSelectedPersonas.length;
   if (n > 0) {
     btn.textContent = isKo ? n + '개 선택 · 다음 →' : n + ' selected · Next →';
     btn.classList.add('ready');
   } else {
-    btn.textContent = isKo ? '태그를 선택하세요' : 'Select tags to continue';
+    btn.textContent = isKo ? '나의 유형을 선택하세요' : 'Pick your traveler type';
     btn.classList.remove('ready');
   }
 }
 
 function fwilStep1Next() {
-  if (!_fwilSelectedTags.length) return;
+  if (!_fwilSelectedPersonas.length) return;
+  _fwilSelectedTags = _fwilExpandPersonaTags();
   _fwilShowSaveModal();
 }
 
@@ -1051,9 +1036,10 @@ function _fwilSavesListHtml() {
   var isKo = (typeof LANG !== 'undefined') && LANG === 'ko';
   return _fwilSaves.map(function(s, i) {
     var date = s.savedAt ? new Date(s.savedAt).toLocaleDateString() : '';
+    var cnt  = (s.personas || []).length;
     return '<div class="fwil-save-item" onclick="fwilLoadFromSlot(' + i + ')">' +
       '<div class="fwil-save-name">' + (s.name || ('Slot ' + (i+1))) + '</div>' +
-      '<div class="fwil-save-meta">' + s.tags.length + (isKo ? '개 태그' : ' tags') + (date ? ' · ' + date : '') + '</div>' +
+      '<div class="fwil-save-meta">' + cnt + (isKo ? '개 유형' : ' type' + (cnt !== 1 ? 's' : '')) + (date ? ' · ' + date : '') + '</div>' +
     '</div>';
   }).join('');
 }
@@ -1063,7 +1049,7 @@ function fwilToggleSaves() {
   var arrow = document.getElementById('fwil-saves-arrow');
   if (!list) return;
   var open = list.style.display !== 'none';
-  list.style.display  = open ? 'none' : 'block';
+  list.style.display = open ? 'none' : 'block';
   if (arrow) arrow.textContent = open ? '▾' : '▴';
 }
 
@@ -1071,9 +1057,8 @@ function fwilLoadFromSlot(idx) {
   _fwilLoadSaves();
   var s = _fwilSaves[idx];
   if (!s) return;
-  _fwilSelectedTags = s.tags.slice();
-  _fwilBuildTagGrid();
-  // Close saves panel
+  _fwilSelectedPersonas = (s.personas || []).slice();
+  _fwilBuildPersonaGrid();
   var list = document.getElementById('fwil-saves-list');
   var arrow = document.getElementById('fwil-saves-arrow');
   if (list) list.style.display = 'none';
@@ -1085,14 +1070,13 @@ function _fwilShowSaveModal() {
   if (!modal) { _fwilShowStep(2); return; }
   var isKo = (typeof LANG !== 'undefined') && LANG === 'ko';
   _fwilLoadSaves();
-  // Build slot buttons
   var slotsHtml = '';
   for (var i = 0; i < 5; i++) {
     var s = _fwilSaves[i];
     if (s) {
       slotsHtml += '<button class="fwil-slot-btn occupied" onclick="fwilSaveToSlot(' + i + ')">' +
         '<span class="fwil-slot-name">' + (s.name || ('Slot ' + (i+1))) + '</span>' +
-        '<span class="fwil-slot-cnt">' + s.tags.length + (isKo ? '개' : ' tags') + '</span>' +
+        '<span class="fwil-slot-cnt">' + (s.personas || []).length + (isKo ? '개' : '') + '</span>' +
       '</button>';
     } else {
       slotsHtml += '<button class="fwil-slot-btn empty" onclick="fwilSaveToSlot(' + i + ')">' +
@@ -1127,9 +1111,8 @@ function fwilSaveToSlot(idx) {
   var existing = _fwilSaves[idx];
   var defaultName = existing ? existing.name : (isKo ? ('취향 ' + (idx + 1)) : ('Preset ' + (idx + 1)));
   var name = prompt(isKo ? '이름을 입력하세요:' : 'Enter a name:', defaultName);
-  if (name === null) return; // cancelled
-  _fwilSaves[idx] = { name: name || defaultName, tags: _fwilSelectedTags.slice(), savedAt: new Date().toISOString() };
-  // Ensure array is 5 items (pad with null)
+  if (name === null) return;
+  _fwilSaves[idx] = { name: name || defaultName, personas: _fwilSelectedPersonas.slice(), savedAt: new Date().toISOString() };
   while (_fwilSaves.length < 5) _fwilSaves.push(null);
   try { localStorage.setItem(_FWIL_SAVE_KEY, JSON.stringify(_fwilSaves.filter(Boolean))); } catch(e) {}
   _fwilCloseModal();

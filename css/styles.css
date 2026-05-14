@@ -3813,11 +3813,13 @@
   font-size: 13px; color: #888; flex-shrink: 0;
 }
 
-/* Tag container */
+/* Persona container (scrollable body) */
 .fwil-tag-container {
-  flex: 1; overflow-y: auto; padding: 8px 16px 16px;
+  flex: 1; overflow-y: auto; padding: 12px 14px 16px;
   -webkit-overflow-scrolling: touch;
 }
+
+/* Saved preferences row */
 .fwil-saves-row {
   background: rgba(255,255,255,0.04); border-radius: 12px;
   padding: 10px 14px; margin-bottom: 14px;
@@ -3839,30 +3841,36 @@
 .fwil-save-name { font-size: 13px; font-weight: 600; color: #eee; }
 .fwil-save-meta { font-size: 11px; color: #777; }
 
-/* Groups */
-.fwil-group { margin-bottom: 18px; }
-.fwil-group-label {
-  font-size: 11px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.06em; margin-bottom: 8px;
+/* Persona grid — 2 columns */
+.fwil-persona-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
 }
-.fwil-chips { display: flex; flex-wrap: wrap; gap: 7px; }
-.fwil-chip {
-  background: rgba(255,255,255,0.06);
-  border: 1.5px solid rgba(255,255,255,0.12);
-  color: #ccc; border-radius: 20px;
-  padding: 5px 12px; font-size: 12px; cursor: pointer;
-  transition: background 0.15s, border-color 0.15s, color 0.15s;
+.fwil-persona-card {
+  background: rgba(255,255,255,0.04);
+  border: 1.5px solid #2a2a2a;
+  border-radius: 16px; padding: 16px 12px 14px;
+  display: flex; flex-direction: column; align-items: center; gap: 5px;
+  cursor: pointer; text-align: center;
+  transition: border-color 0.15s, background 0.15s;
+  -webkit-tap-highlight-color: transparent;
 }
-.fwil-chip:hover {
-  background: rgba(255,255,255,0.12);
-  border-color: rgba(255,255,255,0.28);
-  color: #fff;
+.fwil-persona-card:hover {
+  border-color: rgba(245,166,35,0.5);
+  background: rgba(245,166,35,0.06);
 }
-.fwil-chip.selected {
-  background: var(--chip-color, #f5a623);
-  border-color: var(--chip-color, #f5a623);
-  color: #fff;
+.fwil-persona-card.selected {
+  border-color: #f5a623;
+  background: rgba(245,166,35,0.13);
 }
+.fwil-persona-icon { font-size: 26px; line-height: 1; margin-bottom: 2px; }
+.fwil-persona-name {
+  font-size: 12px; font-weight: 700; color: #fff; line-height: 1.2;
+}
+.fwil-persona-card.selected .fwil-persona-name { color: #f5a623; }
+.fwil-persona-hint {
+  font-size: 10px; color: #666; line-height: 1.4;
+}
+.fwil-persona-card.selected .fwil-persona-hint { color: #a87720; }
 
 /* Footer */
 .fwil-footer {
