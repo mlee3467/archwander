@@ -40,7 +40,7 @@ var T = {
     mob_near:     'My Location',
     mob_fav:      'Favorites',
     mob_route:    'Route',
-    sba_likable:  'Likable\nplaces',
+    sba_likable:  'Place I like',
     sba_loc:      'My Location',
     sba_fav:      'Favorites',
     sba_route:    'Route',

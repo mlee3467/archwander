@@ -3040,8 +3040,8 @@
 }
 /* Per-button diagonal gradients (top-left → bottom-right) */
 #sba-likable {
-  background: linear-gradient(135deg, #d1fae5 0%, #34d399 100%);
-  color: #065f46;
+  background: linear-gradient(135deg, #edeec9 0%, #98c9a3 100%);
+  color: #2e6b4f;
 }
 #sba-loc   {
   background: linear-gradient(135deg, #fde8e8 0%, #f9a8a8 100%);

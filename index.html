@@ -519,8 +519,14 @@
     <!-- Action buttons — Likable Places / My Location / Favorites / Route / My Page -->
     <div class="sb-actions" id="sb-actions">
       <button class="sba-btn" id="sba-likable" onclick="openThemeModal()">
-        <span class="sba-icon" style="font-size:20px;line-height:1">✨</span>
-        <span class="sba-label" id="sba-likable-label">Likable places</span>
+        <span class="sba-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path fill="currentColor" fill-opacity="0.22" d="M12 2C8.69 2 6 4.69 6 8c0 4.5 6 12 6 12s6-7.5 6-12c0-3.31-2.69-6-6-6z"/>
+            <path d="M12 2C8.69 2 6 4.69 6 8c0 4.5 6 12 6 12s6-7.5 6-12c0-3.31-2.69-6-6-6z"/>
+            <path fill="currentColor" fill-opacity="0.9" stroke="none" d="M12 10C12 10 9.2 8.1 9.2 6.4c0-1 .75-1.6 1.7-1.3C11.4 5.3 11.8 5.6 12 5.9c.2-.3.6-.6 1.1-.8.95-.3 1.7.3 1.7 1.3C14.8 8.1 12 10 12 10z"/>
+          </svg>
+        </span>
+        <span class="sba-label" id="sba-likable-label">Place I like</span>
       </button>
       <button class="sba-btn" id="sba-loc" onclick="_sbaMyLocation()">
         <span class="sba-icon">
