@@ -175,38 +175,65 @@ function setupHDrag(handleId, targetId, minW, maxW) {
   const handle = document.getElementById(handleId);
   const target = document.getElementById(targetId);
   if (!handle || !target) return;
-  let startX = 0, startW = 0;
+  let dragging = false, startX = 0, startW = 0;
 
-  // Use Pointer Capture so mousemove events are delivered to the handle
-  // even when the pointer drifts over the Leaflet map layer (which would
-  // otherwise steal them via its own event listeners).
-  handle.addEventListener('pointerdown', function(e) {
+  // Use window-level CAPTURE phase listeners so drag events are intercepted
+  // before Leaflet's bubble-phase handlers can consume them. This is more
+  // reliable than setPointerCapture which Leaflet can steal on its container.
+  handle.addEventListener('mousedown', function(e) {
+    if (e.button !== 0) return;
     e.preventDefault();
-    startX = e.clientX; startW = target.offsetWidth;
-    handle.setPointerCapture(e.pointerId);
+    e.stopPropagation();
+    dragging = true;
+    startX = e.clientX;
+    startW = target.offsetWidth;
     handle.classList.add('dragging');
     document.body.style.cursor = 'ew-resize';
     document.body.style.userSelect = 'none';
   });
-  handle.addEventListener('pointermove', function(e) {
-    if (!handle.hasPointerCapture(e.pointerId)) return;
+
+  window.addEventListener('mousemove', function(e) {
+    if (!dragging) return;
+    e.preventDefault();
     const w = Math.max(minW, Math.min(maxW, startW + e.clientX - startX));
     target.style.width = w + 'px';
     document.documentElement.style.setProperty('--sidebar-w', w + 'px');
     if (typeof map !== 'undefined' && map) map.invalidateSize();
-  });
-  handle.addEventListener('pointerup', function(e) {
-    if (!handle.hasPointerCapture(e.pointerId)) return;
-    handle.releasePointerCapture(e.pointerId);
+  }, { capture: true });
+
+  window.addEventListener('mouseup', function(e) {
+    if (!dragging) return;
+    dragging = false;
     handle.classList.remove('dragging');
     document.body.style.cursor = '';
     document.body.style.userSelect = '';
-  });
-  handle.addEventListener('pointercancel', function(e) {
+  }, { capture: true });
+
+  // Touch support
+  handle.addEventListener('touchstart', function(e) {
+    e.preventDefault();
+    dragging = true;
+    startX = e.touches[0].clientX;
+    startW = target.offsetWidth;
+    handle.classList.add('dragging');
+  }, { passive: false });
+
+  window.addEventListener('touchmove', function(e) {
+    if (!dragging) return;
+    e.preventDefault();
+    const w = Math.max(minW, Math.min(maxW, startW + e.touches[0].clientX - startX));
+    target.style.width = w + 'px';
+    document.documentElement.style.setProperty('--sidebar-w', w + 'px');
+    if (typeof map !== 'undefined' && map) map.invalidateSize();
+  }, { capture: true, passive: false });
+
+  window.addEventListener('touchend', function(e) {
+    if (!dragging) return;
+    dragging = false;
     handle.classList.remove('dragging');
     document.body.style.cursor = '';
     document.body.style.userSelect = '';
-  });
+  }, { capture: true });
 }
 
 // Drag-resize from LEFT edge (for right panel — dragging left = wider)

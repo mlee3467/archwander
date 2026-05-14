@@ -96,6 +96,7 @@ function _doFullMapInit(afterFn) {
   }).then(function() {
     _initMapTiles();  // no-op if tiles already initialized
     // Always refresh markers after city data loads (fixes empty-map on first boot)
+    console.log('[_doFullMapInit] data loaded, LOCS=' + LOCS.length + ', calling refreshApp');
     if (typeof refreshApp === 'function') refreshApp();
     // Render passport stats (reads from localStorage — works before city data)
     if (typeof _updatePassportStats === 'function') _updatePassportStats();
@@ -142,9 +143,14 @@ window.addEventListener('load', function() {
     if (!activeCity) { activeCity = 'nyc'; activeCityKey = 'new-york'; }
     _initMapTiles();
     // Pre-load default city data so markers appear immediately (before GPS resolves)
-    loadCityData(activeCity).then(function() {
-      if (typeof refreshApp === 'function') refreshApp();
-    }).catch(function() {});
+    setTimeout(function() {
+      loadCityData(activeCity).then(function() {
+        console.log('[boot] mobile pre-load resolved, LOCS=' + LOCS.length + ', calling refreshApp');
+        if (typeof refreshApp === 'function') refreshApp();
+      }).catch(function(err) {
+        console.warn('[boot] mobile pre-load failed:', err);
+      });
+    }, 100);
     if (typeof showSplash === 'function') showSplash();
     if (typeof _scheduleMidnightReset === 'function') _scheduleMidnightReset();
   } else {
@@ -152,10 +158,17 @@ window.addEventListener('load', function() {
     _mapInited = true;
     if (!activeCity) { activeCity = 'nyc'; activeCityKey = 'new-york'; }
     _initMapTiles();   // renders immediately so there's no blank-map wait
+    console.log('[boot] desktop init, activeCity=' + activeCity + ' activeCityKey=' + activeCityKey);
     // Pre-load default city data so markers appear right away — GPS switch updates them later
-    loadCityData(activeCity).then(function() {
-      if (typeof refreshApp === 'function') refreshApp();
-    }).catch(function() {});
+    // Small delay ensures map container has correct dimensions before markers are placed
+    setTimeout(function() {
+      loadCityData(activeCity).then(function() {
+        console.log('[boot] pre-load resolved, LOCS=' + LOCS.length + ', calling refreshApp');
+        if (typeof refreshApp === 'function') refreshApp();
+      }).catch(function(err) {
+        console.warn('[boot] pre-load failed:', err);
+      });
+    }, 100);
     _doFullMapInit();  // GPS → setView(correct city) → loadData → refreshApp
     if (typeof _scheduleMidnightReset === 'function') _scheduleMidnightReset();
   }
