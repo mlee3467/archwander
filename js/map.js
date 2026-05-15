@@ -120,12 +120,14 @@ function buildLegend() {
       var m = CC_META[cc];
       var label = typeof _tCat === 'function' ? _tCat(CC_LABEL[cc]) : CC_LABEL[cc];
       var isOn = !_legendHiddenCats.has(cc);
-      html += '<label class="legend-item legend-item-cb" onclick="event.stopPropagation()">' +
-        '<input type="checkbox" class="legend-cb" ' + (isOn ? 'checked' : '') +
-        ' onchange="toggleLegendCat(\'' + cc + '\',this.checked)">' +
+      // Pure div toggle — no <input type=checkbox> to avoid browser/dark-mode rendering issues
+      html += '<div class="legend-item legend-item-cb' + (isOn ? '' : ' legend-row-off') + '"' +
+        ' id="legend-row-' + cc + '"' +
+        ' onclick="event.stopPropagation();_toggleLegendRow(\'' + cc + '\')">' +
+        '<span class="legend-ck">' + (isOn ? '✓' : '') + '</span>' +
         '<span class="legend-dot" style="background:' + m.color + '"></span>' +
         '<span class="legend-label">' + label + '</span>' +
-        '</label>';
+        '</div>';
     });
     html += '</div>';
     div.innerHTML = html;
@@ -140,7 +142,20 @@ function toggleLegend() {
   if (el) el.classList.toggle('collapsed');
 }
 
-// Toggle a single category on/off
+// Toggle a single row by clicking it
+function _toggleLegendRow(cc) {
+  var nowHidden = _legendHiddenCats.has(cc);
+  // nowHidden=true → user wants to show → checked=true; nowHidden=false → hide → checked=false
+  toggleLegendCat(cc, nowHidden);
+  var row = document.getElementById('legend-row-' + cc);
+  if (row) {
+    row.classList.toggle('legend-row-off', !nowHidden);
+    var ck = row.querySelector('.legend-ck');
+    if (ck) ck.textContent = nowHidden ? '✓' : '';
+  }
+}
+
+// Toggle a single category on/off (also called by _legendSelectAll)
 function toggleLegendCat(cc, checked) {
   if (checked) { _legendHiddenCats.delete(cc); }
   else         { _legendHiddenCats.add(cc); }
@@ -153,8 +168,14 @@ function _legendSelectAll(on) {
   var order = ['c-lmk','c-sky','c-his','c-cul','c-park','c-pub','c-rel','c-aca','c-res','c-inf','c-ret','c-com'];
   _legendHiddenCats.clear();
   if (!on) order.forEach(function(cc) { _legendHiddenCats.add(cc); });
-  // Update checkboxes in DOM
-  document.querySelectorAll('.legend-cb').forEach(function(cb) { cb.checked = on; });
+  order.forEach(function(cc) {
+    var row = document.getElementById('legend-row-' + cc);
+    if (row) {
+      row.classList.toggle('legend-row-off', !on);
+      var ck = row.querySelector('.legend-ck');
+      if (ck) ck.textContent = on ? '✓' : '';
+    }
+  });
   if (typeof syncMarkers === 'function') syncMarkers();
   if (typeof renderList  === 'function') renderList();
 }
