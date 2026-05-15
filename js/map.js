@@ -72,7 +72,7 @@ function initMap() {
   // Start at world view so city overview cards are visible on load
   var _isMobile = window.innerWidth < 901;
   var _wmZoom = _isMobile ? 2 : 3;
-  map = L.map('map', { center:[20, 10], zoom:_wmZoom, zoomControl:false, minZoom:_wmZoom, maxZoom:4 });
+  map = L.map('map', { center:[20, 10], zoom:_wmZoom, zoomControl:false, minZoom:_wmZoom, maxZoom:4, maxBoundsViscosity: 1.0 });
   streetLayer = _makeStreetLayer().addTo(map);
   satLayer = L.tileLayer(
     'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
@@ -214,6 +214,17 @@ function _enterCity(code) {
       _rendered = true;
       map.off('moveend', _doRender);
       if (typeof refreshApp === 'function') refreshApp();
+      // Set pan bounds: city default-zoom viewport × 2 padding to limit tile loading
+      var _meta = typeof CITY_META !== 'undefined' ? CITY_META[code] : null;
+      if (_meta) {
+        var PAD = 2.0;
+        var cPx = map.project([_meta.lat, _meta.lng], _meta.zoom);
+        var hw  = (window.innerWidth  / 2) * PAD;
+        var hh  = (window.innerHeight / 2) * PAD;
+        var sw  = map.unproject(L.point(cPx.x - hw, cPx.y + hh), _meta.zoom);
+        var ne  = map.unproject(L.point(cPx.x + hw, cPx.y - hh), _meta.zoom);
+        map.setMaxBounds(L.latLngBounds(sw, ne));
+      }
     }
     // Primary: render once fly animation completes
     map.once('moveend', _doRender);
@@ -232,6 +243,7 @@ function _cwpCityClick(code) {
 // Switch to world overview mode (called from dropdown "World Map" option)
 function _goWorldMap() {
   _worldMode = true;
+  map.setMaxBounds(null);  // remove city pan restriction
   map.setMaxZoom(4);   // re-apply world-mode cap (no zoom-in past 4)
   if (map.hasLayer(clusterGroup)) map.removeLayer(clusterGroup);
   buildLegend();        // switch from category legend to world-stats legend
