@@ -886,7 +886,10 @@ function _onCitySelectChange(val) {
   if (val === 'world') {
     if (typeof _goWorldMap === 'function') _goWorldMap();
   } else {
-    selectCity(val);
+    // Always route through _cwpCityClick — handles world-mode exit correctly
+    // (adds clusterGroup to map, refreshes markers when coming from world view)
+    if (typeof _cwpCityClick === 'function') _cwpCityClick(val);
+    else selectCity(val);
   }
 }
 
@@ -895,10 +898,15 @@ function selectCity(city) {
   var meta = CITY_META[city];
   if (!meta) return;
 
-  // Exit world mode: undo the maxZoom:4 world cap so city zoom is unrestricted
+  /// Exit world mode: undo the maxZoom:4 world cap + ensure clusterGroup is on map
   if (typeof _worldMode !== 'undefined') {
     _worldMode = false;
-    if (typeof map !== 'undefined' && map) map.setMaxZoom(19);
+    if (typeof map !== 'undefined' && map) {
+      map.setMaxZoom(19);
+      if (typeof clusterGroup !== 'undefined' && clusterGroup && !map.hasLayer(clusterGroup)) {
+        map.addLayer(clusterGroup);
+      }
+    }
   }
 
   // Lazy-load city data if not yet loaded, then switch

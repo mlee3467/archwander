@@ -925,6 +925,7 @@
     .cwp-card {
       background: rgba(255,255,255,0.88);
       backdrop-filter: blur(6px);
+      min-width: 100px;
       border-radius: 8px;
       padding: 7px 10px 6px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.22);

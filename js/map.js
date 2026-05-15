@@ -148,7 +148,7 @@ function _buildCityPins() {
       statsHtml +
       '</div>';
 
-    var icon = L.divIcon({ className: 'cwp-wrap', html: cardHtml, iconAnchor: [0, 0] });
+    var icon = L.divIcon({ className: 'cwp-wrap', html: cardHtml, iconAnchor: [60, 53] });
     var m = L.marker([cm.lat, cm.lng], { icon: icon, zIndexOffset: 2000 });
     map.addLayer(m);
     _cityPinMarkers[code] = m;
@@ -170,17 +170,20 @@ function _updateCityPinVisibility() {
 function _cwpCityClick(code) {
   var meta = CITY_META[code];
   if (!meta) return;
+  var wasWorldMode = _worldMode;
   _worldMode = false;
   map.setMaxZoom(19);   // undo world-mode maxZoom:4 cap
   if (!map.hasLayer(clusterGroup)) map.addLayer(clusterGroup);
   buildLegend();        // switch from world-stats legend to category legend
   if (typeof activeCity !== 'undefined' && code === activeCity) {
-    // Already active — just fly in and sync dropdowns to show this city
+    // Already active — fly in and sync dropdowns
     map.flyTo([meta.lat, meta.lng], meta.zoom, { duration: 1.2 });
     var mSel = document.getElementById('city-select-mobile');
     if (mSel) mSel.value = code;
     var sbSel = document.getElementById('sb-city-select');
     if (sbSel) sbSel.value = code;
+    // Coming from world mode: clusterGroup was empty (world guard), must rebuild markers
+    if (wasWorldMode && typeof refreshApp === 'function') refreshApp();
   } else {
     if (typeof selectCity === 'function') selectCity(code);
   }
