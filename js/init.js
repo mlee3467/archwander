@@ -83,16 +83,19 @@ function _doFullMapInit(afterFn) {
   console.log('[boot] starting GPS detection...');
   _initCityByGPS().then(function(city) {
     console.log('[boot] city selected:', city);
-    activeCity    = city;
-    activeCityKey = CITY_META[city].key;
-    // NOTE: do NOT update dropdowns here — world-mode dropdown shows 'world' on boot.
-    // Dropdowns are synced to the city only when user clicks a city card.
+    // Only update activeCity if user hasn't already manually selected a city (left world mode)
+    if (typeof _worldMode === 'undefined' || _worldMode) {
+      activeCity    = city;
+      activeCityKey = CITY_META[city].key;
+    }
     return loadCityData(city);
   }).then(function() {
     _initMapTiles();  // no-op if tiles already initialized
-    // Always refresh markers after city data loads (fixes empty-map on first boot)
-    console.log('[_doFullMapInit] data loaded, LOCS=' + LOCS.length + ', calling refreshApp');
-    if (typeof refreshApp === 'function') refreshApp();
+    // Only refresh if still in world mode — don't override user's manual city selection
+    console.log('[_doFullMapInit] data loaded, LOCS=' + LOCS.length + ', _worldMode=' + (typeof _worldMode !== 'undefined' ? _worldMode : 'undef'));
+    if (typeof _worldMode === 'undefined' || _worldMode) {
+      if (typeof refreshApp === 'function') refreshApp();
+    }
     // Render passport stats (reads from localStorage — works before city data)
     if (typeof _updatePassportStats === 'function') _updatePassportStats();
     if (afterFn) {

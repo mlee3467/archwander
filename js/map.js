@@ -182,8 +182,14 @@ function _cwpCityClick(code) {
     if (mSel) mSel.value = code;
     var sbSel = document.getElementById('sb-city-select');
     if (sbSel) sbSel.value = code;
-    // Coming from world mode: clusterGroup was empty (world guard), must rebuild markers
-    if (wasWorldMode && typeof refreshApp === 'function') refreshApp();
+    // Coming from world mode: guarantee city data is loaded before rendering markers
+    if (wasWorldMode) {
+      loadCityData(code).then(function() {
+        if (typeof refreshApp === 'function') refreshApp();
+      }).catch(function(err) {
+        console.error('[_cwpCityClick] loadCityData failed:', err);
+      });
+    }
   } else {
     if (typeof selectCity === 'function') selectCity(code);
   }
