@@ -886,63 +886,25 @@ function _onCitySelectChange(val) {
   if (val === 'world') {
     if (typeof _goWorldMap === 'function') _goWorldMap();
   } else {
-    // Always route through _cwpCityClick — handles world-mode exit correctly
-    // (adds clusterGroup to map, refreshes markers when coming from world view)
-    if (typeof _cwpCityClick === 'function') _cwpCityClick(val);
-    else selectCity(val);
+    if (typeof _enterCity === 'function') _enterCity(val);
   }
 }
 
 function selectCity(city) {
-  if (city === activeCity) return;
+  // Delegate to _enterCity (handles all world/city mode transitions)
+  if (typeof _enterCity === 'function') { _enterCity(city); return; }
+  // Fallback if map.js not yet loaded
   var meta = CITY_META[city];
-  if (!meta) return;
-
-  /// Exit world mode: undo the maxZoom:4 world cap + ensure clusterGroup is on map
-  if (typeof _worldMode !== 'undefined') {
-    _worldMode = false;
-    if (typeof map !== 'undefined' && map) {
-      map.setMaxZoom(19);
-      if (typeof clusterGroup !== 'undefined' && clusterGroup && !map.hasLayer(clusterGroup)) {
-        map.addLayer(clusterGroup);
-      }
-    }
-  }
-
-  // Lazy-load city data if not yet loaded, then switch
+  if (!meta || city === activeCity) return;
   loadCityData(city).then(function() {
-    activeCity    = city;
-    activeCityKey = meta.key;
-    // Clear walk filter when switching cities
-    if (walkActive) clearWalkFilter();
-    // Fly map to city center
-    if (window.map) map.flyTo([meta.lat, meta.lng], meta.zoom, { duration: 1.2 });
-    // Sync mobile city select + sidebar city select
-    var _msel = document.getElementById('city-select-mobile');
-    if (_msel) _msel.value = city;
-    if (typeof _syncSbCitySelect === 'function') _syncSbCitySelect();
-    refreshApp();
-  }).catch(function(err) {
-    console.error('[selectCity] Failed to load data for', city, err);
-  });
+    activeCity = city; activeCityKey = meta.key;
+    if (typeof walkActive !== 'undefined' && walkActive && typeof clearWalkFilter === 'function') clearWalkFilter();
+    if (typeof map !== 'undefined' && map) map.flyTo([meta.lat, meta.lng], meta.zoom, { duration: 1.2 });
+    if (typeof refreshApp === 'function') refreshApp();
+  }).catch(function(err) { console.error('[selectCity] Failed:', city, err); });
 }
 
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') {
-    // Cancel pin drop mode if active (go back to "waiting" state, not full deactivate)
-    if (pinDropMode) {
-      pinDropMode = false;
-      map.getContainer().style.cursor = '';
-      document.getElementById('walk-pin-btn').classList.remove('locating');
-      return;
-    }
-    closePanel();
-  }
-});
 
-// ══════════════════════════════════════════════════════════════════
-// GPS → NEAREST CITY
-// ══════════════════════════════════════════════════════════════════
 function _nearestCity(lat, lng) {
   let best = 'nyc', bestDist = Infinity;
   for (const [code, m] of Object.entries(CITY_META)) {

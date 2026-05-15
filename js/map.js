@@ -166,33 +166,49 @@ function _updateCityPinVisibility() {
   });
 }
 
-// Called by city card click — exit world mode and fly to city
-function _cwpCityClick(code) {
+// ── Central city entry point ─────────────────────────────────────
+// Called from city cards, dropdown, and selectCity().
+// Handles ALL cases: world→city, city→city, same city re-entry.
+function _enterCity(code) {
   var meta = CITY_META[code];
   if (!meta) return;
-  var wasWorldMode = _worldMode;
+  // Already showing this city in city mode — nothing to do
+  if (code === activeCity && !_worldMode) return;
+
+  // 1. Exit world mode
   _worldMode = false;
-  map.setMaxZoom(19);   // undo world-mode maxZoom:4 cap
-  if (!map.hasLayer(clusterGroup)) map.addLayer(clusterGroup);
-  buildLegend();        // switch from world-stats legend to category legend
-  if (typeof activeCity !== 'undefined' && code === activeCity) {
-    // Already active — fly in and sync dropdowns
-    map.flyTo([meta.lat, meta.lng], meta.zoom, { duration: 1.2 });
-    var mSel = document.getElementById('city-select-mobile');
-    if (mSel) mSel.value = code;
-    var sbSel = document.getElementById('sb-city-select');
-    if (sbSel) sbSel.value = code;
-    // Coming from world mode: guarantee city data is loaded before rendering markers
-    if (wasWorldMode) {
-      loadCityData(code).then(function() {
-        if (typeof refreshApp === 'function') refreshApp();
-      }).catch(function(err) {
-        console.error('[_cwpCityClick] loadCityData failed:', err);
-      });
-    }
-  } else {
-    if (typeof selectCity === 'function') selectCity(code);
-  }
+  map.setMaxZoom(19);
+  if (clusterGroup && !map.hasLayer(clusterGroup)) map.addLayer(clusterGroup);
+  buildLegend();
+
+  // 2. Set active city state immediately (before async load)
+  activeCity    = code;
+  activeCityKey = meta.key;
+
+  // 3. Sync dropdowns
+  var mSel = document.getElementById('city-select-mobile');
+  if (mSel) mSel.value = code;
+  var sbSel = document.getElementById('sb-city-select');
+  if (sbSel) sbSel.value = code;
+
+  // 4. Fly to city center
+  map.flyTo([meta.lat, meta.lng], meta.zoom, { duration: 1.2 });
+
+  // 5. Clear walk filter if active
+  if (typeof walkActive !== 'undefined' && walkActive &&
+      typeof clearWalkFilter === 'function') clearWalkFilter();
+
+  // 6. Load city data then render markers
+  loadCityData(code).then(function() {
+    if (typeof refreshApp === 'function') refreshApp();
+  }).catch(function(err) {
+    console.error('[_enterCity] load failed for', code, ':', err);
+  });
+}
+
+// City card onclick handler — thin wrapper around _enterCity
+function _cwpCityClick(code) {
+  _enterCity(code);
 }
 
 // Switch to world overview mode (called from dropdown "World Map" option)
