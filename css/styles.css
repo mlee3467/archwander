@@ -2920,7 +2920,7 @@
   align-items: center; justify-content: flex-start;
   gap: 11px;
   cursor: pointer;
-  font-family: Inter, -apple-system, sans-serif;
+  font-family: 'Space Mono', 'Courier New', monospace;
   /* Hard offset shadow — no blur, Game Boy / Win95 aesthetic */
   box-shadow: 3px 3px 0 #1a1a1a;
   -webkit-tap-highlight-color: transparent;
@@ -2946,9 +2946,10 @@
   width: 26px;
 }
 .sba-label {
-  font-size: 13px; font-weight: 600;
+  font-size: 11px; font-weight: 700;
   line-height: 1.2; white-space: nowrap;
-  text-align: left;
+  text-align: left; text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 /* Active/toggled state — pressed-in look */
 .sba-btn.sba-active {
