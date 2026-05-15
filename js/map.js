@@ -70,7 +70,7 @@ function _makeStreetLayer() {
 
 function initMap() {
   // Start at world view so city overview cards are visible on load
-  map = L.map('map', { center:[20, 10], zoom:2, zoomControl:false, minZoom:2 });
+  map = L.map('map', { center:[20, 10], zoom:2, zoomControl:false, minZoom:2, maxZoom:4 });
   streetLayer = _makeStreetLayer().addTo(map);
   satLayer = L.tileLayer(
     'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
@@ -89,21 +89,8 @@ function initMap() {
   if (_mSel) _mSel.value = 'world';
   var _sbSel = document.getElementById('sb-city-select');
   if (_sbSel) _sbSel.value = 'world';
-  // Zoom guard: world mode ↔ city mode bounce-back
-  map.on('zoomend', function() {
-    var z = map.getZoom();
-    if (_worldMode && z >= 5) {
-      // World mode: block zooming in past 4 until a city is selected
-      map.setZoom(4, { animate: true });
-      return;
-    }
-    if (!_worldMode && z < 5) {
-      // City mode: block zooming out past 4 — prevents unnecessary world-tile loading
-      map.setZoom(5, { animate: true });
-      return;
-    }
-    _updateCityPinVisibility();
-  });
+  // Update city card visibility on zoom change
+  map.on('zoomend', _updateCityPinVisibility);
 }
 
 // ── City Overview Cards (world zoom) ─────────────────────────────
@@ -171,7 +158,9 @@ function _updateCityPinVisibility() {
 function _cwpCityClick(code) {
   var meta = CITY_META[code];
   if (!meta) return;
-  _worldMode = false;  // allow unrestricted zoom from here on
+  _worldMode = false;
+  map.setMinZoom(5);   // city mode: block zooming out past 5
+  map.setMaxZoom(19);
   if (typeof activeCity !== 'undefined' && code === activeCity) {
     // Already active — just fly in and sync dropdowns to show this city
     map.flyTo([meta.lat, meta.lng], meta.zoom, { duration: 1.2 });
@@ -187,6 +176,8 @@ function _cwpCityClick(code) {
 // Switch to world overview mode (called from dropdown "World Map" option)
 function _goWorldMap() {
   _worldMode = true;
+  map.setMinZoom(2);   // world mode: restrict to zoom 2-4
+  map.setMaxZoom(4);
   map.flyTo([20, 10], 2, { duration: 1.2 });
   // Sync both city dropdowns to show the world option
   var mSel = document.getElementById('city-select-mobile');

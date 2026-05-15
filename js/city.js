@@ -895,8 +895,14 @@ function selectCity(city) {
   var meta = CITY_META[city];
   if (!meta) return;
 
-  // Exit world mode so zoom is unrestricted after city selection
-  if (typeof _worldMode !== 'undefined') _worldMode = false;
+  // Exit world mode: expand zoom range to city range
+  if (typeof _worldMode !== 'undefined') {
+    _worldMode = false;
+    if (typeof map !== 'undefined' && map) {
+      map.setMinZoom(5);
+      map.setMaxZoom(19);
+    }
+  }
 
   // Lazy-load city data if not yet loaded, then switch
   loadCityData(city).then(function() {
