@@ -78,7 +78,11 @@ function initMap() {
   );
   L.control.zoom({ position:'bottomright' }).addTo(map);
   clusterGroup = createClusterGroup();
-  map.addLayer(clusterGroup);
+  // World mode on load: DON'T add clusterGroup so location markers stay hidden
+  // (city overview cards are shown instead; clusterGroup added when city is selected)
+
+  // Override getMinZoom so city-mode zoom floor (5) is enforced at Leaflet core level
+  map.getMinZoom = function() { return _worldMode ? 2 : 5; };
   // Build empty marker set — LOCS is always empty at initMap() time (data loads async)
   // refreshApp() handles full render after data arrives
   applyLang();
@@ -168,6 +172,8 @@ function _cwpCityClick(code) {
   if (!meta) return;
   _worldMode = false;
   map.setMaxZoom(19);   // undo world-mode maxZoom:4 cap
+  if (!map.hasLayer(clusterGroup)) map.addLayer(clusterGroup);
+  buildLegend();        // switch from world-stats legend to category legend
   if (typeof activeCity !== 'undefined' && code === activeCity) {
     // Already active — just fly in and sync dropdowns to show this city
     map.flyTo([meta.lat, meta.lng], meta.zoom, { duration: 1.2 });
@@ -184,6 +190,8 @@ function _cwpCityClick(code) {
 function _goWorldMap() {
   _worldMode = true;
   map.setMaxZoom(4);   // re-apply world-mode cap (no zoom-in past 4)
+  if (map.hasLayer(clusterGroup)) map.removeLayer(clusterGroup);
+  buildLegend();        // switch from category legend to world-stats legend
   map.flyTo([20, 10], 2, { duration: 1.2 });
   // Sync both city dropdowns to show the world option
   var mSel = document.getElementById('city-select-mobile');
@@ -197,6 +205,7 @@ var legendControl = null;
 var _legendHiddenCats = new Set(); // cc codes currently hidden via legend checkboxes
 
 function buildLegend() {
+  if (_worldMode) { _buildWorldLegend(); return; }
   if (legendControl) map.removeControl(legendControl);
   legendControl = L.control({ position: 'topright' });
   legendControl.onAdd = function() {
@@ -230,6 +239,43 @@ function buildLegend() {
         '<span class="legend-label">' + label + '</span>' +
         '</div>';
     });
+    html += '</div>';
+    div.innerHTML = html;
+    L.DomEvent.disableClickPropagation(div);
+    return div;
+  };
+  legendControl.addTo(map);
+}
+
+// World-mode legend: global favorites + visited stats panel
+function _buildWorldLegend() {
+  if (legendControl) map.removeControl(legendControl);
+  legendControl = L.control({ position: 'topright' });
+  legendControl.onAdd = function() {
+    var isMobile = window.innerWidth <= 900;
+    var div = L.DomUtil.create('div', 'map-legend' + (isMobile ? ' collapsed' : ''));
+    var isKo = typeof LANG !== 'undefined' && LANG === 'ko';
+    var totalFav = typeof _favSet !== 'undefined' ? _favSet.size : 0;
+    var totalVis = typeof _visSet !== 'undefined' ? _visSet.size : 0;
+    var titleText = isKo ? '내 기록' : 'My Stats';
+    var html = '<div class="legend-toggle" onclick="toggleLegend()">' +
+      '<span class="legend-toggle-label">' + titleText + '</span>' +
+      '<span class="legend-arrow">▾</span></div>';
+    html += '<div class="legend-body">';
+    if (totalFav === 0 && totalVis === 0) {
+      html += '<div class="wm-no-stats">' +
+        (isKo ? '도시를 선택하여 탐험을 시작하세요' : 'Select a city to start exploring') +
+        '</div>';
+    } else {
+      html += '<div class="wm-stat-row">' +
+        '<span class="wm-stat-icon wm-fav">♥</span>' +
+        '<span class="wm-stat-label">' + (isKo ? '즐겨찾기' : 'Favorites') + '</span>' +
+        '<span class="wm-stat-val">' + totalFav + '</span></div>';
+      html += '<div class="wm-stat-row">' +
+        '<span class="wm-stat-icon wm-vis">✓</span>' +
+        '<span class="wm-stat-label">' + (isKo ? '방문' : 'Visited') + '</span>' +
+        '<span class="wm-stat-val">' + totalVis + '</span></div>';
+    }
     html += '</div>';
     div.innerHTML = html;
     L.DomEvent.disableClickPropagation(div);
