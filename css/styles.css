@@ -2910,8 +2910,8 @@
   flex-shrink: 0;
 }
 .sba-btn {
-  /* Pixel-retro style: flat gray fill, hard 2px border, offset drop shadow */
-  background: #d8d8d8;
+  /* Pixel-retro style: hatch pattern fill, hard 2px border, offset drop shadow */
+  background: #d8d8d8; /* fallback for browsers without gradient support */
   border: 2px solid #1a1a1a;
   border-radius: 2px;
   padding: 0 14px 0 16px;
@@ -2928,15 +2928,44 @@
   transition: none;
   color: #1a1a1a;
 }
-/* All 5 buttons share the same grayscale — no individual colors */
-#sba-likable, #sba-loc, #sba-fav, #sba-route, #sba-ifl { background: #d8d8d8; }
+/* ── 5 distinct hatch patterns via repeating-linear-gradient ──
+   Zero extra memory: pure CSS, no images, no SVG.
+   Line color #a8a8a8 on #e6e6e6 base keeps contrast subtle.      */
+#sba-likable {
+  /* Horizontal stripes */
+  background: repeating-linear-gradient(
+    0deg, #a8a8a8 0px, #a8a8a8 1px, #e6e6e6 1px, #e6e6e6 5px);
+}
+#sba-loc {
+  /* Vertical stripes */
+  background: repeating-linear-gradient(
+    90deg, #a8a8a8 0px, #a8a8a8 1px, #e6e6e6 1px, #e6e6e6 5px);
+}
+#sba-fav {
+  /* Diagonal ↗ 45° */
+  background: repeating-linear-gradient(
+    45deg, #a8a8a8 0px, #a8a8a8 1px, #e6e6e6 1px, #e6e6e6 6px);
+}
+#sba-route {
+  /* Diagonal ↘ 135° */
+  background: repeating-linear-gradient(
+    135deg, #a8a8a8 0px, #a8a8a8 1px, #e6e6e6 1px, #e6e6e6 6px);
+}
+#sba-ifl {
+  /* Cross-hatch: 45° + 135° overlaid */
+  background:
+    repeating-linear-gradient(45deg,  #a8a8a8 0px, #a8a8a8 1px, transparent 1px, transparent 6px),
+    repeating-linear-gradient(135deg, #a8a8a8 0px, #a8a8a8 1px, transparent 1px, transparent 6px),
+    #e6e6e6;
+}
+/* Hover / active: darken pattern without overriding it */
 .sba-btn:hover {
-  background: #cacaca;
+  filter: brightness(0.91);
   transform: translate(1px, 1px);
   box-shadow: 2px 2px 0 #1a1a1a;
 }
 .sba-btn:active {
-  background: #b8b8b8;
+  filter: brightness(0.80);
   transform: translate(3px, 3px);
   box-shadow: none;
 }
@@ -2953,7 +2982,7 @@
 }
 /* Active/toggled state — pressed-in look */
 .sba-btn.sba-active {
-  background: #b8b8b8;
+  filter: brightness(0.80);
   transform: translate(3px, 3px);
   box-shadow: none;
 }
