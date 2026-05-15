@@ -895,13 +895,10 @@ function selectCity(city) {
   var meta = CITY_META[city];
   if (!meta) return;
 
-  // Exit world mode: expand zoom range to city range
+  // Exit world mode: undo the maxZoom:4 world cap so city zoom is unrestricted
   if (typeof _worldMode !== 'undefined') {
     _worldMode = false;
-    if (typeof map !== 'undefined' && map) {
-      map.setMinZoom(5);
-      map.setMaxZoom(19);
-    }
+    if (typeof map !== 'undefined' && map) map.setMaxZoom(19);
   }
 
   // Lazy-load city data if not yet loaded, then switch

@@ -89,8 +89,16 @@ function initMap() {
   if (_mSel) _mSel.value = 'world';
   var _sbSel = document.getElementById('sb-city-select');
   if (_sbSel) _sbSel.value = 'world';
-  // Update city card visibility on zoom change
-  map.on('zoomend', _updateCityPinVisibility);
+  // Zoom guard + city card visibility
+  map.on('zoomend', function() {
+    var z = map.getZoom();
+    // City mode: snap back to min zoom 5 if user scrolls out too far
+    if (!_worldMode && z < 5) {
+      map.setZoom(5, { animate: false });
+      return;
+    }
+    _updateCityPinVisibility();
+  });
 }
 
 // ── City Overview Cards (world zoom) ─────────────────────────────
@@ -159,8 +167,7 @@ function _cwpCityClick(code) {
   var meta = CITY_META[code];
   if (!meta) return;
   _worldMode = false;
-  map.setMinZoom(5);   // city mode: block zooming out past 5
-  map.setMaxZoom(19);
+  map.setMaxZoom(19);   // undo world-mode maxZoom:4 cap
   if (typeof activeCity !== 'undefined' && code === activeCity) {
     // Already active — just fly in and sync dropdowns to show this city
     map.flyTo([meta.lat, meta.lng], meta.zoom, { duration: 1.2 });
@@ -176,8 +183,7 @@ function _cwpCityClick(code) {
 // Switch to world overview mode (called from dropdown "World Map" option)
 function _goWorldMap() {
   _worldMode = true;
-  map.setMinZoom(2);   // world mode: restrict to zoom 2-4
-  map.setMaxZoom(4);
+  map.setMaxZoom(4);   // re-apply world-mode cap (no zoom-in past 4)
   map.flyTo([20, 10], 2, { duration: 1.2 });
   // Sync both city dropdowns to show the world option
   var mSel = document.getElementById('city-select-mobile');
