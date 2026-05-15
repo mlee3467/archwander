@@ -70,7 +70,9 @@ function _makeStreetLayer() {
 
 function initMap() {
   // Start at world view so city overview cards are visible on load
-  map = L.map('map', { center:[20, 10], zoom:3, zoomControl:false, minZoom:3, maxZoom:4 });
+  var _isMobile = window.innerWidth < 901;
+  var _wmZoom = _isMobile ? 2 : 3;
+  map = L.map('map', { center:[20, 10], zoom:_wmZoom, zoomControl:false, minZoom:_wmZoom, maxZoom:4 });
   streetLayer = _makeStreetLayer().addTo(map);
   satLayer = L.tileLayer(
     'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
@@ -82,7 +84,7 @@ function initMap() {
   // (city overview cards are shown instead; clusterGroup added when city is selected)
 
   // Override getMinZoom so city-mode zoom floor (5) is enforced at Leaflet core level
-  map.getMinZoom = function() { return _worldMode ? 3 : 10; };
+  map.getMinZoom = function() { return _worldMode ? (window.innerWidth < 901 ? 2 : 3) : 10; };
   // Build empty marker set — LOCS is always empty at initMap() time (data loads async)
   // refreshApp() handles full render after data arrives
   applyLang();
@@ -137,8 +139,10 @@ function _buildCityPins() {
     var statsHtml = '<div class="cwp-stats">';
     if (total > 0) {
       statsHtml += '<span class="cwp-stat">' + total + ' ' + (isKo ? '장소' : 'spots') + '</span>';
-      if (favCnt > 0) statsHtml += '<span class="cwp-stat cwp-fav">♥ ' + favCnt + '</span>';
-      if (visCnt > 0) statsHtml += '<span class="cwp-stat cwp-vis">✓ ' + visCnt + '</span>';
+      var subRow = '';
+      if (favCnt > 0) subRow += '<span class="cwp-stat cwp-fav">♥ ' + favCnt + '</span>';
+      if (visCnt > 0) subRow += '<span class="cwp-stat cwp-vis">✓ ' + visCnt + '</span>';
+      if (subRow) statsHtml += '<div class="cwp-stats-sub">' + subRow + '</div>';
     }
     statsHtml += '</div>';
 
@@ -231,7 +235,7 @@ function _goWorldMap() {
   map.setMaxZoom(4);   // re-apply world-mode cap (no zoom-in past 4)
   if (map.hasLayer(clusterGroup)) map.removeLayer(clusterGroup);
   buildLegend();        // switch from category legend to world-stats legend
-  map.flyTo([20, 10], 3, { duration: 1.2 });
+  map.flyTo([20, 10], window.innerWidth < 901 ? 2 : 3, { duration: 1.2 });
   // Sync both city dropdowns to show the world option
   var mSel = document.getElementById('city-select-mobile');
   if (mSel) mSel.value = 'world';

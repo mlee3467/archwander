@@ -625,7 +625,7 @@
 
     /* ── DETAIL PANEL ────────────────────────────────────── */
     .panel {
-      width: var(--panel-w); background: rgba(255,255,255,0.88);
+      width: var(--panel-w); background: rgba(255,255,255,0.50);
       backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
       border-left: 1px solid rgba(232,232,228,0.5);
       display: flex; flex-direction: column; overflow: hidden;
@@ -923,16 +923,15 @@
       border: none !important;
     }
     .cwp-card {
-      background: rgba(255,255,255,0.88);
+      background: rgba(255,255,255,0.50);
       backdrop-filter: blur(6px);
-      min-width: 100px;
-      border-radius: 8px;
-      padding: 7px 10px 6px;
+      border-radius: 7px;
+      padding: 5px 8px 8px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.22);
       cursor: pointer;
-      min-width: 100px;
       transition: box-shadow 0.15s, transform 0.15s;
       position: relative;
+      display: inline-block;
     }
     .cwp-card:hover {
       box-shadow: 0 4px 14px rgba(0,0,0,0.32);
@@ -954,11 +953,16 @@
       font-weight: 700;
       color: #111;
       white-space: nowrap;
-      margin-bottom: 3px;
+      margin-bottom: 2px;
     }
     .cwp-stats {
       display: flex;
-      gap: 5px;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .cwp-stats-sub {
+      display: flex;
+      gap: 4px;
       flex-wrap: wrap;
     }
     .cwp-stat {
@@ -1373,7 +1377,7 @@
         width: 100%; height: auto;
         border-left: none; border-top: 1px solid rgba(232,232,228,0.5);
         border-radius: 20px 20px 0 0;
-        background: rgba(255,255,255,0.88); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+        background: rgba(255,255,255,0.50); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
         transform: translateY(100%);
         padding-bottom: env(safe-area-inset-bottom, 0px);
         z-index: 500;
@@ -2689,7 +2693,7 @@
   z-index: 2490;
   display: none; align-items: center; gap: 5px;
   padding: 6px 14px;
-  background: rgba(255,255,255,0.88);
+  background: rgba(255,255,255,0.50);
   backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   color: #888; border: 1px solid #ddd; border-radius: 16px;
   font-size: 11px; font-weight: 600; font-family: Inter, sans-serif;
