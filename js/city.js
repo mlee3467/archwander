@@ -843,7 +843,14 @@ function loadCityData(cityCode) {
 function _preloadOtherCities() {
   Object.keys(CITY_META).forEach(function(code) {
     if (!_loadedCities[code]) {
-      setTimeout(function() { loadCityData(code); }, 500);
+      setTimeout(function() {
+        loadCityData(code).then(function() {
+          if (typeof _worldMode !== 'undefined' && _worldMode &&
+              typeof _buildCityPins === 'function') {
+            _buildCityPins();
+          }
+        }).catch(function() {});
+      }, 500);
     }
   });
 }
