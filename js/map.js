@@ -3,6 +3,7 @@
 // ══════════════════════════════════════════════════════════════════
 var map, streetLayer, satLayer, markers = [], userMarker = null;
 var clusterGroup = null;   // Leaflet.markercluster group
+var _cityPinMarkers = {};  // world-zoom city overview cards
 var _mapMarkerPopupActive = null; // currently shown map marker mini-popup
 // ── Walk filter state ──────────────────────────────────────────────
 var walkOrigin    = null;   // { lat, lng } GPS position or dropped pin
@@ -67,8 +68,8 @@ function _makeStreetLayer() {
 }
 
 function initMap() {
-  var cityMeta = CITY_META[activeCity] || CITY_META['nyc'];
-  map = L.map('map', { center:[cityMeta.lat, cityMeta.lng], zoom: cityMeta.zoom, zoomControl:false });
+  // Start at world view so city overview cards are visible on load
+  map = L.map('map', { center:[20, 10], zoom:2, zoomControl:false, minZoom:2 });
   streetLayer = _makeStreetLayer().addTo(map);
   satLayer = L.tileLayer(
     'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
@@ -77,18 +78,75 @@ function initMap() {
   L.control.zoom({ position:'bottomright' }).addTo(map);
   clusterGroup = createClusterGroup();
   map.addLayer(clusterGroup);
-  const initLocs = LOCS.filter(l => l.city === activeCityKey);
-  ARCHITECTS = [...new Set(initLocs.flatMap(l => l.archs || [l.arch]))].sort();
-  NEIGHBORHOODS = [...new Set(initLocs.map(l => l.hood).filter(Boolean))].sort();
-  initLocs.forEach(addMarker);
-  // buildFilters / renderList are skipped here — LOCS is always empty at
-  // initMap() time (data loads async). refreshApp() handles both after data arrives.
+  // Build empty marker set — LOCS is always empty at initMap() time (data loads async)
+  // refreshApp() handles full render after data arrives
   applyLang();
   // Translation is now fully on-demand — no prefetch on startup
-  // Update badge with city-specific count
-  const badge = document.getElementById('pilot-badge');
-  if (badge) badge.textContent = `🗺 ArchWander · Pilot v0.2 · ${initLocs.length} Locations`;
   buildLegend();
+  // City overview cards — shown at world zoom, hidden when zoomed in
+  map.on('zoomend', _updateCityPinVisibility);
+}
+
+// ── City Overview Cards (world zoom) ─────────────────────────────
+function _buildCityPins() {
+  // Remove existing city pin markers
+  Object.keys(_cityPinMarkers).forEach(function(k) {
+    if (_cityPinMarkers[k]) map.removeLayer(_cityPinMarkers[k]);
+  });
+  _cityPinMarkers = {};
+
+  var isKo = typeof LANG !== 'undefined' && LANG === 'ko';
+  Object.keys(CITY_META).forEach(function(code) {
+    var cm = CITY_META[code];
+    var cityLocs = LOCS.filter(function(l) { return l.city === cm.key; });
+    var total  = cityLocs.length;
+    var favCnt = cityLocs.filter(function(l) { return _favSet.has(l.id); }).length;
+    var visCnt = cityLocs.filter(function(l) { return _visSet.has(l.id); }).length;
+
+    var statsHtml = '<div class="cwp-stats">';
+    if (total > 0) {
+      statsHtml += '<span class="cwp-stat">' + total + ' ' + (isKo ? '장소' : 'spots') + '</span>';
+      if (favCnt > 0) statsHtml += '<span class="cwp-stat cwp-fav">♥ ' + favCnt + '</span>';
+      if (visCnt > 0) statsHtml += '<span class="cwp-stat cwp-vis">✓ ' + visCnt + '</span>';
+    } else {
+      statsHtml += '<span class="cwp-stat cwp-coming">' + (isKo ? '준비중' : 'Coming soon') + '</span>';
+    }
+    statsHtml += '</div>';
+
+    var cardHtml = '<div class="cwp-card" onclick="_cwpCityClick(\'' + code + '\')">' +
+      '<div class="cwp-dot"></div>' +
+      '<div class="cwp-name">' + cm.label + '</div>' +
+      statsHtml +
+      '</div>';
+
+    var icon = L.divIcon({ className: 'cwp-wrap', html: cardHtml, iconAnchor: [0, 0] });
+    var m = L.marker([cm.lat, cm.lng], { icon: icon, zIndexOffset: 2000 });
+    map.addLayer(m);
+    _cityPinMarkers[code] = m;
+  });
+  _updateCityPinVisibility();
+}
+
+function _updateCityPinVisibility() {
+  var show = map.getZoom() < 5;
+  Object.keys(_cityPinMarkers).forEach(function(k) {
+    var m = _cityPinMarkers[k];
+    if (!m) return;
+    var el = m.getElement ? m.getElement() : null;
+    if (el) el.style.display = show ? '' : 'none';
+  });
+}
+
+// Called by city card click — fly to city regardless of whether it's already active
+function _cwpCityClick(code) {
+  var meta = CITY_META[code];
+  if (!meta) return;
+  if (typeof activeCity !== 'undefined' && code === activeCity) {
+    // Already active — just fly in
+    map.flyTo([meta.lat, meta.lng], meta.zoom, { duration: 1.2 });
+  } else {
+    if (typeof selectCity === 'function') selectCity(code);
+  }
 }
 
 // ── Map Legend ──────────────────────────────────────────────
@@ -205,6 +263,8 @@ function refreshApp() {
   // Update badge
   const badge = document.getElementById('pilot-badge');
   if (badge) badge.textContent = `🗺 ArchWander · Pilot v0.2 · ${cityLocs.length} Locations`;
+  // Rebuild city overview cards so counts (fav/visited) stay current
+  _buildCityPins();
   console.log('[refreshApp] done, cluster=' + (clusterGroup ? clusterGroup.getLayers().length : '?'));
 }
 
