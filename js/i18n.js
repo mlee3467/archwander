@@ -88,10 +88,7 @@ function _tCat(cat)    { return cat; }
 function _tAccess(acc) { return acc; }
 
 // Language functions — stubs (UI removed, kept for any residual calls)
-function toggleLangMenu() {}
-function closeLangMenu()  {}
-function setLang(lang)    {}
-function setMapLang()     {}
+// lang-menu stubs removed (UI removed in v0.3)
 
 function applyLang() {
   // Search placeholder

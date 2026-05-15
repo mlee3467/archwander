@@ -200,7 +200,6 @@ function _fullDeactivate() {
   renderList();
   syncMarkers();
   // Refresh route planner to show all locations again
-  if (typeof refreshRouteList === 'function') refreshRouteList();
 }
 
 // Just hide the floating slider card; show radius-ctrl button below Set-Route FAB
@@ -427,7 +426,6 @@ function _runWalkFilter() {
   syncMarkers();
   _drawWalkOverlay();
   // Update route planner if open
-  if (typeof refreshRouteList === 'function') refreshRouteList();
   // Fit map to nearby locations + origin
   const nearby = getFiltered();
   if (nearby.length > 0) {

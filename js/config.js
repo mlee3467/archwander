@@ -168,12 +168,3 @@ function _ensureSupabaseAuth() {
 }
 
 // Helper: get current session access_token (falls back to anon key)
-function _sbToken() {
-  if (!_supabase) return SUPABASE_ANON_KEY;
-  var s = _supabase.auth.session ? _supabase.auth.session() : null;
-  // v2 API
-  if (!s) {
-    try { s = JSON.parse(localStorage.getItem('sb-' + SUPABASE_URL.split('//')[1].split('.')[0] + '-auth-token')); } catch(e) {}
-  }
-  return (s && s.access_token) ? s.access_token : SUPABASE_ANON_KEY;
-}

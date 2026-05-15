@@ -182,8 +182,6 @@ window.addEventListener('load', function() {
     if (walkActive) _runWalkFilter();
   });
   // Sidebar macro drag-resize
-  setupVDrag('dh-fl', 'sb-filters', () => {
-    const fav = document.getElementById('fsec-fav');
     if (!fav) return 50;
     const hdr = fav.querySelector('.fsec-hdr');
     return fav.offsetTop + (hdr ? hdr.offsetHeight : 36) + 6;

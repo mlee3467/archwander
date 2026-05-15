@@ -152,14 +152,9 @@
       font-size: 14px; font-weight: 600; letter-spacing: -0.3px;
       white-space: nowrap; display: flex; align-items: center; gap: 8px;
     }
-    .logo-icon {
-      width: 28px; height: 28px; background: #111; border-radius: 6px;
-      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-    }
     .logo-img {
       height: 45px; width: auto; display: block; flex-shrink: 0;
     }
-    .logo-sub { font-weight: 300; color: var(--text-secondary); }
     .search-wrap { flex: 1; max-width: 360px; position: relative; }
     .search-icon { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); pointer-events: none; }
     #search {
@@ -553,19 +548,6 @@
       padding: 3px 8px; background: white; color: var(--text-primary);
       cursor: pointer; outline: none;
     }
-    /* More filters toggle */
-    .fsec-more-wrap { padding: 4px 10px 2px; }
-    .fsec-more-btn {
-      display: flex; align-items: center; gap: 5px;
-      width: 100%; padding: 6px 8px;
-      background: none; border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 6px; color: #9db4ff;
-      font-size: 11px; font-family: inherit; font-weight: 500;
-      cursor: pointer; transition: all 0.15s;
-    }
-    .fsec-more-btn:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.25); }
-    .fsec-more-btn.open { color: #fff; border-color: rgba(255,255,255,0.3); }
-    .fsec-more-btn .fsec-arr { margin-left: auto; opacity: 0.6; font-size: 9px; }
 
     /* Location list */
     .loc-list { flex: 1; overflow-y: auto; }
@@ -1436,7 +1418,6 @@
 
       /* ── Hide desktop-only elements ── */
       .map-toggle { display: none; }
-      .logo-sub { display: none; }
 
       /* ── Map zoom buttons: move up to avoid phone toolbar ── */
       .leaflet-bottom.leaflet-right { bottom: 60px; }
@@ -1489,7 +1470,6 @@
       /* Mobile walk bar: show only the slider (GPS/Pin selection via My Location popup) */
       .walk-loc-btn { display: none !important; }
       .walk-bar-sep { display: none !important; }
-      .walk-desc { display: none !important; }
       /* Bigger slider for mobile touch */
       #walk-slider {
         flex: 1; max-width: none; height: 6px;
@@ -2301,20 +2281,6 @@
   box-shadow: 0 4px 20px rgba(0,0,0,0.4);
 }
 
-/* ── Home button in mobile action bar ─────────────────────────── */
-.mob-home-btn {
-  background: rgba(255,255,255,0.05) !important;
-  border-bottom: 1.5px solid rgba(255,255,255,0.1) !important;
-  border-radius: 0 !important;
-  width: 100% !important;
-  justify-content: center !important;
-  padding: 11px 0 !important;
-  font-size: 12px !important; font-weight: 600 !important;
-  color: rgba(255,255,255,0.6) !important;
-  letter-spacing: 0.2px !important;
-  gap: 7px !important;
-}
-.mob-home-btn:active { background: rgba(255,255,255,0.1) !important; }
 
 /* ── IFL Select Screen — transparent like landing ───────────────── */
 #ifl-select-screen {

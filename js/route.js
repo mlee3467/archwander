@@ -11,7 +11,6 @@ var routeMarkers     = [];   // numbered step markers on map
 var routeData        = null; // { distance, duration, steps: [...] }
 var _routeSkipAnim   = false; // true when remove triggered — skip animation, show final instantly
 var _rpsSelectedHoods = new Set(); // selected hoods in the presel modal (multi-select)
-var _SAVED_ROUTE_KEY  = 'aw_saved_route_v1';   // legacy (unused)
 var _SAVED_ROUTES_KEY = 'aw_saved_routes_v2';  // current: array of named routes
 var routeOriginMarker = null; // green start marker at walkOrigin
 
@@ -1064,10 +1063,6 @@ function _rmApplySettings() {
 }
 
 // Shared export (called from multiple levels)
-function _deleteSavedRoute(id) {
-  // alias used by old code paths; route manager is the canonical UI now
-  _rmDeleteRoute(id);
-}
 
 function _exportSavedRoutesJson() {
   var routes = _getSavedRoutes();
@@ -1606,27 +1601,10 @@ function clearRoute() {
   if (typeof syncMarkers === 'function') syncMarkers();
 }
 
-function _routeStatus(msg) {
-  var resultDiv = document.getElementById('route-result');
-  if (resultDiv) {
-    resultDiv.style.display = 'block';
-    resultDiv.innerHTML = '<div class="route-status-msg">' + msg + '</div>';
-  }
-}
 
-function _updateRouteSelectedUI() { _refreshRouteUI(); }
 
 // ── Stubs kept for backward compatibility ─────────────────────────
-function refreshRouteList()        { /* removed in v0.3 */ }
-function toggleRouteLocation()     { /* removed in v0.3 */ }
-function addHoodToRoute()          { /* removed in v0.3 */ }
-function addAllFilteredToRoute()   { /* removed in v0.3 */ }
-function toggleRouteNearMeSlider() { /* removed in v0.3 */ }
-function updateRouteNearMeLabel()  { /* removed in v0.3 */ }
-function routeNearMeUseGPS()       { /* removed in v0.3 */ }
-function routeNearMeDropPin()      { routePinDropMode = false; }
-function _onRoutePinDropped()      { /* removed in v0.3 */ }
-function addNearbyToRoute()        { /* removed in v0.3 */ }
+// v0.3 route stubs removed
 
 // ══════════════════════════════════════════════════════════════════
 // ROUTE PRE-SELECTION MODAL

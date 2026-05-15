@@ -112,16 +112,6 @@ function setFilter(key, val) {
 
 function setSort(val) { state.sort = val; renderList(); }
 
-function toggleMoreFilters() {
-  var body = document.getElementById('more-filters-body');
-  if (!body) return;
-  var arr  = document.getElementById('more-filters-arr');
-  var btn  = document.getElementById('more-filters-btn');
-  var open = body.style.display !== 'none';
-  body.style.display = open ? 'none' : 'block';
-  if (arr) arr.textContent = open ? '▼' : '▲';
-  if (btn) btn.classList.toggle('open', !open);
-}
 
 function clearAllFilters() {
   ['cat','style','era','access','arch','hood','fav'].forEach(k => {
