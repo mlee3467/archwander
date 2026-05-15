@@ -1425,16 +1425,13 @@ function _renderLuckyCard(screen, seen) {
     if (loc.sv && loc.sv.panoId) svQ += '&pano=' + loc.sv.panoId;
     else svQ += '&location=' + svLat + ',' + svLng;
     var svSrc = 'https://www.google.com/maps/embed/v1/streetview?' + svQ;
-    // pointer-events:none on iframe lets swipe events pass through to the card;
-    // Full-area overlay opens interactive full-screen SV on tap (not just bottom hint)
-    var _svEnc = encodeURIComponent(svSrc);
-    var _svLabel = (typeof LANG !== 'undefined' && LANG === 'ko') ? '↗ 스트리트뷰 탐색' : '↗ Tap to explore Street View';
+    // iframe is pointer-events:auto → user can pan/drag SV directly inside the card.
+    // Swipe left/right still works via the card-info area + LIKE/PASS buttons.
+    var _svLabel = (typeof LANG !== 'undefined' && LANG === 'ko') ? '드래그로 탐색' : 'Drag to explore';
     mediaInner = '<iframe class="ilk-card-sv" src="' + svSrc + '"' +
       ' frameborder="0" referrerpolicy="no-referrer-when-downgrade"' +
       ' allowfullscreen allow="' + _SV_ALLOW + '"></iframe>' +
-      '<div class="ilk-sv-overlay" onclick="event.stopPropagation();_openSVFull(\'' + _svEnc + '\')">' +
-        '<div class="ilk-sv-label">' + _svLabel + '</div>' +
-      '</div>';
+      '<div class="ilk-sv-label">' + _svLabel + '</div>';
     // Request iOS gyroscope permission from parent (must happen in user-gesture context)
     if (typeof _requestMotionPermission === 'function') _requestMotionPermission();
   } else {

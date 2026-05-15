@@ -1989,20 +1989,16 @@
 
 /* ── LUCKY CARD SV HINT OVERLAY ──────────────────────────── */
 /* Full-area overlay so tapping anywhere on the SV opens the interactive modal */
-.ilk-sv-overlay {
-  position: absolute; inset: 0; z-index: 2;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  pointer-events: auto;
-}
 .ilk-sv-label {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  padding: 10px 14px;
-  background: linear-gradient(to top, rgba(0,0,0,0.62) 0%, transparent 100%);
-  color: #fff; font-size: 12px; font-weight: 500;
+  /* informational label — sits below the iframe (z-index lower), pointer-events:none
+     so it never blocks SV interaction */
+  position: absolute; bottom: 0; left: 0; right: 0; z-index: 1;
+  padding: 8px 14px;
+  background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 100%);
+  color: rgba(255,255,255,0.82); font-size: 11px; font-weight: 500;
   text-align: center; letter-spacing: 0.2px;
+  pointer-events: none;
 }
-.ilk-sv-overlay:hover .ilk-sv-label { opacity: 0.85; }
 
 /* Mobile route panel */
 @media (max-width: 900px) {
@@ -2361,8 +2357,8 @@
 .ilk-card-sv {
   position: absolute; inset: 0; width: 100%; height: 100%;
   border: none; display: block;
-  /* Let swipe touch events pass through to parent card */
-  pointer-events: none;
+  /* interactive — user can pan/drag directly inside the SV iframe */
+  pointer-events: auto;
 }
 .ilk-card-no-photo {
   width: 100%; height: 100%;
