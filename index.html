@@ -62,7 +62,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
-  <link rel="stylesheet" href="css/styles.css?v=20260515k">
+  <link rel="stylesheet" href="css/styles.css?v=20260515l">
 </head>
 <body>
 
@@ -404,11 +404,13 @@
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="flex-shrink:0"><path d="M3 17l6-6 4 4 8-8"/><path d="M17 7h4v4"/></svg>
       <span class="route-text">Route</span>
     </button>
-    <select id="city-select-mobile" aria-label="Select city" onchange="selectCity(this.value)">
+    <select id="city-select-mobile" aria-label="Select city" onchange="_onCitySelectChange(this.value)">
+      <option value="world">🌍 World</option>
       <option value="nyc">🗽 New York</option>
       <option value="sel">⛰️ Seoul</option>
       <option value="lon">🎡 London</option>
       <option value="tky">🗼 Tokyo</option>
+      <option value="chi">🌬️ Chicago</option>
     </select>
     <button id="refresh-btn" onclick="hardRefresh()" title="Clear cache & reload" style="background:none;border:1px solid rgba(255,255,255,0.2);color:#fff;border-radius:6px;padding:3px 6px;cursor:pointer;font-size:11px;opacity:0.5;margin-left:2px;flex-shrink:0;line-height:1" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'">↻</button>
   </div>
@@ -495,7 +497,8 @@
 
     <!-- City selector row (mobile) -->
     <div class="sb-city-row" id="sb-city-row">
-      <select id="sb-city-select" onchange="selectCity(this.value)">
+      <select id="sb-city-select" onchange="_onCitySelectChange(this.value)">
+        <option value="world">🌍 World Map</option>
         <option value="nyc">🗽 New York</option>
         <option value="sel">⛰️ Seoul</option>
         <option value="lon">🎡 London</option>
@@ -815,18 +818,18 @@
   </button>
 </div>
 
-<script src="js/config.js?v=20260515k"></script>
-<script src="js/i18n.js?v=20260515k"></script>
-<script src="js/map.js?v=20260515k"></script>
-<script src="js/filters.js?v=20260515k"></script>
-<script src="js/core.js?v=20260515k"></script>
-<script src="js/audio.js?v=20260515k"></script>
-<script src="js/ui.js?v=20260515k"></script>
-<script src="js/walk.js?v=20260515k"></script>
-<script src="js/city.js?v=20260515k"></script>
-<script src="js/route.js?v=20260515k"></script>
-<script src="js/landing.js?v=20260515k"></script>
-<script src="js/init.js?v=20260515k"></script>
+<script src="js/config.js?v=20260515l"></script>
+<script src="js/i18n.js?v=20260515l"></script>
+<script src="js/map.js?v=20260515l"></script>
+<script src="js/filters.js?v=20260515l"></script>
+<script src="js/core.js?v=20260515l"></script>
+<script src="js/audio.js?v=20260515l"></script>
+<script src="js/ui.js?v=20260515l"></script>
+<script src="js/walk.js?v=20260515l"></script>
+<script src="js/city.js?v=20260515l"></script>
+<script src="js/route.js?v=20260515l"></script>
+<script src="js/landing.js?v=20260515l"></script>
+<script src="js/init.js?v=20260515l"></script>
 </body>
 
 </html>

@@ -84,11 +84,22 @@ function initMap() {
   applyLang();
   // Translation is now fully on-demand — no prefetch on startup
   buildLegend();
-  // City overview cards — shown at world zoom; bounce back if user zooms past 4 in world mode
+  // Set dropdowns to "world" on initial load
+  var _mSel = document.getElementById('city-select-mobile');
+  if (_mSel) _mSel.value = 'world';
+  var _sbSel = document.getElementById('sb-city-select');
+  if (_sbSel) _sbSel.value = 'world';
+  // Zoom guard: world mode ↔ city mode bounce-back
   map.on('zoomend', function() {
-    if (_worldMode && map.getZoom() >= 5) {
-      // Bounce back — world mode blocks deep zoom until a city is selected
+    var z = map.getZoom();
+    if (_worldMode && z >= 5) {
+      // World mode: block zooming in past 4 until a city is selected
       map.setZoom(4, { animate: true });
+      return;
+    }
+    if (!_worldMode && z < 5) {
+      // City mode: block zooming out past 4 — prevents unnecessary world-tile loading
+      map.setZoom(5, { animate: true });
       return;
     }
     _updateCityPinVisibility();
@@ -96,6 +107,19 @@ function initMap() {
 }
 
 // ── City Overview Cards (world zoom) ─────────────────────────────
+// Get total location count — checks merged LOCS first, then raw dataVar (lazy-load fallback)
+function _getCityTotalCount(cm) {
+  var fromLocs = LOCS.filter(function(l) { return l.city === cm.key; }).length;
+  if (fromLocs > 0) return fromLocs;
+  if (cm.dataVar) {
+    try {
+      var raw = (0, eval)(cm.dataVar);
+      if (Array.isArray(raw)) return raw.length;
+    } catch(e) {}
+  }
+  return 0;
+}
+
 function _buildCityPins() {
   // Remove existing city pin markers
   Object.keys(_cityPinMarkers).forEach(function(k) {
@@ -106,19 +130,17 @@ function _buildCityPins() {
   var isKo = typeof LANG !== 'undefined' && LANG === 'ko';
   Object.keys(CITY_META).forEach(function(code) {
     var cm = CITY_META[code];
+    var total   = _getCityTotalCount(cm);
     var cityLocs = LOCS.filter(function(l) { return l.city === cm.key; });
-    var total  = cityLocs.length;
-    var favCnt = cityLocs.filter(function(l) { return _favSet.has(l.id); }).length;
-    var visCnt = cityLocs.filter(function(l) { return _visSet.has(l.id); }).length;
+    var favCnt  = cityLocs.filter(function(l) { return _favSet.has(l.id); }).length;
+    var visCnt  = cityLocs.filter(function(l) { return _visSet.has(l.id); }).length;
 
     var statsHtml = '<div class="cwp-stats">';
     if (total > 0) {
       statsHtml += '<span class="cwp-stat">' + total + ' ' + (isKo ? '장소' : 'spots') + '</span>';
       if (favCnt > 0) statsHtml += '<span class="cwp-stat cwp-fav">♥ ' + favCnt + '</span>';
       if (visCnt > 0) statsHtml += '<span class="cwp-stat cwp-vis">✓ ' + visCnt + '</span>';
-    } else {
-      statsHtml += '<span class="cwp-stat cwp-coming">' + (isKo ? '준비중' : 'Coming soon') + '</span>';
-    }
+        // No "Coming soon" — all cities have data
     statsHtml += '</div>';
 
     var cardHtml = '<div class="cwp-card" onclick="_cwpCityClick(\'' + code + '\')">' +
@@ -151,11 +173,26 @@ function _cwpCityClick(code) {
   if (!meta) return;
   _worldMode = false;  // allow unrestricted zoom from here on
   if (typeof activeCity !== 'undefined' && code === activeCity) {
-    // Already active — just fly in
+    // Already active — just fly in and sync dropdowns to show this city
     map.flyTo([meta.lat, meta.lng], meta.zoom, { duration: 1.2 });
+    var mSel = document.getElementById('city-select-mobile');
+    if (mSel) mSel.value = code;
+    var sbSel = document.getElementById('sb-city-select');
+    if (sbSel) sbSel.value = code;
   } else {
     if (typeof selectCity === 'function') selectCity(code);
   }
+}
+
+// Switch to world overview mode (called from dropdown "World Map" option)
+function _goWorldMap() {
+  _worldMode = true;
+  map.flyTo([20, 10], 2, { duration: 1.2 });
+  // Sync both city dropdowns to show the world option
+  var mSel = document.getElementById('city-select-mobile');
+  if (mSel) mSel.value = 'world';
+  var sbSel = document.getElementById('sb-city-select');
+  if (sbSel) sbSel.value = 'world';
 }
 
 // ── Map Legend ──────────────────────────────────────────────

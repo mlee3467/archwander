@@ -881,6 +881,15 @@ function _displayHood(loc, transHood) { return _biField(loc, 'hood', transHood);
 var activeCity    = 'nyc';   // default — overridden by GPS in boot
 var activeCityKey = 'new-york';
 
+// Wrapper for city dropdown onchange — handles both city codes and "world" option
+function _onCitySelectChange(val) {
+  if (val === 'world') {
+    if (typeof _goWorldMap === 'function') _goWorldMap();
+  } else {
+    selectCity(val);
+  }
+}
+
 function selectCity(city) {
   if (city === activeCity) return;
   var meta = CITY_META[city];
