@@ -181,11 +181,7 @@ window.addEventListener('load', function() {
     document.getElementById('walk-label').textContent = `${this.value} min`;
     if (walkActive) _runWalkFilter();
   });
-  // Sidebar macro drag-resize
-    if (!fav) return 50;
-    const hdr = fav.querySelector('.fsec-hdr');
-    return fav.offsetTop + (hdr ? hdr.offsetHeight : 36) + 6;
-  }, 480);
+  // Sidebar drag-resize
   setupHDrag('sb-resize', 'sidebar', 220, 700);
   setupHDragLeft('panel-resize', 'panel', 300, 900);
 
