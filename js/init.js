@@ -88,10 +88,8 @@ function _doFullMapInit(afterFn) {
     var _msel = document.getElementById('city-select-mobile');
     if (_msel) _msel.value = city;
     if (typeof _syncSbCitySelect === 'function') _syncSbCitySelect();
-    // If map was already pre-initialized (mobile path or desktop fast-init),
-    // fly immediately to the GPS-detected city so the map shows the right place.
-    var _cm = CITY_META[city];
-    if (window.map && _cm) map.setView([_cm.lat, _cm.lng], _cm.zoom, { animate: false });
+    // World-map mode: stay at zoom-2 world view — user picks city from overview cards.
+    // (GPS result just sets the default activeCity for when user later navigates.)
     return loadCityData(city);
   }).then(function() {
     _initMapTiles();  // no-op if tiles already initialized

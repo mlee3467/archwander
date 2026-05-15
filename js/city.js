@@ -886,6 +886,9 @@ function selectCity(city) {
   var meta = CITY_META[city];
   if (!meta) return;
 
+  // Exit world mode so zoom is unrestricted after city selection
+  if (typeof _worldMode !== 'undefined') _worldMode = false;
+
   // Lazy-load city data if not yet loaded, then switch
   loadCityData(city).then(function() {
     activeCity    = city;

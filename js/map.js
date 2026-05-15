@@ -4,6 +4,7 @@
 var map, streetLayer, satLayer, markers = [], userMarker = null;
 var clusterGroup = null;   // Leaflet.markercluster group
 var _cityPinMarkers = {};  // world-zoom city overview cards
+var _worldMode = true;     // true until user clicks a city card (prevents zoom-in past 4)
 var _mapMarkerPopupActive = null; // currently shown map marker mini-popup
 // ── Walk filter state ──────────────────────────────────────────────
 var walkOrigin    = null;   // { lat, lng } GPS position or dropped pin
@@ -83,8 +84,15 @@ function initMap() {
   applyLang();
   // Translation is now fully on-demand — no prefetch on startup
   buildLegend();
-  // City overview cards — shown at world zoom, hidden when zoomed in
-  map.on('zoomend', _updateCityPinVisibility);
+  // City overview cards — shown at world zoom; bounce back if user zooms past 4 in world mode
+  map.on('zoomend', function() {
+    if (_worldMode && map.getZoom() >= 5) {
+      // Bounce back — world mode blocks deep zoom until a city is selected
+      map.setZoom(4, { animate: true });
+      return;
+    }
+    _updateCityPinVisibility();
+  });
 }
 
 // ── City Overview Cards (world zoom) ─────────────────────────────
@@ -137,10 +145,11 @@ function _updateCityPinVisibility() {
   });
 }
 
-// Called by city card click — fly to city regardless of whether it's already active
+// Called by city card click — exit world mode and fly to city
 function _cwpCityClick(code) {
   var meta = CITY_META[code];
   if (!meta) return;
+  _worldMode = false;  // allow unrestricted zoom from here on
   if (typeof activeCity !== 'undefined' && code === activeCity) {
     // Already active — just fly in
     map.flyTo([meta.lat, meta.lng], meta.zoom, { duration: 1.2 });
