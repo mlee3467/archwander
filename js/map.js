@@ -140,7 +140,7 @@ function _buildCityPins() {
       statsHtml += '<span class="cwp-stat">' + total + ' ' + (isKo ? '장소' : 'spots') + '</span>';
       if (favCnt > 0) statsHtml += '<span class="cwp-stat cwp-fav">♥ ' + favCnt + '</span>';
       if (visCnt > 0) statsHtml += '<span class="cwp-stat cwp-vis">✓ ' + visCnt + '</span>';
-        // No "Coming soon" — all cities have data
+    }
     statsHtml += '</div>';
 
     var cardHtml = '<div class="cwp-card" onclick="_cwpCityClick(\'' + code + '\')">' +
