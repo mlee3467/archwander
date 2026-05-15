@@ -93,6 +93,8 @@ function initMap() {
 
 // ── Map Legend ──────────────────────────────────────────────
 var legendControl = null;
+var _legendHiddenCats = new Set(); // cc codes currently hidden via legend checkboxes
+
 function buildLegend() {
   if (legendControl) map.removeControl(legendControl);
   legendControl = L.control({ position: 'topright' });
@@ -100,17 +102,30 @@ function buildLegend() {
     var isMobile = window.innerWidth <= 900;
     var div = L.DomUtil.create('div', 'map-legend' + (isMobile ? ' collapsed' : ''));
     var titleText = LANG === 'ko' ? '범례' : 'Legend';
+    // Header: toggle expand + "All / None" quick links
+    var allTxt  = LANG === 'ko' ? '전체' : 'All';
+    var noneTxt = LANG === 'ko' ? '없음' : 'None';
     var html = '<div class="legend-toggle" onclick="toggleLegend()">' +
       '<span class="legend-toggle-label">' + titleText + '</span>' +
       '<span class="legend-arrow">▾</span></div>';
     html += '<div class="legend-body">';
+    // All / None quick-select row
+    html += '<div class="legend-all-none">' +
+      '<button class="legend-qbtn" onclick="event.stopPropagation();_legendSelectAll(true)">' + allTxt + '</button>' +
+      '<span class="legend-qsep">·</span>' +
+      '<button class="legend-qbtn" onclick="event.stopPropagation();_legendSelectAll(false)">' + noneTxt + '</button>' +
+      '</div>';
     var order = ['c-lmk','c-sky','c-his','c-cul','c-park','c-pub','c-rel','c-aca','c-res','c-inf','c-ret','c-com'];
     order.forEach(function(cc) {
       var m = CC_META[cc];
       var label = typeof _tCat === 'function' ? _tCat(CC_LABEL[cc]) : CC_LABEL[cc];
-      html += '<div class="legend-item">' +
+      var isOn = !_legendHiddenCats.has(cc);
+      html += '<label class="legend-item legend-item-cb" onclick="event.stopPropagation()">' +
+        '<input type="checkbox" class="legend-cb" ' + (isOn ? 'checked' : '') +
+        ' onchange="toggleLegendCat(\'' + cc + '\',this.checked)">' +
         '<span class="legend-dot" style="background:' + m.color + '"></span>' +
-        '<span class="legend-label">' + label + '</span></div>';
+        '<span class="legend-label">' + label + '</span>' +
+        '</label>';
     });
     html += '</div>';
     div.innerHTML = html;
@@ -119,9 +134,29 @@ function buildLegend() {
   };
   legendControl.addTo(map);
 }
+
 function toggleLegend() {
   var el = document.querySelector('.map-legend');
   if (el) el.classList.toggle('collapsed');
+}
+
+// Toggle a single category on/off
+function toggleLegendCat(cc, checked) {
+  if (checked) { _legendHiddenCats.delete(cc); }
+  else         { _legendHiddenCats.add(cc); }
+  if (typeof syncMarkers === 'function') syncMarkers();
+  if (typeof renderList  === 'function') renderList();
+}
+
+// Quick-select All or None
+function _legendSelectAll(on) {
+  var order = ['c-lmk','c-sky','c-his','c-cul','c-park','c-pub','c-rel','c-aca','c-res','c-inf','c-ret','c-com'];
+  _legendHiddenCats.clear();
+  if (!on) order.forEach(function(cc) { _legendHiddenCats.add(cc); });
+  // Update checkboxes in DOM
+  document.querySelectorAll('.legend-cb').forEach(function(cb) { cb.checked = on; });
+  if (typeof syncMarkers === 'function') syncMarkers();
+  if (typeof renderList  === 'function') renderList();
 }
 
 function refreshApp() {

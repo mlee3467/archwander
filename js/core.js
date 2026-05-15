@@ -105,6 +105,10 @@ function getFiltered(opts) {
       (l.tags || []).some(t => t && t.toLowerCase().includes(q))
     );
   }
+  // Legend category layer filter
+  if (typeof _legendHiddenCats !== 'undefined' && _legendHiddenCats.size > 0) {
+    list = list.filter(l => !_legendHiddenCats.has(l.cc));
+  }
   // Walk distance filter
   if (walkActive && walkOrigin) {
     const minutes  = parseInt(document.getElementById('walk-slider').value, 10);

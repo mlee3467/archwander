@@ -951,11 +951,42 @@
     .legend-body {
       /* desktop: always visible */
     }
+    .legend-all-none {
+      display: flex; align-items: center; gap: 4px;
+      padding: 2px 0 5px; border-bottom: 1px solid #e0e0e0; margin-bottom: 4px;
+    }
+    .legend-qbtn {
+      background: none; border: none; padding: 0;
+      font-size: 10px; color: #666; cursor: pointer;
+      font-family: inherit; text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .legend-qbtn:hover { color: #111; }
+    .legend-qsep { font-size: 10px; color: #bbb; }
     .legend-item {
       display: flex;
       align-items: center;
       gap: 6px;
       padding: 2px 0;
+    }
+    .legend-item-cb { cursor: pointer; }
+    .legend-item-cb:hover .legend-label { color: #111; }
+    /* Custom checkbox — square, minimal */
+    .legend-cb {
+      appearance: none; -webkit-appearance: none;
+      width: 12px; height: 12px; flex-shrink: 0;
+      border: 1.5px solid #888; border-radius: 2px;
+      background: #fff; cursor: pointer; position: relative;
+      margin: 0;
+    }
+    .legend-cb:checked {
+      background: #333; border-color: #333;
+    }
+    .legend-cb:checked::after {
+      content: ''; position: absolute;
+      left: 2px; top: 0px; width: 5px; height: 8px;
+      border: 2px solid #fff; border-top: none; border-left: none;
+      transform: rotate(40deg);
     }
     .legend-dot {
       width: 10px;
@@ -1236,6 +1267,9 @@
       }
       .legend-dot { width: 8px; height: 8px; }
       .legend-label { font-size: 10px; }
+      /* Mobile: bigger tap targets for checkboxes */
+      .legend-item-cb { padding: 3px 0; }
+      .legend-cb { width: 14px; height: 14px; }
 
       /* ── Mobile single-row header ── */
       header {
@@ -2910,8 +2944,8 @@
   flex-shrink: 0;
 }
 .sba-btn {
-  /* Pixel-retro style: hatch pattern fill, hard 2px border, offset drop shadow */
-  background: #d8d8d8; /* fallback for browsers without gradient support */
+  /* Pixel-retro style: flat gray fill, hard 2px border, offset drop shadow */
+  background: #d8d8d8;
   border: 2px solid #1a1a1a;
   border-radius: 2px;
   padding: 0 14px 0 16px;
@@ -2928,44 +2962,15 @@
   transition: none;
   color: #1a1a1a;
 }
-/* ── 5 distinct hatch patterns via repeating-linear-gradient ──
-   Zero extra memory: pure CSS, no images, no SVG.
-   Line color #a8a8a8 on #e6e6e6 base keeps contrast subtle.      */
-#sba-likable {
-  /* Horizontal stripes */
-  background: repeating-linear-gradient(
-    0deg, #a8a8a8 0px, #a8a8a8 1px, #e6e6e6 1px, #e6e6e6 5px);
-}
-#sba-loc {
-  /* Vertical stripes */
-  background: repeating-linear-gradient(
-    90deg, #a8a8a8 0px, #a8a8a8 1px, #e6e6e6 1px, #e6e6e6 5px);
-}
-#sba-fav {
-  /* Diagonal ↗ 45° */
-  background: repeating-linear-gradient(
-    45deg, #a8a8a8 0px, #a8a8a8 1px, #e6e6e6 1px, #e6e6e6 6px);
-}
-#sba-route {
-  /* Diagonal ↘ 135° */
-  background: repeating-linear-gradient(
-    135deg, #a8a8a8 0px, #a8a8a8 1px, #e6e6e6 1px, #e6e6e6 6px);
-}
-#sba-ifl {
-  /* Cross-hatch: 45° + 135° overlaid */
-  background:
-    repeating-linear-gradient(45deg,  #a8a8a8 0px, #a8a8a8 1px, transparent 1px, transparent 6px),
-    repeating-linear-gradient(135deg, #a8a8a8 0px, #a8a8a8 1px, transparent 1px, transparent 6px),
-    #e6e6e6;
-}
-/* Hover / active: darken pattern without overriding it */
+/* All 5 buttons share the same grayscale */
+#sba-likable, #sba-loc, #sba-fav, #sba-route, #sba-ifl { background: #d8d8d8; }
 .sba-btn:hover {
-  filter: brightness(0.91);
+  background: #cacaca;
   transform: translate(1px, 1px);
   box-shadow: 2px 2px 0 #1a1a1a;
 }
 .sba-btn:active {
-  filter: brightness(0.80);
+  background: #b8b8b8;
   transform: translate(3px, 3px);
   box-shadow: none;
 }
@@ -2982,7 +2987,7 @@
 }
 /* Active/toggled state — pressed-in look */
 .sba-btn.sba-active {
-  filter: brightness(0.80);
+  background: #b8b8b8;
   transform: translate(3px, 3px);
   box-shadow: none;
 }
