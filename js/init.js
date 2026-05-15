@@ -85,11 +85,8 @@ function _doFullMapInit(afterFn) {
     console.log('[boot] city selected:', city);
     activeCity    = city;
     activeCityKey = CITY_META[city].key;
-    var _msel = document.getElementById('city-select-mobile');
-    if (_msel) _msel.value = city;
-    if (typeof _syncSbCitySelect === 'function') _syncSbCitySelect();
-    // World-map mode: stay at zoom-2 world view — user picks city from overview cards.
-    // (GPS result just sets the default activeCity for when user later navigates.)
+    // NOTE: do NOT update dropdowns here — world-mode dropdown shows 'world' on boot.
+    // Dropdowns are synced to the city only when user clicks a city card.
     return loadCityData(city);
   }).then(function() {
     _initMapTiles();  // no-op if tiles already initialized

@@ -82,7 +82,7 @@ function initMap() {
   // (city overview cards are shown instead; clusterGroup added when city is selected)
 
   // Override getMinZoom so city-mode zoom floor (5) is enforced at Leaflet core level
-  map.getMinZoom = function() { return _worldMode ? 2 : 5; };
+  map.getMinZoom = function() { return _worldMode ? 2 : 10; };
   // Build empty marker set — LOCS is always empty at initMap() time (data loads async)
   // refreshApp() handles full render after data arrives
   applyLang();
@@ -96,9 +96,9 @@ function initMap() {
   // Zoom guard + city card visibility
   map.on('zoomend', function() {
     var z = map.getZoom();
-    // City mode: snap back to min zoom 5 if user scrolls out too far
-    if (!_worldMode && z < 5) {
-      map.setZoom(5, { animate: false });
+    // City mode: snap back to min zoom 10 if user scrolls out too far (keeps city focus)
+    if (!_worldMode && z < 10) {
+      map.setZoom(10, { animate: false });
       return;
     }
     _updateCityPinVisibility();
@@ -328,6 +328,11 @@ function _legendSelectAll(on) {
 }
 
 function refreshApp() {
+  // In world mode: just refresh city overview cards, skip all marker/filter rendering
+  if (_worldMode) {
+    _buildCityPins();
+    return;
+  }
   const cityLocs = LOCS.filter(l => l.city === activeCityKey);
   console.log('[refreshApp] city=' + activeCityKey + ' locs=' + cityLocs.length + ' LOCS_total=' + LOCS.length);
   if (cityLocs.length === 0 && LOCS.length === 0) {
