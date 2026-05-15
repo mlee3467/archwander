@@ -194,7 +194,8 @@ function _enterCity(code) {
   var sbSel = document.getElementById('sb-city-select');
   if (sbSel) sbSel.value = code;
 
-  // 4. Fly to city center
+  // 4. Fly to city center (clear previous city's pan bounds first)
+  map.setMaxBounds(null);
   map.flyTo([meta.lat, meta.lng], meta.zoom, { duration: 1.2 });
 
   // 5. Clear walk filter if active
