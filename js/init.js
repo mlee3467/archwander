@@ -195,15 +195,18 @@ window.addEventListener('load', function() {
   // Catches race conditions between pre-load resolution and map initialization.
   setTimeout(function() {
     try {
-      if (typeof LOCS !== 'undefined' && LOCS.length > 0 &&
+      // Only retry in city mode (world mode renders via _buildCityPins, not clusterGroup)
+      // Wait 4s so we don't race with _enterCity's moveend-deferred render (fly=1.2s + render=1.6s)
+      if (typeof _worldMode !== 'undefined' && !_worldMode &&
+          typeof LOCS !== 'undefined' && LOCS.length > 0 &&
           typeof clusterGroup !== 'undefined' && clusterGroup &&
           clusterGroup.getLayers && clusterGroup.getLayers().length === 0 &&
           typeof refreshApp === 'function') {
-        console.log('[boot] retry: markers empty but LOCS has data — calling refreshApp()');
+        console.log('[boot] retry: markers empty in city mode — calling refreshApp()');
         refreshApp();
       }
     } catch(e) {}
-  }, 2500);
+  }, 4000);
 
   // ── Walk-path-mode: tap collapsed panel handle to restore ─────
   document.getElementById('panel').addEventListener('click', function(e) {

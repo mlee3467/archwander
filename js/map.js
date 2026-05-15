@@ -178,7 +178,6 @@ function _enterCity(code) {
   // 1. Exit world mode
   _worldMode = false;
   map.setMaxZoom(19);
-  if (clusterGroup && !map.hasLayer(clusterGroup)) map.addLayer(clusterGroup);
   buildLegend();
 
   // 2. Set active city state immediately (before async load)
@@ -198,9 +197,24 @@ function _enterCity(code) {
   if (typeof walkActive !== 'undefined' && walkActive &&
       typeof clearWalkFilter === 'function') clearWalkFilter();
 
-  // 6. Load city data then render markers
+  // 6. Load city data, then render markers AFTER fly animation ends.
+  //    MarkerCluster throws "_zoom undefined" if addLayer is called while
+  //    the map is still at world zoom (2). We wait for moveend to ensure
+  //    the map has reached city zoom before adding any markers.
   loadCityData(code).then(function() {
-    if (typeof refreshApp === 'function') refreshApp();
+    // Add clusterGroup to map (needed before refreshApp adds markers)
+    if (clusterGroup && !map.hasLayer(clusterGroup)) map.addLayer(clusterGroup);
+    var _rendered = false;
+    function _doRender() {
+      if (_rendered) return;
+      _rendered = true;
+      map.off('moveend', _doRender);
+      if (typeof refreshApp === 'function') refreshApp();
+    }
+    // Primary: render once fly animation completes
+    map.once('moveend', _doRender);
+    // Fallback: render after 1.6s (fly is 1.2s) in case moveend doesn't fire
+    setTimeout(_doRender, 1600);
   }).catch(function(err) {
     console.error('[_enterCity] load failed for', code, ':', err);
   });
