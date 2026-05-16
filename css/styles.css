@@ -903,27 +903,36 @@
     .cwp-wrap {
       background: transparent !important;
       border: none !important;
+      overflow: visible !important;
     }
+    /* Zero-size anchor: its (0,0) point sits exactly on the city lat/lng */
+    .cwp-anchor {
+      position: relative;
+      width: 0; height: 0;
+    }
+    /* Card floats above the anchor, horizontally centered */
     .cwp-card {
+      position: absolute;
+      bottom: 9px;           /* sits above the dot (dot radius=5px + 4px gap) */
+      left: 50%;
+      transform: translateX(-50%);
       background: rgba(255,255,255,0.18);
       backdrop-filter: blur(4px);
       border-radius: 5px;
-      padding: 3px 7px 7px;
+      padding: 3px 7px 5px;
       box-shadow: 0 1px 5px rgba(0,0,0,0.18);
       cursor: pointer;
       transition: box-shadow 0.15s, transform 0.15s;
-      position: relative;
-      display: inline-block;
+      white-space: nowrap;
     }
     .cwp-card:hover {
       box-shadow: 0 4px 14px rgba(0,0,0,0.32);
-      transform: translateY(-2px);
+      transform: translateX(-50%) translateY(-2px);
     }
+    /* Dot is centered exactly on anchor (0,0) = city coordinate */
     .cwp-dot {
       position: absolute;
-      bottom: -8px;
-      left: 50%;
-      transform: translateX(-50%);
+      top: -5px; left: -5px;
       width: 10px; height: 10px;
       background: #111;
       border-radius: 50%;

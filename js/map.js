@@ -149,13 +149,17 @@ function _buildCityPins() {
     statsHtml += '</div>';
 
     var _cityName = cm.label.split(' ').slice(1).join(' ') || cm.label;
-    var cardHtml = '<div class="cwp-card" onclick="_cwpCityClick(\'' + code + '\')">' +
-      '<div class="cwp-dot"></div>' +
-      '<div class="cwp-name">' + _cityName + '</div>' +
-      statsHtml +
+    var cardHtml =
+      '<div class="cwp-anchor">' +
+        '<div class="cwp-card" onclick="_cwpCityClick(\'' + code + '\')">' +
+          '<div class="cwp-name">' + _cityName + '</div>' +
+          statsHtml +
+        '</div>' +
+        '<div class="cwp-dot"></div>' +
       '</div>';
 
-    var icon = L.divIcon({ className: 'cwp-wrap', html: cardHtml, iconAnchor: [60, 53] });
+    // iconSize/iconAnchor [0,0]: anchor point = lat/lng = dot center
+    var icon = L.divIcon({ className: 'cwp-wrap', html: cardHtml, iconSize: [0,0], iconAnchor: [0,0] });
     var m = L.marker([cm.lat, cm.lng], { icon: icon, zIndexOffset: 2000 });
     map.addLayer(m);
     _cityPinMarkers[code] = m;
