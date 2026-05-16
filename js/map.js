@@ -188,6 +188,7 @@ function _enterCity(code) {
 
   // 1. Exit world mode
   _worldMode = false;
+  _clearWorldModeUI();
   map.setMaxZoom(19);
   buildLegend();
 
@@ -318,8 +319,43 @@ function buildLegend() {
   legendControl.addTo(map);
 }
 
+// ── World-mode UI: lock banner (desktop) + bottom sheet (mobile) ──
+function _applyWorldModeUI() {
+  var isMobile = window.innerWidth < 901;
+  var banner  = document.getElementById('world-lock-banner');
+  var actions = document.getElementById('sb-actions');
+  var sheet   = document.getElementById('city-sheet');
+  if (!isMobile) {
+    // Desktop: show lock banner, dim buttons
+    if (banner)  banner.style.display = 'block';
+    if (actions) actions.classList.add('world-locked');
+    if (sheet)   sheet.style.display = 'none';
+  } else {
+    // Mobile: hide banner, show sliding bottom sheet
+    if (banner)  banner.style.display = 'none';
+    if (actions) actions.classList.remove('world-locked');
+    if (sheet) {
+      sheet.style.display = 'block';
+      requestAnimationFrame(function() { sheet.classList.add('visible'); });
+    }
+  }
+}
+
+function _clearWorldModeUI() {
+  var banner  = document.getElementById('world-lock-banner');
+  var actions = document.getElementById('sb-actions');
+  var sheet   = document.getElementById('city-sheet');
+  if (banner)  banner.style.display = 'none';
+  if (actions) actions.classList.remove('world-locked');
+  if (sheet) {
+    sheet.classList.remove('visible');
+    setTimeout(function() { if (!_worldMode) sheet.style.display = 'none'; }, 350);
+  }
+}
+
 // World-mode legend: global favorites + visited stats panel
 function _buildWorldLegend() {
+  _applyWorldModeUI();
   if (legendControl) map.removeControl(legendControl);
   legendControl = L.control({ position: 'topright' });
   legendControl.onAdd = function() {

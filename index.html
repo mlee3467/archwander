@@ -507,6 +507,12 @@
       </select>
     </div>
 
+    <!-- World-mode lock banner (desktop) -->
+    <div id="world-lock-banner" style="display:none">
+      <div class="wlb-emoji">🌍</div>
+      <div class="wlb-text">도시를 선택하면<br>메뉴가 열립니다</div>
+    </div>
+
     <!-- Action buttons — Likable Places / My Location / Favorites / Route / My Page -->
     <div class="sb-actions" id="sb-actions">
       <button class="sba-btn" id="sba-likable" onclick="_sbaExplore()">
@@ -816,6 +822,19 @@
       <span class="explore-popup-sub">Surprise me with a random pick</span>
     </div>
   </button>
+</div>
+
+<!-- Mobile: city selection bottom sheet (world mode) -->
+<div id="city-sheet">
+  <div class="cs-handle"></div>
+  <div class="cs-title">도시를 선택해 탐험을 시작하세요</div>
+  <div class="cs-chips">
+    <button class="cs-chip" onclick="_enterCity('nyc')">🗽 New York</button>
+    <button class="cs-chip" onclick="_enterCity('sel')">🇰🇷 Seoul</button>
+    <button class="cs-chip" onclick="_enterCity('lon')">🇬🇧 London</button>
+    <button class="cs-chip" onclick="_enterCity('tky')">🇯🇵 Tokyo</button>
+    <button class="cs-chip" onclick="_enterCity('chi')">🇺🇸 Chicago</button>
+  </div>
 </div>
 
 <script src="js/config.js?v=20260515u"></script>
