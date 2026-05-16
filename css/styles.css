@@ -3841,6 +3841,14 @@
   background: #fafaf8; cursor: pointer;
 }
 .ac-footer:hover { color: #555; background: #f3f3f0; }
+/* Cross-city badge */
+.ac-city-badge {
+  background: #ede9fe; color: #5b21b6;
+}
+/* Globe thumb for cross-city results */
+.ac-thumb-globe {
+  font-size: 17px; background: #f3f0ff !important;
+}
 
 /* ── Highlighted / active map marker ──────────────────────────── */
 /* Applied via JS: highlightMarker(id)           → glow only      */

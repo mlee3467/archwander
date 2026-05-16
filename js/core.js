@@ -156,6 +156,16 @@ function getFiltered(opts) {
     return meta ? { icon: meta.icon, bg: meta.bg } : null;
   }
 
+  // City label from city key (e.g. 'chicago' → 'Chicago')
+  function _cityLabel(cityKey) {
+    if (typeof CITY_META !== 'undefined') {
+      for (var code in CITY_META) {
+        if (CITY_META[code].key === cityKey) return CITY_META[code].label;
+      }
+    }
+    return cityKey ? cityKey.replace(/-/g, ' ').replace(/\b\w/g, function(c){ return c.toUpperCase(); }) : '';
+  }
+
   function closeAc() {
     acEl.classList.remove('open');
     acEl.innerHTML = '';
@@ -177,6 +187,26 @@ function getFiltered(opts) {
     var html = scoredItems.map(function(item, i) {
       var loc   = item.loc;
       var score = item.score;
+
+      // ── Cross-city result (from LOCS_INDEX) ──
+      if (item.crossCity) {
+        var cityLbl  = _cityLabel(loc.city);
+        var metaCross = score === 3
+          ? '🏛 ' + _highlight(loc.arch || '', q)
+          : (loc.addr ? (score <= 1 ? _esc(loc.addr) : _highlight(loc.addr, q))
+                      : _esc(loc.hood || ''));
+        return '<div class="ac-item" data-id="' + loc.id + '" data-idx="' + i + '"'
+          + ' onmousedown="event.preventDefault()" onclick="_acSelect(\'' + loc.id + '\')">'
+          + '<div class="ac-thumb ac-thumb-globe">🌍</div>'
+          + '<div class="ac-body">'
+          + '<div class="ac-name">' + _highlight(loc.name, q) + '</div>'
+          + '<div class="ac-meta">' + metaCross + '</div>'
+          + '</div>'
+          + '<span class="ac-badge ac-city-badge">' + _esc(cityLbl) + '</span>'
+          + '</div>';
+      }
+
+      // ── Current city result (full loc object) ──
       var thumb = _acThumb(loc);
       var thumbHtml = thumb
         ? '<div class="ac-thumb" style="background:' + thumb.bg + '">'
@@ -243,9 +273,36 @@ function getFiltered(opts) {
     closeAc();
     searchEl.value = '';
     state.query = '';
-    renderList();
-    syncMarkers();
-    openLocById(id);
+
+    // Check if location is already in the active city's loaded data
+    var loc = LOCS.find(function(l) { return l.id === id; });
+    if (loc) {
+      renderList();
+      syncMarkers();
+      openLocById(id);
+      return;
+    }
+
+    // Cross-city: find city from LOCS_INDEX
+    var idxEntry = (typeof LOCS_INDEX !== 'undefined')
+      ? LOCS_INDEX.find(function(x) { return x.id === id; }) : null;
+    if (!idxEntry) return;
+
+    // Find the city meta code (e.g. 'new-york' → 'nyc')
+    var cityMetaCode = null;
+    if (typeof CITY_META !== 'undefined') {
+      for (var code in CITY_META) {
+        if (CITY_META[code].key === idxEntry.city) { cityMetaCode = code; break; }
+      }
+    }
+    if (!cityMetaCode) return;
+
+    // Switch to target city (flies map, loads data, refreshes app)
+    if (typeof _enterCity === 'function') _enterCity(cityMetaCode);
+    else if (typeof selectCity === 'function') selectCity(cityMetaCode);
+
+    // After fly animation completes (~1.6s), open the location
+    setTimeout(function() { openLocById(id); }, 1800);
   };
 
   // Input handler — update list AND autocomplete
@@ -277,8 +334,32 @@ function getFiltered(opts) {
     });
     scored.sort(function(a,b) { return a.score - b.score || a.loc.name.length - b.loc.name.length; });
 
-    if (!scored.length) { closeAc(); return; }
-    openAc(scored.slice(0, AC_MAX), q, scored.length);
+    // Cross-city search from LOCS_INDEX (other cities, query ≥ 2 chars)
+    var crossScored = [];
+    if (typeof LOCS_INDEX !== 'undefined' && ql.length >= 2) {
+      var currentIds = {};
+      cityLocs.forEach(function(l) { currentIds[l.id] = true; });
+      LOCS_INDEX.forEach(function(l) {
+        if (l.city === activeCityKey) return;   // skip current city
+        if (currentIds[l.id]) return;           // already in local results
+        var nl = l.name.toLowerCase();
+        var al = (l.addr || '').toLowerCase().replace(/\b\d{5}(-\d{4})?\b/g, '');
+        var ar = (l.arch || '').toLowerCase();
+        if (nl.startsWith(ql))      crossScored.push({ loc:l, score:0, crossCity:true });
+        else if (nl.includes(ql))   crossScored.push({ loc:l, score:1, crossCity:true });
+        else if (al.includes(ql))   crossScored.push({ loc:l, score:2, crossCity:true });
+        else if (ar.includes(ql))   crossScored.push({ loc:l, score:3, crossCity:true });
+      });
+      crossScored.sort(function(a,b) { return a.score - b.score || a.loc.name.length - b.loc.name.length; });
+    }
+
+    // Combine: up to 6 local + fill remainder with cross-city, total ≤ AC_MAX
+    var localSlice = scored.slice(0, 6);
+    var crossSlice = crossScored.slice(0, AC_MAX - localSlice.length);
+    var combined   = localSlice.concat(crossSlice);
+
+    if (!combined.length) { closeAc(); return; }
+    openAc(combined, q, scored.length + crossScored.length);
   });
 
   // Keyboard navigation
