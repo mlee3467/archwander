@@ -278,6 +278,10 @@ function _goWorldMap() {
   if (mSel) mSel.value = 'world';
   var sbSel = document.getElementById('sb-city-select');
   if (sbSel) sbSel.value = 'world';
+  // Rebuild city pins + red dotted line after fly completes
+  map.once('moveend', function() {
+    if (_worldMode) _buildCityPins();
+  });
 }
 
 // ── Map Legend ──────────────────────────────────────────────
