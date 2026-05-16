@@ -939,6 +939,23 @@
       border: 2px solid #fff;
       box-shadow: 0 1px 4px rgba(0,0,0,0.3);
     }
+    /* Blinking red ping ring around city dot */
+    .cwp-dot::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translateX(-50%) translateY(-50%) scale(1);
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: #e53935;
+      opacity: 0.8;
+      animation: cwp-ping 1.6s ease-out infinite;
+    }
+    @keyframes cwp-ping {
+      0%   { transform: translateX(-50%) translateY(-50%) scale(1);   opacity: 0.8; }
+      70%  { transform: translateX(-50%) translateY(-50%) scale(2.6); opacity: 0;   }
+      100% { transform: translateX(-50%) translateY(-50%) scale(2.6); opacity: 0;   }
+    }
     .cwp-name {
       font-size: 10px;
       font-weight: 700;

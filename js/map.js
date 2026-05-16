@@ -4,7 +4,6 @@
 var map, streetLayer, satLayer, markers = [], userMarker = null;
 var clusterGroup = null;   // Leaflet.markercluster group
 var _cityPinMarkers = {};
-var _worldRouteLine  = null;  // dotted red route line in world mode  // world-zoom city overview cards
 var _worldMode = true;     // true until user clicks a city card (prevents zoom-in past 4)
 var _mapMarkerPopupActive = null; // currently shown map marker mini-popup
 // ── Walk filter state ──────────────────────────────────────────────
@@ -166,17 +165,6 @@ function _buildCityPins() {
   });
   _updateCityPinVisibility();
 
-  // Draw dotted red route line connecting all city dots (west → east)
-  if (_worldRouteLine) { map.removeLayer(_worldRouteLine); _worldRouteLine = null; }
-  if (typeof CITY_META !== 'undefined') {
-    var _sorted = Object.values(CITY_META).sort(function(a, b) { return a.lng - b.lng; });
-    var _coords = _sorted.map(function(m) { return [m.lat, m.lng]; });
-    _worldRouteLine = L.polyline(_coords, {
-      color: '#e53935', weight: 1.5,
-      dashArray: '4 6', opacity: 0.7,
-      interactive: false
-    }).addTo(map);
-  }
 }
 
 function _updateCityPinVisibility() {
@@ -213,9 +201,8 @@ function _enterCity(code) {
   var sbSel = document.getElementById('sb-city-select');
   if (sbSel) sbSel.value = code;
 
-  // 4. Fly to city center (clear previous city's pan bounds + world route line)
+  // 4. Fly to city center (clear previous city's pan bounds)
   map.setMaxBounds(null);
-  if (_worldRouteLine) { map.removeLayer(_worldRouteLine); _worldRouteLine = null; }
   var _entryZoom = (window.innerWidth < 901) ? meta.zoom - 1 : meta.zoom;
   map.flyTo([meta.lat, meta.lng], _entryZoom, { duration: 1.2 });
 
