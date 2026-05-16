@@ -180,7 +180,7 @@
       position: fixed; top: 75vh; left: 50%; transform: translateX(-50%);
       z-index: 9000;
       background: rgba(0,0,0,0.65);
-      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(7px); -webkit-backdrop-filter: blur(7px);
       border: none;
       border-radius: 20px;
       padding: 5px 12px;
@@ -364,7 +364,7 @@
       cursor: grab;
       z-index: 1200;
       background: rgba(255,255,255,0.96);
-      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
       border: 1px solid rgba(0,0,0,0.12);
       border-radius: 28px;
       padding: 14px 18px 14px 20px;
@@ -432,8 +432,8 @@
     .sidebar {
       width: var(--sidebar-w);
       background: linear-gradient(160deg, rgba(255,255,255,0.65) 0%, rgba(240,240,236,0.38) 100%);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
       border-right: 1px solid var(--border);
       display: flex; flex-direction: column; overflow: hidden;
       flex-shrink: 0; z-index: 200; position: relative;
@@ -610,7 +610,7 @@
     /* ── DETAIL PANEL ────────────────────────────────────── */
     .panel {
       width: var(--panel-w); background: rgba(255,255,255,0.50);
-      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
       border-left: 1px solid rgba(232,232,228,0.5);
       display: flex; flex-direction: column; overflow: hidden;
       flex-shrink: 0; position: absolute; right: 0; top: 0; bottom: 0;
@@ -746,7 +746,7 @@
     .ag-player {
       position: sticky; top: 0; z-index: 10;
       background: rgba(255,255,255,0.96);
-      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(7px); -webkit-backdrop-filter: blur(7px);
       border-bottom: 1px solid var(--border);
       margin: -18px -18px 16px -18px; /* bleed past tab-pane padding */
       padding: 14px 18px 12px;
@@ -1022,8 +1022,8 @@
     /* ── MAP LEGEND ──────────────────────────── */
     .map-legend {
       background: rgba(255,255,255,0.5);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
       border-radius: 8px;
       padding: 10px 12px;
       box-shadow: 0 1px 5px rgba(0,0,0,0.15);
@@ -1377,8 +1377,8 @@
         bottom: 0;
         width: 200px;
         background: linear-gradient(160deg, rgba(255,255,255,0.55) 0%, rgba(240,240,236,0.35) 100%);
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
         transform: translateX(-100%);
         transition: transform 0.28s cubic-bezier(.4,0,.2,1);
         box-shadow: 4px 0 24px rgba(0,0,0,0.12);
@@ -1393,7 +1393,7 @@
         width: 100%; height: auto;
         border-left: none; border-top: 1px solid rgba(232,232,228,0.5);
         border-radius: 20px 20px 0 0;
-        background: rgba(255,255,255,0.50); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+        background: rgba(255,255,255,0.50); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
         transform: translateY(100%);
         padding-bottom: env(safe-area-inset-bottom, 0px);
         z-index: 500;
@@ -1992,16 +1992,17 @@
 
 /* Route marker popup (custom DOM, works on mobile) */
 .route-custom-popup {
-  background: #fff;
+  background: rgba(255,255,255,0.5);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   border-radius: 12px; overflow: hidden;
-  box-shadow: 0 6px 24px rgba(0,0,0,0.20), 0 1px 4px rgba(0,0,0,0.10);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.15), 0 1px 4px rgba(0,0,0,0.08);
   padding: 0;
   min-width: 220px; max-width: 280px;
   font-family: Inter, -apple-system, sans-serif;
   position: fixed; /* overridden by JS */
   z-index: 3000;
   pointer-events: all;
-  /* needed so absolute rmp-close is positioned relative to popup root */
   isolation: isolate;
 }
 .rmp-close {
@@ -2258,8 +2259,8 @@
   cursor: pointer; text-align: left;
   transition: filter 0.18s, border-color 0.18s, transform 0.1s;
   -webkit-tap-highlight-color: transparent;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
   position: relative; overflow: hidden;
 }
 .landing-btn:active { transform: scale(0.97); filter: brightness(1.15); }
@@ -2373,8 +2374,8 @@
   display: flex; flex-direction: column; align-items: flex-start;
   cursor: pointer; text-align: left;
   transition: all 0.15s; -webkit-tap-highlight-color: transparent;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 .ifl-sel-chip.selected {
   border-color: #D946A8;
@@ -2651,7 +2652,7 @@
   align-items: center; gap: 6px;
   padding: 8px 18px;
   background: rgba(255,255,255,0.95);
-  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
   color: #4338CA; border: 1.5px solid #C7D2FE; border-radius: 20px;
   font-size: 12px; font-weight: 600; font-family: Inter, sans-serif;
   box-shadow: 0 3px 14px rgba(79,70,229,0.18);
@@ -2673,7 +2674,7 @@
   display: none; align-items: center; gap: 6px;
   padding: 8px 18px;
   background: rgba(255,255,255,0.95);
-  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
   color: #b91c8a; border: 1.5px solid #f9a8d4; border-radius: 20px;
   font-size: 12px; font-weight: 600; font-family: Inter, sans-serif;
   box-shadow: 0 3px 14px rgba(217,70,168,0.18);
@@ -2696,7 +2697,7 @@
   display: none; align-items: center; gap: 5px;
   padding: 6px 14px;
   background: rgba(255,255,255,0.50);
-  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
   color: #888; border: 1px solid #ddd; border-radius: 16px;
   font-size: 11px; font-weight: 600; font-family: Inter, sans-serif;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -2746,7 +2747,7 @@
 .rmp-sv-tog-bar {
   display: flex; flex-shrink: 0;
   background: rgba(0,0,0,0.75);
-  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
 }
 .rmp-sv-tog {
   flex: 1; padding: 6px 8px; font-size: 11px; font-weight: 600;
@@ -2785,8 +2786,8 @@
 
 .clp-inner {
   background: rgba(255,255,255,0.33);
-  backdrop-filter: blur(22px);
-  -webkit-backdrop-filter: blur(22px);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
   border: 1px solid rgba(255,255,255,0.45);
   border-radius: 26px 26px 20px 20px;
   padding: 6px 16px 20px;
@@ -2957,7 +2958,7 @@
 }
 .list-overlay-box {
   background: rgba(255,255,255,0.33);
-  backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
+  backdrop-filter: blur(7px); -webkit-backdrop-filter: blur(7px);
   border-radius: 18px;
   width: 100%; max-width: 420px;
   height: 100%;
@@ -3038,8 +3039,8 @@
   position: fixed;
   bottom: 0; left: 0; right: 0;
   background: rgba(255,255,255,0.97);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
   border-radius: 18px 18px 0 0;
   padding: 10px 20px calc(28px + env(safe-area-inset-bottom, 0px));
   box-shadow: 0 -4px 28px rgba(0,0,0,0.13);
@@ -3143,8 +3144,8 @@
   top: 72px;
   z-index: 1200;
   background: rgba(255,255,255,0.72);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   border: 1px solid rgba(255,255,255,0.55);
   border-radius: 16px;
   padding: 8px;
@@ -3349,6 +3350,20 @@
   transition: background 0.12s;
 }
 .rps-set-loc-btn:active { background: #E0E7FF; }
+/* Architect name + tags in mini-popup */
+.rmp-arch {
+  font-size: 11px; color: #555; font-style: italic;
+  margin-bottom: 6px;
+}
+.rmp-tags {
+  display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 6px;
+}
+.rmp-tag {
+  font-size: 10px; color: #555;
+  background: rgba(0,0,0,0.07);
+  border-radius: 3px; padding: 2px 6px;
+  white-space: nowrap;
+}
 /* "View details" button in map marker mini-popup */
 .rmp-open-btn {
   width: 100%; margin-top: 8px; padding: 7px 10px; border-radius: 8px;
@@ -4111,7 +4126,7 @@
   border: 1px solid #2a2a2a;
   width: 100%; max-width: 480px;
   padding: 16px 16px 24px;
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(7px);
 }
 .fwil-result-header {
   display: flex; align-items: center; justify-content: space-between;

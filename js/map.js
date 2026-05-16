@@ -568,9 +568,10 @@ function _showMapMarkerPopup(loc) {
       '</div>' +
       '<div class="rmp-meta">' +
         '<span class="cat-badge ' + catClass + '" style="font-size:10px">' + catBadge + '</span>' +
-        (loc.hood ? '<span style="color:#888"> · ' + _esc(loc.hood) + '</span>' : '') +
-        (loc.yr   ? '<span style="color:#888"> · ' + loc.yr + '</span>' : '') +
+        (loc.yr ? '<span style="color:#888"> · ' + loc.yr + '</span>' : '') +
       '</div>' +
+      (loc.arch ? '<div class="rmp-arch">' + _esc(loc.arch) + '</div>' : '') +
+      (loc.tags && loc.tags.length ? '<div class="rmp-tags">' + loc.tags.map(function(t){ return '<span class="rmp-tag">' + _esc(t) + '</span>'; }).join('') + '</div>' : '') +
       '<button class="rmp-open-btn" onclick="_closeMapMarkerPopup();openLocById(\'' + loc.id + '\')">' +
         (_lang === 'ko' ? '상세 보기 →' : 'View details →') +
       '</button>' +
