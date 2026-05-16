@@ -431,7 +431,9 @@
     /* ── SIDEBAR ─────────────────────────────────────────── */
     .sidebar {
       width: var(--sidebar-w);
-      background: var(--surface);
+      background: rgba(255,255,255,0.5);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       border-right: 1px solid var(--border);
       display: flex; flex-direction: column; overflow: hidden;
       flex-shrink: 0; z-index: 200; position: relative;
@@ -441,7 +443,7 @@
       display: flex; align-items: center; justify-content: space-between;
       padding: 7px 14px 6px;
       border-bottom: 1px solid var(--border);
-      background: var(--bg);
+      background: rgba(247,247,245,0.5);
     }
     .sb-top-label { font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-secondary); display: flex; align-items: center; gap: 5px; }
     .sb-clear { font-size: 11px; color: #4F46E5; background: none; border: none; cursor: pointer; padding: 2px 6px; border-radius: 4px; display: none; }
