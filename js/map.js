@@ -84,7 +84,7 @@ function initMap() {
   // (city overview cards are shown instead; clusterGroup added when city is selected)
 
   // Override getMinZoom so city-mode zoom floor (5) is enforced at Leaflet core level
-  map.getMinZoom = function() { return _worldMode ? (window.innerWidth < 901 ? 2 : 3) : 11; };
+  map.getMinZoom = function() { return _worldMode ? (window.innerWidth < 901 ? 2 : 3) : (window.innerWidth < 901 ? 10 : 11); };
   // Build empty marker set — LOCS is always empty at initMap() time (data loads async)
   // refreshApp() handles full render after data arrives
   applyLang();
@@ -98,9 +98,10 @@ function initMap() {
   // Zoom guard + city card visibility
   map.on('zoomend', function() {
     var z = map.getZoom();
-    // City mode: snap back to min zoom 11 if user scrolls out too far (keeps city focus)
-    if (!_worldMode && z < 11) {
-      map.setZoom(11, { animate: false });
+    // City mode: snap back to min zoom (mobile=10, desktop=11)
+    var _minCity = window.innerWidth < 901 ? 10 : 11;
+    if (!_worldMode && z < _minCity) {
+      map.setZoom(_minCity, { animate: false });
       return;
     }
     _updateCityPinVisibility();
@@ -196,7 +197,8 @@ function _enterCity(code) {
 
   // 4. Fly to city center (clear previous city's pan bounds first)
   map.setMaxBounds(null);
-  map.flyTo([meta.lat, meta.lng], meta.zoom, { duration: 1.2 });
+  var _entryZoom = (window.innerWidth < 901) ? meta.zoom - 1 : meta.zoom;
+  map.flyTo([meta.lat, meta.lng], _entryZoom, { duration: 1.2 });
 
   // 5. Clear walk filter if active
   if (typeof walkActive !== 'undefined' && walkActive &&
@@ -215,15 +217,18 @@ function _enterCity(code) {
       _rendered = true;
       map.off('moveend', _doRender);
       if (typeof refreshApp === 'function') refreshApp();
-      // Set pan bounds: city default-zoom viewport × 2 padding to limit tile loading
+      // Set pan bounds: city viewport × PAD to limit tile loading
+      // Mobile uses lower zoom + larger PAD for wider geographic coverage on small screen
       var _meta = typeof CITY_META !== 'undefined' ? CITY_META[code] : null;
       if (_meta) {
-        var PAD = 2.0;
-        var cPx = map.project([_meta.lat, _meta.lng], _meta.zoom);
-        var hw  = (window.innerWidth  / 2) * PAD;
-        var hh  = (window.innerHeight / 2) * PAD;
-        var sw  = map.unproject(L.point(cPx.x - hw, cPx.y + hh), _meta.zoom);
-        var ne  = map.unproject(L.point(cPx.x + hw, cPx.y - hh), _meta.zoom);
+        var _mob  = window.innerWidth < 901;
+        var PAD   = _mob ? 3.0 : 2.0;
+        var bzoom = _meta.zoom - (_mob ? 1 : 0);
+        var cPx   = map.project([_meta.lat, _meta.lng], bzoom);
+        var hw    = (window.innerWidth  / 2) * PAD;
+        var hh    = (window.innerHeight / 2) * PAD;
+        var sw    = map.unproject(L.point(cPx.x - hw, cPx.y + hh), bzoom);
+        var ne    = map.unproject(L.point(cPx.x + hw, cPx.y - hh), bzoom);
         map.setMaxBounds(L.latLngBounds(sw, ne));
       }
     }
