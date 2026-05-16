@@ -2200,13 +2200,15 @@
   margin-bottom: 22px;
 }
 .splash-wordmark {
-  color: #fff; font-size: 20px; font-weight: 700;
-  font-family: 'Space Mono', 'Courier New', monospace;
-  letter-spacing: 0.04em; text-transform: uppercase;
+  color: #fff; font-size: 22px; font-weight: 400;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  letter-spacing: 0.08em;
 }
 .splash-tagline {
   color: rgba(255,255,255,0.38); font-size: 12px;
-  letter-spacing: 0.5px; margin-top: 5px;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-style: italic;
+  letter-spacing: 0.3px; margin-top: 5px;
 }
 
 /* ── Landing screen — transparent overlay so map shows through ── */
