@@ -71,7 +71,7 @@ function _makeStreetLayer() {
 function initMap() {
   // Start at world view so city overview cards are visible on load
   var _isMobile = window.innerWidth < 901;
-  var _wmZoom = _isMobile ? 2 : 3;
+  var _wmZoom = _isMobile ? 1 : 3;
   map = L.map('map', { center:[20, 10], zoom:_wmZoom, zoomControl:false, minZoom:_wmZoom, maxZoom:4, maxBoundsViscosity: 1.0 });
   streetLayer = _makeStreetLayer().addTo(map);
   satLayer = L.tileLayer(
@@ -84,7 +84,7 @@ function initMap() {
   // (city overview cards are shown instead; clusterGroup added when city is selected)
 
   // Override getMinZoom so city-mode zoom floor (5) is enforced at Leaflet core level
-  map.getMinZoom = function() { return _worldMode ? (window.innerWidth < 901 ? 2 : 3) : (window.innerWidth < 901 ? 10 : 11); };
+  map.getMinZoom = function() { return _worldMode ? (window.innerWidth < 901 ? 1 : 3) : (window.innerWidth < 901 ? 10 : 11); };
   // Build empty marker set — LOCS is always empty at initMap() time (data loads async)
   // refreshApp() handles full render after data arrives
   applyLang();
@@ -271,7 +271,7 @@ function _goWorldMap() {
   map.setMaxZoom(4);   // re-apply world-mode cap (no zoom-in past 4)
   if (map.hasLayer(clusterGroup)) map.removeLayer(clusterGroup);
   buildLegend();        // switch from category legend to world-stats legend
-  map.flyTo([20, 10], window.innerWidth < 901 ? 2 : 3, { duration: 1.2 });
+  map.flyTo([20, 10], window.innerWidth < 901 ? 1 : 3, { duration: 1.2 });
   // Sync both city dropdowns to show the world option
   var mSel = document.getElementById('city-select-mobile');
   if (mSel) mSel.value = 'world';
