@@ -369,20 +369,14 @@ function _buildWorldLegend() {
       '<span class="legend-toggle-label">' + titleText + '</span>' +
       '<span class="legend-arrow">▾</span></div>';
     html += '<div class="legend-body">';
-    if (totalFav === 0 && totalVis === 0) {
-      html += '<div class="wm-no-stats">' +
-        (isKo ? '도시를 선택하여 탐험을 시작하세요' : 'Select a city to start exploring') +
-        '</div>';
-    } else {
-      html += '<div class="wm-stat-row">' +
-        '<span class="wm-stat-icon wm-fav">♥</span>' +
-        '<span class="wm-stat-label">' + (isKo ? '즐겨찾기' : 'Favorites') + '</span>' +
-        '<span class="wm-stat-val">' + totalFav + '</span></div>';
-      html += '<div class="wm-stat-row">' +
-        '<span class="wm-stat-icon wm-vis">✓</span>' +
-        '<span class="wm-stat-label">' + (isKo ? '방문' : 'Visited') + '</span>' +
-        '<span class="wm-stat-val">' + totalVis + '</span></div>';
-    }
+    html += '<div class="wm-stat-row">' +
+      '<span class="wm-stat-icon wm-fav">♥</span>' +
+      '<span class="wm-stat-label">' + (isKo ? '즐겨찾기' : 'Favorites') + '</span>' +
+      '<span class="wm-stat-val">' + totalFav + '</span></div>';
+    html += '<div class="wm-stat-row">' +
+      '<span class="wm-stat-icon wm-vis">✓</span>' +
+      '<span class="wm-stat-label">' + (isKo ? '방문' : 'Visited') + '</span>' +
+      '<span class="wm-stat-val">' + totalVis + '</span></div>';
     html += '</div>';
     div.innerHTML = html;
     L.DomEvent.disableClickPropagation(div);
