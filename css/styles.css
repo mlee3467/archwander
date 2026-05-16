@@ -905,11 +905,11 @@
       border: none !important;
     }
     .cwp-card {
-      background: rgba(255,255,255,0.50);
-      backdrop-filter: blur(6px);
-      border-radius: 7px;
-      padding: 5px 8px 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.22);
+      background: rgba(255,255,255,0.18);
+      backdrop-filter: blur(4px);
+      border-radius: 5px;
+      padding: 3px 7px 7px;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.18);
       cursor: pointer;
       transition: box-shadow 0.15s, transform 0.15s;
       position: relative;
@@ -931,22 +931,12 @@
       box-shadow: 0 1px 4px rgba(0,0,0,0.3);
     }
     .cwp-name {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-bottom: 2px;
-    }
-    .cwp-flag {
-      font-size: 20px;
-      line-height: 1.2;
-    }
-    .cwp-city-name {
-      font-size: 9px;
+      font-size: 10px;
       font-weight: 700;
       color: #111;
       white-space: nowrap;
-      letter-spacing: 0.3px;
-      margin-top: 1px;
+      margin-bottom: 2px;
+      text-align: center;
     }
     .cwp-stats {
       display: flex;
