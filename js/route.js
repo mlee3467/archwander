@@ -31,165 +31,19 @@ var _WLK_D30MIN  = 2000;   // 0–2000m   → happy/normal
 var _WLK_D_EMPTY = 4000;   // 2000–4000m → tired
 var _WLK_D_STOP  = 6000;   // 4000–6000m → exhausted; 6000m+ → rest
 
-// ── 16×16 B&W pixel art character ────────────────────────────────
-// Palette: 0=transparent  1=white  4=black
-// 6 frames: [0,1]=happy  [2,3]=tired  [4,5]=exhausted  (×2 strides each)
-// Each frame string = 16 cols × 16 rows = 256 chars
-var _WALKER_PX_FRAMES = [
-  // Frame 0: Happy Stride A
-  '0000044444400000' +
-  '0000411111140000' +
-  '0004111111114000' +
-  '0041111111111400' +
-  '0041114114111400' +
-  '0041114114111404' +
-  '0041111111111444' +
-  '0441111111111440' +
-  '4441141111411400' +
-  '4041114444111400' +
-  '0004111111114000' +
-  '0000411111140000' +
-  '0000044444400000' +
-  '0000044004000000' +
-  '0000440004400000' +
-  '0004400004440000',
-  // Frame 1: Happy Stride B
-  '0000044444400000' +
-  '0000411111140000' +
-  '0004111111114000' +
-  '0041111111111400' +
-  '0041114114111400' +
-  '4041114114111400' +
-  '4441111111111400' +
-  '0441111111111440' +
-  '0041141111411444' +
-  '0041114444111404' +
-  '0004111111114000' +
-  '0000411111140000' +
-  '0000044444400000' +
-  '0000004004400000' +
-  '0000044000440000' +
-  '0000444000044000',
-  // Frame 2: Tired Stride A
-  '0000044444400000' +
-  '0000411111140000' +
-  '0004111111114000' +
-  '0041111111111400' +
-  '0041111111111400' +
-  '0041144114411400' +
-  '0041111111111404' +
-  '0041111111111444' +
-  '0441111111111440' +
-  '0441114444111400' +
-  '4404111111114000' +
-  '0000411111140000' +
-  '0000044444400000' +
-  '0000044004000000' +
-  '0000440004400000' +
-  '0004400004440000',
-  // Frame 3: Tired Stride B
-  '0000044444400000' +
-  '0000411111140000' +
-  '0004111111114000' +
-  '0041111111111400' +
-  '0041111111111400' +
-  '0041144114411400' +
-  '4041111111111400' +
-  '4441111111111400' +
-  '0441111111111440' +
-  '0041114444111440' +
-  '0004111111114044' +
-  '0000411111140000' +
-  '0000044444400000' +
-  '0000004004400000' +
-  '0000044000440000' +
-  '0000444000044000',
-  // Frame 4: Exhausted Stride A
-  '0000044444400000' +
-  '0000411111140000' +
-  '0004111111114000' +
-  '0041111111111400' +
-  '0041414114141400' +
-  '0041141111411400' +
-  '0041141111411400' +
-  '0041414114141400' +
-  '0041111111111400' +
-  '0441111111111440' +
-  '0404111441114040' +
-  '0400411111140040' +
-  '0400044444400040' +
-  '0000044004400000' +
-  '0000440044000000' +
-  '0004400440000000',
-  // Frame 5: Exhausted Stride B
-  '0000044444400000' +
-  '0000411111140000' +
-  '0004111111114000' +
-  '0041111111111400' +
-  '0041414114141400' +
-  '0041141111411400' +
-  '0041141111411400' +
-  '0041414114141400' +
-  '0041111111111400' +
-  '0441111111111440' +
-  '0404111441114040' +
-  '0400411111140040' +
-  '0400044444400040' +
-  '0000044004400000' +
-  '0000440044000000' +
-  '0004400440000000'
-];
-var _WALKER_PX_W = 16, _WALKER_PX_H = 16, _WALKER_PX_SCALE = 2;
+// ── PNG Character Images ────────────────────────────────────────
+// Three states keyed by distance: normal / tired / exhausted
+var _WALKER_IMG = {
+  normal:    'img/cha_ani_front_normal.png',
+  tired:     'img/cha_ani_front_tired.png',
+  exhausted: 'img/cha_ani_front_exhausted.png'
+};
 
-// Four palettes: 0=transparent  1=body colour  4=outline
-var _WALKER_PAL_HAPPY     = { '0':null, '1':'#ffffff', '4':'#111111' }; // Happy
-var _WALKER_PAL_TIRED     = { '0':null, '1':'#FFF4AA', '4':'#111111' }; // Tired
-var _WALKER_PAL_EXHAUSTED = { '0':null, '1':'#DFC8FF', '4':'#111111' }; // Exhausted
-var _WALKER_PAL_STOPPED   = { '0':null, '1':'#aaaaaa', '4':'#444444' }; // Stopped
-var _walkerSpriteCache    = {};  // keyed by body colour string
-
-// Select base frame index from distance walked
-function _walkerGetBaseFrame(dist) {
-  if (dist < _WLK_D30MIN)  return 0;  // happy     → frames 0,1
-  if (dist < _WLK_D_EMPTY) return 2;  // tired     → frames 2,3
-  return 4;                            // exhausted/stopped → frames 4,5 (gray palette for stopped)
-}
-
-// Get the correct palette for current distance
-function _walkerGetPalette(dist) {
-  if (dist < _WLK_D30MIN)  return _WALKER_PAL_HAPPY;
-  if (dist < _WLK_D_EMPTY) return _WALKER_PAL_TIRED;
-  if (dist < _WLK_D_STOP)  return _WALKER_PAL_EXHAUSTED;
-  return _WALKER_PAL_STOPPED;
-}
-
-// Build (or return cached) sprites for a given palette
-function _buildWalkerSpritesForPalette(pal) {
-  var cacheKey = pal['1'];  // body colour is the differentiator
-  if (_walkerSpriteCache[cacheKey]) return _walkerSpriteCache[cacheKey];
-  var px = _WALKER_PX_SCALE, W = _WALKER_PX_W, H = _WALKER_PX_H;
-  var sprites = _WALKER_PX_FRAMES.map(function(f) {
-    var c = document.createElement('canvas');
-    c.width = W * px; c.height = H * px;
-    var ctx = c.getContext('2d');
-    for (var i = 0; i < f.length; i++) {
-      var col = pal[f[i]]; if (!col) continue;
-      ctx.fillStyle = col;
-      ctx.fillRect((i % W) * px, Math.floor(i / W) * px, px, px);
-    }
-    return c.toDataURL();
-  });
-  _walkerSpriteCache[cacheKey] = sprites;
-  return sprites;
-}
-
-// Legacy helper — pre-build all four palettes
-function _buildWalkerSprites() {
-  _buildWalkerSpritesForPalette(_WALKER_PAL_HAPPY);
-  _buildWalkerSpritesForPalette(_WALKER_PAL_TIRED);
-  _buildWalkerSpritesForPalette(_WALKER_PAL_EXHAUSTED);
-  _buildWalkerSpritesForPalette(_WALKER_PAL_STOPPED);
-  return _walkerSpriteCache[_WALKER_PAL_HAPPY['1']];
+// Select PNG key from distance walked
+function _walkerGetImgKey(dist) {
+  if (dist < _WLK_D30MIN)  return 'normal';
+  if (dist < _WLK_D_EMPTY) return 'tired';
+  return 'exhausted';
 }
 
 // ── Start Marker Icon Builder ────────────────────────────────────
@@ -249,19 +103,17 @@ function _walkerGetSpeedMod(dist) {
   return 1.0;                          // always full speed otherwise
 }
 
-// ── Icon builder — distance label + stamina bar + badge in divIcon HTML ──
-// badge: null | 'camera' | 'stopped'
+// ── Icon builder — PNG character + distance label + stamina bar ──
+// frameIdx: kept for API compatibility (not used for PNG selection)
 function _buildWalkerIcon(frameIdx, facingRight, dist, badge) {
-  var pal      = _walkerGetPalette(dist);
-  var sprites  = _buildWalkerSpritesForPalette(pal);
-  var baseFrame = _walkerGetBaseFrame(dist);
-  var src = sprites[Math.min(frameIdx + baseFrame, sprites.length - 1)];
+  var imgKey  = _walkerGetImgKey(dist);
+  var imgSrc  = _WALKER_IMG[imgKey];
   var stamina = _walkerGetStamina(dist);
   var stopped = dist >= _WLK_D_STOP;
-  var spriteW = _WALKER_PX_W * _WALKER_PX_SCALE;  // 24px
-  var spriteH = _WALKER_PX_H * _WALKER_PX_SCALE;  // 24px
+  var spriteW = 40;   // display size (265×265 px PNG → 40px)
+  var spriteH = 40;
 
-  // Distance label (topmost)
+  // Distance label
   var distStr = dist < 1000
     ? Math.round(dist) + 'm'
     : (dist / 1000).toFixed(2) + 'km';
@@ -271,7 +123,7 @@ function _buildWalkerIcon(frameIdx, facingRight, dist, badge) {
     'white-space:nowrap;margin-bottom:2px;letter-spacing:0.3px">' + distStr + '</div>';
   var distH = 11;
 
-  // Badge (below distance)
+  // Badge
   var badgeHtml = '';
   if (badge === 'camera') {
     badgeHtml = '<div style="font-size:20px;line-height:1;text-align:center;margin-bottom:2px">📷</div>';
@@ -292,7 +144,7 @@ function _buildWalkerIcon(frameIdx, facingRight, dist, badge) {
     : '';
   var statusH = statusHtml ? 12 : 0;
 
-  // Stamina bar (40px wide)
+  // Stamina bar
   var p = Math.max(0, Math.min(100, stamina));
   var r = p > 50 ? Math.round((100-p)/50*255) : 255;
   var g = p > 50 ? 200 : Math.round(p/50*200);
@@ -312,13 +164,13 @@ function _buildWalkerIcon(frameIdx, facingRight, dist, badge) {
     className: '',
     html: '<div style="display:flex;flex-direction:column;align-items:center;width:' + containerW + 'px;pointer-events:none">' +
           distHtml + badgeHtml + statusHtml + barHtml +
-          '<img src="' + src + '" style="width:' + spriteW + 'px;height:' + spriteH + 'px;' +
-          'image-rendering:pixelated;display:block;' +
+          '<img src="' + imgSrc + '" style="width:' + spriteW + 'px;height:' + spriteH + 'px;' +
+          'display:block;' +
           (facingRight ? '' : 'transform:scaleX(-1);') +
-          'filter:drop-shadow(1px 1px 0 rgba(0,0,0,0.7))" draggable="false">' +
+          'filter:drop-shadow(1px 1px 0 rgba(0,0,0,0.4))" draggable="false">' +
           '</div>',
     iconSize:   [containerW, totalH],
-    iconAnchor: [containerW / 2, totalH]  // anchor at character feet
+    iconAnchor: [containerW / 2, totalH]
   });
 }
 
@@ -360,7 +212,6 @@ function _startWalkerAnimation(coords, stopIndices, ordered, cumDistAtStop, hasO
   if (!coords || coords.length < 2) return;
   if (!stopIndices || stopIndices.length < 2) stopIndices = [0, coords.length - 1];
   if (!ordered) ordered = [];
-  _buildWalkerSprites();
   _walkerDistCovered = 0;
   _walkerPassedStops = new Set();
 
