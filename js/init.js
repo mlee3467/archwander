@@ -127,7 +127,7 @@ window.addEventListener('load', function() {
       '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:14px;font-family:Inter,sans-serif;color:#555;background:#F7F7F5">' +
       '<div style="font-size:36px">⚠️</div>' +
       '<div style="font-size:15px;font-weight:600;color:#111">Map library failed to load</div>' +
-      '<div style="font-size:13px;text-align:center;line-height:1.6">인터넷 연결을 확인하고 새로고침 해주세요.</div>' +
+      '<div style="font-size:13px;text-align:center;line-height:1.6">Please check your internet connection and refresh.</div>' +
       '<button onclick="location.reload()" style="padding:10px 22px;background:#111;color:white;border:none;border-radius:8px;font-size:13px;cursor:pointer">Refresh ↺</button></div>';
     return;
   }

@@ -217,7 +217,7 @@ function getFiltered(opts) {
     // Footer showing total count if more than AC_MAX
     if (totalMatches > AC_MAX) {
       html += '<div class="ac-footer" onmousedown="event.preventDefault()" onclick="_acCommit()">'
-        + '↵  ' + totalMatches + '개 검색결과 모두 보기</div>';
+        + '↵  ' + (typeof LANG !== 'undefined' && LANG === 'ko' ? totalMatches + '개 결과 모두 보기' : 'View all ' + totalMatches + ' results') + '</div>';
     }
 
     acEl.innerHTML = html;
