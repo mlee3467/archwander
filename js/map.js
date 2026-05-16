@@ -147,9 +147,12 @@ function _buildCityPins() {
     }
     statsHtml += '</div>';
 
+    var _emoji    = cm.label.split(' ')[0];
+    var _cityName = cm.label.split(' ').slice(1).join(' ');
     var cardHtml = '<div class="cwp-card" onclick="_cwpCityClick(\'' + code + '\')">' +
       '<div class="cwp-dot"></div>' +
-      '<div class="cwp-name">' + cm.label + '</div>' +
+      '<div class="cwp-name"><span class="cwp-flag">' + _emoji + '</span>' +
+      (_cityName ? '<span class="cwp-city-name">' + _cityName + '</span>' : '') + '</div>' +
       statsHtml +
       '</div>';
 

@@ -931,11 +931,22 @@
       box-shadow: 0 1px 4px rgba(0,0,0,0.3);
     }
     .cwp-name {
-      font-size: 11px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 2px;
+    }
+    .cwp-flag {
+      font-size: 20px;
+      line-height: 1.2;
+    }
+    .cwp-city-name {
+      font-size: 9px;
       font-weight: 700;
       color: #111;
       white-space: nowrap;
-      margin-bottom: 2px;
+      letter-spacing: 0.3px;
+      margin-top: 1px;
     }
     .cwp-stats {
       display: flex;
