@@ -7,14 +7,13 @@ var _mapInited = false;  // true once _doFullMapInit has been called
 // ── Splash → Landing ─────────────────────────────────────────────
 
 function showSplash() {
+  // Landing screen removed — always go straight to world map
+  localStorage.setItem('aw_landing_seen', '1');
   var el = document.getElementById('landing-splash');
-  var _firstVisit = !localStorage.getItem('aw_landing_seen');
-  // Skip web splash when launched as PWA standalone — OS already shows its own splash
   var _isPWA = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches)
              || window.navigator.standalone === true;
   if (_isPWA || !el) {
-    if (_firstVisit) showLandingScreen();
-    else _ensureMapInit();
+    _ensureMapInit();
     return;
   }
   el.style.display = 'flex';
@@ -23,14 +22,9 @@ function showSplash() {
     setTimeout(function() {
       el.style.display = 'none';
       el.classList.remove('fade-out');
-      if (_firstVisit) {
-        showLandingScreen();
-      } else {
-        // Returning user: skip landing, go straight to map
-        _ensureMapInit();
-      }
+      _ensureMapInit();
     }, 500);
-  }, 2500);  // 2500 + 500ms fade = 3s total splash
+  }, 2500);
 }
 
 function showLandingScreen() {

@@ -243,6 +243,17 @@ function _enterCity(code) {
     map.once('moveend', _doRender);
     // Fallback: render after 1.6s (fly is 1.2s) in case moveend doesn't fire
     setTimeout(_doRender, 1600);
+    // Mobile: auto-open sidebar after city entry
+    if (window.innerWidth < 901) {
+      setTimeout(function() {
+        var sb = document.getElementById('sidebar');
+        var bd = document.getElementById('sidebar-backdrop');
+        if (sb && !sb.classList.contains('open')) {
+          sb.classList.add('open');
+          if (bd) bd.classList.add('visible');
+        }
+      }, 1400);
+    }
   }).catch(function(err) {
     console.error('[_enterCity] load failed for', code, ':', err);
   });
