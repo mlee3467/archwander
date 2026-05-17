@@ -1,5 +1,5 @@
 // Search index — auto-generated
-// Total: 802 locations (NYC 292, Seoul 176, London 145, Tokyo 131, Chicago 58)
+// Total: 821 locations (NYC 292, Seoul 176, London 145, Tokyo 131, Chicago 77)
 const LOCS_INDEX = [
   {id:'nyc-0001',name:'Empire State Building',addr:'350 5th Ave, New York, NY 10118',hood:'Midtown Manhattan',arch:'Shreve, Lamb & Harmon',city:'new-york'},
   {id:'nyc-0002',name:'Chrysler Building',addr:'405 Lexington Ave, New York, NY',hood:'Midtown East',arch:'William Van Alen',city:'new-york'},
@@ -765,6 +765,7 @@ const LOCS_INDEX = [
   {id:'chi-0018',name:'Joe and Rika Mansueto Library',addr:'1100 E 57th St, Chicago, IL 60637',hood:'Hyde Park',arch:'Helmut Jahn',city:'chicago'},
   {id:'chi-0019',name:'Frank Lloyd Wright Home and Studio',addr:'951 Chicago Ave, Oak Park, IL 60302',hood:'Oak Park',arch:'Frank Lloyd Wright',city:'chicago'},
   {id:'chi-0020',name:'Unity Temple',addr:'875 Lake St, Oak Park, IL 60301',hood:'Oak Park',arch:'Frank Lloyd Wright',city:'chicago'},
+  {id:'chi-0021',name:'Bahá\'í House of Worship',addr:'100 Linden Ave, Wilmette, IL 60091',hood:'Wilmette',arch:'Louis Bourgeois',city:'chicago'},
   {id:'chi-0022',name:'BP Bridge',addr:'201 E Randolph St, Chicago, IL 60602',hood:'Millennium Park',arch:'Frank Gehry',city:'chicago'},
   {id:'chi-0023',name:'Jay Pritzker Pavilion',addr:'201 E Randolph St, Chicago, IL 60602',hood:'Millennium Park',arch:'Frank Gehry',city:'chicago'},
   {id:'chi-0024',name:'The Rookery Building',addr:'209 S LaSalle St, Chicago, IL 60604',hood:'The Loop',arch:'Burnham and Root',city:'chicago'},
@@ -780,6 +781,7 @@ const LOCS_INDEX = [
   {id:'chi-0034',name:'Millennium Park',addr:'201 E Randolph St, Chicago, IL 60602',hood:'The Loop',arch:'Various (SOM masterplan; Gehry, Kapoor, Plensa, Gustafson)',city:'chicago'},
   {id:'chi-0035',name:'Chicago Architecture Center',addr:'111 E Wacker Dr, Chicago, IL 60601',hood:'The Loop',arch:'Zurich-based studio itten+brechbühl / Interior: Adrian Smith + Gordon Gill',city:'chicago'},
   {id:'chi-0036',name:'James R. Thompson Center',addr:'100 W Randolph St, Chicago, IL 60601',hood:'The Loop',arch:'Helmut Jahn / Murphy/Jahn',city:'chicago'},
+  {id:'chi-0037',name:'McDonald\'s Global Headquarters',addr:'110 N Carpenter St, Chicago, IL 60607',hood:'West Loop',arch:'Gensler',city:'chicago'},
   {id:'chi-0038',name:'Chicago Riverwalk',addr:'N Riverwalk, Chicago, IL 60601',hood:'The Loop',arch:'Ross Barney Architects / Sasaki',city:'chicago'},
   {id:'chi-0039',name:'TRUMPF Smart Factory Chicago',addr:'2400 N Milwaukee Ave, Chicago, IL 60647',hood:'Logan Square',arch:'UNStudio / Wheeler Kearns Architects',city:'chicago'},
   {id:'chi-0040',name:'UChicago South Campus Chiller Plant',addr:'5710 S Ellis Ave, Chicago, IL 60637',hood:'Hyde Park',arch:'Skidmore, Owings & Merrill',city:'chicago'},
@@ -802,5 +804,22 @@ const LOCS_INDEX = [
   {id:'chi-0057',name:'Sullivan Center (Carson Pirie Scott Building)',addr:'1 S State St, Chicago, IL 60602',hood:'Loop',arch:'Louis Sullivan',city:'chicago'},
   {id:'chi-0058',name:'Getty Tomb',addr:'4001 N Clark St (Graceland Cemetery), Chicago, IL 60613',hood:'Uptown',arch:'Louis Sullivan',city:'chicago'},
   {id:'chi-0059',name:'Charnley-Persky House',addr:'1365 N Astor St, Chicago, IL 60610',hood:'Gold Coast',arch:'Adler & Sullivan',city:'chicago'},
-  {id:'chi-0060',name:'Pilgrim Baptist Church (K.A.M. Synagogue)',addr:'3301 S Indiana Ave, Chicago, IL 60616',hood:'Bronzeville',arch:'Adler & Sullivan',city:'chicago'}
+  {id:'chi-0060',name:'Pilgrim Baptist Church (K.A.M. Synagogue)',addr:'3301 S Indiana Ave, Chicago, IL 60616',hood:'Bronzeville',arch:'Adler & Sullivan',city:'chicago'},
+  {id:'chi-0061',name:'333 West Wacker Drive',addr:'333 W Wacker Dr, Chicago, IL 60606',hood:'Loop',arch:'Kohn Pedersen Fox',city:'chicago'},
+  {id:'chi-0062',name:'225 West Wacker Drive',addr:'225 W Wacker Dr, Chicago, IL 60606',hood:'Loop',arch:'Kohn Pedersen Fox',city:'chicago'},
+  {id:'chi-0063',name:'900 North Michigan Avenue',addr:'900 N Michigan Ave, Chicago, IL 60611',hood:'Streeterville',arch:'Kohn Pedersen Fox',city:'chicago'},
+  {id:'chi-0064',name:'United Center',addr:'1901 W Madison St, Chicago, IL 60612',hood:'Near West Side',arch:'HOK Sport',city:'chicago'},
+  {id:'chi-0065',name:'William Eckhardt Research Center',addr:'5640 S Ellis Ave, Chicago, IL 60637',hood:'Hyde Park',arch:'HOK',city:'chicago'},
+  {id:'chi-0066',name:'Chase Tower (First National Bank of Chicago)',addr:'21 S Clark St, Chicago, IL 60603',hood:'Loop',arch:'Perkins & Will',city:'chicago'},
+  {id:'chi-0067',name:'Peggy Notebaert Nature Museum',addr:'2430 N Cannon Dr, Chicago, IL 60614',hood:'Lincoln Park',arch:'Perkins & Will',city:'chicago'},
+  {id:'chi-0068',name:'Rush University Medical Center Hospital Tower',addr:'1620 W Harrison St, Chicago, IL 60612',hood:'Near West Side',arch:'Perkins & Will',city:'chicago'},
+  {id:'chi-0069',name:'One Bennett Park',addr:'451 E Grand Ave, Chicago, IL 60611',hood:'Streeterville',arch:'Robert A.M. Stern Architects',city:'chicago'},
+  {id:'chi-0070',name:'David Rubenstein Forum',addr:'1201 E 60th St, Chicago, IL 60637',hood:'Hyde Park',arch:'Diller Scofidio + Renfro',city:'chicago'},
+  {id:'chi-0071',name:'United Airlines Terminal 1 — O\'Hare',addr:'10000 W O\'Hare Ave, Chicago, IL 60666',hood:'O\'Hare',arch:'Murphy/Jahn',city:'chicago'},
+  {id:'chi-0072',name:'State Street Village — IIT',addr:'3303 S State St, Chicago, IL 60616',hood:'Bronzeville',arch:'JAHN',city:'chicago'},
+  {id:'chi-0073',name:'WMS Boathouse at Clark Park',addr:'3400 N Rockwell Ave, Chicago, IL 60618',hood:'Avondale',arch:'Studio Gang',city:'chicago'},
+  {id:'chi-0074',name:'Eleanor Boathouse at Park 571',addr:'800 W 56th St, Chicago, IL 60636',hood:'Back of the Yards',arch:'Studio Gang',city:'chicago'},
+  {id:'chi-0075',name:'Northerly Island Park',addr:'1400 S Linn White Dr, Chicago, IL 60605',hood:'Near South Side',arch:'Studio Gang',city:'chicago'},
+  {id:'chi-0076',name:'Inland Steel Building',addr:'30 W Monroe St, Chicago, IL 60603',hood:'Loop',arch:'Skidmore, Owings & Merrill',city:'chicago'},
+  {id:'chi-0077',name:'AT&T Corporate Center',addr:'227 W Monroe St, Chicago, IL 60606',hood:'Loop',arch:'Skidmore, Owings & Merrill',city:'chicago'}
 ];
