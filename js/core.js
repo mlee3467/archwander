@@ -226,12 +226,18 @@ function getFiltered(opts) {
           : (_esc(loc.hood || '') + (loc.yr ? ' · ' + loc.yr : ''));
       }
 
-      var ccM   = (typeof _ccMeta === 'function') ? _ccMeta(loc) : null;
-      var ccLbl = (typeof CC_LABEL !== 'undefined' && loc.cc) ? (CC_LABEL[loc.cc] || '') : '';
-      var badge = ccLbl
-        ? '<span class="ac-badge" style="background:' + (ccM ? ccM.bg : '#e8e8e4')
-          + ';color:' + (ccM ? ccM.color : '#555') + '">' + _esc(ccLbl) + '</span>'
-        : '';
+      // Badge: world map → city name; city map → location type
+      var badge;
+      if (typeof _worldMode !== 'undefined' && _worldMode) {
+        badge = '<span class="ac-badge ac-city-badge">' + _esc(_cityLabel(loc.city)) + '</span>';
+      } else {
+        var ccM   = (typeof _ccMeta === 'function') ? _ccMeta(loc) : null;
+        var ccLbl = (typeof CC_LABEL !== 'undefined' && loc.cc) ? (CC_LABEL[loc.cc] || '') : '';
+        badge = ccLbl
+          ? '<span class="ac-badge" style="background:' + (ccM ? ccM.bg : '#e8e8e4')
+            + ';color:' + (ccM ? ccM.color : '#555') + '">' + _esc(ccLbl) + '</span>'
+          : '';
+      }
 
       return '<div class="ac-item" data-id="' + loc.id + '" data-idx="' + i + '"'
         + ' onmousedown="event.preventDefault()" onclick="_acSelect(\'' + loc.id + '\')">'
