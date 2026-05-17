@@ -1,0 +1,53 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # ── Secret injection ──────────────────────────────────────────
+      # GitHub Secrets에 등록된 값들을 config.js placeholder에 주입.
+      # 절대 실제 값을 config.js에 직접 커밋하지 말 것.
+      - name: Inject API keys into config.js
+        env:
+          GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          sed -i "s|__GOOGLE_MAPS_API_KEY__|${GOOGLE_MAPS_API_KEY}|g" js/config.js
+          sed -i "s|__SUPABASE_URL__|${SUPABASE_URL}|g"               js/config.js
+          sed -i "s|__SUPABASE_ANON_KEY__|${SUPABASE_ANON_KEY}|g"     js/config.js
+          echo "✅ config.js injection complete"
+
+      # ── GitHub Pages deploy ───────────────────────────────────────
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

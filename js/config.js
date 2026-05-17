@@ -118,14 +118,16 @@ var THUNDERFOREST_STYLE   = 'pioneer'; // 'transport' | 'cycle' | 'atlas' | 'pio
 
 // Google Maps Embed — Street View fallback for locations without photos.
 // Free: 28,000 loads/month. Secure with HTTP Referrer restriction in Google Cloud Console.
-var GOOGLE_MAPS_API_KEY = 'AIzaSyCNRDEjE4xhxb1QlK7_WERTn7VCX9dVNP0';
+// ⚠️ 실제 키는 GitHub Actions Secret (GOOGLE_MAPS_API_KEY)으로 주입됨 — 이 파일에 직접 입력 금지.
+var GOOGLE_MAPS_API_KEY = '__GOOGLE_MAPS_API_KEY__';
 
 // ── Supabase ─────────────────────────────────────────────────────
 // Location data is served from Supabase instead of public JS files.
 // Dashboard → Settings → API 에서 Project URL과 anon key를 복사하세요.
 // anon key는 클라이언트에 노출되어도 안전 (RLS로 읽기 전용 제한됨).
-var SUPABASE_URL      = 'https://bfhheauvuvrkdeajfjzy.supabase.co';
-var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJmaGhlYXV2dXZya2RlYWpmanp5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY0OTU0MTEsImV4cCI6MjA5MjA3MTQxMX0.SSWxRtwebLXo7eU-d2rvcu28XXRNpFnz9HcDhq-FUiY';
+// ⚠️ 실제 값은 GitHub Actions Secret으로 주입됨 — 이 파일에 직접 입력 금지.
+var SUPABASE_URL      = '__SUPABASE_URL__';
+var SUPABASE_ANON_KEY = '__SUPABASE_ANON_KEY__';
 
 // Supabase 클라이언트 초기화 (URL/KEY 없으면 로컬 JS 파일 폴백)
 var _supabase = (SUPABASE_URL && SUPABASE_ANON_KEY && typeof supabase !== 'undefined')
