@@ -1,5 +1,5 @@
 // Search index — auto-generated
-// Total: 821 locations (NYC 292, Seoul 176, London 145, Tokyo 131, Chicago 77)
+// Total: 836 locations (NYC 292, Seoul 176, London 145, Tokyo 131, Chicago 92)
 const LOCS_INDEX = [
   {id:'nyc-0001',name:'Empire State Building',addr:'350 5th Ave, New York, NY 10118',hood:'Midtown Manhattan',arch:'Shreve, Lamb & Harmon',city:'new-york'},
   {id:'nyc-0002',name:'Chrysler Building',addr:'405 Lexington Ave, New York, NY',hood:'Midtown East',arch:'William Van Alen',city:'new-york'},
@@ -821,5 +821,20 @@ const LOCS_INDEX = [
   {id:'chi-0074',name:'Eleanor Boathouse at Park 571',addr:'800 W 56th St, Chicago, IL 60636',hood:'Back of the Yards',arch:'Studio Gang',city:'chicago'},
   {id:'chi-0075',name:'Northerly Island Park',addr:'1400 S Linn White Dr, Chicago, IL 60605',hood:'Near South Side',arch:'Studio Gang',city:'chicago'},
   {id:'chi-0076',name:'Inland Steel Building',addr:'30 W Monroe St, Chicago, IL 60603',hood:'Loop',arch:'Skidmore, Owings & Merrill',city:'chicago'},
-  {id:'chi-0077',name:'AT&T Corporate Center',addr:'227 W Monroe St, Chicago, IL 60606',hood:'Loop',arch:'Skidmore, Owings & Merrill',city:'chicago'}
+  {id:'chi-0077',name:'AT&T Corporate Center',addr:'227 W Monroe St, Chicago, IL 60606',hood:'Loop',arch:'Skidmore, Owings & Merrill',city:'chicago'},
+  {id:'chi-0078',name:'Old Colony Building (ARC at Old Colony)',addr:'407 S Dearborn St, Chicago, IL 60605',hood:'Printers Row',arch:'Holabird & Roche',city:'chicago'},
+  {id:'chi-0079',name:'Pepper Family Wildlife Center (Lion House)',addr:'2200 N Cannon Dr, Chicago, IL 60614',hood:'Lincoln Park',arch:'Dwight Perkins',city:'chicago'},
+  {id:'chi-0080',name:'110 North Wacker',addr:'110 N Wacker Dr, Chicago, IL 60606',hood:'Loop',arch:'Goettsch Partners',city:'chicago'},
+  {id:'chi-0081',name:'Institute of Environmental Sustainability — Loyola University',addr:'1032 W Sheridan Rd, Chicago, IL 60660',hood:'Rogers Park',arch:'Solomon Cordwell Buenz',city:'chicago'},
+  {id:'chi-0082',name:'Ford Calumet Environmental Center',addr:'11000 S Stony Island Ave, Chicago, IL 60617',hood:'Hegewisch',arch:'Valerio Dewalt Train Associates',city:'chicago'},
+  {id:'chi-0083',name:'Searle Visitor Center — Lincoln Park Zoo',addr:'2001 N Clark St, Chicago, IL 60614',hood:'Lincoln Park',arch:'Ross Barney Architects',city:'chicago'},
+  {id:'chi-0084',name:'Vue53',addr:'5252 S Cornell Ave, Chicago, IL 60615',hood:'Hyde Park',arch:'Valerio Dewalt Train Associates',city:'chicago'},
+  {id:'chi-0085',name:'Gordon Parks Arts Hall — U of C Lab Schools',addr:'5815 S Kimbark Ave, Chicago, IL 60637',hood:'Hyde Park',arch:'Valerio Dewalt Train Associates',city:'chicago'},
+  {id:'chi-0086',name:'Rockefeller Memorial Chapel',addr:'5850 S Woodlawn Ave, Chicago, IL 60637',hood:'Hyde Park',arch:'Bertram Grosvenor Goodhue',city:'chicago'},
+  {id:'chi-0087',name:'Tower Group — University of Chicago',addr:'5706 S University Ave, Chicago, IL 60637',hood:'Hyde Park',arch:'Shepley, Rutan & Coolidge',city:'chicago'},
+  {id:'chi-0088',name:'Harper Memorial Library — University of Chicago',addr:'1116 E 59th St, Chicago, IL 60637',hood:'Hyde Park',arch:'Shepley, Rutan & Coolidge',city:'chicago'},
+  {id:'chi-0089',name:'Oriental Institute Museum — University of Chicago',addr:'1155 E 58th St, Chicago, IL 60637',hood:'Hyde Park',arch:'Mayers, Murray & Phillip',city:'chicago'},
+  {id:'chi-0090',name:'Joseph Regenstein Library — University of Chicago',addr:'1100 E 57th St, Chicago, IL 60637',hood:'Hyde Park',arch:'Skidmore, Owings & Merrill',city:'chicago'},
+  {id:'chi-0091',name:'Alumni Memorial Hall — IIT',addr:'3201 S Dearborn St, Chicago, IL 60616',hood:'Bronzeville',arch:'Ludwig Mies van der Rohe',city:'chicago'},
+  {id:'chi-0092',name:'Robert F. Carr Memorial Chapel of St. Saviour — IIT',addr:'65 E 32nd St, Chicago, IL 60616',hood:'Bronzeville',arch:'Ludwig Mies van der Rohe',city:'chicago'}
 ];
