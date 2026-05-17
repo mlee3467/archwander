@@ -1,5 +1,5 @@
 // ArchWander Search Index — auto-generated
-// 750 locations across all cities
+// 756 locations
 var LOCS_INDEX = [
   {id:'nyc-0001',name:'Empire State Building',addr:'350 5th Ave, New York, NY 10118',hood:'Midtown Manhattan',arch:'Shreve, Lamb & Harmon',city:'new-york'},
   {id:'nyc-0002',name:'Chrysler Building',addr:'405 Lexington Ave, New York, NY',hood:'Midtown East',arch:'William Van Alen',city:'new-york'},
@@ -441,6 +441,12 @@ var LOCS_INDEX = [
   {id:'sel-0160',name:'Won & Won 63.5',addr:'63-5 Insadong-gil, Jongno-gu, Seoul 03150',hood:'Insadong',arch:'Doojin Hwang Architects',city:'seoul'},
   {id:'sel-0161',name:'Choonwondang Oriental Clinic & Museum',addr:'119 Insadong-gil, Jongno-gu, Seoul 03171',hood:'Insadong',arch:'Doojin Hwang Architects',city:'seoul'},
   {id:'sel-0162',name:'H&M Seoul Store',addr:'52 Myeongdong-gil, Jung-gu, Seoul 04536',hood:'Myeongdong',arch:'Universal Design Studio',city:'seoul'},
+  {id:'sel-0163',name:'War & Women\'s Human Rights Museum',addr:'38 Worldcup-buk-ro 11-gil, Mapo-gu, Seoul 03969',hood:'Mapo',arch:'Wise Architecture',city:'seoul'},
+  {id:'sel-0164',name:'Songpa Micro Housing',addr:'Pungseong-dong, Songpa-gu, Seoul 05629',hood:'Songpa',arch:'SsD',city:'seoul'},
+  {id:'sel-0165',name:'YG Entertainment Headquarters',addr:'142 Gyeonghui-daero, Mapo-gu, Seoul 04376',hood:'Seodaemun',arch:'UNStudio',city:'seoul'},
+  {id:'sel-0166',name:'AFER Hangang',addr:'43 Hangang-daero, Yongsan-gu, Seoul 04380',hood:'Yongsan',arch:'Hyunjoon Yoo Architects',city:'seoul'},
+  {id:'sel-0167',name:'Songhyunjae at Kukje Gallery',addr:'54 Samcheong-ro, Jongno-gu, Seoul 03058',hood:'Samcheong',arch:'Urban Ark Architects',city:'seoul'},
+  {id:'sel-0168',name:'Areuke Spa',addr:'Yeouido-dong, Yeongdeungpo-gu, Seoul',hood:'Yeouido',arch:'Chiasmus Partners',city:'seoul'},
   {id:'lon-0001',name:'30 St Mary Axe (Gherkin)',addr:'30 St Mary Axe, City of London EC3A 8EP',hood:'City of London',arch:'Foster + Partners',city:'london'},
   {id:'lon-0002',name:'Bloomberg European HQ',addr:'3 Queen Victoria St, London EC4N 4TQ',hood:'City of London',arch:'Foster + Partners',city:'london'},
   {id:'lon-0003',name:'Great Court, British Museum',addr:'Great Russell St, London WC1B 3DG',hood:'Bloomsbury',arch:'Foster + Partners',city:'london'},
