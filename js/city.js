@@ -804,15 +804,21 @@ function _refreshCityDataBackground(cityCode, meta, cacheKey) {
     var freshLocs = result.data.map(_dbRowToLoc);
     // Update cache with latest data
     try { localStorage.setItem(cacheKey, JSON.stringify(freshLocs)); } catch(e) {}
-    // Merge any NEW locations not yet in LOCS
-    var existingIds = new Set(LOCS.map(function(l) { return l.id; }));
-    var added = 0;
+    // Update existing locations (sv/panoId changes) AND add new ones
+    var idxMap = {};
+    LOCS.forEach(function(l, i){ idxMap[l.id] = i; });
+    var added = 0, updated = 0;
     freshLocs.forEach(function(l) {
-      if (!existingIds.has(l.id)) { LOCS.push(l); added++; }
+      if (idxMap[l.id] === undefined) {
+        LOCS.push(l); added++;
+      } else {
+        // In-place update so any open detail panel picks up changes on next interaction
+        Object.assign(LOCS[idxMap[l.id]], l); updated++;
+      }
     });
-    if (added > 0) {
-      console.log('[cache] Background refresh added', added, 'new locations for', meta.key);
-      if (typeof refreshApp === 'function') refreshApp();
+    if (added > 0 || updated > 0) {
+      console.log('[cache] Background refresh: +' + added + ' new, ~' + updated + ' updated for', meta.key);
+      if (added > 0 && typeof refreshApp === 'function') refreshApp();
     }
   }).catch(function() {});
 }
