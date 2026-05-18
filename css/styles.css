@@ -2521,15 +2521,41 @@
   padding-top: 6px; font-weight: 500; letter-spacing: 0.2px;
 }
 
-/* Like / Pass overlay badges */
+/* Like / Pass overlay badges — centered on photo, 2× size */
 .ilk-like-badge, .ilk-pass-badge {
-  position: absolute; top: 28px;
-  font-size: 18px; font-weight: 900; letter-spacing: 1px;
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 36px; font-weight: 900; letter-spacing: 2px;
   opacity: 0; pointer-events: none;
-  padding: 5px 14px; border-radius: 6px; border-width: 3px; border-style: solid;
+  padding: 10px 28px; border-radius: 8px; border-width: 4px; border-style: solid;
+  z-index: 10;
 }
-.ilk-like-badge { right: 20px; color: #22c55e; border-color: #22c55e; }
-.ilk-pass-badge { left: 20px; color: #ef4444; border-color: #ef4444; }
+.ilk-like-badge { color: #22c55e; border-color: #22c55e; }
+.ilk-pass-badge { color: #ef4444; border-color: #ef4444; }
+
+/* Gallery media wrapper */
+.ilk-media-content { width: 100%; height: 100%; }
+
+/* Gallery nav bar (prev/next + dots) */
+.ilk-media-nav {
+  position: absolute; bottom: 8px; left: 0; right: 0;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 8px; pointer-events: auto; z-index: 5;
+}
+.ilk-nav-btn {
+  background: rgba(0,0,0,0.45); color: #fff;
+  border: none; border-radius: 50%; width: 32px; height: 32px;
+  font-size: 22px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+}
+.ilk-nav-btn:active { background: rgba(0,0,0,0.7); }
+.ilk-photo-dots { display: flex; gap: 5px; align-items: center; }
+.ilk-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: rgba(255,255,255,0.35); transition: background 0.2s;
+}
+.ilk-dot-active { background: #fff; }
 
 /* Action buttons */
 .ilk-actions {

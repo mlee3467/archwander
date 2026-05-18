@@ -1283,16 +1283,18 @@ function fwilCreateRoute() {
 // I FEEL LUCKY — Daily card swipe system
 // ══════════════════════════════════════════════════════════════════
 
-var _LUCKY_LIMIT   = 10;
-var _LUCKY_KEY_DATE  = 'aw_lucky_date_v2'; // v2: UTC-based (old key discarded)
-var _LUCKY_KEY_SEEN  = 'aw_lucky_seen_v2'; // v2: reset with new key
+var _LUCKY_LIMIT     = 5;
+var _LUCKY_KEY_DATE  = 'aw_lucky_date_v2';
+var _LUCKY_KEY_SEEN  = 'aw_lucky_seen_v2';
 var _LUCKY_KEY_LIKED = 'aw_lucky_liked';
+var _LUCKY_KEY_AUTO  = 'aw_lucky_auto_v2'; // date when daily auto-IFL was shown
 
-var _luckyQueue  = [];
-var _luckyIndex  = 0;
-var _luckyLiked  = [];   // IDs liked this session
-var _luckyTouchX = 0;
-var _luckyTouchY = 0;
+var _luckyQueue    = [];
+var _luckyIndex    = 0;
+var _luckyLiked    = [];   // IDs liked this session
+var _luckyPhotoIdx = 0;    // current slide index within active card
+var _luckyTouchX   = 0;
+var _luckyTouchY   = 0;
 var _luckyDragging = false;
 
 function _luckyTodayStr() {
@@ -1366,26 +1368,78 @@ function _closeLuckyScreen() {
   setTimeout(function() { screen.style.display = 'none'; }, 280);
 }
 
+// ── IFL Gallery helpers ────────────────────────────────────────────
+function _buildLuckyMediaContent(loc, photos, idx, hasSV) {
+  var isSvSlide = hasSV && (idx >= photos.length);
+  if (isSvSlide) {
+    var _SV_ALLOW = 'accelerometer; gyroscope; magnetometer; fullscreen';
+    var svLat = (loc.sv && loc.sv.lat     != null) ? loc.sv.lat     : loc.lat;
+    var svLng = (loc.sv && loc.sv.lng     != null) ? loc.sv.lng     : loc.lng;
+    var svH   = (loc.sv && loc.sv.heading != null) ? loc.sv.heading : 0;
+    var svP   = (loc.sv && loc.sv.pitch   != null) ? loc.sv.pitch   : 5;
+    var svFov = Math.min(100, Math.max(10, (loc.sv && loc.sv.fov != null) ? loc.sv.fov : 80));
+    var svQ = 'key=' + GOOGLE_MAPS_API_KEY + '&heading=' + svH + '&pitch=' + svP + '&fov=' + svFov;
+    if (loc.sv && loc.sv.panoId) svQ += '&pano=' + loc.sv.panoId;
+    else svQ += '&location=' + svLat + ',' + svLng;
+    var svSrc = 'https://www.google.com/maps/embed/v1/streetview?' + svQ;
+    var _svLabel = (typeof LANG !== 'undefined' && LANG === 'ko') ? '드래그로 탐색' : 'Street View';
+    if (typeof _requestMotionPermission === 'function') _requestMotionPermission();
+    return '<iframe class="ilk-card-sv" src="' + svSrc + '"' +
+      ' frameborder="0" referrerpolicy="no-referrer-when-downgrade"' +
+      ' allowfullscreen allow="' + _SV_ALLOW + '"></iframe>' +
+      '<div class="ilk-sv-label">' + _svLabel + '</div>';
+  } else if (photos.length > 0 && idx < photos.length) {
+    var _pUrl = (typeof photoUrl === 'function')
+      ? photoUrl(photos[idx], true, 'popup') : photos[idx];
+    return '<img class="ilk-card-img" src="' + _pUrl + '" loading="eager" fetchpriority="high"' +
+      ' onerror="this.onerror=null;this.src=\'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7\';this.style.background=\'#1a1a1a\'">';
+  } else {
+    return '<div class="ilk-card-no-photo"></div>';
+  }
+}
+
+function _buildPhotoDots(total, current) {
+  var html = '';
+  for (var i = 0; i < Math.min(total, 8); i++) {
+    html += '<span class="ilk-dot' + (i === current ? ' ilk-dot-active' : '') + '"></span>';
+  }
+  return html;
+}
+
+function _luckyNavPhoto(delta) {
+  var loc = _luckyQueue[_luckyIndex];
+  if (!loc) return;
+  var photos = (loc.photos && loc.photos.length) ? loc.photos : [];
+  var hasSV = (typeof GOOGLE_MAPS_API_KEY === 'string' && GOOGLE_MAPS_API_KEY && loc.lat && loc.lng);
+  var totalSlides = photos.length + (hasSV ? 1 : 0);
+  if (totalSlides <= 1) return;
+  _luckyPhotoIdx = (_luckyPhotoIdx + delta + totalSlides) % totalSlides;
+  var contentEl = document.getElementById('ilk-media-content');
+  if (contentEl) contentEl.innerHTML = _buildLuckyMediaContent(loc, photos, _luckyPhotoIdx, hasSV);
+  var dotsEl = document.getElementById('ilk-photo-dots');
+  if (dotsEl) dotsEl.innerHTML = _buildPhotoDots(totalSlides, _luckyPhotoIdx);
+}
+
+// ── _renderLuckyCard ───────────────────────────────────────────────
 function _renderLuckyCard(screen, seen) {
   var cardArea = document.getElementById('ilk-card-area');
   var counter  = document.getElementById('ilk-counter');
   var actions  = document.getElementById('ilk-actions');
   if (!cardArea) return;
 
-  // Guard: if queue is empty but seen < limit, LOCS may not be loaded yet — show error
   if (_luckyIndex >= _luckyQueue.length) {
     var seenNow = seen || _luckyGetSeen();
     if (seenNow.length < _LUCKY_LIMIT && _luckyQueue.length === 0) {
-      // LOCS not loaded yet or no locations — show friendly message instead of results
-      if (cardArea) cardArea.innerHTML =
+      cardArea.innerHTML =
         '<div style="color:rgba(255,255,255,0.6);font-size:14px;text-align:center;padding:32px 16px">' +
-        'No locations loaded yet.<br>Please wait for the map to finish loading.' +
-        '</div>';
+        'No locations loaded yet.<br>Please wait for the map to finish loading.</div>';
       return;
     }
     _showLuckyResults(screen, seenNow);
     return;
   }
+
+  _luckyPhotoIdx = 0; // reset slide index for new card
 
   var loc = _luckyQueue[_luckyIndex];
   var total = seen ? seen.length + _luckyQueue.length : _LUCKY_LIMIT;
@@ -1395,52 +1449,30 @@ function _renderLuckyCard(screen, seen) {
 
   var isKo = typeof LANG !== 'undefined' && LANG === 'ko';
 
-  // ── Media section: photo → Street View → placeholder ──────────
+  // ── Media gallery: ALL photos + SV as last slide ───────────────
   var photos = (loc.photos && loc.photos.length) ? loc.photos : [];
   var hasSVKey = typeof GOOGLE_MAPS_API_KEY === 'string' && GOOGLE_MAPS_API_KEY;
-  var _SV_ALLOW = 'accelerometer; gyroscope; magnetometer; fullscreen';
-  var mediaInner;
-  var _pUrl = (photos.length && typeof photoUrl === 'function')
-    ? photoUrl(photos[0], true, 'popup')
-    : (photos.length ? photos[0] : '');
-  if (photos.length) {
-    mediaInner = '<img class="ilk-card-img" src="' + _pUrl + '" loading="eager" fetchpriority="high"' +
-      ' onerror="this.style.display=\'none\';this.nextElementSibling && (this.nextElementSibling.style.display=\'\')">' +
-      '<div class="ilk-card-no-photo" style="display:none"></div>';
-  } else if (hasSVKey && loc.lat && loc.lng) {
-    // Use correct field names matching core.js / map.js data schema
-    var svLat = (loc.sv && loc.sv.lat     != null) ? loc.sv.lat     : loc.lat;
-    var svLng = (loc.sv && loc.sv.lng     != null) ? loc.sv.lng     : loc.lng;
-    var svH   = (loc.sv && loc.sv.heading != null) ? loc.sv.heading : 0;
-    var svP   = (loc.sv && loc.sv.pitch   != null) ? loc.sv.pitch   : 5;
-    var svFov = Math.min(100, Math.max(10, (loc.sv && loc.sv.fov != null) ? loc.sv.fov : 80));
-    // panoId takes priority over lat/lng (same as map.js / core.js)
-    var svQ = 'key=' + GOOGLE_MAPS_API_KEY + '&heading=' + svH + '&pitch=' + svP + '&fov=' + svFov;
-    if (loc.sv && loc.sv.panoId) svQ += '&pano=' + loc.sv.panoId;
-    else svQ += '&location=' + svLat + ',' + svLng;
-    var svSrc = 'https://www.google.com/maps/embed/v1/streetview?' + svQ;
-    // iframe is pointer-events:auto → user can pan/drag SV directly inside the card.
-    // Swipe left/right still works via the card-info area + LIKE/PASS buttons.
-    var _svLabel = (typeof LANG !== 'undefined' && LANG === 'ko') ? '드래그로 탐색' : 'Drag to explore';
-    mediaInner = '<iframe class="ilk-card-sv" src="' + svSrc + '"' +
-      ' frameborder="0" referrerpolicy="no-referrer-when-downgrade"' +
-      ' allowfullscreen allow="' + _SV_ALLOW + '"></iframe>' +
-      '<div class="ilk-sv-label">' + _svLabel + '</div>';
-    // Request iOS gyroscope permission from parent (must happen in user-gesture context)
-    if (typeof _requestMotionPermission === 'function') _requestMotionPermission();
-  } else {
-    mediaInner = '<div class="ilk-card-no-photo"></div>';
+  var hasSV = hasSVKey && loc.lat && loc.lng;
+  var totalSlides = photos.length + (hasSV ? 1 : 0);
+
+  var mediaContentHtml = _buildLuckyMediaContent(loc, photos, 0, hasSV);
+  var navHtml = '';
+  if (totalSlides > 1) {
+    navHtml =
+      '<div class="ilk-media-nav">' +
+        '<button class="ilk-nav-btn ilk-nav-prev" onclick="event.stopPropagation();_luckyNavPhoto(-1)">&#8249;</button>' +
+        '<div class="ilk-photo-dots" id="ilk-photo-dots">' + _buildPhotoDots(totalSlides, 0) + '</div>' +
+        '<button class="ilk-nav-btn ilk-nav-next" onclick="event.stopPropagation();_luckyNavPhoto(1)">&#8250;</button>' +
+      '</div>';
   }
 
-  // ── Meta: architect · year ────────────────────────────────────
+  // ── Meta ───────────────────────────────────────────────────────
   var archParts = [];
   if (loc.arch) archParts.push(loc.arch);
   if (loc.yr)   archParts.push(loc.yr);
   var archYrHtml = archParts.length
-    ? '<div class="ilk-arch-yr">' + archParts.join(' · ') + '</div>'
-    : '';
+    ? '<div class="ilk-arch-yr">' + archParts.join(' · ') + '</div>' : '';
 
-  // ── Tags (max 4) ──────────────────────────────────────────────
   var tagsHtml = '';
   if (loc.tags && loc.tags.length) {
     tagsHtml = '<div class="ilk-tags">' +
@@ -1449,34 +1481,33 @@ function _renderLuckyCard(screen, seen) {
       }).join('') + '</div>';
   }
 
-  // ── Description ───────────────────────────────────────────────
-  var desc = (isKo ? (loc.desc_ko || loc.desc_en) : (loc.desc_en || loc.desc_ko)) || '';
-  if (desc.length > 120) desc = desc.slice(0, 120) + '…';
+  var desc = (isKo ? (loc.desc_ko || loc.desc_en) : (loc.desc_en || loc.desc_ko)) || loc.desc || '';
+  if (desc.length > 200) desc = desc.slice(0, 200) + '…';
 
-  // ── City label ────────────────────────────────────────────────
   var cityLabel = (typeof CITY_META !== 'undefined' && loc.city)
     ? (Object.values(CITY_META).find(function(m) { return m.key === loc.city; }) || {}).label || loc.city
     : loc.city || '';
 
   cardArea.innerHTML =
     '<div class="ilk-card" id="ilk-active-card">' +
-      '<div class="ilk-card-media">' + mediaInner + '</div>' +
+      '<div class="ilk-card-media">' +
+        '<div class="ilk-media-content" id="ilk-media-content">' + mediaContentHtml + '</div>' +
+        navHtml +
+        '<div class="ilk-like-badge" id="ilk-like-badge">LIKE</div>' +
+        '<div class="ilk-pass-badge" id="ilk-pass-badge">PASS</div>' +
+      '</div>' +
       '<div class="ilk-card-info">' +
         '<div class="ilk-card-name">' + (loc.name || '') + '</div>' +
-        archYrHtml +
-        tagsHtml +
+        archYrHtml + tagsHtml +
         (desc ? '<div class="ilk-card-desc">' + desc + '</div>' : '') +
         '<div class="ilk-card-city">' + cityLabel + '</div>' +
       '</div>' +
-      '<div class="ilk-like-badge">LIKE</div>' +
-      '<div class="ilk-pass-badge">PASS</div>' +
     '</div>';
 
-  // Bind swipe
   var card = document.getElementById('ilk-active-card');
   if (card) _bindLuckySwipe(card, screen, seen);
 
-  // Preload next card's image so the transition is instant
+  // Preload next card's first image
   var _nextIdx = _luckyIndex + 1;
   if (_nextIdx < _luckyQueue.length) {
     var _nextLoc = _luckyQueue[_nextIdx];
@@ -1484,14 +1515,15 @@ function _renderLuckyCard(screen, seen) {
     if (_nextPhotos.length) {
       var _preload = new Image();
       _preload.src = (typeof photoUrl === 'function')
-        ? photoUrl(_nextPhotos[0], true, 'popup')
-        : _nextPhotos[0];
+        ? photoUrl(_nextPhotos[0], true, 'popup') : _nextPhotos[0];
     }
   }
 }
 
 function _bindLuckySwipe(card, screen, seen) {
   card.addEventListener('touchstart', function(e) {
+    // Don't start drag if touching nav buttons
+    if (e.target.closest && e.target.closest('.ilk-nav-btn, .ilk-media-nav')) return;
     _luckyTouchX = e.touches[0].clientX;
     _luckyTouchY = e.touches[0].clientY;
     _luckyDragging = true;
@@ -1594,10 +1626,10 @@ function _showLuckyResults(screen, seen) {
     .filter(function(l) { return l && (!cityKey || l.city === cityKey); });
 
   var isKo = typeof LANG !== 'undefined' && LANG === 'ko';
-  var tomorrowHint = isKo ? '내일 새로운 10개의 장소를 만나보세요.' : 'Come back tomorrow for 10 new places.';
-  var matchTitle = isKo ? '🎯 내 관심 장소' : '🎯 Your Matches';
+  var tomorrowHint = isKo ? '내일 새로운 5개의 장소를 만나보세요.' : 'Come back tomorrow for 5 new places.';
+  var matchTitle = isKo ? '🎲 오늘의 관심 장소' : '🎲 Today\'s Picks';
   var noMatch = isKo ? '아직 좋아한 장소가 없어요.' : 'No liked places yet.';
-  var favHint = isKo ? '탭하면 즐겨찾기에 추가됩니다.' : 'Tap to add to favorites.';
+  var favHint = isKo ? '탭하면 지도에서 확인합니다.' : 'Tap to view on map.';
 
   var matchHtml = matches.length
     ? matches.map(function(loc) {
@@ -1629,17 +1661,42 @@ function _showLuckyResults(screen, seen) {
 }
 
 function _luckyMatchTap(locId) {
-  if (typeof toggleFav === 'function') {
-    toggleFav(locId);
-    // Refresh the star icon
-    var rows = document.querySelectorAll('.ilk-match-row');
-    rows.forEach(function(row) {
-      if (row.getAttribute('onclick') && row.getAttribute('onclick').indexOf(locId) !== -1) {
-        var star = row.querySelector('span');
-        if (star) star.textContent = (typeof isFav === 'function' && isFav(locId)) ? '⭐' : '☆';
-      }
-    });
-  }
+  _closeLuckyScreen();
+  setTimeout(function() {
+    var allLocs = typeof LOCS !== 'undefined' ? LOCS : [];
+    var loc = allLocs.find(function(l) { return l.id === locId; });
+    if (!loc) return;
+    // Switch city if needed
+    if (loc.city !== (typeof activeCityKey !== 'undefined' ? activeCityKey : null)) {
+      var cityCode = Object.keys(typeof CITY_META !== 'undefined' ? CITY_META : {})
+        .find(function(k) { return CITY_META[k].key === loc.city; });
+      if (cityCode && typeof selectCity === 'function') selectCity(cityCode);
+    }
+    // Fly to location on map
+    if (typeof map !== 'undefined' && map) {
+      map.flyTo([loc.lat, loc.lng], 17, { duration: 0.8, animate: true });
+    }
+    // Open location detail panel
+    setTimeout(function() {
+      if (typeof openLocById === 'function') openLocById(loc.id);
+      else if (typeof openLoc === 'function') openLoc(loc);
+    }, 350);
+  }, 320);
+}
+
+// ── Daily auto-trigger ─────────────────────────────────────────────
+function _checkAutoIfl() {
+  var today = _luckyTodayStr();
+  if (localStorage.getItem(_LUCKY_KEY_AUTO) === today) return; // already shown today
+  var cityKey = typeof activeCityKey !== 'undefined' ? activeCityKey : null;
+  var cityLocs = (typeof LOCS !== 'undefined' ? LOCS : []).filter(function(l) {
+    return !cityKey || l.city === cityKey;
+  });
+  if (cityLocs.length < 5) return; // not enough data yet
+  localStorage.setItem(_LUCKY_KEY_AUTO, today);
+  setTimeout(function() {
+    if (typeof _openIflLucky === 'function') _openIflLucky();
+  }, 700);
 }
 
 // ══════════════════════════════════════════════════════════════════

@@ -224,6 +224,8 @@ function _enterCity(code) {
       _rendered = true;
       map.off('moveend', _doRender);
       if (typeof refreshApp === 'function') refreshApp();
+      // Auto-trigger IFL once per day when entering city
+      if (typeof _checkAutoIfl === 'function') setTimeout(_checkAutoIfl, 1200);
       // Set pan bounds: city viewport × PAD to limit tile loading
       // Mobile uses lower zoom + larger PAD for wider geographic coverage on small screen
       var _meta = typeof CITY_META !== 'undefined' ? CITY_META[code] : null;
