@@ -146,11 +146,7 @@ function applyLang() {
     if (el) el.innerHTML = t('sba_' + k).replace(/\n/g, '<br>');
   });
   updateReportBtnLabel();
-  // Fav export/import bar + modal
-  const fioLbl = document.getElementById('fav-io-label');       if (fioLbl) fioLbl.textContent = t('fav_io_label');
-  const fioShr = document.getElementById('fav-io-share-label'); if (fioShr) fioShr.textContent = t('fav_io_share');
-  const fioExp = document.getElementById('fav-io-export-label');if (fioExp) fioExp.textContent = t('fav_io_export');
-  const fioImp = document.getElementById('fav-io-import-label');if (fioImp) fioImp.textContent = t('fav_io_import');
+  // Fav import modal
   const fimTtl = document.getElementById('fav-import-title');   if (fimTtl) fimTtl.textContent = t('fav_imp_title');
   const fimDsc = document.getElementById('fav-import-desc');    if (fimDsc) fimDsc.textContent = t('fav_imp_desc');
   const fimOvr = document.getElementById('fav-import-overwrite');if(fimOvr) fimOvr.textContent = t('fav_imp_overwrite');

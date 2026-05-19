@@ -543,13 +543,10 @@ function toggleFavFilter() {
   document.getElementById('fav-btn').classList.toggle('active', _favFilterActive);
   var sbaFav = document.getElementById('sba-fav');
   if (sbaFav) sbaFav.classList.toggle('sba-active', _favFilterActive);
-  // Show/hide export-import bar on all screen sizes
-  document.getElementById('fav-io-bar').classList.toggle('visible', _favFilterActive);
+  // Show/hide bottom fav bar
+  var favBar = document.getElementById('fav-bar');
+  if (favBar) favBar.style.display = _favFilterActive ? 'flex' : 'none';
   _applyFavFilter();
-}
-
-function closeFavIOBar() {
-  document.getElementById('fav-io-bar').classList.remove('visible');
 }
 
 function _applyFavFilter() {

@@ -445,23 +445,6 @@
   <button class="wrf-close" onclick="_closeWalkFloat()" title="Close">✕</button>
 </div>
 
-<!-- Fav Export/Import bar -->
-<div id="fav-io-bar">
-  <span class="fav-io-label" id="fav-io-label">Favorites Data</span>
-  <button class="fav-io-btn" onclick="favShareLocations()" id="fav-io-share-btn">
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-    <span id="fav-io-share-label">Share</span>
-  </button>
-  <button class="fav-io-btn" onclick="favExportJSON()">
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-    <span id="fav-io-export-label">Export</span>
-  </button>
-  <button class="fav-io-btn" onclick="favImportJSON()">
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-    <span id="fav-io-import-label">Import</span>
-  </button>
-  <button class="fav-io-close" onclick="closeFavIOBar()" title="Close">✕</button>
-</div>
 
 <!-- Import mode selector modal -->
 <div class="fav-import-overlay" id="fav-import-overlay" onclick="if(event.target===this)closeFavImportModal()">
@@ -902,6 +885,17 @@
     </div>
   </div>
   <div class="sd-list" id="sd-list"></div>
+</div>
+
+<!-- ── FAVORITES BAR (appears when favorites mode is active) ───── -->
+<div id="fav-bar" style="display:none">
+  <span class="fav-bar-label">⭐ Favorites</span>
+  <div class="fav-bar-actions">
+    <button class="fav-bar-btn" onclick="favShareLocations()">🔗 Share</button>
+    <button class="fav-bar-btn" onclick="favExportJSON()">⬇ Export</button>
+    <button class="fav-bar-btn" onclick="favImportJSON()">⬆ Import</button>
+  </div>
+  <button class="sel-exit-btn" onclick="toggleFavFilter()" title="Exit favorites mode">✕</button>
 </div>
 
 <!-- ── SELECTION BAR (appears when select mode is active) ─────── -->
