@@ -109,13 +109,13 @@ function _selUpdateBar() {
       countEl.textContent = 'Tap markers to select';
       countEl.classList.add('sel-bar-hint');
     }
-    if (actionsEl) actionsEl.style.display = 'none';
+    if (actionsEl) actionsEl.style.visibility = 'hidden';
   } else {
     if (countEl) {
       countEl.textContent = n + ' selected';
       countEl.classList.remove('sel-bar-hint');
     }
-    if (actionsEl) actionsEl.style.display = '';
+    if (actionsEl) actionsEl.style.visibility = 'visible';
     if (shareBtn) shareBtn.disabled = false;
     if (favBtn)   favBtn.disabled   = false;
     if (routeBtn) routeBtn.disabled = (n < 2);
