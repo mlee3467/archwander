@@ -4316,7 +4316,7 @@
 }
 .sd-header-left { flex: 1; min-width: 0; }
 .sd-title {
-  font-size: 15px; font-weight: 700; color: #111;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-primary);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .sd-subtitle { font-size: 12px; color: #888; margin-top: 2px; }
@@ -4357,7 +4357,12 @@
 .sd-item-thumb {
   flex-shrink: 0; width: 46px; height: 46px;
   border-radius: 8px; object-fit: cover;
-  background: #e8e8e4;
+  background: #e8e8e4; overflow: hidden;
+}
+.sd-thumb-badge {
+  position: absolute; bottom: 3px; right: 3px;
+  width: 18px; height: 18px; border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
 }
 .sd-item-info { flex: 1; min-width: 0; }
 .sd-item-name {

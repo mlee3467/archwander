@@ -296,9 +296,21 @@ function _buildShareDrawer(title, locs) {
 
   if (listEl) {
     listEl.innerHTML = locs.map(function(loc, i) {
-      var thumb = (loc.photos && loc.photos[0])
-        ? '<img class="sd-item-thumb" src="' + loc.photos[0] + '" loading="lazy" onerror="this.style.background=\'#e8e8e4\';this.src=\'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7\'">'
-        : '<div class="sd-item-thumb" style="background:#e8e8e4;display:flex;align-items:center;justify-content:center;font-size:18px">🏛</div>';
+      var ccKey  = (typeof _pCC === 'function') ? _pCC(loc) : (loc.cc || 'c-lmk');
+      var ccMeta = (typeof CC_META !== 'undefined' && CC_META[ccKey]) || (typeof CC_META !== 'undefined' && CC_META['c-lmk']) || { color:'#EE3344', bg:'#FFE3E5', icon:'img/icon_landmark.png' };
+      var thumb;
+      if (loc.photos && loc.photos[0]) {
+        thumb = '<div class="sd-item-thumb" style="position:relative;overflow:hidden">' +
+          '<img src="' + loc.photos[0] + '" loading="lazy" style="width:100%;height:100%;object-fit:cover" onerror="this.parentNode.style.background=\'' + ccMeta.bg + '\';this.style.display=\'none\'">' +
+          '<div class="sd-thumb-badge" style="background:' + ccMeta.color + '">' +
+            '<img src="' + ccMeta.icon + '" style="width:10px;height:10px;object-fit:contain;filter:brightness(0) invert(1)">' +
+          '</div>' +
+        '</div>';
+      } else {
+        thumb = '<div class="sd-item-thumb" style="background:' + ccMeta.bg + ';display:flex;align-items:center;justify-content:center">' +
+          '<img src="' + ccMeta.icon + '" style="width:26px;height:26px;object-fit:contain" onerror="this.style.display=\'none\'">' +
+        '</div>';
+      }
       var cats = (loc.cats && loc.cats.length) ? loc.cats[0] : (loc.era || '');
       var isFav = (typeof _favSet !== 'undefined') && _favSet.has(loc.id);
       return '<div class="sd-item" onclick="_shareOpenLoc(_sdLocs[' + i + '])">' +
