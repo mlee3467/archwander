@@ -99,18 +99,27 @@ function _selUpdateBar() {
   bar.style.display = 'flex';
   var n = _selSet.size;
 
-  if (n === 0) {
-    if (countEl) countEl.textContent = 'Tap markers to select';
-  } else {
-    if (countEl) countEl.textContent = n + ' selected';
-  }
-
   var shareBtn = document.getElementById('sel-share-btn');
   var favBtn   = document.getElementById('sel-fav-btn');
   var routeBtn = document.getElementById('sel-route-btn');
-  if (shareBtn) shareBtn.disabled = (n === 0);
-  if (favBtn)   favBtn.disabled   = (n === 0);
-  if (routeBtn) routeBtn.disabled = (n < 2);
+
+  if (n === 0) {
+    if (countEl) {
+      countEl.textContent = 'Tap markers to select';
+      countEl.classList.add('sel-bar-hint');
+    }
+    if (shareBtn) shareBtn.style.display = 'none';
+    if (favBtn)   favBtn.style.display   = 'none';
+    if (routeBtn) routeBtn.style.display = 'none';
+  } else {
+    if (countEl) {
+      countEl.textContent = n + ' selected';
+      countEl.classList.remove('sel-bar-hint');
+    }
+    if (shareBtn) { shareBtn.style.display = ''; shareBtn.disabled = false; }
+    if (favBtn)   { favBtn.style.display   = ''; favBtn.disabled   = false; }
+    if (routeBtn) { routeBtn.style.display = ''; routeBtn.disabled = (n < 2); }
+  }
 }
 
 function _hideSelBar() {
