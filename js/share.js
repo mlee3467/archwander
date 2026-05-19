@@ -158,21 +158,22 @@ async function _applyShare(share) {
     matchedLocs.sort(function(a, b) { return idOrder[a.id] - idOrder[b.id]; });
   }
 
-  // Enter share mode
-  _enterShareMode(share.title || 'Architecture Tour', share.location_ids, matchedLocs);
-
-  // Store route for "Open Route" if applicable
+  // Resolve route stops before entering share mode (so button visibility is set correctly)
+  var routeLocs = [];
   if (share.route_stops && share.route_stops.length >= 2) {
-    var routeLocs = share.route_stops.map(function(id) {
+    routeLocs = share.route_stops.map(function(id) {
       return matchedLocs.find ? matchedLocs.find(function(l){ return l.id === id; })
            : matchedLocs.filter(function(l){ return l.id === id; })[0];
     }).filter(Boolean);
-    if (routeLocs.length >= 2) window._pendingShareRoute = routeLocs;
   }
+  if (routeLocs.length >= 2) window._pendingShareRoute = routeLocs;
+
+  // Enter share mode (pass routeLocs so drawer shows Open Route button)
+  _enterShareMode(share.title || 'Architecture Tour', share.location_ids, matchedLocs, routeLocs);
 }
 
 // ── Share Mode: enter / exit ───────────────────────────────────────
-function _enterShareMode(title, locIds, locs) {
+function _enterShareMode(title, locIds, locs, routeLocs) {
   _shareModeActive = true;
   _shareModeLocIds = locIds;
   _shareModeTitle  = title;
@@ -184,7 +185,7 @@ function _enterShareMode(title, locIds, locs) {
   _placeShareMarkers(locs);
 
   // Build and show drawer
-  _buildShareDrawer(title, locs);
+  _buildShareDrawer(title, locs, routeLocs || []);
   _showShareDrawer();
 
   // On mobile: keep sidebar closed
@@ -284,14 +285,17 @@ function _clearShareMarkers() {
 }
 
 // ── Drawer ─────────────────────────────────────────────────────────
-function _buildShareDrawer(title, locs) {
-  var drawer  = document.getElementById('share-drawer');
-  var titleEl = document.getElementById('sd-title');
-  var subEl   = document.getElementById('sd-subtitle');
-  var listEl  = document.getElementById('sd-list');
+function _buildShareDrawer(title, locs, routeLocs) {
+  var drawer      = document.getElementById('share-drawer');
+  var titleEl     = document.getElementById('sd-title');
+  var subEl       = document.getElementById('sd-subtitle');
+  var listEl      = document.getElementById('sd-list');
+  var routeBtn    = document.getElementById('sd-open-route-btn');
   if (!drawer) return;
 
-  if (titleEl) titleEl.textContent = 'List of Shared Locations';
+  var hasRoute = routeLocs && routeLocs.length >= 2;
+  if (titleEl) titleEl.textContent = hasRoute ? (title || 'Architecture Tour') : 'List of Shared Locations';
+  if (routeBtn) routeBtn.style.display = hasRoute ? 'inline-flex' : 'none';
 
   if (listEl) {
     listEl.innerHTML = locs.map(function(loc, i) {
@@ -328,6 +332,33 @@ function _buildShareDrawer(title, locs) {
 
 function _sdEsc(s) {
   return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ── Open shared route in Route Planner ───────────────────────────
+function _shareOpenRoute() {
+  var pendingRoute = window._pendingShareRoute;
+  if (!pendingRoute || pendingRoute.length < 2) return;
+
+  // Minimize drawer first
+  _sdMinimizeDrawer();
+
+  // Load stops into route planner
+  if (typeof clearRouteSelection === 'function') clearRouteSelection();
+  if (typeof routeLocations !== 'undefined') {
+    routeLocations = pendingRoute.slice();
+  }
+
+  setTimeout(function() {
+    if (typeof openRoutePanel === 'function') {
+      openRoutePanel();
+    }
+    // calcRoute is not called by openRoutePanel when stops already exist — call manually
+    setTimeout(function() {
+      if (typeof calcRoute === 'function' && typeof routeLocations !== 'undefined' && routeLocations.length >= 2) {
+        calcRoute();
+      }
+    }, 150);
+  }, 250);
 }
 
 function _sdToggleFav(id, btn) {

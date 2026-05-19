@@ -4321,6 +4321,14 @@
 }
 .sd-subtitle { display: none; }
 .sd-header-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; margin-left: 10px; }
+.sd-open-route-btn {
+  padding: 6px 11px; background: #dbeafe; color: #1d4ed8;
+  border: 1px solid #bfdbfe; border-radius: 8px;
+  font-size: 11px; font-weight: 600; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 4px;
+  white-space: nowrap; transition: background 0.15s;
+}
+.sd-open-route-btn:hover { background: #bfdbfe; }
 .sd-add-all-btn {
   padding: 6px 11px; background: #fef9c3; color: #92400e;
   border: 1px solid #fde68a; border-radius: 8px;
