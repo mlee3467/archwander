@@ -4453,13 +4453,14 @@
   box-shadow: 0 4px 24px rgba(0,0,0,0.32), 0 0 0 1px rgba(255,255,255,0.08);
   white-space: nowrap;
   font-family: Inter, -apple-system, sans-serif;
+  min-width: 220px;
 }
 @media (max-width: 900px) {
-  #sel-bar { bottom: 14px; left: 10px; right: 10px; transform: none; border-radius: 40px; }
+  #sel-bar { bottom: 14px; left: 10px; right: 10px; transform: none; border-radius: 40px; min-width: 0; }
 }
 .sel-bar-count {
   font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.9);
-  margin-right: 2px; min-width: 0; flex-shrink: 0;
+  flex: 1; text-align: center; min-width: 0;
 }
 @keyframes sel-bar-pulse {
   0%, 100% { opacity: 1; }
@@ -4471,7 +4472,7 @@
   color: rgba(255,255,255,0.75);
   margin-right: 0;
 }
-.sel-bar-actions { display: flex; align-items: center; gap: 4px; }
+.sel-bar-actions { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
 .sel-action-btn {
   display: inline-flex; align-items: center;
   padding: 5px 10px;
@@ -4491,7 +4492,7 @@
   display: flex; align-items: center; justify-content: center;
   background: rgba(255,255,255,0.1); border: none;
   border-radius: 50%; font-size: 14px; color: rgba(255,255,255,0.7);
-  cursor: pointer; transition: background 0.15s; margin-left: 2px;
+  cursor: pointer; transition: background 0.15s; margin-left: auto; flex-shrink: 0;
 }
 .sel-exit-btn:hover { background: rgba(255,255,255,0.2); color: #fff; }
 
