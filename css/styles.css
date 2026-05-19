@@ -398,7 +398,7 @@
     #menu-btn {
       display: none; width: 34px; height: 34px;
       border: none; border-radius: 8px;
-      background: linear-gradient(135deg, #4f46e5 0%, #f97316 100%);
+      background: linear-gradient(135deg, #7dd3fc 0%, #e8dcc8 50%, #6ee7b7 100%);
       cursor: pointer; align-items: center;
       justify-content: center; flex-shrink: 0; font-size: 17px;
       color: #fff;
