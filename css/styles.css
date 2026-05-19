@@ -1355,9 +1355,9 @@
         top: calc(var(--mob-header-h) + var(--safe-top));
         bottom: 0;
         width: 200px;
-        background: linear-gradient(160deg, rgba(255,255,255,0.55) 0%, rgba(240,240,236,0.35) 100%);
-        backdrop-filter: blur(5px);
-        -webkit-backdrop-filter: blur(5px);
+        background: rgb(245,245,245);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
         transform: translateX(-100%);
         transition: transform 0.28s cubic-bezier(.4,0,.2,1);
         box-shadow: 4px 0 24px rgba(0,0,0,0.12);
