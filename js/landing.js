@@ -239,20 +239,32 @@ function _landingToast(msg) {
 // ── Sidebar action button handlers ─────────────────────────────
 
 function _sbaMyLocation() {
-  if (typeof closeSidebar === 'function') closeSidebar();
-  var popup = document.getElementById('my-loc-popup');
+  var popup   = document.getElementById('my-loc-popup');
+  var overlay = document.getElementById('my-loc-overlay');
+  var btn     = document.getElementById('sba-loc');
   if (!popup) return;
+
+  var isOpen = popup.style.display !== 'none';
+  if (isOpen) { _closeMyLocPopup(); return; }
+
+  // Position vertically aligned with the button (desktop); mobile uses CSS top
+  if (btn && window.innerWidth > 767) {
+    var rect = btn.getBoundingClientRect();
+    popup.style.top = Math.max(rect.top, 10) + 'px';
+  }
+
+  if (overlay) overlay.style.display = 'block';
   popup.style.display = 'flex';
-  requestAnimationFrame(function() {
-    requestAnimationFrame(function() { popup.classList.add('visible'); });
-  });
+  if (btn) btn.classList.add('sba-active');
 }
 
 function _closeMyLocPopup() {
-  var popup = document.getElementById('my-loc-popup');
-  if (!popup) return;
-  popup.classList.remove('visible');
-  setTimeout(function() { popup.style.display = 'none'; }, 220);
+  var popup   = document.getElementById('my-loc-popup');
+  var overlay = document.getElementById('my-loc-overlay');
+  if (popup)   popup.style.display = 'none';
+  if (overlay) overlay.style.display = 'none';
+  var btn = document.getElementById('sba-loc');
+  if (btn) btn.classList.remove('sba-active');
 }
 
 function _mlpUseGPS() {

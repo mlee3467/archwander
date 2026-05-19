@@ -480,20 +480,22 @@
 <input type="file" id="fav-import-file" accept=".json" style="display:none" onchange="_handleFavFileSelected(event)">
 
 <!-- ── MY LOCATION POPUP (center modal, GPS or Pin) ────────── -->
+<div id="my-loc-overlay" onclick="_closeMyLocPopup()" style="display:none"></div>
 <div id="my-loc-popup" style="display:none">
-  <div class="mlp-box">
-    <div class="mlp-title">Set My Location</div>
-    <div class="mlp-subtitle">Select location method</div>
-    <button class="mlp-btn" id="mlp-gps-btn" onclick="_mlpUseGPS()">
-      <span class="mlp-btn-icon">📡</span>
-      <span class="mlp-btn-text">Use GPS<span class="mlp-btn-sub">Auto locate</span></span>
-    </button>
-    <button class="mlp-btn" id="mlp-pin-btn" onclick="_mlpDropPin()">
-      <span class="mlp-btn-icon">📌</span>
-      <span class="mlp-btn-text">Drop a pin<span class="mlp-btn-sub">Tap map to place</span></span>
-    </button>
-    <button class="mlp-cancel" onclick="_closeMyLocPopup()">Close</button>
-  </div>
+  <button class="explore-popup-btn" onclick="_closeMyLocPopup();_mlpUseGPS()">
+    <span class="explore-popup-icon">📡</span>
+    <div class="explore-popup-text">
+      <span class="explore-popup-title">Use GPS</span>
+      <span class="explore-popup-sub">Auto locate my position</span>
+    </div>
+  </button>
+  <button class="explore-popup-btn" onclick="_closeMyLocPopup();_mlpDropPin()">
+    <span class="explore-popup-icon">📌</span>
+    <div class="explore-popup-text">
+      <span class="explore-popup-title">Drop a pin</span>
+      <span class="explore-popup-sub">Tap map to place</span>
+    </div>
+  </button>
 </div>
 
 <div class="app">

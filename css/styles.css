@@ -3220,69 +3220,33 @@
   }
 }
 /* ═══════════════════════════════════════════════════════════════
-   MY LOCATION POPUP  (center modal)
+   MY LOCATION POPUP  (sidebar-attached, same pattern as explore-popup)
    ═══════════════════════════════════════════════════════════════ */
+#my-loc-overlay {
+  position: fixed; inset: 0; z-index: 1199; background: transparent;
+}
 #my-loc-popup {
-  position: fixed; inset: 0; z-index: 9990;
-  display: none; flex-direction: column;
-  align-items: center; justify-content: center;
-  background: rgba(0,0,0,0.38);
-  font-family: Inter, -apple-system, sans-serif;
-  opacity: 0; transition: opacity 0.22s ease;
-}
-#my-loc-popup.visible {
-  display: flex; opacity: 1;
-}
-.mlp-box {
-  background: #fff;
-  border-radius: 22px;
-  padding: 24px 20px 16px;
-  width: calc(100% - 48px);
-  max-width: 340px;
-  box-shadow: 0 12px 48px rgba(0,0,0,0.28);
-}
-.mlp-title {
-  font-size: 18px; font-weight: 800; color: #111;
-  margin-bottom: 3px;
-}
-.mlp-subtitle {
-  font-size: 12px; color: rgba(0,0,0,0.4);
-  margin-bottom: 18px;
-}
-.mlp-btn {
-  width: 100%; padding: 14px 16px;
-  background: #fff;
-  border: 1.5px solid rgba(0,0,0,0.09);
-  border-radius: 15px;
-  display: flex; align-items: center; gap: 14px;
-  cursor: pointer; margin-bottom: 9px;
-  -webkit-tap-highlight-color: transparent;
-  transition: background 0.15s, transform 0.1s;
-  text-align: left;
-}
-.mlp-btn:active {
-  background: #f4f4f4; transform: scale(0.98);
-}
-.mlp-btn-icon { font-size: 28px; line-height: 1; flex-shrink: 0; }
-.mlp-btn-text {
+  position: fixed;
+  left: calc(var(--sidebar-w, 300px) + 10px);
+  top: 130px;   /* overridden by JS on desktop */
+  z-index: 1200;
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  border-radius: 16px;
+  padding: 6px;
+  min-width: 240px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.06);
   display: flex; flex-direction: column;
-  font-size: 14px; font-weight: 700; color: #111;
+  animation: explore-popup-in 0.18s ease both;
+  font-family: Inter, -apple-system, sans-serif;
 }
-.mlp-btn-sub {
-  font-size: 11px; font-weight: 400;
-  color: rgba(0,0,0,0.42); margin-top: 2px;
+@media (max-width: 767px) {
+  #my-loc-popup {
+    left: 10px; right: 10px; top: 60px;
+    min-width: unset;
+  }
 }
-.mlp-cancel {
-  display: block; width: 100%;
-  padding: 12px 0; border: none;
-  background: none;
-  font-size: 14px; font-weight: 500;
-  color: rgba(0,0,0,0.38);
-  cursor: pointer; font-family: inherit;
-  -webkit-tap-highlight-color: transparent;
-  margin-top: 4px;
-}
-.mlp-cancel:active { color: rgba(0,0,0,0.7); }
 
 /* My Journey legend (visited / favorites / route explanation) */
 .pp-legend {
