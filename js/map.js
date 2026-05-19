@@ -250,7 +250,7 @@ function _enterCity(code, opts) {
     // Fallback: render after 1.6s (fly is 1.2s) in case moveend doesn't fire
     setTimeout(_doRender, 1600);
     // Mobile: auto-open sidebar after city entry (skip in share mode)
-    if (window.innerWidth < 901 && !(typeof _shareModeActive !== 'undefined' && _shareModeActive)) {
+    if (window.innerWidth < 901 && window.location.search.indexOf('s=') === -1) {
       setTimeout(function() {
         var sb = document.getElementById('sidebar');
         var bd = document.getElementById('sidebar-backdrop');

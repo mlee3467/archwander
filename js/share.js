@@ -412,7 +412,7 @@ function _sdInitDrag(drawer) {
   }
   function onMove(y) {
     var dy = _sdDragStartY - y;
-    var newH = Math.min(Math.max(_sdDragStartH + dy, 56), window.innerHeight * 0.80);
+    var newH = Math.min(Math.max(_sdDragStartH + dy, 56), window.innerHeight * 0.667);
     _sdCurrentH = newH;
     drawer.style.maxHeight = newH + 'px';
     drawer.style.transform = 'translateY(0)';
