@@ -134,46 +134,52 @@ window.addEventListener('load', function() {
 
   var _isMobile    = window.innerWidth <= 900;
   var _firstVisit  = !localStorage.getItem('aw_landing_seen');
+  // Detect share param — skip world map entirely when opening a shared link
+  var _shareBootMode = window.location.search.indexOf('s=') !== -1;
 
   if (_isMobile) {
-    // Mobile: pre-init map at NYC fallback so it's visible behind splash/landing;
-    // _doFullMapInit will snap to GPS-detected city via map.setView when GPS resolves.
     if (!activeCity) { activeCity = 'nyc'; activeCityKey = 'new-york'; }
     _initMapTiles();
-    // Pre-load default city data so markers appear immediately (before GPS resolves)
-    setTimeout(function() {
-      loadCityData(activeCity).then(function() {
-        console.log('[boot] mobile pre-load resolved, LOCS=' + LOCS.length + ', calling refreshApp');
-        if (typeof refreshApp === 'function') refreshApp();
-      }).catch(function(err) {
-        console.warn('[boot] mobile pre-load failed:', err);
-      });
-    }, 100);
-    if (typeof showSplash === 'function') showSplash();
-    if (typeof _scheduleMidnightReset === 'function') _scheduleMidnightReset();
+    if (_shareBootMode) {
+      // Share boot: skip splash, skip GPS, skip sidebar auto-open.
+      // checkShareParam will call _enterCity(code, {noAnim:true}) + fitBounds.
+      if (typeof _ensureSupabaseAuth === 'function') _ensureSupabaseAuth();
+      if (typeof _scheduleMidnightReset === 'function') _scheduleMidnightReset();
+    } else {
+      // Normal mobile boot
+      setTimeout(function() {
+        loadCityData(activeCity).then(function() {
+          console.log('[boot] mobile pre-load resolved, LOCS=' + LOCS.length + ', calling refreshApp');
+          if (typeof refreshApp === 'function') refreshApp();
+        }).catch(function(err) { console.warn('[boot] mobile pre-load failed:', err); });
+      }, 100);
+      if (typeof showSplash === 'function') showSplash();
+      if (typeof _scheduleMidnightReset === 'function') _scheduleMidnightReset();
+    }
   } else {
-    // Desktop: show map immediately, pre-load default city data, then GPS snaps to correct city.
     _mapInited = true;
     if (!activeCity) { activeCity = 'nyc'; activeCityKey = 'new-york'; }
-    _initMapTiles();   // renders immediately so there's no blank-map wait
-    console.log('[boot] desktop init, activeCity=' + activeCity + ' activeCityKey=' + activeCityKey);
-    // Pre-warm Supabase auth immediately so it's ready when data fetches start
+    _initMapTiles();
     if (typeof _ensureSupabaseAuth === 'function') _ensureSupabaseAuth();
-    // Pre-load default city data so markers appear right away — GPS switch updates them later
-    // Small delay ensures map container has correct dimensions before markers are placed
-    var _preLoad = function(attempt) {
-      loadCityData(activeCity).then(function() {
-        console.log('[boot] pre-load resolved (attempt ' + attempt + '), LOCS=' + LOCS.length + ', calling refreshApp');
-        if (typeof refreshApp === 'function') refreshApp();
-      }).catch(function(err) {
-        console.warn('[boot] pre-load failed (attempt ' + attempt + '):', err && err.message ? err.message : err);
-        // Retry once after 2s in case Supabase auth/network was not ready
-        if (attempt < 2) setTimeout(function() { _preLoad(attempt + 1); }, 2000);
-      });
-    };
-    setTimeout(function() { _preLoad(1); }, 100);
-    _doFullMapInit();  // GPS → setView(correct city) → loadData → refreshApp
-    if (typeof _scheduleMidnightReset === 'function') _scheduleMidnightReset();
+    if (_shareBootMode) {
+      // Share boot (desktop): skip GPS/world map, checkShareParam handles city entry
+      if (typeof _scheduleMidnightReset === 'function') _scheduleMidnightReset();
+    } else {
+      // Normal desktop boot
+      console.log('[boot] desktop init, activeCity=' + activeCity + ' activeCityKey=' + activeCityKey);
+      var _preLoad = function(attempt) {
+        loadCityData(activeCity).then(function() {
+          console.log('[boot] pre-load resolved (attempt ' + attempt + '), LOCS=' + LOCS.length + ', calling refreshApp');
+          if (typeof refreshApp === 'function') refreshApp();
+        }).catch(function(err) {
+          console.warn('[boot] pre-load failed (attempt ' + attempt + '):', err && err.message ? err.message : err);
+          if (attempt < 2) setTimeout(function() { _preLoad(attempt + 1); }, 2000);
+        });
+      };
+      setTimeout(function() { _preLoad(1); }, 100);
+      _doFullMapInit();
+      if (typeof _scheduleMidnightReset === 'function') _scheduleMidnightReset();
+    }
   }
 
   // ── Walk slider: re-filter on change ──────────────────────────
@@ -278,9 +284,10 @@ window.addEventListener('load', function() {
 
   // ── Share param: load shared route/locations if ?s=XXXXXXXX ──────
   if (window.location.search.indexOf('s=') !== -1) {
+    // Run ASAP — _applyShare handles city entry with noAnim+fitBounds itself
     setTimeout(function() {
       if (typeof checkShareParam === 'function') checkShareParam();
-    }, 2500); // wait for city data to load
+    }, 400);
   }
 });
 

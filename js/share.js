@@ -139,15 +139,14 @@ async function _applyShare(share) {
     });
   }
 
-  // Navigate to city immediately
-  if (cityCode && typeof _enterCity === 'function') {
-    _enterCity(cityCode);
-    await new Promise(function(res) { setTimeout(res, 1400); });
-  }
-
-  // Load city data
+  // Load city data first, then enter city instantly (no fly animation)
   if (cityCode && typeof loadCityData === 'function') {
     try { await loadCityData(cityCode); } catch(e) {}
+  }
+  if (cityCode && typeof _enterCity === 'function') {
+    _enterCity(cityCode, { noAnim: true });
+    // Brief pause for map state to settle after setView
+    await new Promise(function(res) { setTimeout(res, 200); });
   }
 
   // Match locations
@@ -196,12 +195,14 @@ function _enterShareMode(title, locIds, locs) {
   var mapEl = document.getElementById('map');
   if (mapEl) mapEl.classList.add('share-mode-active');
 
-  // Fit map to shared pins
+  // Fit map to shared pins — no animation (instant view)
   if (locs.length && typeof map !== 'undefined') {
     try {
       var bounds = locs.filter(function(l){ return l.lat && l.lng; })
                        .map(function(l){ return [l.lat, l.lng]; });
-      if (bounds.length) map.fitBounds(bounds, { padding: [40, 100], maxZoom: 15 });
+      if (bounds.length) {
+        map.fitBounds(bounds, { padding: [40, 140], maxZoom: 15, animate: false });
+      }
     } catch(e) {}
   }
 }
@@ -290,7 +291,7 @@ function _buildShareDrawer(title, locs) {
   var listEl  = document.getElementById('sd-list');
   if (!drawer) return;
 
-  if (titleEl) titleEl.textContent = title || 'Architecture Tour';
+  if (titleEl) titleEl.textContent = 'List of Shared Locations';
   if (subEl)   subEl.textContent   = locs.length + ' location' + (locs.length !== 1 ? 's' : '');
 
   if (listEl) {
@@ -359,6 +360,7 @@ function _showShareDrawer() {
   var drawer = document.getElementById('share-drawer');
   if (!drawer) return;
   _sdMinimized = false;
+  drawer.style.display = 'flex';
   drawer.classList.remove('sd-minimized');
   requestAnimationFrame(function() {
     requestAnimationFrame(function() { drawer.classList.add('sd-visible'); });
@@ -371,6 +373,7 @@ function _hideShareDrawer() {
   if (!drawer) return;
   drawer.classList.remove('sd-visible', 'sd-minimized');
   _sdMinimized = false;
+  setTimeout(function() { drawer.style.display = 'none'; }, 350);
 }
 
 function _sdRestoreDrawer() {

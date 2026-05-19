@@ -180,11 +180,12 @@ function _updateCityPinVisibility() {
 // ── Central city entry point ─────────────────────────────────────
 // Called from city cards, dropdown, and selectCity().
 // Handles ALL cases: world→city, city→city, same city re-entry.
-function _enterCity(code) {
+function _enterCity(code, opts) {
   var meta = CITY_META[code];
   if (!meta) return;
-  // Already showing this city in city mode — nothing to do
-  if (code === activeCity && !_worldMode) return;
+  var noAnim = opts && opts.noAnim;
+  // Already showing this city in city mode — nothing to do (skip in noAnim to allow forced re-entry)
+  if (!noAnim && code === activeCity && !_worldMode) return;
 
   // 1. Exit world mode
   _worldMode = false;
@@ -202,10 +203,14 @@ function _enterCity(code) {
   var sbSel = document.getElementById('sb-city-select');
   if (sbSel) sbSel.value = code;
 
-  // 4. Fly to city center (clear previous city's pan bounds)
+  // 4. Navigate to city center (clear previous city's pan bounds)
   map.setMaxBounds(null);
   var _entryZoom = (window.innerWidth < 901) ? meta.zoom - 1 : meta.zoom;
-  map.flyTo([meta.lat, meta.lng], _entryZoom, { duration: 1.2 });
+  if (noAnim) {
+    map.setView([meta.lat, meta.lng], _entryZoom, { animate: false });
+  } else {
+    map.flyTo([meta.lat, meta.lng], _entryZoom, { duration: 1.2 });
+  }
 
   // 5. Clear walk filter if active
   if (typeof walkActive !== 'undefined' && walkActive &&
@@ -244,8 +249,8 @@ function _enterCity(code) {
     map.once('moveend', _doRender);
     // Fallback: render after 1.6s (fly is 1.2s) in case moveend doesn't fire
     setTimeout(_doRender, 1600);
-    // Mobile: auto-open sidebar after city entry
-    if (window.innerWidth < 901) {
+    // Mobile: auto-open sidebar after city entry (skip in share mode)
+    if (window.innerWidth < 901 && !(typeof _shareModeActive !== 'undefined' && _shareModeActive)) {
       setTimeout(function() {
         var sb = document.getElementById('sidebar');
         var bd = document.getElementById('sidebar-backdrop');
