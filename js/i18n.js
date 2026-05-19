@@ -65,6 +65,7 @@ var T = {
     pdf_locations:'locations',
     pdf_walking:  'walking radius from pin',
     fav_io_label: 'Favorites Data',
+    fav_io_share: 'Share',
     fav_io_export:'Export',
     fav_io_import:'Import',
     fav_imp_title:'Import Favorites',
@@ -147,6 +148,7 @@ function applyLang() {
   updateReportBtnLabel();
   // Fav export/import bar + modal
   const fioLbl = document.getElementById('fav-io-label');       if (fioLbl) fioLbl.textContent = t('fav_io_label');
+  const fioShr = document.getElementById('fav-io-share-label'); if (fioShr) fioShr.textContent = t('fav_io_share');
   const fioExp = document.getElementById('fav-io-export-label');if (fioExp) fioExp.textContent = t('fav_io_export');
   const fioImp = document.getElementById('fav-io-import-label');if (fioImp) fioImp.textContent = t('fav_io_import');
   const fimTtl = document.getElementById('fav-import-title');   if (fimTtl) fimTtl.textContent = t('fav_imp_title');

@@ -572,6 +572,28 @@ function _applyFavFilter() {
   if (typeof syncMarkers === 'function') syncMarkers();
 }
 
+// ── Fav Share ────────────────────────────────────────────────────
+function favShareLocations() {
+  // Collect favorited location IDs for the active city
+  var ko = (typeof LANG !== 'undefined' && LANG === 'ko');
+  var cityFavIds = [];
+  if (typeof LOCS !== 'undefined' && typeof _favSet !== 'undefined') {
+    LOCS.forEach(function(loc) {
+      if (loc.city === activeCityKey && _favSet.has(loc.id)) {
+        cityFavIds.push(loc.id);
+      }
+    });
+  }
+  if (cityFavIds.length === 0) {
+    alert(ko ? '현재 도시에 즐겨찾기한 장소가 없습니다.' : 'No favorited locations in the current city.');
+    return;
+  }
+  if (typeof openShareModal === 'function') {
+    // route_stops empty — location-list only share
+    openShareModal(cityFavIds, [], activeCityKey);
+  }
+}
+
 // ── Fav Export / Import ─────────────────────────────────────────
 function favExportJSON() {
   if (!_favSet.size && !_visSet.size) {

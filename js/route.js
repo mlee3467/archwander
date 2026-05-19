@@ -945,9 +945,9 @@ function _refreshRouteUI() {
   var selList  = document.getElementById('route-sel-list');
   var topClear = document.getElementById('route-top-clear');
   if (topClear) topClear.style.display = routeLocations.length >= 1 ? 'inline-flex' : 'none';
-  // Show share button only when route is calculated (≥2 stops + routeData)
+  // Show share button when ≥1 stop added (route calc not required)
   var shareBtn = document.getElementById('route-share-btn');
-  if (shareBtn) shareBtn.style.display = (routeLocations.length >= 2 && routeData) ? 'inline-flex' : 'none';
+  if (shareBtn) shareBtn.style.display = routeLocations.length >= 1 ? 'inline-flex' : 'none';
   if (!selList) return;
   if (routeLocations.length === 0) {
     selList.innerHTML = '<div class="route-sel-empty">' +
@@ -978,9 +978,10 @@ function _refreshRouteUI() {
 }
 
 function _openRouteShare() {
-  if (routeLocations.length < 2) return;
+  if (routeLocations.length < 1) return;
   var locationIds = routeLocations.map(function(l) { return l.id; });
-  var routeStops  = locationIds; // same order as displayed
+  // Include route_stops only when route has actually been calculated
+  var routeStops  = (routeData && routeData.distance > 0) ? locationIds : [];
   var city = (routeLocations[0] && routeLocations[0].city) || (typeof activeCityKey !== 'undefined' ? activeCityKey : '');
   if (typeof openShareModal === 'function') {
     openShareModal(locationIds, routeStops, city);

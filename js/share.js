@@ -20,12 +20,19 @@ function openShareModal(locationIds, routeStops, city) {
   // Store data for later use
   modal._shareData = { locationIds: locationIds, routeStops: routeStops, city: city };
 
-  // Populate counts
+  // Populate counts + modal title
   var ko = (typeof LANG !== 'undefined' && LANG === 'ko');
+  var hasRoute = routeStops && routeStops.length >= 2;
+  var titleEl  = modal.querySelector('.share-modal-title');
+  if (titleEl)  titleEl.textContent = hasRoute
+    ? (ko ? '🔗 루트 공유' : '🔗 Share Route')
+    : (ko ? '🔗 장소 목록 공유' : '🔗 Share Locations');
   var locCount  = document.getElementById('share-loc-count');
   var stopCount = document.getElementById('share-stop-count');
   if (locCount)  locCount.textContent  = locationIds.length + (ko ? '개' : '');
-  if (stopCount) stopCount.textContent = routeStops.length  + (ko ? '개' : '');
+  if (stopCount) stopCount.textContent = hasRoute ? (routeStops.length + (ko ? '개' : '')) : (ko ? '없음' : 'none');
+  var stopRow = document.getElementById('share-stop-row');
+  if (stopRow) stopRow.style.display = hasRoute ? '' : 'none';
 
   // Clear title field + link display
   var titleInp = document.getElementById('share-title-inp');
