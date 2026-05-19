@@ -304,7 +304,7 @@ function _buildShareDrawer(title, locs) {
         '</div>';
       } else {
         thumb = '<div class="sd-item-thumb" style="background:' + ccMeta.bg + ';display:flex;align-items:center;justify-content:center">' +
-          '<img src="' + ccMeta.icon + '" style="width:26px;height:26px;object-fit:contain" onerror="this.style.display=\'none\'">' +
+          '<img src="' + ccMeta.icon + '" style="width:26px;height:26px;object-fit:contain;mix-blend-mode:multiply" onerror="this.style.display=\'none\'">' +
         '</div>';
       }
       var cats = (loc.cats && loc.cats.length) ? loc.cats[0] : (loc.era || '');
