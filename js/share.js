@@ -302,9 +302,6 @@ function _buildShareDrawer(title, locs) {
       if (loc.photos && loc.photos[0]) {
         thumb = '<div class="sd-item-thumb" style="position:relative;overflow:hidden">' +
           '<img src="' + loc.photos[0] + '" loading="lazy" style="width:100%;height:100%;object-fit:cover" onerror="this.parentNode.style.background=\'' + ccMeta.bg + '\';this.style.display=\'none\'">' +
-          '<div class="sd-thumb-badge" style="background:' + ccMeta.color + '">' +
-            '<img src="' + ccMeta.icon + '" style="width:10px;height:10px;object-fit:contain;filter:brightness(0) invert(1)">' +
-          '</div>' +
         '</div>';
       } else {
         thumb = '<div class="sd-item-thumb" style="background:' + ccMeta.bg + ';display:flex;align-items:center;justify-content:center">' +
