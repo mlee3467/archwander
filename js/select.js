@@ -99,26 +99,26 @@ function _selUpdateBar() {
   bar.style.display = 'flex';
   var n = _selSet.size;
 
-  var shareBtn = document.getElementById('sel-share-btn');
-  var favBtn   = document.getElementById('sel-fav-btn');
-  var routeBtn = document.getElementById('sel-route-btn');
+  var actionsEl = document.getElementById('sel-bar-actions');
+  var shareBtn  = document.getElementById('sel-share-btn');
+  var favBtn    = document.getElementById('sel-fav-btn');
+  var routeBtn  = document.getElementById('sel-route-btn');
 
   if (n === 0) {
     if (countEl) {
       countEl.textContent = 'Tap markers to select';
       countEl.classList.add('sel-bar-hint');
     }
-    if (shareBtn) shareBtn.style.display = 'none';
-    if (favBtn)   favBtn.style.display   = 'none';
-    if (routeBtn) routeBtn.style.display = 'none';
+    if (actionsEl) actionsEl.style.display = 'none';
   } else {
     if (countEl) {
       countEl.textContent = n + ' selected';
       countEl.classList.remove('sel-bar-hint');
     }
-    if (shareBtn) { shareBtn.style.display = ''; shareBtn.disabled = false; }
-    if (favBtn)   { favBtn.style.display   = ''; favBtn.disabled   = false; }
-    if (routeBtn) { routeBtn.style.display = ''; routeBtn.disabled = (n < 2); }
+    if (actionsEl) actionsEl.style.display = '';
+    if (shareBtn) shareBtn.disabled = false;
+    if (favBtn)   favBtn.disabled   = false;
+    if (routeBtn) routeBtn.disabled = (n < 2);
   }
 }
 

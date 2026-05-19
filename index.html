@@ -906,13 +906,13 @@
 
 <!-- ── SELECTION BAR (appears when select mode is active) ─────── -->
 <div id="sel-bar" style="display:none">
-  <span class="sel-bar-count" id="sel-bar-count">Tap markers</span>
-  <div class="sel-bar-actions">
-    <button class="sel-action-btn" id="sel-share-btn" onclick="_selShare()" disabled>🔗 Share</button>
-    <button class="sel-action-btn" id="sel-fav-btn" onclick="_selAddFavs()" disabled>⭐ Favs</button>
-    <button class="sel-action-btn sel-action-btn-route" id="sel-route-btn" onclick="_selRoute()" disabled>🗺 Route</button>
-    <button class="sel-exit-btn" onclick="_exitSelMode()" title="Exit selection mode">✕</button>
+  <span class="sel-bar-count" id="sel-bar-count">Tap markers to select</span>
+  <div class="sel-bar-actions" id="sel-bar-actions" style="display:none">
+    <button class="sel-action-btn" id="sel-share-btn" onclick="_selShare()">🔗 Share</button>
+    <button class="sel-action-btn" id="sel-fav-btn" onclick="_selAddFavs()">⭐ Favs</button>
+    <button class="sel-action-btn sel-action-btn-route" id="sel-route-btn" onclick="_selRoute()">🗺 Route</button>
   </div>
+  <button class="sel-exit-btn" onclick="_exitSelMode()" title="Exit selection mode">✕</button>
 </div>
 
 <script src="js/search-index.js?v=20260519"></script>
