@@ -32,14 +32,16 @@ function _enterSelMode() {
 
 function _exitSelMode() {
   _selModeActive = false;
-  _selSet  = new Set();
-  _selLocs = [];
 
   var btn = document.getElementById('sba-sel');
   if (btn) btn.classList.remove('sba-active');
 
   var mapEl = document.getElementById('map');
   if (mapEl) mapEl.classList.remove('sel-mode-cursor');
+
+  _selClearAllTooltips();
+  _selSet  = new Set();
+  _selLocs = [];
 
   _clearSelMarkers();
   _hideSelBar();
@@ -51,13 +53,41 @@ function _selToggle(loc) {
   if (_selSet.has(loc.id)) {
     _selSet.delete(loc.id);
     _selLocs = _selLocs.filter(function(l) { return l.id !== loc.id; });
+    _selSetTooltip(loc, false);
   } else {
     _selSet.add(loc.id);
     _selLocs.push(loc);
+    _selSetTooltip(loc, true);
   }
   _selUpdateMarker(loc);
   _selUpdateBar();
   return true;
+}
+
+// Keep tooltip open on selected markers
+function _selSetTooltip(loc, open) {
+  if (typeof markers === 'undefined') return;
+  for (var i = 0; i < markers.length; i++) {
+    if (markers[i].loc.id === loc.id && markers[i].m) {
+      var m = markers[i].m;
+      try {
+        if (open) {
+          m.unbindTooltip();
+          m.bindTooltip(loc.name || '', { direction: 'top', offset: [0, -28], opacity: 0.94, permanent: true });
+          m.openTooltip();
+        } else {
+          m.unbindTooltip();
+          m.bindTooltip(loc.name || '', { direction: 'top', offset: [0, -26], opacity: 0.94 });
+        }
+      } catch(e) {}
+      break;
+    }
+  }
+}
+
+function _selClearAllTooltips() {
+  if (typeof markers === 'undefined') return;
+  _selLocs.forEach(function(loc) { _selSetTooltip(loc, false); });
 }
 
 // ── Bottom bar ────────────────────────────────────────────────────
