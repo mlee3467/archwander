@@ -292,7 +292,6 @@ function _buildShareDrawer(title, locs) {
   if (!drawer) return;
 
   if (titleEl) titleEl.textContent = 'List of Shared Locations';
-  if (subEl)   subEl.textContent   = locs.length + ' location' + (locs.length !== 1 ? 's' : '');
 
   if (listEl) {
     listEl.innerHTML = locs.map(function(loc, i) {

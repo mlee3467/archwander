@@ -4309,7 +4309,7 @@
   background: #ccc; border-radius: 2px;
 }
 .sd-header {
-  display: flex; align-items: flex-start; justify-content: space-between;
+  display: flex; align-items: center; justify-content: space-between;
   padding: 4px 16px 10px;
   flex-shrink: 0;
   border-bottom: 1px solid rgba(0,0,0,0.07);
@@ -4319,7 +4319,7 @@
   font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-primary);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
-.sd-subtitle { font-size: 12px; color: #888; margin-top: 2px; }
+.sd-subtitle { display: none; }
 .sd-header-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; margin-left: 10px; }
 .sd-add-all-btn {
   padding: 6px 11px; background: #fef9c3; color: #92400e;
