@@ -1384,7 +1384,8 @@
       }
       .panel.open { transform: translateY(0); pointer-events: auto; }
       .panel.open.panel-fullscreen {
-        top: 0 !important; border-radius: 0;
+        top: calc(var(--mob-header-h) + var(--safe-top)) !important;
+        border-radius: 0;
       }
       /* Walk-path mode: collapse panel to thin handle bar at bottom */
       .panel.open.walk-path-mode {
