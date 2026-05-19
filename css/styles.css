@@ -4405,13 +4405,31 @@
   100% { transform: scale(2.0); opacity: 0;    }
 }
 
-/* Desktop: drawer sits next to sidebar */
+/* Desktop: drawer is a fixed side panel glued to the sidebar (mirrors list-overlay) */
 @media (min-width: 901px) {
   #share-drawer {
-    left: 340px; /* sidebar width */
+    top: var(--header-h);
+    bottom: 0;
+    left: var(--sidebar-w);
     right: auto;
-    width: 340px;
-    border-radius: 0 18px 0 0;
-    max-height: 80vh;
+    width: 360px;
+    max-height: none;
+    border-radius: 0;
+    background: var(--surface);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: 4px 0 16px rgba(0,0,0,0.08);
+    border-right: 1px solid var(--border);
+    /* Desktop: always full height — no slide-from-bottom */
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
   }
+  #share-drawer.sd-visible {
+    transform: translateX(0);
+  }
+  #share-drawer.sd-minimized {
+    transform: translateX(0); /* no minimize on desktop */
+  }
+  /* Hide drag handle on desktop — not needed */
+  #share-drawer .sd-handle-bar { display: none; }
 }
