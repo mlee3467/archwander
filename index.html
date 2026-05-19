@@ -62,7 +62,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
-  <link rel="stylesheet" href="css/styles.css?v=20260518">
+  <link rel="stylesheet" href="css/styles.css?v=20260521">
 </head>
 <body>
 
@@ -901,7 +901,7 @@
 <!-- ── SELECTION BAR (appears when select mode is active) ─────── -->
 <div id="sel-bar" style="display:none">
   <span class="sel-bar-count" id="sel-bar-count">Tap markers to select</span>
-  <div class="sel-bar-actions" id="sel-bar-actions" style="visibility:hidden">
+  <div class="sel-bar-actions" id="sel-bar-actions" style="display:none">
     <button class="sel-action-btn" id="sel-share-btn" onclick="_selShare()">🔗 Share</button>
     <button class="sel-action-btn" id="sel-fav-btn" onclick="_selAddFavs()">⭐ Favs</button>
     <button class="sel-action-btn sel-action-btn-route" id="sel-route-btn" onclick="_selRoute()">🗺 Route</button>
