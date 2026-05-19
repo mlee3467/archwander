@@ -1686,17 +1686,7 @@ function _luckyMatchTap(locId) {
 
 // ── Daily auto-trigger ─────────────────────────────────────────────
 function _checkAutoIfl() {
-  var today = _luckyTodayStr();
-  if (localStorage.getItem(_LUCKY_KEY_AUTO) === today) return; // already shown today
-  var cityKey = typeof activeCityKey !== 'undefined' ? activeCityKey : null;
-  var cityLocs = (typeof LOCS !== 'undefined' ? LOCS : []).filter(function(l) {
-    return !cityKey || l.city === cityKey;
-  });
-  if (cityLocs.length < 5) return; // not enough data yet
-  localStorage.setItem(_LUCKY_KEY_AUTO, today);
-  setTimeout(function() {
-    if (typeof _openIflLucky === 'function') _openIflLucky();
-  }, 700);
+  // IFL archived — auto-trigger disabled
 }
 
 // ══════════════════════════════════════════════════════════════════

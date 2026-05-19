@@ -155,7 +155,7 @@ async function checkShareParam() {
 }
 
 async function _applyShare(share) {
-  // Ensure the correct city is loaded
+  // Resolve city code (e.g. 'chi', 'nyc') from city key (e.g. 'chicago', 'new-york')
   var cityCode = null;
   if (typeof CITY_META !== 'undefined') {
     Object.keys(CITY_META).forEach(function(code) {
@@ -163,6 +163,14 @@ async function _applyShare(share) {
     });
   }
 
+  // Navigate to the shared city immediately (skips world map)
+  if (cityCode && typeof _enterCity === 'function') {
+    _enterCity(cityCode);
+    // Give the city fly animation time to settle before overlaying pins
+    await new Promise(function(res) { setTimeout(res, 1400); });
+  }
+
+  // Ensure city data is loaded
   if (cityCode && typeof loadCityData === 'function') {
     try { await loadCityData(cityCode); } catch(e) {}
   }
