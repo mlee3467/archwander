@@ -161,13 +161,14 @@ function _selRoute() {
   }, 100);
 }
 
-// ── Intercept openLoc when in select mode ─────────────────────────
+// ── Intercept _showMapMarkerPopup when in select mode ────────────
+// Markers call _showMapMarkerPopup(loc) directly, not openLoc
 (function() {
   var _wait = setInterval(function() {
-    if (typeof openLoc !== 'function') return;
+    if (typeof _showMapMarkerPopup !== 'function') return;
     clearInterval(_wait);
-    var _orig = openLoc;
-    openLoc = function(loc) {
+    var _orig = _showMapMarkerPopup;
+    _showMapMarkerPopup = function(loc) {
       if (_selModeActive) { _selToggle(loc); return; }
       _orig(loc);
     };
