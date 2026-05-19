@@ -483,6 +483,7 @@ function _createRoutePanel() {
       '<div class="route-hdr-right">' +
         '<button class="route-btn-save" onclick="_saveMyRoute()" title="' + (LANG === 'ko' ? '루트 저장' : 'Save route') + '">💾</button>' +
         '<button class="route-btn-load" onclick="_loadMyRoute()" title="' + (LANG === 'ko' ? '저장된 루트 불러오기' : 'Load saved route') + '">📂</button>' +
+        '<button class="route-btn-share" id="route-share-btn" onclick="_openRouteShare()" title="' + (LANG === 'ko' ? '루트 공유' : 'Share route') + '" style="display:none">🔗</button>' +
         '<button class="route-btn route-btn-clear" id="route-top-clear" onclick="clearRouteSelection()" style="display:none">✕ ' +
           (LANG === 'ko' ? '초기화' : 'Clear') + '</button>' +
         '<button class="route-panel-close" onclick="closeRoutePanel()" title="' + (LANG === 'ko' ? '닫기 및 초기화' : 'Close & clear') + '">✕</button>' +
@@ -944,6 +945,9 @@ function _refreshRouteUI() {
   var selList  = document.getElementById('route-sel-list');
   var topClear = document.getElementById('route-top-clear');
   if (topClear) topClear.style.display = routeLocations.length >= 1 ? 'inline-flex' : 'none';
+  // Show share button only when route is calculated (≥2 stops + routeData)
+  var shareBtn = document.getElementById('route-share-btn');
+  if (shareBtn) shareBtn.style.display = (routeLocations.length >= 2 && routeData) ? 'inline-flex' : 'none';
   if (!selList) return;
   if (routeLocations.length === 0) {
     selList.innerHTML = '<div class="route-sel-empty">' +
@@ -971,6 +975,16 @@ function _refreshRouteUI() {
       '<button class="route-sel-remove" onclick="removeRouteStop(\'' + loc.id + '\')">✕</button>' +
     '</div>';
   }).join('');
+}
+
+function _openRouteShare() {
+  if (routeLocations.length < 2) return;
+  var locationIds = routeLocations.map(function(l) { return l.id; });
+  var routeStops  = locationIds; // same order as displayed
+  var city = (routeLocations[0] && routeLocations[0].city) || (typeof activeCityKey !== 'undefined' ? activeCityKey : '');
+  if (typeof openShareModal === 'function') {
+    openShareModal(locationIds, routeStops, city);
+  }
 }
 
 function _routeLocName(loc) {

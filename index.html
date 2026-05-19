@@ -841,6 +841,44 @@
   </div>
 </div>
 
+<!-- ── SHARE MODAL ───────────────────────────────────────────── -->
+<div id="share-modal" style="display:none">
+  <div class="share-modal-box">
+    <div class="share-modal-hdr">
+      <span class="share-modal-title">🔗 Share Route</span>
+      <button class="share-modal-close" onclick="closeShareModal()">✕</button>
+    </div>
+    <div class="share-modal-body">
+      <div class="share-modal-info">
+        <span id="share-loc-count">0</span> locations &nbsp;·&nbsp;
+        <span id="share-stop-count">0</span> route stops
+      </div>
+      <label class="share-modal-label">Title (optional)</label>
+      <input id="share-title-inp" class="share-title-inp" type="text" placeholder="My Architecture Tour" maxlength="60">
+      <button id="share-gen-btn" class="share-gen-btn" onclick="generateShareLink()">🔗 Create Link</button>
+      <div id="share-link-box" class="share-link-box" style="display:none">
+        <input id="share-link-inp" class="share-link-inp" type="text" readonly>
+        <button id="share-copy-btn" class="share-copy-btn" onclick="copyShareLink()">📋 Copy</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SHARE BANNER (shown when opening a shared link) ──────── -->
+<div id="share-banner" style="display:none">
+  <div class="share-banner-inner">
+    <div class="share-banner-icon">🔗</div>
+    <div class="share-banner-text">
+      <div id="share-banner-title" class="share-banner-title">Shared Tour</div>
+      <div id="share-banner-info" class="share-banner-info">0 locations</div>
+    </div>
+    <div class="share-banner-actions">
+      <button id="share-banner-route-btn" class="share-banner-route-btn" style="display:none">🗺 Open Route</button>
+      <button class="share-banner-dismiss" onclick="dismissShareBanner()">✕</button>
+    </div>
+  </div>
+</div>
+
 <script src="js/search-index.js?v=20260518"></script>
 <script src="js/config.js?v=20260518"></script>
 <script src="js/i18n.js?v=20260518"></script>
@@ -851,9 +889,10 @@
 <script src="js/ui.js?v=20260518"></script>
 <script src="js/walk.js?v=20260518"></script>
 <script src="js/city.js?v=20260518"></script>
-<script src="js/route.js?v=20260518"></script>
-<script src="js/landing.js?v=20260518"></script>
-<script src="js/init.js?v=20260518"></script>
+<script src="js/route.js?v=20260519"></script>
+<script src="js/share.js?v=20260519"></script>
+<script src="js/landing.js?v=20260519"></script>
+<script src="js/init.js?v=20260519"></script>
 </body>
 
 </html>

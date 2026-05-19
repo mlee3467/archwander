@@ -4203,3 +4203,108 @@
   transition: background 0.2s;
 }
 .fwil-route-btn:hover { background: #e09410; }
+
+/* ══════════════════════════════════════════════════════════════
+   SHARE — Modal + Banner
+   ══════════════════════════════════════════════════════════════ */
+
+/* Share button in route panel header */
+.route-btn-share {
+  display: none;
+  align-items: center; justify-content: center;
+  width: 32px; height: 32px;
+  border: none; border-radius: 8px;
+  background: #f0fdf4; color: #16a34a;
+  font-size: 16px; cursor: pointer;
+  transition: background 0.15s;
+}
+.route-btn-share:hover { background: #dcfce7; }
+
+/* Share Modal overlay */
+#share-modal {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.55);
+  z-index: 9100;
+  display: flex; align-items: center; justify-content: center;
+}
+.share-modal-box {
+  background: #fff; border-radius: 16px;
+  padding: 20px; width: min(400px, 92vw);
+  box-shadow: 0 8px 32px rgba(0,0,0,.22);
+  display: flex; flex-direction: column; gap: 12px;
+}
+.share-modal-hdr {
+  display: flex; justify-content: space-between; align-items: center;
+}
+.share-modal-title { font-size: 15px; font-weight: 700; color: #111; }
+.share-modal-close {
+  border: none; background: none; font-size: 18px; cursor: pointer;
+  color: #888; padding: 2px 6px; border-radius: 6px;
+}
+.share-modal-close:hover { background: #f3f3f0; color: #111; }
+.share-modal-body { display: flex; flex-direction: column; gap: 10px; }
+.share-modal-info { font-size: 12px; color: #888; }
+.share-modal-label { font-size: 12px; font-weight: 600; color: #555; margin-bottom: -4px; }
+.share-title-inp {
+  width: 100%; padding: 9px 12px; border: 1.5px solid #e0e0e0;
+  border-radius: 8px; font-size: 13px; outline: none; box-sizing: border-box;
+  transition: border-color 0.15s;
+}
+.share-title-inp:focus { border-color: #D946A8; }
+.share-gen-btn {
+  padding: 11px 18px; background: #D946A8; color: white;
+  border: none; border-radius: 10px; font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: background 0.15s;
+}
+.share-gen-btn:hover:not(:disabled) { background: #C026D3; }
+.share-gen-btn:disabled { background: #e8a8d0; cursor: default; }
+.share-link-box {
+  display: flex; gap: 6px; align-items: center;
+}
+.share-link-inp {
+  flex: 1; padding: 9px 10px; border: 1.5px solid #e0e0e0;
+  border-radius: 8px; font-size: 12px; font-family: monospace;
+  color: #333; outline: none; background: #fafafa; box-sizing: border-box;
+}
+.share-copy-btn {
+  flex-shrink: 0; padding: 9px 14px; background: #111; color: white;
+  border: none; border-radius: 8px; font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: background 0.15s; white-space: nowrap;
+}
+.share-copy-btn:hover { background: #333; }
+
+/* Share Banner (shown when receiver opens a shared link) */
+#share-banner {
+  position: fixed;
+  top: 14px; left: 50%;
+  transform: translateX(-50%);
+  z-index: 9050;
+  width: min(480px, calc(100vw - 28px));
+}
+.share-banner-inner {
+  display: flex; align-items: center; gap: 10px;
+  background: #fff; border-radius: 14px;
+  padding: 12px 14px;
+  box-shadow: 0 4px 20px rgba(0,0,0,.18);
+  border: 1.5px solid #f0e6f6;
+}
+.share-banner-icon { font-size: 22px; flex-shrink: 0; }
+.share-banner-text { flex: 1; min-width: 0; }
+.share-banner-title {
+  font-size: 13px; font-weight: 700; color: #111;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.share-banner-info { font-size: 11px; color: #888; margin-top: 1px; }
+.share-banner-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.share-banner-route-btn {
+  display: inline-flex; align-items: center;
+  padding: 7px 12px; background: #D946A8; color: white;
+  border: none; border-radius: 8px; font-size: 12px; font-weight: 600;
+  cursor: pointer; transition: background 0.15s; white-space: nowrap;
+}
+.share-banner-route-btn:hover { background: #C026D3; }
+.share-banner-dismiss {
+  border: none; background: none; font-size: 16px; cursor: pointer;
+  color: #aaa; padding: 4px 6px; border-radius: 6px;
+}
+.share-banner-dismiss:hover { background: #f3f3f0; color: #111; }

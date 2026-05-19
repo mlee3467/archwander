@@ -275,6 +275,13 @@ window.addEventListener('load', function() {
       }
     }, { passive: true });
   })();
+
+  // ── Share param: load shared route/locations if ?s=XXXXXXXX ──────
+  if (window.location.search.indexOf('s=') !== -1) {
+    setTimeout(function() {
+      if (typeof checkShareParam === 'function') checkShareParam();
+    }, 2500); // wait for city data to load
+  }
 });
 
 // ══════════════════════════════════════════════════════════════════
