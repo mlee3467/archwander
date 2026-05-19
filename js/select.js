@@ -51,17 +51,47 @@ function _exitSelMode() {
 function _selToggle(loc) {
   if (!_selModeActive) return false;
   if (_selSet.has(loc.id)) {
+    // Deselect: restore tooltip first, then remove
+    _selSetTooltip(loc, false);
     _selSet.delete(loc.id);
     _selLocs = _selLocs.filter(function(l) { return l.id !== loc.id; });
-    _selSetTooltip(loc, false);
   } else {
     _selSet.add(loc.id);
     _selLocs.push(loc);
-    _selSetTooltip(loc, true);
   }
-  _selUpdateMarker(loc);
+  // Redraw ALL numbered pins (handles renumbering after deselect)
+  _selRefreshAllMarkers();
   _selUpdateBar();
+  // Reopen all permanent tooltips after Leaflet's click event settles
+  setTimeout(_selRefreshAllTooltips, 60);
   return true;
+}
+
+// Redraw every selected marker pin with correct numbering
+function _selRefreshAllMarkers() {
+  if (typeof L === 'undefined' || typeof map === 'undefined') return;
+  if (!_selMarkerLayer) _selMarkerLayer = L.layerGroup().addTo(map);
+  // Clear all current pins
+  _selMarkerLayer.clearLayers();
+  _selMarkerMap = {};
+  // Redraw with updated indices
+  _selLocs.forEach(function(loc, idx) {
+    var icon = L.divIcon({
+      html: '<div class="sel-check-pin">' + (idx + 1) + '</div>',
+      className: 'sel-check-marker',
+      iconSize:  [26, 26],
+      iconAnchor:[13, 13]
+    });
+    var m = L.marker([loc.lat, loc.lng], { icon: icon, zIndexOffset: 1500 })
+              .addTo(_selMarkerLayer);
+    _selMarkerMap[loc.id] = m;
+  });
+}
+
+// Reopen permanent tooltips for all selected markers
+function _selRefreshAllTooltips() {
+  if (typeof markers === 'undefined') return;
+  _selLocs.forEach(function(loc) { _selSetTooltip(loc, true); });
 }
 
 // Keep tooltip open on selected markers
