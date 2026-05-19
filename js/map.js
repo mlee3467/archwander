@@ -553,9 +553,16 @@ function _closeMapMarkerPopup() {
 }
 
 function _showMapMarkerPopup(loc) {
+  // Second tap on same marker → open detail directly
+  if (_mapMarkerPopupActive && _mapMarkerPopupActive.id === loc.id) {
+    _closeMapMarkerPopup();
+    if (typeof openLocById === 'function') openLocById(loc.id);
+    return;
+  }
   _closeMapMarkerPopup();
   // Highlight this marker
   if (typeof highlightMarker === 'function') highlightMarker(loc.id, true);
+  _mapMarkerPopupActive = loc;
 
   var catBadge = (typeof _pCat === 'function') ? _pCat(loc) : (loc.cat || '');
   var catClass = (typeof CAT_CC_MAP !== 'undefined' && CAT_CC_MAP[catBadge]) ? CAT_CC_MAP[catBadge] : 'c-lmk';
@@ -577,9 +584,6 @@ function _showMapMarkerPopup(loc) {
         (loc.yr ? '<span style="color:#888"> · ' + loc.yr + '</span>' : '') +
       '</div>' +
       (loc.arch ? '<div class="rmp-arch">' + _esc(loc.arch) + '</div>' : '') +
-      '<button class="rmp-open-btn" onclick="_closeMapMarkerPopup();openLocById(\'' + loc.id + '\')">' +
-        (_lang === 'ko' ? '상세 보기 →' : 'View details →') +
-      '</button>' +
     '</div>';
   document.body.appendChild(el);
 
