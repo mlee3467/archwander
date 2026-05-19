@@ -4445,13 +4445,21 @@
   font-family: Inter, -apple-system, sans-serif;
 }
 @media (max-width: 900px) {
-  #sel-bar { bottom: 14px; left: 12px; right: 12px; transform: none; border-radius: 18px; }
+  #sel-bar {
+    bottom: 14px; left: 12px; right: 12px;
+    transform: none; border-radius: 18px;
+    flex-direction: column; align-items: stretch;
+    padding: 10px 14px 12px;
+    gap: 10px;
+  }
+  .sel-bar-count { min-width: 0; margin-right: 0; text-align: center; }
+  .sel-bar-actions { justify-content: center; }
 }
 .sel-bar-count {
   font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.9);
   margin-right: 4px; min-width: 130px;
 }
-.sel-bar-actions { display: flex; align-items: center; gap: 6px; }
+.sel-bar-actions { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 .sel-action-btn {
   display: inline-flex; align-items: center; gap: 5px;
   padding: 6px 12px;
