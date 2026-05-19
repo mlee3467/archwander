@@ -369,6 +369,7 @@ function _showShareDrawer() {
   if (!drawer) return;
   _sdMinimized = false;
   drawer.style.display = 'flex';
+  drawer.style.height = '';   // reset to CSS default (33vh)
   drawer.classList.remove('sd-minimized');
   requestAnimationFrame(function() {
     requestAnimationFrame(function() { drawer.classList.add('sd-visible'); });
@@ -414,19 +415,19 @@ function _sdInitDrag(drawer) {
     var dy = _sdDragStartY - y;
     var newH = Math.min(Math.max(_sdDragStartH + dy, 56), window.innerHeight * 0.667);
     _sdCurrentH = newH;
-    drawer.style.maxHeight = newH + 'px';
+    drawer.style.height = newH + 'px';
     drawer.style.transform = 'translateY(0)';
   }
   function onEnd() {
     drawer.style.transition = '';
-    // Snap: if dragged to < 80px visible, minimize
+    // Snap: if dragged to < 100px, minimize
     if (_sdCurrentH < 100) {
       _sdMinimizeDrawer();
-      drawer.style.maxHeight = '';
+      drawer.style.height = '';
       drawer.style.transform = '';
     } else {
       drawer.classList.remove('sd-minimized');
-      drawer.style.maxHeight = _sdCurrentH + 'px';
+      drawer.style.height = _sdCurrentH + 'px';
     }
   }
 
