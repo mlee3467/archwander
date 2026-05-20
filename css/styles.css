@@ -409,10 +409,10 @@
     /* ── Header GPS button ── */
     #header-gps-btn {
       display: none; width: 34px; height: 34px;
-      border: none; border-radius: 8px;
-      background: linear-gradient(135deg, #7dd3fc 0%, #e8dcc8 50%, #6ee7b7 100%);
+      border: 1px solid var(--border); border-radius: 8px;
+      background: white;
       cursor: pointer; align-items: center;
-      justify-content: center; flex-shrink: 0; color: #1a4a3a;
+      justify-content: center; flex-shrink: 0; color: #333;
       -webkit-tap-highlight-color: transparent;
       transition: opacity 0.15s; order: 3;
     }
