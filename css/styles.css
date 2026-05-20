@@ -406,6 +406,34 @@
       transition: opacity 0.15s;
     }
     #menu-btn:active { opacity: 0.8; }
+    /* ── Header GPS button ── */
+    #header-gps-btn {
+      display: none; width: 34px; height: 34px;
+      border: none; border-radius: 8px;
+      background: linear-gradient(135deg, #7dd3fc 0%, #e8dcc8 50%, #6ee7b7 100%);
+      cursor: pointer; align-items: center;
+      justify-content: center; flex-shrink: 0; color: #1a4a3a;
+      -webkit-tap-highlight-color: transparent;
+      transition: opacity 0.15s; order: 3;
+    }
+    #header-gps-btn:active { opacity: 0.8; }
+    #header-gps-toast {
+      display: none; position: fixed;
+      top: calc(var(--mob-header-h) + var(--safe-top) + 8px);
+      left: 50%; transform: translateX(-50%);
+      background: rgba(17,17,17,0.88);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      color: #fff; font-size: 12px; font-weight: 500;
+      padding: 8px 16px; border-radius: 20px;
+      white-space: nowrap; z-index: 9000;
+      font-family: Inter, -apple-system, sans-serif;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+      animation: gps-toast-in 0.2s ease;
+    }
+    @keyframes gps-toast-in {
+      from { opacity: 0; transform: translateX(-50%) translateY(-6px); }
+      to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
     /* ── LAYOUT ─────────────────────────────────────────── */
     .app { display: flex; flex: 1; overflow: hidden; position: relative; }
 
@@ -1323,13 +1351,15 @@
       .logo-img { height: 26px; }
       /* ☰ hamburger: immediately after logo */
       #menu-btn { display: flex; flex-shrink: 0; order: 2; }
+      /* GPS button: next to hamburger */
+      #header-gps-btn { display: flex; flex-shrink: 0; order: 3; }
       /* Search: fills remaining space */
-      .search-wrap { display: flex !important; flex: 1; max-width: none; order: 3; min-width: 0; }
+      .search-wrap { display: flex !important; flex: 1; max-width: none; order: 4; min-width: 0; }
       .search-icon { display: block; }
       #search { height: 36px; font-size: 13px; }
       .map-toggle { display: none !important; }
       /* ✦ button: far right */
-      #header-star-btn { order: 4; }
+      #header-star-btn { order: 5; }
       /* ✦ landing button — mobile only */
       #header-star-btn {
         display: flex; align-items: center; justify-content: center;
