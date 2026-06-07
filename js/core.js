@@ -685,7 +685,7 @@ function openLoc(loc) {
   document.getElementById('panel-head').innerHTML = `
     <div class="p-cat">${catBadges}</div>
     <div class="p-title">${biName}</div>
-    <div class="p-sub">${loc.arch}${(loc.archs && loc.archs.length > 1) ? ' + '+(loc.archs.length-1) : ''} &nbsp;·&nbsp; ${loc.yr}</div>
+    <div class="p-sub">${_buildArchLinksHead(loc)} &nbsp;·&nbsp; ${loc.yr}</div>
     <div class="p-tags">${loc.tags.map(t=>`<span class="p-tag">${t}</span>`).join('')}</div>
     <div class="p-action-row">
       <button class="p-action-btn${isFav(loc.id)?' fav-active':''}" id="p-fav-btn" onclick="toggleFav('${loc.id}')"><span class="act-icon">${isFav(loc.id)?'★':'☆'}</span> ${t('fav_label')}</button>
@@ -747,7 +747,7 @@ function buildOverviewTab(loc, trans = {}) {
     <p class="desc">${desc}</p>
     <div class="info-row"><span class="info-label">${t('neighborhood')}</span><span class="info-val">${_displayHood(loc, trans.hood)}</span></div>
     <div class="info-row"><span class="info-label">${t('address')}</span><span class="info-val">${_displayAddr(loc, trans.addr)}</span></div>
-    <div class="info-row"><span class="info-label">${t('arch_label')}</span><span class="info-val">${(loc.archs && loc.archs.length) ? loc.archs.join(', ') : (loc.arch || '—')}</span></div>
+    <div class="info-row"><span class="info-label">${t('arch_label')}</span><span class="info-val">${_buildArchLinks(loc)}</span></div>
     <div class="info-row"><span class="info-label">${t('completed')}</span><span class="info-val">${loc.yr}</span></div>
     <div class="info-row"><span class="info-label">${t('style_label')}</span><span class="info-val">${_allSGs(loc).join(', ') || '—'}</span></div>
     ${loc.access ? `<div class="info-row"><span class="info-label">${t('access_label')}</span><span class="info-val"><span class="access-badge ${ACCESS_META[loc.access]?.cls||''}">${ACCESS_META[loc.access]?.icon||''} ${loc.access}</span></span></div>` : ''}
@@ -785,4 +785,71 @@ function buildDirectionsTab(loc, trans = {}) {
       <a href="https://maps.google.com/?q=${encodeURIComponent(loc.addr)}&layer=c" target="_blank" rel="noopener" class="btn-s">${t('sv_gmaps')}</a>
     </div>
   `;
+}
+
+// ══════════════════════════════════════════════════════════════════
+// ARCHITECT PROFILE
+// ══════════════════════════════════════════════════════════════════
+function _escArch(s) {
+  return (s || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+}
+function _buildArchLinks(loc) {
+  var archs = (loc.archs && loc.archs.length) ? loc.archs : (loc.arch ? [loc.arch] : []);
+  if (!archs.length) return '—';
+  return archs.map(function(a) {
+    return '<button class="arch-link" onclick="openArchProfile(\'' + _escArch(a) + '\')">' + a + '</button>';
+  }).join(', ');
+}
+function _buildArchLinksHead(loc) {
+  var archs = (loc.archs && loc.archs.length) ? loc.archs : (loc.arch ? [loc.arch] : []);
+  if (!archs.length) return '—';
+  var suffix = archs.length > 1 ? ' <span style="opacity:0.6">+' + (archs.length - 1) + '</span>' : '';
+  return '<button class="arch-link arch-link-head" onclick="openArchProfile(\'' + _escArch(archs[0]) + '\')">' + archs[0] + '</button>' + suffix;
+}
+function openArchProfile(archName) {
+  var existing = document.getElementById('arch-profile-overlay');
+  if (existing && existing.parentNode) existing.parentNode.removeChild(existing);
+  var isKo = typeof LANG !== 'undefined' && LANG === 'ko';
+  var CITY_LBL = { 'new-york': 'New York', 'seoul': 'Seoul', 'london': 'London', 'tokyo': 'Tokyo', 'chicago': 'Chicago' };
+  var works = (typeof LOCS !== 'undefined' ? LOCS : []).filter(function(l) {
+    var archs = l.archs || (l.arch ? [l.arch] : []);
+    return archs.some(function(a) { return a && a.toLowerCase() === archName.toLowerCase(); });
+  }).sort(function(a, b) { return (a.yr || 9999) - (b.yr || 9999); });
+
+  var worksHtml = works.map(function(w) {
+    var catMeta = (typeof _ccMeta === 'function') ? _ccMeta(w) : null;
+    var iconHtml = catMeta
+      ? '<div class="ap-thumb" style="background:' + catMeta.bg + '"><img src="' + catMeta.icon + '" style="width:18px;height:18px;object-fit:contain"></div>'
+      : '<div class="ap-thumb" style="background:#e8e8e4"></div>';
+    return '<div class="ap-work-item" onclick="openLocById(\'' + w.id + '\');closeArchProfile()">' +
+      iconHtml +
+      '<div class="ap-work-body">' +
+        '<div class="ap-work-name">' + w.name + '</div>' +
+        '<div class="ap-work-meta">' + (w.yr || '—') + ' · ' + (CITY_LBL[w.city] || w.city || '') + (w.hood ? ' · ' + w.hood : '') + '</div>' +
+      '</div></div>';
+  }).join('');
+
+  if (!worksHtml) worksHtml = '<div style="padding:24px;color:var(--text-secondary);text-align:center;font-size:13px">' + (isKo ? '데이터 없음' : 'No works found in loaded data.') + '</div>';
+
+  var overlay = document.createElement('div');
+  overlay.id = 'arch-profile-overlay';
+  overlay.className = 'arch-profile-overlay';
+  overlay.innerHTML =
+    '<div class="arch-profile-panel">' +
+      '<div class="arch-profile-hdr">' +
+        '<button class="arch-profile-back" onclick="closeArchProfile()">◀</button>' +
+        '<div><div class="arch-profile-name">' + archName + '</div>' +
+        '<div class="arch-profile-sub">' + works.length + (isKo ? '개 작품' : ' works in dataset') + '</div></div>' +
+      '</div>' +
+      '<div class="arch-profile-list">' + worksHtml + '</div>' +
+    '</div>';
+  document.body.appendChild(overlay);
+  requestAnimationFrame(function() { requestAnimationFrame(function() { overlay.classList.add('visible'); }); });
+  overlay.addEventListener('click', function(e) { if (e.target === overlay) closeArchProfile(); });
+}
+function closeArchProfile() {
+  var el = document.getElementById('arch-profile-overlay');
+  if (!el) return;
+  el.classList.remove('visible');
+  setTimeout(function() { if (el.parentNode) el.parentNode.removeChild(el); }, 250);
 }

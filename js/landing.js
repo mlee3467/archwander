@@ -316,6 +316,63 @@ function landingGoLucky() {
 
 var _myPageFileTarget = null; // 'favvis' | 'routes'
 
+function _buildPassportHtml(isKo) {
+  var visIds = (typeof _visSet !== 'undefined') ? [..._visSet] : [];
+  if (!visIds.length) {
+    return '<div class="mpp-passport-empty">' + (isKo ? '아직 방문한 곳이 없어요. 건물 상세 페이지에서 ✓ 방문을 눌러 기록해보세요.' : 'No visits yet. Open a location and tap ✓ Visited to track your trips.') + '</div>';
+  }
+  var cityFlags = { 'new-york':'🗽', 'seoul':'⛰️', 'london':'🎡', 'tokyo':'🗼', 'chicago':'🌬️' };
+  var cityLbls  = { 'new-york':'New York', 'seoul':'Seoul', 'london':'London', 'tokyo':'Tokyo', 'chicago':'Chicago' };
+  var visByCity = {}, totalByCity = {}, eraCount = {}, styleCount = {}, recentVisits = [];
+  var visitDates = (typeof _readVisitDates === 'function') ? _readVisitDates() : {};
+  var cityMeta2 = (typeof CITY_META !== 'undefined') ? CITY_META : {};
+  Object.keys(cityMeta2).forEach(function(code) {
+    var k = cityMeta2[code].key; visByCity[k] = 0; totalByCity[k] = 0;
+  });
+  if (typeof LOCS !== 'undefined') {
+    LOCS.forEach(function(l) {
+      if (totalByCity.hasOwnProperty(l.city)) totalByCity[l.city]++;
+      if (typeof _visSet !== 'undefined' && _visSet.has(l.id)) {
+        if (visByCity.hasOwnProperty(l.city)) visByCity[l.city]++;
+        var era = l.era || '—'; eraCount[era] = (eraCount[era] || 0) + 1;
+        (l.styleGroups || []).forEach(function(sg) { if (sg) styleCount[sg] = (styleCount[sg] || 0) + 1; });
+        recentVisits.push({ name: l.name, city: l.city, date: visitDates[l.id] || '' });
+      }
+    });
+  }
+  var maxVis = Math.max(1, Math.max.apply(null, Object.values(visByCity).concat([0])));
+  var cityBars = Object.keys(visByCity).filter(function(k) { return totalByCity[k] > 0; }).map(function(k) {
+    var cnt = visByCity[k] || 0, tot = totalByCity[k] || 1;
+    var pct = Math.round((cnt / tot) * 100), barW = Math.round((cnt / maxVis) * 100);
+    return '<div class="mpp-pp-row">' +
+      '<span class="mpp-pp-flag">' + (cityFlags[k] || '🏙') + '</span>' +
+      '<span class="mpp-pp-city">' + (cityLbls[k] || k) + '</span>' +
+      '<div class="mpp-pp-track"><div class="mpp-pp-fill" style="width:' + barW + '%"></div></div>' +
+      '<span class="mpp-pp-num">' + cnt + '<span class="mpp-pp-tot">/' + tot + '</span></span>' +
+      '<span class="mpp-pp-pct">' + pct + '%</span></div>';
+  }).join('');
+  var ERAS2 = ['Pre-1900','Pre-1930','1930–1969','1970–1999','2000–Present'];
+  var maxEra = Math.max(1, Math.max.apply(null, ERAS2.map(function(e) { return eraCount[e] || 0; }).concat([0])));
+  var eraBars = ERAS2.filter(function(e) { return eraCount[e]; }).map(function(e) {
+    var cnt = eraCount[e], w = Math.round((cnt / maxEra) * 100);
+    return '<div class="mpp-era-row"><span class="mpp-era-lbl">' + e + '</span><div class="mpp-era-track"><div class="mpp-era-fill" style="width:' + w + '%"></div></div><span class="mpp-era-num">' + cnt + '</span></div>';
+  }).join('');
+  var sortedStyles = Object.keys(styleCount).sort(function(a,b){ return styleCount[b]-styleCount[a]; }).slice(0,5);
+  var stylesHtml = sortedStyles.length ? '<div class="mpp-styles-chips">' + sortedStyles.map(function(s) {
+    return '<span class="mpp-style-chip">' + s + '<span class="mpp-style-cnt">' + styleCount[s] + '</span></span>';
+  }).join('') + '</div>' : '';
+  recentVisits.sort(function(a,b){ return (b.date||'')>(a.date||'')?1:-1; });
+  var recentHtml = recentVisits.slice(0,5).map(function(v) {
+    return '<div class="mpp-recent-item"><span class="mpp-recent-dot">✓</span><div class="mpp-recent-body"><div class="mpp-recent-name">' + v.name + '</div><div class="mpp-recent-meta">' + (cityLbls[v.city]||v.city||'') + (v.date?' · '+v.date:'') + '</div></div></div>';
+  }).join('');
+  return '<div class="mpp-passport-body">' +
+    (cityBars ? '<div class="mpp-pp-subhead">' + (isKo?'도시별':'By City') + '</div>' + cityBars : '') +
+    (eraBars  ? '<div class="mpp-pp-subhead" style="margin-top:14px">' + (isKo?'연대별':'By Era') + '</div>' + eraBars : '') +
+    (stylesHtml ? '<div class="mpp-pp-subhead" style="margin-top:14px">' + (isKo?'즐겨찾는 스타일':'Top Styles') + '</div>' + stylesHtml : '') +
+    (recentHtml ? '<div class="mpp-pp-subhead" style="margin-top:14px">' + (isKo?'최근 방문':'Recent Visits') + '</div>' + recentHtml : '') +
+  '</div>';
+}
+
 function _openMyPage() {
   // Remove any stale instance first
   var existing = document.getElementById('my-page-overlay');
@@ -390,15 +447,15 @@ function _openMyPage() {
           '<div class="mpp-city-grid" id="mpp-city-grid">' + cityBtnsHtml + '</div>' +
         '</div>' +
 
-        // ── Section 3: Statistics ───────────────────────────────
-        '<div class="mpp-section">' +
-          '<div class="mpp-sec-title">' + (isKo ? '📊 통계' : '📊 Statistics') + '</div>' +
+        // ── Section 3: Passport ─────────────────────────────────
+        '<div class="mpp-section mpp-passport-section">' +
+          '<div class="mpp-sec-title">🏛 ' + (isKo ? '건축 여행 기록' : 'Architectural Passport') + '</div>' +
           '<div class="mpp-stats-row">' +
-            '<div class="mpp-stat-card"><span class="mpp-stat-num">' + favCount + '</span><span class="mpp-stat-lbl">' + (isKo ? '즐겨찾기' : 'Favorites') + '</span></div>' +
             '<div class="mpp-stat-card"><span class="mpp-stat-num">' + visCount + '</span><span class="mpp-stat-lbl">' + (isKo ? '방문' : 'Visited') + '</span></div>' +
+            '<div class="mpp-stat-card"><span class="mpp-stat-num">' + favCount + '</span><span class="mpp-stat-lbl">' + (isKo ? '즐겨찾기' : 'Favs') + '</span></div>' +
             '<div class="mpp-stat-card"><span class="mpp-stat-num">' + routeCount + '</span><span class="mpp-stat-lbl">' + (isKo ? '루트' : 'Routes') + '</span></div>' +
           '</div>' +
-          '<div class="mpp-coming-soon">🚧 ' + (isKo ? '더 많은 통계 준비 중' : 'More stats coming soon') + '</div>' +
+          _buildPassportHtml(isKo) +
         '</div>' +
 
         // ── Section 4: DB Refresh ───────────────────────────────

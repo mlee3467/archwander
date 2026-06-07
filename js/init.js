@@ -1,3 +1,23 @@
+// ── Dark / Light mode toggle ─────────────────────────────────────
+function toggleDarkMode() {
+  var html = document.documentElement;
+  var isDark = html.getAttribute('data-theme') === 'dark';
+  if (isDark) {
+    html.removeAttribute('data-theme');
+    localStorage.setItem('aw_theme', 'light');
+  } else {
+    html.setAttribute('data-theme', 'dark');
+    localStorage.setItem('aw_theme', 'dark');
+  }
+  _updateDarkModeIcon();
+}
+function _updateDarkModeIcon() {
+  var icon = document.getElementById('dark-mode-icon');
+  if (!icon) return;
+  icon.textContent = document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+}
+document.addEventListener('DOMContentLoaded', function() { _updateDarkModeIcon(); });
+
 // ── iOS 13+ DeviceOrientation permission for Street View gyroscope ──
 // Must be called within a user-gesture context (tap, click).
 // Once granted it persists for the session and enables gyroscope in

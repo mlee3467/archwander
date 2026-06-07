@@ -22,95 +22,83 @@
        — custom props don't support it) and force backgrounds on light elements.
        We do NOT force `color` globally: dark-background screens (landing,
        IFL selector) have white text that would become invisible.             */
-    @media (prefers-color-scheme: dark) {
-      :root {
-        /* Re-declare with same light values — custom props ignore !important */
-        --bg: #F7F7F5;
-        --surface: #FFFFFF;
-        --border: #E8E8E4;
-        --text-primary: #111111;
-        --text-secondary: #787878;
-        --accent: #111111;
-        color-scheme: only light;
-      }
-      html {
-        color-scheme: only light !important;
-        filter: none !important;
-        -webkit-filter: none !important;
-        /* No color:#111 here — would make dark-bg landing screen text invisible */
-      }
-
-      /* Light-background structural elements: force both bg AND fg */
-      body {
-        background-color: #F7F7F5 !important;
-        /* color intentionally omitted — dark screens need white text */
-      }
-      header {
-        background-color: #FFFFFF !important;
-        color: #111111 !important;
-        border-color: #E8E8E4 !important;
-      }
-      .sidebar {
-        background-color: #FFFFFF !important;
-        color: #111111 !important;
-      }
-      .list-wrap, .list-inner, #list-inner {
-        background-color: #F7F7F5 !important;
-        color: #111111 !important;
-      }
-      .loc-card {
-        background-color: #FFFFFF !important;
-        color: #111111 !important;
-        border-color: #E8E8E4 !important;
-      }
-      .loc-name { color: #111111 !important; }
-      .loc-meta, .loc-hood { color: #787878 !important; }
-      .panel, .detail-panel {
-        background-color: #FFFFFF !important;
-        color: #111111 !important;
-      }
-      .panel-header {
-        background-color: #FFFFFF !important;
-        color: #111111 !important;
-        border-color: #E8E8E4 !important;
-      }
-      .tabs { background-color: #FFFFFF !important; border-color: #E8E8E4 !important; }
-      .tab { color: #787878 !important; }
-      .tab.active { color: #111111 !important; }
-      .detail-section { background-color: #FFFFFF !important; color: #111111 !important; }
-      h2.loc-name-h2, h3, .detail-label { color: #111111 !important; }
-      .route-panel {
-        background-color: #FFFFFF !important;
-        color: #111111 !important;
-      }
-      #search {
-        background-color: #F7F7F5 !important;
-        color: #111111 !important;
-        border-color: #E8E8E4 !important;
-      }
-      input, textarea, select {
-        background-color: #FFFFFF !important;
-        color: #111111 !important;
-        color-scheme: only light;
-      }
-      button { color-scheme: only light; }
-
-      /* Dark-background screens — explicitly preserve dark bg + white text */
-      #landing-splash,
-      #landing-screen {
-        filter: none !important;
-        /* backgrounds already hardcoded dark — let them stay as designed */
-      }
-      #landing-screen .landing-btn-title { color: #ffffff !important; }
-      #landing-screen .landing-btn-sub   { color: rgba(255,255,255,0.38) !important; }
-      #landing-screen .landing-hdr-city  { color: rgba(255,255,255,0.35) !important; }
-
-      /* Logo inversion for dark mode — first-screen logos only (splash + landing header) */
-      .splash-logo-img,
-      .landing-hdr-logo img {
-        filter: invert(1) !important;
-      }
+    /* ── Dark mode — activated by [data-theme="dark"] on <html> ─── */
+    [data-theme="dark"] {
+      --bg: #141414;
+      --surface: #1e1e1e;
+      --border: #2e2e2e;
+      --text-primary: #f0f0ee;
+      --text-secondary: #898989;
+      --accent: #f0f0ee;
+      color-scheme: dark;
     }
+    [data-theme="dark"] body { background-color: #141414; }
+    [data-theme="dark"] header { background-color: #1e1e1e; border-color: #2e2e2e; }
+    [data-theme="dark"] .sidebar { background-color: #1e1e1e; border-color: #2e2e2e; }
+    [data-theme="dark"] .sb-filter-toggle { background: #1e1e1e; color: #f0f0ee; border-color: #2e2e2e; }
+    [data-theme="dark"] .sb-filters { background: #1e1e1e; border-color: #2e2e2e; }
+    [data-theme="dark"] .fsec-hdr { color: #f0f0ee; border-color: #2e2e2e; }
+    [data-theme="dark"] .fsec-body { background: #141414; }
+    [data-theme="dark"] .loc-card { background-color: #1e1e1e; border-color: #2e2e2e; color: #f0f0ee; }
+    [data-theme="dark"] .loc-name { color: #f0f0ee; }
+    [data-theme="dark"] .loc-meta, [data-theme="dark"] .loc-hood { color: #898989; }
+    [data-theme="dark"] .panel { background-color: #1e1e1e; }
+    [data-theme="dark"] .panel-scroll { background: #1e1e1e; }
+    [data-theme="dark"] .tabs { background: #1e1e1e; border-color: #2e2e2e; }
+    [data-theme="dark"] .tab { color: #898989; }
+    [data-theme="dark"] .tab.active { color: #f0f0ee; border-color: #f0f0ee; }
+    [data-theme="dark"] .panel-head { background: #1e1e1e; }
+    [data-theme="dark"] .p-title { color: #f0f0ee; }
+    [data-theme="dark"] .p-sub { color: #898989; }
+    [data-theme="dark"] .info-row { border-color: #2e2e2e; }
+    [data-theme="dark"] .info-label { color: #898989; }
+    [data-theme="dark"] .info-val { color: #f0f0ee; }
+    [data-theme="dark"] .desc { color: #d0d0ce; }
+    [data-theme="dark"] #search { background: #141414; color: #f0f0ee; border-color: #2e2e2e; }
+    [data-theme="dark"] #search::placeholder { color: #666; }
+    [data-theme="dark"] input, [data-theme="dark"] textarea, [data-theme="dark"] select { background: #1e1e1e !important; color: #f0f0ee !important; border-color: #2e2e2e !important; }
+    [data-theme="dark"] .list-overlay-box { background: #1e1e1e; }
+    [data-theme="dark"] .list-overlay-hdr { background: #1e1e1e; border-color: #2e2e2e; color: #f0f0ee; }
+    [data-theme="dark"] .sb-review-btn { background: #141414; color: #898989; border-color: #2e2e2e; }
+    [data-theme="dark"] .p-action-btn { background: #141414; color: #f0f0ee; border-color: #2e2e2e; }
+    [data-theme="dark"] .p-action-btn:hover { background: #2a2a2a; }
+    [data-theme="dark"] .route-panel { background: #1e1e1e; color: #f0f0ee; }
+    [data-theme="dark"] .rp-hdr { background: #1e1e1e; border-color: #2e2e2e; }
+    [data-theme="dark"] .rp-loc-item { background: #141414; border-color: #2e2e2e; }
+    [data-theme="dark"] .arm-panel { background: #1e1e1e; color: #f0f0ee; }
+    [data-theme="dark"] .arm-header { background: #141414; border-color: #2e2e2e; }
+    [data-theme="dark"] .mpp-section { background: #141414; border-color: #2e2e2e; }
+    [data-theme="dark"] .mpp-sec-title { color: #f0f0ee; }
+    [data-theme="dark"] .mpp-sec-sub { color: #898989; }
+    [data-theme="dark"] .mpp-btn { background: #1e1e1e; color: #f0f0ee; border-color: #2e2e2e; }
+    [data-theme="dark"] .pp-hdr, [data-theme="dark"] #passport-stats { background: #1e1e1e; color: #f0f0ee; }
+    [data-theme="dark"] .pp-city-track { background: #2e2e2e; }
+    [data-theme="dark"] .sba-btn { color: #f0f0ee; }
+    [data-theme="dark"] .sba-btn:hover { background: #2a2a2a; }
+    [data-theme="dark"] .walk-bar { background: #1e1e1e; border-color: #2e2e2e; }
+    [data-theme="dark"] .walk-loc-btn { background: #141414; color: #f0f0ee; border-color: #2e2e2e; }
+    [data-theme="dark"] .fav-bar, [data-theme="dark"] .sel-bar { background: #1e1e1e; border-color: #2e2e2e; color: #f0f0ee; }
+    [data-theme="dark"] .share-sheet { background: #1e1e1e; border-color: #2e2e2e; }
+    [data-theme="dark"] .share-url-input { background: #141414; color: #f0f0ee; border-color: #2e2e2e; }
+    [data-theme="dark"] .review-card { background: #141414; border-color: #2e2e2e; }
+    [data-theme="dark"] .review-form { background: #141414; border-color: #2e2e2e; }
+    [data-theme="dark"] .review-card-text, [data-theme="dark"] .review-form-title { color: #f0f0ee; }
+    [data-theme="dark"] .review-card-meta { color: #898989; }
+    [data-theme="dark"] .review-input, [data-theme="dark"] .review-textarea { background: #1e1e1e !important; color: #f0f0ee !important; }
+    [data-theme="dark"] #search-ac { background: #1e1e1e; border-color: #2e2e2e; }
+    [data-theme="dark"] .ac-item:hover, [data-theme="dark"] .ac-item.ac-focused { background: #2a2a2a; }
+    [data-theme="dark"] .ac-name { color: #f0f0ee; }
+    [data-theme="dark"] .ac-meta { color: #898989; }
+    [data-theme="dark"] .share-modal-box { background: #1e1e1e; color: #f0f0ee; }
+    [data-theme="dark"] .share-link-inp { background: #141414; color: #f0f0ee; border-color: #2e2e2e; }
+    [data-theme="dark"] .pilot-badge { background: rgba(30,30,30,0.8); color: #f0f0ee; }
+    .dark-mode-btn {
+      background: none; border: none; cursor: pointer;
+      color: var(--text-secondary); font-size: 16px;
+      padding: 6px 8px; border-radius: 8px; transition: all 0.15s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .dark-mode-btn:hover { background: var(--border); color: var(--text-primary); }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { color-scheme: only light; }
@@ -4546,3 +4534,99 @@
 
 /* Cursor hint when select mode is active */
 .sel-mode-cursor { cursor: crosshair !important; }
+
+    /* ── ARCH LINK ───────────────────────────────────────── */
+    .arch-link {
+      background: none; border: none; cursor: pointer;
+      color: inherit; font: inherit; padding: 0;
+      text-decoration: underline dotted; text-underline-offset: 3px;
+      transition: color 0.15s;
+    }
+    .arch-link:hover { opacity: 0.7; }
+    .arch-link-head { font-size: inherit; font-weight: inherit; }
+
+    /* ── ARCHITECT PROFILE OVERLAY ───────────────────────── */
+    .arch-profile-overlay {
+      position: fixed; inset: 0; z-index: 8000;
+      background: rgba(0,0,0,0.45);
+      display: flex; align-items: stretch; justify-content: flex-end;
+      opacity: 0; transition: opacity 0.25s; pointer-events: none;
+    }
+    .arch-profile-overlay.visible { opacity: 1; pointer-events: auto; }
+    .arch-profile-panel {
+      width: 360px; max-width: 100%;
+      background: var(--surface); display: flex; flex-direction: column;
+      transform: translateX(40px); transition: transform 0.25s;
+      overflow: hidden;
+    }
+    .arch-profile-overlay.visible .arch-profile-panel { transform: translateX(0); }
+    .arch-profile-hdr {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px 16px; border-bottom: 1px solid var(--border);
+      background: var(--surface); flex-shrink: 0;
+    }
+    .arch-profile-back {
+      background: none; border: none; cursor: pointer;
+      color: var(--text-secondary); font-size: 14px; padding: 4px 8px;
+      border-radius: 6px;
+    }
+    .arch-profile-back:hover { background: var(--border); color: var(--text-primary); }
+    .arch-profile-name { font-size: 15px; font-weight: 600; color: var(--text-primary); }
+    .arch-profile-sub { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+    .arch-profile-list { flex: 1; overflow-y: auto; padding: 8px 0; }
+    .ap-work-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 16px; cursor: pointer;
+      border-bottom: 1px solid var(--border); transition: background 0.1s;
+    }
+    .ap-work-item:hover { background: var(--bg); }
+    .ap-thumb {
+      width: 36px; height: 36px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .ap-work-body { flex: 1; min-width: 0; }
+    .ap-work-name {
+      font-size: 13px; font-weight: 500; color: var(--text-primary);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .ap-work-meta { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+    [data-theme="dark"] .arch-profile-panel { background: #1e1e1e; }
+    [data-theme="dark"] .arch-profile-hdr { background: #1e1e1e; border-color: #2e2e2e; }
+    [data-theme="dark"] .ap-work-item { border-color: #2e2e2e; }
+    [data-theme="dark"] .ap-work-item:hover { background: #141414; }
+
+    /* ── PASSPORT STATS (My Page) ──────────────────────────── */
+    .mpp-passport-body { padding: 4px 0 0; }
+    .mpp-pp-subhead {
+      font-size: 11px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.6px; color: var(--text-secondary);
+      margin-bottom: 8px; padding: 0 2px;
+    }
+    .mpp-pp-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; font-size: 12px; }
+    .mpp-pp-flag { font-size: 14px; flex-shrink: 0; }
+    .mpp-pp-city { width: 68px; flex-shrink: 0; color: var(--text-primary); font-weight: 500; }
+    .mpp-pp-track { flex: 1; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+    .mpp-pp-fill { height: 100%; background: #111; border-radius: 3px; transition: width 0.5s ease; }
+    [data-theme="dark"] .mpp-pp-fill { background: #f0f0ee; }
+    .mpp-pp-num { font-size: 11px; color: var(--text-primary); font-weight: 600; white-space: nowrap; }
+    .mpp-pp-tot { font-weight: 400; color: var(--text-secondary); }
+    .mpp-pp-pct { font-size: 10px; color: var(--text-secondary); width: 30px; text-align: right; }
+    .mpp-era-row { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; font-size: 12px; }
+    .mpp-era-lbl { width: 80px; flex-shrink: 0; color: var(--text-secondary); font-size: 11px; }
+    .mpp-era-track { flex: 1; height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; }
+    .mpp-era-fill { height: 100%; background: #7C6EAB; border-radius: 3px; transition: width 0.5s ease; }
+    .mpp-era-num { font-size: 11px; color: var(--text-secondary); min-width: 16px; text-align: right; }
+    .mpp-styles-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .mpp-style-chip {
+      font-size: 11px; padding: 3px 8px; border-radius: 12px;
+      background: var(--bg); border: 1px solid var(--border);
+      color: var(--text-primary);
+    }
+    .mpp-style-cnt { font-weight: 700; color: var(--text-secondary); font-size: 10px; margin-left: 3px; }
+    .mpp-recent-item { display: flex; align-items: flex-start; gap: 10px; padding: 6px 0; border-bottom: 1px solid var(--border); }
+    .mpp-recent-item:last-child { border-bottom: none; }
+    .mpp-recent-dot { font-size: 11px; color: #22bb55; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+    .mpp-recent-body { min-width: 0; }
+    .mpp-recent-name { font-size: 12px; font-weight: 500; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .mpp-recent-meta { font-size: 11px; color: var(--text-secondary); margin-top: 1px; }
+    .mpp-passport-empty { font-size: 12px; color: var(--text-secondary); line-height: 1.6; padding: 8px 0; }

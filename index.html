@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" style="color-scheme:only light">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
@@ -13,7 +13,6 @@
   <meta name="apple-mobile-web-app-title" content="ArchWander">
   <link rel="apple-touch-icon" href="img/logo_large.png">
   <meta name="theme-color" content="#111111">
-  <meta name="color-scheme" content="only light">
   <!-- SEO -->
   <meta name="description" content="Discover iconic architecture in New York, Seoul, London, and Tokyo. Curated guides to buildings, landmarks, and hidden gems for design-minded travelers.">
   <!-- Open Graph -->
@@ -31,26 +30,15 @@
   <!-- CSS custom properties don't support !important; this inline style   -->
   <!-- has inline-style specificity and fires before external sheets load, -->
   <!-- blocking Chrome/Safari forced-dark at the earliest possible point.  -->
-  <style>
-    /* Inline: runs before external CSS — Chrome/Safari forced dark opt-out.
-       color-scheme:only light tells the browser this page is light-only.
-       DO NOT set color:#111 globally here — dark landing screens have white
-       text that would become invisible against their dark backgrounds.      */
-    :root, html { color-scheme: only light !important; }
-  </style>
+
   <!-- JS backup: sets color-scheme on <html> inline before DOMContentLoaded -->
   <script>
     (function(){
       try {
-        var h = document.documentElement;
-        // Declare light-only at the inline-style level (highest specificity)
-        h.style.setProperty('color-scheme', 'only light');
-        // Only block filter-based inversions — do NOT force text color globally
-        // because dark-background screens (landing, IFL) need white text.
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches) {
-          h.style.setProperty('filter', 'none');
-          h.style.setProperty('-webkit-filter', 'none');
-        }
+        var saved = localStorage.getItem('aw_theme');
+        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches;
+        var useDark = saved === 'dark' || (saved === null && prefersDark);
+        if (useDark) document.documentElement.setAttribute('data-theme', 'dark');
       } catch(e) {}
     })();
   </script>
@@ -509,7 +497,11 @@
     </div>
 
     <!-- Action buttons — Likable Places / My Location / Favorites / Route / My Page -->
-    <div class="sb-actions" id="sb-actions">
+    <!-- Dark mode toggle -->
+    <button class="dark-mode-btn" id="dark-mode-toggle" onclick="toggleDarkMode()" title="Toggle dark/light mode" style="align-self:flex-end;margin:6px 12px -2px auto">
+      <span id="dark-mode-icon">🌙</span>
+    </button>
+        <div class="sb-actions" id="sb-actions">
       <button class="sba-btn" id="sba-likable" onclick="_sbaExplore()">
         <span class="sba-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
