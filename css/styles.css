@@ -59,7 +59,7 @@
     [data-theme="dark"] input, [data-theme="dark"] textarea, [data-theme="dark"] select { background: #1e1e1e !important; color: #f0f0ee !important; border-color: #2e2e2e !important; }
     [data-theme="dark"] .list-overlay-box { background: #1e1e1e; }
     [data-theme="dark"] .list-overlay-hdr { background: #1e1e1e; border-color: #2e2e2e; color: #f0f0ee; }
-    [data-theme="dark"] .sb-review-btn { background: #141414; color: #898989; border-color: #2e2e2e; }
+    [data-theme="dark"] .sb-review-btn { background: #1e1e1e; color: #898989; border-color: #2e2e2e; }
     [data-theme="dark"] .p-action-btn { background: #141414; color: #f0f0ee; border-color: #2e2e2e; }
     [data-theme="dark"] .p-action-btn:hover { background: #2a2a2a; }
     [data-theme="dark"] .route-panel { background: #1e1e1e; color: #f0f0ee; }
@@ -73,9 +73,9 @@
     [data-theme="dark"] .mpp-btn { background: #1e1e1e; color: #f0f0ee; border-color: #2e2e2e; }
     [data-theme="dark"] .pp-hdr, [data-theme="dark"] #passport-stats { background: #1e1e1e; color: #f0f0ee; }
     [data-theme="dark"] .pp-city-track { background: #2e2e2e; }
-    [data-theme="dark"] .sba-btn { color: #f0f0ee; background: #2a2a2a; border-color: #444; box-shadow: 2px 2px 0 #000; }
-    [data-theme="dark"] .sba-btn:hover { background: #363636; transform: translate(1px,1px); box-shadow: 2px 2px 0 #000; }
-    [data-theme="dark"] .sba-btn:active, [data-theme="dark"] .sba-btn.sba-active { background: #444; box-shadow: none; }
+    [data-theme="dark"] .sba-btn { color: #f0f0ee; background: #272727; border-color: #444; box-shadow: 2px 2px 0 #000; }
+    [data-theme="dark"] .sba-btn:hover { background: #303030; transform: translate(1px,1px); box-shadow: 2px 2px 0 #000; }
+    [data-theme="dark"] .sba-btn:active, [data-theme="dark"] .sba-btn.sba-active { background: #383838; box-shadow: none; }
     [data-theme="dark"] .walk-bar { background: #1e1e1e; border-color: #2e2e2e; }
     [data-theme="dark"] .walk-loc-btn { background: #141414; color: #f0f0ee; border-color: #2e2e2e; }
     [data-theme="dark"] .fav-bar, [data-theme="dark"] .sel-bar { background: #1e1e1e; border-color: #2e2e2e; color: #f0f0ee; }
