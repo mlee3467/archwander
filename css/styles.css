@@ -74,9 +74,9 @@
     [data-theme="dark"] .mpp-btn { background: #1e1e1e; color: #f0f0ee; border-color: #2e2e2e; }
     [data-theme="dark"] .pp-hdr, [data-theme="dark"] #passport-stats { background: #1e1e1e; color: #f0f0ee; }
     [data-theme="dark"] .pp-city-track { background: #2e2e2e; }
-    [data-theme="dark"] .sba-btn { color: #f0f0ee; background: #252525; border-color: #3a3a3a; box-shadow: 2px 2px 0 #000; }
-    [data-theme="dark"] .sba-btn:hover { background: #2c2c2c; transform: translate(1px,1px); box-shadow: 2px 2px 0 #000; }
-    [data-theme="dark"] .sba-btn:active, [data-theme="dark"] .sba-btn.sba-active { background: #333333; box-shadow: none; }
+    [data-theme="dark"] .sba-btn { color: #f0f0ee !important; background: #252525 !important; border-color: #3a3a3a !important; box-shadow: 2px 2px 0 #000 !important; }
+    [data-theme="dark"] .sba-btn:hover { background: #2c2c2c !important; transform: translate(1px,1px); box-shadow: 2px 2px 0 #000 !important; }
+    [data-theme="dark"] .sba-btn:active, [data-theme="dark"] .sba-btn.sba-active { background: #333333 !important; box-shadow: none !important; }
     [data-theme="dark"] .walk-bar { background: #1e1e1e; border-color: #2e2e2e; }
     [data-theme="dark"] .walk-loc-btn { background: #141414; color: #f0f0ee; border-color: #2e2e2e; }
     [data-theme="dark"] .fav-bar, [data-theme="dark"] .sel-bar { background: #1e1e1e; border-color: #2e2e2e; color: #f0f0ee; }
