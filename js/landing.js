@@ -415,6 +415,20 @@ function _openMyPage() {
       '</div>' +
       '<div class="arm-body" style="padding:16px 16px 32px">' +
 
+        // ── Section 0: Settings ─────────────────────────────────
+        (function() {
+          var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+          return '<div class="mpp-section">' +
+            '<div class="mpp-sec-title">' + (isKo ? '⚙ 설정' : '⚙ Settings') + '</div>' +
+            '<div class="mpp-setting-row">' +
+              '<span class="mpp-setting-label">' + (isKo ? '다크 모드' : 'Dark Mode') + '</span>' +
+              '<button class="mpp-toggle' + (isDark ? ' mpp-toggle-on' : '') + '" id="mpp-dark-toggle" onclick="_mppToggleDark(this)" aria-label="Toggle dark mode">' +
+                '<span class="mpp-toggle-knob"></span>' +
+              '</button>' +
+            '</div>' +
+          '</div>';
+        })() +
+
         // ── Section 1: Data Management ──────────────────────────
         '<div class="mpp-section">' +
           '<div class="mpp-sec-title">' + (isKo ? '📦 데이터 관리' : '📦 Data Management') + '</div>' +
@@ -486,6 +500,11 @@ function _openMyPage() {
   overlay.addEventListener('click', function(e) {
     if (e.target === overlay) _closeMyPage();
   });
+}
+
+function _mppToggleDark(btn) {
+  if (typeof toggleDarkMode === 'function') toggleDarkMode();
+  btn.classList.toggle('mpp-toggle-on');
 }
 
 function _closeMyPage() {
@@ -1760,29 +1779,4 @@ function _checkAutoIfl() {
 
 // ── Header GPS zoom button ─────────────────────────────────────────
 function _headerGpsZoom() {
-  // Check GPS marker (userMarker from walk.js)
-  var gpsM = (typeof userMarker !== 'undefined') ? userMarker : null;
-  // Check pin marker (pinDropMarker from walk.js)
-  var pinM = (typeof pinDropMarker !== 'undefined') ? pinDropMarker : null;
-
-  var target = gpsM || pinM;
-  if (target) {
-    var latlng = target.getLatLng();
-    if (typeof map !== 'undefined' && map) {
-      map.flyTo(latlng, 16, { duration: 0.8, animate: true });
-    }
-    return;
-  }
-
-  // Neither active — show toast message
-  var toast = document.getElementById('header-gps-toast');
-  if (!toast) return;
-  toast.textContent = 'Please activate GPS or set a pin first';
-  toast.style.display = 'block';
-  clearTimeout(toast._hideTimer);
-  toast._hideTimer = setTimeout(function() {
-    toast.style.display = 'none';
-  }, 2500);
-}
-
-// ══════════════════════════════════════════════════════════════════
+  // Check GPS marke
