@@ -50,7 +50,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
-  <link rel="stylesheet" href="css/styles.css?v=20260525">
+  <link rel="stylesheet" href="css/styles.css?v=20260609">
 </head>
 <body>
 
@@ -647,11 +647,21 @@
       Review filtered list
     </button>
 
+    <!-- Quiz / Learn button -->
+    <button class="sb-quiz-btn" onclick="startQuiz()">
+      🎓 Architecture Quiz
+    </button>
+
   </aside>
 
   <!-- Sidebar right-edge resize handle (outside aside, no overflow:hidden clipping) -->
   <div class="sb-resize" id="sb-resize" title="Drag to resize sidebar"></div>
 <div id="sidebar-backdrop" onclick="closeSidebar()"></div>
+
+<!-- ── COMPARE BAR (floating, appears when 2 buildings queued) ── -->
+<div id="compare-bar" style="display:none">
+  <div id="compare-bar-slots"></div>
+</div>
 
 <!-- ── LIST OVERLAY (filtered locations, opened via "Review filtered list") -->
 <div id="list-overlay" style="display:none">
@@ -907,21 +917,25 @@
   <button class="sel-exit-btn" onclick="_exitSelMode()" title="Exit selection mode">✕</button>
 </div>
 
-<script src="js/search-index.js?v=20260519"></script>
-<script src="js/config.js?v=20260519"></script>
-<script src="js/i18n.js?v=20260519"></script>
-<script src="js/map.js?v=20260519"></script>
-<script src="js/filters.js?v=20260519"></script>
-<script src="js/core.js?v=20260519"></script>
-<script src="js/audio.js?v=20260519"></script>
-<script src="js/ui.js?v=20260519"></script>
-<script src="js/walk.js?v=20260519"></script>
-<script src="js/city.js?v=20260519"></script>
-<script src="js/route.js?v=20260519"></script>
-<script src="js/share.js?v=20260519"></script>
-<script src="js/select.js?v=20260519"></script>
-<script src="js/landing.js?v=20260519"></script>
-<script src="js/init.js?v=20260519"></script>
+<script src="js/search-index.js?v=20260609"></script>
+<script src="js/config.js?v=20260609"></script>
+<script src="js/i18n.js?v=20260609"></script>
+<script src="js/map.js?v=20260609"></script>
+<script src="js/filters.js?v=20260609"></script>
+<script src="js/core.js?v=20260609"></script>
+<script src="js/glossary.js?v=20260609"></script>
+<script src="js/compare.js?v=20260609"></script>
+<script src="js/quiz.js?v=20260609"></script>
+<script src="js/influence.js?v=20260609"></script>
+<script src="js/audio.js?v=20260609"></script>
+<script src="js/ui.js?v=20260609"></script>
+<script src="js/walk.js?v=20260609"></script>
+<script src="js/city.js?v=20260609"></script>
+<script src="js/route.js?v=20260609"></script>
+<script src="js/share.js?v=20260609"></script>
+<script src="js/select.js?v=20260609"></script>
+<script src="js/landing.js?v=20260609"></script>
+<script src="js/init.js?v=20260609"></script>
 </body>
 
 </html>

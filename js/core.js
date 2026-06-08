@@ -691,6 +691,7 @@ function openLoc(loc) {
       <button class="p-action-btn${isFav(loc.id)?' fav-active':''}" id="p-fav-btn" onclick="toggleFav('${loc.id}')"><span class="act-icon">${isFav(loc.id)?'★':'☆'}</span> ${t('fav_label')}</button>
       <button class="p-action-btn${isVisited(loc.id)?' vis-active':''}" id="p-vis-btn" onclick="toggleVisited('${loc.id}')"><span class="act-icon">${isVisited(loc.id)?'✓':'○'}</span> ${t('vis_label')}</button>
       <button class="p-action-btn" id="p-share-btn" onclick="openShareSheet(event)"><span class="act-icon">↑</span> Share</button>
+      <button class="p-action-btn p-compare-btn${typeof _isInCompare === 'function' && _isInCompare(loc.id) ? ' cmp-active' : ''}" data-loc-id="${loc.id}" onclick="if(typeof toggleCompare==='function')toggleCompare('${loc.id}');this.classList.toggle('cmp-active');this.textContent=this.classList.contains('cmp-active')?'⊖ Comparing':'⊕ Compare'"><span class="act-icon">⚖</span> Compare</button>
     </div>
     <div class="visit-section" id="visit-section-${loc.id}" ${isVisited(loc.id)?'':'style="display:none"'}>
       ${isVisited(loc.id) ? (typeof _buildVisitSectionHTML === 'function' ? _buildVisitSectionHTML(loc.id) : '') : ''}
@@ -749,7 +750,7 @@ function buildOverviewTab(loc, trans = {}) {
     <div class="info-row"><span class="info-label">${t('address')}</span><span class="info-val">${_displayAddr(loc, trans.addr)}</span></div>
     <div class="info-row"><span class="info-label">${t('arch_label')}</span><span class="info-val">${_buildArchLinks(loc)}</span></div>
     <div class="info-row"><span class="info-label">${t('completed')}</span><span class="info-val">${loc.yr}</span></div>
-    <div class="info-row"><span class="info-label">${t('style_label')}</span><span class="info-val">${_allSGs(loc).join(', ') || '—'}</span></div>
+    <div class="info-row"><span class="info-label">${t('style_label')}</span><span class="info-val">${_buildStyleLinks(loc)}</span></div>
     ${loc.access ? `<div class="info-row"><span class="info-label">${t('access_label')}</span><span class="info-val"><span class="access-badge ${ACCESS_META[loc.access]?.cls||''}">${ACCESS_META[loc.access]?.icon||''} ${loc.access}</span></span></div>` : ''}
   `;
 }
@@ -838,18 +839,85 @@ function openArchProfile(archName) {
     '<div class="arch-profile-panel">' +
       '<div class="arch-profile-hdr">' +
         '<button class="arch-profile-back" onclick="closeArchProfile()">◀</button>' +
-        '<div><div class="arch-profile-name">' + archName + '</div>' +
-        '<div class="arch-profile-sub">' + works.length + (isKo ? '개 작품' : ' works in dataset') + '</div></div>' +
+        '<div class="ap-hdr-center">' +
+          '<div class="arch-profile-name">' + archName + '</div>' +
+          '<div class="arch-profile-sub">' + works.length + (isKo ? '개 작품' : ' works in dataset') + '</div>' +
+        '</div>' +
+        '<button class="ap-net-btn" onclick="openInfluenceNetwork(\'' + _escArch(archName) + '\')" title="' + (isKo ? '연관 네트워크' : 'Influence Network') + '">🕸</button>' +
       '</div>' +
+      '<div class="ap-wiki-bio" style="display:none"><div class="ap-wiki-loading">' + (isKo ? '정보 불러오는 중…' : 'Loading bio…') + '</div></div>' +
       '<div class="arch-profile-list">' + worksHtml + '</div>' +
     '</div>';
   document.body.appendChild(overlay);
   requestAnimationFrame(function() { requestAnimationFrame(function() { overlay.classList.add('visible'); }); });
   overlay.addEventListener('click', function(e) { if (e.target === overlay) closeArchProfile(); });
+  // Fetch Wikipedia bio asynchronously
+  var panel = overlay.querySelector('.arch-profile-panel');
+  _fetchArchWiki(archName, panel);
 }
 function closeArchProfile() {
   var el = document.getElementById('arch-profile-overlay');
   if (!el) return;
   el.classList.remove('visible');
   setTimeout(function() { if (el.parentNode) el.parentNode.removeChild(el); }, 250);
+}
+
+// ── Style links in overview tab (clickable → glossary) ────────────
+function _buildStyleLinks(loc) {
+  var styles = _allSGs(loc);
+  if (!styles.length) return '—';
+  return styles.map(function(s) {
+    return '<button class="style-glossary-btn" onclick="if(typeof openStyleGlossary===\'function\')openStyleGlossary(\'' + s.replace(/'/g, "\\'") + '\')">' + s + '</button>';
+  }).join(' ');
+}
+
+// ── Wikipedia bio fetch for architect profiles ────────────────────
+function _fetchArchWiki(archName, panel) {
+  var wikiName = archName.replace(/ /g, '_');
+  fetch('https://en.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(wikiName))
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(data) {
+      if (!data || data.type === 'disambiguation') {
+        _setArchWikiBio(panel, null);
+        return;
+      }
+      _setArchWikiBio(panel, data);
+    })
+    .catch(function() { _setArchWikiBio(panel, null); });
+}
+
+function _setArchWikiBio(panel, data) {
+  var bioEl = panel ? panel.querySelector('.ap-wiki-bio') : null;
+  if (!bioEl) return;
+  if (!data) {
+    bioEl.style.display = 'none';
+    return;
+  }
+  var thumb = data.thumbnail ? '<img class="ap-wiki-thumb" src="' + data.thumbnail.source + '" alt="">' : '';
+  var desc = data.description ? '<div class="ap-wiki-desc">' + data.description + '</div>' : '';
+  var extract = data.extract_html || (data.extract ? '<p>' + data.extract + '</p>' : '');
+  // Truncate extract to ~300 chars
+  if (data.extract && data.extract.length > 320) {
+    extract = '<p>' + data.extract.slice(0, 320) + '…</p>';
+  }
+  var link = data.content_urls && data.content_urls.desktop
+    ? '<a class="ap-wiki-link" href="' + data.content_urls.desktop.page + '" target="_blank" rel="noopener">Read on Wikipedia ↗</a>'
+    : '';
+  bioEl.innerHTML =
+    '<div class="ap-wiki-inner">'
+      + thumb
+      + '<div class="ap-wiki-text">'
+        + desc
+        + extract
+        + link
+      + '</div>'
+    + '</div>';
+  bioEl.style.display = 'block';
+}
+
+// ── Influence network trigger ─────────────────────────────────────
+function openInfluenceNetwork(archName) {
+  if (typeof _buildInfluenceNetwork === 'function') {
+    _buildInfluenceNetwork(archName);
+  }
 }
