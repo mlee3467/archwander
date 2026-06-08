@@ -35,10 +35,11 @@
     [data-theme="dark"] body { background-color: #141414; }
     [data-theme="dark"] header { background-color: #1e1e1e; border-color: #2e2e2e; }
     [data-theme="dark"] .sidebar { background-color: #1e1e1e; border-color: #2e2e2e; }
+    [data-theme="dark"] .sb-city-row { background: #1e1e1e; border-color: #2e2e2e; }
     [data-theme="dark"] .sb-filter-toggle { background: #1e1e1e; color: #f0f0ee; border-color: #2e2e2e; }
     [data-theme="dark"] .sb-filters { background: #1e1e1e; border-color: #2e2e2e; }
     [data-theme="dark"] .fsec-hdr { color: #f0f0ee; border-color: #2e2e2e; }
-    [data-theme="dark"] .fsec-body { background: #141414; }
+    [data-theme="dark"] .fsec-body { background: #1e1e1e; }
     [data-theme="dark"] .loc-card { background-color: #1e1e1e; border-color: #2e2e2e; color: #f0f0ee; }
     [data-theme="dark"] .loc-name { color: #f0f0ee; }
     [data-theme="dark"] .loc-meta, [data-theme="dark"] .loc-hood { color: #898989; }
@@ -73,9 +74,9 @@
     [data-theme="dark"] .mpp-btn { background: #1e1e1e; color: #f0f0ee; border-color: #2e2e2e; }
     [data-theme="dark"] .pp-hdr, [data-theme="dark"] #passport-stats { background: #1e1e1e; color: #f0f0ee; }
     [data-theme="dark"] .pp-city-track { background: #2e2e2e; }
-    [data-theme="dark"] .sba-btn { color: #f0f0ee; background: #272727; border-color: #444; box-shadow: 2px 2px 0 #000; }
-    [data-theme="dark"] .sba-btn:hover { background: #303030; transform: translate(1px,1px); box-shadow: 2px 2px 0 #000; }
-    [data-theme="dark"] .sba-btn:active, [data-theme="dark"] .sba-btn.sba-active { background: #383838; box-shadow: none; }
+    [data-theme="dark"] .sba-btn { color: #f0f0ee; background: #252525; border-color: #3a3a3a; box-shadow: 2px 2px 0 #000; }
+    [data-theme="dark"] .sba-btn:hover { background: #2c2c2c; transform: translate(1px,1px); box-shadow: 2px 2px 0 #000; }
+    [data-theme="dark"] .sba-btn:active, [data-theme="dark"] .sba-btn.sba-active { background: #333333; box-shadow: none; }
     [data-theme="dark"] .walk-bar { background: #1e1e1e; border-color: #2e2e2e; }
     [data-theme="dark"] .walk-loc-btn { background: #141414; color: #f0f0ee; border-color: #2e2e2e; }
     [data-theme="dark"] .fav-bar, [data-theme="dark"] .sel-bar { background: #1e1e1e; border-color: #2e2e2e; color: #f0f0ee; }
@@ -1386,6 +1387,7 @@
       .sidebar.open { transform: translateX(0); pointer-events: auto; }
       /* Sidebar child elements — remove all partial transparency on mobile */
       .sidebar .sb-top { background: rgb(238,238,238) !important; }
+      [data-theme="dark"] .sidebar .sb-top { background: #1e1e1e !important; }
       .sidebar .list-wrap,
       .sidebar .list-inner { background: rgb(245,245,245) !important; }
 
