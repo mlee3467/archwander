@@ -73,8 +73,9 @@
     [data-theme="dark"] .mpp-btn { background: #1e1e1e; color: #f0f0ee; border-color: #2e2e2e; }
     [data-theme="dark"] .pp-hdr, [data-theme="dark"] #passport-stats { background: #1e1e1e; color: #f0f0ee; }
     [data-theme="dark"] .pp-city-track { background: #2e2e2e; }
-    [data-theme="dark"] .sba-btn { color: #f0f0ee; }
-    [data-theme="dark"] .sba-btn:hover { background: #2a2a2a; }
+    [data-theme="dark"] .sba-btn { color: #f0f0ee; background: #2a2a2a; border-color: #444; box-shadow: 2px 2px 0 #000; }
+    [data-theme="dark"] .sba-btn:hover { background: #363636; transform: translate(1px,1px); box-shadow: 2px 2px 0 #000; }
+    [data-theme="dark"] .sba-btn:active, [data-theme="dark"] .sba-btn.sba-active { background: #444; box-shadow: none; }
     [data-theme="dark"] .walk-bar { background: #1e1e1e; border-color: #2e2e2e; }
     [data-theme="dark"] .walk-loc-btn { background: #141414; color: #f0f0ee; border-color: #2e2e2e; }
     [data-theme="dark"] .fav-bar, [data-theme="dark"] .sel-bar { background: #1e1e1e; border-color: #2e2e2e; color: #f0f0ee; }
@@ -92,6 +93,7 @@
     [data-theme="dark"] .share-modal-box { background: #1e1e1e; color: #f0f0ee; }
     [data-theme="dark"] .share-link-inp { background: #141414; color: #f0f0ee; border-color: #2e2e2e; }
     [data-theme="dark"] .pilot-badge { background: rgba(30,30,30,0.8); color: #f0f0ee; }
+    [data-theme="dark"] .logo-img { filter: invert(1) brightness(0.9); }
     .dark-mode-btn {
       background: none; border: none; cursor: pointer;
       color: var(--text-secondary); font-size: 16px;
