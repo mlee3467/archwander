@@ -83,6 +83,7 @@ function toggleFav(id) {
   _refreshMarkerIcon(id);
   if (_favFilterActive) _applyFavFilter();
   _updatePassportStats();
+  if (typeof checkBadgesOnAction === 'function') checkBadgesOnAction();
 }
 
 function toggleVisited(id) {
@@ -98,6 +99,7 @@ function toggleVisited(id) {
   _refreshMarkerIcon(id);
   if (_favFilterActive) _applyFavFilter();
   _updatePassportStats();
+  if (typeof checkBadgesOnAction === 'function') checkBadgesOnAction();
 }
 
 // ── My Passport stats ────────────────────────────────────────────
@@ -974,4 +976,4 @@ function _initCityByGPS() {
   });
 }
 
-// ══════════════════════════════════════════════════════════════════
+// ══════════════════�

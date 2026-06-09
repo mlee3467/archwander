@@ -461,7 +461,10 @@ function _openMyPage() {
           '<div class="mpp-city-grid" id="mpp-city-grid">' + cityBtnsHtml + '</div>' +
         '</div>' +
 
-        // ── Section 3: Passport ─────────────────────────────────
+        // ── Section 3: Explorer Rank + Badges ──────────────────
+        (typeof buildRankHtml === 'function' ? buildRankHtml(isKo) : '') +
+
+        // ── Section 4: Passport ─────────────────────────────────
         '<div class="mpp-section mpp-passport-section">' +
           '<div class="mpp-sec-title">🏛 ' + (isKo ? '건축 여행 기록' : 'Architectural Passport') + '</div>' +
           '<div class="mpp-stats-row">' +
@@ -472,7 +475,7 @@ function _openMyPage() {
           _buildPassportHtml(isKo) +
         '</div>' +
 
-        // ── Section 4: DB Refresh ───────────────────────────────
+        // ── Section 5: DB Refresh ───────────────────────────────
         '<div class="mpp-section">' +
           '<div class="mpp-sec-title">' + (isKo ? '🔄 데이터 새로고침' : '🔄 Data Refresh') + '</div>' +
           '<div class="mpp-sec-sub">' + (isKo
@@ -1779,4 +1782,29 @@ function _checkAutoIfl() {
 
 // ── Header GPS zoom button ─────────────────────────────────────────
 function _headerGpsZoom() {
-  // Check GPS marke
+  // Check GPS marker (userMarker from walk.js)
+  var gpsM = (typeof userMarker !== 'undefined') ? userMarker : null;
+  // Check pin marker (pinDropMarker from walk.js)
+  var pinM = (typeof pinDropMarker !== 'undefined') ? pinDropMarker : null;
+
+  var target = gpsM || pinM;
+  if (target) {
+    var latlng = target.getLatLng();
+    if (typeof map !== 'undefined' && map) {
+      map.flyTo(latlng, 16, { duration: 0.8, animate: true });
+    }
+    return;
+  }
+
+  // Neither active — show toast message
+  var toast = document.getElementById('header-gps-toast');
+  if (!toast) return;
+  toast.textContent = 'Please activate GPS or set a pin first';
+  toast.style.display = 'block';
+  clearTimeout(toast._hideTimer);
+  toast._hideTimer = setTimeout(function() {
+    toast.style.display = 'none';
+  }, 2500);
+}
+
+// ══════════════════════════════════════════════════════════════════
