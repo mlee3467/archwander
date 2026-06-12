@@ -1,18 +1,7 @@
 // ArchWander Service Worker
 // Strategy: app framework = Network First, external resources = Cache First
-const APP_CACHE = 'aw-app-v0.3';
+const APP_CACHE = 'aw-app-v0.4';
 const EXT_CACHE = 'aw-ext-v2';
-
-// App framework files — always fetch fresh, cache as fallback for offline
-const APP_PATTERNS = [
-  '/archwander/',
-  '/archwander/index.html',
-  '/archwander/css/',
-  '/archwander/js/',
-  '/archwander/data-',
-  '/archwander/img/',
-  '/archwander/manifest',
-];
 
 self.addEventListener('install', e => {
   self.skipWaiting();
@@ -30,10 +19,13 @@ self.addEventListener('activate', e => {
   );
 });
 
-// Check if a URL is an app framework file
+// Check if a URL is an app framework file.
+// Same-origin = app file — works on both archwander.com (root path)
+// and mlee3467.github.io/archwander/ (project path).
+// (Old version hard-coded '/archwander/' paths, which silently disabled
+//  app caching on the custom domain.)
 function isAppFile(url) {
-  return url.origin === self.location.origin &&
-    APP_PATTERNS.some(p => url.pathname.startsWith(p));
+  return url.origin === self.location.origin;
 }
 
 self.addEventListener('fetch', e => {
