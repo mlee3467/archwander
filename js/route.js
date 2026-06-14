@@ -547,6 +547,7 @@ function _getSavedRoutes() {
 }
 function _putSavedRoutes(routes) {
   localStorage.setItem(_SAVED_ROUTES_KEY, JSON.stringify(routes));
+  if (typeof syncSchedulePush === 'function') syncSchedulePush();
 }
 
 // Generate default name: e.g. "seoul-gangnam-15mins-01"

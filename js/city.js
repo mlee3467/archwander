@@ -8,8 +8,14 @@ var _favSet = new Set(JSON.parse(localStorage.getItem(_FAV_KEY) || '[]'));
 var _visSet = new Set(JSON.parse(localStorage.getItem(_VIS_KEY) || '[]'));
 var _favFilterActive = false;
 
-function _saveFavs() { localStorage.setItem(_FAV_KEY, JSON.stringify([..._favSet])); }
-function _saveVis()  { localStorage.setItem(_VIS_KEY, JSON.stringify([..._visSet])); }
+function _saveFavs() {
+  localStorage.setItem(_FAV_KEY, JSON.stringify([..._favSet]));
+  if (typeof syncSchedulePush === 'function') syncSchedulePush();
+}
+function _saveVis() {
+  localStorage.setItem(_VIS_KEY, JSON.stringify([..._visSet]));
+  if (typeof syncSchedulePush === 'function') syncSchedulePush();
+}
 
 function isFav(id)     { return _favSet.has(id); }
 function isVisited(id) { return _visSet.has(id); }
@@ -976,4 +982,4 @@ function _initCityByGPS() {
   });
 }
 
-// ══════════════════�
+// ══════════════════�

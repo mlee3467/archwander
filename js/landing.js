@@ -415,6 +415,12 @@ function _openMyPage() {
       '</div>' +
       '<div class="arm-body" style="padding:16px 16px 32px">' +
 
+        // ── Section –1: Cross-device Sync ──────────────────────
+        '<div class="mpp-section" id="mpp-sync-section">' +
+          '<div class="mpp-sec-title">' + (isKo ? '🔄 기기 간 동기화' : '🔄 Cross-Device Sync') + '</div>' +
+          '<div id="mpp-sync-status"></div>' +
+        '</div>' +
+
         // ── Section 0: Settings ─────────────────────────────────
         (function() {
           var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
@@ -503,6 +509,11 @@ function _openMyPage() {
   overlay.addEventListener('click', function(e) {
     if (e.target === overlay) _closeMyPage();
   });
+
+  // Render sync status after DOM is ready
+  if (typeof _syncUpdateStatusUI === 'function') {
+    setTimeout(_syncUpdateStatusUI, 0);
+  }
 }
 
 function _mppToggleDark(btn) {

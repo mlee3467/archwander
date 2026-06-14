@@ -5191,3 +5191,121 @@
 .badge-toast-name {
   font-size: 13.5px; font-weight: 700; color: var(--text-primary);
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   SYNC MODAL  (sm-*)
+   ═══════════════════════════════════════════════════════════════════ */
+.sm-card {
+  background: #fff; border-radius: 20px; padding: 28px 24px 24px;
+  width: 100%; max-width: 380px; position: relative;
+  box-shadow: 0 24px 72px rgba(0,0,0,0.22);
+  margin: 16px;
+}
+.sm-close {
+  position: absolute; top: 14px; right: 16px;
+  background: none; border: none; font-size: 16px; color: #aaa;
+  cursor: pointer; line-height: 1; padding: 4px;
+}
+.sm-close:hover { color: #111; }
+.sm-title {
+  font-size: 17px; font-weight: 700; color: #111; margin-bottom: 8px;
+}
+.sm-sub {
+  font-size: 13px; color: #666; line-height: 1.55; margin-bottom: 20px;
+}
+.sm-label {
+  display: block; font-size: 11px; font-weight: 600; color: #888;
+  text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 5px;
+}
+.sm-input {
+  display: block; width: 100%; height: 42px;
+  border: 1.5px solid #e0e0e0; border-radius: 10px;
+  padding: 0 13px; font-size: 15px; font-family: inherit;
+  outline: none; margin-bottom: 12px; box-sizing: border-box;
+  transition: border-color 0.15s;
+}
+.sm-input:focus { border-color: #111; }
+.sm-input-otp {
+  text-align: center; font-size: 26px; font-weight: 700;
+  letter-spacing: 6px;
+}
+.sm-btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 100%; height: 44px; border-radius: 10px;
+  font-size: 14px; font-weight: 600; cursor: pointer;
+  font-family: inherit; border: none; margin-bottom: 10px;
+  transition: opacity 0.12s;
+}
+.sm-btn:active { opacity: 0.75; }
+.sm-btn-primary { background: #111; color: #fff; }
+.sm-btn-google {
+  background: #fff; color: #333;
+  border: 1.5px solid #ddd;
+}
+.sm-btn-google:hover { background: #f5f5f5; }
+.sm-btn-text {
+  background: none; border: none; color: #888; font-size: 13px;
+  height: 36px; margin-bottom: 0;
+}
+.sm-btn-text:hover { color: #111; }
+.sm-divider {
+  display: flex; align-items: center; gap: 10px;
+  color: #ccc; font-size: 12px; margin: 6px 0 16px;
+}
+.sm-divider::before, .sm-divider::after {
+  content: ''; flex: 1; height: 1px; background: #eee;
+}
+.sm-error {
+  font-size: 12px; color: #e11d48; margin-bottom: 10px;
+  background: #fef2f2; border-radius: 7px; padding: 7px 10px;
+}
+.sm-spinner {
+  width: 36px; height: 36px; border: 3px solid #eee;
+  border-top-color: #111; border-radius: 50%;
+  animation: sm-spin 0.7s linear infinite;
+  margin: 8px auto 16px;
+}
+@keyframes sm-spin { to { transform: rotate(360deg); } }
+.sm-check {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: #f0fdf4; color: #16a34a;
+  font-size: 24px; display: flex; align-items: center;
+  justify-content: center; margin: 0 auto 14px;
+  border: 2px solid #bbf7d0;
+}
+
+/* Dark mode for sync modal */
+[data-theme="dark"] .sm-card { background: #1e1e1e; color: #f0f0ee; }
+[data-theme="dark"] .sm-title { color: #f0f0ee; }
+[data-theme="dark"] .sm-sub { color: #888; }
+[data-theme="dark"] .sm-input { background: #2a2a2a; border-color: #3a3a3a; color: #f0f0ee; }
+[data-theme="dark"] .sm-btn-google { background: #2a2a2a; border-color: #3a3a3a; color: #f0f0ee; }
+[data-theme="dark"] .sm-btn-google:hover { background: #333; }
+[data-theme="dark"] .sm-close { color: #666; }
+[data-theme="dark"] .sm-close:hover { color: #f0f0ee; }
+
+/* My Page sync section */
+.mpp-btn-syncon {
+  background: #111; color: #fff; border-color: #111;
+  width: 100%;
+}
+.mpp-btn-signout {
+  background: #fff; color: #666; border-color: #ddd;
+}
+.mpp-sync-row {
+  display: flex; align-items: flex-start; gap: 10px;
+}
+.mpp-sync-info { flex: 1; }
+.mpp-sync-email {
+  font-size: 12.5px; font-weight: 600; color: #111;
+  margin-bottom: 2px; word-break: break-all;
+}
+.mpp-sync-last {
+  font-size: 11px; color: #aaa;
+}
+.mpp-sync-hint {
+  font-size: 11px; color: #bbb; margin-top: 7px;
+  text-align: center;
+}
+[data-theme="dark"] .mpp-sync-email { color: #f0f0ee; }
+[data-theme="dark"] .mpp-btn-signout { background: #2a2a2a; color: #aaa; border-color: #3a3a3a; }
