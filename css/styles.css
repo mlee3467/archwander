@@ -5309,3 +5309,65 @@
 }
 [data-theme="dark"] .mpp-sync-email { color: #f0f0ee; }
 [data-theme="dark"] .mpp-btn-signout { background: #2a2a2a; color: #aaa; border-color: #3a3a3a; }
+
+/* ══ Header Auth Area (Sign Up / Log In / user chip) ════════════════ */
+.header-auth-area {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  margin-left: 2px;
+}
+.hdr-auth-btn {
+  height: 30px;
+  padding: 0 13px;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+  transition: opacity 0.15s;
+  line-height: 1;
+}
+.hdr-auth-btn:hover { opacity: 0.8; }
+.hdr-auth-signup {
+  background: #fff;
+  color: #111;
+  border: none;
+}
+.hdr-auth-login {
+  background: transparent;
+  color: rgba(255,255,255,0.85);
+  border: 1px solid rgba(255,255,255,0.28);
+}
+.hdr-user-chip {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #4f8ef7;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: opacity 0.15s;
+}
+.hdr-user-chip:hover { opacity: 0.85; }
+/* Mobile: hide text buttons, keep user chip */
+@media (max-width: 900px) {
+  .hdr-auth-btn { display: none !important; }
+}
+/* Dark mode tweaks */
+[data-theme="dark"] .hdr-auth-signup {
+  background: rgba(255,255,255,0.9);
+  color: #111;
+}
+[data-theme="dark"] .hdr-auth-login {
+  color: rgba(255,255,255,0.7);
+  border-color: rgba(255,255,255,0.2);
+}

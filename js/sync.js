@@ -16,6 +16,7 @@ var _syncLastAt      = null;  // ISO string of last successful sync
 var _syncPushTimer   = null;  // debounce timer for auto-push
 var _syncPendingEmail = '';   // OTP flow: email being verified
 var _syncBusy        = false; // prevent concurrent syncs
+var _syncModalMode   = 'sync'; // 'signup' | 'login' | 'sync'
 
 // ── Init: attach to Supabase auth state ──────────────────────────
 function syncInit() {
@@ -37,8 +38,9 @@ function syncInit() {
       }
     }
 
-    // Update My Page UI if it's open
+    // Update My Page UI + header auth area
     _syncUpdateStatusUI();
+    _updateHeaderAuth();
   });
 }
 
@@ -235,15 +237,17 @@ async function syncSignOut() {
   window._sbAuthPromise = null;
   if (typeof _ensureSupabaseAuth === 'function') _ensureSupabaseAuth();
   _syncUpdateStatusUI();
+  _updateHeaderAuth();
 }
 
 // ════════════════════════════════════════════════════════════════════
 // SYNC MODAL
 // ════════════════════════════════════════════════════════════════════
 
-function syncOpenModal() {
+function syncOpenModal(mode) {
   var el = document.getElementById('sync-modal');
   if (!el) return;
+  _syncModalMode = mode || 'sync'; // 'signup' | 'login' | 'sync'
   _syncRenderStep('method');
   el.style.display = 'flex';
   // Close on backdrop click
@@ -266,11 +270,22 @@ function _syncRenderStep(step, errorMsg) {
   var ko = _isKo();
 
   if (step === 'method') {
+    var isSignup = _syncModalMode === 'signup';
+    var isLogin  = _syncModalMode === 'login';
+    var title = isSignup ? (ko ? '🙌 ArchWander 가입하기' : '🙌 Create Your Account')
+              : isLogin  ? (ko ? '👋 다시 오셨군요!' : '👋 Welcome Back')
+              : (ko ? '🔄 기기 간 동기화' : '🔄 Sync Across Devices');
+    var sub = isSignup
+      ? (ko ? '이메일로 계정을 만들어 즐겨찾기·방문·루트를<br>모든 기기에서 유지하세요.'
+            : 'Create your account to keep favorites, visits<br>&amp; routes synced across all your devices.')
+      : isLogin
+      ? (ko ? '이메일로 로그인하면 저장된 즐겨찾기·방문·루트를<br>이 기기로 복원합니다.'
+            : 'Sign in to restore your saved favorites, visits<br>&amp; routes on this device.')
+      : (ko ? '로그인하면 즐겨찾기·방문 기록·저장 루트가<br>모든 기기에 자동 동기화됩니다.'
+            : 'Sign in to keep favorites, visits &amp; routes<br>in sync across all your devices.');
     body.innerHTML =
-      '<div class="sm-title">' + (ko ? '🔄 기기 간 동기화' : '🔄 Sync Across Devices') + '</div>' +
-      '<div class="sm-sub">' + (ko
-        ? '로그인하면 즐겨찾기·방문 기록·저장 루트가<br>모든 기기에 자동 동기화됩니다.'
-        : 'Sign in to keep favorites, visits &amp; routes<br>in sync across all your devices.') + '</div>' +
+      '<div class="sm-title">' + title + '</div>' +
+      '<div class="sm-sub">' + sub + '</div>' +
       '<button class="sm-btn sm-btn-google" onclick="_syncDoGoogle()">' +
         '<svg width="18" height="18" viewBox="0 0 24 24" style="flex-shrink:0;margin-right:8px"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>' +
         (ko ? 'Google로 계속' : 'Continue with Google') +
@@ -376,6 +391,31 @@ async function _syncDoVerify() {
   }
 }
 
+// ── Header auth area (Sign Up / Log In / user chip) ───────────────
+function _updateHeaderAuth() {
+  var el = document.getElementById('header-auth-area');
+  if (!el) return;
+  var ko = _isKo();
+
+  if (_syncUser && _syncUser.email) {
+    // Logged in — show user initial chip (clicks open My Page)
+    var initial = _syncUser.email.charAt(0).toUpperCase();
+    el.innerHTML =
+      '<button class="hdr-user-chip" onclick="typeof _sbaMyPage===\'function\'?_sbaMyPage():syncOpenModal()" title="' + _syncUser.email + '">' +
+        initial +
+      '</button>';
+  } else {
+    // Not logged in — Sign Up + Log In
+    el.innerHTML =
+      '<button class="hdr-auth-btn hdr-auth-signup" onclick="syncOpenModal(\'signup\')">' +
+        (ko ? '회원가입' : 'Sign Up') +
+      '</button>' +
+      '<button class="hdr-auth-btn hdr-auth-login" onclick="syncOpenModal(\'login\')">' +
+        (ko ? '로그인' : 'Log In') +
+      '</button>';
+  }
+}
+
 // ── My Page sync status block ─────────────────────────────────────
 function _syncUpdateStatusUI() {
   var el = document.getElementById('mpp-sync-status');
@@ -410,6 +450,8 @@ function _syncUpdateStatusUI() {
         (ko ? '즐겨찾기·방문·루트를 모든 기기에서 유지' : 'Keep favorites, visits &amp; routes on every device') +
       '</div>';
   }
+  // Keep header auth area in sync
+  _updateHeaderAuth();
 }
 
 async function _mppDoSync() {
@@ -446,3 +488,7 @@ async function _mppDoSignOut() {
 if (typeof _supabase !== 'undefined' && _supabase) {
   syncInit();
 }
+// Render initial auth area (Sign Up / Log In) after DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+  _updateHeaderAuth();
+});
