@@ -5371,3 +5371,16 @@
   color: rgba(255,255,255,0.7);
   border-color: rgba(255,255,255,0.2);
 }
+
+/* ── Header Auth Area — light/dark mode fix ─────────────────────── */
+/* Override the earlier white-text rules with CSS variable versions   */
+.hdr-auth-signup {
+  background: var(--text-primary) !important;
+  color: var(--bg) !important;
+  border: none !important;
+}
+.hdr-auth-login {
+  background: transparent !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border) !important;
+}
