@@ -28,10 +28,10 @@ function syncInit() {
     var prevUser = _syncUser;
     _syncUser = isAnon ? null : user;
 
-    if (!isAnon && (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED')) {
+    if (!isAnon && (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED' || event === 'INITIAL_SESSION')) {
       var wasSignedOut = !prevUser;
       var ago = _syncLastAt ? (Date.now() - new Date(_syncLastAt).getTime()) : Infinity;
-      // Auto-sync on login, or if >30 min since last sync
+      // Auto-sync on login/restore, or if >30 min since last sync
       if (wasSignedOut || ago > 30 * 60 * 1000) {
         syncAll().catch(function(e) { console.warn('[sync] auto-sync failed:', e.message); });
       }
