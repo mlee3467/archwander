@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — ArchWander</title>
+  <link rel="icon" type="image/png" href="img/Logo_favicon.png">
+  <meta name="description" content="ArchWander Privacy Policy — how we collect, use, and protect your data.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f7f7f5;
+      color: #111;
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    /* ── Header ── */
+    header {
+      background: #111;
+      padding: 0 24px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .hdr-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .hdr-logo img { height: 32px; width: auto; }
+    .hdr-logo span {
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+    }
+    .hdr-back {
+      color: rgba(255,255,255,0.6);
+      font-size: 13px;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .hdr-back:hover { color: #fff; }
+
+    /* ── Main ── */
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    .page-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+
+    .updated {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 40px;
+    }
+
+    .intro {
+      background: #fff;
+      border: 1px solid #e8e8e4;
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 40px;
+      font-size: 14px;
+      color: #444;
+      line-height: 1.65;
+    }
+
+    h2 {
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      margin: 36px 0 12px;
+      padding-top: 36px;
+      border-top: 1px solid #e8e8e4;
+    }
+    h2:first-of-type { border-top: none; padding-top: 0; }
+
+    p { margin-bottom: 14px; color: #333; }
+    p:last-child { margin-bottom: 0; }
+
+    ul {
+      margin: 8px 0 14px 20px;
+      color: #333;
+    }
+    ul li { margin-bottom: 6px; }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0;
+      font-size: 14px;
+    }
+    .data-table th {
+      text-align: left;
+      background: #f0f0ec;
+      padding: 10px 14px;
+      font-weight: 600;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #555;
+      border-bottom: 1px solid #e0e0da;
+    }
+    .data-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #ebebе8;
+      vertical-align: top;
+      color: #333;
+    }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:nth-child(even) td { background: #fafaf8; }
+
+    .provider-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 14px 0;
+    }
+    .provider-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: #fff;
+      border: 1px solid #e8e8e4;
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+    .provider-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 16px;
+    }
+    .provider-info strong {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+    .provider-info span {
+      font-size: 13px;
+      color: #666;
+    }
+    .provider-info a { color: #4f8ef7; text-decoration: none; }
+    .provider-info a:hover { text-decoration: underline; }
+
+    .contact-box {
+      background: #111;
+      color: #fff;
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin-top: 40px;
+    }
+    .contact-box h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .contact-box p { color: rgba(255,255,255,0.7); margin-bottom: 12px; font-size: 14px; }
+    .contact-box a {
+      display: inline-block;
+      background: #fff;
+      color: #111;
+      font-weight: 600;
+      font-size: 14px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+    }
+    .contact-box a:hover { opacity: 0.9; }
+
+    @media (max-width: 600px) {
+      main { padding: 32px 16px 60px; }
+      h1 { font-size: 22px; }
+      .data-table { font-size: 13px; }
+      .data-table th, .data-table td { padding: 8px 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a class="hdr-logo" href="/">
+    <img src="img/Logo_small.png" alt="ArchWander">
+    <span>ArchWander</span>
+  </a>
+  <a class="hdr-back" href="/">← Back to App</a>
+</header>
+
+<main>
+  <div class="page-label">Legal</div>
+  <h1>Privacy Policy</h1>
+  <p class="updated">Last updated: June 15, 2026</p>
+
+  <div class="intro">
+    ArchWander is an architectural travel guide — we help you discover, save, and revisit great buildings. This policy explains what data we collect when you use the app, how we use it, and your rights over that data. We collect only what's necessary to make the app work.
+  </div>
+
+  <h2>1. Who We Are</h2>
+  <p>ArchWander (<a href="https://archwander.com">archwander.com</a>) is operated as an independent project. For any privacy-related questions, contact us at <a href="mailto:privacy@archwander.com">privacy@archwander.com</a>.</p>
+
+  <h2>2. Data We Collect</h2>
+  <p>We collect two categories of data:</p>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Data</th>
+        <th>When collected</th>
+        <th>Purpose</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Email address</strong></td>
+        <td>When you sign in (OTP, Google, or Facebook)</td>
+        <td>Account identity and authentication</td>
+      </tr>
+      <tr>
+        <td><strong>Favorites &amp; visited locations</strong></td>
+        <td>When you tap ⭐ or ✓ on a location</td>
+        <td>Sync your saved places across devices</td>
+      </tr>
+      <tr>
+        <td><strong>Visit dates &amp; notes</strong></td>
+        <td>When you record a visit</td>
+        <td>Personal travel log</td>
+      </tr>
+      <tr>
+        <td><strong>Saved routes</strong></td>
+        <td>When you save a walking route</td>
+        <td>Sync routes across devices</td>
+      </tr>
+      <tr>
+        <td><strong>Reviews</strong></td>
+        <td>When you submit a review</td>
+        <td>Displayed to other users on location pages</td>
+      </tr>
+      <tr>
+        <td><strong>Issue reports</strong></td>
+        <td>When you submit a report</td>
+        <td>Used internally to fix data issues</td>
+      </tr>
+      <tr>
+        <td><strong>GPS location</strong></td>
+        <td>Only when you use "Near Me"</td>
+        <td>Find nearby buildings — <strong>not stored</strong> on our servers</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>If you use the app without signing in, all data stays on your device only (browser localStorage). Nothing is sent to our servers until you choose to sign in.</p>
+
+  <h2>3. How We Use Your Data</h2>
+  <ul>
+    <li>To keep your favorites, visits, and routes synced across your devices</li>
+    <li>To display your reviews on location pages within the app</li>
+    <li>To process issue reports and improve location data accuracy</li>
+    <li>To authenticate your identity via your chosen sign-in method</li>
+  </ul>
+  <p>We do <strong>not</strong> sell your data, use it for advertising, or share it with third parties beyond what is described in Section 4.</p>
+
+  <h2>4. Third-Party Services</h2>
+  <p>ArchWander relies on the following third-party services to function:</p>
+
+  <div class="provider-list">
+    <div class="provider-item">
+      <div class="provider-icon" style="background:#f0fdf4">🗄️</div>
+      <div class="provider-info">
+        <strong>Supabase</strong>
+        <span>Stores your account, favorites, routes, reviews, and reports. Data is hosted on AWS infrastructure. <a href="https://supabase.com/privacy" target="_blank">Privacy Policy →</a></span>
+      </div>
+    </div>
+    <div class="provider-item">
+      <div class="provider-icon" style="background:#fef9c3">G</div>
+      <div class="provider-info">
+        <strong>Google (Sign-in &amp; Maps)</strong>
+        <span>Optional sign-in via Google account. Street View imagery is embedded via Google Maps Embed API. <a href="https://policies.google.com/privacy" target="_blank">Privacy Policy →</a></span>
+      </div>
+    </div>
+    <div class="provider-item">
+      <div class="provider-icon" style="background:#eff6ff">f</div>
+      <div class="provider-info">
+        <strong>Facebook (Sign-in)</strong>
+        <span>Optional sign-in via Facebook account. We receive only your email address. <a href="https://www.facebook.com/privacy/policy/" target="_blank">Privacy Policy →</a></span>
+      </div>
+    </div>
+    <div class="provider-item">
+      <div class="provider-icon" style="background:#fdf4ff">✉️</div>
+      <div class="provider-info">
+        <strong>Resend</strong>
+        <span>Sends email authentication codes (OTP) when you sign in with your email address. <a href="https://resend.com/legal/privacy-policy" target="_blank">Privacy Policy →</a></span>
+      </div>
+    </div>
+  </div>
+
+  <h2>5. Data Retention</h2>
+  <p>Your account and associated data (favorites, visits, routes) are retained as long as your account is active. Reviews and reports may be retained after account deletion as they are part of public location data.</p>
+  <p>If you sign in anonymously (without an account), your session data is stored in your browser and is automatically cleared when you clear your browser data.</p>
+
+  <h2>6. Your Rights</h2>
+  <p>You have the right to:</p>
+  <ul>
+    <li><strong>Access</strong> the data we hold about you</li>
+    <li><strong>Delete</strong> your account and all associated personal data</li>
+    <li><strong>Export</strong> your favorites, visits, and routes</li>
+    <li><strong>Withdraw consent</strong> at any time by signing out</li>
+  </ul>
+  <p>To exercise any of these rights, email us at <a href="mailto:privacy@archwander.com">privacy@archwander.com</a>.</p>
+
+  <h2>7. Cookies &amp; Local Storage</h2>
+  <p>ArchWander uses browser <strong>localStorage</strong> (not cookies) to store your preferences, favorites, and session data on your device. This data does not leave your device unless you sign in to enable cross-device sync. We do not use tracking cookies or advertising cookies.</p>
+
+  <h2>8. Children's Privacy</h2>
+  <p>ArchWander is not directed at children under the age of 13. We do not knowingly collect personal data from children. If you believe a child has provided us with personal information, please contact us and we will delete it promptly.</p>
+
+  <h2>9. Changes to This Policy</h2>
+  <p>We may update this policy from time to time. When we do, we will update the "Last updated" date at the top of this page. Continued use of the app after changes constitutes acceptance of the revised policy.</p>
+
+  <div class="contact-box">
+    <h3>Questions about your privacy?</h3>
+    <p>We're happy to help with any privacy-related questions or requests.</p>
+    <a href="mailto:privacy@archwander.com">privacy@archwander.com</a>
+  </div>
+</main>
+
+</body>
+</html>
