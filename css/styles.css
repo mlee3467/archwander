@@ -5406,3 +5406,87 @@
   border-color: rgba(255,255,255,0.2);
 }
 [data-theme="dark"] .sm-btn-apple:hover { background: #2a2a2a; }
+
+/* ══ Toast notification ══════════════════════════════════════════════ */
+.aw-toast {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(12px);
+  background: #222;
+  color: #fff;
+  font-size: 13px;
+  font-family: Inter, -apple-system, sans-serif;
+  padding: 11px 18px;
+  border-radius: 10px;
+  white-space: nowrap;
+  max-width: calc(100vw - 32px);
+  white-space: normal;
+  text-align: center;
+  opacity: 0;
+  z-index: 9800;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+}
+.aw-toast.aw-toast-show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+.aw-toast.aw-toast-warn {
+  background: #92400e;
+}
+
+/* ══ iOS PWA sync banner ═════════════════════════════════════════════ */
+.pwa-sync-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9700;
+  background: #1a1a2e;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  font-family: Inter, -apple-system, sans-serif;
+  font-size: 13px;
+  transform: translateY(-100%);
+  transition: transform 0.35s ease;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+.pwa-sync-banner.psb-show {
+  transform: translateY(0);
+}
+.psb-icon { font-size: 16px; flex-shrink: 0; }
+.psb-text {
+  flex: 1;
+  line-height: 1.35;
+  color: rgba(255,255,255,0.88);
+}
+.psb-cta {
+  background: #4f8ef7;
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: inherit;
+  flex-shrink: 0;
+}
+.psb-cta:hover { background: #3a7ce8; }
+.psb-close {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.5);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.psb-close:hover { color: #fff; }

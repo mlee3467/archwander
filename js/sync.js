@@ -17,6 +17,32 @@ var _syncPushTimer   = null;  // debounce timer for auto-push
 var _syncPendingEmail = '';   // OTP flow: email being verified
 var _syncBusy        = false; // prevent concurrent syncs
 var _syncModalMode   = 'sync'; // 'signup' | 'login' | 'sync'
+var _pwaBannerDismissed = false; // session flag — don't re-show after dismiss
+
+// ── Storage availability check (runs immediately at parse time) ───
+var _storageAvailable = (function() {
+  try {
+    var k = '__aw_test__';
+    localStorage.setItem(k, '1');
+    localStorage.removeItem(k);
+    return true;
+  } catch(e) { return false; }
+})();
+
+// ── Toast notification ────────────────────────────────────────────
+function _showToast(msg, duration, type) {
+  var el = document.createElement('div');
+  el.className = 'aw-toast' + (type ? ' aw-toast-' + type : '');
+  el.textContent = msg;
+  document.body.appendChild(el);
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() { el.classList.add('aw-toast-show'); });
+  });
+  setTimeout(function() {
+    el.classList.remove('aw-toast-show');
+    setTimeout(function() { if (el.parentNode) el.parentNode.removeChild(el); }, 350);
+  }, duration || 4500);
+}
 
 // ── Init: attach to Supabase auth state ──────────────────────────
 function syncInit() {
@@ -448,6 +474,7 @@ function _syncUpdateStatusUI() {
   _syncLastAt = _syncLastAt || localStorage.getItem('aw_sync_last');
 
   if (_syncUser && _syncUser.email) {
+    _dismissPwaBanner(); // remove PWA nudge once signed in
     var lastStr = '—';
     if (_syncLastAt) {
       try {
@@ -507,12 +534,59 @@ async function _mppDoSignOut() {
   }
 }
 
+// ── iOS PWA sync banner ───────────────────────────────────────────
+// Shows when: running as installed PWA + not signed in + not dismissed
+function _checkPwaBanner() {
+  var isIosPwa = window.navigator.standalone === true;
+  if (!isIosPwa)             return; // only iOS home screen PWA
+  if (_syncUser)             return; // already logged in
+  if (_pwaBannerDismissed)   return;
+  if (document.getElementById('pwa-sync-banner')) return;
+
+  var ko = _isKo();
+  var banner = document.createElement('div');
+  banner.id = 'pwa-sync-banner';
+  banner.className = 'pwa-sync-banner';
+  banner.innerHTML =
+    '<span class="psb-icon">🔄</span>' +
+    '<span class="psb-text">' +
+      (ko ? '로그인하면 데이터가 모든 기기에 저장돼요' : 'Sign in to keep your data across sessions') +
+    '</span>' +
+    '<button class="psb-cta" onclick="syncOpenModal(\'signup\')">' + (ko ? '로그인' : 'Sign In') + '</button>' +
+    '<button class="psb-close" onclick="_dismissPwaBanner()" aria-label="Dismiss">✕</button>';
+  document.body.appendChild(banner);
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() { banner.classList.add('psb-show'); });
+  });
+}
+
+function _dismissPwaBanner() {
+  _pwaBannerDismissed = true;
+  var banner = document.getElementById('pwa-sync-banner');
+  if (!banner) return;
+  banner.classList.remove('psb-show');
+  setTimeout(function() { if (banner.parentNode) banner.parentNode.removeChild(banner); }, 350);
+}
+
 // ── Bootstrap ─────────────────────────────────────────────────────
 // Runs after _supabase is created in config.js
 if (typeof _supabase !== 'undefined' && _supabase) {
   syncInit();
 }
-// Render initial auth area (Sign Up / Log In) after DOM is ready
+// Render initial auth area + run storage/PWA checks after DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
   _updateHeaderAuth();
+
+  // 1) Private mode warning
+  if (!_storageAvailable) {
+    var ko = _isKo();
+    _showToast(
+      ko ? '⚠️ 프라이빗 브라우징에서는 데이터가 저장되지 않아요'
+         : '⚠️ Private browsing — your data won\'t be saved',
+      6000, 'warn'
+    );
+  }
+
+  // 2) iOS PWA sign-in nudge (slight delay so header renders first)
+  setTimeout(_checkPwaBanner, 1200);
 });
