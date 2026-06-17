@@ -474,7 +474,20 @@ function _openMyPage() {
           _buildPassportHtml(isKo) +
         '</div>' +
 
-        // ── Section 5: DB Refresh ───────────────────────────────
+        // ── Section 5: Suggest a Location ──────────────────────
+        '<div class="mpp-section">' +
+          '<div class="mpp-sec-title">📍 ' + (isKo ? '위치 제안' : 'Suggest a Location') + '</div>' +
+          '<div class="mpp-sec-sub">' + (isKo
+            ? 'ArchWander에 없는 건축물을 발견하셨나요? 제보해 주시면 검토 후 추가하겠습니다.'
+            : 'Know a great building that\'s missing from ArchWander? Submit it for review.') + '</div>' +
+          '<div class="mpp-btn-row">' +
+            '<button class="mpp-btn mpp-btn-suggest" onclick="_closeSuggestIfOpen();_openSuggestForm()">' +
+              (isKo ? '📍 건물 제안하기' : '📍 Suggest a Building') +
+            '</button>' +
+          '</div>' +
+        '</div>' +
+
+        // ── Section 6: DB Refresh ───────────────────────────────
         '<div class="mpp-section">' +
           '<div class="mpp-sec-title">' + (isKo ? '🔄 데이터 새로고침' : '🔄 Data Refresh') + '</div>' +
           '<div class="mpp-sec-sub">' + (isKo
@@ -1395,6 +1408,199 @@ function _headerGpsZoom() {
   toast._hideTimer = setTimeout(function() {
     toast.style.display = 'none';
   }, 2500);
+}
+
+// ══════════════════════════════════════════════════════════════════
+// SUGGEST A LOCATION
+// ══════════════════════════════════════════════════════════════════
+
+function _closeSuggestIfOpen() {
+  // placeholder — My Page stays open underneath
+}
+
+function _openSuggestForm() {
+  var existing = document.getElementById('suggest-overlay');
+  if (existing && existing.parentNode) existing.parentNode.removeChild(existing);
+
+  var isKo = (typeof LANG !== 'undefined') ? LANG === 'ko' : false;
+  var userEmail = (typeof _syncUser !== 'undefined' && _syncUser && _syncUser.email)
+    ? _syncUser.email : '';
+
+  var cityOpts = [
+    { val: '',         label: isKo ? '도시 선택...'  : 'Select city...' },
+    { val: 'new-york', label: isKo ? '뉴욕'          : 'New York' },
+    { val: 'seoul',    label: isKo ? '서울'          : 'Seoul' },
+    { val: 'london',   label: isKo ? '런던'          : 'London' },
+    { val: 'tokyo',    label: isKo ? '도쿄'          : 'Tokyo' },
+    { val: 'chicago',  label: isKo ? '시카고'        : 'Chicago' },
+    { val: 'other',    label: isKo ? '기타'          : 'Other city' }
+  ];
+
+  var overlay = document.createElement('div');
+  overlay.id = 'suggest-overlay';
+  overlay.className = 'arm-overlay';
+  overlay.innerHTML =
+    '<div class="arm-panel" id="suggest-panel" style="max-width:460px">' +
+      '<div class="arm-header">' +
+        '<button class="arm-back" onclick="_closeSuggestForm()">◀ </button>' +
+        '<span class="arm-title">📍 ' + (isKo ? '위치 제안' : 'Suggest a Location') + '</span>' +
+      '</div>' +
+      '<div class="arm-body" style="padding:20px 20px 40px">' +
+
+        '<p class="sug-intro">' + (isKo
+          ? 'ArchWander에 추가됐으면 하는 건축물을 알려주세요. 검토 후 반영하겠습니다.'
+          : 'Know a great building not yet on ArchWander? Let us know — we\'ll review and add it.') +
+        '</p>' +
+
+        '<div class="sug-field">' +
+          '<label class="sug-label">' + (isKo ? '건물명 *' : 'Building Name *') + '</label>' +
+          '<input class="sug-input" id="sug-name" type="text" placeholder="' +
+            (isKo ? '예: 동대문디자인플라자 (DDP)' : 'e.g. Guggenheim Museum') + '">' +
+        '</div>' +
+
+        '<div class="sug-field">' +
+          '<label class="sug-label">' + (isKo ? '도시' : 'City') + '</label>' +
+          '<select class="sug-input sug-select" id="sug-city">' +
+            cityOpts.map(function(o) {
+              return '<option value="' + o.val + '">' + o.label + '</option>';
+            }).join('') +
+          '</select>' +
+        '</div>' +
+
+        '<div class="sug-field">' +
+          '<label class="sug-label">' + (isKo ? '주소 또는 위치 설명' : 'Address / Location') + '</label>' +
+          '<input class="sug-input" id="sug-address" type="text" placeholder="' +
+            (isKo ? '예: 서울 중구 을지로 281' : 'e.g. 1071 5th Ave, New York, NY') + '">' +
+        '</div>' +
+
+        '<div class="sug-row2">' +
+          '<div class="sug-field">' +
+            '<label class="sug-label">' + (isKo ? '건축가' : 'Architect') + '</label>' +
+            '<input class="sug-input" id="sug-arch" type="text" placeholder="' +
+              (isKo ? '예: 자하 하디드' : 'e.g. Zaha Hadid') + '">' +
+          '</div>' +
+          '<div class="sug-field">' +
+            '<label class="sug-label">' + (isKo ? '준공연도' : 'Year') + '</label>' +
+            '<input class="sug-input" id="sug-year" type="number" min="1800" max="2050" placeholder="' +
+              (isKo ? '예: 2014' : 'e.g. 2014') + '">' +
+          '</div>' +
+        '</div>' +
+
+        '<div class="sug-field">' +
+          '<label class="sug-label">' + (isKo ? '메모 (선택)' : 'Notes (optional)') + '</label>' +
+          '<textarea class="sug-input sug-textarea" id="sug-notes" rows="3" placeholder="' +
+            (isKo ? '추가 설명, 참고 링크, 포함되어야 하는 이유 등'
+                  : 'Why it should be included, reference link, etc.') + '"></textarea>' +
+        '</div>' +
+
+        (userEmail ? '' :
+          '<div class="sug-field">' +
+            '<label class="sug-label">' + (isKo ? '이메일 (선택)' : 'Your Email (optional)') + '</label>' +
+            '<input class="sug-input" id="sug-email" type="email" placeholder="' +
+              (isKo ? '답변을 받으시려면 입력하세요' : 'Leave blank to submit anonymously') + '">' +
+          '</div>') +
+
+        '<div id="sug-status" style="min-height:18px;font-size:12px;margin-bottom:10px"></div>' +
+
+        '<button class="sug-submit-btn" id="sug-submit-btn" onclick="_submitSuggestion()">' +
+          (isKo ? '제출하기' : 'Submit Suggestion') +
+        '</button>' +
+
+      '</div>' +
+    '</div>';
+
+  document.body.appendChild(overlay);
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() { overlay.classList.add('visible'); });
+  });
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) _closeSuggestForm();
+  });
+  setTimeout(function() {
+    var f = document.getElementById('sug-name');
+    if (f) f.focus();
+  }, 320);
+}
+
+function _closeSuggestForm() {
+  var overlay = document.getElementById('suggest-overlay');
+  if (!overlay) return;
+  overlay.classList.remove('visible');
+  setTimeout(function() {
+    if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+  }, 280);
+}
+
+async function _submitSuggestion() {
+  var isKo = (typeof LANG !== 'undefined') ? LANG === 'ko' : false;
+  var nameEl   = document.getElementById('sug-name');
+  var cityEl   = document.getElementById('sug-city');
+  var addrEl   = document.getElementById('sug-address');
+  var archEl   = document.getElementById('sug-arch');
+  var yearEl   = document.getElementById('sug-year');
+  var notesEl  = document.getElementById('sug-notes');
+  var emailEl  = document.getElementById('sug-email');
+  var statusEl = document.getElementById('sug-status');
+  var btn      = document.getElementById('sug-submit-btn');
+
+  var name = nameEl ? nameEl.value.trim() : '';
+  if (!name) {
+    if (statusEl) { statusEl.style.color = '#ef4444'; statusEl.textContent = isKo ? '건물명은 필수입니다.' : 'Building name is required.'; }
+    if (nameEl) nameEl.focus();
+    return;
+  }
+
+  var city    = cityEl  ? cityEl.value              : '';
+  var address = addrEl  ? addrEl.value.trim()       : '';
+  var arch    = archEl  ? archEl.value.trim()       : '';
+  var year    = yearEl  ? yearEl.value.trim()       : '';
+  var notes   = notesEl ? notesEl.value.trim()      : '';
+  var email   = emailEl ? emailEl.value.trim()      : '';
+  if (!email && typeof _syncUser !== 'undefined' && _syncUser && _syncUser.email) {
+    email = _syncUser.email;
+  }
+
+  if (btn) { btn.disabled = true; btn.textContent = isKo ? '제출 중...' : 'Submitting…'; }
+  if (statusEl) { statusEl.style.color = '#888'; statusEl.textContent = ''; }
+
+  if (typeof SUPABASE_URL === 'undefined' || !SUPABASE_URL || SUPABASE_URL.indexOf('__') === 0) {
+    if (statusEl) { statusEl.style.color = '#ef4444'; statusEl.textContent = isKo ? '서버 연결 오류' : 'Server not configured.'; }
+    if (btn) { btn.disabled = false; btn.textContent = isKo ? '제출하기' : 'Submit Suggestion'; }
+    return;
+  }
+
+  try {
+    var res = await fetch(SUPABASE_URL + '/rest/v1/location_suggestions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': typeof SUPABASE_ANON_KEY !== 'undefined' ? SUPABASE_ANON_KEY : '',
+        'Authorization': 'Bearer ' + (typeof SUPABASE_ANON_KEY !== 'undefined' ? SUPABASE_ANON_KEY : ''),
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({
+        building_name:  name,
+        city:           city    || null,
+        address:        address || null,
+        architect:      arch    || null,
+        year_completed: year    || null,
+        notes:          notes   || null,
+        user_email:     email   || null
+      })
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+
+    if (statusEl) { statusEl.style.color = '#22c55e'; statusEl.textContent = isKo ? '✓ 제출 완료! 검토 후 반영하겠습니다.' : '✓ Submitted! We\'ll review it shortly.'; }
+    [nameEl, addrEl, archEl, yearEl, notesEl].forEach(function(el) { if (el) el.value = ''; });
+    if (cityEl) cityEl.value = '';
+    if (btn) { btn.disabled = false; btn.textContent = isKo ? '제출 완료 ✓' : 'Submitted ✓'; }
+    setTimeout(_closeSuggestForm, 2400);
+
+  } catch(err) {
+    console.error('[suggest]', err);
+    if (statusEl) { statusEl.style.color = '#ef4444'; statusEl.textContent = isKo ? '제출 실패. 다시 시도해주세요.' : 'Submit failed. Please try again.'; }
+    if (btn) { btn.disabled = false; btn.textContent = isKo ? '제출하기' : 'Submit Suggestion'; }
+  }
 }
 
 // ══════════════════════════════════════════════════════════════════

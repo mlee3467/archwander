@@ -430,6 +430,12 @@ function renderList() {
     wrap.innerHTML = `<div class="no-results">${t('no_results')}</div>`;
     return;
   }
+  var isKo = (typeof LANG !== 'undefined') ? LANG === 'ko' : false;
+  var suggestFooter = '<div class="list-suggest-footer" onclick="event.stopPropagation();_openSuggestForm()">' +
+    (isKo ? '찾는 건물이 없나요? ' : 'Missing a building? ') +
+    '<span class="list-suggest-link">' + (isKo ? '제안하기 →' : 'Suggest it →') + '</span>' +
+    '</div>';
+
   wrap.innerHTML = list.map(loc => `
     <div class="loc-card${activeLoc?.id === loc.id ? ' active' : ''}" onclick="openLocById('${loc.id}')">
       ${cardThumb(loc)}
@@ -452,7 +458,7 @@ function renderList() {
         </button>
       </div>
     </div>
-  `).join('');
+  `).join('') + suggestFooter;
 }
 
 function syncMarkers() {

@@ -5241,3 +5241,64 @@
   font-family: inherit;
 }
 .sm-switch-btn:hover { text-decoration: underline; }
+
+/* ══ Suggest a Location — list footer ═══════════════════════════════ */
+.list-suggest-footer {
+  display: flex; align-items: center; justify-content: center; gap: 5px;
+  padding: 14px 16px 16px;
+  font-size: 12px; color: var(--text-secondary);
+  border-top: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.12s;
+}
+.list-suggest-footer:hover { background: var(--bg); }
+.list-suggest-link {
+  color: #5bbecf; font-weight: 600;
+}
+.list-suggest-footer:hover .list-suggest-link { text-decoration: underline; }
+
+/* ══ Suggest a Location — form overlay ══════════════════════════════ */
+.sug-intro {
+  font-size: 13px; color: var(--text-secondary); line-height: 1.55;
+  margin: 0 0 20px;
+}
+.sug-field {
+  display: flex; flex-direction: column; gap: 5px;
+  margin-bottom: 14px;
+}
+.sug-row2 {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  margin-bottom: 0; /* children have their own margin */
+}
+.sug-row2 .sug-field { margin-bottom: 14px; }
+.sug-label {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.4px;
+  text-transform: uppercase; color: var(--text-secondary);
+}
+.sug-input {
+  width: 100%; padding: 9px 12px;
+  border: 1px solid var(--border); border-radius: 8px;
+  background: var(--bg); color: var(--text-primary);
+  font-size: 13px; font-family: inherit;
+  outline: none; transition: border-color 0.15s;
+  box-sizing: border-box;
+}
+.sug-input:focus { border-color: #5bbecf; }
+.sug-select { appearance: none; -webkit-appearance: none; cursor: pointer; }
+.sug-textarea { resize: vertical; min-height: 72px; }
+.sug-submit-btn {
+  width: 100%; padding: 12px;
+  background: #5bbecf; color: #fff;
+  border: none; border-radius: 10px;
+  font-size: 14px; font-weight: 600; font-family: inherit;
+  cursor: pointer; transition: opacity 0.15s;
+}
+.sug-submit-btn:hover { opacity: 0.88; }
+.sug-submit-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+/* My Page — Suggest button */
+.mpp-btn-suggest {
+  background: #f0fbfd; color: #5bbecf;
+  border: 1px solid #b8e9f4;
+}
+.mpp-btn-suggest:hover { background: #e0f5fb; }
