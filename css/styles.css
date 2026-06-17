@@ -5490,3 +5490,22 @@
   flex-shrink: 0;
 }
 .psb-close:hover { color: #fff; }
+
+/* ══ Sync modal Sign In ↔ Sign Up toggle ════════════════════════════ */
+.sm-switch {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 6px;
+}
+.sm-switch-btn {
+  background: none;
+  border: none;
+  color: #4f8ef7;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+}
+.sm-switch-btn:hover { text-decoration: underline; }

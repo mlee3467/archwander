@@ -282,7 +282,7 @@ async function syncSignOut() {
 function syncOpenModal(mode) {
   var el = document.getElementById('sync-modal');
   if (!el) return;
-  _syncModalMode = mode || 'sync'; // 'signup' | 'login' | 'sync'
+  _syncModalMode = mode || 'login'; // 'signup' | 'login'
   _syncRenderStep('method');
   el.style.display = 'flex';
   // Close on backdrop click
@@ -299,7 +299,8 @@ function _isKo() {
     || (navigator.language || '').startsWith('ko');
 }
 
-function _syncRenderStep(step, errorMsg) {
+function _syncRenderStep(step, errorMsg, modeOverride) {
+  if (modeOverride) _syncModalMode = modeOverride;
   var body = document.getElementById('sync-modal-body');
   if (!body) return;
   var ko = _isKo();
@@ -335,7 +336,14 @@ function _syncRenderStep(step, errorMsg) {
       '<label class="sm-label">' + (ko ? '이메일 주소' : 'Email address') + '</label>' +
       '<input class="sm-input" id="sm-email" type="email" placeholder="you@example.com" autocomplete="email">' +
       (errorMsg ? '<div class="sm-error">' + errorMsg + '</div>' : '') +
-      '<button class="sm-btn sm-btn-primary" onclick="_syncDoSendOtp()">' + (ko ? '인증 코드 받기 →' : 'Send Code →') + '</button>';
+      '<button class="sm-btn sm-btn-primary" onclick="_syncDoSendOtp()">' + (ko ? '인증 코드 받기 →' : 'Send Code →') + '</button>' +
+      // Toggle: Sign In ↔ Sign Up
+      (isSignup
+        ? '<div class="sm-switch">' + (ko ? '이미 계정이 있나요? ' : 'Already have an account? ') +
+          '<button class="sm-switch-btn" onclick="_syncRenderStep(\'method\',null,\'login\')">' + (ko ? '로그인' : 'Sign In') + '</button></div>'
+        : '<div class="sm-switch">' + (ko ? '계정이 없으신가요? ' : 'No account yet? ') +
+          '<button class="sm-switch-btn" onclick="_syncRenderStep(\'method\',null,\'signup\')">' + (ko ? '회원가입' : 'Sign Up') + '</button></div>'
+      );
     var inp = document.getElementById('sm-email');
     if (inp) {
       inp.addEventListener('keydown', function(e) { if (e.key === 'Enter') _syncDoSendOtp(); });
@@ -455,13 +463,10 @@ function _updateHeaderAuth() {
         initial +
       '</button>';
   } else {
-    // Not logged in — Sign Up + Log In
+    // Not logged in — Sign In only
     el.innerHTML =
-      '<button class="hdr-auth-btn hdr-auth-signup" onclick="syncOpenModal(\'signup\')">' +
-        (ko ? '회원가입' : 'Sign Up') +
-      '</button>' +
       '<button class="hdr-auth-btn hdr-auth-login" onclick="syncOpenModal(\'login\')">' +
-        (ko ? '로그인' : 'Log In') +
+        (ko ? '로그인' : 'Sign In') +
       '</button>';
   }
 }
