@@ -58,9 +58,9 @@
     [data-theme="dark"] #search { background: #141414; color: #f0f0ee; border-color: #2e2e2e; }
     [data-theme="dark"] #search::placeholder { color: #666; }
     [data-theme="dark"] input, [data-theme="dark"] textarea, [data-theme="dark"] select { background: #1e1e1e !important; color: #f0f0ee !important; border-color: #2e2e2e !important; }
-    [data-theme="dark"] .list-overlay-box { background: #1e1e1e; }
+    [data-theme="dark"] .list-overlay-box { background: rgba(30,30,30,0.97); }
     [data-theme="dark"] .list-overlay-hdr { background: #1e1e1e; border-color: #2e2e2e; color: #f0f0ee; }
-    [data-theme="dark"] .sb-review-btn { background: #1e1e1e; color: #898989; border-color: #2e2e2e; }
+    [data-theme="dark"] .sb-review-btn { background: #1e1e1e; color: #4aa8c0; border-color: #2e2e2e; }
     [data-theme="dark"] .p-action-btn { background: #141414; color: #f0f0ee; border-color: #2e2e2e; }
     [data-theme="dark"] .p-action-btn:hover { background: #2a2a2a; }
     [data-theme="dark"] .route-panel { background: #1e1e1e; color: #f0f0ee; }
@@ -2696,16 +2696,16 @@
 
 /* ── Review Filtered List button ───────────────────────────── */
 .sb-review-btn {
-  display: flex; align-items: center; justify-content: flex-start; gap: 8px;
-  width: 100%; padding: 14px;
-  background: var(--surface); border: none; border-top: 1px solid var(--border);
-  font-size: 13px; font-weight: 500; color: var(--text-primary);
+  display: flex; align-items: center; justify-content: flex-start; gap: 6px;
+  width: 100%; padding: 9px 14px;
+  background: var(--surface); border: none; border-bottom: 1px solid var(--border);
+  font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;
+  color: #5bbecf;
   cursor: pointer; font-family: inherit; flex-shrink: 0;
   transition: background 0.12s;
-  margin-top: auto;
 }
 .sb-review-btn:hover { background: var(--bg); }
-.sb-review-btn svg { opacity: 0.6; }
+.sb-review-btn svg { opacity: 0.75; }
 
 /* ── List Overlay ───────────────────────────────────────────── */
 #list-overlay {
@@ -2713,23 +2713,26 @@
   top: calc(var(--mob-header-h) + var(--safe-top));
   bottom: 0; left: 0; right: 0;
   z-index: 700;
-  display: none; align-items: flex-start; justify-content: center;
-  padding: 10px 12px;
+  display: none; align-items: flex-end; justify-content: center;
+  padding: 0;
   pointer-events: none;
+  background: rgba(0,0,0,0);
+  transition: background 0.2s;
 }
 #list-overlay.visible {
   display: flex;
   pointer-events: auto;
+  background: rgba(0,0,0,0.25);
 }
 .list-overlay-box {
-  background: rgba(255,255,255,0.33);
-  backdrop-filter: blur(7px); -webkit-backdrop-filter: blur(7px);
-  border-radius: 18px;
-  width: 100%; max-width: 420px;
-  height: 100%;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border-radius: 18px 18px 0 0;
+  width: 100%; max-width: 100%;
+  height: 52vh;
   display: flex; flex-direction: column;
   overflow: hidden;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+  box-shadow: 0 -4px 32px rgba(0,0,0,0.18);
 }
 /* Desktop: list overlay is a fixed side panel glued to the sidebar */
 @media (min-width: 901px) {
@@ -2740,14 +2743,17 @@
     bottom: 0;
     width: 360px;
     padding: 0;
-    background: none;
+    background: none !important;
     z-index: 500;
     justify-content: flex-start;
+    align-items: flex-start;
   }
+  #list-overlay.visible { background: none !important; }
   .list-overlay-box {
     border-radius: 0;
     max-width: none;
     width: 100%;
+    height: 100%;
     background: var(--surface);
     backdrop-filter: none;
     -webkit-backdrop-filter: none;

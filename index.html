@@ -543,6 +543,12 @@
     <!-- My Journey — shown when visited/saved items exist (above filters) -->
     <div id="passport-stats" style="display:none"></div>
 
+    <!-- Show Results button (always visible, above filters) -->
+    <button class="sb-review-btn" onclick="_openListOverlay()">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" style="flex-shrink:0"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+      Show Results
+    </button>
+
     <!-- Filter toggle button -->
     <button class="sb-filter-toggle" id="sb-filter-toggle" onclick="toggleSbFilters()">
       <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
@@ -628,12 +634,6 @@
 
     </div><!-- /sb-filters -->
 
-    <!-- Review Filtered List button -->
-    <button class="sb-review-btn" onclick="_openListOverlay()">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="flex-shrink:0"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-      Review filtered list
-    </button>
-
   </aside>
 
   <!-- Sidebar right-edge resize handle (outside aside, no overflow:hidden clipping) -->
@@ -646,8 +646,8 @@
 </div>
 
 <!-- ── LIST OVERLAY (filtered locations, opened via "Review filtered list") -->
-<div id="list-overlay" style="display:none">
-  <div class="list-overlay-box">
+<div id="list-overlay" style="display:none" onclick="_closeListOverlay()">
+  <div class="list-overlay-box" onclick="event.stopPropagation()">
     <div class="list-overlay-hdr">
       <span id="list-meta">Loading…</span>
       <select id="sort-sel" onchange="setSort(this.value)">
