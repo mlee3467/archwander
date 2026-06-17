@@ -94,13 +94,6 @@
         <span class="landing-btn-sub">Curated routes by editors</span>
       </div>
     </button>
-    <button class="landing-btn landing-btn-lucky" onclick="landingGoLucky()">
-      <span class="landing-btn-icon">🎲</span>
-      <div class="landing-btn-text">
-        <span class="landing-btn-title">I Feel Lucky</span>
-        <span class="landing-btn-sub">Swipe today's picks</span>
-      </div>
-    </button>
   </div>
 </div>
 
@@ -155,19 +148,6 @@
 <!-- ── FWIL RESULT OVERLAY (fixed over map) ─────────────── -->
 <div id="fwil-result" style="display:none"></div>
 
-<!-- ── I FEEL LUCKY CARD SCREEN ──────────────────────────── -->
-<div id="ifl-lucky-screen" style="display:none">
-  <div class="ilk-hdr">
-    <span class="ilk-title">🎲 I Feel Lucky</span>
-    <span class="ilk-counter" id="ilk-counter">1 / 10</span>
-    <button class="ilk-close" onclick="_closeLuckyScreen()">✕</button>
-  </div>
-  <div class="ilk-card-area" id="ilk-card-area"></div>
-  <div class="ilk-actions" id="ilk-actions">
-    <button class="ilk-btn ilk-pass" onclick="_luckyAction('pass')">✕&nbsp; Pass</button>
-    <button class="ilk-btn ilk-like" onclick="_luckyAction('like')">♥&nbsp; Like</button>
-  </div>
-</div>
 
 <!-- ── CITY & LOCATION POPUP (bottom sheet) ─────────────── -->
 <div id="city-loc-popup" style="display:none">
@@ -743,7 +723,7 @@
 
 <div id="panel-backdrop" onclick="closePanel()"></div>
 
-<!-- ── SV FULLSCREEN MODAL (for lucky card street view interaction) ── -->
+<!-- ── SV FULLSCREEN MODAL ── -->
 <div id="sv-fullscreen" style="display:none">
   <button id="sv-fullscreen-close" onclick="_closeSVFull()">✕</button>
   <iframe id="sv-fullscreen-frame" src="" frameborder="0"
@@ -824,22 +804,7 @@
       <span class="explore-popup-sub">Pick markers to share, fav, or route</span>
     </div>
   </button>
-  <button class="explore-popup-btn" onclick="_sbaExploreClose();_sbaLucky()">
-    <span class="explore-popup-icon">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="3" y="3" width="18" height="18" rx="3" ry="3"/>
-        <circle cx="8.5" cy="8.5" r="1" fill="currentColor"/>
-        <circle cx="15.5" cy="8.5" r="1" fill="currentColor"/>
-        <circle cx="12" cy="12" r="1" fill="currentColor"/>
-        <circle cx="8.5" cy="15.5" r="1" fill="currentColor"/>
-        <circle cx="15.5" cy="15.5" r="1" fill="currentColor"/>
-      </svg>
-    </span>
-    <div class="explore-popup-text">
-      <span class="explore-popup-title">I feel lucky</span>
-      <span class="explore-popup-sub">Surprise me with a random pick</span>
-    </div>
-  </button>
+
 </div>
 
 <!-- Mobile: city selection bottom sheet (world mode) -->
