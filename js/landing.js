@@ -417,11 +417,21 @@ function _openMyPage() {
         // ── Section 0: Settings ─────────────────────────────────
         (function() {
           var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+          var svOn = localStorage.getItem('aw_sv_disabled') !== '1';
           return '<div class="mpp-section">' +
             '<div class="mpp-sec-title">' + (isKo ? '⚙ 설정' : '⚙ Settings') + '</div>' +
             '<div class="mpp-setting-row">' +
               '<span class="mpp-setting-label">' + (isKo ? '다크 모드' : 'Dark Mode') + '</span>' +
               '<button class="mpp-toggle' + (isDark ? ' mpp-toggle-on' : '') + '" id="mpp-dark-toggle" onclick="_mppToggleDark(this)" aria-label="Toggle dark mode">' +
+                '<span class="mpp-toggle-knob"></span>' +
+              '</button>' +
+            '</div>' +
+            '<div class="mpp-setting-row">' +
+              '<div>' +
+                '<span class="mpp-setting-label">Street View</span>' +
+                '<div class="mpp-setting-sub">' + (isKo ? '데이터 절약을 위해 비활성화' : 'Disable to save data') + '</div>' +
+              '</div>' +
+              '<button class="mpp-toggle' + (svOn ? ' mpp-toggle-on' : '') + '" id="mpp-sv-toggle" onclick="_mppToggleSV(this)" aria-label="Toggle Street View">' +
                 '<span class="mpp-toggle-knob"></span>' +
               '</button>' +
             '</div>' +
@@ -525,6 +535,16 @@ function _openMyPage() {
 function _mppToggleDark(btn) {
   if (typeof toggleDarkMode === 'function') toggleDarkMode();
   btn.classList.toggle('mpp-toggle-on');
+}
+
+function _mppToggleSV(btn) {
+  if (localStorage.getItem('aw_sv_disabled') === '1') {
+    localStorage.removeItem('aw_sv_disabled');
+    btn.classList.add('mpp-toggle-on');
+  } else {
+    localStorage.setItem('aw_sv_disabled', '1');
+    btn.classList.remove('mpp-toggle-on');
+  }
 }
 
 function _closeMyPage() {

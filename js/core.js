@@ -581,7 +581,7 @@ function openLoc(loc) {
   if (gAttrib) { gAttrib.textContent = ''; gAttrib.style.display = 'none'; }
 
   var hasPhotos = loc.photos && loc.photos.length > 0;
-  var hasSV = typeof GOOGLE_MAPS_API_KEY === 'string' && GOOGLE_MAPS_API_KEY;
+  var hasSV = typeof GOOGLE_MAPS_API_KEY === 'string' && GOOGLE_MAPS_API_KEY && localStorage.getItem('aw_sv_disabled') !== '1';
   var photoCount = hasPhotos ? loc.photos.length : 0;
   // Normalize svInt → always an array (backward compat: single object → [obj])
   var svIntArr = hasSV ? (Array.isArray(loc.svInt) ? loc.svInt : (loc.svInt ? [loc.svInt] : [])) : [];
