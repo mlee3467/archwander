@@ -520,9 +520,9 @@ function _openMyPage() {
                 '<div class="mpp-setting-sub">' + (isKo ? '루트 예상 관람 시간 계산에 사용' : 'Used for route visit time estimates') + '</div>' +
               '</div>' +
               '<div class="mpp-unit-seg" id="mpp-pace-seg">' +
-                '<button class="mpp-unit-btn' + (curPace === 'quick'   ? ' active' : '') + '" onclick="_mppSetPace(\'quick\')"   id="mpp-pace-quick">'   + (isKo ? '빠름' : 'Quick')   + '</button>' +
-                '<button class="mpp-unit-btn' + (curPace === 'normal'  ? ' active' : '') + '" onclick="_mppSetPace(\'normal\')"  id="mpp-pace-normal">'  + (isKo ? '보통' : 'Normal')  + '</button>' +
-                '<button class="mpp-unit-btn' + (curPace === 'relaxed' ? ' active' : '') + '" onclick="_mppSetPace(\'relaxed\')" id="mpp-pace-relaxed">' + (isKo ? '여유' : 'Relaxed') + '</button>' +
+                '<button class="mpp-unit-btn' + (curPace === 'quick'   ? ' active' : '') + '" onclick="_mppSetPace(\'quick\')"   id="mpp-pace-quick">'   + (isKo ? '빠름' : 'Quick')  + '</button>' +
+                '<button class="mpp-unit-btn' + (curPace === 'normal'  ? ' active' : '') + '" onclick="_mppSetPace(\'normal\')"  id="mpp-pace-normal">'  + (isKo ? '보통' : 'Normal') + '</button>' +
+                '<button class="mpp-unit-btn' + (curPace === 'relaxed' ? ' active' : '') + '" onclick="_mppSetPace(\'relaxed\')" id="mpp-pace-relaxed">' + (isKo ? '천천히' : 'Slow')  + '</button>' +
               '</div>' +
             '</div>' +
           '</div>';

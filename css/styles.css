@@ -2100,7 +2100,7 @@
   color: var(--text-secondary); font-size: 13px; font-family: inherit; cursor: pointer;
   transition: background var(--dur-fast), color var(--dur-fast);
 }
-.mpp-unit-btn.active { background: var(--accent); color: #fff; }
+.mpp-unit-btn.active { background: var(--primary); color: #fff; }
 .mpp-unit-btn:not(:last-child) { border-right: 1px solid var(--border); }
 
 /* Route: per-stop visit badge */
@@ -3048,8 +3048,8 @@
   transition: none;
   color: #1a1a1a;
 }
-/* All 5 buttons share the same grayscale */
-#sba-likable, #sba-loc, #sba-fav, #sba-route, #sba-ifl { background: #d8d8d8; }
+/* All 6 buttons share the same grayscale */
+#sba-likable, #sba-loc, #sba-fav, #sba-route, #sba-ifl, #sba-results { background: #d8d8d8; }
 .sba-btn:hover {
   background: #cacaca;
   transform: translate(1px, 1px);
@@ -3711,9 +3711,9 @@
 .mpp-city-btn span:first-child { font-size: var(--fs-xl); line-height: 1; }
 .mpp-city-btn span:last-child  { font-size: var(--fs-xs); color: #555; font-weight: 500; }
 .mpp-city-btn.mpp-city-sel {
-  background: #111; border-color: #111;
+  background: var(--primary); border-color: var(--primary);
 }
-.mpp-city-btn.mpp-city-sel span:last-child { color: rgba(255,255,255,0.85); }
+.mpp-city-btn.mpp-city-sel span:last-child { color: rgba(255,255,255,0.9); }
 
 /* ── Stats ── */
 .mpp-stats-row {

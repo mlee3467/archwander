@@ -507,6 +507,9 @@ function _openListOverlay() {
   });
   // Re-render list into overlay
   if (typeof renderList === 'function') renderList();
+  // Mark Results button active
+  var rBtn = document.getElementById('sba-results');
+  if (rBtn) rBtn.classList.add('sba-active');
 }
 
 function _closeListOverlay() {
@@ -514,6 +517,9 @@ function _closeListOverlay() {
   if (!ov) return;
   ov.classList.remove('visible');
   setTimeout(function() { ov.style.display = 'none'; }, 220);
+  // Unmark Results button
+  var rBtn = document.getElementById('sba-results');
+  if (rBtn) rBtn.classList.remove('sba-active');
 }
 
 // ══════════════════════════════════════════════════════════════════
