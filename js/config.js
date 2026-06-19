@@ -75,6 +75,23 @@ var CC_META = {
 };
 var _CC_DEFAULT = CC_META['c-lmk'];
 function _ccMeta(loc) { return CC_META[loc.cc] || _CC_DEFAULT; }
+
+// ── Visit time defaults (minutes per category, normal pace) ─────
+var VISIT_MIN_DEFAULTS = {
+  'c-cul':  75,  // museum, cultural center, theater
+  'c-park': 40,  // park, garden
+  'c-his':  35,  // historic building
+  'c-aca':  35,  // university, library, school
+  'c-ret':  30,  // market, shopping
+  'c-pub':  25,  // civic, public space
+  'c-rel':  25,  // religious
+  'c-com':  20,  // commercial / office lobby
+  'c-sky':  20,  // skyscraper (exterior / observation)
+  'c-lmk':  20,  // landmark
+  'c-inf':  20,  // infrastructure (bridge, station)
+  'c-res':  15,  // residential (exterior only)
+};
+var VISIT_PACE_MULT = { quick: 0.6, normal: 1.0, relaxed: 1.5 };
 // cc → English category label (used by legend + _tCat for i18n)
 var CC_LABEL = {
   'c-sky':'skyscrapers','c-his':'historic','c-inf':'infrastructure',

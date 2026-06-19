@@ -419,6 +419,7 @@ function _openMyPage() {
           var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
           var svOn = localStorage.getItem('aw_sv_disabled') !== '1';
           var isImperial = localStorage.getItem('aw_units') === 'imperial';
+          var curPace = localStorage.getItem('aw_visit_pace') || 'normal';
           return '<div class="mpp-section">' +
             '<div class="mpp-sec-title">' + (isKo ? '설정' : 'Settings') + '</div>' +
             '<div class="mpp-setting-row">' +
@@ -444,6 +445,17 @@ function _openMyPage() {
               '<div class="mpp-unit-seg" id="mpp-unit-seg">' +
                 '<button class="mpp-unit-btn' + (!isImperial ? ' active' : '') + '" onclick="_mppSetUnits(\'metric\')" id="mpp-unit-km">km</button>' +
                 '<button class="mpp-unit-btn' + (isImperial ? ' active' : '') + '" onclick="_mppSetUnits(\'imperial\')" id="mpp-unit-mi">mi</button>' +
+              '</div>' +
+            '</div>' +
+            '<div class="mpp-setting-row">' +
+              '<div>' +
+                '<span class="mpp-setting-label">' + (isKo ? '관람 페이스' : 'Viewing Pace') + '</span>' +
+                '<div class="mpp-setting-sub">' + (isKo ? '루트 예상 관람 시간 계산에 사용' : 'Used for route visit time estimates') + '</div>' +
+              '</div>' +
+              '<div class="mpp-unit-seg" id="mpp-pace-seg">' +
+                '<button class="mpp-unit-btn' + (curPace === 'quick'   ? ' active' : '') + '" onclick="_mppSetPace(\'quick\')"   id="mpp-pace-quick">'   + (isKo ? '빠름' : 'Quick')   + '</button>' +
+                '<button class="mpp-unit-btn' + (curPace === 'normal'  ? ' active' : '') + '" onclick="_mppSetPace(\'normal\')"  id="mpp-pace-normal">'  + (isKo ? '보통' : 'Normal')  + '</button>' +
+                '<button class="mpp-unit-btn' + (curPace === 'relaxed' ? ' active' : '') + '" onclick="_mppSetPace(\'relaxed\')" id="mpp-pace-relaxed">' + (isKo ? '여유' : 'Relaxed') + '</button>' +
               '</div>' +
             '</div>' +
           '</div>';
@@ -566,6 +578,16 @@ function _mppSetUnits(units) {
   if (miBtn) miBtn.classList.toggle('active', units === 'imperial');
   // Update walk slider if Near Me is active
   if (typeof _syncWalkSliderUnits === 'function') _syncWalkSliderUnits();
+}
+
+function _mppSetPace(pace) {
+  localStorage.setItem('aw_visit_pace', pace);
+  ['quick', 'normal', 'relaxed'].forEach(function(p) {
+    var btn = document.getElementById('mpp-pace-' + p);
+    if (btn) btn.classList.toggle('active', p === pace);
+  });
+  // Refresh route UI if open (re-calculates visit times live)
+  if (typeof _refreshRouteUI === 'function') _refreshRouteUI();
 }
 
 function _closeMyPage() {

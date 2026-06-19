@@ -2093,7 +2093,7 @@
 }
 .route-dist-note { opacity: .65; }
 
-/* km/mi unit segmented control in My Page */
+/* km/mi + pace segmented controls in My Page */
 .mpp-unit-seg { display: flex; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
 .mpp-unit-btn {
   flex: 1; padding: 4px 12px; border: none; background: var(--surface);
@@ -2101,7 +2101,28 @@
   transition: background var(--dur-fast), color var(--dur-fast);
 }
 .mpp-unit-btn.active { background: var(--accent); color: #fff; }
-.mpp-unit-btn:first-child { border-right: 1px solid var(--border); }
+.mpp-unit-btn:not(:last-child) { border-right: 1px solid var(--border); }
+
+/* Route: per-stop visit badge */
+.route-visit-badge {
+  font-size: 11px; color: var(--text-secondary);
+  background: var(--surface); border-radius: 10px;
+  padding: 1px 6px; margin-left: auto; flex-shrink: 0;
+  border: 1px solid var(--border);
+}
+/* Route: total visit time row */
+.route-visit-total {
+  font-size: var(--fs-sm); color: var(--text-primary);
+  padding: var(--sp-4) 0 var(--sp-2);
+  display: flex; align-items: center; gap: 4px; flex-wrap: wrap;
+}
+.route-visit-pace { color: var(--text-secondary); font-size: 11px; }
+/* Route: disclaimer */
+.route-visit-disclaimer {
+  font-size: 11px; color: #d97706;
+  padding: 0 0 var(--sp-3);
+  line-height: 1.4;
+}
 
 .route-summary {
   display: flex; gap: 12px; justify-content: center;

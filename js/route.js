@@ -959,11 +959,15 @@ function _refreshRouteUI() {
     '<span class="rsl-count">' + (ko ? '총 ' + routeLocations.length + ' 곳' : routeLocations.length + ' stop' + (routeLocations.length !== 1 ? 's' : '')) + '</span>' +
   '</div>';
 
-  // Stop list
+  // Stop list with visit time per stop
+  var pace = _getPaceMult();
   var stopList = routeLocations.map(function(loc, i) {
+    var vMin = Math.round(_getVisitMin(loc) * pace);
+    var vStr = _fmtVisitTime(vMin, ko);
     return '<div class="route-sel-item" data-id="' + loc.id + '">' +
       '<span class="route-sel-num">' + (i + 1) + '</span>' +
       '<span class="route-sel-name">' + _routeLocName(loc) + '</span>' +
+      '<span class="route-visit-badge">~' + vStr + '</span>' +
       '<button class="route-sel-remove" onclick="removeRouteStop(\'' + loc.id + '\')">✕</button>' +
     '</div>';
   }).join('');
@@ -1004,9 +1008,33 @@ function _refreshRouteUI() {
         '</button>';
     }
 
+    // Total visit time estimate
+    var totalVisitMin = routeLocations.reduce(function(sum, loc) {
+      return sum + _getVisitMin(loc) * pace;
+    }, 0);
+    var totalVisitStr = _fmtVisitTime(totalVisitMin, ko);
+    var paceLabel = (function() {
+      var p = localStorage.getItem('aw_visit_pace') || 'normal';
+      return ko
+        ? { quick:'빠름', normal:'보통', relaxed:'여유' }[p]
+        : { quick:'Quick', normal:'Normal', relaxed:'Relaxed' }[p];
+    })();
+    var visitHtml =
+      '<div class="route-visit-total">' +
+        '🕐 ' + (ko ? '예상 관람 시간: ' : 'Est. visit time: ') +
+        '<strong>' + totalVisitStr + '</strong>' +
+        ' <span class="route-visit-pace">(' + paceLabel + ')</span>' +
+      '</div>' +
+      '<div class="route-visit-disclaimer">' +
+        (ko
+          ? '⚠ 관람 소요 시간은 개인차가 있으며 실제와 다를 수 있습니다.'
+          : '⚠ Estimated visit times may vary significantly by individual.') +
+      '</div>';
+
     actionBar =
       '<div class="route-gmaps-bar">' +
         distHtml +
+        visitHtml +
         '<div class="route-gmaps-actions">' +
           '<button id="route-optimize-btn" class="route-gmaps-sec-btn"' +
             (routeLocations.length < 3 ? ' disabled style="opacity:.4;cursor:default"' : '') +
@@ -1017,6 +1045,29 @@ function _refreshRouteUI() {
   }
 
   selList.innerHTML = header + stopList + actionBar;
+}
+
+// ── Visit time helpers ───────────────────────────────────────────
+
+function _getVisitMin(loc) {
+  if (loc.visitMin && loc.visitMin > 0) return loc.visitMin; // per-location override
+  var defaults = (typeof VISIT_MIN_DEFAULTS !== 'undefined') ? VISIT_MIN_DEFAULTS : {};
+  return defaults[loc.cc] || 25;
+}
+
+function _getPaceMult() {
+  var pace = localStorage.getItem('aw_visit_pace') || 'normal';
+  var mults = (typeof VISIT_PACE_MULT !== 'undefined') ? VISIT_PACE_MULT : { quick:0.6, normal:1.0, relaxed:1.5 };
+  return mults[pace] || 1.0;
+}
+
+function _fmtVisitTime(totalMin, ko) {
+  totalMin = Math.round(totalMin);
+  if (totalMin < 60) return totalMin + (ko ? '분' : 'min');
+  var h = Math.floor(totalMin / 60);
+  var m = totalMin % 60;
+  if (m === 0) return h + (ko ? '시간' : 'h');
+  return h + (ko ? '시간 ' : 'h ') + m + (ko ? '분' : 'min');
 }
 
 // ── Distance helpers ─────────────────────────────────────────────
