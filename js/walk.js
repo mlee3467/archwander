@@ -142,7 +142,7 @@ function submitReport() {
 // Update Report button label on language change
 function updateReportBtnLabel() {
   const btn = document.getElementById('tab-report-btn');
-  if (btn) btn.innerHTML = `🚩 ${t('tab_report')}`;
+  if (btn) btn.innerHTML = t('tab_report');
 }
 
 // ══════════════════════════════════════════════════════════════════
@@ -554,10 +554,10 @@ async function showWalkingRoute(loc) {
 async function triggerWalkingRoute() {
   if (!activeLoc || !walkOrigin) return;
   const btn = document.querySelector('.btn-walk-route');
-  if (btn) btn.innerHTML = '🚶 Loading...';
+  if (btn) btn.innerHTML = 'Loading...';
   const result = await showWalkingRoute(activeLoc);
-  if (btn && result) btn.innerHTML = `🚶 ${result.distance}`;
-  else if (btn) btn.innerHTML = '🚶 Route not available';
+  if (btn && result) btn.innerHTML = `${result.distance}`;
+  else if (btn) btn.innerHTML = 'Route not available';
   // On mobile: collapse panel to reveal map + swap pin to walking person
   if (window.innerWidth <= 900 && result) {
     walkPathMode = true;

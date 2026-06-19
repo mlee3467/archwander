@@ -6,11 +6,11 @@
       --text-secondary: #787878;
       --accent: #111111;
       /* ── Border radius scale ── */
-      --radius-xs:   2px;   /* micro: progress bars, handles */
-      --radius-sm:   3px;   /* small: tags, minor badges */
-      --radius-md:   4px;   /* base: buttons, inputs, cards */
-      --radius-lg:   5px;   /* medium: dropdowns, panels */
-      --radius-xl:   6px;   /* large: modals, sheets */
+      --radius-xs:   4px;   /* unified radius — all UI elements */
+      --radius-sm:   4px;
+      --radius-md:   4px;
+      --radius-lg:   4px;
+      --radius-xl:   4px;
       --radius-full: 9999px; /* pill: toggle tracks only */
       /* ── Shadow elevation scale ── */
       --shadow-xs:   0 1px 2px hsl(220 15% 12% / 0.07),
@@ -233,15 +233,21 @@
     }
     #search:focus { border-color: #999; }
     .map-toggle {
-      display: flex; border: 1px solid var(--border); border-radius: var(--radius-md);
-      overflow: hidden; flex-shrink: 0;
+      display: flex; background: var(--border);
+      border-radius: var(--radius-md); padding: 2px; gap: 2px;
+      flex-shrink: 0;
     }
     .map-toggle button {
-      padding: var(--sp-3) var(--sp-6); font-size: var(--fs-md); font-family: inherit;
+      padding: 4px 10px; font-size: var(--fs-sm); font-family: inherit;
       border: none; background: transparent; cursor: pointer;
-      color: var(--text-secondary); transition: all 0.15s; white-space: nowrap;
+      color: var(--text-secondary); transition: background var(--dur-fast), color var(--dur-fast);
+      white-space: nowrap; border-radius: calc(var(--radius-md) - 1px);
+      line-height: 1.4; font-weight: 450;
     }
-    .map-toggle button.active { background: #111; color: #fff; }
+    .map-toggle button.active {
+      background: var(--surface); color: var(--text-primary);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.12);
+    }
     /* ── PWA Install Prompt ─────────────────────────────── */
     .pwa-prompt {
       display: none;
@@ -1442,8 +1448,7 @@
       /* Hide city select from mobile header (moved to sidebar) */
       #city-select-mobile { display: none !important; }
       #refresh-btn { display: none !important; }
-      /* Map toggle: compact on mobile */
-      .map-toggle button { padding: 4px 8px; font-size: var(--fs-sm); }
+      /* Map toggle: mobile same as desktop (already compact) */
 
       /* ── Sidebar overlay ── */
       .app { overflow: visible; }
@@ -5133,7 +5138,6 @@
   align-items: center;
   gap: var(--sp-3);
   flex-shrink: 0;
-  margin-left: var(--sp-1);
 }
 .hdr-auth-btn {
   height: 30px;

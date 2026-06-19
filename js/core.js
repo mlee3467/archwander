@@ -192,12 +192,12 @@ function getFiltered(opts) {
       if (item.crossCity) {
         var cityLbl  = _cityLabel(loc.city);
         var metaCross = score === 3
-          ? '🏛 ' + _highlight(loc.arch || '', q)
+          ? '_arch:_ ' + _highlight(loc.arch || '', q)
           : (loc.addr ? (score <= 1 ? _esc(loc.addr) : _highlight(loc.addr, q))
                       : _esc(loc.hood || ''));
         return '<div class="ac-item" data-id="' + loc.id + '" data-idx="' + i + '"'
           + ' onmousedown="event.preventDefault()" onclick="_acSelect(\'' + loc.id + '\')">'
-          + '<div class="ac-thumb ac-thumb-globe">🌍</div>'
+          + '<div class="ac-thumb ac-thumb-globe"></div>'
           + '<div class="ac-body">'
           + '<div class="ac-name">' + _highlight(loc.name, q) + '</div>'
           + '<div class="ac-meta">' + metaCross + '</div>'
@@ -218,7 +218,7 @@ function getFiltered(opts) {
       var metaText;
       if (score === 3) {
         var archStr = loc.arch || (loc.archs && loc.archs[0]) || '';
-        metaText = '🏛 ' + _highlight(archStr, q);
+        metaText = _highlight(archStr, q);
       } else {
         var addrStr = loc.addr || '';
         metaText = addrStr
