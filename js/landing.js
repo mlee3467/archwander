@@ -7,8 +7,17 @@ var _mapInited = false;  // true once _doFullMapInit has been called
 // ── Splash → Landing ─────────────────────────────────────────────
 
 function showSplash() {
-  // Landing screen removed — always go straight to world map
   localStorage.setItem('aw_landing_seen', '1');
+
+  // Only show once per calendar day
+  var today = new Date().toISOString().slice(0, 10); // "YYYY-MM-DD"
+  var lastSplash = localStorage.getItem('aw_splash_date');
+  if (lastSplash === today) {
+    _ensureMapInit();
+    return;
+  }
+  localStorage.setItem('aw_splash_date', today);
+
   var el = document.getElementById('landing-splash');
   var _isPWA = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches)
              || window.navigator.standalone === true;
