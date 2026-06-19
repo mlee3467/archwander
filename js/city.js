@@ -184,7 +184,6 @@ function _updatePassportStats() {
 
   el.innerHTML =
     '<div class="pp-hdr">' +
-      '<span class="pp-icon">🏛</span>' +
       '<span class="pp-title">' + (isKo ? '내 건축 여행' : 'My Journey') + '</span>' +
     '</div>' +
     '<div class="pp-counts">' +
@@ -698,11 +697,11 @@ function _handleFavFileSelected(event) {
 // CITY SELECTOR + LAZY LOADING
 // ══════════════════════════════════════════════════════════════════
 var CITY_META = {
-  nyc: { key: 'new-york', label: '🗽 New York', localLang: 'en', lat: 40.7580, lng: -73.9855, zoom: 12, dataVar: 'LOCS_NEW_YORK' },
-  sel: { key: 'seoul',    label: '🇰🇷 Seoul',    localLang: 'ko', lat: 37.5663, lng: 126.9779, zoom: 13, dataVar: 'LOCS_SEOUL'    },
-  lon: { key: 'london',   label: '🇬🇧 London',   localLang: 'en', lat: 51.5101, lng: -0.0763,  zoom: 13, dataVar: 'LOCS_LONDON'   },
-  tky: { key: 'tokyo',    label: '🇯🇵 Tokyo',    localLang: 'ja', lat: 35.6895, lng: 139.6917, zoom: 13, dataVar: 'LOCS_TOKYO'    },
-  chi: { key: 'chicago',  label: '🇺🇸 Chicago',  localLang: 'en', lat: 41.8781, lng: -87.6298,  zoom: 12, dataVar: 'LOCS_CHICAGO'  }
+  nyc: { key: 'new-york', label: 'New York', localLang: 'en', lat: 40.7580, lng: -73.9855, zoom: 12, dataVar: 'LOCS_NEW_YORK' },
+  sel: { key: 'seoul',    label: 'Seoul',    localLang: 'ko', lat: 37.5663, lng: 126.9779, zoom: 13, dataVar: 'LOCS_SEOUL'    },
+  lon: { key: 'london',   label: 'London',   localLang: 'en', lat: 51.5101, lng: -0.0763,  zoom: 13, dataVar: 'LOCS_LONDON'   },
+  tky: { key: 'tokyo',    label: 'Tokyo',    localLang: 'ja', lat: 35.6895, lng: 139.6917, zoom: 13, dataVar: 'LOCS_TOKYO'    },
+  chi: { key: 'chicago',  label: 'Chicago',  localLang: 'en', lat: 41.8781, lng: -87.6298,  zoom: 12, dataVar: 'LOCS_CHICAGO'  }
 };
 
 // Track which city data files have been loaded

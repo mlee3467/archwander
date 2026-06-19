@@ -475,7 +475,7 @@ function _openMyPage() {
 
         // ── Section 4: Passport ─────────────────────────────────
         '<div class="mpp-section mpp-passport-section">' +
-          '<div class="mpp-sec-title">🏛 ' + (isKo ? (isKo ? '건축 여행 기록' : 'Architectural Passport') + '</div>' +
+          '<div class="mpp-sec-title">' + (isKo ? (isKo ? '건축 여행 기록' : 'Architectural Passport') + '</div>' +
           '<div class="mpp-stats-row">' +
             '<div class="mpp-stat-card"><span class="mpp-stat-num">' + visCount + '</span><span class="mpp-stat-lbl">' + (isKo ? (isKo ? '방문' : 'Visited') + '</span></div>' +
             '<div class="mpp-stat-card"><span class="mpp-stat-num">' + favCount + '</span><span class="mpp-stat-lbl">' + (isKo ? (isKo ? '즐겨찾기' : 'Favs') + '</span></div>' +
