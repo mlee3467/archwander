@@ -478,7 +478,7 @@ function _buildLocIcon(loc, scale) {
             `border-radius:4px;box-sizing:border-box;` +
             `background-color:${bg};` +
             `background-image:url('${iconUrl}');` +
-            `background-size:62%;background-repeat:no-repeat;background-position:center;` +
+            `background-size:74%;background-repeat:no-repeat;background-position:center;` +
             `background-blend-mode:multiply;` +
             `border:2px solid ${col};` +
             `box-shadow:0 3px 8px rgba(0,0,0,0.25)">` +
