@@ -157,6 +157,11 @@ window.addEventListener('load', function() {
   // Detect share param — skip world map entirely when opening a shared link
   var _shareBootMode = window.location.search.indexOf('s=') !== -1;
 
+  // Check for user-configured default city — bypasses GPS + world map
+  var _defCityCode = localStorage.getItem('AW_DEFAULT_CITY') || '';
+  var _defCityMeta = (typeof CITY_META !== 'undefined') ? CITY_META[_defCityCode] : null;
+  var _hasDefaultCity = !!(  _defCityCode && _defCityMeta);
+
   if (_isMobile) {
     if (!activeCity) { activeCity = 'nyc'; activeCityKey = 'new-york'; }
     _initMapTiles();
@@ -164,6 +169,12 @@ window.addEventListener('load', function() {
       // Share boot: skip splash, skip GPS, skip sidebar auto-open.
       // checkShareParam will call _enterCity(code, {noAnim:true}) + fitBounds.
       if (typeof _ensureSupabaseAuth === 'function') _ensureSupabaseAuth();
+      if (typeof _scheduleMidnightReset === 'function') _scheduleMidnightReset();
+    } else if (_hasDefaultCity) {
+      // Default city set — skip splash + GPS, enter city immediately
+      console.log('[boot] mobile default city:', _defCityCode);
+      if (typeof _ensureSupabaseAuth === 'function') _ensureSupabaseAuth();
+      _enterCity(_defCityCode, { noAnim: true });
       if (typeof _scheduleMidnightReset === 'function') _scheduleMidnightReset();
     } else {
       // Normal mobile boot
@@ -183,6 +194,11 @@ window.addEventListener('load', function() {
     if (typeof _ensureSupabaseAuth === 'function') _ensureSupabaseAuth();
     if (_shareBootMode) {
       // Share boot (desktop): skip GPS/world map, checkShareParam handles city entry
+      if (typeof _scheduleMidnightReset === 'function') _scheduleMidnightReset();
+    } else if (_hasDefaultCity) {
+      // Default city set — skip GPS + world map, enter city directly
+      console.log('[boot] desktop default city:', _defCityCode);
+      _enterCity(_defCityCode, { noAnim: false });
       if (typeof _scheduleMidnightReset === 'function') _scheduleMidnightReset();
     } else {
       // Normal desktop boot
@@ -204,7 +220,8 @@ window.addEventListener('load', function() {
 
   // ── Walk slider: re-filter on change ──────────────────────────
   document.getElementById('walk-slider').addEventListener('input', function() {
-    document.getElementById('walk-label').textContent = `${this.value} min`;
+    var lbl = (typeof _fmtWalkLabel === 'function') ? _fmtWalkLabel(parseFloat(this.value)) : this.value + ' km';
+    document.getElementById('walk-label').textContent = lbl;
     if (walkActive) _runWalkFilter();
   });
   // Sidebar drag-resize

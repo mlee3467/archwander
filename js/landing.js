@@ -288,13 +288,80 @@ function _mlpDropPin() {
 }
 
 function _sbaFavorites() {
+  var popup   = document.getElementById('fav-popup');
+  var overlay = document.getElementById('fav-overlay');
+  var btn     = document.getElementById('sba-fav');
+  if (!popup) return;
+  var isOpen = popup.style.display !== 'none';
+  if (isOpen) { _closeFavPopup(); return; }
+  if (btn && window.innerWidth > 767) {
+    var rect = btn.getBoundingClientRect();
+    popup.style.top = Math.max(rect.top, 10) + 'px';
+  }
+  if (overlay) overlay.style.display = 'block';
+  popup.style.display = 'flex';
+  if (btn) btn.classList.add('sba-active');
+}
+
+function _closeFavPopup() {
+  var popup   = document.getElementById('fav-popup');
+  var overlay = document.getElementById('fav-overlay');
+  if (popup)   popup.style.display = 'none';
+  if (overlay) overlay.style.display = 'none';
+  var btn = document.getElementById('sba-fav');
+  // Only remove sba-active if fav mode itself is not active
+  var favActive = (typeof _favFilterActive !== 'undefined') ? _favFilterActive : false;
+  if (btn && !favActive) btn.classList.remove('sba-active');
+}
+
+function _favSubFavorites() {
+  _closeFavPopup();
   if (typeof closeSidebar === 'function') closeSidebar();
   if (typeof toggleFavFilter === 'function') toggleFavFilter();
 }
 
+function _favSubPassport() {
+  _closeFavPopup();
+  _openMyPage();
+}
+
 function _sbaRoute() {
+  var popup   = document.getElementById('route-popup');
+  var overlay = document.getElementById('route-overlay');
+  var btn     = document.getElementById('sba-route');
+  if (!popup) return;
+  var isOpen = popup.style.display !== 'none';
+  if (isOpen) { _closeRoutePopup(); return; }
+  if (btn && window.innerWidth > 767) {
+    var rect = btn.getBoundingClientRect();
+    popup.style.top = Math.max(rect.top, 10) + 'px';
+  }
+  if (overlay) overlay.style.display = 'block';
+  popup.style.display = 'flex';
+  if (btn) btn.classList.add('sba-active');
+}
+
+function _closeRoutePopup() {
+  var popup   = document.getElementById('route-popup');
+  var overlay = document.getElementById('route-overlay');
+  if (popup)   popup.style.display = 'none';
+  if (overlay) overlay.style.display = 'none';
+  var btn = document.getElementById('sba-route');
+  // Only remove sba-active if route panel itself is not open
+  var routeOpen = !!document.getElementById('route-manager-overlay');
+  if (btn && !routeOpen) btn.classList.remove('sba-active');
+}
+
+function _routeSubPlanner() {
+  _closeRoutePopup();
   if (typeof closeSidebar === 'function') closeSidebar();
   if (typeof _openRouteManager === 'function') _openRouteManager('home');
+}
+
+function _routeSubSaved() {
+  _closeRoutePopup();
+  if (typeof closeSidebar === 'function') closeSidebar();
+  if (typeof _openRouteManager === 'function') _openRouteManager('saved');
 }
 
 // Sidebar My Page button (replaces IFL in sidebar)

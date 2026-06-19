@@ -51,7 +51,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
-  <link rel="stylesheet" href="css/styles.css?v=20260618i">
+  <link rel="stylesheet" href="css/styles.css?v=20260621b">
 </head>
 <body>
 
@@ -774,6 +774,51 @@
   <button class="pwa-close-btn" onclick="pwaDismiss()">✕</button>
 </div>
 
+<!-- ── FAVORITES POPUP ────────────────────────────────────── -->
+<div id="fav-overlay"   onclick="_closeFavPopup()"   style="display:none"></div>
+<div id="fav-popup" style="display:none">
+  <button class="explore-popup-btn" onclick="_favSubFavorites()">
+    <span class="explore-popup-icon">⭐</span>
+    <div class="explore-popup-text">
+      <span class="explore-popup-title">Favorites</span>
+      <span class="explore-popup-sub">Highlight starred locations</span>
+    </div>
+  </button>
+  <button class="explore-popup-btn" onclick="_favSubPassport()">
+    <span class="explore-popup-icon">📖</span>
+    <div class="explore-popup-text">
+      <span class="explore-popup-title">My Passport</span>
+      <span class="explore-popup-sub">View your visit history</span>
+    </div>
+  </button>
+</div>
+
+<!-- ── ROUTE POPUP ───────────────────────────────────────── -->
+<div id="route-overlay" onclick="_closeRoutePopup()" style="display:none"></div>
+<div id="route-popup" style="display:none">
+  <button class="explore-popup-btn" onclick="_routeSubPlanner()">
+    <span class="explore-popup-icon">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="5" cy="6" r="2" fill="currentColor" fill-opacity="0.3"/>
+        <circle cx="19" cy="18" r="2" fill="currentColor" fill-opacity="0.3"/>
+        <path d="M5 8v3c0 2.2 1.8 4 4 4h6c2.2 0 4 1.8 4 4"/>
+        <path d="M19 16v-3c0-2.2-1.8-4-4-4H9C6.8 9 5 7.2 5 5"/>
+      </svg>
+    </span>
+    <div class="explore-popup-text">
+      <span class="explore-popup-title">Route Planner</span>
+      <span class="explore-popup-sub">Plan a new route</span>
+    </div>
+  </button>
+  <button class="explore-popup-btn" onclick="_routeSubSaved()">
+    <span class="explore-popup-icon">📋</span>
+    <div class="explore-popup-text">
+      <span class="explore-popup-title">Saved Routes</span>
+      <span class="explore-popup-sub">Load a previous route</span>
+    </div>
+  </button>
+</div>
+
 <!-- ── EXPLORE POPUP ──────────────────────────────────────── -->
 <div id="explore-overlay" onclick="_sbaExploreClose()" style="display:none"></div>
 <div id="explore-popup" style="display:none">
@@ -901,7 +946,7 @@
 <script src="js/route.js?v=20260621"></script>
 <script src="js/share.js?v=20260609"></script>
 <script src="js/select.js?v=20260609"></script>
-<script src="js/landing.js?v=20260619"></script>
+<script src="js/landing.js?v=20260621b"></script>
 <script src="js/analytics.js?v=20260611"></script>
 <script src="js/sync.js?v=20260615"></script>
-<script src="js/init.js?v=20260618"></script>
+<script src="js/init.js?v=20260621b"></script>
