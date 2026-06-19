@@ -147,7 +147,7 @@ function _buildCityPins() {
     }
     statsHtml += '</div>';
 
-    var _cityName = cm.label.split(' ').slice(1).join(' ') || cm.label;
+    var _cityName = cm.label;
     var cardHtml =
       '<div class="cwp-anchor">' +
         '<div class="cwp-card" onclick="_cwpCityClick(\'' + code + '\')">' +

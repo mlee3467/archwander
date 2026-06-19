@@ -189,7 +189,7 @@ async function exportPDF() {
     ]);
     _pdfProgress(5, LANG==='ko'?'데이터 준비 중…':'Loading data…');
 
-    const cityLabel = CITY_META[activeCity]?.label?.replace(/^\S+\s/, '') || activeCity;
+    const cityLabel = CITY_META[activeCity]?.label || activeCity;
     const walkMin   = parseInt(document.getElementById('walk-slider').value, 10);
 
     // ── Helpers (reuse global _displayName/_displayAddr/_displayHood) ──
