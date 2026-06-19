@@ -464,9 +464,9 @@ function _buildLocIcon(loc, scale) {
     const bg      = meta.bg;
     const col     = meta.color;
     const iconUrl = meta.icon;
-    const box     = 48;           // square side
-    const arrH    = 12;           // arrow height
-    const arrHW   = 10;           // arrow half-width
+    const box     = 36;           // square side
+    const arrH    = 9;            // arrow height
+    const arrHW   = 8;            // arrow half-width
     const totalH  = box + arrH;
 
     return L.divIcon({

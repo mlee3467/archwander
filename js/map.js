@@ -523,7 +523,7 @@ function createClusterGroup() {
 function addMarker(loc) {
   const icon = _buildLocIcon(loc);
   const m = L.marker([loc.lat, loc.lng], { icon })
-    .bindTooltip(_displayName(loc), { direction:'top', offset:[0,-62], opacity:0.94 })
+    .bindTooltip(_displayName(loc), { direction:'top', offset:[0,-48], opacity:0.94 })
     .on('click', () => _showMapMarkerPopup(loc));
   // Re-apply highlight (+ blink) class after Leaflet recreates the element (spiderfy/animate)
   m.on('add', function() {
