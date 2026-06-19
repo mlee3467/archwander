@@ -458,30 +458,41 @@ function _buildLocIcon(loc, scale) {
   const fav   = isFav(loc.id);
   const vis   = isVisited(loc.id);
 
-  // ── Normal: pole + flag ───────────────────────────────────────
+  // ── Normal: thumbnail pin (category icon on category bg) ─────
   if (!fav && !vis) {
-    const poleW  = Math.round(2  * scale);
-    const poleH  = Math.round(22 * scale);
-    const flagW  = Math.round(11 * scale);
-    const flagH  = Math.round(9  * scale);
-    const footH  = Math.round(6  * scale);
-    const bw     = Math.ceil(2 * scale);
-    const totalW = poleW + flagW + Math.round(2 * scale);
-    const totalH = poleH + footH;
+    const meta    = _ccMeta(loc);
+    const bg      = meta.bg;
+    const col     = meta.color;
+    const iconUrl = meta.icon;
+    const box     = 24;           // square side
+    const arrH    = 6;            // arrow height
+    const arrHW   = 5;            // arrow half-width
+    const totalH  = box + arrH;
+
     return L.divIcon({
       className: '',
       html:
-        `<div style="position:relative;width:${totalW}px;height:${totalH}px">` +
-          `<div style="position:absolute;left:0;top:0;width:${poleW}px;height:${poleH}px;background:#1a1a1a"></div>` +
-          `<div style="position:absolute;left:${poleW}px;top:${Math.round(scale)}px;` +
-            `width:${flagW}px;height:${flagH}px;background:${color};` +
-            `border:${bw}px solid #1a1a1a;border-left:none;` +
-            `box-shadow:${Math.round(2*scale)}px ${Math.round(2*scale)}px 0 rgba(0,0,0,0.38)"></div>` +
-          `<div style="position:absolute;bottom:${footH}px;left:-2px;` +
-            `width:${Math.round(6*scale)}px;height:${Math.round(2*scale)}px;background:#1a1a1a"></div>` +
+        `<div style="position:relative;width:${box}px;height:${totalH}px">` +
+          // rounded square: category bg + icon png blended
+          `<div style="position:absolute;top:0;left:0;width:${box}px;height:${box}px;` +
+            `border-radius:4px;box-sizing:border-box;` +
+            `background-color:${bg};` +
+            `background-image:url('${iconUrl}');` +
+            `background-size:62%;background-repeat:no-repeat;background-position:center;` +
+            `background-blend-mode:multiply;` +
+            `border:1.5px solid ${col};` +
+            `box-shadow:0 2px 5px rgba(0,0,0,0.22)">` +
+          `</div>` +
+          // downward pointer arrow
+          `<div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);` +
+            `width:0;height:0;` +
+            `border-left:${arrHW}px solid transparent;` +
+            `border-right:${arrHW}px solid transparent;` +
+            `border-top:${arrH}px solid ${col}">` +
+          `</div>` +
         `</div>`,
-      iconSize:   [totalW, totalH],
-      iconAnchor: [1, Math.round(22 * scale)]
+      iconSize:   [box, totalH],
+      iconAnchor: [box / 2, totalH]     // anchor = arrow tip
     });
   }
 
