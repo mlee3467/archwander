@@ -16,6 +16,7 @@ var T = {
     sort_clicks:  'Most Visited', sort_searches:'Most Searched', sort_reviews: 'Most Reviewed',
     tab_overview: 'Overview',     tab_visit:    'Visit',
     tab_here:     'Directions',   tab_audio:    '🎧 Audio',       tab_reviews: 'Reviews',    tab_report: 'Report',
+    tab_links:    'Links',
     neighborhood: 'Neighborhood', address:      'Address',
     arch_label:   'Architect',    completed:    'Completed',
     style_label:  'Style',        access_label: 'Access',
@@ -124,7 +125,7 @@ function applyLang() {
     [...sortSel.options].forEach((opt, i) => { if (keys[i]) opt.textContent = t(keys[i]); });
   }
   // Panel tabs
-  const tabMap = { overview:'tab_overview', visit:'tab_visit', here:'tab_here', audio:'tab_audio', reviews:'tab_reviews' };
+  const tabMap = { overview:'tab_overview', visit:'tab_visit', here:'tab_here', audio:'tab_audio', reviews:'tab_reviews', links:'tab_links' };
   Object.entries(tabMap).forEach(([tab, key]) => {
     const el = document.querySelector(`.tab[data-tab="${tab}"]`);
     if (el) el.textContent = t(key);
@@ -164,5 +165,6 @@ function applyLang() {
     document.getElementById('pane-here').innerHTML     = buildDirectionsTab(activeLoc, {});
     document.getElementById('pane-audio').innerHTML = buildAudioGuideShell();
     _agLoaded = null;
+    document.getElementById('pane-links').innerHTML = buildLinksTab(activeLoc);
   }
 }

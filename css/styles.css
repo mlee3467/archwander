@@ -5531,3 +5531,62 @@
   background: #fff; color: #111; border-color: #ccc;
 }
 .mpp-btn-suggest:hover { background: #f5f5f5; }
+
+/* ══ Links Tab — icon grid ═══════════════════════════════════════ */
+.links-icons {
+  display: flex;
+  gap: 20px;
+  padding: 8px 0 4px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+.link-icon-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  text-decoration: none;
+  color: inherit;
+  min-width: 64px;
+  transition: transform 0.12s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.link-icon-btn:hover  { transform: scale(1.06); }
+.link-icon-btn:active { transform: scale(0.94); }
+.link-icon-img {
+  width: 56px; height: 56px;
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  flex-shrink: 0;
+  user-select: none;
+}
+.link-icon-wiki {
+  background: #3366cc;
+  font-size: 26px;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  letter-spacing: -1px;
+}
+.link-icon-arch {
+  background: #111;
+  font-size: 17px;
+  letter-spacing: -0.5px;
+  font-family: var(--font-mono, 'Space Mono', monospace);
+}
+.link-icon-maps {
+  background: #4285F4;
+  font-size: 28px;
+}
+.link-icon-web {
+  background: #34A853;
+  font-size: 26px;
+}
+.link-icon-label {
+  font-size: 11px;
+  font-weight: 500;
+  text-align: center;
+  color: var(--text-secondary);
+  line-height: 1.2;
+  max-width: 64px;
+}

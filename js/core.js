@@ -714,6 +714,7 @@ function openLoc(loc) {
   document.getElementById('pane-here').innerHTML     = buildDirectionsTab(loc, {});
   document.getElementById('pane-audio').innerHTML   = buildAudioGuideShell();
   document.getElementById('pane-reviews').innerHTML  = buildReviewsTab(loc);
+  document.getElementById('pane-links').innerHTML    = buildLinksTab(loc);
 
   switchTab('overview');
   document.getElementById('panel').classList.add('open');
@@ -797,6 +798,52 @@ function buildDirectionsTab(loc, trans = {}) {
       <a href="https://maps.google.com/?q=${encodeURIComponent(loc.addr)}&layer=c" target="_blank" rel="noopener" class="btn-s">${t('sv_gmaps')}</a>
     </div>
   `;
+}
+
+// ══════════════════════════════════════════════════════════════════
+// LINKS TAB — Wikipedia · ArchDaily · Google Maps
+// ══════════════════════════════════════════════════════════════════
+function buildLinksTab(loc) {
+  var name    = loc.name || '';
+  var nameEnc = encodeURIComponent(name);
+
+  // Wikipedia: use stored URL or fall back to Wikipedia search
+  var wikiHref = loc.wiki
+    ? loc.wiki
+    : 'https://en.wikipedia.org/w/index.php?search=' + nameEnc;
+
+  // ArchDaily: use stored URL or fall back to ArchDaily project search
+  var archHref = loc.archdaily
+    ? loc.archdaily
+    : 'https://www.archdaily.com/search/projects?q=' + nameEnc;
+
+  // Google Maps: always auto-generated from name + coordinates
+  var mapsHref = 'https://maps.google.com/maps?q=' + nameEnc
+    + (loc.lat && loc.lng ? '&ll=' + loc.lat + ',' + loc.lng : '');
+
+  // Optional: official website (also in Visit tab)
+  var webIcon = loc.web
+    ? '<a class="link-icon-btn" href="' + loc.web + '" target="_blank" rel="noopener noreferrer">'
+      + '<div class="link-icon-img link-icon-web">🌐</div>'
+      + '<div class="link-icon-label">Official</div>'
+      + '</a>'
+    : '';
+
+  return '<div class="links-icons">'
+    + '<a class="link-icon-btn" href="' + wikiHref + '" target="_blank" rel="noopener noreferrer">'
+      + '<div class="link-icon-img link-icon-wiki">W</div>'
+      + '<div class="link-icon-label">Wikipedia</div>'
+    + '</a>'
+    + '<a class="link-icon-btn" href="' + archHref + '" target="_blank" rel="noopener noreferrer">'
+      + '<div class="link-icon-img link-icon-arch">AD</div>'
+      + '<div class="link-icon-label">ArchDaily</div>'
+    + '</a>'
+    + '<a class="link-icon-btn" href="' + mapsHref + '" target="_blank" rel="noopener noreferrer">'
+      + '<div class="link-icon-img link-icon-maps">📍</div>'
+      + '<div class="link-icon-label">Maps</div>'
+    + '</a>'
+    + webIcon
+  + '</div>';
 }
 
 // ══════════════════════════════════════════════════════════════════
