@@ -464,9 +464,9 @@ function _buildLocIcon(loc, scale) {
     const bg      = meta.bg;
     const col     = meta.color;
     const iconUrl = meta.icon;
-    const box     = 24;           // square side
-    const arrH    = 6;            // arrow height
-    const arrHW   = 5;            // arrow half-width
+    const box     = 48;           // square side
+    const arrH    = 12;           // arrow height
+    const arrHW   = 10;           // arrow half-width
     const totalH  = box + arrH;
 
     return L.divIcon({
@@ -480,8 +480,8 @@ function _buildLocIcon(loc, scale) {
             `background-image:url('${iconUrl}');` +
             `background-size:62%;background-repeat:no-repeat;background-position:center;` +
             `background-blend-mode:multiply;` +
-            `border:1.5px solid ${col};` +
-            `box-shadow:0 2px 5px rgba(0,0,0,0.22)">` +
+            `border:2px solid ${col};` +
+            `box-shadow:0 3px 8px rgba(0,0,0,0.25)">` +
           `</div>` +
           // downward pointer arrow
           `<div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);` +
