@@ -92,6 +92,10 @@ var VISIT_MIN_DEFAULTS = {
   'c-res':  15,  // residential (exterior only)
 };
 var VISIT_PACE_MULT = { quick: 0.6, normal: 1.0, relaxed: 1.5 };
+
+// ── Size tier multipliers (applies on top of category default) ───
+// loc.size: 'xs'|'s'|'m'(default)|'l'|'xl'
+var SIZE_MULT = { xs: 0.5, s: 0.75, m: 1.0, l: 1.5, xl: 2.0 };
 // cc → English category label (used by legend + _tCat for i18n)
 var CC_LABEL = {
   'c-sky':'skyscrapers','c-his':'historic','c-inf':'infrastructure',

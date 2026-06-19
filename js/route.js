@@ -1050,9 +1050,15 @@ function _refreshRouteUI() {
 // ── Visit time helpers ───────────────────────────────────────────
 
 function _getVisitMin(loc) {
-  if (loc.visitMin && loc.visitMin > 0) return loc.visitMin; // per-location override
+  // Per-location manual override (bypasses all multipliers)
+  if (loc.visitMin && loc.visitMin > 0) return loc.visitMin;
+  // Category default
   var defaults = (typeof VISIT_MIN_DEFAULTS !== 'undefined') ? VISIT_MIN_DEFAULTS : {};
-  return defaults[loc.cc] || 25;
+  var base = defaults[loc.cc] || 25;
+  // Size tier multiplier
+  var sizeMults = (typeof SIZE_MULT !== 'undefined') ? SIZE_MULT : { xs:0.5, s:0.75, m:1.0, l:1.5, xl:2.0 };
+  var sizeMult = (loc.size && sizeMults[loc.size]) ? sizeMults[loc.size] : 1.0;
+  return base * sizeMult;
 }
 
 function _getPaceMult() {
