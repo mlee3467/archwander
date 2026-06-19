@@ -2083,6 +2083,25 @@
   transition: background var(--dur-fast);
 }
 .route-gmaps-open-btn:hover { background: #1558b0; }
+.route-naver-btn { background: #03C75A !important; }
+.route-naver-btn:hover { background: #02a54a !important; }
+.route-gmaps-alt-btn { background: transparent !important; color: var(--text-secondary) !important; border: 1px solid var(--border); font-size: var(--fs-sm) !important; padding: var(--sp-3) var(--sp-4) !important; margin-top: 0; }
+.route-gmaps-alt-btn:hover { background: var(--surface) !important; }
+.route-dist-est {
+  font-size: var(--fs-sm); color: var(--text-secondary);
+  padding: var(--sp-3) 0; text-align: center;
+}
+.route-dist-note { opacity: .65; }
+
+/* km/mi unit segmented control in My Page */
+.mpp-unit-seg { display: flex; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.mpp-unit-btn {
+  flex: 1; padding: 4px 12px; border: none; background: var(--surface);
+  color: var(--text-secondary); font-size: 13px; font-family: inherit; cursor: pointer;
+  transition: background var(--dur-fast), color var(--dur-fast);
+}
+.mpp-unit-btn.active { background: var(--accent); color: #fff; }
+.mpp-unit-btn:first-child { border-right: 1px solid var(--border); }
 
 .route-summary {
   display: flex; gap: 12px; justify-content: center;

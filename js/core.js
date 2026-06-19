@@ -111,8 +111,7 @@ function getFiltered(opts) {
   }
   // Walk distance filter
   if (walkActive && walkOrigin) {
-    const minutes  = parseInt(document.getElementById('walk-slider').value, 10);
-    const maxDist  = minutes * 80; // ~80 m/min ≈ 4.8 km/h
+    const maxDist = (typeof _getWalkRadiusM === 'function') ? _getWalkRadiusM() : 2000;
     list = list.filter(l => haversineM(walkOrigin.lat, walkOrigin.lng, l.lat, l.lng) <= maxDist);
   }
   // Sort — default is oldest-first (year-asc)

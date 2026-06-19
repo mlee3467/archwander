@@ -424,9 +424,9 @@
 <!-- Floating walk-radius card — appears after GPS/pin location is set -->
 <div id="walk-radius-float">
   
-  <span id="walk-label">15 min</span>
-  <input type="range" id="walk-slider" min="1" max="60" step="1" value="15">
-  <span class="wrf-desc">walking radius</span>
+  <span id="walk-label">2 km</span>
+  <input type="range" id="walk-slider" min="0.5" max="10" step="0.5" value="2">
+  <span class="wrf-desc" id="walk-radius-desc">radius</span>
   <button class="wrf-close" onclick="_closeWalkFloat()" title="Close">✕</button>
 </div>
 
@@ -451,14 +451,14 @@
 <div id="my-loc-overlay" onclick="_closeMyLocPopup()" style="display:none"></div>
 <div id="my-loc-popup" style="display:none">
   <button class="explore-popup-btn" onclick="_closeMyLocPopup();_mlpUseGPS()">
-    <span class="explore-popup-icon">GPS</span>
+    <span class="explore-popup-icon">📡</span>
     <div class="explore-popup-text">
       <span class="explore-popup-title">Use GPS</span>
       <span class="explore-popup-sub">Auto locate my position</span>
     </div>
   </button>
   <button class="explore-popup-btn" onclick="_closeMyLocPopup();_mlpDropPin()">
-    <span class="explore-popup-icon">Pin</span>
+    <span class="explore-popup-icon">📍</span>
     <div class="explore-popup-text">
       <span class="explore-popup-title">Drop a pin</span>
       <span class="explore-popup-sub">Tap map to place</span>

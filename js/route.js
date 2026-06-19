@@ -480,7 +480,7 @@ function _createRoutePanel() {
   div.innerHTML =
     '<div class="route-panel-hdr" style="position:relative">' +
       '<button class="route-panel-back" onclick="_routePanelBack()" title="' + (LANG === 'ko' ? '지도로 돌아가기' : 'Back to map') + '">◀ </button>' +
-      '<span class="route-panel-title">🗺 ' + (LANG === 'ko' ? '루트 플래너' : 'Route Planner') + '</span>' +
+      '<span class="route-panel-title">' + (LANG === 'ko' ? '루트 플래너' : 'Route Planner') + '</span>' +
       '<div class="route-hdr-right">' +
         '<button class="route-btn-save" onclick="_saveMyRoute()" title="' + (LANG === 'ko' ? '루트 저장' : 'Save route') + '">💾</button>' +
         '<button class="route-btn-load" onclick="_loadMyRoute()" title="' + (LANG === 'ko' ? '저장된 루트 불러오기' : 'Load saved route') + '">📂</button>' +
@@ -692,7 +692,7 @@ function _loadSavedRouteById(id) {
   routeActive = true;
   if (typeof _updateSetRouteFab === 'function') _updateSetRouteFab();
   _refreshRouteUI();
-  if (routeLocations.length >= 2) calcRoute();
+  // calcRoute() is only used by Near Me walker animation — not called from planner
 }
 
 // ══════════════════════════════════════════════════════════════════
@@ -935,12 +935,8 @@ function removeRouteStop(locId) {
   _closeRouteCustomPopup();
   routeLocations = routeLocations.filter(function(l) { return l.id !== locId; });
   _refreshRouteUI();
-  if (routeLocations.length >= 2) {
-    _routeSkipAnim = true; // instant redraw — no animation restart
-    calcRoute();
-  } else {
-    clearRoute();
-  }
+  // Route drawing only happens in Near Me context (calcRoute not called here)
+  if (routeLocations.length < 2) clearRoute();
 }
 
 function _refreshRouteUI() {
@@ -972,40 +968,129 @@ function _refreshRouteUI() {
     '</div>';
   }).join('');
 
-  // Google Maps action bar (shown when ≥2 stops)
-  var gmapsBar = '';
-  if (routeLocations.length >= 2) {
-    var modeLabels = ko
-      ? { walking: '도보', transit: '대중교통', driving: '차량' }
-      : { walking: 'Walk', transit: 'Transit', driving: 'Drive' };
-    var optimizeLabel = ko ? '순서 최적화' : 'Optimize order';
-    var copyLabel     = ko ? '링크 복사'   : 'Copy link';
-    var openLabel     = ko ? 'Google Maps로 열기' : 'Open in Google Maps';
+  // Action bar (shown when ≥1 stop)
+  var actionBar = '';
+  if (routeLocations.length >= 1) {
+    // Straight-line distance estimate
+    var distHtml = '';
+    if (routeLocations.length >= 2) {
+      var estKm = _estimatedRouteKm(routeLocations);
+      var distStr = _fmtRouteDist(estKm);
+      distHtml = '<div class="route-dist-est">' +
+        (ko ? '📏 직선 거리 약 ' : '📏 ~') + distStr +
+        '<span class="route-dist-note">' + (ko ? ' (직선 기준)' : ' straight-line') + '</span>' +
+      '</div>';
+    }
 
-    gmapsBar =
+    var optimizeLabel = ko ? '순서 최적화' : 'Optimize order';
+    var city = (typeof activeCityKey !== 'undefined') ? activeCityKey : '';
+    var isSeoul = (city === 'seoul');
+
+    var mapsButtons = '';
+    if (isSeoul) {
+      mapsButtons =
+        '<button class="route-gmaps-open-btn route-naver-btn" onclick="_openNaverMaps()">' +
+          '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="flex-shrink:0"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>' +
+          (ko ? '네이버 지도로 열기' : 'Open in Naver Maps') +
+        '</button>' +
+        '<button class="route-gmaps-open-btn route-gmaps-alt-btn" onclick="_openGoogleMaps()">' +
+          (ko ? 'Google Maps' : 'Google Maps') +
+        '</button>';
+    } else {
+      mapsButtons =
+        '<button class="route-gmaps-open-btn" onclick="_openGoogleMaps()">' +
+          '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>' +
+          (ko ? 'Google Maps로 열기' : 'Open in Google Maps') +
+        '</button>';
+    }
+
+    actionBar =
       '<div class="route-gmaps-bar">' +
-        '<div class="route-mode-row">' +
-          ['walking','transit','driving'].map(function(m) {
-            var icons = { walking: '🚶', transit: '🚇', driving: '🚗' };
-            return '<button id="rmode-' + m + '" class="route-mode-btn' + (m === _routeTravelMode ? ' rmode-active' : '') + '"' +
-              ' onclick="_setRouteTravelMode(\'' + m + '\')">' +
-              icons[m] + ' ' + modeLabels[m] + '</button>';
-          }).join('') +
-        '</div>' +
+        distHtml +
         '<div class="route-gmaps-actions">' +
           '<button id="route-optimize-btn" class="route-gmaps-sec-btn"' +
             (routeLocations.length < 3 ? ' disabled style="opacity:.4;cursor:default"' : '') +
             ' onclick="_optimizeRouteBtn()">' + optimizeLabel + '</button>' +
-          '<button id="route-copy-link-btn" class="route-gmaps-sec-btn" onclick="_copyGoogleMapsLink()">' + copyLabel + '</button>' +
         '</div>' +
-        '<button class="route-gmaps-open-btn" onclick="_openGoogleMaps()">' +
-          '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>' +
-          openLabel +
-        '</button>' +
+        mapsButtons +
       '</div>';
   }
 
-  selList.innerHTML = header + stopList + gmapsBar;
+  selList.innerHTML = header + stopList + actionBar;
+}
+
+// ── Distance helpers ─────────────────────────────────────────────
+
+function _haversineKm(lat1, lng1, lat2, lng2) {
+  var R = 6371;
+  var dLat = (lat2 - lat1) * Math.PI / 180;
+  var dLng = (lng2 - lng1) * Math.PI / 180;
+  var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+    Math.sin(dLng/2) * Math.sin(dLng/2);
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+function _estimatedRouteKm(locs) {
+  if (!locs || locs.length < 2) return 0;
+  var total = 0;
+  for (var i = 1; i < locs.length; i++) {
+    total += _haversineKm(locs[i-1].lat, locs[i-1].lng, locs[i].lat, locs[i].lng);
+  }
+  return total;
+}
+
+function _fmtRouteDist(km) {
+  var imperial = localStorage.getItem('aw_units') === 'imperial';
+  if (imperial) {
+    var miles = km * 0.621371;
+    return miles < 0.1 ? Math.round(miles * 5280) + ' ft' : miles.toFixed(1) + ' mi';
+  } else {
+    return km < 1 ? Math.round(km * 1000) + ' m' : km.toFixed(1) + ' km';
+  }
+}
+
+// ── Naver Maps handoff (Seoul only) ─────────────────────────────
+
+function _buildNaverMapsUrl() {
+  if (!routeLocations.length) return null;
+  var stops  = routeLocations;
+  var origin = (typeof walkOrigin !== 'undefined' && walkOrigin && walkOrigin.lat) ? walkOrigin : null;
+  var dest   = stops[stops.length - 1];
+
+  // Mobile: try app deep link
+  var isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  if (isMobile) {
+    var url = 'nmap://route/walk?';
+    if (origin) {
+      url += 'slat=' + origin.lat + '&slng=' + origin.lng + '&sname=' + encodeURIComponent('현재위치');
+    } else if (stops.length > 1) {
+      url += 'slat=' + stops[0].lat + '&slng=' + stops[0].lng + '&sname=' + encodeURIComponent(stops[0].name);
+    }
+    var viaArr = origin ? stops.slice(0, -1) : stops.slice(1, -1);
+    if (viaArr.length) {
+      url += '&via=' + viaArr.map(function(l) {
+        return l.lat + ',' + l.lng + ',' + encodeURIComponent(l.name);
+      }).join('|');
+    }
+    url += '&dlat=' + dest.lat + '&dlng=' + dest.lng + '&dname=' + encodeURIComponent(dest.name);
+    url += '&appname=com.archwander';
+    return url;
+  }
+
+  // Web fallback
+  var originPart = origin
+    ? (origin.lng + ',' + origin.lat + ',' + encodeURIComponent('현재위치') + ',POINT')
+    : (stops.length > 1
+      ? (stops[0].lng + ',' + stops[0].lat + ',' + encodeURIComponent(stops[0].name) + ',POINT')
+      : '-');
+  var destPart = dest.lng + ',' + dest.lat + ',' + encodeURIComponent(dest.name) + ',POINT';
+  return 'https://map.naver.com/v5/directions/' + originPart + '/' + destPart + '/-/walk';
+}
+
+function _openNaverMaps() {
+  var url = _buildNaverMapsUrl();
+  if (url) window.open(url, '_blank');
 }
 
 function _openRouteShare() {

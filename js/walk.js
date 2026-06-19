@@ -418,10 +418,42 @@ function _setWalkOrigin(lat, lng, mode) {
   _updateSetRouteFab();
 }
 
+function _getWalkRadiusM() {
+  var val = parseFloat(document.getElementById('walk-slider').value) || 2;
+  var imperial = localStorage.getItem('aw_units') === 'imperial';
+  return imperial ? val * 1609.34 : val * 1000;
+}
+
+function _fmtWalkLabel(val) {
+  var imperial = localStorage.getItem('aw_units') === 'imperial';
+  return val + (imperial ? ' mi' : ' km');
+}
+
+function _syncWalkSliderUnits() {
+  var slider = document.getElementById('walk-slider');
+  if (!slider) return;
+  var imperial = localStorage.getItem('aw_units') === 'imperial';
+  // Convert current value from old units to new units
+  var oldImperial = !imperial; // just switched
+  var currentM = parseFloat(slider.value) * (oldImperial ? 1609.34 : 1000);
+  if (imperial) {
+    slider.min = '0.3'; slider.max = '6'; slider.step = '0.3';
+    var newVal = Math.round((currentM / 1609.34) / 0.3) * 0.3;
+    slider.value = Math.min(6, Math.max(0.3, +newVal.toFixed(1)));
+  } else {
+    slider.min = '0.5'; slider.max = '10'; slider.step = '0.5';
+    var newVal = Math.round((currentM / 1000) / 0.5) * 0.5;
+    slider.value = Math.min(10, Math.max(0.5, +newVal.toFixed(1)));
+  }
+  var label = document.getElementById('walk-label');
+  if (label) label.textContent = _fmtWalkLabel(slider.value);
+  if (walkActive && walkOrigin) { _runWalkFilter(); }
+}
+
 function _runWalkFilter() {
   if (!walkActive || !walkOrigin) return;
-  const minutes = parseInt(document.getElementById('walk-slider').value, 10);
-  document.getElementById('walk-label').textContent = `${minutes} min`;
+  var val = parseFloat(document.getElementById('walk-slider').value) || 2;
+  document.getElementById('walk-label').textContent = _fmtWalkLabel(val);
   renderList();
   syncMarkers();
   _drawWalkOverlay();
@@ -439,8 +471,7 @@ function _runWalkFilter() {
 
 function _drawWalkOverlay() {
   if (!walkActive || !walkOrigin) return;
-  const minutes = parseInt(document.getElementById('walk-slider').value, 10);
-  const radiusM = minutes * 80; // ~80 m/min
+  const radiusM = _getWalkRadiusM();
   const { lat, lng } = walkOrigin;
 
   _clearWalkOverlay();

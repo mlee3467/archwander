@@ -418,6 +418,7 @@ function _openMyPage() {
         (function() {
           var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
           var svOn = localStorage.getItem('aw_sv_disabled') !== '1';
+          var isImperial = localStorage.getItem('aw_units') === 'imperial';
           return '<div class="mpp-section">' +
             '<div class="mpp-sec-title">' + (isKo ? '설정' : 'Settings') + '</div>' +
             '<div class="mpp-setting-row">' +
@@ -434,6 +435,16 @@ function _openMyPage() {
               '<button class="mpp-toggle' + (svOn ? ' mpp-toggle-on' : '') + '" id="mpp-sv-toggle" onclick="_mppToggleSV(this)" aria-label="Toggle Street View">' +
                 '<span class="mpp-toggle-knob"></span>' +
               '</button>' +
+            '</div>' +
+            '<div class="mpp-setting-row">' +
+              '<div>' +
+                '<span class="mpp-setting-label">' + (isKo ? '거리 단위' : 'Distance Units') + '</span>' +
+                '<div class="mpp-setting-sub">' + (isKo ? '반경 및 루트 거리 표시 단위' : 'For radius and route distances') + '</div>' +
+              '</div>' +
+              '<div class="mpp-unit-seg" id="mpp-unit-seg">' +
+                '<button class="mpp-unit-btn' + (!isImperial ? ' active' : '') + '" onclick="_mppSetUnits(\'metric\')" id="mpp-unit-km">km</button>' +
+                '<button class="mpp-unit-btn' + (isImperial ? ' active' : '') + '" onclick="_mppSetUnits(\'imperial\')" id="mpp-unit-mi">mi</button>' +
+              '</div>' +
             '</div>' +
           '</div>';
         })() +
@@ -545,6 +556,16 @@ function _mppToggleSV(btn) {
     localStorage.setItem('aw_sv_disabled', '1');
     btn.classList.remove('mpp-toggle-on');
   }
+}
+
+function _mppSetUnits(units) {
+  localStorage.setItem('aw_units', units);
+  var kmBtn = document.getElementById('mpp-unit-km');
+  var miBtn = document.getElementById('mpp-unit-mi');
+  if (kmBtn) kmBtn.classList.toggle('active', units === 'metric');
+  if (miBtn) miBtn.classList.toggle('active', units === 'imperial');
+  // Update walk slider if Near Me is active
+  if (typeof _syncWalkSliderUnits === 'function') _syncWalkSliderUnits();
 }
 
 function _closeMyPage() {
