@@ -59,7 +59,7 @@ function _buildStartMarkerIcon() {
         '<div style="font-size:9px;font-family:Inter,sans-serif;font-weight:600;color:#111;' +
         'background:rgba(255,255,255,0.92);padding:2px 5px;border-radius:3px;' +
         'box-shadow:0 1px 4px rgba(0,0,0,0.25)">' +
-        (ko ? (LANG === 'ko' ? '출발' : 'Start') + '</div>' +
+        (ko ? '출발' : 'Start') + '</div>' +
       '</div>',
     className: '',
     iconSize: [100, 28],
@@ -479,15 +479,15 @@ function _createRoutePanel() {
   div.className = 'route-panel';
   div.innerHTML =
     '<div class="route-panel-hdr" style="position:relative">' +
-      '<button class="route-panel-back" onclick="_routePanelBack()" title="' + (LANG === 'ko' ? (LANG === 'ko' ? '지도로 돌아가기' : 'Back to map') + '">◀ </button>' +
-      '<span class="route-panel-title">🗺 ' + (LANG === 'ko' ? (LANG === 'ko' ? '루트 플래너' : 'Route Planner') + '</span>' +
+      '<button class="route-panel-back" onclick="_routePanelBack()" title="' + (LANG === 'ko' ? '지도로 돌아가기' : 'Back to map') + '">◀ </button>' +
+      '<span class="route-panel-title">🗺 ' + (LANG === 'ko' ? '루트 플래너' : 'Route Planner') + '</span>' +
       '<div class="route-hdr-right">' +
-        '<button class="route-btn-save" onclick="_saveMyRoute()" title="' + (LANG === 'ko' ? (LANG === 'ko' ? '루트 저장' : 'Save route') + '">💾</button>' +
-        '<button class="route-btn-load" onclick="_loadMyRoute()" title="' + (LANG === 'ko' ? (LANG === 'ko' ? '저장된 루트 불러오기' : 'Load saved route') + '">📂</button>' +
-        '<button class="route-btn-share" id="route-share-btn" onclick="_openRouteShare()" title="' + (LANG === 'ko' ? (LANG === 'ko' ? '루트 공유' : 'Share route') + '" style="display:none">🔗</button>' +
+        '<button class="route-btn-save" onclick="_saveMyRoute()" title="' + (LANG === 'ko' ? '루트 저장' : 'Save route') + '">💾</button>' +
+        '<button class="route-btn-load" onclick="_loadMyRoute()" title="' + (LANG === 'ko' ? '저장된 루트 불러오기' : 'Load saved route') + '">📂</button>' +
+        '<button class="route-btn-share" id="route-share-btn" onclick="_openRouteShare()" title="' + (LANG === 'ko' ? '루트 공유' : 'Share route') + '" style="display:none">🔗</button>' +
         '<button class="route-btn route-btn-clear" id="route-top-clear" onclick="clearRouteSelection()" style="display:none">✕ ' +
-          (LANG === 'ko' ? (LANG === 'ko' ? '초기화' : 'Clear') + '</button>' +
-        '<button class="route-panel-close" onclick="closeRoutePanel()" title="' + (LANG === 'ko' ? (LANG === 'ko' ? '닫기 및 초기화' : 'Close & clear') + '">✕</button>' +
+          (LANG === 'ko' ? '초기화' : 'Clear') + '</button>' +
+        '<button class="route-panel-close" onclick="closeRoutePanel()" title="' + (LANG === 'ko' ? '닫기 및 초기화' : 'Close & clear') + '">✕</button>' +
       '</div>' +
       '<div class="route-save-toast" id="route-save-toast"></div>' +
     '</div>' +
@@ -599,13 +599,13 @@ function _saveMyRoute() {
   dlg.className = 'aw-dialog-overlay';
   dlg.innerHTML =
     '<div class="aw-dialog-box">' +
-      '<div class="aw-dialog-title">' + (ko ? (LANG === 'ko' ? '루트 저장' : 'Save Route') + '</div>' +
-      '<div class="aw-dialog-sub">' + (ko ? (LANG === 'ko' ? '루트 이름을 설정하세요' : 'Name this route') + '</div>' +
+      '<div class="aw-dialog-title">' + (ko ? '루트 저장' : 'Save Route') + '</div>' +
+      '<div class="aw-dialog-sub">' + (ko ? '루트 이름을 설정하세요' : 'Name this route') + '</div>' +
       '<input class="aw-dialog-input" id="aw-route-name-input" type="text"' +
         ' value="' + _escHtml(defaultName) + '" maxlength="60" autocomplete="off" spellcheck="false">' +
       '<div class="aw-dialog-btns">' +
-        '<button class="aw-dialog-btn aw-dialog-cancel" onclick="_cancelSaveRoute()">✕&nbsp;' + (ko ? (LANG === 'ko' ? '취소' : 'Cancel') + '</button>' +
-        '<button class="aw-dialog-btn aw-dialog-confirm" onclick="_confirmSaveRoute()">✓&nbsp;' + (ko ? (LANG === 'ko' ? '저장' : 'Save') + '</button>' +
+        '<button class="aw-dialog-btn aw-dialog-cancel" onclick="_cancelSaveRoute()">✕&nbsp;' + (ko ? '취소' : 'Cancel') + '</button>' +
+        '<button class="aw-dialog-btn aw-dialog-confirm" onclick="_confirmSaveRoute()">✓&nbsp;' + (ko ? '저장' : 'Save') + '</button>' +
       '</div>' +
     '</div>';
   dlg.addEventListener('click', function(e) { if (e.target === dlg) _cancelSaveRoute(); });
@@ -660,7 +660,7 @@ function _confirmSaveRoute() {
   var toast = document.getElementById('route-save-toast');
   if (toast) {
     var ko = typeof LANG !== 'undefined' && LANG === 'ko';
-    toast.textContent = (ko ? (LANG === 'ko' ? '저장됨 ✓ ' : 'Saved ✓ ') + name;
+    toast.textContent = (ko ? '저장됨 ✓ ' : 'Saved ✓ ') + name;
     toast.style.opacity = '1';
     setTimeout(function() { if (toast) toast.style.opacity = '0'; }, 2500);
   }
@@ -680,7 +680,7 @@ function _loadSavedRouteById(id) {
   }).filter(Boolean);
   if (!loaded.length) {
     var ko = typeof LANG !== 'undefined' && LANG === 'ko';
-    alert(ko ? (LANG === 'ko' ? '현재 도시 데이터에서 위치를 찾을 수 없습니다.' : 'Could not find locations in current city data.');
+    alert(ko ? '현재 도시 데이터에서 위치를 찾을 수 없습니다.' : 'Could not find locations in current city data.');
     return;
   }
   _closeRouteManager();
@@ -741,30 +741,30 @@ function _rmRender(level) {
 function _rmHomeHTML(ko) {
   return '<div class="arm-header">' +
     '<button class="arm-back" onclick="_closeRouteManager()">◀ </button>' +
-    '<span class="arm-title">🗺&nbsp;' + (ko ? (LANG === 'ko' ? '루트 매니저' : 'Route Manager') + '</span>' +
+    '<span class="arm-title">🗺&nbsp;' + (ko ? '루트 매니저' : 'Route Manager') + '</span>' +
     '<button class="arm-close" onclick="_closeRouteManager()">✕</button>' +
   '</div>' +
   '<div class="arm-menu">' +
     '<button class="arm-item arm-item-create" onclick="_rmCreateRoute()">' +
       '<span class="arm-item-icon">▶</span>' +
       '<span class="arm-item-text">' +
-        '<span class="arm-item-label">' + (ko ? (LANG === 'ko' ? '루트 만들기' : 'Create Route') + '</span>' +
-        '<span class="arm-item-sub">' + (ko ? (LANG === 'ko' ? '현재 필터를 기반으로 루트 생성' : 'Build from current filter') + '</span>' +
+        '<span class="arm-item-label">' + (ko ? '루트 만들기' : 'Create Route') + '</span>' +
+        '<span class="arm-item-sub">' + (ko ? '현재 필터를 기반으로 루트 생성' : 'Build from current filter') + '</span>' +
       '</span>' +
     '</button>' +
     '<button class="arm-item" onclick="_rmRender(\'saved\')">' +
       '<span class="arm-item-icon"></span>' +
       '<span class="arm-item-text">' +
-        '<span class="arm-item-label">' + (ko ? (LANG === 'ko' ? '저장된 루트' : 'Saved Routes') + '</span>' +
-        '<span class="arm-item-sub">' + (ko ? (LANG === 'ko' ? '저장된 루트 목록에서 선택' : 'Load from your saved routes') + '</span>' +
+        '<span class="arm-item-label">' + (ko ? '저장된 루트' : 'Saved Routes') + '</span>' +
+        '<span class="arm-item-sub">' + (ko ? '저장된 루트 목록에서 선택' : 'Load from your saved routes') + '</span>' +
       '</span>' +
       '<span class="arm-item-arrow">›</span>' +
     '</button>' +
     '<button class="arm-item" onclick="_rmRender(\'settings\')">' +
       '<span class="arm-item-icon"></span>' +
       '<span class="arm-item-text">' +
-        '<span class="arm-item-label">' + (ko ? (LANG === 'ko' ? '루트 설정' : 'Route Settings') + '</span>' +
-        '<span class="arm-item-sub">' + (ko ? (LANG === 'ko' ? '반경, 거리, 애니메이션 설정' : 'Radius, distance, animation') + '</span>' +
+        '<span class="arm-item-label">' + (ko ? '루트 설정' : 'Route Settings') + '</span>' +
+        '<span class="arm-item-sub">' + (ko ? '반경, 거리, 애니메이션 설정' : 'Radius, distance, animation') + '</span>' +
       '</span>' +
       '<span class="arm-item-arrow">›</span>' +
     '</button>' +
@@ -775,12 +775,12 @@ function _rmSavedHTML(ko) {
   var routes = _getSavedRoutes();
   var rowsHtml = '';
   if (!routes.length) {
-    rowsHtml = '<div class="arm-empty">' + (ko ? (LANG === 'ko' ? '저장된 루트가 없습니다' : 'No saved routes yet') + '</div>';
+    rowsHtml = '<div class="arm-empty">' + (ko ? '저장된 루트가 없습니다' : 'No saved routes yet') + '</div>';
   } else {
     rowsHtml = routes.slice().reverse().map(function(r) {
       var durMin  = r.duration ? Math.ceil(r.duration / 60) : 0;
       var durStr  = durMin > 0
-        ? (durMin < 60 ? durMin + (ko ? (LANG === 'ko' ? '분' : 'min') : Math.floor(durMin/60) + 'h ' + (durMin%60) + (ko ? (LANG === 'ko' ? '분' : 'min'))
+        ? (durMin < 60 ? durMin + (ko ? '분' : 'min') : Math.floor(durMin/60) + 'h ' + (durMin%60) + (ko ? '분' : 'min'))
         : '—';
       var distStr = r.distance > 0
         ? (r.distance < 1000 ? Math.round(r.distance) + 'm' : (r.distance/1000).toFixed(1) + 'km') : '—';
@@ -790,14 +790,14 @@ function _rmSavedHTML(ko) {
           '<div class="arm-route-name">' + _escHtml(r.name) + '</div>' +
           '<div class="arm-route-meta">' +
             (r.city ? '<span class="arm-tag">' + _escHtml(r.city) + (r.hood ? ' · ' + _escHtml(r.hood) : '') + '</span>' : '') +
-            (r.stops ? '<span class="arm-tag">' + r.stops + (ko ? (LANG === 'ko' ? '개' : ' stops') + '</span>' : '') +
+            (r.stops ? '<span class="arm-tag">' + r.stops + (ko ? '개' : ' stops') + '</span>' : '') +
             (durStr !== '—' ? '<span class="arm-tag">⏱ ' + durStr + '</span>' : '') +
             (distStr !== '—' ? '<span class="arm-tag">' + distStr + '</span>' : '') +
             (dateStr ? '<span class="arm-tag arm-tag-date">' + dateStr + '</span>' : '') +
           '</div>' +
         '</div>' +
         '<div class="arm-route-btns">' +
-          '<button class="arm-load-btn" onclick="_rmLoadRoute(\'' + r.id + '\')">' + (ko ? (LANG === 'ko' ? '불러오기' : 'Load') + '</button>' +
+          '<button class="arm-load-btn" onclick="_rmLoadRoute(\'' + r.id + '\')">' + (ko ? '불러오기' : 'Load') + '</button>' +
           '<button class="arm-del-btn"  onclick="_rmDeleteRoute(\'' + r.id + '\')">🗑</button>' +
         '</div>' +
       '</div>';
@@ -805,12 +805,12 @@ function _rmSavedHTML(ko) {
   }
   return '<div class="arm-header">' +
     '<button class="arm-back" onclick="_rmRender(\'home\')">◀ </button>' +
-    '<span class="arm-title">📂&nbsp;' + (ko ? (LANG === 'ko' ? '저장된 루트' : 'Saved Routes') + '</span>' +
+    '<span class="arm-title">📂&nbsp;' + (ko ? '저장된 루트' : 'Saved Routes') + '</span>' +
     '<button class="arm-close" onclick="_closeRouteManager()">✕</button>' +
   '</div>' +
   '<div class="arm-scrollable">' + rowsHtml + '</div>' +
   (routes.length > 0
-    ? '<div class="arm-footer"><button class="arm-export-btn" onclick="_exportSavedRoutesJson()">⬇&nbsp;' + (ko ? (LANG === 'ko' ? 'JSON 내보내기' : 'Export JSON') + '</button></div>'
+    ? '<div class="arm-footer"><button class="arm-export-btn" onclick="_exportSavedRoutesJson()">⬇&nbsp;' + (ko ? 'JSON 내보내기' : 'Export JSON') + '</button></div>'
     : '');
 }
 
@@ -819,24 +819,24 @@ function _rmSettingsHTML(ko) {
   var radius = typeof walkRadius !== 'undefined' ? walkRadius : 15;
   return '<div class="arm-header">' +
     '<button class="arm-back" onclick="_rmRender(\'home\')">◀ </button>' +
-    '<span class="arm-title">⚙&nbsp;' + (ko ? (LANG === 'ko' ? '루트 설정' : 'Route Settings') + '</span>' +
+    '<span class="arm-title">⚙&nbsp;' + (ko ? '루트 설정' : 'Route Settings') + '</span>' +
     '<button class="arm-close" onclick="_closeRouteManager()">✕</button>' +
   '</div>' +
   '<div class="arm-settings">' +
     '<div class="arm-srow">' +
       '<div class="arm-slabel">' +
-        '<span class="arm-sname">' + (ko ? (LANG === 'ko' ? '기본 도보 반경' : 'Default Walk Radius') + '</span>' +
-        '<span class="arm-sdesc">' + (ko ? (LANG === 'ko' ? 'Near Me 기본 반경 (분)' : 'Near Me default radius') + '</span>' +
+        '<span class="arm-sname">' + (ko ? '기본 도보 반경' : 'Default Walk Radius') + '</span>' +
+        '<span class="arm-sdesc">' + (ko ? 'Near Me 기본 반경 (분)' : 'Near Me default radius') + '</span>' +
       '</div>' +
       '<div class="arm-sctrl">' +
         '<input type="number" class="arm-num" id="arm-walk-radius" value="' + radius + '" min="5" max="60" step="5">' +
-        '<span class="arm-unit">' + (ko ? (LANG === 'ko' ? '분' : 'min') + '</span>' +
+        '<span class="arm-unit">' + (ko ? '분' : 'min') + '</span>' +
       '</div>' +
     '</div>' +
     '<div class="arm-srow">' +
       '<div class="arm-slabel">' +
-        '<span class="arm-sname">' + (ko ? (LANG === 'ko' ? '최대 루트 거리' : 'Max Route Distance') + '</span>' +
-        '<span class="arm-sdesc">' + (ko ? (LANG === 'ko' ? '초과 시 경고 표시' : 'Warning threshold') + '</span>' +
+        '<span class="arm-sname">' + (ko ? '최대 루트 거리' : 'Max Route Distance') + '</span>' +
+        '<span class="arm-sdesc">' + (ko ? '초과 시 경고 표시' : 'Warning threshold') + '</span>' +
       '</div>' +
       '<div class="arm-sctrl">' +
         '<input type="number" class="arm-num" id="arm-max-dist" value="' + maxKm + '" min="1" max="30" step="0.5">' +
@@ -845,8 +845,8 @@ function _rmSettingsHTML(ko) {
     '</div>' +
     '<div class="arm-srow">' +
       '<div class="arm-slabel">' +
-        '<span class="arm-sname">' + (ko ? (LANG === 'ko' ? '루트 애니메이션' : 'Route Animation') + '</span>' +
-        '<span class="arm-sdesc">' + (ko ? (LANG === 'ko' ? '워커 캐릭터 애니메이션' : 'Walker character animation') + '</span>' +
+        '<span class="arm-sname">' + (ko ? '루트 애니메이션' : 'Route Animation') + '</span>' +
+        '<span class="arm-sdesc">' + (ko ? '워커 캐릭터 애니메이션' : 'Walker character animation') + '</span>' +
       '</div>' +
       '<div class="arm-sctrl">' +
         '<label class="arm-toggle">' +
@@ -856,12 +856,12 @@ function _rmSettingsHTML(ko) {
       '</div>' +
     '</div>' +
     '<div class="arm-srow arm-srow-apply">' +
-      '<button class="arm-apply-btn" onclick="_rmApplySettings()">' + (ko ? (LANG === 'ko' ? '설정 저장' : 'Apply & Save') + '</button>' +
+      '<button class="arm-apply-btn" onclick="_rmApplySettings()">' + (ko ? '설정 저장' : 'Apply & Save') + '</button>' +
     '</div>' +
     '<div class="arm-srow arm-srow-export">' +
       '<div class="arm-slabel">' +
-        '<span class="arm-sname">' + (ko ? (LANG === 'ko' ? '루트 데이터 내보내기' : 'Export Route Data') + '</span>' +
-        '<span class="arm-sdesc">' + (ko ? (LANG === 'ko' ? '저장된 모든 루트를 JSON으로' : 'All saved routes as JSON') + '</span>' +
+        '<span class="arm-sname">' + (ko ? '루트 데이터 내보내기' : 'Export Route Data') + '</span>' +
+        '<span class="arm-sdesc">' + (ko ? '저장된 모든 루트를 JSON으로' : 'All saved routes as JSON') + '</span>' +
       '</div>' +
       '<button class="arm-export-inline" onclick="_exportSavedRoutesJson()">⬇ JSON</button>' +
     '</div>' +
@@ -953,7 +953,7 @@ function _refreshRouteUI() {
   if (!selList) return;
   if (routeLocations.length === 0) {
     selList.innerHTML = '<div class="route-sel-empty">' +
-      (LANG === 'ko' ? (LANG === 'ko' ? '현재 필터에 장소가 없습니다' : 'No locations match current filters') + '</div>';
+      (LANG === 'ko' ? '현재 필터에 장소가 없습니다' : 'No locations match current filters') + '</div>';
     return;
   }
   var ko = typeof LANG !== 'undefined' && LANG === 'ko';
@@ -1051,7 +1051,7 @@ function calcRoute() {
   if (resultDiv) {
     resultDiv.style.display = 'block';
     resultDiv.innerHTML = '<div class="route-loading">' +
-      (LANG === 'ko' ? (LANG === 'ko' ? '경로 계산 중...' : 'Calculating route...') + '</div>';
+      (LANG === 'ko' ? '경로 계산 중...' : 'Calculating route...') + '</div>';
   }
 
   fetch(url, { signal: AbortSignal.timeout(10000) })
@@ -1079,7 +1079,7 @@ function _minimizeRoutePanelMobile() {
       handle.id = 'route-peek-handle';
       handle.className = 'route-peek-handle';
       handle.innerHTML = '<div class="route-peek-bar"></div>' +
-        '<span class="route-peek-label">' + (LANG === 'ko' ? (LANG === 'ko' ? '루트 플래너' : 'Route Planner') + '</span>';
+        '<span class="route-peek-label">' + (LANG === 'ko' ? '루트 플래너' : 'Route Planner') + '</span>';
       handle.onclick = function() { _restoreRoutePanel(); };
       panel.appendChild(handle);
     }
@@ -1340,7 +1340,7 @@ function _showRouteMarkerPopup(loc, beyondLimit) {
   var catBadge = _pCat(loc);
   var catClass = (typeof CAT_CC_MAP !== 'undefined' && CAT_CC_MAP[catBadge]) ? CAT_CC_MAP[catBadge] : 'c-lmk';
   var beyondNote = beyondLimit
-    ? '<div class="rmp-beyond">⚠ ' + (LANG === 'ko' ? (LANG === 'ko' ? '6km 범위 밖' : 'Beyond 6km') + '</div>'
+    ? '<div class="rmp-beyond">⚠ ' + (LANG === 'ko' ? '6km 범위 밖' : 'Beyond 6km') + '</div>'
     : '';
 
   // Thumbnail: SV primary (orientation-aware) → photo fallback → nothing
@@ -1367,10 +1367,10 @@ function _showRouteMarkerPopup(loc, beyondLimit) {
     var togBar = '';
     if (hasInt) {
       var togBtns = '<button class="rmp-sv-tog active" onclick="_rmpSvToggle(this,\'outdoor\')">' +
-        (LANG === 'ko' ? (LANG === 'ko' ? '외부' : 'Outdoor') + '</button>';
+        (LANG === 'ko' ? '외부' : 'Outdoor') + '</button>';
       for (var ii = 0; ii < svIntArr.length; ii++) {
         var intLabel = svIntArr.length === 1
-          ? (LANG === 'ko' ? (LANG === 'ko' ? '내부' : 'Interior')
+          ? (LANG === 'ko' ? '내부' : 'Interior')
           : (LANG === 'ko' ? '내부 ' + (ii + 1) : 'Interior ' + (ii + 1));
         togBtns += '<button class="rmp-sv-tog" onclick="_rmpSvToggle(this,\'interior-' + ii + '\')">' + intLabel + '</button>';
       }
@@ -1423,7 +1423,7 @@ function _showRouteMarkerPopup(loc, beyondLimit) {
       '</div>' +
       beyondNote +
       '<button class="rmp-remove" onclick="_routePopupRemove(\'' + loc.id + '\')">✕ ' +
-        (LANG === 'ko' ? (LANG === 'ko' ? '루트에서 제거' : 'Remove from route') +
+        (LANG === 'ko' ? '루트에서 제거' : 'Remove from route') +
       '</button>' +
     '</div>';
   document.body.appendChild(el);
@@ -1503,28 +1503,28 @@ function _renderRouteResult(data, ordered, cumDistAtStop) {
     : (data.distance / 1000).toFixed(1) + 'km';
   var durMin = Math.ceil(data.duration / 60);
   var durStr = durMin < 60
-    ? durMin + (LANG === 'ko' ? (LANG === 'ko' ? '분' : ' min')
-    : Math.floor(durMin / 60) + (LANG === 'ko' ? (LANG === 'ko' ? '시간 ' : 'h ') + (durMin % 60) + (LANG === 'ko' ? (LANG === 'ko' ? '분' : 'min');
+    ? durMin + (LANG === 'ko' ? '분' : ' min')
+    : Math.floor(durMin / 60) + (LANG === 'ko' ? '시간 ' : 'h ') + (durMin % 60) + (LANG === 'ko' ? '분' : 'min');
 
   var html =
     '<div class="route-summary">' +
       '<div class="route-summary-stat">' +
         '<span class="route-stat-val">' + distStr + '</span>' +
-        '<span class="route-stat-label">' + (LANG === 'ko' ? (LANG === 'ko' ? '총 거리' : 'Total Distance') + '</span>' +
+        '<span class="route-stat-label">' + (LANG === 'ko' ? '총 거리' : 'Total Distance') + '</span>' +
       '</div>' +
       '<div class="route-summary-stat">' +
         '<span class="route-stat-val">⏱ ' + durStr + '</span>' +
-        '<span class="route-stat-label">' + (LANG === 'ko' ? (LANG === 'ko' ? '도보 시간' : 'Walking Time') + '</span>' +
+        '<span class="route-stat-label">' + (LANG === 'ko' ? '도보 시간' : 'Walking Time') + '</span>' +
       '</div>' +
       '<div class="route-summary-stat">' +
         '<span class="route-stat-val">' + data.stops + '</span>' +
-        '<span class="route-stat-label">' + (LANG === 'ko' ? (LANG === 'ko' ? '경유지' : 'Stops') + '</span>' +
+        '<span class="route-stat-label">' + (LANG === 'ko' ? '경유지' : 'Stops') + '</span>' +
       '</div>' +
     '</div>';
 
   if (data.estimated) {
     html += '<div class="route-estimate-note">' +
-      (LANG === 'ko' ? (LANG === 'ko' ? '⚠ 직선 거리 기반 추정치입니다' : '⚠ Estimated (straight-line distances)') + '</div>';
+      (LANG === 'ko' ? '⚠ 직선 거리 기반 추정치입니다' : '⚠ Estimated (straight-line distances)') + '</div>';
   }
 
   html += '<div class="route-itinerary">';
@@ -1535,18 +1535,18 @@ function _renderRouteResult(data, ordered, cumDistAtStop) {
     if (data.legs && data.legs[i]) {
       var leg = data.legs[i];
       var legDist = leg.distance < 1000 ? Math.round(leg.distance) + 'm' : (leg.distance / 1000).toFixed(1) + 'km';
-      var legDur  = Math.ceil(leg.duration / 60) + (LANG === 'ko' ? (LANG === 'ko' ? '분' : ' min');
+      var legDur  = Math.ceil(leg.duration / 60) + (LANG === 'ko' ? '분' : ' min');
       legInfo = '<div class="route-leg-info">' + legDist + ' · ' + legDur + '</div>';
     }
     var catBadge = _pCat(loc);
     html += '<div class="route-stop' + (beyond ? ' route-stop-beyond' : '') + '">' +
-      '<div class="route-stop-num" style="background:' + (beyond ? (LANG === 'ko' ? '#aaa' : '#3B82F6') + '">' + (i + 1) + '</div>' +
+      '<div class="route-stop-num" style="background:' + (beyond ? '#aaa' : '#3B82F6') + '">' + (i + 1) + '</div>' +
       '<div class="route-stop-info">' +
         '<div class="route-stop-name">' + _routeLocName(loc) + '</div>' +
         '<div class="route-stop-meta">' +
           '<span class="cat-badge ' + (CAT_CC_MAP[catBadge] || 'c-lmk') + '" style="font-size:10px">' + catBadge + '</span>' +
           (loc.hood ? ' · ' + _escHtml(loc.hood) : '') +
-          (beyond ? ' <span style="color:#f59e0b;font-size:10px">· ⚠ ' + (LANG === 'ko' ? (LANG === 'ko' ? '6km 범위 밖' : 'Beyond 6km') + '</span>' : '') +
+          (beyond ? ' <span style="color:#f59e0b;font-size:10px">· ⚠ ' + (LANG === 'ko' ? '6km 범위 밖' : 'Beyond 6km') + '</span>' : '') +
         '</div>' +
       '</div>' +
     '</div>';
@@ -1628,17 +1628,17 @@ function _showRoutePreselModal(locs) {
       '</button>' +
       '<div class="rps-btns">' +
         '<button class="rps-proceed-btn" onclick="_routePreselProceed()">' +
-          '▶ ' + (ko ? (LANG === 'ko' ? '전체 진행' : 'Proceed') +
+          '▶ ' + (ko ? '전체 진행' : 'Proceed') +
         '</button>' +
         '<button class="rps-manual-btn" onclick="_routePreselManual()">' +
           ((ko||LANG==='ko') ? '직접 선택' : 'Manual') +
         '</button>' +
         '<button class="rps-cancel-btn" onclick="_closeRoutePresel(true)">' +
-          (ko ? (LANG === 'ko' ? '취소' : 'Cancel') +
+          (ko ? '취소' : 'Cancel') +
         '</button>' +
       '</div>' +
-      '<div class="rps-section-label" style="margin-top:18px">' + (ko ? (LANG === 'ko' ? '동네 선택' : 'Choose a neighborhood') + '</div>' +
-      '<div class="rps-hoods">' + (chipsHtml || ('<span style="color:#999;font-size:12px">' + (ko ? (LANG === 'ko' ? '동네 정보 없음' : 'No neighborhood data') + '</span>')) + '</div>' +
+      '<div class="rps-section-label" style="margin-top:18px">' + (ko ? '동네 선택' : 'Choose a neighborhood') + '</div>' +
+      '<div class="rps-hoods">' + (chipsHtml || ('<span style="color:#999;font-size:12px">' + (ko ? '동네 정보 없음' : 'No neighborhood data') + '</span>')) + '</div>' +
     '</div>';
 
   overlay.classList.add('open');
@@ -1662,7 +1662,7 @@ function _rpsToggleHood(hood) {
     var n = _rpsSelectedHoods.size;
     proceedBtn.textContent = n > 0
       ? '▶ ' + (ko ? '선택 진행 (' + n + ')' : 'Proceed (' + n + ' hoods)')
-      : '▶ ' + (ko ? (LANG === 'ko' ? '전체 진행' : 'Proceed');
+      : '▶ ' + (ko ? '전체 진행' : 'Proceed');
   }
 }
 
@@ -1725,8 +1725,8 @@ function _check6kmWarning() {
           : 'Total route is <strong>' + dist + 'km</strong>.<br>Would you like to adjust the location list?') +
       '</div>' +
       '<div class="r6km-btns">' +
-        '<button class="r6km-yes" onclick="_6kmYes()">' + (ko ? (LANG === 'ko' ? '예' : 'Yes') + '</button>' +
-        '<button class="r6km-no"  onclick="_6kmNo()">'  + (ko ? (LANG === 'ko' ? '아니요' : 'No') + '</button>' +
+        '<button class="r6km-yes" onclick="_6kmYes()">' + (ko ? '예' : 'Yes') + '</button>' +
+        '<button class="r6km-no"  onclick="_6kmNo()">'  + (ko ? '아니요' : 'No') + '</button>' +
       '</div>' +
     '</div>';
 
