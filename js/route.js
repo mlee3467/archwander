@@ -1,8 +1,8 @@
 // ══════════════════════════════════════════════════════════════════
 // ROUTE PLANNER
 // ══════════════════════════════════════════════════════════════════
-// Neighborhood-based walking routes with OSRM routing.
-// Extends the existing Near Me system.
+// Location curation + Google Maps handoff for navigation.
+// OSRM + walker animation retained for Near Me single-destination use.
 
 var routeActive      = false;
 var routeLocations   = [];   // ordered list of locations in the route
@@ -13,6 +13,7 @@ var _routeSkipAnim   = false; // true when remove triggered — skip animation, 
 var _rpsSelectedHoods = new Set(); // selected hoods in the presel modal (multi-select)
 var _SAVED_ROUTES_KEY = 'aw_saved_routes_v2';  // current: array of named routes
 var routeOriginMarker = null; // green start marker at walkOrigin
+var _routeTravelMode  = 'walking'; // 'walking' | 'transit' | 'driving'
 
 // ── Pixel Walker Animation ───────────────────────────────────────
 // Character type: Canvas-rendered pixel art → dataURL → <img> in Leaflet divIcon.
@@ -458,7 +459,7 @@ function openRoutePanel() {
   // Auto-populate from current filtered list
   routeLocations = locs.slice();
   _refreshRouteUI();
-  if (routeLocations.length >= 2) calcRoute();
+  // No auto-routing: user controls Google Maps handoff via action bar
 }
 
 function closeRoutePanel() {
@@ -955,27 +956,56 @@ function _refreshRouteUI() {
       (LANG === 'ko' ? (LANG === 'ko' ? '현재 필터에 장소가 없습니다' : 'No locations match current filters') + '</div>';
     return;
   }
-  // Summary header: total stops + distance (if route already calculated)
-  var ko = LANG === 'ko';
-  var distPart = '';
-  if (typeof routeData !== 'undefined' && routeData && routeData.distance > 0) {
-    var dStr = routeData.distance < 1000
-      ? Math.round(routeData.distance) + 'm'
-      : (routeData.distance / 1000).toFixed(1) + 'km';
-    distPart = '<span class="rsl-dist">' + dStr + '</span>';
-  }
+  var ko = typeof LANG !== 'undefined' && LANG === 'ko';
+
+  // Summary header
   var header = '<div class="rsl-header">' +
     '<span class="rsl-count">' + (ko ? '총 ' + routeLocations.length + ' 곳' : routeLocations.length + ' stop' + (routeLocations.length !== 1 ? 's' : '')) + '</span>' +
-    distPart +
   '</div>';
 
-  selList.innerHTML = header + routeLocations.map(function(loc, i) {
+  // Stop list
+  var stopList = routeLocations.map(function(loc, i) {
     return '<div class="route-sel-item" data-id="' + loc.id + '">' +
       '<span class="route-sel-num">' + (i + 1) + '</span>' +
       '<span class="route-sel-name">' + _routeLocName(loc) + '</span>' +
       '<button class="route-sel-remove" onclick="removeRouteStop(\'' + loc.id + '\')">✕</button>' +
     '</div>';
   }).join('');
+
+  // Google Maps action bar (shown when ≥2 stops)
+  var gmapsBar = '';
+  if (routeLocations.length >= 2) {
+    var modeLabels = ko
+      ? { walking: '도보', transit: '대중교통', driving: '차량' }
+      : { walking: 'Walk', transit: 'Transit', driving: 'Drive' };
+    var optimizeLabel = ko ? '순서 최적화' : 'Optimize order';
+    var copyLabel     = ko ? '링크 복사'   : 'Copy link';
+    var openLabel     = ko ? 'Google Maps로 열기' : 'Open in Google Maps';
+
+    gmapsBar =
+      '<div class="route-gmaps-bar">' +
+        '<div class="route-mode-row">' +
+          ['walking','transit','driving'].map(function(m) {
+            var icons = { walking: '🚶', transit: '🚇', driving: '🚗' };
+            return '<button id="rmode-' + m + '" class="route-mode-btn' + (m === _routeTravelMode ? ' rmode-active' : '') + '"' +
+              ' onclick="_setRouteTravelMode(\'' + m + '\')">' +
+              icons[m] + ' ' + modeLabels[m] + '</button>';
+          }).join('') +
+        '</div>' +
+        '<div class="route-gmaps-actions">' +
+          '<button id="route-optimize-btn" class="route-gmaps-sec-btn"' +
+            (routeLocations.length < 3 ? ' disabled style="opacity:.4;cursor:default"' : '') +
+            ' onclick="_optimizeRouteBtn()">' + optimizeLabel + '</button>' +
+          '<button id="route-copy-link-btn" class="route-gmaps-sec-btn" onclick="_copyGoogleMapsLink()">' + copyLabel + '</button>' +
+        '</div>' +
+        '<button class="route-gmaps-open-btn" onclick="_openGoogleMaps()">' +
+          '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>' +
+          openLabel +
+        '</button>' +
+      '</div>';
+  }
+
+  selList.innerHTML = header + stopList + gmapsBar;
 }
 
 function _openRouteShare() {
@@ -1060,6 +1090,80 @@ function _restoreRoutePanel() {
   var panel = document.getElementById('route-panel');
   if (panel) panel.classList.remove('minimized');
 }
+
+// ── Google Maps handoff ──────────────────────────────────────────
+
+function _setRouteTravelMode(mode) {
+  _routeTravelMode = mode;
+  ['walking','transit','driving'].forEach(function(m) {
+    var btn = document.getElementById('rmode-' + m);
+    if (btn) btn.classList.toggle('rmode-active', m === mode);
+  });
+}
+
+function _buildGoogleMapsUrl() {
+  if (!routeLocations.length) return null;
+  var stops  = routeLocations;
+  var origin = (typeof walkOrigin !== 'undefined' && walkOrigin && walkOrigin.lat) ? walkOrigin : null;
+  var base   = 'https://www.google.com/maps/dir/?api=1&travelmode=' + _routeTravelMode;
+
+  if (origin) {
+    // GPS available: current location → all stops
+    var dest = stops[stops.length - 1];
+    var wps  = stops.slice(0, -1).map(function(l) { return l.lat + ',' + l.lng; }).join('|');
+    return base +
+      '&origin='      + origin.lat + ',' + origin.lng +
+      '&destination=' + dest.lat   + ',' + dest.lng +
+      (wps ? '&waypoints=' + wps : '');
+  } else {
+    // No GPS: first stop = origin, last = destination
+    if (stops.length === 1) {
+      return base + '&destination=' + stops[0].lat + ',' + stops[0].lng;
+    }
+    var dest = stops[stops.length - 1];
+    var wps  = stops.slice(1, -1).map(function(l) { return l.lat + ',' + l.lng; }).join('|');
+    return base +
+      '&origin='      + stops[0].lat + ',' + stops[0].lng +
+      '&destination=' + dest.lat     + ',' + dest.lng +
+      (wps ? '&waypoints=' + wps : '');
+  }
+}
+
+function _openGoogleMaps() {
+  var url = _buildGoogleMapsUrl();
+  if (url) window.open(url, '_blank');
+}
+
+function _copyGoogleMapsLink() {
+  var url = _buildGoogleMapsUrl();
+  if (!url) return;
+  navigator.clipboard.writeText(url).then(function() {
+    var btn = document.getElementById('route-copy-link-btn');
+    if (btn) {
+      var ko = typeof LANG !== 'undefined' && LANG === 'ko';
+      btn.textContent = ko ? '복사됨!' : 'Copied!';
+      setTimeout(function() { btn.textContent = ko ? '링크 복사' : 'Copy link'; }, 1800);
+    }
+  }).catch(function() {
+    var ko = typeof LANG !== 'undefined' && LANG === 'ko';
+    window.prompt(ko ? 'Google Maps 링크:' : 'Google Maps link:', url);
+  });
+}
+
+function _optimizeRouteBtn() {
+  if (routeLocations.length < 3) return;
+  var origin = (typeof walkOrigin !== 'undefined' && walkOrigin && walkOrigin.lat) ? walkOrigin : null;
+  routeLocations = _optimizeOrder(routeLocations, origin);
+  _refreshRouteUI();
+  var btn = document.getElementById('route-optimize-btn');
+  if (btn) {
+    var ko = typeof LANG !== 'undefined' && LANG === 'ko';
+    btn.textContent = ko ? '완료!' : 'Done!';
+    setTimeout(function() { btn.textContent = ko ? '순서 최적화' : 'Optimize order'; }, 1600);
+  }
+}
+
+// ── Nearest-neighbor order optimization ─────────────────────────
 
 function _optimizeOrder(locs, origin) {
   // Nearest-neighbor heuristic; if origin provided, start from closest loc to it

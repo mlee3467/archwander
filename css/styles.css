@@ -2034,9 +2034,55 @@
 .route-btn-pdf { background: #111; color: white; padding: 10px 16px; }
 .route-btn-pdf:hover { background: #333; }
 
-/* Route result */
+/* Route result (Near Me OSRM output) */
 .route-result { margin-top: 16px; }
 .route-loading { text-align: center; padding: 20px; color: #666; font-size: var(--fs-base); }
+
+/* ── Google Maps action bar ──────────────────────────────────── */
+.route-gmaps-bar {
+  margin-top: var(--sp-6); padding-top: var(--sp-6);
+  border-top: 1px solid var(--border);
+  display: flex; flex-direction: column; gap: var(--sp-3);
+}
+.route-mode-row {
+  display: flex; gap: var(--sp-2);
+}
+.route-mode-btn {
+  flex: 1; padding: var(--sp-3) var(--sp-2);
+  border: 1.5px solid var(--border); border-radius: var(--radius-md);
+  background: var(--bg); color: var(--text-secondary);
+  font-size: var(--fs-sm); font-family: inherit; cursor: pointer;
+  transition: background var(--dur-fast), border-color var(--dur-fast), color var(--dur-fast);
+  white-space: nowrap;
+}
+.route-mode-btn:hover { background: var(--surface); }
+.route-mode-btn.rmode-active {
+  background: #EFF6FF; border-color: #3366FF; color: #3366FF; font-weight: 600;
+}
+[data-theme="dark"] .route-mode-btn.rmode-active {
+  background: #1e2d4a; border-color: #5588ff; color: #7aa8ff;
+}
+.route-gmaps-actions {
+  display: flex; gap: var(--sp-2);
+}
+.route-gmaps-sec-btn {
+  flex: 1; padding: var(--sp-3) var(--sp-4);
+  border: 1px solid var(--border); border-radius: var(--radius-md);
+  background: var(--surface); color: var(--text-secondary);
+  font-size: var(--fs-sm); font-family: inherit; cursor: pointer;
+  transition: background var(--dur-fast);
+}
+.route-gmaps-sec-btn:hover { background: var(--bg); }
+.route-gmaps-open-btn {
+  width: 100%; padding: var(--sp-5) var(--sp-6);
+  background: #1a73e8; color: #fff;
+  border: none; border-radius: var(--radius-md);
+  font-size: var(--fs-base); font-weight: 600; font-family: inherit;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  gap: var(--sp-3);
+  transition: background var(--dur-fast);
+}
+.route-gmaps-open-btn:hover { background: #1558b0; }
 
 .route-summary {
   display: flex; gap: 12px; justify-content: center;
