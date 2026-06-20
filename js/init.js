@@ -10,6 +10,8 @@ function toggleDarkMode() {
     localStorage.setItem('aw_theme', 'dark');
   }
   _updateDarkModeIcon();
+  // Swap map tile to match new theme
+  if (typeof _refreshStreetTile === 'function') _refreshStreetTile();
 }
 function _updateDarkModeIcon() {
   var icon = document.getElementById('dark-mode-icon');
@@ -154,8 +156,9 @@ window.addEventListener('load', function() {
 
   var _isMobile    = window.innerWidth <= 900;
   var _firstVisit  = !localStorage.getItem('aw_landing_seen');
-  // Detect share param — skip world map entirely when opening a shared link
+  // Detect share/deep-link params — skip world map entirely
   var _shareBootMode = window.location.search.indexOf('s=') !== -1;
+  var _locBootMode   = window.location.search.indexOf('loc=') !== -1;
 
   // Check for user-configured default city — bypasses GPS + world map
   var _defCityCode = localStorage.getItem('AW_DEFAULT_CITY') || '';
@@ -165,9 +168,9 @@ window.addEventListener('load', function() {
   if (_isMobile) {
     if (!activeCity) { activeCity = 'nyc'; activeCityKey = 'new-york'; }
     _initMapTiles();
-    if (_shareBootMode) {
-      // Share boot: skip splash, skip GPS, skip sidebar auto-open.
-      // checkShareParam will call _enterCity(code, {noAnim:true}) + fitBounds.
+    if (_shareBootMode || _locBootMode) {
+      // Share/deep-link boot: skip splash, skip GPS.
+      // checkShareParam / _checkLocParam will handle city entry.
       if (typeof _ensureSupabaseAuth === 'function') _ensureSupabaseAuth();
       if (typeof _scheduleMidnightReset === 'function') _scheduleMidnightReset();
     } else if (_hasDefaultCity) {
@@ -192,8 +195,8 @@ window.addEventListener('load', function() {
     if (!activeCity) { activeCity = 'nyc'; activeCityKey = 'new-york'; }
     _initMapTiles();
     if (typeof _ensureSupabaseAuth === 'function') _ensureSupabaseAuth();
-    if (_shareBootMode) {
-      // Share boot (desktop): skip GPS/world map, checkShareParam handles city entry
+    if (_shareBootMode || _locBootMode) {
+      // Share/deep-link boot (desktop): skip GPS/world map, handler handles city entry
       if (typeof _scheduleMidnightReset === 'function') _scheduleMidnightReset();
     } else if (_hasDefaultCity) {
       // Default city set — skip GPS + world map, enter city directly
@@ -326,7 +329,52 @@ window.addEventListener('load', function() {
       if (typeof checkShareParam === 'function') checkShareParam();
     }, 400);
   }
+
+  // ── Location deep-link: open a specific location if ?loc=LOCID ───
+  if (window.location.search.indexOf('loc=') !== -1) {
+    setTimeout(function() { _checkLocParam(); }, 800);
+  }
 });
+
+// ── Deep-link handler — opens location panel from ?loc=LOCID URL ──
+function _checkLocParam() {
+  var params = new URLSearchParams(window.location.search);
+  var locId = params.get('loc');
+  if (!locId) return;
+
+  // Helper: find CITY_META code from city key
+  function _codeFromKey(key) {
+    if (typeof CITY_META === 'undefined') return null;
+    for (var c in CITY_META) { if (CITY_META[c].key === key) return c; }
+    return null;
+  }
+
+  // 1. If location is already in LOCS (city data loaded), open immediately
+  if (typeof LOCS !== 'undefined') {
+    var loc = LOCS.find(function(l) { return l.id === locId; });
+    if (loc) {
+      openLocById(locId);
+      history.replaceState({ view: 'panel', locId: locId }, '', window.location.pathname);
+      return;
+    }
+  }
+
+  // 2. Look up city from LOCS_INDEX
+  var idxEntry = (typeof LOCS_INDEX !== 'undefined')
+    ? LOCS_INDEX.find(function(x) { return x.id === locId; })
+    : null;
+  if (!idxEntry) return;
+
+  var cityCode = _codeFromKey(idxEntry.city);
+  if (!cityCode) return;
+
+  // 3. Enter city then open location
+  if (typeof _enterCity === 'function') _enterCity(cityCode, { noAnim: true });
+  setTimeout(function() {
+    openLocById(locId);
+    history.replaceState({ view: 'panel', locId: locId }, '', window.location.pathname);
+  }, 2000);
+}
 
 // ══════════════════════════════════════════════════════════════════
 // ADMIN PANEL

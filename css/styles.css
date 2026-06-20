@@ -90,7 +90,7 @@
       --surface: #1e1e1e;
       --border: #2e2e2e;
       --text-primary: #f0f0ee;
-      --text-secondary: #898989;
+      --text-secondary: #b8b8b5;
       --accent: #f0f0ee;
       /* ── Interactive accent (dark) ── */
       --primary:        #818CF8;
@@ -135,7 +135,7 @@
     [data-theme="dark"] .info-val { color: #f0f0ee; }
     [data-theme="dark"] .desc { color: #d0d0ce; }
     [data-theme="dark"] #search { background: #141414; color: #f0f0ee; border-color: #2e2e2e; }
-    [data-theme="dark"] #search::placeholder { color: #666; }
+    [data-theme="dark"] #search::placeholder { color: #999; }
     [data-theme="dark"] input, [data-theme="dark"] textarea, [data-theme="dark"] select { background: #1e1e1e !important; color: #f0f0ee !important; border-color: #2e2e2e !important; }
     [data-theme="dark"] .list-overlay-box { background: rgba(30,30,30,0.97); }
     [data-theme="dark"] .list-overlay-hdr { background: #1e1e1e; border-color: #2e2e2e; color: #f0f0ee; }

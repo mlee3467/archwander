@@ -44,11 +44,13 @@ function haversineM(lat1, lng1, lat2, lng2) {
 }
 
 function _makeStreetLayer() {
-  // Priority: MapTiler raster → Thunderforest raster → CartoDB Voyager raster
+  // Priority: MapTiler raster → Thunderforest raster → CartoDB raster
+  var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
   if (MAPTILER_API_KEY) {
-    var mapLang = LANG === 'ko' ? 'ko' : 'en';
+    var mapLang  = LANG === 'ko' ? 'ko' : 'en';
+    var mapStyle = isDark ? 'streets-v2-dark' : MAPTILER_STYLE;
     return L.tileLayer(
-      'https://api.maptiler.com/maps/' + MAPTILER_STYLE + '/{z}/{x}/{y}.png?key=' + MAPTILER_API_KEY + '&language=' + mapLang,
+      'https://api.maptiler.com/maps/' + mapStyle + '/{z}/{x}/{y}.png?key=' + MAPTILER_API_KEY + '&language=' + mapLang,
       { attribution: '© <a href="https://www.maptiler.com/copyright/">MapTiler</a> © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         tileSize: 512, zoomOffset: -1, maxZoom: 20 }
     );
@@ -60,12 +62,23 @@ function _makeStreetLayer() {
         subdomains: 'abc', maxZoom: 19 }
     );
   }
-  // Default: CartoDB Voyager
-  return L.tileLayer(
-    'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
-    { attribution: '© <a href="https://openstreetmap.org">OpenStreetMap</a> contributors © <a href="https://carto.com/attributions">CARTO</a>',
-      subdomains: 'abcd', maxZoom: 19 }
-  );
+  // Default: CartoDB Voyager (light) or Dark Matter (dark)
+  var cartoUrl = isDark
+    ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
+    : 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+  return L.tileLayer(cartoUrl, {
+    attribution: '© <a href="https://openstreetmap.org">OpenStreetMap</a> contributors © <a href="https://carto.com/attributions">CARTO</a>',
+    subdomains: 'abcd', maxZoom: 19
+  });
+}
+
+// ── Swap street tile when dark mode toggles ────────────────────────
+function _refreshStreetTile() {
+  if (!map || typeof streetLayer === 'undefined') return;
+  var wasOnMap = map.hasLayer(streetLayer);
+  if (wasOnMap) map.removeLayer(streetLayer);
+  streetLayer = _makeStreetLayer();
+  if (wasOnMap) streetLayer.addTo(map);
 }
 
 function initMap() {
