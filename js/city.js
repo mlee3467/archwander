@@ -807,7 +807,7 @@ function _dbRowToLoc(row) {
 // ── Supabase city data cache (localStorage) ──────────────────────
 // Key: 'aw_sb_' + cityCode. Stores raw loc objects for instant startup.
 // Supabase fetch always runs to keep cache fresh; cache just unblocks first paint.
-var _SB_CACHE_PREFIX = 'aw_sb2_';  // v2: includes wiki/archdaily/web fields
+var _SB_CACHE_PREFIX = 'aw_sb_';  // background refresh keeps cache up-to-date with new fields
 
 function _loadCityDataSupabase(cityCode, meta) {
   // ① Try localStorage cache first — resolves immediately for fast markers
