@@ -538,6 +538,7 @@
     .sb-filter-toggle {
       display: flex; align-items: center; gap: 6px;
       width: 100%; padding: 9px 14px;
+      margin-top: 10px;
       background: var(--surface); border: none; border-bottom: 1px solid var(--border);
       font-size: var(--fs-sm); font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;
       color: var(--text-primary); cursor: pointer; font-family: inherit;
