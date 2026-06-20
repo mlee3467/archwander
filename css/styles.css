@@ -2618,84 +2618,101 @@
 /* ═══════════════════════════════════════════════════════════════
    FLOATING SET ROUTE FAB  (mobile, Near Me active)
    ═══════════════════════════════════════════════════════════════ */
-/* Radius control button — shown after walk-float is dismissed */
-#walk-radius-ctrl-btn {
-  position: fixed;
-  bottom: 148px; left: 50%; transform: translateX(-50%);
-  z-index: 2400;
-  align-items: center; gap: 6px;
-  padding: var(--sp-4) var(--sp-9);
-  background: rgba(255,255,255,0.95);
-  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
-  color: var(--primary-dark); border: 1.5px solid #C7D2FE; border-radius: var(--radius-xl);
-  font-size: var(--fs-md); font-weight: 600; font-family: Inter, sans-serif;
-  box-shadow: 0 3px 14px rgba(79,70,229,0.18);
-  cursor: pointer; white-space: nowrap;
-  -webkit-tap-highlight-color: transparent;
-  transition: background var(--dur-fast), box-shadow var(--dur-fast);
-}
-#walk-radius-ctrl-btn:active {
-  background: #EEF2FF;
-  box-shadow: 0 1px 6px rgba(79,70,229,0.12);
-}
-.wrc-icon { font-size: var(--fs-lg); line-height: 1; }
-.wrc-label { letter-spacing: -0.2px; }
+/* ═══════════════════════════════════════════════════════════════
+   NEAR ME FLOATING ACTION BUTTONS — unified indigo theme
+   Radius / Set Route / Exit + Lasso Clear
+   ═══════════════════════════════════════════════════════════════ */
 
-#set-route-fab {
+/* Shared base */
+#walk-radius-ctrl-btn,
+#set-route-fab,
+#walk-exit-btn,
+#lasso-clear-btn {
   position: fixed;
-  bottom: 148px; left: 50%; transform: translateX(-50%);
-  z-index: 2500;
-  display: none; align-items: center; gap: 6px;
-  padding: var(--sp-4) var(--sp-9);
-  background: rgba(255,255,255,0.95);
-  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
-  color: #b91c8a; border: 1.5px solid #f9a8d4; border-radius: var(--radius-xl);
+  left: 50%; transform: translateX(-50%);
+  z-index: 2490;
+  display: none; align-items: center; gap: 7px;
+  padding: 10px 22px;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  color: var(--primary-dark);
+  border: 1.5px solid #C7D2FE;
+  border-radius: 20px;
   font-size: var(--fs-md); font-weight: 600; font-family: Inter, sans-serif;
-  box-shadow: 0 3px 14px rgba(217,70,168,0.18);
+  box-shadow: 0 3px 14px rgba(79,70,229,0.16);
   cursor: pointer; white-space: nowrap;
   -webkit-tap-highlight-color: transparent;
   transition: background var(--dur-fast), box-shadow var(--dur-fast);
+}
+#walk-radius-ctrl-btn:active,
+#walk-exit-btn:active,
+#lasso-clear-btn:active {
+  background: #EEF2FF;
+  box-shadow: 0 1px 6px rgba(79,70,229,0.10);
+}
+
+/* Positions */
+#walk-radius-ctrl-btn { bottom: 148px; }
+#set-route-fab        { bottom: 148px; z-index: 2500; }
+#walk-exit-btn        { bottom: 105px; }
+#lasso-clear-btn      { bottom: 105px; }
+
+/* Set Route — accent: filled indigo */
+#set-route-fab {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+  box-shadow: 0 3px 16px rgba(79,70,229,0.30);
 }
 #set-route-fab:active {
-  background: #fdf2f8;
-  box-shadow: 0 1px 6px rgba(217,70,168,0.12);
+  background: var(--primary-dark);
+  box-shadow: 0 1px 8px rgba(79,70,229,0.18);
   transform: translateX(-50%);
 }
-.srf-icon { font-size: var(--fs-lg); line-height: 1; }
-.srf-label { letter-spacing: -0.2px; }
 
-#walk-exit-btn {
-  position: fixed;
-  bottom: 112px; left: 50%; transform: translateX(-50%);
-  z-index: 2490;
-  display: none; align-items: center; gap: 5px;
-  padding: var(--sp-3) var(--sp-7);
-  background: rgba(255,255,255,0.50);
-  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
-  color: #888; border: 1px solid #ddd; border-radius: var(--radius-lg);
-  font-size: var(--fs-sm); font-weight: 600; font-family: Inter, sans-serif;
-  box-shadow: var(--shadow-xs);
-  cursor: pointer; white-space: nowrap;
-  -webkit-tap-highlight-color: transparent;
-  transition: background var(--dur-fast);
-}
-#walk-exit-btn:active { background: #f0f0f0; }
-.wex-label { letter-spacing: -0.1px; }
+.wrc-label, .srf-label, .wex-label { letter-spacing: -0.2px; }
 
-/* Desktop: Near Me FABs — side by side at bottom center, no bottom nav offset */
+/* Desktop: side by side at bottom center */
 @media (min-width: 901px) {
   #set-route-fab {
     bottom: 32px;
-    left: 50%;
-    transform: translateX(calc(-100% - 6px));  /* left of center */
+    transform: translateX(calc(-100% - 6px));
   }
   #set-route-fab:active { transform: translateX(calc(-100% - 6px)); }
   #walk-exit-btn {
     bottom: 32px;
-    left: 50%;
-    transform: translateX(6px);  /* right of center */
+    transform: translateX(6px);
   }
+  #walk-radius-ctrl-btn { bottom: 32px; }
+  #lasso-clear-btn      { bottom: 32px; }
 }
+
+/* ── Lasso instruction banner ── */
+#lasso-banner {
+  position: fixed;
+  top: 72px; left: 50%; transform: translateX(-50%);
+  z-index: 3100;
+  display: none; align-items: center; gap: 14px;
+  padding: 9px 16px 9px 20px;
+  background: rgba(22,22,26,0.88);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  color: #f0f0f0;
+  border-radius: 20px;
+  font-size: var(--fs-sm); font-weight: 500;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.30);
+  white-space: nowrap; pointer-events: auto;
+}
+.lasso-banner-cancel {
+  background: rgba(255,255,255,0.14);
+  border: 1px solid rgba(255,255,255,0.22);
+  color: #f0f0f0;
+  border-radius: 12px;
+  padding: 3px 12px;
+  font-size: var(--fs-sm); font-weight: 600;
+  cursor: pointer; font-family: Inter, sans-serif;
+  transition: background 0.12s;
+}
+.lasso-banner-cancel:hover { background: rgba(255,255,255,0.22); }
 
 /* ═══════════════════════════════════════════════════════════════
    ROUTE CUSTOM POPUP — photo / SV thumbnail

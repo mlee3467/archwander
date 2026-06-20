@@ -51,7 +51,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
-  <link rel="stylesheet" href="css/styles.css?v=20260621o">
+  <link rel="stylesheet" href="css/styles.css?v=20260621p">
 </head>
 <body>
 
@@ -413,6 +413,10 @@
     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" style="flex-shrink:0"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
     Drop Pin
   </button>
+  <button class="walk-loc-btn" id="walk-lasso-btn" onclick="toggleLassoMode()" title="Draw polygon to filter locations">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" style="flex-shrink:0"><polygon points="12,3 21,8 18,19 6,19 3,8"/></svg>
+    Lasso
+  </button>
   <button class="walk-loc-btn walk-route-btn" id="walk-route-btn" onclick="openRoutePanel()" title="Plan route within walk radius" style="display:none">
     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" style="flex-shrink:0"><path d="M3 17l6-6 4 4 8-8"/><path d="M17 7h4v4"/></svg>
     Route
@@ -706,21 +710,33 @@
 
 <!-- Floating "Set Route" FAB — mobile only, shown when Near Me + origin set -->
 <button id="set-route-fab" onclick="_setRouteFabTap()" style="display:none">
-  
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" style="flex-shrink:0"><path d="M3 17l6-6 4 4 8-8"/><path d="M17 7h4v4"/></svg>
   <span class="srf-label">Set Route</span>
 </button>
 
 <!-- Exit Near Me button — appears below Set Route FAB -->
 <button id="walk-exit-btn" onclick="toggleNearMe()" style="display:none">
-  <span>✕</span>
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="flex-shrink:0"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
   <span class="wex-label">Exit</span>
 </button>
 
 <!-- Radius control button — appears below Set Route FAB after walk-float is dismissed -->
 <button id="walk-radius-ctrl-btn" onclick="_reopenWalkFloat()" style="display:none" title="Adjust walking radius">
-  <span class="wrc-icon">🚶</span>
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" style="flex-shrink:0"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg>
   <span class="wrc-label">Radius</span>
 </button>
+
+<!-- Lasso filter clear button — shown when polygon is active -->
+<button id="lasso-clear-btn" onclick="exitLassoMode()" style="display:none">
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" style="flex-shrink:0"><polygon points="12,3 21,8 18,19 6,19 3,8"/></svg>
+  <span>Clear Lasso</span>
+</button>
+
+<!-- Lasso drawing instruction banner -->
+<div id="lasso-banner" style="display:none">
+  <span id="lasso-banner-text">Click to add points · Double-click to finish</span>
+  <button class="lasso-banner-cancel" onclick="exitLassoMode()">Cancel</button>
+</div>
 
 <div id="panel-backdrop" onclick="closePanel()"></div>
 
@@ -930,16 +946,16 @@
 <script src="js/search-index.js?v=20260609"></script>
 <script src="js/config.js?v=20260621"></script>
 <script src="js/i18n.js?v=20260621i"></script>
-<script src="js/map.js?v=20260621c"></script>
+<script src="js/map.js?v=20260621d"></script>
 <script src="js/filters.js?v=20260618"></script>
-<script src="js/core.js?v=20260621n"></script>
+<script src="js/core.js?v=20260621o"></script>
 <script src="js/glossary.js?v=20260609"></script>
 <script src="js/badges.js?v=20260609"></script>
 <!-- js/compare.js kept in repo for future use; not loaded -->
 <script src="js/influence.js?v=20260609"></script>
 <!-- js/audio.js kept in repo for future use; not loaded -->
 <script src="js/ui.js?v=20260621c"></script>
-<script src="js/walk.js?v=20260618"></script>
+<script src="js/walk.js?v=20260621a"></script>
 <script src="js/city.js?v=20260621d"></script>
 <script src="js/route.js?v=20260621"></script>
 <script src="js/share.js?v=20260609"></script>

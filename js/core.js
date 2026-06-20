@@ -114,6 +114,10 @@ function getFiltered(opts) {
     const maxDist = (typeof _getWalkRadiusM === 'function') ? _getWalkRadiusM() : 2000;
     list = list.filter(l => haversineM(walkOrigin.lat, walkOrigin.lng, l.lat, l.lng) <= maxDist);
   }
+  // Lasso polygon filter
+  if (typeof lassoPolygon !== 'undefined' && lassoPolygon && lassoPolygon.length >= 3) {
+    list = list.filter(l => _pointInLassoPolygon(l.lat, l.lng));
+  }
   // Sort — default is oldest-first (year-asc)
   if (state.sort === 'default' || state.sort === 'year-asc')  list = [...list].sort((a,b) => (a.yr||9999) - (b.yr||9999));
   if (state.sort === 'year-desc') list = [...list].sort((a,b) => (b.yr||0) - (a.yr||0));

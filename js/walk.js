@@ -182,6 +182,8 @@ function _fullDeactivate() {
   if (userMarker)    { userMarker.remove();    userMarker    = null; }
   if (pinDropMarker) { pinDropMarker.remove(); pinDropMarker = null; }
   _clearWalkOverlay();
+  // Also clear lasso silently (render happens at end)
+  if (lassoActive || lassoDrawing) _lassoHardClear();
   var wb = document.getElementById('walk-bar');
   if (wb) { wb.classList.remove('visible'); wb.style.height = '0'; wb.style.overflow = 'hidden'; }
   var wrf = document.getElementById('walk-radius-float');
@@ -701,3 +703,186 @@ window.addEventListener('resize', function() { setTimeout(_syncSidebarTop, 100);
 window.addEventListener('orientationchange', function() { setTimeout(_syncSidebarTop, 300); });
 
 // ══════════════════════════════════════════════════════════════════
+// LASSO POLYGON FILTER
+// ══════════════════════════════════════════════════════════════════
+var lassoActive   = false;
+var lassoDrawing  = false;
+var lassoPoints   = [];     // [[lat,lng],...] accumulated during drawing
+var lassoPolygon  = null;   // finalized [[lat,lng],...] used for filtering
+var _lassoLayer   = null;   // Leaflet polygon layer (finalized polygon)
+var _lassoPreview = null;   // Leaflet polyline (in-progress preview)
+
+// ── Public entry: toggle lasso mode on/off ─────────────────────
+function toggleLassoMode() {
+  if (lassoActive || lassoDrawing) {
+    exitLassoMode();
+  } else {
+    _startLasso();
+  }
+}
+
+// ── Start drawing a new polygon ───────────────────────────────
+function _startLasso() {
+  // Deactivate Near Me walk filter if running
+  if (nearMeActive || walkActive) {
+    nearMeActive = false;
+    walkActive   = false;
+    walkOrigin   = null;
+    var wb = document.getElementById('walk-bar');
+    if (wb) { wb.classList.remove('visible'); wb.style.height='0'; wb.style.overflow='hidden'; }
+    var wrf = document.getElementById('walk-radius-float');
+    if (wrf) wrf.classList.remove('visible');
+    var wctrl = document.getElementById('walk-radius-ctrl-btn');
+    if (wctrl) wctrl.style.display = 'none';
+    _clearWalkOverlay();
+    _updateSetRouteFab();
+    var nearBtn = document.getElementById('near-me-btn');
+    if (nearBtn) nearBtn.classList.remove('active');
+  }
+
+  lassoActive  = true;
+  lassoDrawing = true;
+  lassoPoints  = [];
+
+  // SBA active state
+  var sbaLoc = document.getElementById('sba-loc');
+  if (sbaLoc) sbaLoc.classList.add('sba-active');
+
+  // Lasso button active
+  var lBtn = document.getElementById('walk-lasso-btn');
+  if (lBtn) lBtn.classList.add('active');
+
+  // Show instruction banner
+  var banner = document.getElementById('lasso-banner');
+  if (banner) banner.style.display = 'flex';
+
+  // Crosshair cursor
+  if (window.map) map.getContainer().style.cursor = 'crosshair';
+
+  // Disable double-click zoom during drawing
+  if (window.map) map.doubleClickZoom.disable();
+
+  // Bind map events
+  if (window.map) {
+    map.on('click', _lassoOnClick);
+    map.on('dblclick', _lassoOnDblClick);
+  }
+
+  // ESC key → cancel
+  document._lassoEscFn = function(e) { if (e.key === 'Escape') exitLassoMode(); };
+  document.addEventListener('keydown', document._lassoEscFn);
+}
+
+// ── Map click: add a vertex ───────────────────────────────────
+function _lassoOnClick(e) {
+  if (!lassoDrawing) return;
+  lassoPoints.push([e.latlng.lat, e.latlng.lng]);
+
+  // Redraw preview polyline (closed loop to hint at the shape)
+  if (_lassoPreview) { map.removeLayer(_lassoPreview); _lassoPreview = null; }
+  if (lassoPoints.length >= 2) {
+    var pts = lassoPoints.concat([lassoPoints[0]]); // visually close the loop
+    _lassoPreview = L.polyline(pts, {
+      color: '#4F46E5', weight: 2, dashArray: '6 4', opacity: 0.85
+    }).addTo(map);
+  }
+}
+
+// ── Double-click: finish polygon ──────────────────────────────
+function _lassoOnDblClick(e) {
+  if (!lassoDrawing) return;
+  L.DomEvent.stop(e); // prevent map zoom
+  if (lassoPoints.length >= 3) {
+    _lassoFinalize();
+  } else {
+    // Not enough points — cancel
+    exitLassoMode();
+  }
+}
+
+// ── Finalize: draw solid polygon + apply filter ───────────────
+function _lassoFinalize() {
+  if (!lassoDrawing || lassoPoints.length < 3) return;
+
+  // Stop drawing mode
+  if (window.map) {
+    map.off('click', _lassoOnClick);
+    map.off('dblclick', _lassoOnDblClick);
+    map.doubleClickZoom.enable();
+    map.getContainer().style.cursor = '';
+  }
+
+  lassoDrawing = false;
+  lassoPolygon = lassoPoints.slice();
+
+  // Replace preview with solid polygon
+  if (_lassoPreview) { map.removeLayer(_lassoPreview); _lassoPreview = null; }
+  if (window.map) {
+    _lassoLayer = L.polygon(lassoPolygon, {
+      color: '#4F46E5', weight: 2,
+      fillColor: '#4F46E5', fillOpacity: 0.07
+    }).addTo(map);
+  }
+
+  // Banner off, clear button on
+  var banner = document.getElementById('lasso-banner');
+  if (banner) banner.style.display = 'none';
+  var clearBtn = document.getElementById('lasso-clear-btn');
+  if (clearBtn) clearBtn.style.display = 'flex';
+
+  // Apply filter
+  if (typeof renderList  === 'function') renderList();
+  if (typeof syncMarkers === 'function') syncMarkers();
+}
+
+// ── Hard-clear: internal, no re-render (called from _fullDeactivate) ─
+function _lassoHardClear() {
+  if (window.map) {
+    map.off('click', _lassoOnClick);
+    map.off('dblclick', _lassoOnDblClick);
+    map.doubleClickZoom.enable();
+    map.getContainer().style.cursor = '';
+  }
+  if (document._lassoEscFn) {
+    document.removeEventListener('keydown', document._lassoEscFn);
+    document._lassoEscFn = null;
+  }
+  lassoActive  = false;
+  lassoDrawing = false;
+  lassoPoints  = [];
+  lassoPolygon = null;
+  if (_lassoPreview) { try { map.removeLayer(_lassoPreview); } catch(e){} _lassoPreview = null; }
+  if (_lassoLayer)   { try { map.removeLayer(_lassoLayer);   } catch(e){} _lassoLayer   = null; }
+  var banner = document.getElementById('lasso-banner');
+  if (banner) banner.style.display = 'none';
+  var clearBtn = document.getElementById('lasso-clear-btn');
+  if (clearBtn) clearBtn.style.display = 'none';
+  var sbaLoc = document.getElementById('sba-loc');
+  if (sbaLoc) sbaLoc.classList.remove('sba-active');
+  var lBtn = document.getElementById('walk-lasso-btn');
+  if (lBtn) lBtn.classList.remove('active');
+}
+
+// ── Public exit: clear lasso + re-render ─────────────────────
+function exitLassoMode() {
+  _lassoHardClear();
+  if (typeof renderList  === 'function') renderList();
+  if (typeof syncMarkers === 'function') syncMarkers();
+}
+
+// ── Point-in-polygon: ray casting algorithm ───────────────────
+// lassoPolygon = [[lat0,lng0],[lat1,lng1],...]
+function _pointInLassoPolygon(lat, lng) {
+  if (!lassoPolygon || lassoPolygon.length < 3) return false;
+  var inside = false;
+  var n = lassoPolygon.length;
+  for (var i = 0, j = n - 1; i < n; j = i++) {
+    var lat_i = lassoPolygon[i][0], lng_i = lassoPolygon[i][1];
+    var lat_j = lassoPolygon[j][0], lng_j = lassoPolygon[j][1];
+    // Horizontal ray from point (lng, lat) going east
+    var intersect = ((lat_i > lat) !== (lat_j > lat)) &&
+      (lng < (lng_j - lng_i) * (lat - lat_i) / (lat_j - lat_i) + lng_i);
+    if (intersect) inside = !inside;
+  }
+  return inside;
+}
