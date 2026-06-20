@@ -111,9 +111,11 @@
     }
     [data-theme="dark"] body { background-color: #141414; }
     [data-theme="dark"] header { background-color: #1e1e1e; border-color: #2e2e2e; }
-    [data-theme="dark"] .sidebar { background-color: #1e1e1e; border-color: #2e2e2e; }
+    [data-theme="dark"] .sidebar { background: #252525; border-color: #2e2e2e; }
     [data-theme="dark"] .sb-city-row { background: #1e1e1e; border-color: #2e2e2e; }
-    [data-theme="dark"] .sb-filter-toggle { background: #1e1e1e; color: #f0f0ee; border-color: #2e2e2e; }
+    [data-theme="dark"] .sb-top { background: #252525; }
+    [data-theme="dark"] .sb-actions { background: #252525; }
+    [data-theme="dark"] .sb-filter-toggle { background: #252525; color: #f0f0ee; border-color: #2e2e2e; }
     [data-theme="dark"] .sb-filters { background: #1e1e1e; border-color: #2e2e2e; }
     [data-theme="dark"] .fsec-hdr { color: #f0f0ee; border-color: #2e2e2e; }
     [data-theme="dark"] .fsec-body { background: #1e1e1e; }
@@ -5594,6 +5596,32 @@
 .link-icon-pint  { background: #E60023; font-size: 26px; font-family: 'Georgia', serif; }
 .link-icon-earth { background: #1A73E8; font-size: 26px; }
 .link-icon-dezeen{ background: #111; font-size: 16px; letter-spacing: -0.3px; font-family: var(--font-mono, 'Space Mono', monospace); }
+
+/* ══ Overview — Wikipedia representative image ═══════════════════ */
+.wiki-thumb-block {
+  margin: 0 0 14px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.wiki-thumb-link {
+  display: block;
+  text-decoration: none;
+}
+.wiki-thumb-img {
+  width: 100%; height: auto;
+  max-height: 180px;
+  object-fit: cover;
+  display: block;
+}
+.wiki-thumb-attr {
+  padding: 5px 10px;
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+  background: var(--surface);
+  text-align: right;
+  border-top: 1px solid var(--border);
+}
 
 /* ══ Overview — inline Wikipedia/ArchDaily links ═════════════════ */
 .overview-ext-links {

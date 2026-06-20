@@ -710,6 +710,7 @@ function openLoc(loc) {
   `;
 
   document.getElementById('pane-overview').innerHTML = buildOverviewTab(loc, {});
+  _fetchWikiThumb(loc);  // async: load Wikipedia representative image
   document.getElementById('pane-visit').innerHTML    = buildVisitTab(loc, {});
   document.getElementById('pane-reviews').innerHTML  = buildReviewsTab(loc);
   document.getElementById('pane-links').innerHTML    = buildLinksTab(loc);
@@ -761,6 +762,7 @@ function buildOverviewTab(loc, trans = {}) {
       <a class="ovext-link ovext-wiki" href="${wikiHref}" target="_blank" rel="noopener noreferrer">W&nbsp;Wikipedia</a>
       <a class="ovext-link ovext-arch" href="${archHref}" target="_blank" rel="noopener noreferrer">AD&nbsp;ArchDaily</a>
     </div>
+    <div class="wiki-thumb-block" id="wiki-thumb-block" style="display:none"></div>
     <div class="info-row"><span class="info-label">${t('neighborhood')}</span><span class="info-val">${_displayHood(loc, trans.hood)}</span></div>
     <div class="info-row"><span class="info-label">${t('address')}</span><span class="info-val">${_displayAddr(loc, trans.addr)}</span></div>
     <div class="info-row"><span class="info-label">${t('arch_label')}</span><span class="info-val">${_buildArchLinks(loc)}</span></div>
@@ -934,6 +936,38 @@ function _buildStyleLinks(loc) {
   return styles.map(function(s) {
     return '<button class="style-glossary-btn" onclick="if(typeof openStyleGlossary===\'function\')openStyleGlossary(\'' + s.replace(/'/g, "\\'") + '\')">' + s + '</button>';
   }).join(' ');
+}
+
+// ── Wikipedia representative image for Overview tab ──────────────
+function _fetchWikiThumb(loc) {
+  var block = document.getElementById('wiki-thumb-block');
+  if (!block) return;
+  var wikiName = encodeURIComponent((loc.name || '').replace(/ /g, '_'));
+  // If a stored wiki URL exists, extract the article title from it for the API call
+  var lookupName = loc.wiki
+    ? decodeURIComponent(loc.wiki.split('/wiki/').pop() || wikiName)
+    : (loc.name || '');
+  var apiName = encodeURIComponent(lookupName.replace(/ /g, '_'));
+  fetch('https://en.wikipedia.org/api/rest_v1/page/summary/' + apiName)
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(data) {
+      var b = document.getElementById('wiki-thumb-block');
+      if (!b) return;
+      if (!data || !data.thumbnail || data.type === 'disambiguation') return;
+      var pageUrl = (data.content_urls && data.content_urls.desktop)
+        ? data.content_urls.desktop.page
+        : 'https://en.wikipedia.org/wiki/' + apiName;
+      // Also update the Wikipedia pill href to the direct article
+      var wikiPill = document.querySelector('#pane-overview .ovext-wiki');
+      if (wikiPill) wikiPill.href = pageUrl;
+      b.innerHTML =
+        '<a class="wiki-thumb-link" href="' + pageUrl + '" target="_blank" rel="noopener noreferrer">'
+          + '<img class="wiki-thumb-img" src="' + data.thumbnail.source + '" alt="' + (loc.name || '') + '" loading="lazy">'
+          + '<div class="wiki-thumb-attr">📖 Wikipedia ↗</div>'
+        + '</a>';
+      b.style.display = 'block';
+    })
+    .catch(function() {});
 }
 
 // ── Wikipedia bio fetch for architect profiles ────────────────────

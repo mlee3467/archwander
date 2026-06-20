@@ -161,6 +161,7 @@ function applyLang() {
   // Re-apply panel
   if (activeLoc) {
     document.getElementById('pane-overview').innerHTML = buildOverviewTab(activeLoc, {});
+    if (typeof _fetchWikiThumb === 'function') _fetchWikiThumb(activeLoc);
     document.getElementById('pane-visit').innerHTML    = buildVisitTab(activeLoc, {});
     document.getElementById('pane-reviews').innerHTML  = buildReviewsTab(activeLoc);
     document.getElementById('pane-links').innerHTML    = buildLinksTab(activeLoc);
