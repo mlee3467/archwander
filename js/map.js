@@ -66,10 +66,10 @@ function _makeStreetLayer() {
         subdomains: 'abc', maxZoom: 19 }
     );
   }
-  // Default: CartoDB Dark Matter (dark mode) / CartoDB Voyager (light mode)
+  // Default: CartoDB Positron (dark mode) / CartoDB Voyager (light mode)
   if (isDark) {
-    if (mapEl) mapEl.classList.add('map-native-dark');  // skip CSS invert filter
-    return L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}{r}.png', {
+    if (mapEl) mapEl.classList.remove('map-native-dark');
+    return L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
       attribution: '© <a href="https://openstreetmap.org">OpenStreetMap</a> contributors © <a href="https://carto.com/attributions">CARTO</a>',
       subdomains: 'abcd', maxZoom: 19
     });
