@@ -3,20 +3,6 @@
 function switchTab(id) {
   document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === id));
   document.querySelectorAll('.tab-pane').forEach(p => p.classList.toggle('active', p.id === 'pane-' + id));
-  if (id === 'audio' && activeLoc) loadAudioGuideTab(activeLoc);
-  // Desktop: auto-show walking route when switching to Directions tab during Near Me
-  if (id === 'here' && activeLoc && nearMeActive && walkOrigin && window.innerWidth > 900) {
-    triggerWalkingRoute();
-  }
-  // Clear route when leaving Directions tab
-  if (id !== 'here' && walkRouteLine) _clearWalkRoute();
-  // Stop audio when leaving audio tab
-  if (id !== 'audio') agStop();
-  // Hide photo gallery when Audio tab is active on mobile — more space for script
-  const gallery = document.getElementById('gallery');
-  if (gallery) {
-    gallery.style.display = (id === 'audio' && window.innerWidth <= 900) ? 'none' : '';
-  }
 }
 
 // ══════════════════════════════════════════════════════════════════
@@ -457,6 +443,9 @@ function buildReviewsTab(loc) {
       <button class="review-submit" onclick="submitReview('${loc.id}')">Submit Review</button>
     </div>
     <div id="reviews-list-${loc.id}">${renderReviewList(localReviews)}</div>
+    <div class="review-report-row">
+      <button class="review-report-btn" onclick="openReportModal()">🚩 Report an issue with this location</button>
+    </div>
   `;
 
   // 2) 렌더 직후 Supabase에서 전체 리뷰 비동기 로드 (다른 디바이스 리뷰 포함)

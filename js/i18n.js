@@ -125,7 +125,7 @@ function applyLang() {
     [...sortSel.options].forEach((opt, i) => { if (keys[i]) opt.textContent = t(keys[i]); });
   }
   // Panel tabs
-  const tabMap = { overview:'tab_overview', visit:'tab_visit', here:'tab_here', audio:'tab_audio', reviews:'tab_reviews', links:'tab_links' };
+  const tabMap = { overview:'tab_overview', visit:'tab_visit', reviews:'tab_reviews', links:'tab_links' };
   Object.entries(tabMap).forEach(([tab, key]) => {
     const el = document.querySelector(`.tab[data-tab="${tab}"]`);
     if (el) el.textContent = t(key);
@@ -162,9 +162,7 @@ function applyLang() {
   if (activeLoc) {
     document.getElementById('pane-overview').innerHTML = buildOverviewTab(activeLoc, {});
     document.getElementById('pane-visit').innerHTML    = buildVisitTab(activeLoc, {});
-    document.getElementById('pane-here').innerHTML     = buildDirectionsTab(activeLoc, {});
-    document.getElementById('pane-audio').innerHTML = buildAudioGuideShell();
-    _agLoaded = null;
-    document.getElementById('pane-links').innerHTML = buildLinksTab(activeLoc);
+    document.getElementById('pane-reviews').innerHTML  = buildReviewsTab(activeLoc);
+    document.getElementById('pane-links').innerHTML    = buildLinksTab(activeLoc);
   }
 }

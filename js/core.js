@@ -711,8 +711,6 @@ function openLoc(loc) {
 
   document.getElementById('pane-overview').innerHTML = buildOverviewTab(loc, {});
   document.getElementById('pane-visit').innerHTML    = buildVisitTab(loc, {});
-  document.getElementById('pane-here').innerHTML     = buildDirectionsTab(loc, {});
-  document.getElementById('pane-audio').innerHTML   = buildAudioGuideShell();
   document.getElementById('pane-reviews').innerHTML  = buildReviewsTab(loc);
   document.getElementById('pane-links').innerHTML    = buildLinksTab(loc);
 
@@ -731,8 +729,6 @@ function openLoc(loc) {
 }
 
 function closePanel() {
-  if (typeof agStop === 'function') agStop();
-  _agLoaded = null; // reset so audio tab reloads when re-opening same location
   _clearWalkRoute();
   var _panelEl = document.getElementById('panel');
   _panelEl.classList.remove('open');
@@ -755,7 +751,9 @@ function closePanel() {
 // TAB BUILDERS
 // ══════════════════════════════════════════════════════════════════
 function buildOverviewTab(loc, trans = {}) {
-  const desc = trans.desc || loc.desc;
+  const desc     = trans.desc     || loc.desc;
+  const transit  = trans.transit  || loc.transit;
+  const walkFrom = trans.walkFrom || loc.walkFrom;
   return `
     <p class="desc">${desc}</p>
     <div class="info-row"><span class="info-label">${t('neighborhood')}</span><span class="info-val">${_displayHood(loc, trans.hood)}</span></div>
@@ -764,6 +762,8 @@ function buildOverviewTab(loc, trans = {}) {
     <div class="info-row"><span class="info-label">${t('completed')}</span><span class="info-val">${loc.yr}</span></div>
     <div class="info-row"><span class="info-label">${t('style_label')}</span><span class="info-val">${_buildStyleLinks(loc)}</span></div>
     ${loc.access ? `<div class="info-row"><span class="info-label">${t('access_label')}</span><span class="info-val"><span class="access-badge ${ACCESS_META[loc.access]?.cls||''}">${ACCESS_META[loc.access]?.icon||''} ${loc.access}</span></span></div>` : ''}
+    ${transit  ? `<div class="info-row"><span class="info-label">${t('subway')}</span><span class="info-val">${transit}</span></div>`   : ''}
+    ${walkFrom ? `<div class="info-row"><span class="info-label">${t('nearby')}</span><span class="info-val">${walkFrom}</span></div>` : ''}
   `;
 }
 

@@ -805,16 +805,7 @@
       text-align: center; text-decoration: none; transition: opacity 0.15s;
     }
     .btn-p:hover { opacity: 0.82; }
-    .btn-walk-route {
-      display: flex; align-items: center; justify-content: center; gap: 6px;
-      width: 100%; padding: 11px; margin-top: 12px;
-      background: #EEF2FF; color: var(--primary-dark);
-      border: 1px solid #C7D2FE; border-radius: var(--radius-md);
-      font-size: var(--fs-base); font-weight: 600; font-family: inherit; cursor: pointer;
-      transition: all var(--dur-base);
-    }
-    .btn-walk-route:hover { background: #E0E7FF; border-color: #A5B4FC; }
-    .btn-s {
+.btn-s {
       display: block; width: 100%; padding: 11px;
       background: transparent; color: #111;
       border: 1px solid var(--border); border-radius: var(--radius-md);
@@ -1205,15 +1196,24 @@
       background: #111; color: white; padding: 1px 7px; border-radius: var(--radius-md); margin-left: 6px;
     }
 
-    /* Report tab button — sits inline right after Reviews tab */
-    .tab-report-btn {
-      padding: var(--sp-5) var(--sp-3); margin-left: 2px;
-      font-size: var(--fs-sm); cursor: pointer; color: var(--text-secondary);
-      background: none; border: none; border-bottom: 2px solid transparent;
-      font-family: inherit; white-space: nowrap; flex-shrink: 0;
-      transition: color var(--dur-base); opacity: 0.65;
+    /* Report button — inside Reviews tab */
+    .review-report-row {
+      border-top: 1px solid var(--border);
+      margin-top: 20px;
+      padding-top: 12px;
     }
-    .tab-report-btn:hover { color: #EF4444; opacity: 1; }
+    .review-report-btn {
+      width: 100%; padding: 9px 12px;
+      background: none;
+      border: 1px solid var(--border); border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      font-size: var(--fs-sm); font-family: inherit;
+      cursor: pointer; text-align: center;
+      transition: background 0.12s, color 0.12s, border-color 0.12s;
+    }
+    .review-report-btn:hover {
+      background: #FFF1F2; color: #BE185D; border-color: #fecdd3;
+    }
 
     /* Report modal */
     .report-modal-overlay {
@@ -1618,7 +1618,6 @@
       .header-row1, .header-row2 { gap: 4px; }
       .tabs { padding: 0; gap: 0; overflow: hidden; }
       .tabs .tab { padding: 8px 3px; font-size: var(--fs-sm); }
-      .tab-report-btn { padding: 8px 5px; font-size: var(--fs-sm); }
       .panel { top: 33vh; height: auto; }
       .gallery { height: 180px; }
       .detail-section { padding: 14px 14px; }

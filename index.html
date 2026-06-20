@@ -51,7 +51,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
-  <link rel="stylesheet" href="css/styles.css?v=20260621d">
+  <link rel="stylesheet" href="css/styles.css?v=20260621e">
 </head>
 <body>
 
@@ -755,16 +755,11 @@
       <div class="tabs">
         <div class="tab active" data-tab="overview" onclick="switchTab('overview')">Overview</div>
         <div class="tab" data-tab="visit" onclick="switchTab('visit')">Visit</div>
-        <div class="tab" data-tab="here" onclick="switchTab('here')">Directions</div>
-        <div class="tab" data-tab="audio" onclick="switchTab('audio')">Audio</div>
         <div class="tab" data-tab="reviews" onclick="switchTab('reviews')">Reviews</div>
         <div class="tab" data-tab="links" onclick="switchTab('links')">Links</div>
-        <button class="tab-report-btn" onclick="openReportModal()" id="tab-report-btn" title="Report incorrect information">🚩 Report</button>
       </div>
       <div class="tab-pane active" id="pane-overview"></div>
       <div class="tab-pane" id="pane-visit"></div>
-      <div class="tab-pane" id="pane-here"></div>
-      <div class="tab-pane" id="pane-audio"></div>
       <div class="tab-pane" id="pane-reviews"></div>
       <div class="tab-pane" id="pane-links"></div>
     </div>
@@ -939,16 +934,16 @@
 
 <script src="js/search-index.js?v=20260609"></script>
 <script src="js/config.js?v=20260621"></script>
-<script src="js/i18n.js?v=20260621d"></script>
+<script src="js/i18n.js?v=20260621e"></script>
 <script src="js/map.js?v=20260609"></script>
 <script src="js/filters.js?v=20260618"></script>
-<script src="js/core.js?v=20260621d"></script>
+<script src="js/core.js?v=20260621e"></script>
 <script src="js/glossary.js?v=20260609"></script>
 <script src="js/badges.js?v=20260609"></script>
 <script src="js/compare.js?v=20260609"></script>
 <script src="js/influence.js?v=20260609"></script>
-<script src="js/audio.js?v=20260609"></script>
-<script src="js/ui.js?v=20260618"></script>
+<!-- js/audio.js kept in repo for future use; not loaded -->
+<script src="js/ui.js?v=20260621a"></script>
 <script src="js/walk.js?v=20260618"></script>
 <script src="js/city.js?v=20260618"></script>
 <script src="js/route.js?v=20260621"></script>
