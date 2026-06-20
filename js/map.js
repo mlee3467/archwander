@@ -66,7 +66,14 @@ function _makeStreetLayer() {
         subdomains: 'abc', maxZoom: 19 }
     );
   }
-  // Default: CartoDB Voyager (always light tiles; dark mode handled by CSS invert filter)
+  // Default: Stadia Alidade Smooth Dark (dark mode) / CartoDB Voyager (light mode)
+  if (isDark) {
+    if (mapEl) mapEl.classList.add('map-native-dark');  // skip CSS invert filter
+    return L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
+      attribution: '© <a href="https://stadiamaps.com/">Stadia Maps</a> © <a href="https://openmaptiles.org/">OpenMapTiles</a> © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
+      maxZoom: 20
+    });
+  }
   if (mapEl) mapEl.classList.remove('map-native-dark');
   return L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
     attribution: '© <a href="https://openstreetmap.org">OpenStreetMap</a> contributors © <a href="https://carto.com/attributions">CARTO</a>',

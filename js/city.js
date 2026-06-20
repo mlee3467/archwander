@@ -876,6 +876,14 @@ function _refreshCityDataBackground(cityCode, meta, cacheKey) {
       console.log('[cache] Background refresh: +' + added + ' new, ~' + updated + ' updated for', meta.key);
       if (added > 0 && typeof refreshApp === 'function') refreshApp();
     }
+    // If the currently open detail panel belongs to this city, re-render overview+links
+    // so wiki/archdaily/web buttons appear immediately after cache is refreshed.
+    if (typeof activeLoc !== 'undefined' && activeLoc && idxMap[activeLoc.id] !== undefined) {
+      var op = document.getElementById('pane-overview');
+      var lp = document.getElementById('pane-links');
+      if (op && typeof buildOverviewTab === 'function') op.innerHTML = buildOverviewTab(activeLoc, {});
+      if (lp && typeof buildLinksTab   === 'function') lp.innerHTML = buildLinksTab(activeLoc);
+    }
   }).catch(function() {});
 }
 

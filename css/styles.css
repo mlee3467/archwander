@@ -176,10 +176,8 @@
     [data-theme="dark"] .pilot-badge { background: rgba(30,30,30,0.8); color: #f0f0ee; }
     [data-theme="dark"] .logo-img { filter: invert(1) brightness(0.9); }
     /* Dark map: CSS invert on Voyager tiles for readable dark-mode map.
-       Skipped when MapTiler native dark style is loaded (.map-native-dark). */
-    [data-theme="dark"] #map:not(.map-native-dark) .leaflet-tile-pane {
-      filter: invert(1) hue-rotate(180deg) brightness(0.9) contrast(0.88) saturate(0.85);
-    }
+       Skipped when MapTiler/Stadia native dark style is loaded (.map-native-dark). */
+    /* CSS invert removed — dark mode now uses Stadia Alidade Smooth Dark tiles natively */
     /* Dark mode neighborhood/arch filter items + chips */
     [data-theme="dark"] .hood-item,
     [data-theme="dark"] .arch-item { color: #d0d0ce; }
