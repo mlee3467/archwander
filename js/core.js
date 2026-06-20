@@ -751,19 +751,22 @@ function closePanel() {
 // TAB BUILDERS
 // ══════════════════════════════════════════════════════════════════
 function buildOverviewTab(loc, trans = {}) {
-  const desc     = trans.desc     || loc.desc;
-  const transit  = trans.transit  || loc.transit;
-  const walkFrom = trans.walkFrom || loc.walkFrom;
+  const desc    = trans.desc || loc.desc;
+  const nameEnc = encodeURIComponent(loc.name || '');
+  const wikiHref = loc.wiki      || 'https://en.wikipedia.org/w/index.php?search=' + nameEnc;
+  const archHref = loc.archdaily || 'https://www.archdaily.com/search/projects?q=' + nameEnc;
   return `
     <p class="desc">${desc}</p>
+    <div class="overview-ext-links">
+      <a class="ovext-link ovext-wiki" href="${wikiHref}" target="_blank" rel="noopener noreferrer">W&nbsp;Wikipedia</a>
+      <a class="ovext-link ovext-arch" href="${archHref}" target="_blank" rel="noopener noreferrer">AD&nbsp;ArchDaily</a>
+    </div>
     <div class="info-row"><span class="info-label">${t('neighborhood')}</span><span class="info-val">${_displayHood(loc, trans.hood)}</span></div>
     <div class="info-row"><span class="info-label">${t('address')}</span><span class="info-val">${_displayAddr(loc, trans.addr)}</span></div>
     <div class="info-row"><span class="info-label">${t('arch_label')}</span><span class="info-val">${_buildArchLinks(loc)}</span></div>
     <div class="info-row"><span class="info-label">${t('completed')}</span><span class="info-val">${loc.yr}</span></div>
     <div class="info-row"><span class="info-label">${t('style_label')}</span><span class="info-val">${_buildStyleLinks(loc)}</span></div>
     ${loc.access ? `<div class="info-row"><span class="info-label">${t('access_label')}</span><span class="info-val"><span class="access-badge ${ACCESS_META[loc.access]?.cls||''}">${ACCESS_META[loc.access]?.icon||''} ${loc.access}</span></span></div>` : ''}
-    ${transit  ? `<div class="info-row"><span class="info-label">${t('subway')}</span><span class="info-val">${transit}</span></div>`   : ''}
-    ${walkFrom ? `<div class="info-row"><span class="info-label">${t('nearby')}</span><span class="info-val">${walkFrom}</span></div>` : ''}
   `;
 }
 
@@ -807,21 +810,13 @@ function buildLinksTab(loc) {
   var name    = loc.name || '';
   var nameEnc = encodeURIComponent(name);
 
-  // Wikipedia: use stored URL or fall back to Wikipedia search
-  var wikiHref = loc.wiki
-    ? loc.wiki
-    : 'https://en.wikipedia.org/w/index.php?search=' + nameEnc;
+  var wikiHref   = loc.wiki      || 'https://en.wikipedia.org/w/index.php?search=' + nameEnc;
+  var archHref   = loc.archdaily || 'https://www.archdaily.com/search/projects?q=' + nameEnc;
+  var mapsHref   = 'https://maps.google.com/maps?q=' + nameEnc + (loc.lat && loc.lng ? '&ll=' + loc.lat + ',' + loc.lng : '');
+  var pintHref   = 'https://www.pinterest.com/search/pins/?q=' + nameEnc + '+architecture';
+  var earthHref  = 'https://earth.google.com/web/search/' + nameEnc;
+  var dezeenHref = loc.dezeen || 'https://www.dezeen.com/?s=' + nameEnc;
 
-  // ArchDaily: use stored URL or fall back to ArchDaily project search
-  var archHref = loc.archdaily
-    ? loc.archdaily
-    : 'https://www.archdaily.com/search/projects?q=' + nameEnc;
-
-  // Google Maps: always auto-generated from name + coordinates
-  var mapsHref = 'https://maps.google.com/maps?q=' + nameEnc
-    + (loc.lat && loc.lng ? '&ll=' + loc.lat + ',' + loc.lng : '');
-
-  // Optional: official website (also in Visit tab)
   var webIcon = loc.web
     ? '<a class="link-icon-btn" href="' + loc.web + '" target="_blank" rel="noopener noreferrer">'
       + '<div class="link-icon-img link-icon-web">🌐</div>'
@@ -841,6 +836,18 @@ function buildLinksTab(loc) {
     + '<a class="link-icon-btn" href="' + mapsHref + '" target="_blank" rel="noopener noreferrer">'
       + '<div class="link-icon-img link-icon-maps">📍</div>'
       + '<div class="link-icon-label">Maps</div>'
+    + '</a>'
+    + '<a class="link-icon-btn" href="' + pintHref + '" target="_blank" rel="noopener noreferrer">'
+      + '<div class="link-icon-img link-icon-pint">P</div>'
+      + '<div class="link-icon-label">Pinterest</div>'
+    + '</a>'
+    + '<a class="link-icon-btn" href="' + earthHref + '" target="_blank" rel="noopener noreferrer">'
+      + '<div class="link-icon-img link-icon-earth">🌍</div>'
+      + '<div class="link-icon-label">Earth 3D</div>'
+    + '</a>'
+    + '<a class="link-icon-btn" href="' + dezeenHref + '" target="_blank" rel="noopener noreferrer">'
+      + '<div class="link-icon-img link-icon-dezeen">Dz</div>'
+      + '<div class="link-icon-label">Dezeen</div>'
     + '</a>'
     + webIcon
   + '</div>';

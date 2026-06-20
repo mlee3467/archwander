@@ -46,7 +46,7 @@ var T = {
     sba_fav:      'Favorites',
     sba_route:    'Route',
     sba_ifl:      'My Page',
-    sba_results:  'Results',
+    sba_results:  'Show\nLists',
     export_pdf:   'PDF',
     pdf_need_pin: 'Place a pin first using "My Location" to export the nearby locations as PDF.',
     pdf_generating:'Generating…',
