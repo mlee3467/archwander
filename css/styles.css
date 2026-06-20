@@ -2637,7 +2637,7 @@
   backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
   color: var(--primary-dark);
   border: 1.5px solid #C7D2FE;
-  border-radius: 20px;
+  border-radius: var(--radius-xl);
   font-size: var(--fs-md); font-weight: 600; font-family: Inter, sans-serif;
   box-shadow: 0 3px 14px rgba(79,70,229,0.16);
   cursor: pointer; white-space: nowrap;
@@ -2697,7 +2697,7 @@
   background: rgba(22,22,26,0.88);
   backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   color: #f0f0f0;
-  border-radius: 20px;
+  border-radius: var(--radius-xl);
   font-size: var(--fs-sm); font-weight: 500;
   box-shadow: 0 4px 20px rgba(0,0,0,0.30);
   white-space: nowrap; pointer-events: auto;
@@ -2706,7 +2706,7 @@
   background: rgba(255,255,255,0.14);
   border: 1px solid rgba(255,255,255,0.22);
   color: #f0f0f0;
-  border-radius: 12px;
+  border-radius: var(--radius-xl);
   padding: 3px 12px;
   font-size: var(--fs-sm); font-weight: 600;
   cursor: pointer; font-family: Inter, sans-serif;
