@@ -839,6 +839,7 @@ function buildLinksTab(loc) {
       + '</div>';
   }
 
+  // Official website — shown first if loc.web exists
   var webIcon = loc.web
     ? '<a class="link-icon-btn" href="' + loc.web + '" target="_blank" rel="noopener noreferrer">'
       + _iconDiv('link-icon-web', _domain(loc.web))
@@ -847,6 +848,7 @@ function buildLinksTab(loc) {
     : '';
 
   return '<div class="links-icons">'
+    + webIcon
     + '<a class="link-icon-btn" href="' + wikiHref + '" target="_blank" rel="noopener noreferrer">'
       + _iconDiv('link-icon-wiki', 'en.wikipedia.org')
       + '<div class="link-icon-label">Wikipedia</div>'
@@ -871,7 +873,6 @@ function buildLinksTab(loc) {
       + _iconDiv('link-icon-dezeen', 'dezeen.com')
       + '<div class="link-icon-label">Dezeen</div>'
     + '</a>'
-    + webIcon
   + '</div>';
 }
 
