@@ -751,23 +751,23 @@ function closePanel() {
 // ══════════════════════════════════════════════════════════════════
 function buildOverviewTab(loc, trans = {}) {
   const desc    = trans.desc || loc.desc;
+  const nameEnc = encodeURIComponent(loc.name || '');
   const _favImg = (domain) => `<img src="https://www.google.com/s2/favicons?domain=${domain}&sz=64" alt="" loading="lazy" onerror="this.style.opacity='0'">`;
-  // Only show direct links — hide if no stored URL for this location
-  const wikiBtn = loc.wiki
-    ? `<a class="link-icon-btn" href="${loc.wiki}" target="_blank" rel="noopener noreferrer">
-        <div class="link-icon-img link-icon-wiki">${_favImg('en.wikipedia.org')}</div>
-        <div class="link-icon-label">Wikipedia</div>
-      </a>` : '';
-  const archBtn = loc.archdaily
-    ? `<a class="link-icon-btn" href="${loc.archdaily}" target="_blank" rel="noopener noreferrer">
-        <div class="link-icon-img link-icon-arch">${_favImg('archdaily.com')}</div>
-        <div class="link-icon-label">ArchDaily</div>
-      </a>` : '';
-  const extLinks = (wikiBtn || archBtn)
-    ? `<div class="overview-ext-links">${wikiBtn}${archBtn}</div>` : '';
+  // Always show — use stored direct link if available, else search fallback
+  const wikiHref = loc.wiki      || 'https://en.wikipedia.org/wiki/' + nameEnc;
+  const archHref = loc.archdaily || 'https://www.archdaily.com/search/projects?q=' + nameEnc;
   return `
     <p class="desc">${desc}</p>
-    ${extLinks}
+    <div class="overview-ext-links">
+      <a class="link-icon-btn" href="${wikiHref}" target="_blank" rel="noopener noreferrer">
+        <div class="link-icon-img link-icon-wiki">${_favImg('en.wikipedia.org')}</div>
+        <div class="link-icon-label">Wikipedia</div>
+      </a>
+      <a class="link-icon-btn" href="${archHref}" target="_blank" rel="noopener noreferrer">
+        <div class="link-icon-img link-icon-arch">${_favImg('archdaily.com')}</div>
+        <div class="link-icon-label">ArchDaily</div>
+      </a>
+    </div>
     <div class="info-row"><span class="info-label">${t('neighborhood')}</span><span class="info-val">${_displayHood(loc, trans.hood)}</span></div>
     <div class="info-row"><span class="info-label">${t('address')}</span><span class="info-val">${_displayAddr(loc, trans.addr)}</span></div>
     <div class="info-row"><span class="info-label">${t('arch_label')}</span><span class="info-val">${_buildArchLinks(loc)}</span></div>
