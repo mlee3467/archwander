@@ -296,6 +296,13 @@ function _mlpDropPin() {
   });
 }
 
+function _mlpLasso() {
+  _closeMyLocPopup();
+  _ensureMapInit(function() {
+    if (typeof toggleLassoMode === 'function') toggleLassoMode();
+  });
+}
+
 function _sbaFavorites() {
   var popup   = document.getElementById('fav-popup');
   var overlay = document.getElementById('fav-overlay');
