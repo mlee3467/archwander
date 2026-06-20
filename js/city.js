@@ -755,6 +755,14 @@ function _mergeCityLocs(cityCode, meta) {
 }
 
 // ── DB row → LOCS object ─────────────────────────────────────
+// Normalize ArchDaily URL: stored values may be just IDs ("380342") or paths
+// ("/380342/slug") — always return a full https://www.archdaily.com/... URL.
+function _normalizeArchUrl(val) {
+  if (!val) return null;
+  if (/^https?:\/\//i.test(val)) return val;
+  return 'https://www.archdaily.com/' + val.replace(/^\//, '');
+}
+
 function _dbRowToLoc(row) {
   return {
     id:          row.id,
@@ -787,6 +795,11 @@ function _dbRowToLoc(row) {
     photos:      row.photos       || [],
     sv:          row.sv           || null,
     svInt:       row.sv_int       || null,
+    // External link fields (stored in Supabase only, not in data-*.js)
+    wiki:        row.wiki                        || null,
+    archdaily:   _normalizeArchUrl(row.archdaily)|| null,
+    web:         row.web                         || null,
+    dezeen:      row.dezeen                      || null,
   };
 }
 
@@ -794,7 +807,7 @@ function _dbRowToLoc(row) {
 // ── Supabase city data cache (localStorage) ──────────────────────
 // Key: 'aw_sb_' + cityCode. Stores raw loc objects for instant startup.
 // Supabase fetch always runs to keep cache fresh; cache just unblocks first paint.
-var _SB_CACHE_PREFIX = 'aw_sb_';
+var _SB_CACHE_PREFIX = 'aw_sb2_';  // v2: includes wiki/archdaily/web fields
 
 function _loadCityDataSupabase(cityCode, meta) {
   // ① Try localStorage cache first — resolves immediately for fast markers
