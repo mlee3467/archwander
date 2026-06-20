@@ -637,12 +637,12 @@ function openLoc(loc) {
     '<span class="iss-label">Find more photos</span>' +
     '<div class="iss-links">' +
       '<a class="iss-btn" href="https://www.google.com/search?q=' + _issNameEnc + '&tbm=isch" target="_blank" rel="noopener noreferrer">' +
-        '<img src="https://www.google.com/s2/favicons?domain=images.google.com&sz=64" loading="lazy" onerror="this.style.display=\'none\'">' +
-        'Google Images' +
+        '<div class="iss-icon"><img src="https://www.google.com/s2/favicons?domain=images.google.com&sz=64" loading="lazy" onerror="this.style.opacity=\'0\'"></div>' +
+        '<span class="iss-btn-label">Google Images</span>' +
       '</a>' +
       '<a class="iss-btn" href="https://www.pinterest.com/search/pins/?q=' + _issNameEnc + '" target="_blank" rel="noopener noreferrer">' +
-        '<img src="https://www.google.com/s2/favicons?domain=pinterest.com&sz=64" loading="lazy" onerror="this.style.display=\'none\'">' +
-        'Pinterest' +
+        '<div class="iss-icon"><img src="https://www.google.com/s2/favicons?domain=pinterest.com&sz=64" loading="lazy" onerror="this.style.opacity=\'0\'"></div>' +
+        '<span class="iss-btn-label">Pinterest</span>' +
       '</a>' +
     '</div>';
   gallery.insertBefore(_issDiv, gallery.querySelector('.g-btn'));
