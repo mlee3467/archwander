@@ -817,13 +817,19 @@ function _loadCityDataSupabase(cityCode, meta) {
   if (cachedStr) {
     try {
       var cachedLocs = JSON.parse(cachedStr);
-      var existingIds = new Set(LOCS.map(function(l) { return l.id; }));
-      cachedLocs.forEach(function(l) { if (!existingIds.has(l.id)) LOCS.push(l); });
-      _loadedCities[cityCode] = true;
-      console.log('[cache] Restored', meta.key + ':', cachedLocs.length, 'locations');
-      // Refresh from Supabase in background to keep cache up-to-date
-      _refreshCityDataBackground(cityCode, meta, cacheKey);
-      return Promise.resolve();
+      // Stale-cache check: if first entry lacks 'wiki' key the cache pre-dates
+      // the wiki/archdaily/web fields — treat as stale and re-fetch from Supabase.
+      var isStale = cachedLocs.length > 0 && !('wiki' in cachedLocs[0]);
+      if (!isStale) {
+        var existingIds = new Set(LOCS.map(function(l) { return l.id; }));
+        cachedLocs.forEach(function(l) { if (!existingIds.has(l.id)) LOCS.push(l); });
+        _loadedCities[cityCode] = true;
+        console.log('[cache] Restored', meta.key + ':', cachedLocs.length, 'locations');
+        // Refresh from Supabase in background to keep cache up-to-date
+        _refreshCityDataBackground(cityCode, meta, cacheKey);
+        return Promise.resolve();
+      }
+      console.log('[cache] Stale cache detected for', meta.key, '— re-fetching from Supabase');
     } catch(e) { /* corrupt cache — fall through to normal fetch */ }
   }
 
