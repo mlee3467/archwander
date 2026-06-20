@@ -46,9 +46,12 @@ function haversineM(lat1, lng1, lat2, lng2) {
 function _makeStreetLayer() {
   // Priority: MapTiler raster → Thunderforest raster → CartoDB raster
   var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  var mapEl = document.getElementById('map');
   if (MAPTILER_API_KEY) {
     var mapLang  = LANG === 'ko' ? 'ko' : 'en';
     var mapStyle = isDark ? 'streets-v2-dark' : MAPTILER_STYLE;
+    // Mark map as using native dark tiles → CSS invert filter will not apply
+    if (mapEl) mapEl.classList.toggle('map-native-dark', isDark);
     return L.tileLayer(
       'https://api.maptiler.com/maps/' + mapStyle + '/{z}/{x}/{y}.png?key=' + MAPTILER_API_KEY + '&language=' + mapLang,
       { attribution: '© <a href="https://www.maptiler.com/copyright/">MapTiler</a> © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
@@ -56,17 +59,16 @@ function _makeStreetLayer() {
     );
   }
   if (THUNDERFOREST_API_KEY) {
+    if (mapEl) mapEl.classList.remove('map-native-dark');
     return L.tileLayer(
       'https://{s}.tile.thunderforest.com/' + THUNDERFOREST_STYLE + '/{z}/{x}/{y}.png?apikey=' + THUNDERFOREST_API_KEY,
       { attribution: 'Maps © <a href="https://www.thunderforest.com">Thunderforest</a>, Data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         subdomains: 'abc', maxZoom: 19 }
     );
   }
-  // Default: CartoDB Voyager (light) or Dark Matter (dark)
-  var cartoUrl = isDark
-    ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
-    : 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
-  return L.tileLayer(cartoUrl, {
+  // Default: CartoDB Voyager (always light tiles; dark mode handled by CSS invert filter)
+  if (mapEl) mapEl.classList.remove('map-native-dark');
+  return L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
     attribution: '© <a href="https://openstreetmap.org">OpenStreetMap</a> contributors © <a href="https://carto.com/attributions">CARTO</a>',
     subdomains: 'abcd', maxZoom: 19
   });

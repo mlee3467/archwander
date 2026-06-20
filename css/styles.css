@@ -155,7 +155,8 @@
     [data-theme="dark"] .pp-city-track { background: #2e2e2e; }
     [data-theme="dark"] .sba-btn { color: #f0f0ee !important; background: #252525 !important; border-color: #3a3a3a !important; box-shadow: 2px 2px 0 #000 !important; }
     [data-theme="dark"] .sba-btn:hover { background: #2c2c2c !important; transform: translate(1px,1px); box-shadow: 2px 2px 0 #000 !important; }
-    [data-theme="dark"] .sba-btn:active, [data-theme="dark"] .sba-btn.sba-active { background: #333333 !important; box-shadow: none !important; }
+    [data-theme="dark"] .sba-btn:active { background: #2a2a2a !important; box-shadow: none !important; }
+    [data-theme="dark"] .sba-btn.sba-active { background: var(--primary) !important; color: #fff !important; border-color: var(--primary-dark) !important; box-shadow: 3px 3px 0 var(--primary-dark) !important; transform: none !important; }
     [data-theme="dark"] .walk-bar { background: #1e1e1e; border-color: #2e2e2e; }
     [data-theme="dark"] .walk-loc-btn { background: #141414; color: #f0f0ee; border-color: #2e2e2e; }
     [data-theme="dark"] .fav-bar, [data-theme="dark"] .sel-bar { background: #1e1e1e; border-color: #2e2e2e; color: #f0f0ee; }
@@ -174,6 +175,18 @@
     [data-theme="dark"] .share-link-inp { background: #141414; color: #f0f0ee; border-color: #2e2e2e; }
     [data-theme="dark"] .pilot-badge { background: rgba(30,30,30,0.8); color: #f0f0ee; }
     [data-theme="dark"] .logo-img { filter: invert(1) brightness(0.9); }
+    /* Dark map: CSS invert on Voyager tiles for readable dark-mode map.
+       Skipped when MapTiler native dark style is loaded (.map-native-dark). */
+    [data-theme="dark"] #map:not(.map-native-dark) .leaflet-tile-pane {
+      filter: invert(1) hue-rotate(180deg) brightness(0.9) contrast(0.88) saturate(0.85);
+    }
+    /* Dark mode neighborhood/arch filter items + chips */
+    [data-theme="dark"] .hood-item,
+    [data-theme="dark"] .arch-item { color: #d0d0ce; }
+    [data-theme="dark"] .hood-item:hover,
+    [data-theme="dark"] .arch-item:hover { background: #2a2a2a; color: #f0f0ee; }
+    [data-theme="dark"] .chip { background: #252525 !important; color: #d0d0ce !important; border-color: #3a3a3a !important; }
+    [data-theme="dark"] .chip.active { background: #f0f0ee !important; color: #111 !important; border-color: rgba(255,255,255,0.15) !important; }
     .dark-mode-btn {
       background: none; border: none; cursor: pointer;
       color: var(--text-secondary); font-size: var(--fs-lg);
@@ -3076,11 +3089,13 @@
   text-align: left; text-transform: uppercase;
   letter-spacing: 0.04em;
 }
-/* Active/toggled state — pressed-in look */
+/* Active/toggled state — primary blue highlight */
 .sba-btn.sba-active {
-  background: #b8b8b8;
-  transform: translate(3px, 3px);
-  box-shadow: none;
+  background: var(--primary) !important;
+  color: #fff !important;
+  border-color: var(--primary-dark) !important;
+  box-shadow: 3px 3px 0 var(--primary-dark) !important;
+  transform: none;
 }
 /* ── Explore popup ────────────────────────────────────────── */
 #explore-overlay {
@@ -5424,34 +5439,31 @@
 .link-icon-btn:hover  { transform: scale(1.06); }
 .link-icon-btn:active { transform: scale(0.94); }
 .link-icon-img {
-  width: 56px; height: 56px;
-  border-radius: 14px;
-  display: flex; align-items: center; justify-content: center;
-  font-weight: 700; color: #fff;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  width: 60px; height: 60px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: #f5f5f3;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.08);
   flex-shrink: 0;
   user-select: none;
+  position: relative;
 }
-.link-icon-wiki {
-  background: #3366cc;
-  font-size: 26px;
-  font-family: 'Georgia', 'Times New Roman', serif;
-  letter-spacing: -1px;
+/* Favicon image fills the icon */
+.link-icon-img img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  display: block;
+  padding: 10px;
+  border-radius: inherit;
 }
-.link-icon-arch {
-  background: #111;
-  font-size: 17px;
-  letter-spacing: -0.5px;
-  font-family: var(--font-mono, 'Space Mono', monospace);
-}
-.link-icon-maps {
-  background: #4285F4;
-  font-size: 28px;
-}
-.link-icon-web {
-  background: #34A853;
-  font-size: 26px;
-}
+/* Fallback background tints per service (shown if favicon fails to load) */
+.link-icon-wiki  { background: #eef2fb; }
+.link-icon-arch  { background: #f0f0f0; }
+.link-icon-maps  { background: #e8f0fe; }
+.link-icon-web   { background: #e6f4ea; }
+.link-icon-pint  { background: #fce8ea; }
+.link-icon-earth { background: #e8f0fe; }
+.link-icon-dezeen{ background: #f0f0f0; }
 .link-icon-label {
   font-size: 11px;
   font-weight: 500;
@@ -5460,10 +5472,6 @@
   line-height: 1.2;
   max-width: 64px;
 }
-/* New link icon colors — Pinterest, Earth, Dezeen */
-.link-icon-pint  { background: #E60023; font-size: 26px; font-family: 'Georgia', serif; }
-.link-icon-earth { background: #1A73E8; font-size: 26px; }
-.link-icon-dezeen{ background: #111; font-size: 16px; letter-spacing: -0.3px; font-family: var(--font-mono, 'Space Mono', monospace); }
 
 /* ══ Overview — inline Wikipedia/ArchDaily links ═════════════════ */
 .overview-ext-links {

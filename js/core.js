@@ -752,7 +752,7 @@ function closePanel() {
 function buildOverviewTab(loc, trans = {}) {
   const desc    = trans.desc || loc.desc;
   const nameEnc = encodeURIComponent(loc.name || '');
-  const wikiHref = loc.wiki      || 'https://en.wikipedia.org/w/index.php?search=' + nameEnc;
+  const wikiHref = loc.wiki      || 'https://en.wikipedia.org/wiki/' + nameEnc;
   const archHref = loc.archdaily || 'https://www.archdaily.com/search/projects?q=' + nameEnc;
   return `
     <p class="desc">${desc}</p>
@@ -809,43 +809,58 @@ function buildLinksTab(loc) {
   var name    = loc.name || '';
   var nameEnc = encodeURIComponent(name);
 
-  var wikiHref   = loc.wiki      || 'https://en.wikipedia.org/w/index.php?search=' + nameEnc;
+  var wikiHref   = loc.wiki      || 'https://en.wikipedia.org/wiki/' + nameEnc;
   var archHref   = loc.archdaily || 'https://www.archdaily.com/search/projects?q=' + nameEnc;
   var mapsHref   = 'https://maps.google.com/maps?q=' + nameEnc + (loc.lat && loc.lng ? '&ll=' + loc.lat + ',' + loc.lng : '');
   var pintHref   = 'https://www.pinterest.com/search/pins/?q=' + nameEnc + '+architecture';
   var earthHref  = 'https://earth.google.com/web/search/' + nameEnc;
   var dezeenHref = loc.dezeen || 'https://www.dezeen.com/?s=' + nameEnc;
 
+  // Helper: Google's favicon service (64px high-res)
+  function _fav(domain) {
+    return 'https://www.google.com/s2/favicons?domain=' + domain + '&sz=64';
+  }
+  // Helper: extract domain from URL for official site favicon
+  function _domain(url) {
+    try { return new URL(url).hostname; } catch(e) { return url; }
+  }
+  // Helper: build a favicon icon div
+  function _iconDiv(cls, domain) {
+    return '<div class="link-icon-img ' + cls + '">'
+      + '<img src="' + _fav(domain) + '" alt="" loading="lazy" onerror="this.style.opacity=\'0\'">'
+      + '</div>';
+  }
+
   var webIcon = loc.web
     ? '<a class="link-icon-btn" href="' + loc.web + '" target="_blank" rel="noopener noreferrer">'
-      + '<div class="link-icon-img link-icon-web">🌐</div>'
+      + _iconDiv('link-icon-web', _domain(loc.web))
       + '<div class="link-icon-label">Official</div>'
       + '</a>'
     : '';
 
   return '<div class="links-icons">'
     + '<a class="link-icon-btn" href="' + wikiHref + '" target="_blank" rel="noopener noreferrer">'
-      + '<div class="link-icon-img link-icon-wiki">W</div>'
+      + _iconDiv('link-icon-wiki', 'en.wikipedia.org')
       + '<div class="link-icon-label">Wikipedia</div>'
     + '</a>'
     + '<a class="link-icon-btn" href="' + archHref + '" target="_blank" rel="noopener noreferrer">'
-      + '<div class="link-icon-img link-icon-arch">AD</div>'
+      + _iconDiv('link-icon-arch', 'archdaily.com')
       + '<div class="link-icon-label">ArchDaily</div>'
     + '</a>'
     + '<a class="link-icon-btn" href="' + mapsHref + '" target="_blank" rel="noopener noreferrer">'
-      + '<div class="link-icon-img link-icon-maps">📍</div>'
+      + _iconDiv('link-icon-maps', 'maps.google.com')
       + '<div class="link-icon-label">Maps</div>'
     + '</a>'
     + '<a class="link-icon-btn" href="' + pintHref + '" target="_blank" rel="noopener noreferrer">'
-      + '<div class="link-icon-img link-icon-pint">P</div>'
+      + _iconDiv('link-icon-pint', 'pinterest.com')
       + '<div class="link-icon-label">Pinterest</div>'
     + '</a>'
     + '<a class="link-icon-btn" href="' + earthHref + '" target="_blank" rel="noopener noreferrer">'
-      + '<div class="link-icon-img link-icon-earth">🌍</div>'
+      + _iconDiv('link-icon-earth', 'earth.google.com')
       + '<div class="link-icon-label">Earth 3D</div>'
     + '</a>'
     + '<a class="link-icon-btn" href="' + dezeenHref + '" target="_blank" rel="noopener noreferrer">'
-      + '<div class="link-icon-img link-icon-dezeen">Dz</div>'
+      + _iconDiv('link-icon-dezeen', 'dezeen.com')
       + '<div class="link-icon-label">Dezeen</div>'
     + '</a>'
     + webIcon
