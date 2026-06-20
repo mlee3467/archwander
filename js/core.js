@@ -751,7 +751,9 @@ function openLoc(loc) {
   document.getElementById('pane-links').innerHTML    = buildLinksTab(loc);
 
   switchTab('overview');
-  document.getElementById('panel').classList.add('open');
+  var _panelOpenEl = document.getElementById('panel');
+  _panelOpenEl.classList.remove('panel-minimized'); // ensure restore from minimized
+  _panelOpenEl.classList.add('open');
   history.pushState({ view: 'panel', locId: loc.id }, '');
   if (window.innerWidth <= 900) { const _pb = document.getElementById('panel-backdrop'); if (_pb) _pb.classList.add('visible'); }
   renderList();
@@ -769,6 +771,7 @@ function closePanel() {
   var _panelEl = document.getElementById('panel');
   _panelEl.classList.remove('open');
   _panelEl.classList.remove('panel-fullscreen'); // reset full-screen state
+  _panelEl.classList.remove('panel-minimized');  // reset minimized state
   const _pb2 = document.getElementById('panel-backdrop'); if (_pb2) _pb2.classList.remove('visible');
   activeLoc = null;
   if (typeof clearMarkerHighlight === 'function') clearMarkerHighlight();
@@ -858,7 +861,9 @@ function buildLinksTab(loc) {
   var archHref   = loc.archdaily || 'https://www.archdaily.com/search/projects?q=' + nameEnc;
   var mapsHref   = 'https://maps.google.com/maps?q=' + nameEnc + (loc.lat && loc.lng ? '&ll=' + loc.lat + ',' + loc.lng : '');
   var pintHref   = 'https://www.pinterest.com/search/pins/?q=' + nameEnc + '+architecture';
-  var earthHref  = 'https://earth.google.com/web/search/' + nameEnc;
+  var earthHref  = (loc.lat && loc.lng)
+    ? 'https://earth.google.com/web/@' + loc.lat + ',' + loc.lng + ',300a,35y,0h,0t,0r'
+    : 'https://earth.google.com/web/search/' + nameEnc;
   var dezeenHref = loc.dezeen || 'https://www.dezeen.com/?s=' + nameEnc;
 
   // Helper: Google's favicon service (64px high-res)

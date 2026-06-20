@@ -1551,6 +1551,20 @@
         top: calc(var(--mob-header-h) + var(--safe-top)) !important;
         border-radius: 0;
       }
+      /* Minimized: panel slides down, only the 36px handle stays visible at bottom */
+      .panel.open.panel-minimized {
+        transform: translateY(calc(100% - 36px));
+        pointer-events: auto;
+      }
+      /* Tap target on minimized handle — make it clearly interactive */
+      .panel.open.panel-minimized #panel-drag-handle {
+        cursor: pointer;
+        background: rgba(255,255,255,0.7);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        border-top: 1px solid rgba(0,0,0,0.08);
+        border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+      }
       /* Walk-path mode: collapse panel to thin handle bar at bottom */
       .panel.open.walk-path-mode {
         top: auto; bottom: 0; height: 44px; min-height: 44px;

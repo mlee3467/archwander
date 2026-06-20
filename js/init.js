@@ -299,25 +299,45 @@ window.addEventListener('load', function() {
   setupBodyDrag('dh-sec-era',    'body-era',    30, 220);
   setupBodyDrag('dh-sec-access', 'body-access', 30, 180);
 
-  // ── Mobile panel drag handle: swipe up → fullscreen, swipe down → collapse ──
+  // ── Mobile panel drag handle: swipe up/down → fullscreen / default / minimized ──
   (function() {
-    var panelEl = document.getElementById('panel');
-    var handle  = document.getElementById('panel-drag-handle');
+    var panelEl  = document.getElementById('panel');
+    var handle   = document.getElementById('panel-drag-handle');
+    var backdrop = document.getElementById('panel-backdrop');
     if (!panelEl || !handle) return;
     var _dragStartY = 0;
+
+    function _setMinimized(on) {
+      panelEl.classList.toggle('panel-minimized', on);
+      // Hide backdrop when minimized so map is fully interactive
+      if (backdrop) backdrop.classList.toggle('visible', !on);
+    }
+
     handle.addEventListener('touchstart', function(e) {
       _dragStartY = e.touches[0].clientY;
     }, { passive: true });
+
     handle.addEventListener('touchend', function(e) {
       if (window.innerWidth > 900 || !panelEl.classList.contains('open')) return;
-      var dy = e.changedTouches[0].clientY - _dragStartY;
+      var dy          = e.changedTouches[0].clientY - _dragStartY;
       var isFullscreen = panelEl.classList.contains('panel-fullscreen');
-      if (isFullscreen && (dy > 40 || Math.abs(dy) < 10)) {
-        // swipe down OR simple tap → collapse from fullscreen
-        panelEl.classList.remove('panel-fullscreen');
-      } else if (!isFullscreen && dy < -40) {
-        // swipe up → go fullscreen
-        panelEl.classList.add('panel-fullscreen');
+      var isMinimized  = panelEl.classList.contains('panel-minimized');
+
+      if (isMinimized) {
+        // Any upward swipe OR tap on handle → restore default
+        if (dy <= 20) _setMinimized(false);
+      } else if (isFullscreen) {
+        // Swipe down from fullscreen OR simple tap → back to default
+        if (dy > 40 || Math.abs(dy) < 10) panelEl.classList.remove('panel-fullscreen');
+      } else {
+        // Default state
+        if (dy < -40) {
+          // Swipe up → fullscreen
+          panelEl.classList.add('panel-fullscreen');
+        } else if (dy > 80) {
+          // Swipe down far → minimize (keep handle visible)
+          _setMinimized(true);
+        }
       }
     }, { passive: true });
   })();
