@@ -13,23 +13,27 @@ function _gallerySlideCount() {
   var n = activeLoc.photos ? activeLoc.photos.length : 0;
   var hasSV = typeof GOOGLE_MAPS_API_KEY === 'string' && GOOGLE_MAPS_API_KEY && localStorage.getItem('aw_sv_disabled') !== '1';
   var svIntArr = hasSV ? (Array.isArray(activeLoc.svInt) ? activeLoc.svInt : (activeLoc.svInt ? [activeLoc.svInt] : [])) : [];
-  return n + (hasSV ? 1 : 0) + svIntArr.length;
+  return n + 1 + (hasSV ? 1 : 0) + svIntArr.length;  // +1 for img-search slide
 }
 function gotoPhoto(idx) {
   var gallery = document.getElementById('gallery');
   var imgs = Array.from(gallery.querySelectorAll('img'));
+  var imgSearchSlide = gallery.querySelector('.img-search-slide');
   var svExt = gallery.querySelector('.sv-fallback');
   var svIntFrames = Array.from(gallery.querySelectorAll('.sv-fallback-int'));
   var photoCount = activeLoc && activeLoc.photos ? activeLoc.photos.length : 0;
-  var hasExtSV = !!svExt; // check actual DOM — exterior SV only exists when loc.sv was configured
-  var isSVExt = hasExtSV && idx === photoCount;
-  // intRelIdx accounts for whether exterior SV slot exists (avoids off-by-one when sv is null)
-  var intRelIdx = idx - photoCount - (hasExtSV ? 1 : 0);
+  var isImgSearch = idx === photoCount;                              // img-search slide
+  var hasExtSV = !!svExt;
+  var isSVExt = hasExtSV && idx === photoCount + 1;                 // SV exterior shifted +1
+  var intRelIdx = idx - photoCount - 1 - (hasExtSV ? 1 : 0);       // interior offset shifted +1
   var isSVInt = svIntFrames.length > 0 && intRelIdx >= 0 && intRelIdx < svIntFrames.length;
   var isSV = isSVExt || isSVInt;
 
-  // Toggle images: hide all, show active photo (or none if SV)
-  imgs.forEach(function(img, i) { img.classList.toggle('active', !isSV && i === idx); });
+  // Toggle images: hide all, show active photo (not when img-search or SV)
+  imgs.forEach(function(img, i) { img.classList.toggle('active', !isSV && !isImgSearch && i === idx); });
+
+  // Toggle img-search slide
+  if (imgSearchSlide) imgSearchSlide.style.display = isImgSearch ? '' : 'none';
 
   // Toggle exterior SV iframe
   if (svExt) {
@@ -46,7 +50,7 @@ function gotoPhoto(idx) {
   gallery.classList.toggle('sv-mode', isSV);
 
   // Load deferred image
-  if (!isSV && imgs[idx]) {
+  if (!isSV && !isImgSearch && imgs[idx]) {
     var cur = imgs[idx];
     if (cur.dataset.src) { cur.src = cur.dataset.src; delete cur.dataset.src; }
   }
@@ -62,13 +66,13 @@ function gotoPhoto(idx) {
   // Attribution
   var attribEl = document.getElementById('g-attrib');
   if (attribEl) {
-    var text = (!isSV && imgs[idx]) ? (imgs[idx].dataset.attrib || '') : '';
+    var text = (!isSV && !isImgSearch && imgs[idx]) ? (imgs[idx].dataset.attrib || '') : '';
     attribEl.textContent = text;
     attribEl.style.display = text ? '' : 'none';
   }
 
   // Preload next image
-  if (!isSV && imgs[idx + 1] && imgs[idx + 1].dataset.src) {
+  if (!isSV && !isImgSearch && imgs[idx + 1] && imgs[idx + 1].dataset.src) {
     imgs[idx + 1].src = imgs[idx + 1].dataset.src;
     delete imgs[idx + 1].dataset.src;
   }
@@ -78,8 +82,9 @@ function updateGLabel() {
   var photoCount = activeLoc.photos ? activeLoc.photos.length : 0;
   var hasSV = typeof GOOGLE_MAPS_API_KEY === 'string' && GOOGLE_MAPS_API_KEY && localStorage.getItem('aw_sv_disabled') !== '1';
   var svIntArr = hasSV ? (Array.isArray(activeLoc.svInt) ? activeLoc.svInt : (activeLoc.svInt ? [activeLoc.svInt] : [])) : [];
-  var isSVExt = hasSV && photoIdx === photoCount;
-  var intRelIdx = photoIdx - photoCount - (hasSV ? 1 : 0); // consistent with gotoPhoto
+  var isImgSearch = photoIdx === photoCount;                          // img-search slide
+  var isSVExt = hasSV && photoIdx === photoCount + 1;                // SV exterior shifted +1
+  var intRelIdx = photoIdx - photoCount - 1 - (hasSV ? 1 : 0);      // interior shifted +1
   var isSVInt = svIntArr.length > 0 && intRelIdx >= 0 && intRelIdx < svIntArr.length;
   var label;
   if (isSVInt) {
@@ -88,6 +93,8 @@ function updateGLabel() {
       : 'Street View · Interior';
   } else if (isSVExt) {
     label = 'Street View · Exterior';
+  } else if (isImgSearch) {
+    label = 'More Photos';
   } else {
     label = (photoIdx + 1) + ' / ' + photoCount;
   }

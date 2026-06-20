@@ -591,7 +591,8 @@ function openLoc(loc) {
   // Normalize svInt → always an array (backward compat: single object → [obj])
   var svIntArr = hasSV ? (Array.isArray(loc.svInt) ? loc.svInt : (loc.svInt ? [loc.svInt] : [])) : [];
   var hasIntSV = svIntArr.length > 0;
-  var totalSlides = photoCount + (hasSV ? 1 : 0) + svIntArr.length;
+  // +1 for the "More Photos" search slide (always present, sits between photos and SV)
+  var totalSlides = photoCount + 1 + (hasSV ? 1 : 0) + svIntArr.length;
 
   // Add photo images
   var _photoFails = 0;
@@ -623,6 +624,25 @@ function openLoc(loc) {
     applyPhotoAttribution(gallery, loc.photos);
   }
 
+  // ── More Photos search slide (Pinterest + Google Images) — always present ──
+  var _issNameEnc = encodeURIComponent(loc.name + ' architecture');
+  var _issDiv = document.createElement('div');
+  _issDiv.className = 'img-search-slide';
+  _issDiv.style.display = hasPhotos ? 'none' : '';  // visible immediately only when no photos
+  _issDiv.innerHTML =
+    '<span class="iss-label">Find more photos</span>' +
+    '<div class="iss-links">' +
+      '<a class="iss-btn" href="https://www.google.com/search?q=' + _issNameEnc + '&tbm=isch" target="_blank" rel="noopener noreferrer">' +
+        '<img src="https://www.google.com/s2/favicons?domain=images.google.com&sz=64" loading="lazy" onerror="this.style.display=\'none\'">' +
+        'Google Images' +
+      '</a>' +
+      '<a class="iss-btn" href="https://www.pinterest.com/search/pins/?q=' + _issNameEnc + '" target="_blank" rel="noopener noreferrer">' +
+        '<img src="https://www.google.com/s2/favicons?domain=pinterest.com&sz=64" loading="lazy" onerror="this.style.display=\'none\'">' +
+        'Pinterest' +
+      '</a>' +
+    '</div>';
+  gallery.insertBefore(_issDiv, gallery.querySelector('.g-btn'));
+
   // Add Street View iframes (exterior always, interior only if svInt exists)
   if (hasSV) {
     // ── Exterior SV ──
@@ -643,9 +663,8 @@ function openLoc(loc) {
     svIframe.src = (loc.sv && loc.sv.panoId)
       ? _svBase + '&pano=' + loc.sv.panoId
       : _svBase + '&location=' + svLat + ',' + svLng;
-    if (hasPhotos) svIframe.style.display = 'none';
+    svIframe.style.display = 'none';  // always hidden; gotoPhoto() manages visibility
     gallery.insertBefore(svIframe, gallery.querySelector('.g-btn'));
-    if (!hasPhotos) gallery.classList.add('sv-mode');
 
     // ── Interior SV slides (Maps Embed API iframes — free, same as exterior) ──
     svIntArr.forEach(function(si, i) {
@@ -674,11 +693,13 @@ function openLoc(loc) {
   if (totalSlides > 0) {
     var dotsHtml = '';
     for (var di = 0; di < totalSlides; di++) {
-      var isSvDot    = di === photoCount && hasSV;
-      var intIdx     = di - photoCount - (hasSV ? 1 : 0);
+      var isIssDot   = di === photoCount;                           // img-search slide
+      var isSvDot    = hasSV && di === photoCount + 1;             // SV exterior (shifted +1)
+      var intIdx     = di - photoCount - 1 - (hasSV ? 1 : 0);     // SV interior (shifted +1)
       var isSvIntDot = hasIntSV && intIdx >= 0 && intIdx < svIntArr.length;
       dotsHtml += '<div class="g-dot' + (di === 0 ? ' active' : '') +
-        (isSvDot ? ' sv-dot' : '') +
+        (isIssDot   ? ' img-search-dot' : '') +
+        (isSvDot    ? ' sv-dot' : '') +
         (isSvIntDot ? ' sv-int-dot' : '') +
         '" onclick="gotoPhoto(' + di + ')"></div>';
     }
