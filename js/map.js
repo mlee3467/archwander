@@ -496,7 +496,7 @@ function refreshApp() {
   if (activeLoc) closePanel();
   // Update badge
   const badge = document.getElementById('pilot-badge');
-  if (badge) badge.textContent = `🗺 ArchWander · Pilot v0.2 · ${cityLocs.length} Locations`;
+  if (badge) badge.textContent = 'archwander · Pilot v0.5';
   // Rebuild city overview cards so counts (fav/visited) stay current
   _buildCityPins();
   console.log('[refreshApp] done, cluster=' + (clusterGroup ? clusterGroup.getLayers().length : '?'));

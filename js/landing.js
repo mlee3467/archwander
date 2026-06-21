@@ -460,17 +460,20 @@ function _openMyPage() {
   var _AW_DEF_CITY_KEY = 'AW_DEFAULT_CITY';
   var currentDefault   = localStorage.getItem(_AW_DEF_CITY_KEY) || '';
 
+  var _gpsIcon = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>';
+  var _flag = function(cc) { return '<img src="https://flagcdn.com/24x18/' + cc + '.png" width="24" height="18" alt="" style="border-radius:2px;display:block">'; };
   var cityOpts = [
-    { val: '',    flag: '📍', label: isKo ? '자동 (GPS)' : 'Auto (GPS)' },
-    { val: 'nyc', flag: '🗽', label: isKo ? '뉴욕' : 'New York' },
-    { val: 'sel', flag: '🏙', label: isKo ? '서울' : 'Seoul' },
-    { val: 'lon', flag: '🎡', label: isKo ? '런던' : 'London' },
-    { val: 'tky', flag: '🗼', label: isKo ? '도쿄' : 'Tokyo' }
+    { val: '',    icon: _gpsIcon,     label: isKo ? '자동 (GPS)' : 'Auto (GPS)' },
+    { val: 'nyc', icon: _flag('us'),  label: isKo ? '뉴욕' : 'New York' },
+    { val: 'sel', icon: _flag('kr'),  label: isKo ? '서울' : 'Seoul' },
+    { val: 'lon', icon: _flag('gb'),  label: isKo ? '런던' : 'London' },
+    { val: 'tky', icon: _flag('jp'),  label: isKo ? '도쿄' : 'Tokyo' },
+    { val: 'chi', icon: _flag('us'),  label: isKo ? '시카고' : 'Chicago' }
   ];
   var cityBtnsHtml = cityOpts.map(function(c) {
     var sel = (c.val === currentDefault) ? ' mpp-city-sel' : '';
     return '<button class="mpp-city-btn' + sel + '" data-cityval="' + c.val + '" onclick="_mpPagePickCity(\'' + c.val + '\')">' +
-      '<span>' + c.flag + '</span><span>' + c.label + '</span>' +
+      '<span class="mpp-city-icon">' + c.icon + '</span><span>' + c.label + '</span>' +
       '</button>';
   }).join('');
 

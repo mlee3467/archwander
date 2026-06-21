@@ -455,14 +455,26 @@
 <div id="my-loc-overlay" onclick="_closeMyLocPopup()" style="display:none"></div>
 <div id="my-loc-popup" style="display:none">
   <button class="explore-popup-btn" onclick="_closeMyLocPopup();_mlpUseGPS()">
-    <span class="explore-popup-icon">🛰️</span>
+    <span class="explore-popup-icon">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="2" y1="12" x2="22" y2="12"/>
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+      </svg>
+    </span>
     <div class="explore-popup-text">
       <span class="explore-popup-title">Use GPS</span>
       <span class="explore-popup-sub">Auto locate my position</span>
     </div>
   </button>
   <button class="explore-popup-btn" onclick="_closeMyLocPopup();_mlpDropPin()">
-    <span class="explore-popup-icon">📍</span>
+    <span class="explore-popup-icon">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path fill="currentColor" fill-opacity="0.2" d="M12 2C8.69 2 6 4.69 6 8c0 4.5 6 12 6 12s6-7.5 6-12c0-3.31-2.69-6-6-6z"/>
+        <path d="M12 2C8.69 2 6 4.69 6 8c0 4.5 6 12 6 12s6-7.5 6-12c0-3.31-2.69-6-6-6z"/>
+        <circle cx="12" cy="8" r="2" fill="currentColor"/>
+      </svg>
+    </span>
     <div class="explore-popup-text">
       <span class="explore-popup-title">Drop a pin</span>
       <span class="explore-popup-sub">Tap map to place</span>
@@ -653,6 +665,8 @@
 
     </div><!-- /sb-filters -->
 
+    <a href="about.html" class="about-link" id="about-link">About</a>
+    <div class="pilot-badge" id="pilot-badge">archwander · Pilot v0.5</div>
   </aside>
 
   <!-- Sidebar right-edge resize handle (outside aside, no overflow:hidden clipping) -->
@@ -785,7 +799,6 @@
     </div>
   </div>
 
-  <div class="pilot-badge" id="pilot-badge">ArchWander · Pilot v0.2</div>
 </div>
 
 <!-- PWA install prompt -->
@@ -801,14 +814,26 @@
 <div id="fav-overlay"   onclick="_closeFavPopup()"   style="display:none"></div>
 <div id="fav-popup" style="display:none">
   <button class="explore-popup-btn" onclick="_favSubFavorites()">
-    <span class="explore-popup-icon">⭐</span>
+    <span class="explore-popup-icon">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <polygon fill="currentColor" fill-opacity="0.2" points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+      </svg>
+    </span>
     <div class="explore-popup-text">
       <span class="explore-popup-title">Favorites</span>
       <span class="explore-popup-sub">Highlight starred locations</span>
     </div>
   </button>
   <button class="explore-popup-btn" onclick="_favSubPassport()">
-    <span class="explore-popup-icon">📖</span>
+    <span class="explore-popup-icon">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="4" y="2" width="16" height="20" rx="2" fill="currentColor" fill-opacity="0.15"/>
+        <rect x="4" y="2" width="16" height="20" rx="2"/>
+        <circle cx="12" cy="10" r="3"/>
+        <path d="M7 19c0-2.76 2.24-4 5-4s5 1.24 5 4"/>
+      </svg>
+    </span>
     <div class="explore-popup-text">
       <span class="explore-popup-title">My Passport</span>
       <span class="explore-popup-sub">View your visit history</span>
@@ -834,7 +859,12 @@
     </div>
   </button>
   <button class="explore-popup-btn" onclick="_routeSubSaved()">
-    <span class="explore-popup-icon">📋</span>
+    <span class="explore-popup-icon">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path fill="currentColor" fill-opacity="0.2" d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+        <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+      </svg>
+    </span>
     <div class="explore-popup-text">
       <span class="explore-popup-title">Saved Routes</span>
       <span class="explore-popup-sub">Load a previous route</span>

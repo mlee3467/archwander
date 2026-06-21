@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — archwander</title>
+  <link rel="icon" type="image/png" href="img/Logo_favicon.png">
+  <meta name="description" content="archwander — an architectural travel guide for curious explorers.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f7f7f5;
+      color: #111;
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    header {
+      background: #111;
+      padding: 0 24px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .hdr-logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none;
+    }
+    .hdr-logo img { height: 32px; width: auto; }
+    .hdr-logo span {
+      color: #fff; font-size: 15px; font-weight: 600; letter-spacing: -0.3px;
+    }
+    .hdr-back {
+      color: rgba(255,255,255,0.6); font-size: 13px;
+      text-decoration: none; transition: color 0.15s;
+    }
+    .hdr-back:hover { color: #fff; }
+
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    .page-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 1.2px;
+      text-transform: uppercase; color: #888; margin-bottom: 12px;
+    }
+    h1 {
+      font-size: 28px; font-weight: 700; letter-spacing: -0.5px;
+      line-height: 1.25; margin-bottom: 8px;
+    }
+    .tagline {
+      font-size: 16px; color: #555; margin-bottom: 40px;
+    }
+
+    .section {
+      background: #fff; border: 1px solid #e8e8e4;
+      border-radius: 12px; padding: 28px 28px 24px;
+      margin-bottom: 20px;
+    }
+    .section + .section { }
+    .section h2 {
+      font-size: 17px; font-weight: 700; margin-bottom: 14px;
+      letter-spacing: -0.2px;
+    }
+    .section p { color: #333; margin-bottom: 12px; }
+    .section p:last-child { margin-bottom: 0; }
+
+    .how-list {
+      list-style: none; padding: 0;
+    }
+    .how-list li {
+      display: flex; gap: 14px; align-items: flex-start;
+      padding: 12px 0; border-bottom: 1px solid #f0f0ee;
+    }
+    .how-list li:last-child { border-bottom: none; padding-bottom: 0; }
+    .how-icon {
+      flex-shrink: 0; width: 36px; height: 36px;
+      background: #f2f2ef; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: #333;
+    }
+    .how-text strong { display: block; font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+    .how-text span { font-size: 13px; color: #666; }
+
+    .contact-block {
+      display: flex; align-items: center; gap: 14px; padding: 16px 20px;
+      background: #f7f7f5; border-radius: 8px; border: 1px solid #e8e8e4;
+      margin-top: 4px;
+    }
+    .contact-block svg { flex-shrink: 0; color: #555; }
+    .contact-block a { color: #111; font-weight: 600; text-decoration: none; font-size: 14px; }
+    .contact-block a:hover { text-decoration: underline; }
+
+    .links-row {
+      display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px;
+    }
+    .links-row a {
+      font-size: 13px; color: #555; text-decoration: none;
+      padding: 6px 14px; border-radius: 20px;
+      border: 1px solid #ddd; background: #fff;
+      transition: background 0.12s, border-color 0.12s;
+    }
+    .links-row a:hover { background: #f0f0ee; border-color: #bbb; }
+
+    footer {
+      text-align: center; padding: 24px;
+      font-size: 12px; color: #aaa;
+    }
+
+    @media (max-width: 600px) {
+      main { padding: 32px 16px 60px; }
+      h1 { font-size: 22px; }
+      .section { padding: 20px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a class="hdr-logo" href="index.html">
+    <img src="img/Logo_favicon.png" alt="archwander">
+    <span>archwander</span>
+  </a>
+  <a class="hdr-back" href="index.html">← Back to app</a>
+</header>
+
+<main>
+  <div class="page-label">About</div>
+  <h1>Architecture worth wandering to.</h1>
+  <p class="tagline">archwander is a curated travel guide for people who explore cities through their buildings.</p>
+
+  <!-- Concept -->
+  <div class="section">
+    <h2>What is archwander?</h2>
+    <p>archwander is a location-based guide to remarkable architecture. It helps you discover, navigate, and document buildings and urban spaces that define a city's identity — from landmark skyscrapers to quiet neighbourhood gems.</p>
+    <p>The app is built on the belief that great architecture is experienced in person, at street level, not through a screen. Every entry in archwander is a real place you can visit. We curate for quality over quantity: buildings with a clear architectural narrative, historical significance, or spatial experience worth seeking out.</p>
+    <p>We're currently in Pilot. Cities live right now: New York, Seoul, London, Tokyo, and Chicago. More cities are planned.</p>
+  </div>
+
+  <!-- How to use -->
+  <div class="section">
+    <h2>How to use archwander</h2>
+    <ul class="how-list">
+      <li>
+        <div class="how-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.5" y1="15.5" x2="21" y2="21"/></svg>
+        </div>
+        <div class="how-text">
+          <strong>Explore</strong>
+          <span>Browse the map or list to find architecture near you or in any neighbourhood. Filter by category, style, or era.</span>
+        </div>
+      </li>
+      <li>
+        <div class="how-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon fill="currentColor" fill-opacity="0.25" points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <div class="how-text">
+          <strong>Save Favorites</strong>
+          <span>Star buildings you want to visit. Your favorites sync across devices when signed in.</span>
+        </div>
+      </li>
+      <li>
+        <div class="how-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="2" fill="currentColor" fill-opacity="0.3"/><circle cx="19" cy="18" r="2" fill="currentColor" fill-opacity="0.3"/><path d="M5 8v3c0 2.2 1.8 4 4 4h6c2.2 0 4 1.8 4 4"/><path d="M19 16v-3c0-2.2-1.8-4-4-4H9C6.8 9 5 7.2 5 5"/></svg>
+        </div>
+        <div class="how-text">
+          <strong>Plan Routes</strong>
+          <span>Build a walking route between buildings in a neighbourhood. Export to Google Maps or share with a link.</span>
+        </div>
+      </li>
+      <li>
+        <div class="how-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="currentColor" fill-opacity="0.2"/><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="how-text">
+          <strong>Log Visits</strong>
+          <span>Check in when you visit a building. Build your personal passport of explored architecture over time.</span>
+        </div>
+      </li>
+      <li>
+        <div class="how-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        </div>
+        <div class="how-text">
+          <strong>Share</strong>
+          <span>Share a building or a custom route with anyone — no account needed to view a shared link.</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Legal / Privacy -->
+  <div class="section">
+    <h2>Privacy &amp; Legal</h2>
+    <p>archwander is a Pilot product. We collect minimal data: only what's needed to sync your favorites and visited places across devices. We don't run ads, and we don't sell your data.</p>
+    <div class="links-row">
+      <a href="privacy.html">Privacy Policy →</a>
+    </div>
+  </div>
+
+  <!-- Contact -->
+  <div class="section">
+    <h2>Contact</h2>
+    <p>We'd love to hear from you — whether it's a missing building, a wrong address, or a collaboration idea.</p>
+    <div class="contact-block">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      <div>
+        <div style="font-size:12px;color:#888;margin-bottom:2px">Email</div>
+        <a href="mailto:info@archwander.com">info@archwander.com</a>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  &copy; 2025 archwander · Pilot v0.5
+</footer>
+
+</body>
+</html>
