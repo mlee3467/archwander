@@ -2834,16 +2834,14 @@
   box-shadow: 0 2px 10px rgba(0,0,0,0.30);
 }
 
-/* ── Scale bar — solid black bar, white text, always (desktop 2× mobile) ── */
+/* ── Scale bar — base: solid black bar, white text, always ── */
 .leaflet-control-scale-line,
 [data-theme="dark"] .leaflet-control-scale-line {
   border: none !important;
   background: #000 !important;
   color: #fff !important;
-  font-size: 8px !important;
   font-weight: 700 !important;
-  line-height: 1.2 !important;
-  padding: 2px 12px !important;
+  line-height: 1 !important;
   border-radius: 0 !important;
   text-shadow: none !important;
   box-shadow: none !important;
@@ -2852,7 +2850,17 @@
 .leaflet-control-scale-line:not(:first-child),
 [data-theme="dark"] .leaflet-control-scale-line:not(:first-child) {
   border-top: none !important;
-  margin-top: 3px;
+  margin-top: 2px;
+}
+/* Desktop-specific size */
+@media (min-width: 901px) {
+  .leaflet-control-scale-line,
+  [data-theme="dark"] .leaflet-control-scale-line {
+    font-size: 8px !important;
+    padding: 2px 10px !important;
+    height: auto !important;
+    min-height: 0 !important;
+  }
 }
 [data-theme="dark"] .ruler-map-btn {
   background: rgba(36,36,40,0.92) !important;
