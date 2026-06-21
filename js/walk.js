@@ -444,9 +444,9 @@ function _syncWalkSliderUnits() {
     var newVal = Math.round((currentM / 1609.34) / 0.3) * 0.3;
     slider.value = Math.min(6, Math.max(0.3, +newVal.toFixed(1)));
   } else {
-    slider.min = '0.5'; slider.max = '10'; slider.step = '0.5';
-    var newVal = Math.round((currentM / 1000) / 0.5) * 0.5;
-    slider.value = Math.min(10, Math.max(0.5, +newVal.toFixed(1)));
+    slider.min = '0.2'; slider.max = '10'; slider.step = '0.2';
+    var newVal = Math.round((currentM / 1000) / 0.2) * 0.2;
+    slider.value = Math.min(10, Math.max(0.2, +newVal.toFixed(1)));
   }
   var label = document.getElementById('walk-label');
   if (label) label.textContent = _fmtWalkLabel(slider.value);
