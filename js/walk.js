@@ -705,12 +705,14 @@ window.addEventListener('orientationchange', function() { setTimeout(_syncSideba
 // ══════════════════════════════════════════════════════════════════
 // LASSO POLYGON FILTER
 // ══════════════════════════════════════════════════════════════════
-var lassoActive   = false;
-var lassoDrawing  = false;
-var lassoPoints   = [];     // [[lat,lng],...] accumulated during drawing
-var lassoPolygon  = null;   // finalized [[lat,lng],...] used for filtering
-var _lassoLayer   = null;   // Leaflet polygon layer (finalized polygon)
-var _lassoPreview = null;   // Leaflet polyline (in-progress preview)
+var lassoActive     = false;
+var lassoDrawing    = false;
+var lassoPoints     = [];     // [[lat,lng],...] accumulated during drawing
+var lassoPolygon    = null;   // finalized [[lat,lng],...] used for filtering
+var _lassoLayer     = null;   // Leaflet polygon layer (finalized)
+var _lassoPreview   = null;   // Leaflet polyline (committed segments)
+var _lassoRubberBand= null;   // Leaflet polyline (live cursor-tracking segment)
+var _lassoDots      = [];     // Leaflet circleMarkers at each vertex
 
 // ── Public entry: toggle lasso mode on/off ─────────────────────
 function toggleLassoMode() {
@@ -744,11 +746,9 @@ function _startLasso() {
   lassoDrawing = true;
   lassoPoints  = [];
 
-  // SBA active state
+  // SBA + lasso button active state
   var sbaLoc = document.getElementById('sba-loc');
   if (sbaLoc) sbaLoc.classList.add('sba-active');
-
-  // Lasso button active
   var lBtn = document.getElementById('walk-lasso-btn');
   if (lBtn) lBtn.classList.add('active');
 
@@ -764,8 +764,9 @@ function _startLasso() {
 
   // Bind map events
   if (window.map) {
-    map.on('click', _lassoOnClick);
-    map.on('dblclick', _lassoOnDblClick);
+    map.on('click',     _lassoOnClick);
+    map.on('dblclick',  _lassoOnDblClick);
+    map.on('mousemove', _lassoOnMouseMove);
   }
 
   // ESC key → cancel
@@ -773,17 +774,52 @@ function _startLasso() {
   document.addEventListener('keydown', document._lassoEscFn);
 }
 
-// ── Map click: add a vertex ───────────────────────────────────
+// ── Mouse/touch move: rubber-band line to cursor ──────────────
+function _lassoOnMouseMove(e) {
+  if (!lassoDrawing || lassoPoints.length === 0) return;
+  var last = lassoPoints[lassoPoints.length - 1];
+  if (_lassoRubberBand) { try { map.removeLayer(_lassoRubberBand); } catch(x){} _lassoRubberBand = null; }
+  _lassoRubberBand = L.polyline([last, [e.latlng.lat, e.latlng.lng]], {
+    color: '#4F46E5', weight: 2.5, dashArray: '8 6', opacity: 0.7, interactive: false
+  }).addTo(map);
+}
+
+// ── Map click: add vertex or snap-close ───────────────────────
 function _lassoOnClick(e) {
   if (!lassoDrawing) return;
-  lassoPoints.push([e.latlng.lat, e.latlng.lng]);
 
-  // Redraw preview polyline (closed loop to hint at the shape)
+  // Snap-to-close: clicking within 20px of first point closes polygon
+  if (lassoPoints.length >= 3) {
+    var firstLL = L.latLng(lassoPoints[0][0], lassoPoints[0][1]);
+    var fp = map.latLngToContainerPoint(firstLL);
+    var cp = map.latLngToContainerPoint(e.latlng);
+    if (Math.sqrt(Math.pow(fp.x - cp.x, 2) + Math.pow(fp.y - cp.y, 2)) <= 20) {
+      _lassoFinalize();
+      return;
+    }
+  }
+
+  var lat = e.latlng.lat, lng = e.latlng.lng;
+  lassoPoints.push([lat, lng]);
+
+  // Vertex dot — all filled solid; first point slightly larger as snap target hint
+  var isFirst = lassoPoints.length === 1;
+  var dot = L.circleMarker([lat, lng], {
+    radius:      isFirst ? 7 : 5,
+    color:       '#ffffff',
+    fillColor:   '#4F46E5',
+    fillOpacity: 1,
+    weight:      2,
+    interactive: false
+  }).addTo(map);
+  _lassoDots.push(dot);
+
+  // Committed-segments polyline (dashed, blue)
   if (_lassoPreview) { map.removeLayer(_lassoPreview); _lassoPreview = null; }
   if (lassoPoints.length >= 2) {
-    var pts = lassoPoints.concat([lassoPoints[0]]); // visually close the loop
+    var pts = lassoPoints.concat([lassoPoints[0]]); // visually close loop
     _lassoPreview = L.polyline(pts, {
-      color: '#4F46E5', weight: 2, dashArray: '6 4', opacity: 0.85
+      color: '#4F46E5', weight: 3, dashArray: '8 6', opacity: 0.9, interactive: false
     }).addTo(map);
   }
 }
@@ -791,32 +827,41 @@ function _lassoOnClick(e) {
 // ── Double-click: finish polygon ──────────────────────────────
 function _lassoOnDblClick(e) {
   if (!lassoDrawing) return;
-  L.DomEvent.stop(e); // prevent map zoom
+  L.DomEvent.stop(e); // prevent zoom
   if (lassoPoints.length >= 3) {
     _lassoFinalize();
   } else {
-    // Not enough points — cancel
     exitLassoMode();
   }
 }
 
-// ── Finalize: draw solid polygon + apply filter ───────────────
+// ── Finalize: draw solid polygon + apply filter + open list ───
 function _lassoFinalize() {
   if (!lassoDrawing || lassoPoints.length < 3) return;
 
   // Stop drawing mode
   if (window.map) {
-    map.off('click', _lassoOnClick);
-    map.off('dblclick', _lassoOnDblClick);
+    map.off('click',     _lassoOnClick);
+    map.off('dblclick',  _lassoOnDblClick);
+    map.off('mousemove', _lassoOnMouseMove);
     map.doubleClickZoom.enable();
     map.getContainer().style.cursor = '';
+  }
+  if (document._lassoEscFn) {
+    document.removeEventListener('keydown', document._lassoEscFn);
+    document._lassoEscFn = null;
   }
 
   lassoDrawing = false;
   lassoPolygon = lassoPoints.slice();
 
-  // Replace preview with solid polygon
-  if (_lassoPreview) { map.removeLayer(_lassoPreview); _lassoPreview = null; }
+  // Remove all in-progress visuals
+  if (_lassoRubberBand) { try { map.removeLayer(_lassoRubberBand); } catch(x){} _lassoRubberBand = null; }
+  if (_lassoPreview)    { try { map.removeLayer(_lassoPreview);    } catch(x){} _lassoPreview    = null; }
+  _lassoDots.forEach(function(d) { try { map.removeLayer(d); } catch(x){} });
+  _lassoDots = [];
+
+  // Draw finalized polygon
   if (window.map) {
     _lassoLayer = L.polygon(lassoPolygon, {
       color: '#4F46E5', weight: 2,
@@ -825,21 +870,27 @@ function _lassoFinalize() {
   }
 
   // Banner off, clear button on
-  var banner = document.getElementById('lasso-banner');
-  if (banner) banner.style.display = 'none';
+  var banner   = document.getElementById('lasso-banner');
+  if (banner)   banner.style.display = 'none';
   var clearBtn = document.getElementById('lasso-clear-btn');
   if (clearBtn) clearBtn.style.display = 'flex';
 
-  // Apply filter
+  // Apply filter + refresh markers
   if (typeof renderList  === 'function') renderList();
   if (typeof syncMarkers === 'function') syncMarkers();
+
+  // Auto-open list view
+  setTimeout(function() {
+    if (typeof _openListOverlay === 'function') _openListOverlay();
+  }, 100);
 }
 
 // ── Hard-clear: internal, no re-render (called from _fullDeactivate) ─
 function _lassoHardClear() {
   if (window.map) {
-    map.off('click', _lassoOnClick);
-    map.off('dblclick', _lassoOnDblClick);
+    map.off('click',     _lassoOnClick);
+    map.off('dblclick',  _lassoOnDblClick);
+    map.off('mousemove', _lassoOnMouseMove);
     map.doubleClickZoom.enable();
     map.getContainer().style.cursor = '';
   }
@@ -851,8 +902,11 @@ function _lassoHardClear() {
   lassoDrawing = false;
   lassoPoints  = [];
   lassoPolygon = null;
-  if (_lassoPreview) { try { map.removeLayer(_lassoPreview); } catch(e){} _lassoPreview = null; }
-  if (_lassoLayer)   { try { map.removeLayer(_lassoLayer);   } catch(e){} _lassoLayer   = null; }
+  if (_lassoRubberBand) { try { map.removeLayer(_lassoRubberBand); } catch(x){} _lassoRubberBand = null; }
+  if (_lassoPreview)    { try { map.removeLayer(_lassoPreview);    } catch(x){} _lassoPreview    = null; }
+  if (_lassoLayer)      { try { map.removeLayer(_lassoLayer);      } catch(x){} _lassoLayer      = null; }
+  _lassoDots.forEach(function(d) { try { map.removeLayer(d); } catch(x){} });
+  _lassoDots = [];
   var banner = document.getElementById('lasso-banner');
   if (banner) banner.style.display = 'none';
   var clearBtn = document.getElementById('lasso-clear-btn');
@@ -879,7 +933,6 @@ function _pointInLassoPolygon(lat, lng) {
   for (var i = 0, j = n - 1; i < n; j = i++) {
     var lat_i = lassoPolygon[i][0], lng_i = lassoPolygon[i][1];
     var lat_j = lassoPolygon[j][0], lng_j = lassoPolygon[j][1];
-    // Horizontal ray from point (lng, lat) going east
     var intersect = ((lat_i > lat) !== (lat_j > lat)) &&
       (lng < (lng_j - lng_i) * (lat - lat_i) / (lat_j - lat_i) + lng_i);
     if (intersect) inside = !inside;
