@@ -504,7 +504,10 @@
         <option value="tky">Tokyo</option>
         <option value="chi">Chicago</option>
       </select>
-      <div id="sb-auth-area" class="sb-auth-area"></div>
+      <div id="sb-auth-area" class="sb-auth-area">
+        <button id="sb-login-btn" class="sb-auth-login-btn" onclick="syncOpenModal('login')">Log In</button>
+        <button id="sb-user-chip-btn" class="sb-auth-user-chip" style="display:none" onclick="typeof _sbaMyPage==='function'?_sbaMyPage():syncOpenModal()"></button>
+      </div>
     </div>
 
     <!-- World-mode lock banner (desktop) -->
@@ -1014,5 +1017,5 @@
 <script src="js/select.js?v=20260609"></script>
 <script src="js/landing.js?v=20260621e"></script>
 <script src="js/analytics.js?v=20260611"></script>
-<script src="js/sync.js?v=20260615"></script>
+<script src="js/sync.js?v=20260621"></script>
 <script src="js/init.js?v=20260621c"></script>

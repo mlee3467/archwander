@@ -452,33 +452,41 @@ async function _syncDoVerify() {
 // ── Header auth area (Sign Up / Log In / user chip) ───────────────
 function _updateHeaderAuth() {
   var el   = document.getElementById('header-auth-area');
-  var sbEl = document.getElementById('sb-auth-area');
   var ko   = _isKo();
 
+  // Sidebar static elements
+  var sbLoginBtn = document.getElementById('sb-login-btn');
+  var sbChipBtn  = document.getElementById('sb-user-chip-btn');
+
   if (_syncUser && _syncUser.email) {
-    // Logged in — header chip
     var initial = _syncUser.email.charAt(0).toUpperCase();
-    var chipHtml =
+
+    // Header chip
+    if (el) el.innerHTML =
       '<button class="hdr-user-chip" onclick="typeof _sbaMyPage===\'function\'?_sbaMyPage():syncOpenModal()" title="' + _syncUser.email + '">' +
         initial +
       '</button>';
-    if (el) el.innerHTML = chipHtml;
-    // Sidebar chip (same action)
-    if (sbEl) sbEl.innerHTML =
-      '<button class="sb-auth-user-chip" onclick="typeof _sbaMyPage===\'function\'?_sbaMyPage():syncOpenModal()" title="' + _syncUser.email + '">' +
-        initial +
-      '</button>';
+
+    // Sidebar chip (show chip, hide login btn)
+    if (sbLoginBtn) sbLoginBtn.style.display = 'none';
+    if (sbChipBtn) {
+      sbChipBtn.style.display = 'flex';
+      sbChipBtn.textContent = initial;
+      sbChipBtn.title = _syncUser.email;
+    }
   } else {
     // Not logged in — header Sign In button
     if (el) el.innerHTML =
       '<button class="hdr-auth-btn hdr-auth-login" onclick="syncOpenModal(\'login\')">' +
         (ko ? '로그인' : 'Sign In') +
       '</button>';
-    // Sidebar Log In button (mobile)
-    if (sbEl) sbEl.innerHTML =
-      '<button class="sb-auth-login-btn" onclick="syncOpenModal(\'login\')">' +
-        (ko ? '로그인' : 'Log In') +
-      '</button>';
+
+    // Sidebar Log In (show login btn, hide chip)
+    if (sbLoginBtn) {
+      sbLoginBtn.style.display = '';
+      sbLoginBtn.textContent = ko ? '로그인' : 'Log In';
+    }
+    if (sbChipBtn) sbChipBtn.style.display = 'none';
   }
 }
 
