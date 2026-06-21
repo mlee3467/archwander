@@ -761,6 +761,18 @@
   <button class="lasso-banner-cancel" onclick="exitLassoMode()">Cancel</button>
 </div>
 
+<!-- Ruler clear button — shown when measurements are on screen -->
+<button id="ruler-clear-btn" onclick="exitRulerMode()" style="display:none">
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="2" y="7" width="20" height="10" rx="1"/><line x1="7" y1="7" x2="7" y2="11"/><line x1="12" y1="7" x2="12" y2="13"/><line x1="17" y1="7" x2="17" y2="11"/></svg>
+  <span>Clear Ruler</span>
+</button>
+
+<!-- Ruler instruction banner -->
+<div id="ruler-banner" style="display:none">
+  <span id="ruler-banner-text">Click to measure · Double-click to finish</span>
+  <button class="lasso-banner-cancel" onclick="exitRulerMode()">Cancel</button>
+</div>
+
 <div id="panel-backdrop" onclick="closePanel()"></div>
 
 <!-- ── SV FULLSCREEN MODAL ── -->

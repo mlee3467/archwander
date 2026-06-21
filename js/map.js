@@ -101,6 +101,8 @@ function initMap() {
     { attribution:'© Esri / DigitalGlobe', maxZoom:18 }
   );
   L.control.zoom({ position:'bottomright' }).addTo(map);
+  _initScaleBar();
+  _addRulerControl();
   clusterGroup = createClusterGroup();
   // World mode on load: DON'T add clusterGroup so location markers stay hidden
   // (city overview cards are shown instead; clusterGroup added when city is selected)
@@ -128,6 +130,45 @@ function initMap() {
     }
     _updateCityPinVisibility();
   });
+}
+
+// ── Scale Bar (unit-aware) ────────────────────────────────────────
+var _scaleControl = null;
+function _initScaleBar() {
+  if (_scaleControl && window.map) { try { map.removeControl(_scaleControl); } catch(x){} _scaleControl = null; }
+  if (!window.map) return;
+  var imperial = localStorage.getItem('aw_units') === 'imperial';
+  _scaleControl = L.control.scale({
+    position: 'bottomleft',
+    metric:   !imperial,
+    imperial:  imperial,
+    maxWidth:  120
+  }).addTo(map);
+}
+function updateScaleBar() { _initScaleBar(); }
+
+// ── Ruler Button — custom Leaflet control ─────────────────────────
+function _addRulerControl() {
+  if (!window.map) return;
+  var RulerBtn = L.Control.extend({
+    options: { position: 'bottomleft' },
+    onAdd: function() {
+      var c = L.DomUtil.create('div', 'leaflet-bar leaflet-control ruler-btn-wrap');
+      var btn = L.DomUtil.create('a', 'ruler-map-btn', c);
+      btn.id    = 'ruler-map-btn';
+      btn.href  = '#';
+      btn.title = 'Measure distances';
+      btn.setAttribute('role', 'button');
+      btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="10" rx="1"/><line x1="7" y1="7" x2="7" y2="11"/><line x1="12" y1="7" x2="12" y2="13"/><line x1="17" y1="7" x2="17" y2="11"/></svg>';
+      L.DomEvent.on(btn, 'click', function(e) {
+        L.DomEvent.stop(e);
+        if (typeof toggleRulerMode === 'function') toggleRulerMode();
+      });
+      L.DomEvent.disableClickPropagation(c);
+      return c;
+    }
+  });
+  new RulerBtn().addTo(map);
 }
 
 // ── City Overview Cards (world zoom) ─────────────────────────────

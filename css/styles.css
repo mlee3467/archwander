@@ -2684,7 +2684,8 @@
 #walk-radius-ctrl-btn,
 #set-route-fab,
 #walk-exit-btn,
-#lasso-clear-btn {
+#lasso-clear-btn,
+#ruler-clear-btn {
   position: fixed;
   left: 50%; transform: translateX(-50%);
   z-index: 2490;
@@ -2703,7 +2704,8 @@
 }
 #walk-radius-ctrl-btn:active,
 #walk-exit-btn:active,
-#lasso-clear-btn:active {
+#lasso-clear-btn:active,
+#ruler-clear-btn:active {
   background: #EEF2FF;
   box-shadow: 0 1px 6px rgba(79,70,229,0.10);
 }
@@ -2713,6 +2715,7 @@
 #set-route-fab        { bottom: 148px; z-index: 2500; }
 #walk-exit-btn        { bottom: 105px; }
 #lasso-clear-btn      { bottom: 105px; }
+#ruler-clear-btn      { bottom: 105px; }
 
 /* Set Route — accent: filled indigo */
 #set-route-fab {
@@ -2742,6 +2745,7 @@
   }
   #walk-radius-ctrl-btn { bottom: 32px; }
   #lasso-clear-btn      { bottom: 32px; }
+  #ruler-clear-btn      { bottom: 32px; }
 }
 
 /* ── Lasso instruction banner ── */
@@ -2770,6 +2774,79 @@
   transition: background 0.12s;
 }
 .lasso-banner-cancel:hover { background: rgba(255,255,255,0.22); }
+
+/* ── Ruler instruction banner — identical layout to lasso-banner ── */
+#ruler-banner {
+  position: fixed;
+  top: 72px; left: 50%; transform: translateX(-50%);
+  z-index: 3100;
+  display: none; align-items: center; gap: 14px;
+  padding: 9px 16px 9px 20px;
+  background: rgba(22,22,26,0.88);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  color: #f0f0f0;
+  border-radius: var(--radius-xl);
+  font-size: var(--fs-sm); font-weight: 500;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.30);
+  white-space: nowrap; pointer-events: auto;
+}
+
+/* ── Ruler map button (Leaflet custom control) ── */
+.ruler-btn-wrap { padding: 0 !important; background: none !important; border: none !important; box-shadow: none !important; }
+.ruler-map-btn {
+  display: flex !important; align-items: center; justify-content: center;
+  width: 30px; height: 30px;
+  background: rgba(255,255,255,0.92) !important;
+  border: 2px solid rgba(0,0,0,0.25) !important;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #333;
+  text-decoration: none !important;
+  transition: background 0.12s;
+}
+.ruler-map-btn:hover { background: #f0f0ee !important; color: #000; }
+.ruler-map-btn.active { background: #4F46E5 !important; color: #fff !important; border-color: #4F46E5 !important; }
+
+/* ── Ruler measurement labels ── */
+.ruler-seg-label {
+  display: inline-block;
+  background: rgba(79,70,229,0.88);
+  color: #fff;
+  font-size: 11px; font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 20px;
+  white-space: nowrap;
+  font-family: Inter, sans-serif;
+  pointer-events: none;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.22);
+  transform: translateX(-50%);
+}
+.ruler-total-label {
+  display: inline-block;
+  background: rgba(20,20,26,0.88);
+  color: #fff;
+  font-size: 12px; font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+  font-family: Inter, sans-serif;
+  pointer-events: none;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.30);
+}
+
+/* ── Scale bar dark mode ── */
+[data-theme="dark"] .leaflet-control-scale-line {
+  background: rgba(30,30,34,0.85);
+  color: #e0e0e0;
+  border-color: #777;
+}
+[data-theme="dark"] .ruler-map-btn {
+  background: rgba(36,36,40,0.92) !important;
+  color: #ddd !important;
+  border-color: #555 !important;
+}
+[data-theme="dark"] .ruler-map-btn:hover { background: rgba(50,50,58,0.95) !important; color: #fff !important; }
+[data-theme="dark"] .ruler-map-btn.active { background: #4F46E5 !important; color: #fff !important; border-color: #4F46E5 !important; }
 
 /* ═══════════════════════════════════════════════════════════════
    ROUTE CUSTOM POPUP — photo / SV thumbnail

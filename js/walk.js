@@ -182,8 +182,9 @@ function _fullDeactivate() {
   if (userMarker)    { userMarker.remove();    userMarker    = null; }
   if (pinDropMarker) { pinDropMarker.remove(); pinDropMarker = null; }
   _clearWalkOverlay();
-  // Also clear lasso silently (render happens at end)
+  // Also clear lasso + ruler silently (render happens at end)
   if (lassoActive || lassoDrawing) _lassoHardClear();
+  if (typeof rulerActive !== 'undefined' && (rulerActive || (rulerPoints && rulerPoints.length > 0))) _rulerHardClear();
   var wb = document.getElementById('walk-bar');
   if (wb) { wb.classList.remove('visible'); wb.style.height = '0'; wb.style.overflow = 'hidden'; }
   var wrf = document.getElementById('walk-radius-float');
@@ -958,3 +959,190 @@ function _pointInLassoPolygon(lat, lng) {
   }
   return inside;
 }
+
+// ════════════════════════════════════════════════════════════════
+// RULER TOOL — click-to-place vertices, double-click to finish
+// Same visual style as polygon lasso (filled dots, dashed lines)
+// ════════════════════════════════════════════════════════════════
+var rulerActive  = false;
+var rulerPoints  = [];       // [[lat,lng],...]
+var _rulerLine   = null;     // committed polyline
+var _rulerRubber = null;     // rubber-band line to cursor
+var _rulerDots   = [];       // vertex circle markers
+var _rulerLabels = [];       // per-segment distance markers
+var _rulerTotLbl = null;     // total distance marker at last point
+
+// ── Toggle ruler on/off ───────────────────────────────────────────
+function toggleRulerMode() {
+  if (rulerActive || rulerPoints.length > 0) {
+    exitRulerMode();
+  } else {
+    _startRuler();
+  }
+}
+
+// ── Start ruler ───────────────────────────────────────────────────
+function _startRuler() {
+  // Deactivate lasso if running
+  if (lassoActive || lassoDrawing) _lassoHardClear();
+
+  rulerActive = true;
+  rulerPoints = [];
+
+  var btn = document.getElementById('ruler-map-btn');
+  if (btn) btn.classList.add('active');
+  var banner = document.getElementById('ruler-banner');
+  if (banner) banner.style.display = 'flex';
+
+  if (window.map) {
+    map.getContainer().style.cursor = 'crosshair';
+    map.doubleClickZoom.disable();
+    map.on('click',     _rulerOnClick);
+    map.on('dblclick',  _rulerOnDblClick);
+    map.on('mousemove', _rulerOnMouseMove);
+  }
+
+  document._rulerEscFn = function(e) { if (e.key === 'Escape') exitRulerMode(); };
+  document.addEventListener('keydown', document._rulerEscFn);
+}
+
+// ── Format distance per unit setting ─────────────────────────────
+function _rulerFmt(m) {
+  var imperial = localStorage.getItem('aw_units') === 'imperial';
+  if (imperial) {
+    var mi = m / 1609.34;
+    return mi < 0.1 ? Math.round(m / 0.9144) + ' yd' : mi.toFixed(2) + ' mi';
+  }
+  return m < 1000 ? Math.round(m) + ' m' : (m / 1000).toFixed(2) + ' km';
+}
+
+// ── Rubber-band line to cursor ────────────────────────────────────
+function _rulerOnMouseMove(e) {
+  if (!rulerActive || rulerPoints.length === 0) return;
+  var last = rulerPoints[rulerPoints.length - 1];
+  if (_rulerRubber) { try { map.removeLayer(_rulerRubber); } catch(x){} _rulerRubber = null; }
+  _rulerRubber = L.polyline([last, [e.latlng.lat, e.latlng.lng]], {
+    color: '#4F46E5', weight: 2.5, dashArray: '8 6', opacity: 0.7, interactive: false
+  }).addTo(map);
+}
+
+// ── Click: place vertex ───────────────────────────────────────────
+function _rulerOnClick(e) {
+  if (!rulerActive) return;
+  var lat = e.latlng.lat, lng = e.latlng.lng;
+  rulerPoints.push([lat, lng]);
+
+  // Vertex dot — same style as lasso
+  var isFirst = rulerPoints.length === 1;
+  var dot = L.circleMarker([lat, lng], {
+    radius: isFirst ? 7 : 5,
+    color: '#ffffff', fillColor: '#4F46E5', fillOpacity: 1, weight: 2, interactive: false
+  }).addTo(map);
+  _rulerDots.push(dot);
+
+  // Update committed polyline
+  if (_rulerLine) { try { map.removeLayer(_rulerLine); } catch(x){} _rulerLine = null; }
+  if (rulerPoints.length >= 2) {
+    _rulerLine = L.polyline(rulerPoints, {
+      color: '#4F46E5', weight: 3, dashArray: '8 6', opacity: 0.9, interactive: false
+    }).addTo(map);
+
+    // Segment label at midpoint
+    var n = rulerPoints.length;
+    var p1 = rulerPoints[n - 2], p2 = rulerPoints[n - 1];
+    var mid = [(p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2];
+    var segDist = L.latLng(p1[0], p1[1]).distanceTo(L.latLng(p2[0], p2[1]));
+    var segLbl = L.marker(mid, {
+      icon: L.divIcon({
+        className: 'ruler-seg-icon',
+        html: '<span class="ruler-seg-label">' + _rulerFmt(segDist) + '</span>',
+        iconSize: [1, 1], iconAnchor: [0, 12]
+      }),
+      interactive: false, zIndexOffset: 500
+    }).addTo(map);
+    _rulerLabels.push(segLbl);
+  }
+
+  // Total label at last point
+  if (_rulerTotLbl) { try { map.removeLayer(_rulerTotLbl); } catch(x){} _rulerTotLbl = null; }
+  if (rulerPoints.length >= 2) {
+    var total = 0;
+    for (var i = 1; i < rulerPoints.length; i++) {
+      total += L.latLng(rulerPoints[i-1][0], rulerPoints[i-1][1])
+                 .distanceTo(L.latLng(rulerPoints[i][0], rulerPoints[i][1]));
+    }
+    var lastPt = rulerPoints[rulerPoints.length - 1];
+    _rulerTotLbl = L.marker(lastPt, {
+      icon: L.divIcon({
+        className: 'ruler-tot-icon',
+        html: '<span class="ruler-total-label">Total: ' + _rulerFmt(total) + '</span>',
+        iconSize: [1, 1], iconAnchor: [-12, -6]
+      }),
+      interactive: false, zIndexOffset: 1000
+    }).addTo(map);
+  }
+}
+
+// ── Double-click: finish measuring ───────────────────────────────
+function _rulerOnDblClick(e) {
+  if (!rulerActive) return;
+  L.DomEvent.stop(e);
+  _finishRuler();
+}
+
+// ── Finish: stop adding points, keep measurements visible ─────────
+function _finishRuler() {
+  if (window.map) {
+    map.off('click',     _rulerOnClick);
+    map.off('dblclick',  _rulerOnDblClick);
+    map.off('mousemove', _rulerOnMouseMove);
+    map.doubleClickZoom.enable();
+    map.getContainer().style.cursor = '';
+  }
+  if (_rulerRubber) { try { map.removeLayer(_rulerRubber); } catch(x){} _rulerRubber = null; }
+  if (document._rulerEscFn) {
+    document.removeEventListener('keydown', document._rulerEscFn);
+    document._rulerEscFn = null;
+  }
+  rulerActive = false;
+
+  var banner = document.getElementById('ruler-banner');
+  if (banner) banner.style.display = 'none';
+  var clearBtn = document.getElementById('ruler-clear-btn');
+  if (clearBtn && rulerPoints.length >= 2) clearBtn.style.display = 'flex';
+
+  var btn = document.getElementById('ruler-map-btn');
+  if (btn) btn.classList.remove('active');
+}
+
+// ── Hard-clear: remove all ruler visuals ─────────────────────────
+function _rulerHardClear() {
+  if (window.map) {
+    map.off('click',     _rulerOnClick);
+    map.off('dblclick',  _rulerOnDblClick);
+    map.off('mousemove', _rulerOnMouseMove);
+    try { map.doubleClickZoom.enable(); } catch(x) {}
+    map.getContainer().style.cursor = '';
+  }
+  if (document._rulerEscFn) {
+    document.removeEventListener('keydown', document._rulerEscFn);
+    document._rulerEscFn = null;
+  }
+  if (_rulerRubber) { try { map.removeLayer(_rulerRubber); } catch(x){} _rulerRubber = null; }
+  if (_rulerLine)   { try { map.removeLayer(_rulerLine);   } catch(x){} _rulerLine   = null; }
+  _rulerDots.forEach(function(d)   { try { map.removeLayer(d); } catch(x){} }); _rulerDots   = [];
+  _rulerLabels.forEach(function(l) { try { map.removeLayer(l); } catch(x){} }); _rulerLabels = [];
+  if (_rulerTotLbl) { try { map.removeLayer(_rulerTotLbl); } catch(x){} _rulerTotLbl = null; }
+  rulerActive = false;
+  rulerPoints = [];
+
+  var btn = document.getElementById('ruler-map-btn');
+  if (btn) btn.classList.remove('active');
+  var banner = document.getElementById('ruler-banner');
+  if (banner) banner.style.display = 'none';
+  var clearBtn = document.getElementById('ruler-clear-btn');
+  if (clearBtn) clearBtn.style.display = 'none';
+}
+
+// ── Public exit ───────────────────────────────────────────────────
+function exitRulerMode() { _rulerHardClear(); }

@@ -662,8 +662,9 @@ function _mppSetUnits(units) {
   var miBtn = document.getElementById('mpp-unit-mi');
   if (kmBtn) kmBtn.classList.toggle('active', units === 'metric');
   if (miBtn) miBtn.classList.toggle('active', units === 'imperial');
-  // Update walk slider if Near Me is active
+  // Update walk slider + scale bar
   if (typeof _syncWalkSliderUnits === 'function') _syncWalkSliderUnits();
+  if (typeof updateScaleBar === 'function') updateScaleBar();
 }
 
 function _mppSetPace(pace) {
