@@ -5437,9 +5437,14 @@
   transition: opacity var(--dur-base);
 }
 .hdr-user-chip:hover { opacity: 0.85; }
-/* Mobile: hide text buttons, keep user chip */
+/* Mobile: hide Sign Up, show Log In compact, keep user chip */
 @media (max-width: 900px) {
-  .hdr-auth-btn { display: none !important; }
+  .hdr-auth-signup { display: none !important; }
+  .hdr-auth-login {
+    height: 26px;
+    padding: 0 10px;
+    font-size: 12px;
+  }
 }
 /* Dark mode tweaks */
 [data-theme="dark"] .hdr-auth-signup {
