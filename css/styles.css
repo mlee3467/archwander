@@ -2873,19 +2873,41 @@
   flex-direction: column !important;
   align-items: flex-end !important;
   pointer-events: none;
+  padding-right: 10px;   /* uniform right edge gap (same as Leaflet zoom btn) */
 }
 .leaflet-top.leaflet-right > * {
   float: none !important;
   clear: none !important;
   pointer-events: auto;
-  margin-right: 0 !important;
 }
 /* Scale bar always topmost */
-.leaflet-top.leaflet-right .leaflet-control-scale { order: 1; margin: 10px 10px 4px 0; }
+.leaflet-top.leaflet-right .leaflet-control-scale { order: 1; margin: 10px 0 4px 0; }
 /* Ruler button just below scale bar */
-.leaflet-top.leaflet-right .ruler-btn-wrap        { order: 2; margin: 0 10px 4px 0; }
+.leaflet-top.leaflet-right .ruler-btn-wrap        { order: 2; margin: 0 0 4px 0; }
 /* Legend below both with extra gap */
 .leaflet-top.leaflet-right .map-legend            { order: 3; margin-top: 8px; }
+
+/* ── Mobile: scale bar — thicker border, semi-transparent white bg, bold text ── */
+@media (max-width: 900px) {
+  .leaflet-control-scale-line {
+    border: 4px solid #000 !important;
+    border-top: none !important;
+    background: rgba(255,255,255,0.5) !important;
+    color: #000 !important;
+    font-weight: 700 !important;
+    font-size: 10px !important;
+  }
+  .leaflet-control-scale-line:not(:first-child) {
+    border-top: 4px solid #000 !important;
+    border-bottom: none !important;
+    margin-top: -2px;
+  }
+  [data-theme="dark"] .leaflet-control-scale-line {
+    border-color: #fff !important;
+    background: rgba(0,0,0,0.5) !important;
+    color: #fff !important;
+  }
+}
 
 /* ═══════════════════════════════════════════════════════════════
    ROUTE CUSTOM POPUP — photo / SV thumbnail

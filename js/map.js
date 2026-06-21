@@ -138,11 +138,12 @@ function _initScaleBar() {
   if (_scaleControl && window.map) { try { map.removeControl(_scaleControl); } catch(x){} _scaleControl = null; }
   if (!window.map) return;
   var imperial = localStorage.getItem('aw_units') === 'imperial';
+  var isMobile = window.innerWidth <= 900;
   _scaleControl = L.control.scale({
     position: 'topright',
     metric:   !imperial,
     imperial:  imperial,
-    maxWidth:  120
+    maxWidth:  isMobile ? 60 : 120
   }).addTo(map);
 }
 function updateScaleBar() { _initScaleBar(); }
