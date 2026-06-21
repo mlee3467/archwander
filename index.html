@@ -413,9 +413,9 @@
     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" style="flex-shrink:0"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
     Drop Pin
   </button>
-  <button class="walk-loc-btn" id="walk-lasso-btn" onclick="toggleLassoMode()" title="Draw polygon to filter locations">
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" style="flex-shrink:0"><polygon points="12,3 21,8 18,19 6,19 3,8"/></svg>
-    Lasso
+  <button class="walk-loc-btn" id="walk-lasso-btn" onclick="toggleLassoMode()" title="Drag to draw and select locations">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M5 11C5 7.1 8.1 4 12 4C15.9 4 19 7.1 19 11C19 14.9 15.9 18 12 18C10.5 18 9.1 17.5 8 16.7"/><path d="M8 16.7L5 20"/></svg>
+    Draw
   </button>
   <button class="walk-loc-btn walk-route-btn" id="walk-route-btn" onclick="openRoutePanel()" title="Plan route within walk radius" style="display:none">
     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" style="flex-shrink:0"><path d="M3 17l6-6 4 4 8-8"/><path d="M17 7h4v4"/></svg>
@@ -482,11 +482,11 @@
   </button>
   <button class="explore-popup-btn" onclick="_closeMyLocPopup();_mlpLasso()">
     <span class="explore-popup-icon">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="12,3 21,8 18,19 6,19 3,8"/></svg>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11C5 7.1 8.1 4 12 4C15.9 4 19 7.1 19 11C19 14.9 15.9 18 12 18C10.5 18 9.1 17.5 8 16.7"/><path d="M8 16.7L5 20"/></svg>
     </span>
     <div class="explore-popup-text">
-      <span class="explore-popup-title">Polygon Lasso</span>
-      <span class="explore-popup-sub">Draw area to filter</span>
+      <span class="explore-popup-title">Draw &amp; Select</span>
+      <span class="explore-popup-sub">Drag to select area</span>
     </div>
   </button>
 </div>
@@ -749,15 +749,15 @@
   <span class="wrc-label">Radius</span>
 </button>
 
-<!-- Lasso filter clear button — shown when polygon is active -->
+<!-- Draw & Select clear button — shown when polygon is active -->
 <button id="lasso-clear-btn" onclick="exitLassoMode()" style="display:none">
-  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" style="flex-shrink:0"><polygon points="12,3 21,8 18,19 6,19 3,8"/></svg>
-  <span>Clear Lasso</span>
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M5 11C5 7.1 8.1 4 12 4C15.9 4 19 7.1 19 11C19 14.9 15.9 18 12 18C10.5 18 9.1 17.5 8 16.7"/><path d="M8 16.7L5 20"/></svg>
+  <span>Clear Selection</span>
 </button>
 
-<!-- Lasso drawing instruction banner -->
+<!-- Draw & Select instruction banner -->
 <div id="lasso-banner" style="display:none">
-  <span id="lasso-banner-text">Click to add points · Double-click to finish</span>
+  <span id="lasso-banner-text">Hold &amp; drag to draw area · Release to finish</span>
   <button class="lasso-banner-cancel" onclick="exitLassoMode()">Cancel</button>
 </div>
 
