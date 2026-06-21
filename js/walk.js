@@ -348,7 +348,7 @@ function _updateSetRouteFab() {
   var fab = document.getElementById('set-route-fab');
   var exitBtn = document.getElementById('walk-exit-btn');
   var showRoute = nearMeActive && walkOrigin && !routeActive;
-  var showExit  = nearMeActive && walkOrigin;
+  var showExit  = nearMeActive && walkOrigin && !routeActive;
   if (fab) {
     fab.style.display = showRoute ? 'flex' : 'none';
     if (typeof LANG !== 'undefined') {

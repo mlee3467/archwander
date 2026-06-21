@@ -482,12 +482,21 @@ function _createRoutePanel() {
       '<button class="route-panel-back" onclick="_routePanelBack()" title="' + (LANG === 'ko' ? '지도로 돌아가기' : 'Back to map') + '">◀ </button>' +
       '<span class="route-panel-title">' + (LANG === 'ko' ? '루트 플래너' : 'Route Planner') + '</span>' +
       '<div class="route-hdr-right">' +
-        '<button class="route-btn-save" onclick="_saveMyRoute()" title="' + (LANG === 'ko' ? '루트 저장' : 'Save route') + '">💾</button>' +
-        '<button class="route-btn-load" onclick="_loadMyRoute()" title="' + (LANG === 'ko' ? '저장된 루트 불러오기' : 'Load saved route') + '">📂</button>' +
-        '<button class="route-btn-share" id="route-share-btn" onclick="_openRouteShare()" title="' + (LANG === 'ko' ? '루트 공유' : 'Share route') + '" style="display:none">🔗</button>' +
-        '<button class="route-btn route-btn-clear" id="route-top-clear" onclick="clearRouteSelection()" style="display:none">✕ ' +
-          (LANG === 'ko' ? '초기화' : 'Clear') + '</button>' +
-        '<button class="route-panel-close" onclick="closeRoutePanel()" title="' + (LANG === 'ko' ? '닫기 및 초기화' : 'Close & clear') + '">✕</button>' +
+        '<button class="route-hdr-icon-btn" onclick="_saveMyRoute()" title="' + (LANG === 'ko' ? '루트 저장' : 'Save route') + '">' +
+          '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>' +
+        '</button>' +
+        '<button class="route-hdr-icon-btn" onclick="_loadMyRoute()" title="' + (LANG === 'ko' ? '저장된 루트 불러오기' : 'Load saved route') + '">' +
+          '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>' +
+        '</button>' +
+        '<button class="route-hdr-icon-btn" id="route-share-btn" onclick="_openRouteShare()" title="' + (LANG === 'ko' ? '루트 공유' : 'Share route') + '" style="display:none">' +
+          '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>' +
+        '</button>' +
+        '<button class="route-hdr-icon-btn route-hdr-clear-btn" id="route-top-clear" onclick="clearRouteSelection()" style="display:none">' +
+          (LANG === 'ko' ? '초기화' : 'Clear') +
+        '</button>' +
+        '<button class="route-hdr-icon-btn" onclick="closeRoutePanel()" title="' + (LANG === 'ko' ? '닫기 및 초기화' : 'Close & clear') + '">' +
+          '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>' +
+        '</button>' +
       '</div>' +
       '<div class="route-save-toast" id="route-save-toast"></div>' +
     '</div>' +
@@ -942,10 +951,10 @@ function removeRouteStop(locId) {
 function _refreshRouteUI() {
   var selList  = document.getElementById('route-sel-list');
   var topClear = document.getElementById('route-top-clear');
-  if (topClear) topClear.style.display = routeLocations.length >= 1 ? 'inline-flex' : 'none';
+  if (topClear) topClear.style.display = routeLocations.length >= 1 ? 'flex' : 'none';
   // Show share button when ≥1 stop added (route calc not required)
   var shareBtn = document.getElementById('route-share-btn');
-  if (shareBtn) shareBtn.style.display = routeLocations.length >= 1 ? 'inline-flex' : 'none';
+  if (shareBtn) shareBtn.style.display = routeLocations.length >= 1 ? 'flex' : 'none';
   if (!selList) return;
   if (routeLocations.length === 0) {
     selList.innerHTML = '<div class="route-sel-empty">' +
@@ -1392,7 +1401,10 @@ function _displayRoute(route, ordered, origin) {
   if (typeof syncMarkers === 'function') syncMarkers();
   _check6kmWarning();
 
-  if (_routeSkipAnim) {
+  // Mobile: no route animation or line drawing (Google Maps handles navigation)
+  if (window.innerWidth <= 900) {
+    _routeSkipAnim = false;
+  } else if (_routeSkipAnim) {
     _routeSkipAnim = false;
     _walkerRevealLine = L.polyline(coords, {
       color: '#D946A8', weight: 5, opacity: 0.85, dashArray: '4 4', lineCap: 'square'
@@ -1460,7 +1472,10 @@ function _displayStraightRoute(ordered, origin) {
   if (origin) stopIndices.push(0); // origin
   for (var si = (origin ? 1 : 0); si < coords.length; si++) stopIndices.push(si);
 
-  if (_routeSkipAnim) {
+  // Mobile: no route animation or line drawing (Google Maps handles navigation)
+  if (window.innerWidth <= 900) {
+    _routeSkipAnim = false;
+  } else if (_routeSkipAnim) {
     _routeSkipAnim = false;
     _walkerRevealLine = L.polyline(coords, {
       color: '#D946A8', weight: 5, opacity: 0.85, dashArray: '4 4', lineCap: 'square'
