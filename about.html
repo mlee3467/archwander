@@ -8,7 +8,7 @@
   <meta name="description" content="archwander™ — an architectural travel guide for curious explorers.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=EB+Garamond:wght@700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -34,7 +34,7 @@
     }
     .hdr-left { display: flex; align-items: center; gap: 14px; }
     .hdr-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
-    .hdr-logo img { height: 32px; width: auto; }
+    .hdr-logo img { height: 32px; width: auto; filter: brightness(0) invert(1); }
     .hdr-divider { width: 1px; height: 20px; background: rgba(255,255,255,0.25); }
     .hdr-page-title { color: #fff; font-size: 15px; font-weight: 600; letter-spacing: -0.3px; }
     .tm { font-size: 0.6em; vertical-align: super; letter-spacing: 0; font-weight: 500; opacity: 0.75; }
@@ -45,7 +45,7 @@
     .hero {
       text-align: center;
       padding: 80px 24px 64px;
-      max-width: 640px;
+      max-width: 720px;
       margin: 0 auto;
     }
     .page-byline {
@@ -69,8 +69,9 @@
       font-size: 16px;
       color: #666;
       line-height: 1.7;
-      max-width: 480px;
-      margin: 0 auto;
+      text-align: left;
+      max-width: none;
+      margin: 0;
     }
 
     /* ── CONTENT COLUMN ───────────────────────────── */
@@ -89,18 +90,15 @@
 
     /* ── SECTION ──────────────────────────────────── */
     .section {
-      background: #fff;
-      border-radius: 14px;
-      padding: 56px 48px 48px;
-      margin-bottom: 16px;
+      padding: 64px 0 56px;
     }
     .section h2 {
-      font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
-      font-size: 40px;
+      font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
+      font-size: 42px;
       font-weight: 700;
       text-align: center;
       line-height: 1.15;
-      letter-spacing: -0.5px;
+      letter-spacing: -0.3px;
       margin-bottom: 40px;
       color: #111;
     }
@@ -175,9 +173,9 @@
     @media (max-width: 600px) {
       .hero    { padding: 48px 20px 40px; }
       h1       { font-size: 22px; }
-      .section h2 { font-size: 28px; margin-bottom: 28px; }
-      .section { padding: 36px 24px 32px; border-radius: 10px; }
-      .content { padding: 0 12px 36px; }
+      .section h2 { font-size: 30px; margin-bottom: 28px; }
+      .section { padding: 48px 0 40px; }
+      .content { padding: 0 20px 36px; }
     }
   </style>
 </head>
@@ -205,13 +203,15 @@
 
   <div class="content">
 
-    <!--What is archwander -->
+    <!-- What is archwander -->
     <div class="section">
       <h2>What is archwander<span class="tm" style="font-size:0.5em;vertical-align:super;opacity:0.55;font-family:Inter,sans-serif">™</span>?</h2>
       <p>archwander<span class="tm">™</span> is a location-based guide to remarkable architecture. The platform was built by a group of fellow architects — the everyday, unsung kind you might find right in your own neighborhood — who started this passion project out of a genuine wish for more people to discover and cherish the hidden gems their cities have to offer. From landmark skyscrapers to quiet alleyway finds, archwander<span class="tm">™</span> helps you discover, navigate, and document the buildings, landscapes, and public spaces that shape a city's identity.</p>
       <p>The app is built on the belief that great architecture is experienced in person, at street level, not through a screen. Every entry in archwander<span class="tm">™</span> is a real place you can visit. We curate for quality over quantity: buildings with a clear architectural narrative, historical significance, or spatial experience worth seeking out.</p>
       <p>We're currently in Pilot. Cities live right now: New York, Seoul, London, Tokyo, and Chicago. More cities are planned.</p>
     </div>
+
+    <hr class="sec-rule">
 
     <!--How to use -->
     <div class="section">
@@ -265,7 +265,9 @@
       </ul>
     </div>
 
-    <!--Privacy -->
+    <hr class="sec-rule">
+
+    <!-- Privacy -->
     <div class="section">
       <h2>Privacy &amp; Legal</h2>
       <p>archwander<span class="tm">™</span> is a Pilot product. We collect minimal data: only what's needed to sync your favorites and visited places across devices. We don't run ads, and we don't sell your data.</p>
@@ -274,7 +276,9 @@
       </div>
     </div>
 
-    <!--Contact -->
+    <hr class="sec-rule">
+
+    <!-- Contact -->
     <div class="section">
       <h2>Contact</h2>
       <p>We'd love to hear from you — whether it's a missing building, a wrong address, or a collaboration idea.</p>
