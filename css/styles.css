@@ -146,6 +146,13 @@
     [data-theme="dark"] .p-action-btn:hover { background: #2a2a2a; }
     [data-theme="dark"] .route-panel { background: #1e1e1e; color: #f0f0ee; }
     [data-theme="dark"] .rp-hdr { background: #1e1e1e; border-color: #2e2e2e; }
+    [data-theme="dark"] .route-loc-item:hover { background: #2a2a2a; }
+    [data-theme="dark"] .route-loc-item.in-route { background: #1e2d4a; }
+    [data-theme="dark"] .route-hood-hdr:hover { background: #2a2a2a; }
+    [data-theme="dark"] .route-hood-count { background: #333; color: #aaa; }
+    [data-theme="dark"] .route-sel-item { background: #252525; }
+    [data-theme="dark"] .route-hood-addall { border-color: #3a3a3a; }
+    [data-theme="dark"] .route-hood-addall:hover { background: #1e2d4a; border-color: #5588ff; }
     [data-theme="dark"] .rp-loc-item { background: #141414; border-color: #2e2e2e; }
     [data-theme="dark"] .arm-panel { background: #1e1e1e; color: #f0f0ee; }
     [data-theme="dark"] .arm-header { background: #141414; border-color: #2e2e2e; }
@@ -2480,12 +2487,12 @@
 }
 .splash-wordmark {
   color: var(--text-primary); font-size: 22px; font-weight: 400;
-  font-family: 'Georgia', 'Times New Roman', serif;
+  font-family: 'EB Garamond', 'Georgia', 'Times New Roman', serif;
   letter-spacing: 0.08em;
 }
 .splash-tagline {
   color: var(--text-secondary); font-size: var(--fs-md);
-  font-family: 'Georgia', 'Times New Roman', serif;
+  font-family: 'EB Garamond', 'Georgia', 'Times New Roman', serif;
   font-style: italic;
   letter-spacing: 0.3px; margin-top: 5px;
 }
@@ -2731,6 +2738,11 @@
 #ruler-clear-btn      { bottom: 105px; }
 
 /* Set Route — accent: filled indigo */
+#set-route-fab,
+#walk-exit-btn {
+  min-width: 140px;
+  justify-content: center;
+}
 #set-route-fab {
   background: var(--primary);
   color: white;

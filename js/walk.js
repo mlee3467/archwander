@@ -1011,7 +1011,7 @@ function _rulerFmt(m) {
   var imperial = localStorage.getItem('aw_units') === 'imperial';
   if (imperial) {
     var mi = m / 1609.34;
-    return mi < 0.1 ? Math.round(m / 0.9144) + ' yd' : mi.toFixed(2) + ' mi';
+    return mi < 0.1 ? Math.round(m / 0.3048) + ' ft' : mi.toFixed(2) + ' mi';
   }
   return m < 1000 ? Math.round(m) + ' m' : (m / 1000).toFixed(2) + ' km';
 }
