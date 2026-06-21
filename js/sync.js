@@ -451,22 +451,33 @@ async function _syncDoVerify() {
 
 // ── Header auth area (Sign Up / Log In / user chip) ───────────────
 function _updateHeaderAuth() {
-  var el = document.getElementById('header-auth-area');
-  if (!el) return;
-  var ko = _isKo();
+  var el   = document.getElementById('header-auth-area');
+  var sbEl = document.getElementById('sb-auth-area');
+  var ko   = _isKo();
 
   if (_syncUser && _syncUser.email) {
-    // Logged in — show user initial chip (clicks open My Page)
+    // Logged in — header chip
     var initial = _syncUser.email.charAt(0).toUpperCase();
-    el.innerHTML =
+    var chipHtml =
       '<button class="hdr-user-chip" onclick="typeof _sbaMyPage===\'function\'?_sbaMyPage():syncOpenModal()" title="' + _syncUser.email + '">' +
         initial +
       '</button>';
+    if (el) el.innerHTML = chipHtml;
+    // Sidebar chip (same action)
+    if (sbEl) sbEl.innerHTML =
+      '<button class="sb-auth-user-chip" onclick="typeof _sbaMyPage===\'function\'?_sbaMyPage():syncOpenModal()" title="' + _syncUser.email + '">' +
+        initial +
+      '</button>';
   } else {
-    // Not logged in — Sign In only
-    el.innerHTML =
+    // Not logged in — header Sign In button
+    if (el) el.innerHTML =
       '<button class="hdr-auth-btn hdr-auth-login" onclick="syncOpenModal(\'login\')">' +
         (ko ? '로그인' : 'Sign In') +
+      '</button>';
+    // Sidebar Log In button (mobile)
+    if (sbEl) sbEl.innerHTML =
+      '<button class="sb-auth-login-btn" onclick="syncOpenModal(\'login\')">' +
+        (ko ? '로그인' : 'Log In') +
       '</button>';
   }
 }

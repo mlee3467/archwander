@@ -3096,12 +3096,34 @@
 
 /* ── Sidebar city selector row ─────────────────────────────── */
 .sb-city-row {
-  display: flex; align-items: center; justify-content: flex-start;
+  display: flex; align-items: center; justify-content: space-between;
   padding: var(--sp-4) var(--sp-7);
   border-bottom: 1px solid var(--border);
   background: var(--bg);
   flex-shrink: 0;
 }
+/* Sidebar auth area — mobile only */
+.sb-auth-area { display: flex; align-items: center; flex-shrink: 0; }
+.sb-auth-login-btn {
+  height: 28px; padding: 0 12px;
+  border-radius: var(--radius-md);
+  font-size: var(--fs-sm); font-weight: 600;
+  cursor: pointer; font-family: inherit;
+  background: var(--primary); color: #fff;
+  border: none; white-space: nowrap;
+  transition: opacity var(--dur-base);
+}
+.sb-auth-login-btn:hover { opacity: 0.85; }
+.sb-auth-user-chip {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--primary); color: #fff;
+  font-size: var(--fs-sm); font-weight: 600;
+  cursor: pointer; border: none;
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity var(--dur-base);
+}
+.sb-auth-user-chip:hover { opacity: 0.85; }
+[data-theme="dark"] .sb-auth-login-btn { background: var(--primary-light); color: #111; }
 #sb-city-select {
   padding: var(--sp-2) var(--sp-10) var(--sp-2) var(--sp-4); border-radius: var(--radius-md);
   border: 1.5px solid var(--border);
@@ -5437,14 +5459,9 @@
   transition: opacity var(--dur-base);
 }
 .hdr-user-chip:hover { opacity: 0.85; }
-/* Mobile: hide Sign Up, show Log In compact, keep user chip */
+/* Mobile: hide header auth buttons (moved to sidebar) */
 @media (max-width: 900px) {
-  .hdr-auth-signup { display: none !important; }
-  .hdr-auth-login {
-    height: 26px;
-    padding: 0 10px;
-    font-size: 12px;
-  }
+  .hdr-auth-btn { display: none !important; }
 }
 /* Dark mode tweaks */
 [data-theme="dark"] .hdr-auth-signup {
