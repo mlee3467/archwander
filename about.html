@@ -8,7 +8,7 @@
   <meta name="description" content="archwander™ — an architectural travel guide for curious explorers.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -31,12 +31,18 @@
       top: 0;
       z-index: 100;
     }
+    .hdr-left {
+      display: flex; align-items: center; gap: 14px;
+    }
     .hdr-logo {
-      display: flex; align-items: center; gap: 10px;
-      text-decoration: none;
+      display: flex; align-items: center;
+      text-decoration: none; flex-shrink: 0;
     }
     .hdr-logo img { height: 32px; width: auto; }
-    .hdr-logo span {
+    .hdr-divider {
+      width: 1px; height: 20px; background: rgba(255,255,255,0.25);
+    }
+    .hdr-page-title {
       color: #fff; font-size: 15px; font-weight: 600; letter-spacing: -0.3px;
     }
     .tm {
@@ -60,8 +66,14 @@
       text-transform: uppercase; color: #888; margin-bottom: 12px;
     }
     h1 {
+      font-family: 'Space Mono', 'Courier New', monospace;
       font-size: 28px; font-weight: 700; letter-spacing: -0.5px;
       line-height: 1.25; margin-bottom: 8px;
+      color: #4F46E5;
+    }
+    .page-byline {
+      font-size: 12px; color: #aaa; letter-spacing: 0.3px;
+      margin-bottom: 28px; margin-top: 0;
     }
     .tagline {
       font-size: 16px; color: #555; margin-bottom: 40px;
@@ -133,29 +145,32 @@
 <body>
 
 <header>
-  <a class="hdr-logo" href="index.html">
-    <img src="img/Logo_favicon.png" alt="archwander">
-    <span>archwander<span class="tm">™</span></span>
-  </a>
+  <div class="hdr-left">
+    <a class="hdr-logo" href="index.html">
+      <img src="img/Logo_favicon.png" alt="archwander">
+    </a>
+    <div class="hdr-divider"></div>
+    <span class="hdr-page-title">About archwander<span class="tm">™</span></span>
+  </div>
   <a class="hdr-back" href="index.html">← Back to app</a>
 </header>
 
 <main>
-  <div class="page-label">About</div>
+  <div class="page-byline">Designed by MLDW</div>
   <h1>Architecture worth wandering to.</h1>
   <p class="tagline">archwander<span class="tm" style="color:#555">™</span> is a curated travel guide for people who explore cities through their buildings.</p>
 
   <!-- Concept -->
   <div class="section">
     <h2>What is archwander?</h2>
-    <p>archwander is a location-based guide to remarkable architecture. The platform was built by a group of fellow architects — the everyday, unsung kind you might find right in your own neighborhood — who started this passion project out of a genuine wish for more people to discover and cherish the hidden gems their cities have to offer. From landmark skyscrapers to quiet alleyway finds, archwander helps you discover, navigate, and document the buildings, landscapes, and public spaces that shape a city's identity.</p>
-    <p>The app is built on the belief that great architecture is experienced in person, at street level, not through a screen. Every entry in archwander is a real place you can visit. We curate for quality over quantity: buildings with a clear architectural narrative, historical significance, or spatial experience worth seeking out.</p>
+    <p>archwander<span class="tm">™</span> is a location-based guide to remarkable architecture. The platform was built by a group of fellow architects — the everyday, unsung kind you might find right in your own neighborhood — who started this passion project out of a genuine wish for more people to discover and cherish the hidden gems their cities have to offer. From landmark skyscrapers to quiet alleyway finds, archwander<span class="tm">™</span> helps you discover, navigate, and document the buildings, landscapes, and public spaces that shape a city's identity.</p>
+    <p>The app is built on the belief that great architecture is experienced in person, at street level, not through a screen. Every entry in archwander<span class="tm">™</span> is a real place you can visit. We curate for quality over quantity: buildings with a clear architectural narrative, historical significance, or spatial experience worth seeking out.</p>
     <p>We're currently in Pilot. Cities live right now: New York, Seoul, London, Tokyo, and Chicago. More cities are planned.</p>
   </div>
 
   <!-- How to use -->
   <div class="section">
-    <h2>How to use archwander</h2>
+    <h2>How to use archwander<span class="tm">™</span></h2>
     <ul class="how-list">
       <li>
         <div class="how-icon">
@@ -208,7 +223,7 @@
   <!-- Legal / Privacy -->
   <div class="section">
     <h2>Privacy &amp; Legal</h2>
-    <p>archwander is a Pilot product. We collect minimal data: only what's needed to sync your favorites and visited places across devices. We don't run ads, and we don't sell your data.</p>
+    <p>archwander<span class="tm">™</span> is a Pilot product. We collect minimal data: only what's needed to sync your favorites and visited places across devices. We don't run ads, and we don't sell your data.</p>
     <div class="links-row">
       <a href="privacy.html">Privacy Policy →</a>
     </div>
