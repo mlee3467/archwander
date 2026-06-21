@@ -2867,6 +2867,26 @@
 [data-theme="dark"] .ruler-map-btn:hover { background: rgba(50,50,58,0.95) !important; color: #fff !important; }
 [data-theme="dark"] .ruler-map-btn.active { background: #4F46E5 !important; color: #fff !important; border-color: #4F46E5 !important; }
 
+/* ── TopRight control column — flex so order is fixed regardless of DOM insertion ── */
+.leaflet-top.leaflet-right {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-end !important;
+  pointer-events: none;
+}
+.leaflet-top.leaflet-right > * {
+  float: none !important;
+  clear: none !important;
+  pointer-events: auto;
+  margin-right: 0 !important;
+}
+/* Scale bar always topmost */
+.leaflet-top.leaflet-right .leaflet-control-scale { order: 1; margin: 10px 10px 4px 0; }
+/* Ruler button just below scale bar */
+.leaflet-top.leaflet-right .ruler-btn-wrap        { order: 2; margin: 0 10px 4px 0; }
+/* Legend below both with extra gap */
+.leaflet-top.leaflet-right .map-legend            { order: 3; margin-top: 8px; }
+
 /* ═══════════════════════════════════════════════════════════════
    ROUTE CUSTOM POPUP — photo / SV thumbnail
    ═══════════════════════════════════════════════════════════════ */
