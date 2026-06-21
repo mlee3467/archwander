@@ -9,45 +9,15 @@ var routeLocations   = [];   // ordered list of locations in the route
 var routeLine        = null; // Leaflet polyline for the route
 var routeMarkers     = [];   // numbered step markers on map
 var routeData        = null; // { distance, duration, steps: [...] }
-var _routeSkipAnim   = false; // true when remove triggered — skip animation, show final instantly
 var _rpsSelectedHoods = new Set(); // selected hoods in the presel modal (multi-select)
 var _SAVED_ROUTES_KEY = 'aw_saved_routes_v2';  // current: array of named routes
 var routeOriginMarker = null; // green start marker at walkOrigin
 var _routeTravelMode  = 'walking'; // 'walking' | 'transit' | 'driving'
 
-// ── Pixel Walker Animation ───────────────────────────────────────
-// Character type: Canvas-rendered pixel art → dataURL → <img> in Leaflet divIcon.
-// All graphics are coded/generated at runtime — no external image files.
-var routeWalkerMarker  = null;
-var _walkerAnimId      = null;
-var _walkerSprites     = null;
-var _walkerDistCovered = 0;     // cumulative meters walked
-var _walkerRevealLine  = null;  // growing polyline that reveals the walked path
-var _walkerRevealMs    = 0;     // reveal clock, always advances at full speed
-var _walkerPassedStops = null;  // Set of stopIndices already visited
-var _WALKER_FRAME_MS   = 240;   // ms per stride frame (25% of previous speed)
-
 // ── Distance thresholds (absolute distances) ──────────────────────
-var _WLK_D30MIN  = 2000;   // 0–2000m   → happy/normal
-var _WLK_D_EMPTY = 4000;   // 2000–4000m → tired
-var _WLK_D_STOP  = 6000;   // 4000–6000m → exhausted; 6000m+ → rest
+var _WLK_D_STOP  = 6000;   // 6km+ → beyond limit marker logic
 
-// ── PNG Character Images ────────────────────────────────────────
-// Three states keyed by distance: normal / tired / exhausted
-var _WALKER_IMG = {
-  normal:    'img/cha_ani_front_normal.png',
-  tired:     'img/cha_ani_front_tired.png',
-  exhausted: 'img/cha_ani_front_exhausted.png'
-};
-
-// Select PNG key from distance walked
-function _walkerGetImgKey(dist) {
-  if (dist < _WLK_D30MIN)  return 'normal';
-  if (dist < _WLK_D_EMPTY) return 'tired';
-  return 'exhausted';
-}
-
-// ── Start Marker Icon Builder ────────────────────────────────────
+// ── Start Marker Icon Builder ──────────────────────────────────────
 function _buildStartMarkerIcon() {
   var ko = typeof LANG !== 'undefined' && LANG === 'ko';
   return L.divIcon({
@@ -91,333 +61,6 @@ function _buildRouteMarkerIcon(num, name, visited, beyondLimit) {
     iconSize:   [130, 28],
     iconAnchor: [14, 14]
   });
-}
-
-// ── Stamina helpers ──────────────────────────────────────────────
-function _walkerGetStamina(dist) {
-  if (dist <= _WLK_D30MIN)  return 100 - (dist / _WLK_D30MIN) * 50;
-  if (dist <= _WLK_D_EMPTY) return 50 - ((dist - _WLK_D30MIN) / (_WLK_D_EMPTY - _WLK_D30MIN)) * 50;
-  return 0;
-}
-function _walkerGetSpeedMod(dist) {
-  if (dist >= _WLK_D_STOP) return 0;  // stopped
-  return 1.0;                          // always full speed otherwise
-}
-
-// ── Icon builder — PNG character + distance label + stamina bar ──
-// frameIdx: kept for API compatibility (not used for PNG selection)
-function _buildWalkerIcon(frameIdx, facingRight, dist, badge) {
-  var imgKey  = _walkerGetImgKey(dist);
-  var imgSrc  = _WALKER_IMG[imgKey];
-  var stamina = _walkerGetStamina(dist);
-  var stopped = dist >= _WLK_D_STOP;
-  var spriteW = 40;   // display size (265×265 px PNG → 40px)
-  var spriteH = 40;
-
-  // Distance label
-  var distStr = dist < 1000
-    ? Math.round(dist) + 'm'
-    : (dist / 1000).toFixed(2) + 'km';
-  var distHtml =
-    '<div style="font-size:6px;font-family:\'Press Start 2P\',monospace;color:#fff;' +
-    'background:rgba(0,0,0,0.72);padding:1px 3px;text-align:center;' +
-    'white-space:nowrap;margin-bottom:2px;letter-spacing:0.3px">' + distStr + '</div>';
-  var distH = 11;
-
-  // Badge
-  var badgeHtml = '';
-  if (badge === 'camera') {
-    badgeHtml = '<div style="font-size:20px;line-height:1;text-align:center;margin-bottom:2px">📷</div>';
-  }
-  var badgeH = badgeHtml ? 24 : 0;
-
-  // Status label
-  var statusTxt = '';
-  var statusColor = '#ffaa00';
-  if (stopped)         { statusTxt = 'NEED REST!'; statusColor = '#ff8800'; }
-  else if (stamina<=0) { statusTxt = 'EXHAUSTED';  statusColor = '#ff3333'; }
-  else if (stamina<20) { statusTxt = 'CRITICAL!';  statusColor = '#ff5555'; }
-  else if (stamina<50) { statusTxt = 'TIRED';      statusColor = '#ffaa00'; }
-  var statusHtml = statusTxt
-    ? '<div style="font-size:7px;font-family:\'Press Start 2P\',monospace;color:' + statusColor +
-      ';background:rgba(0,0,0,0.75);padding:1px 4px;' +
-      'text-align:center;white-space:nowrap;margin-top:-4px;margin-bottom:2px;letter-spacing:0.5px">' + statusTxt + '</div>'
-    : '';
-  var statusH = statusHtml ? 12 : 0;
-
-  // Stamina bar
-  var p = Math.max(0, Math.min(100, stamina));
-  var r = p > 50 ? Math.round((100-p)/50*255) : 255;
-  var g = p > 50 ? 200 : Math.round(p/50*200);
-  var flickerOp = (p < 20 && !stopped) ? (0.45 + 0.55 * Math.abs(Math.sin(Date.now() / 120))) : 1;
-  var barHtml =
-    '<div style="width:40px;height:6px;background:#1a1a1a;border:1px solid #555;' +
-    'margin-bottom:2px;overflow:hidden">' +
-    '<div style="width:' + p + '%;height:100%;background:rgb(' + r + ',' + g + ',0);opacity:' + flickerOp.toFixed(2) + '"></div>' +
-    '</div>';
-  var barH = 10;
-
-  var containerW = 52;
-  var aboveH = distH + badgeH + statusH + barH;
-  var totalH  = aboveH + spriteH;
-
-  return L.divIcon({
-    className: '',
-    html: '<div style="display:flex;flex-direction:column;align-items:center;width:' + containerW + 'px;pointer-events:none">' +
-          distHtml + badgeHtml + statusHtml + barHtml +
-          '<img src="' + imgSrc + '" style="width:' + spriteW + 'px;height:' + spriteH + 'px;' +
-          'display:block;' +
-          (facingRight ? '' : 'transform:scaleX(-1);') +
-          'filter:drop-shadow(1px 1px 0 rgba(0,0,0,0.4))" draggable="false">' +
-          '</div>',
-    iconSize:   [containerW, totalH],
-    iconAnchor: [containerW / 2, totalH]
-  });
-}
-
-// ── Photo Flash ──────────────────────────────────────────────────
-function _doPhotoFlash(latLng) {
-  try {
-    var container = map.getContainer();
-    var pt   = map.latLngToContainerPoint(latLng);
-    var rect = container.getBoundingClientRect();
-    var flash = document.createElement('div');
-    flash.style.cssText =
-      'position:fixed;left:' + (rect.left + pt.x - 20) + 'px;top:' + (rect.top + pt.y - 44) + 'px;' +
-      'width:40px;height:40px;border-radius:50%;pointer-events:none;z-index:10000;opacity:1;' +
-      'background:radial-gradient(circle,rgba(255,255,220,1) 10%,rgba(255,255,200,0) 70%);' +
-      'transition:opacity 0.45s ease-out';
-    document.body.appendChild(flash);
-    flash.getBoundingClientRect();
-    setTimeout(function() { flash.style.opacity = '0'; }, 40);
-    setTimeout(function() { if (flash.parentNode) flash.parentNode.removeChild(flash); }, 520);
-  } catch(e) {}
-}
-
-// ── Nearest coord index helper ────────────────────────────────────
-function _closestCoordIdx(coords, lat, lng) {
-  var best = 0, bestDsq = Infinity;
-  for (var i = 0; i < coords.length; i++) {
-    var dl = coords[i][0]-lat, dn = coords[i][1]-lng;
-    var dsq = dl*dl + dn*dn;
-    if (dsq < bestDsq) { bestDsq = dsq; best = i; }
-  }
-  return best;
-}
-
-// ── Main animation ────────────────────────────────────────────────
-// coords: full path points.  stopIndices: which coords[] are stop locations.
-function _startWalkerAnimation(coords, stopIndices, ordered, cumDistAtStop, hasOrigin) {
-  cumDistAtStop = cumDistAtStop || [];
-  _stopWalkerAnimation();
-  if (!coords || coords.length < 2) return;
-  if (!stopIndices || stopIndices.length < 2) stopIndices = [0, coords.length - 1];
-  if (!ordered) ordered = [];
-  _walkerDistCovered = 0;
-  _walkerPassedStops = new Set();
-
-  // ── Build timeline ──────────────────────────────────────────────
-  var PAUSE_MS = 750;
-  var segDists = [], totalTravelDist = 0;
-  for (var s = 0; s < stopIndices.length - 1; s++) {
-    var d = 0;
-    for (var ci = stopIndices[s]; ci < stopIndices[s+1] && ci+1 < coords.length; ci++) {
-      d += haversineM(coords[ci][0], coords[ci][1], coords[ci+1][0], coords[ci+1][1]);
-    }
-    segDists.push(d); totalTravelDist += d;
-  }
-  if (totalTravelDist < 1) return;
-
-  // Set stamina thresholds to equal thirds of this route's total distance
-  // Distance thresholds are fixed absolute values (not per-route proportional)
-
-  // Travel duration: 10ms/m, clamped 5-20s (2× faster than before)
-  var travelMs = Math.min(10000, Math.max(2500, totalTravelDist * 5));
-
-  // pause → travel → pause → travel → ...
-  var timeline = [], tCursor = 0;
-  timeline.push({ type:'pause', t0:tCursor, t1:tCursor+PAUSE_MS, stopIdx:0 });
-  tCursor += PAUSE_MS;
-  for (var s = 0; s < stopIndices.length - 1; s++) {
-    var segMs = (segDists[s] / totalTravelDist) * travelMs;
-    timeline.push({ type:'travel', t0:tCursor, t1:tCursor+segMs,
-                    fromIdx:stopIndices[s], toIdx:stopIndices[s+1], segDistM:segDists[s] });
-    tCursor += segMs;
-    timeline.push({ type:'pause', t0:tCursor, t1:tCursor+PAUSE_MS, stopIdx:s+1 });
-    tCursor += PAUSE_MS;
-  }
-  var timelineTotal = tCursor;
-
-  // Create initial marker
-  routeWalkerMarker = L.marker(coords[stopIndices[0]], {
-    icon: _buildWalkerIcon(0, true, 0, 'camera'),
-    zIndexOffset: 1000, interactive: false
-  }).addTo(map);
-
-  // Reveal polyline: only the walked segment is drawn (pink dotted, grows as char walks)
-  var _revealStartPt = coords[stopIndices[0]];
-  _walkerRevealLine = L.polyline([_revealStartPt, _revealStartPt], {
-    color: '#D946A8', weight: 5, opacity: 0.9,
-    dashArray: '4 4', lineCap: 'square'
-  }).addTo(map);
-  _walkerRevealMs = 0;
-
-  // Animation state
-  var lastTs = null, accumMs = 0;
-  var prevEntryType = null, prevStopIdx = -1;
-  var lastIconKey = ''; // for throttling setIcon calls
-
-  function _findEntry() {
-    for (var i = 0; i < timeline.length; i++) {
-      if (accumMs >= timeline[i].t0 && accumMs < timeline[i].t1) return timeline[i];
-    }
-    return timeline[timeline.length - 1];
-  }
-
-  function animate(ts) {
-    if (!routeWalkerMarker) return;
-    if (!lastTs) lastTs = ts;
-    var dt = Math.min(ts - lastTs, 80); // cap to avoid big jumps
-    lastTs = ts;
-
-    // ── Reveal path at full speed (independent of character stamina) ─
-    _walkerRevealMs = Math.min(_walkerRevealMs + dt, timelineTotal - 1);
-    var revealAccum = _walkerRevealMs;
-    var revealEntry = timeline[timeline.length - 1];
-    for (var ri = 0; ri < timeline.length; ri++) {
-      if (revealAccum >= timeline[ri].t0 && revealAccum < timeline[ri].t1) {
-        revealEntry = timeline[ri]; break;
-      }
-    }
-    var revealCoordIdx;
-    if (revealEntry.type === 'pause') {
-      revealCoordIdx = stopIndices[revealEntry.stopIdx];
-    } else {
-      var revealProg = Math.max(0, Math.min(1, (revealAccum - revealEntry.t0) / (revealEntry.t1 - revealEntry.t0)));
-      revealCoordIdx = Math.min(
-        Math.floor(revealEntry.fromIdx + revealProg * (revealEntry.toIdx - revealEntry.fromIdx)),
-        revealEntry.toIdx
-      );
-    }
-    var slice = coords.slice(0, revealCoordIdx + 1);
-    if (_walkerRevealLine && slice.length >= 2) _walkerRevealLine.setLatLngs(slice);
-
-    // ── Mark visited stops (turn marker black when reveal passes them) ──
-    if (_walkerPassedStops) {
-      for (var vi = 0; vi < stopIndices.length; vi++) {
-        if (!_walkerPassedStops.has(vi) && revealCoordIdx >= stopIndices[vi]) {
-          _walkerPassedStops.add(vi);
-          // If hasOrigin, vi=0 is origin (no routeMarker); stops are at vi-1
-          var mIdx = hasOrigin ? vi - 1 : vi;
-          if (mIdx >= 0 && routeMarkers[mIdx] && ordered[mIdx]) {
-            routeMarkers[mIdx].setIcon(_buildRouteMarkerIcon(mIdx + 1, ordered[mIdx].name, true, (cumDistAtStop[vi] || 0) > _WLK_D_STOP));
-          }
-        }
-      }
-    }
-
-    // ── Speed mod from distance ──────────────────────────────────
-    var stopped  = _walkerDistCovered >= _WLK_D_STOP;
-    var speedMod = _walkerGetSpeedMod(_walkerDistCovered);
-
-    // ── Advance virtual clock (no loop — play once and stop) ─────
-    if (!stopped) {
-      var virtualDt = dt * speedMod;
-      var preEntry = _findEntry();
-      if (preEntry.type === 'travel') {
-        var segMs = preEntry.t1 - preEntry.t0;
-        if (segMs > 0) _walkerDistCovered += (virtualDt / segMs) * preEntry.segDistM;
-      }
-      accumMs = Math.min(accumMs + virtualDt, timelineTotal - 1);
-    }
-
-    // ── Animation complete — stop at final stop ──────────────────
-    if (accumMs >= timelineTotal - 1 && !stopped) {
-      var finalIdx = stopIndices[stopIndices.length - 1];
-      if (routeWalkerMarker) routeWalkerMarker.setLatLng(coords[finalIdx]);
-      // Show full reveal line
-      if (_walkerRevealLine) _walkerRevealLine.setLatLngs(coords);
-      // Mark all stops visited
-      if (_walkerPassedStops) {
-        for (var fi = 0; fi < stopIndices.length; fi++) {
-          var mIdx = hasOrigin ? fi - 1 : fi;
-          if (mIdx >= 0 && !_walkerPassedStops.has(fi) && ordered[mIdx]) {
-            _walkerPassedStops.add(fi);
-            if (routeMarkers[mIdx]) routeMarkers[mIdx].setIcon(_buildRouteMarkerIcon(mIdx+1, ordered[mIdx].name, true, (cumDistAtStop[fi] || 0) > _WLK_D_STOP));
-          }
-        }
-      }
-      // Leave walker visible at final position — don't loop
-      return;
-    }
-
-    // ── Resolve current entry ────────────────────────────────────
-    var entry = _findEntry();
-
-    // ── Flash on pause entry ─────────────────────────────────────
-    var isNewPause = !stopped && entry.type === 'pause' &&
-      (prevEntryType !== 'pause' || prevStopIdx !== entry.stopIdx);
-    if (isNewPause) _doPhotoFlash(coords[stopIndices[entry.stopIdx]]);
-    prevEntryType = entry.type;
-    prevStopIdx   = (entry.type === 'pause') ? entry.stopIdx : -1;
-
-    // ── Position & icon ──────────────────────────────────────────
-    var frameIdx = Math.floor(ts / _WALKER_FRAME_MS) % 2;  // walking: normal stride (0-1, 2-3, 4-5)
-    var isPaused = stopped || entry.type === 'pause';
-    var badge    = (!stopped && entry.type === 'pause') ? 'camera' : null;
-    var stamPct  = Math.round(_walkerGetStamina(_walkerDistCovered) * 2) / 2; // 0.5% steps
-    var dist     = _walkerDistCovered;
-
-    if (isPaused) {
-      if (!stopped) {
-        var stopCoord = coords[stopIndices[entry.stopIdx]];
-        routeWalkerMarker.setLatLng(stopCoord);
-      }
-      var distKey = Math.floor(dist / 5); // update every 5 m
-      var iconKey = 'p:' + badge + ':' + stamPct + ':' + distKey + ':' + (Math.floor(ts / 200) % 2);
-      if (iconKey !== lastIconKey) {
-        routeWalkerMarker.setIcon(_buildWalkerIcon(0, true, dist, badge));
-        lastIconKey = iconKey;
-      }
-    } else {
-      var segProgress = Math.max(0, Math.min(1, (accumMs - entry.t0) / (entry.t1 - entry.t0)));
-      var span = entry.toIdx - entry.fromIdx;
-      var rawIdx = entry.fromIdx + segProgress * span;
-      var c0 = Math.min(Math.floor(rawIdx), entry.toIdx - 1);
-      var c1 = Math.min(c0 + 1, entry.toIdx);
-      var ct = rawIdx - c0;
-      var lat = coords[c0][0] + ct * (coords[c1][0] - coords[c0][0]);
-      var lng = coords[c0][1] + ct * (coords[c1][1] - coords[c0][1]);
-      var facingRight = (coords[c1][1] - coords[c0][1]) >= 0;
-
-      routeWalkerMarker.setLatLng([lat, lng]);
-
-      var distKey2 = Math.floor(dist / 5);
-      var iconKey2 = 't:' + frameIdx + ':' + (facingRight?1:0) + ':' + stamPct + ':' + distKey2 + ':' + (Math.floor(ts / 200) % 2);
-      if (iconKey2 !== lastIconKey) {
-        routeWalkerMarker.setIcon(_buildWalkerIcon(frameIdx, facingRight, dist, null));
-        lastIconKey = iconKey2;
-      }
-    }
-
-    _walkerAnimId = requestAnimationFrame(animate);
-  }
-  _walkerAnimId = requestAnimationFrame(animate);
-}
-
-function _stopWalkerAnimation() {
-  if (_walkerAnimId) { cancelAnimationFrame(_walkerAnimId); _walkerAnimId = null; }
-  if (routeWalkerMarker) {
-    try { map.removeLayer(routeWalkerMarker); } catch(e) {}
-    routeWalkerMarker = null;
-  }
-  if (_walkerRevealLine) {
-    try { map.removeLayer(_walkerRevealLine); } catch(e) {}
-    _walkerRevealLine = null;
-  }
-  _walkerDistCovered = 0;
-  _walkerRevealMs    = 0;
-  _walkerPassedStops = null;
 }
 
 // ── Route Panel UI ───────────────────────────────────────────────
@@ -1371,9 +1014,6 @@ function _displayRoute(route, ordered, origin) {
     }).addTo(map);
   }
 
-  var stopIndices = [];
-  if (origin) stopIndices.push(_closestCoordIdx(coords, origin.lat, origin.lng));
-
   ordered.forEach(function(loc, i) {
     // With origin: distAtStop is cumDistAtStop[i+1]; without: cumDistAtStop[i]
     var distAtStop = origin ? (cumDistAtStop[i + 1] || 0) : (cumDistAtStop[i] || 0);
@@ -1391,7 +1031,6 @@ function _displayRoute(route, ordered, origin) {
     })(loc, beyondLimit))
     .addTo(map);
     routeMarkers.push(m);
-    stopIndices.push(_closestCoordIdx(coords, loc.lat, loc.lng));
   });
 
   map.fitBounds(L.latLngBounds(coords), { padding: [60, 60] });
@@ -1400,22 +1039,6 @@ function _displayRoute(route, ordered, origin) {
   _renderRouteResult(routeData, ordered, origin ? cumDistAtStop.slice(1) : cumDistAtStop);
   if (typeof syncMarkers === 'function') syncMarkers();
   _check6kmWarning();
-
-  // Mobile: no route animation or line drawing (Google Maps handles navigation)
-  if (window.innerWidth <= 900) {
-    _routeSkipAnim = false;
-  } else if (_routeSkipAnim) {
-    _routeSkipAnim = false;
-    _walkerRevealLine = L.polyline(coords, {
-      color: '#D946A8', weight: 5, opacity: 0.85, dashArray: '4 4', lineCap: 'square'
-    }).addTo(map);
-    routeMarkers.forEach(function(m, i) {
-      var d = origin ? (cumDistAtStop[i + 1] || 0) : (cumDistAtStop[i] || 0);
-      if (ordered[i]) m.setIcon(_buildRouteMarkerIcon(i+1, ordered[i].name, true, d > _WLK_D_STOP));
-    });
-  } else {
-    _startWalkerAnimation(coords, stopIndices, ordered, cumDistAtStop, !!origin);
-  }
 }
 
 function _displayStraightRoute(ordered, origin) {
@@ -1466,27 +1089,6 @@ function _displayStraightRoute(ordered, origin) {
   _renderRouteResult(routeData, ordered, origin ? cumDistAtStop.slice(1) : cumDistAtStop);
   if (typeof syncMarkers === 'function') syncMarkers();
   _check6kmWarning();
-
-  // Stop indices: with origin, coords[0] = origin; stops are at indices 1..N
-  var stopIndices = [];
-  if (origin) stopIndices.push(0); // origin
-  for (var si = (origin ? 1 : 0); si < coords.length; si++) stopIndices.push(si);
-
-  // Mobile: no route animation or line drawing (Google Maps handles navigation)
-  if (window.innerWidth <= 900) {
-    _routeSkipAnim = false;
-  } else if (_routeSkipAnim) {
-    _routeSkipAnim = false;
-    _walkerRevealLine = L.polyline(coords, {
-      color: '#D946A8', weight: 5, opacity: 0.85, dashArray: '4 4', lineCap: 'square'
-    }).addTo(map);
-    routeMarkers.forEach(function(m, i) {
-      var d = origin ? (cumDistAtStop[i + 1] || 0) : (cumDistAtStop[i] || 0);
-      if (ordered[i]) m.setIcon(_buildRouteMarkerIcon(i+1, ordered[i].name, true, d > _WLK_D_STOP));
-    });
-  } else {
-    _startWalkerAnimation(coords, stopIndices, ordered, cumDistAtStop, !!origin);
-  }
 }
 
 // ── Route Marker Popup (custom DOM — works on mobile) ────────────
@@ -1716,7 +1318,6 @@ function _renderRouteResult(data, ordered, cumDistAtStop) {
 }
 
 function clearRoute() {
-  _stopWalkerAnimation();
   _closeRouteCustomPopup();
   if (routeLine) { try { map.removeLayer(routeLine); } catch(e) {} routeLine = null; }
   routeMarkers.forEach(function(m) { try { map.removeLayer(m); } catch(e) {} });

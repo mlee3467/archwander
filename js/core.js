@@ -584,6 +584,7 @@ function openLoc(loc) {
   gallery.querySelectorAll('img').forEach(i => i.remove());
   // Remove any previous Street View iframes (exterior + interior)
   gallery.querySelectorAll('.sv-fallback, .sv-fallback-int').forEach(function(el){ el.remove(); });
+  gallery.querySelectorAll('.img-search-slide').forEach(function(el){ el.remove(); });
   gallery.classList.remove('sv-mode');
   // Reset single attribution overlay
   const gAttrib = document.getElementById('g-attrib');
