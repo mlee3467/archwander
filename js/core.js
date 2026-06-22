@@ -804,8 +804,18 @@ function buildOverviewTab(loc, trans = {}) {
         <div class="link-icon-img link-icon-arch">${_favImg('archdaily.com')}</div>
         <div class="link-icon-label">ArchDaily</div>
       </a>` : '';
-  const extLinks = (wikiBtn || archBtn)
-    ? `<div class="overview-ext-links">${wikiBtn}${archBtn}</div>` : '';
+  let webDomain = ''; let webLabel = '';
+  if (loc.web) {
+    try { webDomain = new URL(loc.web).hostname.replace(/^www\./, ''); } catch(e) {}
+    webLabel = webDomain ? webDomain.split('.')[0] : '';
+  }
+  const webBtn = loc.web && webDomain
+    ? `<a class="link-icon-btn" href="${loc.web}" target="_blank" rel="noopener noreferrer">
+        <div class="link-icon-img">${_favImg(webDomain)}</div>
+        <div class="link-icon-label">${webLabel}</div>
+      </a>` : '';
+  const extLinks = (wikiBtn || archBtn || webBtn)
+    ? `<div class="overview-ext-links">${wikiBtn}${archBtn}${webBtn}</div>` : '';
   return `
     <p class="desc">${desc}</p>
     ${extLinks}
