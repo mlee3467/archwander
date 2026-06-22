@@ -959,8 +959,18 @@ function buildOverviewTab(loc, trans = {}) {
         <div class="link-icon-img">${_favImg(webDomain)}</div>
         <div class="link-icon-label">${webLabel}</div>
       </a>` : '';
-  const extLinks = (wikiBtn || archBtn || webBtn)
-    ? `<div class="overview-ext-links">${wikiBtn}${archBtn}${webBtn}</div>` : '';
+  let siteDomain = ''; let siteLabel = '';
+  if (loc.site) {
+    try { siteDomain = new URL(loc.site).hostname.replace(/^www\./, ''); } catch(e) {}
+    siteLabel = siteDomain ? siteDomain.split('.')[0] : '';
+  }
+  const siteBtn = loc.site && siteDomain
+    ? `<a class="link-icon-btn" href="${loc.site}" target="_blank" rel="noopener noreferrer">
+        <div class="link-icon-img">${_favImg(siteDomain)}</div>
+        <div class="link-icon-label">${siteLabel}</div>
+      </a>` : '';
+  const extLinks = (wikiBtn || archBtn || webBtn || siteBtn)
+    ? `<div class="overview-ext-links">${wikiBtn}${archBtn}${webBtn}${siteBtn}</div>` : '';
   return `
     <p class="desc">${desc}</p>
     ${extLinks}
@@ -1037,15 +1047,23 @@ function buildLinksTab(loc) {
       + '</div>';
   }
 
-  // Official website — shown first if loc.web exists
+  // Location's own official website — shown first if loc.site exists
+  var siteIcon = loc.site
+    ? '<a class="link-icon-btn" href="' + loc.site + '" target="_blank" rel="noopener noreferrer">'
+      + _iconDiv('link-icon-site', _domain(loc.site))
+      + '<div class="link-icon-label">Website</div>'
+      + '</a>'
+    : '';
+  // Architect's project page — only if loc.web exists
   var webIcon = loc.web
     ? '<a class="link-icon-btn" href="' + loc.web + '" target="_blank" rel="noopener noreferrer">'
       + _iconDiv('link-icon-web', _domain(loc.web))
-      + '<div class="link-icon-label">Official</div>'
+      + '<div class="link-icon-label">Architect</div>'
       + '</a>'
     : '';
 
   return '<div class="links-icons">'
+    + siteIcon
     + webIcon
     + '<a class="link-icon-btn" href="' + wikiHref + '" target="_blank" rel="noopener noreferrer">'
       + _iconDiv('link-icon-wiki', 'en.wikipedia.org')
