@@ -572,7 +572,6 @@ async function _initWikiHero(loc, gallery) {
 
   // Rebuild photo <img> elements (remove old, insert new at front)
   Array.from(gallery.querySelectorAll('img')).forEach(function(i){ i.remove(); });
-  var _wFails = 0;
   loc.photos.forEach(function(src, i) {
     var img = document.createElement('img');
     img.alt = loc.name;
@@ -584,14 +583,7 @@ async function _initWikiHero(loc, gallery) {
       img.dataset.src = photoUrl(src, isMob2, 'gallery');
       img.loading = 'lazy';
     }
-    img.onerror = function() {
-      this.style.display = 'none'; _wFails++;
-      if (_wFails >= photoCount2 && hasSV2) {
-        gallery.classList.add('sv-mode');
-        var sv = gallery.querySelector('.sv-fallback');
-        if (sv) sv.style.display = '';
-      }
-    };
+    img.onerror = _photoOnerror(loc, gallery, hasSV2);
     gallery.insertBefore(img, gallery.querySelector('.img-search-slide'));
   });
   applyPhotoAttribution(gallery, loc.photos);
@@ -617,6 +609,69 @@ async function _initWikiHero(loc, gallery) {
   photoIdx = 0;
   gotoPhoto(0);
   updateGLabel();
+}
+
+// ══════════════════════════════════════════════════════════════════
+// PHOTO ONERROR — remove failed slide from gallery entirely
+// ══════════════════════════════════════════════════════════════════
+function _photoOnerror(loc, gallery, hasSV) {
+  return function() {
+    var self = this;
+    var allImgs = Array.from(gallery.querySelectorAll('img'));
+    var failIdx = allImgs.indexOf(self);
+    if (failIdx < 0) { self.remove(); return; }  // already removed
+
+    // Splice from loc.photos to keep length in sync with DOM
+    if (loc.photos && failIdx < loc.photos.length) {
+      loc.photos.splice(failIdx, 1);
+    }
+
+    // If this was the wiki hero image, clear wiki tracking so it's not re-injected
+    if (loc._wikiPhotoCount && failIdx < loc._wikiPhotoCount) {
+      loc._wikiPhotoCount = 0;
+      _wikiImgCache[loc.id] = null;
+    }
+
+    // Remove img from DOM
+    self.remove();
+
+    // Remove corresponding dot from #g-dots
+    var dotsEl = document.getElementById('g-dots');
+    if (dotsEl) {
+      var allDots = Array.from(dotsEl.querySelectorAll('.g-dot'));
+      if (allDots[failIdx]) allDots[failIdx].remove();
+    }
+
+    var newPhotoCount = loc.photos ? loc.photos.length : 0;
+
+    // Adjust photoIdx:
+    //   - was before failed → no change
+    //   - was after failed  → shift left by 1
+    //   - was the failed    → clamp to valid range
+    if (photoIdx > failIdx) {
+      photoIdx--;
+    } else if (photoIdx === failIdx) {
+      // next item (if any) has moved into failIdx; otherwise go to last photo
+      photoIdx = Math.min(failIdx, newPhotoCount > 0 ? newPhotoCount - 1 : 0);
+    }
+
+    // If no photos remain, reveal img-search slide (and SV if available)
+    if (newPhotoCount === 0) {
+      var iss = gallery.querySelector('.img-search-slide');
+      if (iss) iss.style.display = '';
+      if (hasSV) {
+        gallery.classList.add('sv-mode');
+        var svEl = gallery.querySelector('.sv-fallback');
+        if (svEl) svEl.style.display = '';
+        photoIdx = 1; // 0 = img-search, 1 = SV exterior
+      } else {
+        photoIdx = 0;
+      }
+    }
+
+    // Refresh gallery display
+    if (typeof gotoPhoto === 'function') gotoPhoto(photoIdx);
+  };
 }
 
 function photoUrl(u, mob, role) {
@@ -696,7 +751,6 @@ function openLoc(loc) {
   var totalSlides = photoCount + 1 + (hasSV ? 1 : 0) + svIntArr.length;
 
   // Add photo images
-  var _photoFails = 0;
   if (hasPhotos) {
     loc.photos.forEach((src, i) => {
       const img = document.createElement('img');
@@ -709,17 +763,7 @@ function openLoc(loc) {
         img.dataset.src = photoUrl(src, isMob, 'gallery');
         img.loading = 'lazy';
       }
-      img.onerror = function() {
-        this.style.display = 'none';
-        _photoFails++;
-        // All photos failed → auto-switch to Street View
-        if (_photoFails >= photoCount && hasSV) {
-          gallery.classList.add('sv-mode');
-          var sv = gallery.querySelector('.sv-fallback');
-          if (sv) sv.style.display = '';
-          gotoPhoto(photoCount);
-        }
-      };
+      img.onerror = _photoOnerror(loc, gallery, hasSV);
       gallery.insertBefore(img, gallery.querySelector('.g-btn'));
     });
     applyPhotoAttribution(gallery, loc.photos);
