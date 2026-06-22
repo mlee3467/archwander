@@ -531,6 +531,94 @@ function _closeListOverlay() {
 // ══════════════════════════════════════════════════════════════════
 var photoIdx = 0;
 
+// ══════════════════════════════════════════════════════════════════
+// WIKIPEDIA HERO IMAGE — fetch & inject as gallery slide 0
+// ══════════════════════════════════════════════════════════════════
+var _wikiImgCache = {}; // locId → url | null (null = no image found)
+
+async function _fetchWikiImg(loc) {
+  if (!loc || !loc.wiki) return null;
+  if (_wikiImgCache.hasOwnProperty(loc.id)) return _wikiImgCache[loc.id];
+  try {
+    var raw = loc.wiki.split('/wiki/')[1] || '';
+    var title = decodeURIComponent(raw.split('#')[0]);
+    if (!title) { _wikiImgCache[loc.id] = null; return null; }
+    var r = await fetch(
+      'https://en.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(title),
+      { signal: AbortSignal.timeout(8000) }
+    );
+    if (!r.ok) { _wikiImgCache[loc.id] = null; return null; }
+    var d = await r.json();
+    var imgUrl = (d.originalimage || d.thumbnail || {}).source || null;
+    _wikiImgCache[loc.id] = imgUrl;
+    return imgUrl;
+  } catch(e) { _wikiImgCache[loc.id] = null; return null; }
+}
+
+async function _initWikiHero(loc, gallery) {
+  var imgUrl = await _fetchWikiImg(loc);
+  // Abort if: no image, user already navigated away, or already injected
+  if (!imgUrl || activeLoc !== loc || loc._wikiPhotoCount) return;
+
+  // Inject wiki image as photos[0]
+  loc.photos = [imgUrl].concat(loc.photos || []);
+  loc._wikiPhotoCount = 1;
+
+  var isMob2 = window.innerWidth < 768;
+  var photoCount2 = loc.photos.length;
+  var hasSV2 = typeof GOOGLE_MAPS_API_KEY === 'string' && GOOGLE_MAPS_API_KEY && localStorage.getItem('aw_sv_disabled') !== '1';
+  var svIntArr2 = hasSV2 ? (Array.isArray(loc.svInt) ? loc.svInt : (loc.svInt ? [loc.svInt] : [])) : [];
+  var totalSlides2 = photoCount2 + 1 + (hasSV2 ? 1 : 0) + svIntArr2.length;
+
+  // Rebuild photo <img> elements (remove old, insert new at front)
+  Array.from(gallery.querySelectorAll('img')).forEach(function(i){ i.remove(); });
+  var _wFails = 0;
+  loc.photos.forEach(function(src, i) {
+    var img = document.createElement('img');
+    img.alt = loc.name;
+    img.dataset.photoUrl = src;
+    if (i === 0) {
+      img.src = photoUrl(src, isMob2, 'gallery');
+      img.classList.add('active');
+    } else {
+      img.dataset.src = photoUrl(src, isMob2, 'gallery');
+      img.loading = 'lazy';
+    }
+    img.onerror = function() {
+      this.style.display = 'none'; _wFails++;
+      if (_wFails >= photoCount2 && hasSV2) {
+        gallery.classList.add('sv-mode');
+        var sv = gallery.querySelector('.sv-fallback');
+        if (sv) sv.style.display = '';
+      }
+    };
+    gallery.insertBefore(img, gallery.querySelector('.img-search-slide'));
+  });
+  applyPhotoAttribution(gallery, loc.photos);
+
+  // Hide "More Photos" slide — now that we have photos
+  var iss = gallery.querySelector('.img-search-slide');
+  if (iss) iss.style.display = 'none';
+
+  // Rebuild dots
+  var wDotsHtml = '';
+  for (var di2 = 0; di2 < totalSlides2; di2++) {
+    var isIssDot2  = di2 === photoCount2;
+    var isSvDot2   = hasSV2 && di2 === photoCount2 + 1;
+    var intIdx2    = di2 - photoCount2 - 1 - (hasSV2 ? 1 : 0);
+    var isSvIntDot2 = svIntArr2.length > 0 && intIdx2 >= 0 && intIdx2 < svIntArr2.length;
+    wDotsHtml += '<div class="g-dot' + (di2 === 0 ? ' active' : '') +
+      (isIssDot2   ? ' img-search-dot' : '') +
+      (isSvDot2    ? ' sv-dot' : '') +
+      (isSvIntDot2 ? ' sv-int-dot' : '') +
+      '" onclick="gotoPhoto(' + di2 + ')"></div>';
+  }
+  document.getElementById('g-dots').innerHTML = wDotsHtml;
+  photoIdx = 0;
+  gotoPhoto(0);
+  updateGLabel();
+}
+
 function photoUrl(u, mob, role) {
   if (!u) return u;
   // Determine target width by role and viewport
@@ -589,6 +677,14 @@ function openLoc(loc) {
   // Reset single attribution overlay
   const gAttrib = document.getElementById('g-attrib');
   if (gAttrib) { gAttrib.textContent = ''; gAttrib.style.display = 'none'; }
+
+  // ── Wikipedia Hero Image: inject cached image as photos[0] ──────
+  // If already fetched in this session, prepend immediately.
+  // If not yet fetched, kick off background fetch → _initWikiHero()
+  if (loc.wiki && !loc._wikiPhotoCount && _wikiImgCache.hasOwnProperty(loc.id) && _wikiImgCache[loc.id]) {
+    loc.photos = [_wikiImgCache[loc.id]].concat(loc.photos || []);
+    loc._wikiPhotoCount = 1;
+  }
 
   var hasPhotos = loc.photos && loc.photos.length > 0;
   var hasSV = typeof GOOGLE_MAPS_API_KEY === 'string' && GOOGLE_MAPS_API_KEY && localStorage.getItem('aw_sv_disabled') !== '1';
@@ -725,6 +821,11 @@ function openLoc(loc) {
   } else {
     document.getElementById('g-dots').innerHTML = '';
     document.getElementById('g-label').textContent = '0 / 0';
+  }
+
+  // ── Background fetch Wikipedia hero (if wiki link exists and not yet cached) ──
+  if (loc.wiki && !loc._wikiPhotoCount && !_wikiImgCache.hasOwnProperty(loc.id)) {
+    _initWikiHero(loc, gallery);
   }
 
   // Header

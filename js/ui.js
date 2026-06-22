@@ -95,6 +95,8 @@ function updateGLabel() {
     label = 'Street View · Exterior';
   } else if (isImgSearch) {
     label = 'More Photos';
+  } else if (photoIdx === 0 && activeLoc._wikiPhotoCount) {
+    label = 'Wikipedia';
   } else {
     label = (photoIdx + 1) + ' / ' + photoCount;
   }
