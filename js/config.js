@@ -153,7 +153,7 @@ var SUPABASE_ANON_KEY = '__SUPABASE_ANON_KEY__';
 // Supabase 클라이언트 초기화 (URL/KEY 없으면 로컬 JS 파일 폴백)
 var _supabase = (SUPABASE_URL && SUPABASE_ANON_KEY && typeof supabase !== 'undefined')
   ? supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-      auth: { persistSession: true, autoRefreshToken: true }
+      auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
     })
   : null;
 

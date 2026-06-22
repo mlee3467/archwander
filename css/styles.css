@@ -5445,6 +5445,10 @@
   gap: var(--sp-3);
   flex-shrink: 0;
 }
+/* Desktop: auth moved to sidebar — hide from header */
+@media (min-width: 901px) {
+  .header-auth-area { display: none !important; }
+}
 .hdr-auth-btn {
   height: 30px;
   padding: 0 var(--sp-7);

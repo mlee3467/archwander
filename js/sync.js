@@ -601,6 +601,21 @@ if (typeof _supabase !== 'undefined' && _supabase) {
 document.addEventListener('DOMContentLoaded', function() {
   _updateHeaderAuth();
 
+  // OAuth redirect: Supabase processes URL hash asynchronously, so
+  // onAuthStateChange(SIGNED_IN) may fire after DOMContentLoaded.
+  // Explicitly check the session to catch the OAuth user reliably.
+  if (_supabase) {
+    _supabase.auth.getSession().then(function(res) {
+      var user = res.data && res.data.session && res.data.session.user;
+      if (user && !user.is_anonymous && !_syncUser) {
+        _syncUser = user;
+        _updateHeaderAuth();
+        _syncUpdateStatusUI();
+        syncAll().catch(function(e) { console.warn('[sync] post-redirect sync failed:', e); });
+      }
+    });
+  }
+
   // 1) Private mode warning
   if (!_storageAvailable) {
     var ko = _isKo();
