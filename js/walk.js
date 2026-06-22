@@ -727,6 +727,9 @@ function toggleLassoMode() {
 
 // ── Start draw-select mode ────────────────────────────────────────
 function _startLasso() {
+  // On mobile, minimize sidebar so the map is near-fullscreen for drawing
+  if (window.innerWidth <= 900 && typeof closeSidebar === 'function') closeSidebar();
+
   // Deactivate Near Me walk filter if running
   if (nearMeActive || walkActive) {
     nearMeActive = false;
@@ -879,10 +882,10 @@ function _lassoFinalize() {
     }).addTo(map);
   }
 
-  // Banner off, clear button on
+  // Banner off, clear button on (in list overlay header)
   var banner   = document.getElementById('lasso-banner');
   if (banner)   banner.style.display = 'none';
-  var clearBtn = document.getElementById('lasso-clear-btn');
+  var clearBtn = document.getElementById('lov-clear-btn');
   if (clearBtn) clearBtn.style.display = 'flex';
 
   // Apply filter + refresh markers
@@ -929,7 +932,7 @@ function _lassoHardClear() {
   if (_lassoLayer) { try { map.removeLayer(_lassoLayer); } catch(x){} _lassoLayer = null; }
   var banner = document.getElementById('lasso-banner');
   if (banner) banner.style.display = 'none';
-  var clearBtn = document.getElementById('lasso-clear-btn');
+  var clearBtn = document.getElementById('lov-clear-btn');
   if (clearBtn) clearBtn.style.display = 'none';
   var sbaLoc = document.getElementById('sba-loc');
   if (sbaLoc) sbaLoc.classList.remove('sba-active');

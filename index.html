@@ -51,7 +51,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
-  <link rel="stylesheet" href="css/styles.css?v=20260622b">
+  <link rel="stylesheet" href="css/styles.css?v=20260622c">
 </head>
 <body>
 
@@ -682,6 +682,8 @@
   <div class="list-overlay-box" onclick="event.stopPropagation()">
     <div class="list-overlay-hdr">
       <span id="list-meta">Loading…</span>
+      <button id="lov-route-btn" class="lov-action-btn lov-route-btn" onclick="openRoutePanel();_closeListOverlay()">Route</button>
+      <button id="lov-clear-btn" class="lov-action-btn lov-clear-btn" onclick="exitLassoMode();_closeListOverlay()" style="display:none">Clear</button>
       <select id="sort-sel" onchange="setSort(this.value)">
         <option value="default">Default order</option>
         <option value="year-asc">Oldest first</option>
@@ -753,11 +755,8 @@
   <span class="wrc-label">Radius</span>
 </button>
 
-<!-- Draw & Select clear button — shown when polygon is active -->
-<button id="lasso-clear-btn" onclick="exitLassoMode()" style="display:none">
-  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M5 11C5 7.1 8.1 4 12 4C15.9 4 19 7.1 19 11C19 14.9 15.9 18 12 18C10.5 18 9.1 17.5 8 16.7"/><path d="M8 16.7L5 20"/></svg>
-  <span>Clear Selection</span>
-</button>
+<!-- Draw & Select clear button — now lives in list overlay header; this stub kept for compatibility -->
+<span id="lasso-clear-btn" style="display:none"></span>
 
 <!-- Draw & Select instruction banner -->
 <div id="lasso-banner" style="display:none">
@@ -1010,7 +1009,7 @@
 <script src="js/influence.js?v=20260609"></script>
 <!-- js/audio.js kept in repo for future use; not loaded -->
 <script src="js/ui.js?v=20260621c"></script>
-<script src="js/walk.js?v=20260622b"></script>
+<script src="js/walk.js?v=20260622c"></script>
 <script src="js/city.js?v=20260621d"></script>
 <script src="js/route.js?v=20260622"></script>
 <script src="js/share.js?v=20260609"></script>
