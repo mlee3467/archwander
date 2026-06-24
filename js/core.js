@@ -533,26 +533,101 @@ var photoIdx = 0;
 
 // ══════════════════════════════════════════════════════════════════
 // WIKIPEDIA HERO IMAGE — fetch & inject as gallery slide 0
+// Smart: skip logos/icons/maps/diagrams; scan all page images and
+// score by size + aspect ratio + architectural keywords.
 // ══════════════════════════════════════════════════════════════════
-var _wikiImgCache = {}; // locId → url | null (null = no image found)
+var _wikiImgCache = {}; // locId → url | null
+
+// Filenames that indicate non-architectural images → skip
+var _wikiSkipRe = /(^|[-_\s.])(logo|icon|seal|emblem|flag|coat_of_arm|stamp|signature|locator|location.map|route.map|diagram|blueprint|floorplan|floor.plan|site.plan|plan.view|portrait|headshot|mugshot|infobox|picto|symbol|badge|crest|shield|stub|template|commons)/i;
+
+function _isGoodArchPhoto(url) {
+  if (!url) return false;
+  var fn = decodeURIComponent(url.split('/').pop().split('?')[0]);
+  if (/\.(svg|gif)(\?|$)/i.test(fn)) return false;  // vector/animated → logos, diagrams
+  if (_wikiSkipRe.test(fn)) return false;             // logo/icon/map/plan
+  return true;
+}
 
 async function _fetchWikiImg(loc) {
   if (!loc || !loc.wiki) return null;
   if (_wikiImgCache.hasOwnProperty(loc.id)) return _wikiImgCache[loc.id];
+  var raw = loc.wiki.split('/wiki/')[1] || '';
+  var title = decodeURIComponent(raw.split('#')[0]);
+  if (!title) { _wikiImgCache[loc.id] = null; return null; }
   try {
-    var raw = loc.wiki.split('/wiki/')[1] || '';
-    var title = decodeURIComponent(raw.split('#')[0]);
-    if (!title) { _wikiImgCache[loc.id] = null; return null; }
-    var r = await fetch(
-      'https://en.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(title),
-      { signal: AbortSignal.timeout(8000) }
-    );
-    if (!r.ok) { _wikiImgCache[loc.id] = null; return null; }
-    var d = await r.json();
-    var imgUrl = (d.originalimage || d.thumbnail || {}).source || null;
-    _wikiImgCache[loc.id] = imgUrl;
-    return imgUrl;
+    // Step 1: REST summary — fast, usually the best representative image
+    var summaryUrl = await _fetchWikiSummary(title);
+    if (summaryUrl && _isGoodArchPhoto(summaryUrl)) {
+      _wikiImgCache[loc.id] = summaryUrl;
+      return summaryUrl;
+    }
+    // Step 2: summary failed validation → scan all page images
+    var bestUrl = await _scanWikiImages(title, summaryUrl);
+    _wikiImgCache[loc.id] = bestUrl;
+    return bestUrl;
   } catch(e) { _wikiImgCache[loc.id] = null; return null; }
+}
+
+async function _fetchWikiSummary(title) {
+  var r = await fetch(
+    'https://en.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(title),
+    { signal: AbortSignal.timeout(8000) }
+  );
+  if (!r.ok) return null;
+  var d = await r.json();
+  return (d.originalimage || d.thumbnail || {}).source || null;
+}
+
+async function _scanWikiImages(title, fallback) {
+  // MediaWiki generator: all File: pages on this article + dimensions in one call
+  var apiUrl = 'https://en.wikipedia.org/w/api.php?action=query' +
+    '&titles=' + encodeURIComponent(title) +
+    '&generator=images&gimlimit=50' +
+    '&prop=imageinfo&iiprop=url|dimensions|mediatype' +
+    '&format=json&origin=*';
+  var r = await fetch(apiUrl, { signal: AbortSignal.timeout(10000) });
+  if (!r.ok) return fallback || null;
+  var d = await r.json();
+  var pages = Object.values((d.query || {}).pages || {});
+
+  var candidates = [];
+  for (var i = 0; i < pages.length; i++) {
+    var p = pages[i];
+    if (p.missing !== undefined) continue;
+    var info = (p.imageinfo || [])[0];
+    if (!info || !info.url) continue;
+    var w = info.width || 0, h = info.height || 0;
+    var url = info.url;
+
+    if (!_isGoodArchPhoto(url)) continue;
+    if (info.mediatype === 'DRAWING') continue; // SVG as DRAWING type
+    if (w < 300 || h < 180) continue;           // too small for gallery
+
+    var fn = decodeURIComponent(url.split('/').pop().split('?')[0]).toLowerCase();
+    var score = 0;
+
+    // Larger images preferred (up to 8pts)
+    score += Math.min((w * h) / 250000, 8);
+
+    // Landscape aspect ratio typical of exteriors (4:3 ~ 21:9) → high bonus
+    var ratio = w / h;
+    if (ratio >= 1.2 && ratio <= 3.5) score += 6;       // landscape
+    else if (ratio > 0.6 && ratio < 1.2) score += 2;    // near-square / portrait
+
+    // Architectural / urban / landscape keywords → strong bonus
+    if (/(exterior|facade|aerial|skyline|panoram|building|tower|museum|gallery|church|cathedral|synagogue|mosque|temple|hall|center|centre|plaza|square|bridge|rooftop|lobby|atrium|interior|courtyard|landscape|garden|park|waterfront|harbor|harbour)/i.test(fn)) score += 8;
+
+    // Non-architectural content → penalty
+    if (/(people|crowd|person|inaugur|ceremony|protest|event|concert|politician|athlete|sport)/i.test(fn)) score -= 8;
+    if (/(construction|scaffold|demolish|ruin|damage|disaster)/i.test(fn)) score -= 3;
+
+    candidates.push({ url: url, score: score, w: w, h: h });
+  }
+
+  if (!candidates.length) return fallback || null;
+  candidates.sort(function(a, b) { return b.score - a.score; });
+  return candidates[0].url;
 }
 
 async function _initWikiHero(loc, gallery) {
