@@ -799,6 +799,7 @@ function _dbRowToLoc(row) {
     wiki:        row.wiki                        || null,
     archdaily:   _normalizeArchUrl(row.archdaily)|| null,
     web:         row.web                         || null,
+    site:        row.site                        || null,
     dezeen:      row.dezeen                      || null,
   };
 }
