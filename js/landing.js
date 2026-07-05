@@ -601,7 +601,7 @@ function _openMyPage() {
             : 'Know a great building that\'s missing from ArchWander? Submit it for review.') + '</div>' +
           '<div class="mpp-btn-row">' +
             '<button class="mpp-btn mpp-btn-suggest" onclick="_closeSuggestIfOpen();_openSuggestForm()">' +
-              (isKo ? '건물 제안하기' : 'Suggest a Building') +
+              (isKo ? '위치 제안하기' : 'Suggest a Location') +
             '</button>' +
           '</div>' +
         '</div>' +
@@ -1562,30 +1562,36 @@ function _headerGpsZoom() {
 
 // ══════════════════════════════════════════════════════════════════
 // SUGGEST A LOCATION  —  Map-First UX
-// Phase 1: tap map / use GPS / use photo  →  Phase 2: 2-field form
+// Phase 1: tap map / GPS / Camera / Gallery
+// Phase 2: Location Name + Architect (required) + More fields (optional)
 // ══════════════════════════════════════════════════════════════════
 
-var _suggestMode   = false;   // true while suggest-sheet is open
-var _suggestLat    = null;    // confirmed pin latitude
-var _suggestLng    = null;    // confirmed pin longitude
-var _suggestMarker = null;    // Leaflet marker (draggable 📍)
+var _suggestMode         = false;  // true while sheet is open
+var _suggestLat          = null;   // confirmed pin latitude
+var _suggestLng          = null;   // confirmed pin longitude
+var _suggestMarker       = null;   // Leaflet marker (draggable 📍)
+var _suggestPhotoPreview = null;   // ObjectURL of selected photo (freed on close)
+var _suggestPhotoNoGps   = false;  // true when photo had no EXIF GPS
 
 function _closeSuggestIfOpen() {
   if (_suggestMode) _closeSuggestMode();
 }
 
-// ── Entry point (called from list footer + mini-popup button) ──────
+// ── Entry point ───────────────────────────────────────────────────
 function _openSuggestForm() {
   if (_suggestMode) return;
-  _suggestMode = true;
-  _suggestLat  = null;
-  _suggestLng  = null;
+  _suggestMode       = true;
+  _suggestLat        = null;
+  _suggestLng        = null;
+  _suggestPhotoPreview = null;
+  _suggestPhotoNoGps = false;
+  // Close sidebar so map is visible on mobile, but DON'T change map viewport
   if (window.innerWidth <= 900 && typeof closeSidebar === 'function') closeSidebar();
   _renderSuggestSheet(false);
   if (typeof map !== 'undefined' && map) map.on('click', _onSuggestMapClick);
 }
 
-function _closeSuggestForm()  { _closeSuggestMode(); }
+function _closeSuggestForm() { _closeSuggestMode(); }
 
 function _closeSuggestMode() {
   if (!_suggestMode) return;
@@ -1593,6 +1599,8 @@ function _closeSuggestMode() {
   if (typeof map !== 'undefined' && map) map.off('click', _onSuggestMapClick);
   if (_suggestMarker) { _suggestMarker.remove(); _suggestMarker = null; }
   _suggestLat = null; _suggestLng = null;
+  if (_suggestPhotoPreview) { URL.revokeObjectURL(_suggestPhotoPreview); _suggestPhotoPreview = null; }
+  _suggestPhotoNoGps = false;
   var sheet = document.getElementById('suggest-sheet');
   if (sheet) {
     sheet.classList.remove('visible');
@@ -1601,13 +1609,10 @@ function _closeSuggestMode() {
 }
 
 // ── Map click → drop pin ──────────────────────────────────────────
-function _onSuggestMapClick(e) {
-  _suggestSetPin(e.latlng.lat, e.latlng.lng);
-}
+function _onSuggestMapClick(e) { _suggestSetPin(e.latlng.lat, e.latlng.lng); }
 
 function _suggestSetPin(lat, lng) {
-  _suggestLat = lat;
-  _suggestLng = lng;
+  _suggestLat = lat; _suggestLng = lng;
   if (_suggestMarker) {
     _suggestMarker.setLatLng([lat, lng]);
   } else {
@@ -1616,92 +1621,133 @@ function _suggestSetPin(lat, lng) {
       html: '<div style="font-size:36px;line-height:1;filter:drop-shadow(0 2px 8px rgba(0,0,0,.45));cursor:grab">📍</div>',
       iconSize: [36, 42], iconAnchor: [18, 42]
     });
-    _suggestMarker = L.marker([lat, lng], { icon: icon, draggable: true, zIndexOffset: 3000 })
-      .addTo(map);
+    _suggestMarker = L.marker([lat, lng], { icon: icon, draggable: true, zIndexOffset: 3000 }).addTo(map);
     _suggestMarker.on('dragend', function() {
       var p = _suggestMarker.getLatLng();
       _suggestLat = p.lat; _suggestLng = p.lng;
-      _renderSuggestSheet(true);   // refresh coord row
+      _renderSuggestSheet(true);
     });
   }
   _renderSuggestSheet(true);
 }
 
-// ── Render bottom sheet (phase 1 or phase 2) ─────────────────────
+// ── Render bottom sheet ───────────────────────────────────────────
 function _renderSuggestSheet(hasPin) {
   var isKo = (typeof LANG !== 'undefined') && LANG === 'ko';
   var old  = document.getElementById('suggest-sheet');
   if (old) old.parentNode.removeChild(old);
 
   var sheet = document.createElement('div');
-  sheet.id        = 'suggest-sheet';
-  sheet.className = 'suggest-sheet';
+  sheet.id = 'suggest-sheet'; sheet.className = 'suggest-sheet';
 
   if (!hasPin) {
     // ── Phase 1: location picking ────────────────────────────────
+    var hintHtml = _suggestPhotoNoGps
+      ? '<div class="suggest-sh-hint suggest-sh-warn">📸 ' +
+          (isKo ? '사진에 GPS 정보가 없습니다. 지도를 탭하거나 아래 버튼으로 위치를 설정하세요.'
+                : 'No GPS in photo. Tap the map or use the buttons below.') + '</div>'
+      : '<div class="suggest-sh-hint">' +
+          (isKo ? '지도를 탭하여 위치를 표시하세요' : 'Tap the map to mark the location') + '</div>';
+
+    var previewHtml = _suggestPhotoPreview
+      ? '<img class="suggest-photo-prev" src="' + _suggestPhotoPreview + '" alt="">'
+      : '';
+
     sheet.innerHTML =
       '<div class="suggest-sh-hdr">' +
-        '<span class="suggest-sh-title">' +
-          (isKo ? '📍 건물 위치 제안' : '📍 Suggest a Place') +
+        '<span class="suggest-sh-title">📍 ' +
+          (isKo ? '위치 제안' : 'Suggest a Location') +
         '</span>' +
         '<button class="suggest-sh-close" onclick="_closeSuggestMode()">✕</button>' +
       '</div>' +
-      '<div class="suggest-sh-hint">' +
-        (isKo ? '지도를 탭하여 위치를 표시하세요' : 'Tap the map to mark the location') +
-      '</div>' +
+      hintHtml +
+      previewHtml +
       '<div class="suggest-sh-opts">' +
         '<button class="suggest-opt-btn" onclick="_suggestUseGPS()">' +
           '<span class="suggest-opt-icon">📍</span>' +
           '<span>' + (isKo ? '내 위치' : 'My Location') + '</span>' +
         '</button>' +
-        '<button class="suggest-opt-btn" onclick="document.getElementById(\'sug-photo-inp\').click()">' +
+        '<button class="suggest-opt-btn" onclick="document.getElementById(\'sug-cam-inp\').click()">' +
           '<span class="suggest-opt-icon">📸</span>' +
-          '<span>' + (isKo ? '사진으로' : 'Use Photo') + '</span>' +
+          '<span>' + (isKo ? '카메라' : 'Camera') + '</span>' +
+        '</button>' +
+        '<button class="suggest-opt-btn" onclick="document.getElementById(\'sug-gal-inp\').click()">' +
+          '<span class="suggest-opt-icon">🖼️</span>' +
+          '<span>' + (isKo ? '갤러리' : 'Gallery') + '</span>' +
         '</button>' +
       '</div>' +
-      '<input type="file" id="sug-photo-inp" accept="image/*" capture="environment" ' +
-        'style="display:none" onchange="_onSuggestPhoto(this)">';
+      '<input type="file" id="sug-cam-inp" accept="image/*" capture="environment" style="display:none" onchange="_onSuggestPhoto(this)">' +
+      '<input type="file" id="sug-gal-inp" accept="image/*" style="display:none" onchange="_onSuggestPhoto(this)">';
 
   } else {
-    // ── Phase 2: name + architect form ───────────────────────────
+    // ── Phase 2: detail form ──────────────────────────────────────
     var coordText = _suggestLat
-      ? (_suggestLat.toFixed(5) + ', ' + _suggestLng.toFixed(5))
+      ? (_suggestLat.toFixed(5) + ', ' + _suggestLng.toFixed(5)) : '';
+    var dragHint  = isKo ? '(핀을 드래그하여 조정)' : '(drag pin to adjust)';
+    var prevHtml  = _suggestPhotoPreview
+      ? '<img class="suggest-photo-prev suggest-photo-prev-sm" src="' + _suggestPhotoPreview + '" alt="">'
       : '';
-    var dragHint = isKo ? '(핀을 드래그하여 조정)' : '(drag pin to adjust)';
 
     sheet.innerHTML =
       '<div class="suggest-sh-hdr">' +
         '<button class="suggest-sh-back" onclick="_suggestBackToPhase1()">◀</button>' +
-        '<span class="suggest-sh-title">' +
-          (isKo ? '건물 정보 입력' : 'Building Details') +
-        '</span>' +
+        '<span class="suggest-sh-title">' + (isKo ? '위치 정보 입력' : 'Location Details') + '</span>' +
         '<button class="suggest-sh-close" onclick="_closeSuggestMode()">✕</button>' +
       '</div>' +
+      prevHtml +
       '<div id="sug-geocode-row">' +
         '<span class="sug-coord-txt">' + coordText + '</span>' +
         ' <span class="sug-coord-hint">' + dragHint + '</span>' +
       '</div>' +
+      '<div id="sug-img-search" style="display:none">' +
+        '<a class="sug-img-link" id="sug-img-link" target="_blank" rel="noopener noreferrer">' +
+          '🔍 ' + (isKo ? 'Google 이미지 검색 →' : 'Search on Google Images →') +
+        '</a>' +
+      '</div>' +
       '<div class="suggest-field-row">' +
-        '<label class="suggest-lbl">' + (isKo ? '건물명 *' : 'Building Name *') + '</label>' +
+        '<label class="suggest-lbl">' + (isKo ? '장소명 *' : 'Location Name *') + '</label>' +
         '<input class="suggest-inp" id="sug-name" type="text" ' +
           'placeholder="' + (isKo ? '불러오는 중…' : 'Loading…') + '" autocomplete="off">' +
       '</div>' +
       '<div class="suggest-field-row">' +
         '<label class="suggest-lbl suggest-lbl-opt">' +
-          (isKo ? '건축가 (선택)' : 'Architect (optional)') +
-        '</label>' +
+          (isKo ? '건축가 (선택)' : 'Architect (optional)') + '</label>' +
         '<input class="suggest-inp" id="sug-arch" type="text" ' +
           'placeholder="' + (isKo ? '건축가 이름' : 'Architect name') + '">' +
+      '</div>' +
+      '<button class="sug-more-btn" id="sug-more-btn" onclick="_suggestToggleMore()">' +
+        (isKo ? '+ 추가 정보 입력 (선택)' : '+ Add More Info (optional)') +
+      '</button>' +
+      '<div id="sug-more-fields" style="display:none">' +
+        '<div class="suggest-field-row">' +
+          '<label class="suggest-lbl suggest-lbl-opt">' + (isKo ? '주소' : 'Address') + '</label>' +
+          '<input class="suggest-inp" id="sug-address" type="text" ' +
+            'placeholder="' + (isKo ? '도로명 주소' : 'Street address') + '">' +
+        '</div>' +
+        '<div class="suggest-field-row">' +
+          '<label class="suggest-lbl suggest-lbl-opt">' + (isKo ? '용도' : 'Use Type') + '</label>' +
+          '<input class="suggest-inp" id="sug-type" type="text" ' +
+            'placeholder="' + (isKo ? '예: 미술관, 주거, 오피스…' : 'e.g. Museum, Residential, Office…') + '">' +
+        '</div>' +
+        '<div class="sug-row2">' +
+          '<div class="suggest-field-row">' +
+            '<label class="suggest-lbl suggest-lbl-opt">' + (isKo ? '준공 연도' : 'Year') + '</label>' +
+            '<input class="suggest-inp" id="sug-year" type="number" min="1800" max="2099" ' +
+              'placeholder="' + (isKo ? '예: 2014' : 'e.g. 2014') + '">' +
+          '</div>' +
+          '<div class="suggest-field-row">' +
+            '<label class="suggest-lbl suggest-lbl-opt">' + (isKo ? '카테고리' : 'Category') + '</label>' +
+            '<input class="suggest-inp" id="sug-category" type="text" ' +
+              'placeholder="' + (isKo ? '예: 현대, 브루탈리즘…' : 'e.g. Modern, Brutalism…') + '">' +
+          '</div>' +
+        '</div>' +
       '</div>' +
       '<div id="sug-status" class="sug-status-row"></div>' +
       '<button class="suggest-submit-btn" onclick="_submitSuggestion()">' +
         (isKo ? '제출하기 →' : 'Submit →') +
       '</button>';
 
-    // Kick off reverse geocode after DOM is live
-    setTimeout(function() {
-      _suggestReverseGeocode(_suggestLat, _suggestLng);
-    }, 80);
+    setTimeout(function() { _suggestReverseGeocode(_suggestLat, _suggestLng); }, 80);
   }
 
   document.body.appendChild(sheet);
@@ -1712,11 +1758,31 @@ function _renderSuggestSheet(hasPin) {
 
 function _suggestBackToPhase1() {
   _suggestLat = null; _suggestLng = null;
+  _suggestPhotoNoGps = false;
   if (_suggestMarker) { _suggestMarker.remove(); _suggestMarker = null; }
   _renderSuggestSheet(false);
 }
 
-// ── Nominatim reverse geocode → pre-fill building name ───────────
+function _suggestToggleMore() {
+  var isKo = (typeof LANG !== 'undefined') && LANG === 'ko';
+  var more = document.getElementById('sug-more-fields');
+  var btn  = document.getElementById('sug-more-btn');
+  if (!more || !btn) return;
+  if (more.style.display === 'none') {
+    more.style.display = 'block';
+    btn.textContent = isKo ? '− 접기' : '− Less';
+    btn.classList.add('active');
+    // Focus first additional field
+    var f = document.getElementById('sug-address');
+    if (f) setTimeout(function() { f.focus(); }, 60);
+  } else {
+    more.style.display = 'none';
+    btn.textContent = isKo ? '+ 추가 정보 입력 (선택)' : '+ Add More Info (optional)';
+    btn.classList.remove('active');
+  }
+}
+
+// ── Nominatim reverse geocode → pre-fill name + Google Images ────
 async function _suggestReverseGeocode(lat, lng) {
   var inp = document.getElementById('sug-name');
   if (!inp) return;
@@ -1724,7 +1790,7 @@ async function _suggestReverseGeocode(lat, lng) {
   try {
     var r = await fetch(
       'https://nominatim.openstreetmap.org/reverse?lat=' + lat +
-      '&lon=' + lng + '&format=json&zoom=18&addressdetails=0' +
+      '&lon=' + lng + '&format=json&zoom=18&addressdetails=1' +
       '&accept-language=' + (isKo ? 'ko' : 'en'),
       {
         headers: { 'Accept': 'application/json',
@@ -1735,14 +1801,13 @@ async function _suggestReverseGeocode(lat, lng) {
     if (!r.ok) throw new Error('nominatim ' + r.status);
     var d = await r.json();
     var name = d.name || (d.display_name ? d.display_name.split(',')[0] : '');
-    var inp2 = document.getElementById('sug-name');  // re-fetch (DOM may have changed)
+    var inp2 = document.getElementById('sug-name');
     if (inp2 && !inp2.value && name) {
-      inp2.value       = name;
-      inp2.placeholder = '';
+      inp2.value = name; inp2.placeholder = '';
     } else if (inp2 && !inp2.value) {
-      inp2.placeholder = isKo ? '건물 이름 입력' : 'Enter building name';
+      inp2.placeholder = isKo ? '장소 이름 입력' : 'Enter location name';
     }
-    // Show short address under coords
+    // Address row
     var cr = document.getElementById('sug-geocode-row');
     if (cr && d.display_name) {
       var shortAddr = d.display_name.split(',').slice(0, 3).join(', ');
@@ -1750,19 +1815,38 @@ async function _suggestReverseGeocode(lat, lng) {
         '<span class="sug-coord-txt">' + shortAddr + '</span>' +
         ' <span class="sug-coord-hint">' + (isKo ? '(핀을 드래그하여 조정)' : '(drag pin to adjust)') + '</span>';
     }
+    // Pre-fill address field if "More" is open
+    var addrInp = document.getElementById('sug-address');
+    if (addrInp && !addrInp.value && d.display_name) {
+      var fullAddr = d.address
+        ? [d.address.road, d.address.city || d.address.town, d.address.country]
+            .filter(Boolean).join(', ')
+        : d.display_name.split(',').slice(0, 4).join(', ');
+      addrInp.value = fullAddr;
+    }
+    // Google Images link
+    var searchName = name || (d.display_name ? d.display_name.split(',')[0] : '');
+    if (searchName) {
+      var imgBox  = document.getElementById('sug-img-search');
+      var imgLink = document.getElementById('sug-img-link');
+      if (imgBox && imgLink) {
+        imgLink.href = 'https://www.google.com/search?tbm=isch&q=' +
+          encodeURIComponent(searchName + ' architecture building');
+        imgBox.style.display = 'block';
+      }
+    }
   } catch(e) {
     var inp3 = document.getElementById('sug-name');
     if (inp3 && !inp3.value)
-      inp3.placeholder = isKo ? '건물 이름 입력' : 'Enter building name';
+      inp3.placeholder = isKo ? '장소 이름 입력' : 'Enter location name';
   }
 }
 
-// ── GPS button in phase 1 ─────────────────────────────────────────
+// ── GPS button ────────────────────────────────────────────────────
 function _suggestUseGPS() {
   if (!navigator.geolocation) {
     alert(typeof LANG !== 'undefined' && LANG === 'ko'
-      ? 'GPS가 지원되지 않습니다.' : 'GPS not supported.');
-    return;
+      ? 'GPS가 지원되지 않습니다.' : 'GPS not supported.'); return;
   }
   var btns = document.querySelectorAll('.suggest-opt-btn');
   btns.forEach(function(b) { b.disabled = true; });
@@ -1781,22 +1865,28 @@ function _suggestUseGPS() {
   );
 }
 
-// ── Photo button: extract EXIF GPS, fall back to device GPS ──────
+// ── Photo handler (camera or gallery) ────────────────────────────
 function _onSuggestPhoto(inp) {
   var file = inp && inp.files && inp.files[0];
   if (!file) return;
+  // Create preview ObjectURL (released on close)
+  if (_suggestPhotoPreview) URL.revokeObjectURL(_suggestPhotoPreview);
+  _suggestPhotoPreview = URL.createObjectURL(file);
+
   _extractExifGps(file).then(function(gps) {
     if (gps && gps.lat && gps.lng && Math.abs(gps.lat) <= 90 && Math.abs(gps.lng) <= 180) {
+      // GPS found → drop pin + go to Phase 2
       _suggestSetPin(gps.lat, gps.lng);
       if (typeof map !== 'undefined' && map) map.setView([gps.lat, gps.lng], 17);
     } else {
-      // No EXIF GPS → fall back to device GPS
-      _suggestUseGPS();
+      // No GPS → stay Phase 1 with photo preview + warning
+      _suggestPhotoNoGps = true;
+      _renderSuggestSheet(false);
     }
   });
 }
 
-// ── Minimal JPEG EXIF GPS extractor ─────────────────────────────
+// ── Minimal JPEG EXIF GPS extractor ──────────────────────────────
 function _extractExifGps(file) {
   return new Promise(function(resolve) {
     var reader = new FileReader();
@@ -1808,10 +1898,8 @@ function _extractExifGps(file) {
         while (offset < dv.byteLength - 4) {
           var marker = dv.getUint16(offset);
           var segLen  = dv.getUint16(offset + 2);
-          if (marker === 0xFFE1) {           // APP1 = Exif
-            resolve(_parseJpegExifGps(dv, offset + 4)); return;
-          }
-          if (marker === 0xFFDA) break;      // SOS = end of metadata
+          if (marker === 0xFFE1) { resolve(_parseJpegExifGps(dv, offset + 4)); return; }
+          if (marker === 0xFFDA) break;
           if (segLen < 2) break;
           offset += 2 + segLen;
         }
@@ -1819,21 +1907,19 @@ function _extractExifGps(file) {
       } catch(e2) { resolve(null); }
     };
     reader.onerror = function() { resolve(null); };
-    reader.readAsArrayBuffer(file.slice(0, 65536));  // first 64 KB is enough
+    reader.readAsArrayBuffer(file.slice(0, 65536));
   });
 }
 
 function _parseJpegExifGps(dv, start) {
-  // Verify "Exif\0\0" header
   var hdr = '';
   for (var i = 0; i < 4; i++) hdr += String.fromCharCode(dv.getUint8(start + i));
   if (hdr !== 'Exif') return null;
   var tiff = start + 6;
-  var le = dv.getUint16(tiff) === 0x4949;   // II = little-endian
+  var le = dv.getUint16(tiff) === 0x4949;
   function u16(o) { return dv.getUint16(o, le); }
   function u32(o) { return dv.getUint32(o, le); }
   function rat(o) { var n = u32(o), d = u32(o + 4); return d ? n / d : 0; }
-  // Walk IFD0, find GPS IFD pointer (tag 0x8825)
   var ifd = tiff + u32(tiff + 4);
   var n = u16(ifd); var gpsOff = null;
   for (var i = 0; i < n; i++) {
@@ -1841,47 +1927,49 @@ function _parseJpegExifGps(dv, start) {
     if (u16(e) === 0x8825) { gpsOff = tiff + u32(e + 8); break; }
   }
   if (!gpsOff) return null;
-  // Read GPS IFD tags
   var gn = u16(gpsOff); var g = {};
   for (var i = 0; i < gn; i++) {
-    var e = gpsOff + 2 + i * 12;
-    var tag = u16(e);
-    if (tag === 1 || tag === 3) {
-      g[tag] = String.fromCharCode(dv.getUint8(e + 8));
-    } else if (tag === 2 || tag === 4) {
-      var o = tiff + u32(e + 8);
-      g[tag] = [rat(o), rat(o + 8), rat(o + 16)];
+    var e = gpsOff + 2 + i * 12; var tag = u16(e);
+    if (tag === 1 || tag === 3) { g[tag] = String.fromCharCode(dv.getUint8(e + 8)); }
+    else if (tag === 2 || tag === 4) {
+      var o = tiff + u32(e + 8); g[tag] = [rat(o), rat(o + 8), rat(o + 16)];
     }
   }
   if (!g[2] || !g[4]) return null;
   var lat = g[2][0] + g[2][1] / 60 + g[2][2] / 3600;
   var lng = g[4][0] + g[4][1] / 60 + g[4][2] / 3600;
-  if (g[1] === 'S') lat = -lat;
-  if (g[3] === 'W') lng = -lng;
+  if (g[1] === 'S') lat = -lat; if (g[3] === 'W') lng = -lng;
   return { lat: lat, lng: lng };
 }
 
-// ── Submit (phase 2) ─────────────────────────────────────────────
+// ── Submit ────────────────────────────────────────────────────────
 async function _submitSuggestion() {
   var isKo     = (typeof LANG !== 'undefined') && LANG === 'ko';
   var nameEl   = document.getElementById('sug-name');
   var archEl   = document.getElementById('sug-arch');
+  var addrEl   = document.getElementById('sug-address');
+  var typeEl   = document.getElementById('sug-type');
+  var yearEl   = document.getElementById('sug-year');
+  var catEl    = document.getElementById('sug-category');
   var statusEl = document.getElementById('sug-status');
   var btn      = document.querySelector('.suggest-submit-btn');
 
   var name = nameEl ? nameEl.value.trim() : '';
   if (!name) {
-    if (statusEl) { statusEl.style.color = '#ef4444'; statusEl.textContent = isKo ? '건물명은 필수입니다.' : 'Building name is required.'; }
-    if (nameEl) nameEl.focus();
-    return;
+    if (statusEl) { statusEl.style.color = '#ef4444'; statusEl.textContent = isKo ? '장소명은 필수입니다.' : 'Location name is required.'; }
+    if (nameEl) nameEl.focus(); return;
   }
   if (_suggestLat === null) {
     if (statusEl) { statusEl.style.color = '#ef4444'; statusEl.textContent = isKo ? '먼저 지도에서 위치를 선택하세요.' : 'Please select a location on the map.'; }
     return;
   }
 
-  var arch  = archEl ? archEl.value.trim() : '';
-  var email = '';
+  var arch     = archEl ? archEl.value.trim() : '';
+  var address  = addrEl ? addrEl.value.trim() : '';
+  var useType  = typeEl ? typeEl.value.trim()  : '';
+  var year     = yearEl ? yearEl.value.trim()  : '';
+  var category = catEl  ? catEl.value.trim()   : '';
+  var email    = '';
   if (typeof _syncUser !== 'undefined' && _syncUser && _syncUser.email) email = _syncUser.email;
 
   if (btn) { btn.disabled = true; btn.textContent = isKo ? '제출 중…' : 'Submitting…'; }
@@ -1889,25 +1977,28 @@ async function _submitSuggestion() {
 
   if (typeof SUPABASE_URL === 'undefined' || !SUPABASE_URL || SUPABASE_URL.indexOf('__') === 0) {
     if (statusEl) { statusEl.style.color = '#ef4444'; statusEl.textContent = isKo ? '서버 오류' : 'Server not configured.'; }
-    if (btn) { btn.disabled = false; btn.textContent = isKo ? '제출하기 →' : 'Submit →'; }
-    return;
+    if (btn) { btn.disabled = false; btn.textContent = isKo ? '제출하기 →' : 'Submit →'; } return;
   }
 
   try {
     var res = await fetch(SUPABASE_URL + '/rest/v1/location_suggestions', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'apikey':         typeof SUPABASE_ANON_KEY !== 'undefined' ? SUPABASE_ANON_KEY : '',
+        'Content-Type':  'application/json',
+        'apikey':        typeof SUPABASE_ANON_KEY !== 'undefined' ? SUPABASE_ANON_KEY : '',
         'Authorization': 'Bearer ' + (typeof SUPABASE_ANON_KEY !== 'undefined' ? SUPABASE_ANON_KEY : ''),
-        'Prefer':         'return=minimal'
+        'Prefer':        'return=minimal'
       },
       body: JSON.stringify({
-        building_name: name,
-        architect:     arch  || null,
-        lat:           _suggestLat,
-        lng:           _suggestLng,
-        user_email:    email || null
+        building_name:  name,
+        architect:      arch      || null,
+        address:        address   || null,
+        use_type:       useType   || null,
+        year_completed: year      || null,
+        category:       category  || null,
+        lat:            _suggestLat,
+        lng:            _suggestLng,
+        user_email:     email     || null
       })
     });
     if (!res.ok) {
