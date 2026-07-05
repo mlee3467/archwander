@@ -291,6 +291,8 @@
             <option value="seoul">Seoul</option>
             <option value="london">London</option>
             <option value="tokyo">Tokyo</option>
+            <option value="chicago">Chicago</option>
+            <option value="berlin">Berlin</option>
           </select>
         </div>
         <div class="af-field"><label>Architectural Style</label><input id="af-style" type="text" placeholder="e.g. Art Deco"></div>
@@ -396,6 +398,7 @@
       <option value="lon">London</option>
       <option value="tky">Tokyo</option>
       <option value="chi">Chicago</option>
+      <option value="ber">Berlin</option>
     </select>
     <button id="refresh-btn" onclick="hardRefresh()" title="Clear cache & reload" style="background:none;border:1px solid rgba(255,255,255,0.2);color:#fff;border-radius:6px;padding:3px 6px;cursor:pointer;font-size:11px;opacity:0.5;margin-left:2px;flex-shrink:0;line-height:1" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'">↻</button>
   </div>
@@ -503,6 +506,7 @@
         <option value="lon">London</option>
         <option value="tky">Tokyo</option>
         <option value="chi">Chicago</option>
+        <option value="ber">Berlin</option>
       </select>
       <div id="sb-auth-area" class="sb-auth-area">
         <button id="sb-login-btn" class="sb-auth-login-btn" onclick="syncOpenModal('login')">Log In</button>
@@ -944,6 +948,7 @@
     <button class="cs-chip" onclick="_enterCity('lon')">London</button>
     <button class="cs-chip" onclick="_enterCity('tky')">Tokyo</button>
     <button class="cs-chip" onclick="_enterCity('chi')">Chicago</button>
+    <button class="cs-chip" onclick="_enterCity('ber')">Berlin</button>
   </div>
 </div>
 
@@ -1024,7 +1029,7 @@
 <!-- js/audio.js kept in repo for future use; not loaded -->
 <script src="js/ui.js?v=20260622e"></script>
 <script src="js/walk.js?v=20260622c"></script>
-<script src="js/city.js?v=20260624b"></script>
+<script src="js/city.js?v=20260705c"></script>
 <script src="js/route.js?v=20260622"></script>
 <script src="js/share.js?v=20260609"></script>
 <script src="js/select.js?v=20260609"></script>

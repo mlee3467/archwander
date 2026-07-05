@@ -712,7 +712,8 @@ var CITY_META = {
   sel: { key: 'seoul',    label: 'Seoul',    localLang: 'ko', lat: 37.5663, lng: 126.9779, zoom: 13, dataVar: 'LOCS_SEOUL'    },
   lon: { key: 'london',   label: 'London',   localLang: 'en', lat: 51.5101, lng: -0.0763,  zoom: 13, dataVar: 'LOCS_LONDON'   },
   tky: { key: 'tokyo',    label: 'Tokyo',    localLang: 'ja', lat: 35.6895, lng: 139.6917, zoom: 13, dataVar: 'LOCS_TOKYO'    },
-  chi: { key: 'chicago',  label: 'Chicago',  localLang: 'en', lat: 41.8781, lng: -87.6298,  zoom: 12, dataVar: 'LOCS_CHICAGO'  }
+  chi: { key: 'chicago',  label: 'Chicago',  localLang: 'en', lat: 41.8781, lng: -87.6298,  zoom: 12, dataVar: 'LOCS_CHICAGO'  },
+  ber: { key: 'berlin',   label: 'Berlin',   localLang: 'de', lat: 52.5200, lng: 13.4050,   zoom: 13, dataVar: 'LOCS_BERLIN'   }
 };
 
 // Track which city data files have been loaded
