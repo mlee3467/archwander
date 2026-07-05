@@ -159,6 +159,7 @@ function setMapType(type) {
 // NEAR ME + WALK FILTER
 // ══════════════════════════════════════════════════════════════════
 var nearMeActive = false;
+var _gpsWatchId  = null;  // navigator.geolocation.watchPosition handle
 
 function toggleNearMe() {
   nearMeActive = !nearMeActive;
@@ -179,7 +180,8 @@ function _fullDeactivate() {
   walkOrigin   = null;
   pinDropMode  = false;
   if (window.map) map.getContainer().style.cursor = '';
-  if (userMarker)    { userMarker.remove();    userMarker    = null; }
+  // Keep GPS dot alive if continuous tracking is active
+  if (userMarker && _gpsWatchId === null) { userMarker.remove(); userMarker = null; }
   if (pinDropMarker) { pinDropMarker.remove(); pinDropMarker = null; }
   _clearWalkOverlay();
   // Also clear lasso + ruler silently (render happens at end)
@@ -285,19 +287,28 @@ function clearWalkFilter() { _fullDeactivate(); }
 
 function locateUserGPS() {
   if (!navigator.geolocation) { alert('Geolocation not supported.'); return; }
-  // Mobile: minimize sidebar so map is fully visible
   if (window.innerWidth <= 900) closeSidebar();
   const gpsBtn = document.getElementById('walk-gps-btn');
   const pinBtn = document.getElementById('walk-pin-btn');
   gpsBtn.classList.add('locating');
   pinBtn.classList.remove('active', 'locating');
+
+  // If already watching and marker exists, reuse position immediately
+  if (_gpsWatchId !== null && userMarker) {
+    const p = userMarker.getLatLng();
+    gpsBtn.classList.remove('locating');
+    _setWalkOrigin(p.lat, p.lng, 'gps');
+    return;
+  }
+
   navigator.geolocation.getCurrentPosition(
     pos => {
       gpsBtn.classList.remove('locating');
       _setWalkOrigin(pos.coords.latitude, pos.coords.longitude, 'gps');
+      _startContinuousGps(); // start live tracking after first fix
     },
     () => {
-      alert('Could not get your location. Check browser permissions.');
+      alert('위치를 가져올 수 없습니다. 브라우저 위치 권한을 확인하세요.');
       gpsBtn.classList.remove('locating');
     }
   );
@@ -661,9 +672,13 @@ function closeMobileActions() {
 // ══════════════════════════════════════════════════════════════════
 // SHOW GPS LOCATION MARKER (passive, without activating walk filter)
 // ══════════════════════════════════════════════════════════════════
-// Show user's GPS location as a marker on the map without activating walk filter
+// Show user's GPS location as a marker on the map without activating walk filter.
+// Reuses existing marker if present (smooth continuous tracking, no flicker).
 function _showUserLocationMarker(lat, lng) {
-  if (userMarker) { userMarker.remove(); userMarker = null; }
+  if (userMarker) {
+    userMarker.setLatLng([lat, lng]);
+    return;
+  }
   var icon = L.divIcon({
     className: 'gps-dot-icon',
     html: '<div class="gps-dot"><div class="gps-dot-pulse"></div></div>',
@@ -676,6 +691,38 @@ function _showUserLocationMarker(lat, lng) {
     interactive: false
   }).addTo(map);
 }
+
+// ══════════════════════════════════════════════════════════════════
+// CONTINUOUS GPS TRACKING — live position dot (like Google Maps)
+// ══════════════════════════════════════════════════════════════════
+function _startContinuousGps() {
+  if (!navigator.geolocation) return;
+  if (_gpsWatchId !== null) return; // already watching
+  _gpsWatchId = navigator.geolocation.watchPosition(
+    function(pos) { _showUserLocationMarker(pos.coords.latitude, pos.coords.longitude); },
+    function(err) { console.warn('[GPS watch]', err.code, err.message); },
+    { enableHighAccuracy: true, maximumAge: 5000, timeout: 20000 }
+  );
+}
+
+function _stopContinuousGps() {
+  if (_gpsWatchId !== null) {
+    navigator.geolocation.clearWatch(_gpsWatchId);
+    _gpsWatchId = null;
+  }
+  if (userMarker) { userMarker.remove(); userMarker = null; }
+}
+
+// Auto-start on page load if permission was previously granted (no prompt needed)
+(function() {
+  if (!navigator.geolocation || !navigator.permissions) return;
+  navigator.permissions.query({ name: 'geolocation' }).then(function(result) {
+    if (result.state === 'granted') setTimeout(_startContinuousGps, 1500);
+    result.addEventListener('change', function() {
+      if (this.state === 'granted') _startContinuousGps();
+    });
+  }).catch(function() {});
+})();
 
 // ── Sidebar Position Sync ────────────────────────────────────
 // Dynamically aligns sidebar top to actual header bottom, fixing
