@@ -1569,9 +1569,46 @@ function _headerGpsZoom() {
 var _suggestMode         = false;  // true while sheet is open
 var _suggestLat          = null;   // confirmed pin latitude
 var _suggestLng          = null;   // confirmed pin longitude
-var _suggestMarker       = null;   // Leaflet marker (draggable 📍)
+var _suggestMarker       = null;   // Leaflet marker (SVG pin)
 var _suggestPhotoPreview = null;   // ObjectURL of selected photo (freed on close)
+var _suggestPhotoFile    = null;   // raw File object for Google Lens
 var _suggestPhotoNoGps   = false;  // true when photo had no EXIF GPS
+
+// ── Inline SVG icons (used in buttons + marker) ───────────────────
+var _SUG_ICO_PIN =
+  '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"' +
+  ' stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+  '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>' +
+  '<circle cx="12" cy="10" r="3"/></svg>';
+
+var _SUG_ICO_CAM =
+  '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"' +
+  ' stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+  '<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>' +
+  '<circle cx="12" cy="13" r="4"/></svg>';
+
+var _SUG_ICO_GAL =
+  '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"' +
+  ' stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+  '<rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>' +
+  '<circle cx="8.5" cy="8.5" r="1.5"/>' +
+  '<polyline points="21 15 16 10 5 21"/></svg>';
+
+var _SUG_ICO_LENS =
+  '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"' +
+  ' stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">' +
+  '<circle cx="11" cy="11" r="8"/>' +
+  '<line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>';
+
+var _SUG_ICO_MAPS =
+  '<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">' +
+  '<path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z' +
+  'M12 11.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>';
+
+var _SUG_ICO_SEARCH =
+  '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"' +
+  ' stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">' +
+  '<circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>';
 
 function _closeSuggestIfOpen() {
   if (_suggestMode) _closeSuggestMode();
@@ -1584,6 +1621,7 @@ function _openSuggestForm() {
   _suggestLat        = null;
   _suggestLng        = null;
   _suggestPhotoPreview = null;
+  _suggestPhotoFile  = null;
   _suggestPhotoNoGps = false;
   // Close sidebar so map is visible on mobile, but DON'T change map viewport
   if (window.innerWidth <= 900 && typeof closeSidebar === 'function') closeSidebar();
@@ -1600,6 +1638,7 @@ function _closeSuggestMode() {
   if (_suggestMarker) { _suggestMarker.remove(); _suggestMarker = null; }
   _suggestLat = null; _suggestLng = null;
   if (_suggestPhotoPreview) { URL.revokeObjectURL(_suggestPhotoPreview); _suggestPhotoPreview = null; }
+  _suggestPhotoFile  = null;
   _suggestPhotoNoGps = false;
   var sheet = document.getElementById('suggest-sheet');
   if (sheet) {
@@ -1618,8 +1657,12 @@ function _suggestSetPin(lat, lng) {
   } else {
     var icon = L.divIcon({
       className: '',
-      html: '<div style="font-size:36px;line-height:1;filter:drop-shadow(0 2px 8px rgba(0,0,0,.45));cursor:grab">📍</div>',
-      iconSize: [36, 42], iconAnchor: [18, 42]
+      html: '<div style="cursor:grab;filter:drop-shadow(0 3px 6px rgba(0,0,0,.4))">' +
+        '<svg width="30" height="40" viewBox="0 0 30 40" xmlns="http://www.w3.org/2000/svg">' +
+          '<path d="M15 0C6.716 0 0 6.716 0 15c0 10.5 15 25 15 25S30 25.5 30 15C30 6.716 23.284 0 15 0z" fill="#e74c3c"/>' +
+          '<circle cx="15" cy="15" r="5.5" fill="white"/>' +
+        '</svg></div>',
+      iconSize: [30, 40], iconAnchor: [15, 40]
     });
     _suggestMarker = L.marker([lat, lng], { icon: icon, draggable: true, zIndexOffset: 3000 }).addTo(map);
     _suggestMarker.on('dragend', function() {
@@ -1643,11 +1686,18 @@ function _renderSuggestSheet(hasPin) {
   if (!hasPin) {
     // ── Phase 1: location picking ────────────────────────────────
     var hintHtml = _suggestPhotoNoGps
-      ? '<div class="suggest-sh-hint suggest-sh-warn">📸 ' +
+      ? '<div class="suggest-sh-hint suggest-sh-warn">' +
           (isKo ? '사진에 GPS 정보가 없습니다. 지도를 탭하거나 아래 버튼으로 위치를 설정하세요.'
                 : 'No GPS in photo. Tap the map or use the buttons below.') + '</div>'
       : '<div class="suggest-sh-hint">' +
           (isKo ? '지도를 탭하여 위치를 표시하세요' : 'Tap the map to mark the location') + '</div>';
+
+    var lensHtml = (_suggestPhotoPreview && _suggestPhotoFile)
+      ? '<button class="sug-lens-btn" onclick="_openGoogleLens()">' +
+          _SUG_ICO_LENS +
+          (isKo ? 'Google Lens로 건물 검색' : 'Search building on Google Lens') +
+        '</button>'
+      : '';
 
     var previewHtml = _suggestPhotoPreview
       ? '<img class="suggest-photo-prev" src="' + _suggestPhotoPreview + '" alt="">'
@@ -1655,24 +1705,26 @@ function _renderSuggestSheet(hasPin) {
 
     sheet.innerHTML =
       '<div class="suggest-sh-hdr">' +
-        '<span class="suggest-sh-title">📍 ' +
+        '<span class="suggest-sh-title sug-title-svg">' +
+          _SUG_ICO_PIN +
           (isKo ? '위치 제안' : 'Suggest a Location') +
         '</span>' +
         '<button class="suggest-sh-close" onclick="_closeSuggestMode()">✕</button>' +
       '</div>' +
       hintHtml +
       previewHtml +
+      lensHtml +
       '<div class="suggest-sh-opts">' +
         '<button class="suggest-opt-btn" onclick="_suggestUseGPS()">' +
-          '<span class="suggest-opt-icon">📍</span>' +
+          '<span class="suggest-opt-icon">' + _SUG_ICO_PIN + '</span>' +
           '<span>' + (isKo ? '내 위치' : 'My Location') + '</span>' +
         '</button>' +
         '<button class="suggest-opt-btn" onclick="document.getElementById(\'sug-cam-inp\').click()">' +
-          '<span class="suggest-opt-icon">📸</span>' +
+          '<span class="suggest-opt-icon">' + _SUG_ICO_CAM + '</span>' +
           '<span>' + (isKo ? '카메라' : 'Camera') + '</span>' +
         '</button>' +
         '<button class="suggest-opt-btn" onclick="document.getElementById(\'sug-gal-inp\').click()">' +
-          '<span class="suggest-opt-icon">🖼️</span>' +
+          '<span class="suggest-opt-icon">' + _SUG_ICO_GAL + '</span>' +
           '<span>' + (isKo ? '갤러리' : 'Gallery') + '</span>' +
         '</button>' +
       '</div>' +
@@ -1684,13 +1736,23 @@ function _renderSuggestSheet(hasPin) {
     var coordText = _suggestLat
       ? (_suggestLat.toFixed(5) + ', ' + _suggestLng.toFixed(5)) : '';
     var dragHint  = isKo ? '(핀을 드래그하여 조정)' : '(drag pin to adjust)';
+    var lensBtn2 = (_suggestPhotoFile)
+      ? '<button class="sug-lens-btn sug-lens-btn-sm" onclick="_openGoogleLens()">' +
+          _SUG_ICO_LENS +
+          (isKo ? 'Google Lens 검색' : 'Search on Google Lens') +
+        '</button>'
+      : '';
+
     var prevHtml  = _suggestPhotoPreview
-      ? '<img class="suggest-photo-prev suggest-photo-prev-sm" src="' + _suggestPhotoPreview + '" alt="">'
+      ? '<div class="sug-photo-row">' +
+          '<img class="suggest-photo-prev suggest-photo-prev-sm" src="' + _suggestPhotoPreview + '" alt="">' +
+          lensBtn2 +
+        '</div>'
       : '';
 
     sheet.innerHTML =
       '<div class="suggest-sh-hdr">' +
-        '<button class="suggest-sh-back" onclick="_suggestBackToPhase1()">◀</button>' +
+        '<button class="suggest-sh-back" onclick="_suggestBackToPhase1()">&#9664;</button>' +
         '<span class="suggest-sh-title">' + (isKo ? '위치 정보 입력' : 'Location Details') + '</span>' +
         '<button class="suggest-sh-close" onclick="_closeSuggestMode()">✕</button>' +
       '</div>' +
@@ -1699,9 +1761,12 @@ function _renderSuggestSheet(hasPin) {
         '<span class="sug-coord-txt">' + coordText + '</span>' +
         ' <span class="sug-coord-hint">' + dragHint + '</span>' +
       '</div>' +
-      '<div id="sug-img-search" style="display:none">' +
-        '<a class="sug-img-link" id="sug-img-link" target="_blank" rel="noopener noreferrer">' +
-          '🔍 ' + (isKo ? 'Google 이미지 검색 →' : 'Search on Google Images →') +
+      '<div id="sug-search-row" class="sug-search-row" style="display:none">' +
+        '<a class="sug-search-link sug-maps-link" id="sug-maps-link" target="_blank" rel="noopener noreferrer">' +
+          _SUG_ICO_MAPS + (isKo ? 'Google Maps →' : 'Google Maps →') +
+        '</a>' +
+        '<a class="sug-search-link sug-web-link" id="sug-web-link" target="_blank" rel="noopener noreferrer">' +
+          _SUG_ICO_SEARCH + (isKo ? '웹 검색 →' : 'Google Search →') +
         '</a>' +
       '</div>' +
       '<div class="suggest-field-row">' +
@@ -1824,16 +1889,21 @@ async function _suggestReverseGeocode(lat, lng) {
         : d.display_name.split(',').slice(0, 4).join(', ');
       addrInp.value = fullAddr;
     }
-    // Google Images link
+    // Google Maps + Web Search links
     var searchName = name || (d.display_name ? d.display_name.split(',')[0] : '');
-    if (searchName) {
-      var imgBox  = document.getElementById('sug-img-search');
-      var imgLink = document.getElementById('sug-img-link');
-      if (imgBox && imgLink) {
-        imgLink.href = 'https://www.google.com/search?tbm=isch&q=' +
-          encodeURIComponent(searchName + ' architecture building');
-        imgBox.style.display = 'block';
-      }
+    var cityPart   = (d.address && (d.address.city || d.address.town || d.address.county)) || '';
+    var countryPart= (d.address && d.address.country) || '';
+    var searchRow  = document.getElementById('sug-search-row');
+    var mapsLink   = document.getElementById('sug-maps-link');
+    var webLink    = document.getElementById('sug-web-link');
+    if (searchRow && mapsLink && webLink) {
+      // Google Maps at exact pin coordinates — always accurate
+      mapsLink.href = 'https://www.google.com/maps?q=' + lat + ',' + lng;
+      // Google web search: name + city + country + architecture
+      var webQuery = [searchName, cityPart, countryPart, 'architecture']
+        .filter(Boolean).join(' ');
+      webLink.href = 'https://www.google.com/search?q=' + encodeURIComponent(webQuery);
+      searchRow.style.display = 'flex';
     }
   } catch(e) {
     var inp3 = document.getElementById('sug-name');
@@ -1869,6 +1939,8 @@ function _suggestUseGPS() {
 function _onSuggestPhoto(inp) {
   var file = inp && inp.files && inp.files[0];
   if (!file) return;
+  // Store raw file for Google Lens
+  _suggestPhotoFile = file;
   // Create preview ObjectURL (released on close)
   if (_suggestPhotoPreview) URL.revokeObjectURL(_suggestPhotoPreview);
   _suggestPhotoPreview = URL.createObjectURL(file);
@@ -1879,11 +1951,51 @@ function _onSuggestPhoto(inp) {
       _suggestSetPin(gps.lat, gps.lng);
       if (typeof map !== 'undefined' && map) map.setView([gps.lat, gps.lng], 17);
     } else {
-      // No GPS → stay Phase 1 with photo preview + warning
+      // No GPS → stay Phase 1 with photo preview + Lens button + warning
       _suggestPhotoNoGps = true;
       _renderSuggestSheet(false);
     }
   });
+}
+
+// ── Google Lens reverse image search ─────────────────────────────
+// Copies photo to clipboard (if supported), then opens Google Lens.
+// User can paste the image directly into Lens for building identification.
+async function _openGoogleLens() {
+  var isKo = (typeof LANG !== 'undefined') && LANG === 'ko';
+  var lensUrl = 'https://lens.google.com/';
+  var copied = false;
+
+  if (_suggestPhotoFile && navigator.clipboard && window.ClipboardItem) {
+    try {
+      var mimeType = _suggestPhotoFile.type || 'image/jpeg';
+      // ClipboardItem requires the exact MIME supported by the browser
+      var cbItem = new ClipboardItem(
+        (function() { var o = {}; o[mimeType] = _suggestPhotoFile; return o; })()
+      );
+      await navigator.clipboard.write([cbItem]);
+      copied = true;
+    } catch(e) { /* clipboard write failed — just open Lens */ }
+  }
+
+  window.open(lensUrl, '_blank', 'noopener,noreferrer');
+
+  // Show a brief toast so user knows to paste
+  if (copied) {
+    var toast = document.createElement('div');
+    toast.className = 'sug-lens-toast';
+    toast.textContent = isKo
+      ? '이미지가 복사됐어요 — Google Lens에서 Ctrl+V 하세요'
+      : 'Image copied — paste it into Google Lens';
+    document.body.appendChild(toast);
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() { toast.classList.add('visible'); });
+    });
+    setTimeout(function() {
+      toast.classList.remove('visible');
+      setTimeout(function() { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 350);
+    }, 3200);
+  }
 }
 
 // ── Minimal JPEG EXIF GPS extractor ──────────────────────────────
