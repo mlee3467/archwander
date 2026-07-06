@@ -26,16 +26,13 @@ function openShareModal(locationIds, routeStops, city) {
   if (!modal) return;
   modal._shareData = { locationIds: locationIds, routeStops: routeStops, city: city };
 
-  var ko = (typeof LANG !== 'undefined' && LANG === 'ko');
   var hasRoute = routeStops && routeStops.length >= 2;
   var titleEl  = modal.querySelector('.share-modal-title');
-  if (titleEl) titleEl.textContent = hasRoute
-    ? (ko ? '🔗 루트 공유' : '🔗 Share Route')
-    : (ko ? '🔗 장소 목록 공유' : '🔗 Share Locations');
+  if (titleEl) titleEl.textContent = hasRoute ? '🔗 Share Route' : '🔗 Share Locations';
   var locCount  = document.getElementById('share-loc-count');
   var stopCount = document.getElementById('share-stop-count');
-  if (locCount)  locCount.textContent  = locationIds.length + (ko ? '개' : '');
-  if (stopCount) stopCount.textContent = hasRoute ? (routeStops.length + (ko ? '개' : '')) : (ko ? '없음' : 'none');
+  if (locCount)  locCount.textContent  = locationIds.length;
+  if (stopCount) stopCount.textContent = hasRoute ? routeStops.length : 'none';
   var stopRow = document.getElementById('share-stop-row');
   if (stopRow) stopRow.style.display = hasRoute ? '' : 'none';
 
@@ -44,7 +41,7 @@ function openShareModal(locationIds, routeStops, city) {
   var linkBox = document.getElementById('share-link-box');
   if (linkBox) linkBox.style.display = 'none';
   var genBtn = document.getElementById('share-gen-btn');
-  if (genBtn) { genBtn.disabled = false; genBtn.textContent = ko ? '🔗 링크 생성' : '🔗 Create Link'; }
+  if (genBtn) { genBtn.disabled = false; genBtn.textContent = '🔗 Create Link'; }
 
   modal.style.display = 'flex';
 }
@@ -58,19 +55,18 @@ function closeShareModal() {
 async function generateShareLink() {
   var modal = document.getElementById('share-modal');
   if (!modal || !modal._shareData) return;
-  var ko = (typeof LANG !== 'undefined' && LANG === 'ko');
   var genBtn  = document.getElementById('share-gen-btn');
   var linkBox = document.getElementById('share-link-box');
   var linkInp = document.getElementById('share-link-inp');
 
   if (!_supabase) {
-    alert(ko ? 'Supabase 연결이 필요합니다.' : 'Supabase connection required.');
+    alert('Supabase connection required.');
     return;
   }
   var titleVal = (document.getElementById('share-title-inp').value || '').trim();
-  if (!titleVal) titleVal = ko ? '건축 투어' : 'Architecture Tour';
+  if (!titleVal) titleVal = 'Architecture Tour';
 
-  if (genBtn) { genBtn.disabled = true; genBtn.textContent = ko ? '생성 중…' : 'Creating…'; }
+  if (genBtn) { genBtn.disabled = true; genBtn.textContent = 'Creating…'; }
 
   try {
     await _ensureSupabaseAuth();
@@ -91,23 +87,22 @@ async function generateShareLink() {
     var shareUrl = baseUrl + '?s=' + shareId;
     if (linkInp) linkInp.value = shareUrl;
     if (linkBox) linkBox.style.display = 'flex';
-    if (genBtn)  genBtn.textContent = ko ? '✅ 생성됨' : '✅ Created';
+    if (genBtn)  genBtn.textContent = '✅ Created';
   } catch (err) {
     console.error('[share] generate error:', err);
-    if (genBtn) { genBtn.disabled = false; genBtn.textContent = ko ? '🔗 링크 생성' : '🔗 Create Link'; }
-    alert((ko ? '링크 생성 실패: ' : 'Failed to create link: ') + (err.message || err));
+    if (genBtn) { genBtn.disabled = false; genBtn.textContent = '🔗 Create Link'; }
+    alert('Failed to create link: ' + (err.message || err));
   }
 }
 
 function copyShareLink() {
   var linkInp = document.getElementById('share-link-inp');
   if (!linkInp || !linkInp.value) return;
-  var ko = (typeof LANG !== 'undefined' && LANG === 'ko');
   navigator.clipboard.writeText(linkInp.value).then(function() {
     var copyBtn = document.getElementById('share-copy-btn');
     if (copyBtn) {
       var prev = copyBtn.textContent;
-      copyBtn.textContent = ko ? '✅ 복사됨' : '✅ Copied';
+      copyBtn.textContent = '✅ Copied';
       setTimeout(function() { copyBtn.textContent = prev; }, 2000);
     }
   }).catch(function() { linkInp.select(); document.execCommand('copy'); });

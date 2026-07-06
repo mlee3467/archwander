@@ -1,5 +1,5 @@
-// LANGUAGE — English only (Korean UI removed for performance)
-// t() function kept intact — used throughout the codebase
+// LANGUAGE — English only
+// t(key) used throughout the codebase for UI string lookup
 // ══════════════════════════════════════════════════════════════════
 var LANG = 'en';
 
@@ -15,7 +15,7 @@ var T = {
     sort_newest:  'Newest first', sort_az:      'Name A–Z',
     sort_clicks:  'Most Visited', sort_searches:'Most Searched', sort_reviews: 'Most Reviewed',
     tab_overview: 'Overview',     tab_visit:    'Visit',
-    tab_here:     'Directions',   tab_audio:    '🎧 Audio',       tab_reviews: 'Reviews',    tab_report: 'Report',
+    tab_reviews:  'Reviews',      tab_report:   'Report',
     tab_links:    'Links',
     neighborhood: 'Neighborhood', address:      'Address',
     arch_label:   'Architect',    completed:    'Completed',
@@ -26,12 +26,6 @@ var T = {
     subway:       'Subway',       nearby:       'Nearby',
     open_gmaps:   'Open in Google Maps ↗',
     sv_gmaps:     'Street View (Google Maps) ↗',
-    ag_loading:   'Loading audio guide…',
-    ag_play:      'Play',         ag_pause:     'Pause',
-    ag_unavail:   'No audio guide yet for this location.',
-    ag_unavail_sub:'Audio guides are being added gradually. Check back soon.',
-    ag_travel:    'Lock your screen and listen while you explore.',
-    ag_min:       n => `~${n} min listen`,
     no_results:   'No locations match.<br>Try adjusting your filters.',
     loc_count:    n => `${n} location${n !== 1 ? 's' : ''}`,
     fav_label:    'Favorite',
@@ -46,26 +40,7 @@ var T = {
     sba_fav:      'Favorites',
     sba_route:    'Route',
     sba_ifl:      'My Page',
-    sba_results:  'Show Lists',
-    export_pdf:   'PDF',
-    pdf_need_pin: 'Place a pin first using "My Location" to export the nearby locations as PDF.',
-    pdf_generating:'Generating…',
-    pdf_no_locs:  'No locations to export.',
-    pdf_summary:  'Summary',
-    pdf_name:     'Name',
-    pdf_architect:'Architect',
-    pdf_year:     'Year',
-    pdf_style:    'Style',
-    pdf_category: 'Category',
-    pdf_access:   'Access',
-    pdf_address:  'Address',
-    pdf_neighborhood:'Neighborhood',
-    pdf_hours:    'Hours',
-    pdf_admission:'Admission',
-    pdf_transit:  'Transit',
-    pdf_tags:     'Tags',
-    pdf_locations:'locations',
-    pdf_walking:  'walking radius from pin',
+    sba_results:  'Show List',
     fav_io_label: 'Favorites Data',
     fav_io_share: 'Share',
     fav_io_export:'Export',
@@ -86,12 +61,9 @@ function t(key) {
   return key in map ? map[key] : key;
 }
 
-// Category / access passthrough (ko translation removed)
+// Category / access passthrough
 function _tCat(cat)    { return cat; }
 function _tAccess(acc) { return acc; }
-
-// Language functions — stubs (UI removed, kept for any residual calls)
-// lang-menu stubs removed (UI removed in v0.3)
 
 function applyLang() {
   // Search placeholder
@@ -149,11 +121,11 @@ function applyLang() {
   });
   updateReportBtnLabel();
   // Fav import modal
-  const fimTtl = document.getElementById('fav-import-title');   if (fimTtl) fimTtl.textContent = t('fav_imp_title');
-  const fimDsc = document.getElementById('fav-import-desc');    if (fimDsc) fimDsc.textContent = t('fav_imp_desc');
-  const fimOvr = document.getElementById('fav-import-overwrite');if(fimOvr) fimOvr.textContent = t('fav_imp_overwrite');
-  const fimApp = document.getElementById('fav-import-append');  if (fimApp) fimApp.textContent = t('fav_imp_append');
-  const fimCnl = document.getElementById('fav-import-cancel');  if (fimCnl) fimCnl.textContent = t('fav_imp_cancel');
+  const fimTtl = document.getElementById('fav-import-title');    if (fimTtl) fimTtl.textContent = t('fav_imp_title');
+  const fimDsc = document.getElementById('fav-import-desc');     if (fimDsc) fimDsc.textContent = t('fav_imp_desc');
+  const fimOvr = document.getElementById('fav-import-overwrite');if (fimOvr) fimOvr.textContent = t('fav_imp_overwrite');
+  const fimApp = document.getElementById('fav-import-append');   if (fimApp) fimApp.textContent = t('fav_imp_append');
+  const fimCnl = document.getElementById('fav-import-cancel');   if (fimCnl) fimCnl.textContent = t('fav_imp_cancel');
   // Rebuild dynamic content
   buildFilters();
   renderList();

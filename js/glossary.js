@@ -208,7 +208,6 @@ function openStyleGlossary(styleName) {
 
   var key = styleName.toLowerCase().trim();
   var info = STYLE_GLOSSARY[key];
-  var isKo = typeof LANG !== 'undefined' && LANG === 'ko';
 
   // Build list of buildings in current data with this style
   var styleBuildings = (typeof LOCS !== 'undefined' ? LOCS : []).filter(function(l) {
@@ -229,20 +228,20 @@ function openStyleGlossary(styleName) {
   }).join('');
 
   if (!buildingsHtml) {
-    buildingsHtml = '<div class="sg-empty">' + (isKo ? '이 스타일의 건물이 아직 없습니다' : 'No buildings found in current city.') + '</div>';
+    buildingsHtml = '<div class="sg-empty">No buildings found in current city.</div>';
   }
 
   var definitionHtml = info
     ? '<div class="sg-period">' + info.period + ' &nbsp;·&nbsp; ' + info.origin + '</div>'
       + '<p class="sg-desc">' + info.description + '</p>'
-      + '<div class="sg-section">' + (isKo ? '주요 특징' : 'Key Characteristics') + '</div>'
+      + '<div class="sg-section">Key Characteristics</div>'
       + '<ul class="sg-chars">' + info.characteristics.map(function(c) { return '<li>' + c + '</li>'; }).join('') + '</ul>'
-      + '<div class="sg-section">' + (isKo ? '대표 건축가' : 'Associated Architects') + '</div>'
+      + '<div class="sg-section">Associated Architects</div>'
       + '<div class="sg-archs">' + info.keyArchitects.map(function(a) { return '<span class="sg-arch-chip">' + a + '</span>'; }).join('') + '</div>'
-      + '<div class="sg-section">' + (isKo ? '역사적 의의' : 'Historical Significance') + '</div>'
+      + '<div class="sg-section">Historical Significance</div>'
       + '<p class="sg-sig">' + info.significance + '</p>'
     : '<p class="sg-desc" style="color:var(--text-secondary)">'
-      + (isKo ? '이 스타일에 대한 설명이 준비되지 않았습니다.' : 'No definition available for this style yet.')
+      + 'No definition available for this style yet.'
       + '</p>';
 
   var overlay = document.createElement('div');
@@ -254,7 +253,7 @@ function openStyleGlossary(styleName) {
         + '<button class="sg-back-btn" onclick="closeStyleGlossary()">◀</button>'
         + '<div class="sg-hdr-text">'
           + '<div class="sg-title">' + (info ? info.title : styleName) + '</div>'
-          + '<div class="sg-subtitle">' + (isKo ? '건축 양식 사전' : 'Architectural Style') + '</div>'
+          + '<div class="sg-subtitle">Architectural Style</div>'
         + '</div>'
       + '</div>'
       + '<div class="sg-body">'
@@ -262,7 +261,7 @@ function openStyleGlossary(styleName) {
         + '<div class="sg-divider"></div>'
         + '<div class="sg-bld-section">'
           + '<div class="sg-section sg-bld-header">'
-            + (isKo ? '이 스타일의 건물' : 'Buildings in this style')
+            + 'Buildings in this style'
             + '<span class="sg-bld-count">' + styleBuildings.length + '</span>'
           + '</div>'
           + '<div class="sg-bld-list">' + buildingsHtml + '</div>'

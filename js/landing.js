@@ -203,7 +203,7 @@ function landingGoCity() {
 }
 
 function landingGoRec() {
-  _landingToast(isKo ? '준비 중입니다' : 'Coming soon');
+  _landingToast('Coming soon');
 }
 
 function landingGoMyPage() {
@@ -392,10 +392,10 @@ function _sbaMyPage() {
 
 var _myPageFileTarget = null; // 'favvis' | 'routes'
 
-function _buildPassportHtml(isKo) {
+function _buildPassportHtml() {
   var visIds = (typeof _visSet !== 'undefined') ? [..._visSet] : [];
   if (!visIds.length) {
-    return '<div class="mpp-passport-empty">' + (isKo ? '아직 방문한 곳이 없어요. 건물 상세 페이지에서 ✓ 방문을 눌러 기록해보세요.' : 'No visits yet. Open a location and tap ✓ Visited to track your trips.') + '</div>';
+    return '<div class="mpp-passport-empty">No visits yet. Open a location and tap ✓ Visited to track your trips.</div>';
   }
   var cityFlags = { 'new-york':'🗽', 'seoul':'⛰️', 'london':'🎡', 'tokyo':'🗼', 'chicago':'🌬️' };
   var cityLbls  = { 'new-york':'New York', 'seoul':'Seoul', 'london':'London', 'tokyo':'Tokyo', 'chicago':'Chicago' };
@@ -442,10 +442,10 @@ function _buildPassportHtml(isKo) {
     return '<div class="mpp-recent-item"><span class="mpp-recent-dot">✓</span><div class="mpp-recent-body"><div class="mpp-recent-name">' + v.name + '</div><div class="mpp-recent-meta">' + (cityLbls[v.city]||v.city||'') + (v.date?' · '+v.date:'') + '</div></div></div>';
   }).join('');
   return '<div class="mpp-passport-body">' +
-    (cityBars ? '<div class="mpp-pp-subhead">' + (isKo?'도시별':'By City') + '</div>' + cityBars : '') +
-    (eraBars  ? '<div class="mpp-pp-subhead" style="margin-top:14px">' + (isKo?'연대별':'By Era') + '</div>' + eraBars : '') +
-    (stylesHtml ? '<div class="mpp-pp-subhead" style="margin-top:14px">' + (isKo?'즐겨찾는 스타일':'Top Styles') + '</div>' + stylesHtml : '') +
-    (recentHtml ? '<div class="mpp-pp-subhead" style="margin-top:14px">' + (isKo?'최근 방문':'Recent Visits') + '</div>' + recentHtml : '') +
+    (cityBars ? '<div class="mpp-pp-subhead">By City</div>' + cityBars : '') +
+    (eraBars  ? '<div class="mpp-pp-subhead" style="margin-top:14px">By Era</div>' + eraBars : '') +
+    (stylesHtml ? '<div class="mpp-pp-subhead" style="margin-top:14px">Top Styles</div>' + stylesHtml : '') +
+    (recentHtml ? '<div class="mpp-pp-subhead" style="margin-top:14px">Recent Visits</div>' + recentHtml : '') +
   '</div>';
 }
 
@@ -454,8 +454,6 @@ function _openMyPage() {
   var existing = document.getElementById('my-page-overlay');
   if (existing && existing.parentNode) existing.parentNode.removeChild(existing);
 
-  var isKo = (typeof LANG !== 'undefined') ? LANG === 'ko' : false;
-
   // ── Default city selection state ─────────────────────────────
   var _AW_DEF_CITY_KEY = 'AW_DEFAULT_CITY';
   var currentDefault   = localStorage.getItem(_AW_DEF_CITY_KEY) || '';
@@ -463,12 +461,12 @@ function _openMyPage() {
   var _gpsIcon = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>';
   var _flag = function(cc) { return '<img src="https://flagcdn.com/24x18/' + cc + '.png" width="24" height="18" alt="" style="border-radius:2px;display:block">'; };
   var cityOpts = [
-    { val: '',    icon: _gpsIcon,     label: isKo ? '자동 (GPS)' : 'Auto (GPS)' },
-    { val: 'nyc', icon: _flag('us'),  label: isKo ? '뉴욕' : 'New York' },
-    { val: 'sel', icon: _flag('kr'),  label: isKo ? '서울' : 'Seoul' },
-    { val: 'lon', icon: _flag('gb'),  label: isKo ? '런던' : 'London' },
-    { val: 'tky', icon: _flag('jp'),  label: isKo ? '도쿄' : 'Tokyo' },
-    { val: 'chi', icon: _flag('us'),  label: isKo ? '시카고' : 'Chicago' }
+    { val: '',    icon: _gpsIcon,     label: 'Auto (GPS)' },
+    { val: 'nyc', icon: _flag('us'),  label: 'New York' },
+    { val: 'sel', icon: _flag('kr'),  label: 'Seoul' },
+    { val: 'lon', icon: _flag('gb'),  label: 'London' },
+    { val: 'tky', icon: _flag('jp'),  label: 'Tokyo' },
+    { val: 'chi', icon: _flag('us'),  label: 'Chicago' }
   ];
   var cityBtnsHtml = cityOpts.map(function(c) {
     var sel = (c.val === currentDefault) ? ' mpp-city-sel' : '';
@@ -490,13 +488,13 @@ function _openMyPage() {
     '<div class="arm-panel" id="my-page-panel" style="max-width:420px">' +
       '<div class="arm-header">' +
         '<button class="arm-back" onclick="_closeMyPage()">◀ </button>' +
-        '<span class="arm-title">' + (isKo ? '마이 페이지' : 'My Page') + '</span>' +
+        '<span class="arm-title">My Page</span>' +
       '</div>' +
       '<div class="arm-body" style="padding:16px 16px 32px">' +
 
         // ── Section –1: Cross-device Sync ──────────────────────
         '<div class="mpp-section" id="mpp-sync-section">' +
-          '<div class="mpp-sec-title">' + (isKo ? '기기 간 동기화' : 'Cross-Device Sync') + '</div>' +
+          '<div class="mpp-sec-title">Cross-Device Sync</div>' +
           '<div id="mpp-sync-status"></div>' +
         '</div>' +
 
@@ -507,9 +505,9 @@ function _openMyPage() {
           var isImperial = localStorage.getItem('aw_units') === 'imperial';
           var curPace = localStorage.getItem('aw_visit_pace') || 'normal';
           return '<div class="mpp-section">' +
-            '<div class="mpp-sec-title">' + (isKo ? '설정' : 'Settings') + '</div>' +
+            '<div class="mpp-sec-title">Settings</div>' +
             '<div class="mpp-setting-row">' +
-              '<span class="mpp-setting-label">' + (isKo ? '다크 모드' : 'Dark Mode') + '</span>' +
+              '<span class="mpp-setting-label">Dark Mode</span>' +
               '<button class="mpp-toggle' + (isDark ? ' mpp-toggle-on' : '') + '" id="mpp-dark-toggle" onclick="_mppToggleDark(this)" aria-label="Toggle dark mode">' +
                 '<span class="mpp-toggle-knob"></span>' +
               '</button>' +
@@ -517,7 +515,7 @@ function _openMyPage() {
             '<div class="mpp-setting-row">' +
               '<div>' +
                 '<span class="mpp-setting-label">Street View</span>' +
-                '<div class="mpp-setting-sub">' + (isKo ? '데이터 절약을 위해 비활성화' : 'Disable to save data') + '</div>' +
+                '<div class="mpp-setting-sub">Disable to save data</div>' +
               '</div>' +
               '<button class="mpp-toggle' + (svOn ? ' mpp-toggle-on' : '') + '" id="mpp-sv-toggle" onclick="_mppToggleSV(this)" aria-label="Toggle Street View">' +
                 '<span class="mpp-toggle-knob"></span>' +
@@ -525,8 +523,8 @@ function _openMyPage() {
             '</div>' +
             '<div class="mpp-setting-row">' +
               '<div>' +
-                '<span class="mpp-setting-label">' + (isKo ? '거리 단위' : 'Distance Units') + '</span>' +
-                '<div class="mpp-setting-sub">' + (isKo ? '반경 및 루트 거리 표시 단위' : 'For radius and route distances') + '</div>' +
+                '<span class="mpp-setting-label">Distance Units</span>' +
+                '<div class="mpp-setting-sub">For radius and route distances</div>' +
               '</div>' +
               '<div class="mpp-unit-seg" id="mpp-unit-seg">' +
                 '<button class="mpp-unit-btn' + (!isImperial ? ' active' : '') + '" onclick="_mppSetUnits(\'metric\')" id="mpp-unit-km">km</button>' +
@@ -535,13 +533,13 @@ function _openMyPage() {
             '</div>' +
             '<div class="mpp-setting-row">' +
               '<div>' +
-                '<span class="mpp-setting-label">' + (isKo ? '관람 페이스' : 'Viewing Pace') + '</span>' +
-                '<div class="mpp-setting-sub">' + (isKo ? '루트 예상 관람 시간 계산에 사용' : 'Used for route visit time estimates') + '</div>' +
+                '<span class="mpp-setting-label">Viewing Pace</span>' +
+                '<div class="mpp-setting-sub">Used for route visit time estimates</div>' +
               '</div>' +
               '<div class="mpp-unit-seg" id="mpp-pace-seg">' +
-                '<button class="mpp-unit-btn' + (curPace === 'quick'   ? ' active' : '') + '" onclick="_mppSetPace(\'quick\')"   id="mpp-pace-quick">'   + (isKo ? '빠름' : 'Quick')  + '</button>' +
-                '<button class="mpp-unit-btn' + (curPace === 'normal'  ? ' active' : '') + '" onclick="_mppSetPace(\'normal\')"  id="mpp-pace-normal">'  + (isKo ? '보통' : 'Normal') + '</button>' +
-                '<button class="mpp-unit-btn' + (curPace === 'relaxed' ? ' active' : '') + '" onclick="_mppSetPace(\'relaxed\')" id="mpp-pace-relaxed">' + (isKo ? '천천히' : 'Slow')  + '</button>' +
+                '<button class="mpp-unit-btn' + (curPace === 'quick'   ? ' active' : '') + '" onclick="_mppSetPace(\'quick\')"   id="mpp-pace-quick">Quick</button>' +
+                '<button class="mpp-unit-btn' + (curPace === 'normal'  ? ' active' : '') + '" onclick="_mppSetPace(\'normal\')"  id="mpp-pace-normal">Normal</button>' +
+                '<button class="mpp-unit-btn' + (curPace === 'relaxed' ? ' active' : '') + '" onclick="_mppSetPace(\'relaxed\')" id="mpp-pace-relaxed">Slow</button>' +
               '</div>' +
             '</div>' +
           '</div>';
@@ -549,73 +547,59 @@ function _openMyPage() {
 
         // ── Section 1: Data Management ──────────────────────────
         '<div class="mpp-section">' +
-          '<div class="mpp-sec-title">' + (isKo ? '데이터 관리' : 'Data Management') + '</div>' +
+          '<div class="mpp-sec-title">Data Management</div>' +
 
-          '<div class="mpp-row-label">' + (isKo ? '즐겨찾기 & 방문' : 'Favorites & Visited') + '</div>' +
+          '<div class="mpp-row-label">Favorites & Visited</div>' +
           '<div class="mpp-btn-row">' +
-            '<button class="mpp-btn mpp-btn-export" onclick="_mpExportFavVis()">' +
-              (isKo ? '⬇ 내보내기' : '⬇ Export') + '</button>' +
-            '<button class="mpp-btn mpp-btn-import" onclick="_mpImportFavVis()">' +
-              (isKo ? '⬆ 가져오기' : '⬆ Import') + '</button>' +
-            '<button class="mpp-btn mpp-btn-delete" onclick="_mpDeleteFavVis()">' +
-              (isKo ? '삭제' : 'Delete') + '</button>' +
+            '<button class="mpp-btn mpp-btn-export" onclick="_mpExportFavVis()">⬇ Export</button>' +
+            '<button class="mpp-btn mpp-btn-import" onclick="_mpImportFavVis()">⬆ Import</button>' +
+            '<button class="mpp-btn mpp-btn-delete" onclick="_mpDeleteFavVis()">Delete</button>' +
           '</div>' +
 
-          '<div class="mpp-row-label" style="margin-top:12px">' + (isKo ? '저장된 루트' : 'Saved Routes') + '</div>' +
+          '<div class="mpp-row-label" style="margin-top:12px">Saved Routes</div>' +
           '<div class="mpp-btn-row">' +
-            '<button class="mpp-btn mpp-btn-export" onclick="_mpExportRoutes()">' +
-              (isKo ? '⬇ 내보내기' : '⬇ Export') + '</button>' +
-            '<button class="mpp-btn mpp-btn-import" onclick="_mpImportRoutes()">' +
-              (isKo ? '⬆ 가져오기' : '⬆ Import') + '</button>' +
-            '<button class="mpp-btn mpp-btn-delete" onclick="_mpDeleteRoutes()">' +
-              (isKo ? '삭제' : 'Delete') + '</button>' +
+            '<button class="mpp-btn mpp-btn-export" onclick="_mpExportRoutes()">⬇ Export</button>' +
+            '<button class="mpp-btn mpp-btn-import" onclick="_mpImportRoutes()">⬆ Import</button>' +
+            '<button class="mpp-btn mpp-btn-delete" onclick="_mpDeleteRoutes()">Delete</button>' +
           '</div>' +
         '</div>' +
 
         // ── Section 2: Default City ─────────────────────────────
         '<div class="mpp-section">' +
-          '<div class="mpp-sec-title">' + (isKo ? '기본 도시 설정' : 'Default City') + '</div>' +
-          '<div class="mpp-sec-sub">' + (isKo ? 'GPS와 무관하게 항상 이 도시로 시작합니다.' : 'Always open this city, regardless of GPS.') + '</div>' +
+          '<div class="mpp-sec-title">Default City</div>' +
+          '<div class="mpp-sec-sub">Always open this city, regardless of GPS.</div>' +
           '<div class="mpp-city-grid" id="mpp-city-grid">' + cityBtnsHtml + '</div>' +
         '</div>' +
 
         // ── Section 3: Explorer Rank + Badges ──────────────────
-        (typeof buildRankHtml === 'function' ? buildRankHtml(isKo) : '') +
+        (typeof buildRankHtml === 'function' ? buildRankHtml() : '') +
 
         // ── Section 4: Passport ─────────────────────────────────
         '<div class="mpp-section mpp-passport-section">' +
-          '<div class="mpp-sec-title">' + (isKo ? '건축 여행 기록' : 'Architectural Passport') + '</div>' +
+          '<div class="mpp-sec-title">Architectural Passport</div>' +
           '<div class="mpp-stats-row">' +
-            '<div class="mpp-stat-card"><span class="mpp-stat-num">' + visCount + '</span><span class="mpp-stat-lbl">' + (isKo ? '방문' : 'Visited') + '</span></div>' +
-            '<div class="mpp-stat-card"><span class="mpp-stat-num">' + favCount + '</span><span class="mpp-stat-lbl">' + (isKo ? '즐겨찾기' : 'Favs') + '</span></div>' +
-            '<div class="mpp-stat-card"><span class="mpp-stat-num">' + routeCount + '</span><span class="mpp-stat-lbl">' + (isKo ? '루트' : 'Routes') + '</span></div>' +
+            '<div class="mpp-stat-card"><span class="mpp-stat-num">' + visCount + '</span><span class="mpp-stat-lbl">Visited</span></div>' +
+            '<div class="mpp-stat-card"><span class="mpp-stat-num">' + favCount + '</span><span class="mpp-stat-lbl">Favs</span></div>' +
+            '<div class="mpp-stat-card"><span class="mpp-stat-num">' + routeCount + '</span><span class="mpp-stat-lbl">Routes</span></div>' +
           '</div>' +
-          _buildPassportHtml(isKo) +
+          _buildPassportHtml() +
         '</div>' +
 
         // ── Section 5: Suggest a Location ──────────────────────
         '<div class="mpp-section">' +
-          '<div class="mpp-sec-title">📍 ' + (isKo ? '위치 제안' : 'Suggest a Location') + '</div>' +
-          '<div class="mpp-sec-sub">' + (isKo
-            ? 'ArchWander에 없는 건축물을 발견하셨나요? 제보해 주시면 검토 후 추가하겠습니다.'
-            : 'Know a great building that\'s missing from ArchWander? Submit it for review.') + '</div>' +
+          '<div class="mpp-sec-title">📍 Suggest a Location</div>' +
+          '<div class="mpp-sec-sub">Know a great building that\'s missing from ArchWander? Submit it for review.</div>' +
           '<div class="mpp-btn-row">' +
-            '<button class="mpp-btn mpp-btn-suggest" onclick="_closeSuggestIfOpen();_openSuggestForm()">' +
-              (isKo ? '위치 제안하기' : 'Suggest a Location') +
-            '</button>' +
+            '<button class="mpp-btn mpp-btn-suggest" onclick="_closeSuggestIfOpen();_openSuggestForm()">Suggest a Location</button>' +
           '</div>' +
         '</div>' +
 
         // ── Section 6: DB Refresh ───────────────────────────────
         '<div class="mpp-section">' +
-          '<div class="mpp-sec-title">' + (isKo ? '데이터 새로고침' : 'Data Refresh') + '</div>' +
-          '<div class="mpp-sec-sub">' + (isKo
-            ? 'Supabase에서 최신 위치 데이터를 강제로 불러옵니다. 로컬 캐시를 우회하며, 즐겨찾기·방문 데이터는 유지됩니다.'
-            : 'Force-fetch the latest location data from Supabase, bypassing the local cache. Favorites & visits are kept.') + '</div>' +
+          '<div class="mpp-sec-title">Data Refresh</div>' +
+          '<div class="mpp-sec-sub">Force-fetch the latest location data from Supabase, bypassing the local cache. Favorites & visits are kept.</div>' +
           '<div class="mpp-btn-row">' +
-            '<button id="mpp-db-refresh-btn" class="mpp-btn mpp-btn-dbrefresh" onclick="_mpForceDbRefresh()">' +
-              (isKo ? 'DB에서 최신 데이터 불러오기' : 'Reload from Database') +
-            '</button>' +
+            '<button id="mpp-db-refresh-btn" class="mpp-btn mpp-btn-dbrefresh" onclick="_mpForceDbRefresh()">Reload from Database</button>' +
           '</div>' +
           '<div id="mpp-db-refresh-status" style="font-size:11px;margin-top:8px;min-height:16px;color:#888;line-height:1.4"></div>' +
         '</div>' +
@@ -688,7 +672,6 @@ function _closeMyPage() {
 
 // ── Force DB refresh ─────────────────────────────────────────────
 function _mpForceDbRefresh() {
-  var isKo = (typeof LANG !== 'undefined') ? LANG === 'ko' : false;
   var btn    = document.getElementById('mpp-db-refresh-btn');
   var status = document.getElementById('mpp-db-refresh-status');
 
@@ -707,7 +690,7 @@ function _mpForceDbRefresh() {
   // Update button to loading state
   if (btn) {
     btn.disabled = true;
-    btn.textContent = isKo ? '⏳ 불러오는 중…' : '⏳ Loading…';
+    btn.textContent = '⏳ Loading…';
     btn.style.opacity = '0.7';
   }
   if (status) { status.textContent = ''; status.style.color = '#888'; }
@@ -754,25 +737,23 @@ function _mpForceDbRefresh() {
 
     if (btn) {
       btn.disabled = false;
-      btn.textContent = isKo ? 'DB에서 최신 데이터 불러오기' : 'Reload from Database';
+      btn.textContent = 'Reload from Database';
       btn.style.opacity = '';
     }
     if (status) {
       status.style.color = '#27ae60';
-      status.textContent = isKo
-        ? '✅ ' + total + '개 장소 업데이트 완료 (' + elapsed + 's)'
-        : '✅ ' + total + ' locations updated (' + elapsed + 's)';
+      status.textContent = '✅ ' + total + ' locations updated (' + elapsed + 's)';
     }
   }).catch(function(err) {
     console.error('[mypage] DB refresh error:', err);
     if (btn) {
       btn.disabled = false;
-      btn.textContent = isKo ? 'DB에서 최신 데이터 불러오기' : 'Reload from Database';
+      btn.textContent = 'Reload from Database';
       btn.style.opacity = '';
     }
     if (status) {
       status.style.color = '#c0392b';
-      status.textContent = (isKo ? '❌ 오류: ' : '❌ Error: ') + (err.message || String(err));
+      status.textContent = '❌ Error: ' + (err.message || String(err));
     }
   });
 }
@@ -801,11 +782,7 @@ function _mpImportFavVis() {
 }
 
 function _mpDeleteFavVis() {
-  var isKo = (typeof LANG !== 'undefined') ? LANG === 'ko' : false;
-  var msg = isKo
-    ? '즐겨찾기와 방문 기록을 모두 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다.'
-    : 'Delete all favorites and visited records?\nThis cannot be undone.';
-  if (!confirm(msg)) return;
+  if (!confirm('Delete all favorites and visited records?\nThis cannot be undone.')) return;
   if (typeof _favSet !== 'undefined') _favSet.clear();
   if (typeof _visSet !== 'undefined') _visSet.clear();
   localStorage.removeItem('archwander_favs_v1');
@@ -825,11 +802,10 @@ function _mpDeleteFavVis() {
 
 // ── Routes export/import/delete ──────────────────────────────────
 function _mpExportRoutes() {
-  var isKo = (typeof LANG !== 'undefined') ? LANG === 'ko' : false;
   var routes = [];
   try { routes = JSON.parse(localStorage.getItem('aw_saved_routes_v2') || '[]'); } catch(e) {}
   if (!routes.length) {
-    alert(isKo ? '저장된 루트가 없습니다.' : 'No saved routes to export.');
+    alert('No saved routes to export.');
     return;
   }
   var settings = {};
@@ -858,11 +834,7 @@ function _mpImportRoutes() {
 }
 
 function _mpDeleteRoutes() {
-  var isKo = (typeof LANG !== 'undefined') ? LANG === 'ko' : false;
-  var msg = isKo
-    ? '저장된 루트를 모두 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다.'
-    : 'Delete all saved routes?\nThis cannot be undone.';
-  if (!confirm(msg)) return;
+  if (!confirm('Delete all saved routes?\nThis cannot be undone.')) return;
   localStorage.removeItem('aw_saved_routes_v2');
   localStorage.removeItem('aw_route_settings_v1');
   if (typeof _getSavedRoutes === 'function') {
@@ -879,16 +851,13 @@ function _mpDeleteRoutes() {
 function _mpHandleFileSelected(event) {
   var file = event.target.files && event.target.files[0];
   if (!file) return;
-  var isKo = (typeof LANG !== 'undefined') ? LANG === 'ko' : false;
   var reader = new FileReader();
   reader.onload = function(e) {
     try {
       var data = JSON.parse(e.target.result);
       if (_myPageFileTarget === 'favvis') {
         // Delegate to existing import logic; simulate overwrite/append choice
-        var mode = confirm(isKo
-          ? '기존 즐겨찾기/방문 데이터를 유지하고 추가할까요?\n(취소 = 덮어쓰기)'
-          : 'Keep existing favorites/visited and merge?\n(Cancel = Overwrite)')
+        var mode = confirm('Keep existing favorites/visited and merge?\n(Cancel = Overwrite)')
           ? 'append' : 'overwrite';
         if (data._format === 'archwander-favs-v2' && Array.isArray(data.data)) {
           var importFavs = [], importVis = [];
@@ -910,15 +879,13 @@ function _mpHandleFileSelected(event) {
           }
           if (typeof _applyFavFilter === 'function') _applyFavFilter();
           if (typeof renderList === 'function') renderList();
-          alert(isKo ? '가져오기 완료!' : 'Import successful!');
+          alert('Import successful!');
         } else {
-          alert(isKo ? '올바르지 않은 파일 형식입니다.' : 'Invalid file format.');
+          alert('Invalid file format.');
         }
       } else if (_myPageFileTarget === 'routes') {
         if (data._format === 'archwander-routes-v1' && Array.isArray(data.routes)) {
-          var mode2 = confirm(isKo
-            ? '기존 루트를 유지하고 추가할까요?\n(취소 = 덮어쓰기)'
-            : 'Keep existing routes and merge?\n(Cancel = Overwrite)')
+          var mode2 = confirm('Keep existing routes and merge?\n(Cancel = Overwrite)')
             ? 'append' : 'overwrite';
           var existing = [];
           try { existing = JSON.parse(localStorage.getItem('aw_saved_routes_v2') || '[]'); } catch(x) {}
@@ -928,13 +895,13 @@ function _mpHandleFileSelected(event) {
             localStorage.setItem('aw_route_settings_v1', JSON.stringify(data.settings));
           }
           if (typeof _updatePassportStats === 'function') _updatePassportStats();
-          alert(isKo ? '루트 가져오기 완료!' : 'Routes imported successfully!');
+          alert('Routes imported successfully!');
         } else {
-          alert(isKo ? '올바르지 않은 파일 형식입니다.' : 'Invalid file format.');
+          alert('Invalid file format.');
         }
       }
     } catch(err) {
-      alert(isKo ? '파일을 읽을 수 없습니다.' : 'Could not read file.');
+      alert('Could not read file.');
     }
   };
   reader.readAsText(file);
@@ -958,8 +925,8 @@ var _FWIL_PERSONAS = [
   {
     key: 'classicist',
     icon: '🏛',
-    label: 'The Classicist',    labelKo: '클래식 러버',
-    hint:  'Beaux-Arts · Gothic · Heritage', hintKo: '클래식 · 고딕 · 역사건축',
+    label: 'The Classicist',
+    hint:  'Beaux-Arts · Gothic · Heritage',
     tags: ['beaux-arts','gothic','classical','heritage','historic','neoclassical',
            'baroque','colonial','victorian','renaissance','romanesque',
            '19th century','18th century','historic district']
@@ -967,16 +934,16 @@ var _FWIL_PERSONAS = [
   {
     key: 'brutalist',
     icon: '⬛',
-    label: 'The Brutalist',     labelKo: '브루탈리스트',
-    hint:  'Concrete · Raw · Bold',          hintKo: '콘크리트 · 날것의 미학',
+    label: 'The Brutalist',
+    hint:  'Concrete · Raw · Bold',
     tags: ['brutalism','concrete','raw concrete','exposed structure','brutalist',
            'new brutalism']
   },
   {
     key: 'modernist',
     icon: '◻',
-    label: 'The Modernist',     labelKo: '모더니스트',
-    hint:  'Bauhaus · Midcentury · Minimal', hintKo: '바우하우스 · 기능주의',
+    label: 'The Modernist',
+    hint:  'Bauhaus · Midcentury · Minimal',
     tags: ['modernism','bauhaus','international style','mid-century','functionalism',
            'minimalism','modern','rationalism','postmodernism','deconstructivism',
            '20th century']
@@ -984,40 +951,40 @@ var _FWIL_PERSONAS = [
   {
     key: 'urbanist',
     icon: '🏙',
-    label: 'The Urbanist',      labelKo: '어바니스트',
-    hint:  'Skyscrapers · Towers · Skyline', hintKo: '고층빌딩 · 스카이라인',
+    label: 'The Urbanist',
+    hint:  'Skyscrapers · Towers · Skyline',
     tags: ['skyscraper','tower','high-rise','supertall','megatall','skyline',
            'contemporary','21st century','mixed-use','commercial','office']
   },
   {
     key: 'naturalist',
     icon: '🌿',
-    label: 'Park Lover',        labelKo: '자연 탐험가',
-    hint:  'Parks · Gardens · Waterfront',   hintKo: '공원 · 정원 · 워터프론트',
+    label: 'Park Lover',
+    hint:  'Parks · Gardens · Waterfront',
     tags: ['park','garden','plaza','square','greenway','landscape','public space',
            'promenade','waterfront','trail','green','botanical','nature']
   },
   {
     key: 'culturist',
     icon: '🎨',
-    label: 'Culture Seeker',    labelKo: '컬처 시커',
-    hint:  'Museum · Gallery · Theater',     hintKo: '미술관 · 갤러리 · 공연장',
+    label: 'Culture Seeker',
+    hint:  'Museum · Gallery · Theater',
     tags: ['museum','gallery','art','theater','theatre','opera','concert hall',
            'library','cultural','exhibition','performing arts','arts center']
   },
   {
     key: 'engineer',
     icon: '🌉',
-    label: 'The Engineer',      labelKo: '엔지니어',
-    hint:  'Bridges · Stations · Infra',     hintKo: '교량 · 역사 · 인프라',
+    label: 'The Engineer',
+    hint:  'Bridges · Stations · Infra',
     tags: ['bridge','station','railway station','infrastructure','railway','metro',
            'subway','tunnel','dam','port','harbor','transport hub','airport']
   },
   {
     key: 'wanderer',
     icon: '🔭',
-    label: 'The Wanderer',      labelKo: '탐험가',
-    hint:  'Hidden · Residential · Sacred',  hintKo: '숨겨진 곳 · 주거 · 종교',
+    label: 'The Wanderer',
+    hint:  'Hidden · Residential · Sacred',
     tags: ['residential','housing','social housing','apartment','townhouse',
            'church','cathedral','chapel','temple','mosque','shrine','synagogue',
            'religious','academic','university','campus','school']
@@ -1138,7 +1105,6 @@ function _fwilShowStep(n) {
 function _fwilBuildPersonaGrid() {
   var container = document.getElementById('fwil-tag-container');
   if (!container) return;
-  var isKo = (typeof LANG !== 'undefined') && LANG === 'ko';
 
   var html = '';
 
@@ -1147,7 +1113,7 @@ function _fwilBuildPersonaGrid() {
   if (_fwilSaves.length > 0) {
     html += '<div class="fwil-saves-row" id="fwil-saves-row">' +
       '<div class="fwil-saves-title" onclick="fwilToggleSaves()">' +
-        (isKo ? '저장된 취향 불러오기' : 'Load saved preferences') +
+        'Load saved preferences' +
         ' <span id="fwil-saves-arrow">▾</span>' +
       '</div>' +
       '<div class="fwil-saves-list" id="fwil-saves-list" style="display:none">' +
@@ -1163,8 +1129,8 @@ function _fwilBuildPersonaGrid() {
     html += '<button class="fwil-persona-card' + (sel ? ' selected' : '') + '" ' +
       'onclick="fwilTogglePersona(\'' + p.key + '\')">' +
       '<div class="fwil-persona-icon">' + p.icon + '</div>' +
-      '<div class="fwil-persona-name">' + (isKo ? p.labelKo : p.label) + '</div>' +
-      '<div class="fwil-persona-hint">' + (isKo ? p.hintKo : p.hint) + '</div>' +
+      '<div class="fwil-persona-name">' + p.label + '</div>' +
+      '<div class="fwil-persona-hint">' + p.hint + '</div>' +
     '</button>';
   });
   html += '</div>';
@@ -1188,13 +1154,12 @@ function fwilTogglePersona(key) {
 function _fwilUpdateNextBtn() {
   var btn = document.getElementById('fwil-next-btn');
   if (!btn) return;
-  var isKo = (typeof LANG !== 'undefined') && LANG === 'ko';
   var n = _fwilSelectedPersonas.length;
   if (n > 0) {
-    btn.textContent = isKo ? n + '개 선택 · 다음 →' : n + ' selected · Next →';
+    btn.textContent = n + ' selected · Next →';
     btn.classList.add('ready');
   } else {
-    btn.textContent = isKo ? '나의 유형을 선택하세요' : 'Pick your traveler type';
+    btn.textContent = 'Pick your traveler type';
     btn.classList.remove('ready');
   }
 }
@@ -1211,13 +1176,12 @@ function _fwilLoadSaves() {
 }
 
 function _fwilSavesListHtml() {
-  var isKo = (typeof LANG !== 'undefined') && LANG === 'ko';
   return _fwilSaves.map(function(s, i) {
     var date = s.savedAt ? new Date(s.savedAt).toLocaleDateString() : '';
     var cnt  = (s.personas || []).length;
     return '<div class="fwil-save-item" onclick="fwilLoadFromSlot(' + i + ')">' +
       '<div class="fwil-save-name">' + (s.name || ('Slot ' + (i+1))) + '</div>' +
-      '<div class="fwil-save-meta">' + cnt + (isKo ? '개 유형' : ' type' + (cnt !== 1 ? 's' : '')) + (date ? ' · ' + date : '') + '</div>' +
+      '<div class="fwil-save-meta">' + cnt + ' type' + (cnt !== 1 ? 's' : '') + (date ? ' · ' + date : '') + '</div>' +
     '</div>';
   }).join('');
 }
@@ -1246,7 +1210,6 @@ function fwilLoadFromSlot(idx) {
 function _fwilShowSaveModal() {
   var modal = document.getElementById('fwil-save-modal');
   if (!modal) { _fwilShowStep(2); return; }
-  var isKo = (typeof LANG !== 'undefined') && LANG === 'ko';
   _fwilLoadSaves();
   var slotsHtml = '';
   for (var i = 0; i < 5; i++) {
@@ -1254,21 +1217,21 @@ function _fwilShowSaveModal() {
     if (s) {
       slotsHtml += '<button class="fwil-slot-btn occupied" onclick="fwilSaveToSlot(' + i + ')">' +
         '<span class="fwil-slot-name">' + (s.name || ('Slot ' + (i+1))) + '</span>' +
-        '<span class="fwil-slot-cnt">' + (s.personas || []).length + (isKo ? '개' : '') + '</span>' +
+        '<span class="fwil-slot-cnt">' + (s.personas || []).length + '</span>' +
       '</button>';
     } else {
       slotsHtml += '<button class="fwil-slot-btn empty" onclick="fwilSaveToSlot(' + i + ')">' +
-        '<span>+ ' + (isKo ? '새로 저장' : 'Save here') + '</span>' +
+        '<span>+ Save here</span>' +
       '</button>';
     }
   }
   var body = modal.querySelector('.fwil-modal-body');
   if (body) {
     body.innerHTML =
-      '<div class="fwil-modal-title">' + (isKo ? '취향 저장 (선택)' : 'Save preferences (optional)') + '</div>' +
-      '<div class="fwil-modal-sub">' + (isKo ? '다음에도 이 선택을 불러올 수 있어요.' : 'Load these choices next time.') + '</div>' +
+      '<div class="fwil-modal-title">Save preferences (optional)</div>' +
+      '<div class="fwil-modal-sub">Load these choices next time.</div>' +
       '<div class="fwil-slots">' + slotsHtml + '</div>' +
-      '<button class="fwil-skip-btn" onclick="fwilSaveSkip()">' + (isKo ? '저장 안 함 →' : 'Skip →') + '</button>';
+      '<button class="fwil-skip-btn" onclick="fwilSaveSkip()">Skip →</button>';
   }
   modal.style.display = 'flex';
   requestAnimationFrame(function() {
@@ -1305,10 +1268,9 @@ function _fwilDefaultSaveName() {
 
 function fwilSaveToSlot(idx) {
   _fwilLoadSaves();
-  var isKo = (typeof LANG !== 'undefined') && LANG === 'ko';
   var existing    = _fwilSaves[idx];
   var defaultName = existing ? existing.name : _fwilDefaultSaveName();
-  var name = prompt(isKo ? '이름을 입력하세요:' : 'Enter a name:', defaultName);
+  var name = prompt('Enter a name:', defaultName);
   if (name === null) return;
   _fwilSaves[idx] = { name: name || defaultName, personas: _fwilSelectedPersonas.slice(), savedAt: new Date().toISOString() };
   while (_fwilSaves.length < 5) _fwilSaves.push(null);
@@ -1421,8 +1383,7 @@ function _fwilComputeTop5() {
   });
 
   if (!scored.length) {
-    var isKo = (typeof LANG !== 'undefined') && LANG === 'ko';
-    _landingToast(isKo ? '😔 주변에 매칭되는 장소가 없습니다' : 'No matching places nearby');
+    _landingToast('No matching places nearby');
     return;
   }
 
@@ -1449,8 +1410,7 @@ function _fwilComputeTop5() {
   }
 
   if (!_fwilTop5 || !_fwilTop5.length) {
-    var isKo2 = (typeof LANG !== 'undefined') && LANG === 'ko';
-    _landingToast(isKo2 ? '4km 이내에 매칭 장소가 없습니다' : 'No matching places within 4km route');
+    _landingToast('No matching places within 4km route');
     return;
   }
 
@@ -1461,7 +1421,6 @@ function _fwilComputeTop5() {
 function _fwilShowResultOverlay() {
   var el = document.getElementById('fwil-result');
   if (!el) return;
-  var isKo = (typeof LANG !== 'undefined') && LANG === 'ko';
 
   // Highlight top-5 on map
   if (typeof map !== 'undefined' && map && _fwilTop5.length) {
@@ -1493,13 +1452,11 @@ function _fwilShowResultOverlay() {
   el.innerHTML =
     '<div class="fwil-result-panel">' +
       '<div class="fwil-result-header">' +
-        '<span class="fwil-result-title">🎯 ' + (isKo ? '내 취향 Top 5' : 'Top 5 For You') + '</span>' +
+        '<span class="fwil-result-title">🎯 Top 5 For You</span>' +
         '<button class="fwil-result-close" onclick="fwilResultClose()">✕</button>' +
       '</div>' +
       '<div class="fwil-result-list">' + listHtml + '</div>' +
-      '<button class="fwil-route-btn" onclick="fwilCreateRoute()">' +
-        (isKo ? '루트 만들기' : 'Create Route') +
-      '</button>' +
+      '<button class="fwil-route-btn" onclick="fwilCreateRoute()">Create Route</button>' +
     '</div>';
 
   el.style.display = 'flex';
@@ -1676,7 +1633,6 @@ function _suggestSetPin(lat, lng) {
 
 // ── Render bottom sheet ───────────────────────────────────────────
 function _renderSuggestSheet(hasPin) {
-  var isKo = (typeof LANG !== 'undefined') && LANG === 'ko';
   var old  = document.getElementById('suggest-sheet');
   if (old) old.parentNode.removeChild(old);
 
@@ -1686,16 +1642,13 @@ function _renderSuggestSheet(hasPin) {
   if (!hasPin) {
     // ── Phase 1: location picking ────────────────────────────────
     var hintHtml = _suggestPhotoNoGps
-      ? '<div class="suggest-sh-hint suggest-sh-warn">' +
-          (isKo ? '사진에 GPS 정보가 없습니다. 지도를 탭하거나 아래 버튼으로 위치를 설정하세요.'
-                : 'No GPS in photo. Tap the map or use the buttons below.') + '</div>'
-      : '<div class="suggest-sh-hint">' +
-          (isKo ? '지도를 탭하여 위치를 표시하세요' : 'Tap the map to mark the location') + '</div>';
+      ? '<div class="suggest-sh-hint suggest-sh-warn">No GPS in photo. Tap the map or use the buttons below.</div>'
+      : '<div class="suggest-sh-hint">Tap the map to mark the location</div>';
 
     var lensHtml = (_suggestPhotoPreview && _suggestPhotoFile)
       ? '<button class="sug-lens-btn" onclick="_openGoogleLens()">' +
           _SUG_ICO_LENS +
-          (isKo ? 'Google Lens로 건물 검색' : 'Search building on Google Lens') +
+          'Search building on Google Lens' +
         '</button>'
       : '';
 
@@ -1707,7 +1660,7 @@ function _renderSuggestSheet(hasPin) {
       '<div class="suggest-sh-hdr">' +
         '<span class="suggest-sh-title sug-title-svg">' +
           _SUG_ICO_PIN +
-          (isKo ? '위치 제안' : 'Suggest a Location') +
+          'Suggest a Location' +
         '</span>' +
         '<button class="suggest-sh-close" onclick="_closeSuggestMode()">✕</button>' +
       '</div>' +
@@ -1717,15 +1670,15 @@ function _renderSuggestSheet(hasPin) {
       '<div class="suggest-sh-opts">' +
         '<button class="suggest-opt-btn" onclick="_suggestUseGPS()">' +
           '<span class="suggest-opt-icon">' + _SUG_ICO_PIN + '</span>' +
-          '<span>' + (isKo ? '내 위치' : 'My Location') + '</span>' +
+          '<span>My Location</span>' +
         '</button>' +
         '<button class="suggest-opt-btn" onclick="document.getElementById(\'sug-cam-inp\').click()">' +
           '<span class="suggest-opt-icon">' + _SUG_ICO_CAM + '</span>' +
-          '<span>' + (isKo ? '카메라' : 'Camera') + '</span>' +
+          '<span>Camera</span>' +
         '</button>' +
         '<button class="suggest-opt-btn" onclick="document.getElementById(\'sug-gal-inp\').click()">' +
           '<span class="suggest-opt-icon">' + _SUG_ICO_GAL + '</span>' +
-          '<span>' + (isKo ? '갤러리' : 'Gallery') + '</span>' +
+          '<span>Gallery</span>' +
         '</button>' +
       '</div>' +
       '<input type="file" id="sug-cam-inp" accept="image/*" capture="environment" style="display:none" onchange="_onSuggestPhoto(this)">' +
@@ -1735,11 +1688,10 @@ function _renderSuggestSheet(hasPin) {
     // ── Phase 2: detail form ──────────────────────────────────────
     var coordText = _suggestLat
       ? (_suggestLat.toFixed(5) + ', ' + _suggestLng.toFixed(5)) : '';
-    var dragHint  = isKo ? '(핀을 드래그하여 조정)' : '(drag pin to adjust)';
     var lensBtn2 = (_suggestPhotoFile)
       ? '<button class="sug-lens-btn sug-lens-btn-sm" onclick="_openGoogleLens()">' +
           _SUG_ICO_LENS +
-          (isKo ? 'Google Lens 검색' : 'Search on Google Lens') +
+          'Search on Google Lens' +
         '</button>'
       : '';
 
@@ -1753,64 +1705,59 @@ function _renderSuggestSheet(hasPin) {
     sheet.innerHTML =
       '<div class="suggest-sh-hdr">' +
         '<button class="suggest-sh-back" onclick="_suggestBackToPhase1()">&#9664;</button>' +
-        '<span class="suggest-sh-title">' + (isKo ? '위치 정보 입력' : 'Location Details') + '</span>' +
+        '<span class="suggest-sh-title">Location Details</span>' +
         '<button class="suggest-sh-close" onclick="_closeSuggestMode()">✕</button>' +
       '</div>' +
       prevHtml +
       '<div id="sug-geocode-row">' +
         '<span class="sug-coord-txt">' + coordText + '</span>' +
-        ' <span class="sug-coord-hint">' + dragHint + '</span>' +
+        ' <span class="sug-coord-hint">(drag pin to adjust)</span>' +
       '</div>' +
       '<div id="sug-search-row" class="sug-search-row" style="display:none">' +
         '<a class="sug-search-link sug-maps-link" id="sug-maps-link" target="_blank" rel="noopener noreferrer">' +
-          _SUG_ICO_MAPS + (isKo ? 'Google Maps →' : 'Google Maps →') +
+          _SUG_ICO_MAPS + 'Google Maps →' +
         '</a>' +
         '<a class="sug-search-link sug-web-link" id="sug-web-link" target="_blank" rel="noopener noreferrer">' +
-          _SUG_ICO_SEARCH + (isKo ? '웹 검색 →' : 'Google Search →') +
+          _SUG_ICO_SEARCH + 'Google Search →' +
         '</a>' +
       '</div>' +
       '<div class="suggest-field-row">' +
-        '<label class="suggest-lbl">' + (isKo ? '장소명 *' : 'Location Name *') + '</label>' +
+        '<label class="suggest-lbl">Location Name *</label>' +
         '<input class="suggest-inp" id="sug-name" type="text" ' +
-          'placeholder="' + (isKo ? '불러오는 중…' : 'Loading…') + '" autocomplete="off">' +
+          'placeholder="Loading…" autocomplete="off">' +
       '</div>' +
       '<div class="suggest-field-row">' +
-        '<label class="suggest-lbl suggest-lbl-opt">' +
-          (isKo ? '건축가 (선택)' : 'Architect (optional)') + '</label>' +
+        '<label class="suggest-lbl suggest-lbl-opt">Architect (optional)</label>' +
         '<input class="suggest-inp" id="sug-arch" type="text" ' +
-          'placeholder="' + (isKo ? '건축가 이름' : 'Architect name') + '">' +
+          'placeholder="Architect name">' +
       '</div>' +
-      '<button class="sug-more-btn" id="sug-more-btn" onclick="_suggestToggleMore()">' +
-        (isKo ? '+ 추가 정보 입력 (선택)' : '+ Add More Info (optional)') +
-      '</button>' +
+      '<button class="sug-more-btn" id="sug-more-btn" onclick="_suggestToggleMore()">+ Add More Info (optional)</button>' +
       '<div id="sug-more-fields" style="display:none">' +
         '<div class="suggest-field-row">' +
-          '<label class="suggest-lbl suggest-lbl-opt">' + (isKo ? '주소' : 'Address') + '</label>' +
+          '<label class="suggest-lbl suggest-lbl-opt">Address</label>' +
           '<input class="suggest-inp" id="sug-address" type="text" ' +
-            'placeholder="' + (isKo ? '도로명 주소' : 'Street address') + '">' +
+            'placeholder="Street address">' +
         '</div>' +
         '<div class="suggest-field-row">' +
-          '<label class="suggest-lbl suggest-lbl-opt">' + (isKo ? '용도' : 'Use Type') + '</label>' +
+          '<label class="suggest-lbl suggest-lbl-opt">Use Type</label>' +
           '<input class="suggest-inp" id="sug-type" type="text" ' +
-            'placeholder="' + (isKo ? '예: 미술관, 주거, 오피스…' : 'e.g. Museum, Residential, Office…') + '">' +
+            'placeholder="e.g. Museum, Residential, Office…">' +
         '</div>' +
         '<div class="sug-row2">' +
           '<div class="suggest-field-row">' +
-            '<label class="suggest-lbl suggest-lbl-opt">' + (isKo ? '준공 연도' : 'Year') + '</label>' +
+            '<label class="suggest-lbl suggest-lbl-opt">Year</label>' +
             '<input class="suggest-inp" id="sug-year" type="number" min="1800" max="2099" ' +
-              'placeholder="' + (isKo ? '예: 2014' : 'e.g. 2014') + '">' +
+              'placeholder="e.g. 2014">' +
           '</div>' +
           '<div class="suggest-field-row">' +
-            '<label class="suggest-lbl suggest-lbl-opt">' + (isKo ? '카테고리' : 'Category') + '</label>' +
+            '<label class="suggest-lbl suggest-lbl-opt">Category</label>' +
             '<input class="suggest-inp" id="sug-category" type="text" ' +
-              'placeholder="' + (isKo ? '예: 현대, 브루탈리즘…' : 'e.g. Modern, Brutalism…') + '">' +
+              'placeholder="e.g. Modern, Brutalism…">' +
           '</div>' +
         '</div>' +
       '</div>' +
       '<div id="sug-status" class="sug-status-row"></div>' +
-      '<button class="suggest-submit-btn" onclick="_submitSuggestion()">' +
-        (isKo ? '제출하기 →' : 'Submit →') +
-      '</button>';
+      '<button class="suggest-submit-btn" onclick="_submitSuggestion()">Submit →</button>';
 
     setTimeout(function() { _suggestReverseGeocode(_suggestLat, _suggestLng); }, 80);
   }
@@ -1829,20 +1776,19 @@ function _suggestBackToPhase1() {
 }
 
 function _suggestToggleMore() {
-  var isKo = (typeof LANG !== 'undefined') && LANG === 'ko';
   var more = document.getElementById('sug-more-fields');
   var btn  = document.getElementById('sug-more-btn');
   if (!more || !btn) return;
   if (more.style.display === 'none') {
     more.style.display = 'block';
-    btn.textContent = isKo ? '− 접기' : '− Less';
+    btn.textContent = '− Less';
     btn.classList.add('active');
     // Focus first additional field
     var f = document.getElementById('sug-address');
     if (f) setTimeout(function() { f.focus(); }, 60);
   } else {
     more.style.display = 'none';
-    btn.textContent = isKo ? '+ 추가 정보 입력 (선택)' : '+ Add More Info (optional)';
+    btn.textContent = '+ Add More Info (optional)';
     btn.classList.remove('active');
   }
 }
@@ -1851,12 +1797,11 @@ function _suggestToggleMore() {
 async function _suggestReverseGeocode(lat, lng) {
   var inp = document.getElementById('sug-name');
   if (!inp) return;
-  var isKo = (typeof LANG !== 'undefined') && LANG === 'ko';
   try {
     var r = await fetch(
       'https://nominatim.openstreetmap.org/reverse?lat=' + lat +
       '&lon=' + lng + '&format=json&zoom=18&addressdetails=1' +
-      '&accept-language=' + (isKo ? 'ko' : 'en'),
+      '&accept-language=en',
       {
         headers: { 'Accept': 'application/json',
                    'User-Agent': 'ArchWander/1.0 (archwander.com)' },
@@ -1870,7 +1815,7 @@ async function _suggestReverseGeocode(lat, lng) {
     if (inp2 && !inp2.value && name) {
       inp2.value = name; inp2.placeholder = '';
     } else if (inp2 && !inp2.value) {
-      inp2.placeholder = isKo ? '장소 이름 입력' : 'Enter location name';
+      inp2.placeholder = 'Enter location name';
     }
     // Address row
     var cr = document.getElementById('sug-geocode-row');
@@ -1878,7 +1823,7 @@ async function _suggestReverseGeocode(lat, lng) {
       var shortAddr = d.display_name.split(',').slice(0, 3).join(', ');
       cr.innerHTML =
         '<span class="sug-coord-txt">' + shortAddr + '</span>' +
-        ' <span class="sug-coord-hint">' + (isKo ? '(핀을 드래그하여 조정)' : '(drag pin to adjust)') + '</span>';
+        ' <span class="sug-coord-hint">(drag pin to adjust)</span>';
     }
     // Pre-fill address field if "More" is open
     var addrInp = document.getElementById('sug-address');
@@ -1908,15 +1853,14 @@ async function _suggestReverseGeocode(lat, lng) {
   } catch(e) {
     var inp3 = document.getElementById('sug-name');
     if (inp3 && !inp3.value)
-      inp3.placeholder = isKo ? '장소 이름 입력' : 'Enter location name';
+      inp3.placeholder = 'Enter location name';
   }
 }
 
 // ── GPS button ────────────────────────────────────────────────────
 function _suggestUseGPS() {
   if (!navigator.geolocation) {
-    alert(typeof LANG !== 'undefined' && LANG === 'ko'
-      ? 'GPS가 지원되지 않습니다.' : 'GPS not supported.'); return;
+    alert('GPS not supported.'); return;
   }
   var btns = document.querySelectorAll('.suggest-opt-btn');
   btns.forEach(function(b) { b.disabled = true; });
@@ -1928,8 +1872,7 @@ function _suggestUseGPS() {
     },
     function() {
       btns.forEach(function(b) { b.disabled = false; });
-      alert(typeof LANG !== 'undefined' && LANG === 'ko'
-        ? '위치를 가져올 수 없습니다.' : 'Could not get location.');
+      alert('Could not get location.');
     },
     { enableHighAccuracy: true, timeout: 12000 }
   );
@@ -1962,7 +1905,6 @@ function _onSuggestPhoto(inp) {
 // Copies photo to clipboard (if supported), then opens Google Lens.
 // User can paste the image directly into Lens for building identification.
 async function _openGoogleLens() {
-  var isKo = (typeof LANG !== 'undefined') && LANG === 'ko';
   var lensUrl = 'https://lens.google.com/';
   var copied = false;
 
@@ -1984,9 +1926,7 @@ async function _openGoogleLens() {
   if (copied) {
     var toast = document.createElement('div');
     toast.className = 'sug-lens-toast';
-    toast.textContent = isKo
-      ? '이미지가 복사됐어요 — Google Lens에서 Ctrl+V 하세요'
-      : 'Image copied — paste it into Google Lens';
+    toast.textContent = 'Image copied — paste it into Google Lens';
     document.body.appendChild(toast);
     requestAnimationFrame(function() {
       requestAnimationFrame(function() { toast.classList.add('visible'); });
@@ -2056,7 +1996,6 @@ function _parseJpegExifGps(dv, start) {
 
 // ── Submit ────────────────────────────────────────────────────────
 async function _submitSuggestion() {
-  var isKo     = (typeof LANG !== 'undefined') && LANG === 'ko';
   var nameEl   = document.getElementById('sug-name');
   var archEl   = document.getElementById('sug-arch');
   var addrEl   = document.getElementById('sug-address');
@@ -2068,11 +2007,11 @@ async function _submitSuggestion() {
 
   var name = nameEl ? nameEl.value.trim() : '';
   if (!name) {
-    if (statusEl) { statusEl.style.color = '#ef4444'; statusEl.textContent = isKo ? '장소명은 필수입니다.' : 'Location name is required.'; }
+    if (statusEl) { statusEl.style.color = '#ef4444'; statusEl.textContent = 'Location name is required.'; }
     if (nameEl) nameEl.focus(); return;
   }
   if (_suggestLat === null) {
-    if (statusEl) { statusEl.style.color = '#ef4444'; statusEl.textContent = isKo ? '먼저 지도에서 위치를 선택하세요.' : 'Please select a location on the map.'; }
+    if (statusEl) { statusEl.style.color = '#ef4444'; statusEl.textContent = 'Please select a location on the map.'; }
     return;
   }
 
@@ -2084,12 +2023,12 @@ async function _submitSuggestion() {
   var email    = '';
   if (typeof _syncUser !== 'undefined' && _syncUser && _syncUser.email) email = _syncUser.email;
 
-  if (btn) { btn.disabled = true; btn.textContent = isKo ? '제출 중…' : 'Submitting…'; }
+  if (btn) { btn.disabled = true; btn.textContent = 'Submitting…'; }
   if (statusEl) { statusEl.style.color = '#888'; statusEl.textContent = ''; }
 
   if (typeof SUPABASE_URL === 'undefined' || !SUPABASE_URL || SUPABASE_URL.indexOf('__') === 0) {
-    if (statusEl) { statusEl.style.color = '#ef4444'; statusEl.textContent = isKo ? '서버 오류' : 'Server not configured.'; }
-    if (btn) { btn.disabled = false; btn.textContent = isKo ? '제출하기 →' : 'Submit →'; } return;
+    if (statusEl) { statusEl.style.color = '#ef4444'; statusEl.textContent = 'Server not configured.'; }
+    if (btn) { btn.disabled = false; btn.textContent = 'Submit →'; } return;
   }
 
   try {
@@ -2119,16 +2058,16 @@ async function _submitSuggestion() {
     }
     if (statusEl) {
       statusEl.style.color = '#22c55e';
-      statusEl.textContent = isKo ? '✓ 감사합니다! 검토 후 반영하겠습니다.' : '✓ Thanks! We\'ll review it soon.';
+      statusEl.textContent = '✓ Thanks! We\'ll review it soon.';
     }
     setTimeout(_closeSuggestMode, 2200);
   } catch(err) {
     console.error('[suggest]', err);
     if (statusEl) {
       statusEl.style.color = '#ef4444';
-      statusEl.textContent = (isKo ? '제출 실패: ' : 'Failed: ') + err.message;
+      statusEl.textContent = 'Failed: ' + err.message;
     }
-    if (btn) { btn.disabled = false; btn.textContent = isKo ? '제출하기 →' : 'Submit →'; }
+    if (btn) { btn.disabled = false; btn.textContent = 'Submit →'; }
   }
 }
 

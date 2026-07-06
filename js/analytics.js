@@ -96,11 +96,9 @@
   window.addEventListener('load', function () {
     wrap('openLoc',          'loc_view',    function (loc) { return loc ? { loc_id: loc.id, city: loc.city } : {}; });
     wrap('toggleNearMe',     'near_me',     null);
-    wrap('startQuiz',        'quiz_start',  null);
     wrap('calcRoute',        'route_calc',  null);
     wrap('openRoutePanel',   'route_open',  null);
     wrap('openShareModal',   'share_open',  null);
-    wrap('_agStartPlayback', 'audio_play',  null);
     wrap('openArchProfile',  'arch_view',   function (n) { return { meta: { arch: n } }; });
   });
 })();

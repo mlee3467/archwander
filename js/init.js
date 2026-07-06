@@ -416,10 +416,12 @@ var CAT_CC_MAP = {
   'Public Space':          'c-park',
 };
 
-// Open with Ctrl+Shift+A
-document.addEventListener('keydown', e => {
-  if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'A') { e.preventDefault(); openAdmin(); }
-});
+// Open with Ctrl+Shift+A — localhost only (disabled on production build)
+if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+  document.addEventListener('keydown', e => {
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'A') { e.preventDefault(); openAdmin(); }
+  });
+}
 
 function openAdmin() {
   renderAdminTable();
@@ -770,20 +772,15 @@ function _showPwaPrompt(isIOS) {
   if (!prompt) return;
   var desc = document.getElementById('pwa-desc');
   var btn = document.getElementById('pwa-install-btn');
-  var lang = (typeof currentLang !== 'undefined') ? currentLang : 'en';
   var todayBtn = prompt.querySelector('.pwa-today-btn');
-  if (todayBtn) todayBtn.textContent = lang === 'ko' ? '오늘 하루 보지 않기' : 'Not today';
+  if (todayBtn) todayBtn.textContent = 'Not today';
   if (isIOS) {
-    if (desc) desc.textContent = lang === 'ko'
-      ? '공유 버튼 → "홈 화면에 추가"를 눌러주세요'
-      : 'Tap Share → "Add to Home Screen"';
-    if (btn) btn.textContent = lang === 'ko' ? '확인' : 'OK';
+    if (desc) desc.textContent = 'Tap Share → "Add to Home Screen"';
+    if (btn) btn.textContent = 'OK';
     btn.onclick = function() { pwaDismiss(); };
   } else {
-    if (desc) desc.textContent = lang === 'ko'
-      ? '앱을 설치하면 더 편리하게 이용할 수 있어요'
-      : 'Install the app for a better experience';
-    if (btn) btn.textContent = lang === 'ko' ? '설치' : 'Install';
+    if (desc) desc.textContent = 'Install the app for a better experience';
+    if (btn) btn.textContent = 'Install';
   }
   prompt.classList.add('visible');
 }

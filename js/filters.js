@@ -143,19 +143,21 @@ function updateClearBtn() {
 }
 
 function toggleSbFilters() {
-  var panel = document.getElementById('sb-filters');
+  var panel = document.getElementById('sb-filter-panel');
   var btn   = document.getElementById('sb-filter-toggle');
   var arr   = document.getElementById('sb-filter-arr');
   if (!panel) return;
   var open = panel.style.display !== 'none';
   panel.style.display = open ? 'none' : 'flex';
-  if (btn) btn.classList.toggle('open', !open);
+  if (btn) { btn.classList.toggle('open', !open); btn.setAttribute('aria-expanded', String(!open)); }
   if (arr) arr.textContent = open ? '▼' : '▲';
 }
 
 function toggleFsec(id) {
   const sec = document.getElementById(`fsec-${id}`);
   sec.classList.toggle('open');
+  const hdr = sec.querySelector('.fsec-hdr');
+  if (hdr) hdr.setAttribute('aria-expanded', String(sec.classList.contains('open')));
 }
 
 // ══════════════════════════════════════════════════════════════════

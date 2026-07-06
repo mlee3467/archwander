@@ -9,7 +9,6 @@ function _buildInfluenceNetwork(archName) {
   var existing = document.getElementById('influence-overlay');
   if (existing) existing.parentNode.removeChild(existing);
 
-  var isKo = typeof LANG !== 'undefined' && LANG === 'ko';
   var allLocs = typeof LOCS !== 'undefined' ? LOCS : [];
 
   // ── Find this architect's works + their styles ──────────────────
@@ -19,7 +18,7 @@ function _buildInfluenceNetwork(archName) {
   });
 
   if (!mainWorks.length) {
-    alert((isKo ? '데이터가 없습니다: ' : 'No data for: ') + archName);
+    alert('No data for: ' + archName);
     return;
   }
 
@@ -62,7 +61,7 @@ function _buildInfluenceNetwork(archName) {
   relatedArchs.forEach(function(a) {
     var nid = 'arch:' + a;
     var sharedCount = relatedMap[a].count;
-    nodes.push({ id: nid, label: a, sublabel: sharedCount + (isKo ? '개 공유' : ' shared'), type: 'related-arch', r: 18 });
+    nodes.push({ id: nid, label: a, sublabel: sharedCount + ' shared', type: 'related-arch', r: 18 });
     var sharedStylesArr = [...relatedMap[a].styles].slice(0, 2).join(', ');
     edges.push({ from: 'arch:' + archName, to: nid, type: 'style-shared', label: sharedStylesArr });
   });
@@ -179,10 +178,10 @@ function _buildInfluenceNetwork(archName) {
   // Legend
   var legendHtml =
     '<div class="net-legend">'
-      + '<span class="net-leg-item"><span class="net-leg-dot" style="background:#2563EB"></span>' + (isKo ? '이 건축가' : 'This architect') + '</span>'
-      + '<span class="net-leg-item"><span class="net-leg-dot" style="background:#0891B2"></span>' + (isKo ? '설계 작품' : 'Works') + '</span>'
-      + '<span class="net-leg-item"><span class="net-leg-dot" style="background:#7C3AED"></span>' + (isKo ? '동시대 건축가' : 'Related architects') + '</span>'
-      + '<span class="net-leg-item net-leg-line"><span class="net-leg-dash"></span>' + (isKo ? '양식 공유' : 'Shared style') + '</span>'
+      + '<span class="net-leg-item"><span class="net-leg-dot" style="background:#2563EB"></span>This architect</span>'
+      + '<span class="net-leg-item"><span class="net-leg-dot" style="background:#0891B2"></span>Works</span>'
+      + '<span class="net-leg-item"><span class="net-leg-dot" style="background:#7C3AED"></span>Related architects</span>'
+      + '<span class="net-leg-item net-leg-line"><span class="net-leg-dash"></span>Shared style</span>'
     + '</div>';
 
   var overlay = document.createElement('div');
@@ -191,8 +190,8 @@ function _buildInfluenceNetwork(archName) {
   overlay.innerHTML =
     '<div class="net-panel">'
       + '<div class="net-hdr">'
-        + '<div class="net-hdr-title">🕸 ' + (isKo ? '영향 관계 네트워크' : 'Influence Network') + '</div>'
-        + '<div class="net-hdr-sub">' + archName + ' &amp; ' + (isKo ? '연관 건축가' : 'related architects') + '</div>'
+        + '<div class="net-hdr-title">🕸 Influence Network</div>'
+        + '<div class="net-hdr-sub">' + archName + ' &amp; related architects</div>'
         + '<button class="net-close-btn" onclick="closeInfluenceNetwork()">✕</button>'
       + '</div>'
       + '<div class="net-body">'
@@ -200,7 +199,7 @@ function _buildInfluenceNetwork(archName) {
           + svgEdges + svgNodes
         + '</svg>'
         + legendHtml
-        + '<div class="net-hint">' + (isKo ? '노드를 클릭하면 해당 건물이나 건축가로 이동합니다.' : 'Click nodes to navigate to buildings or architect profiles.') + '</div>'
+        + '<div class="net-hint">Click nodes to navigate to buildings or architect profiles.</div>'
       + '</div>'
     + '</div>';
 

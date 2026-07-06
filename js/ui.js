@@ -58,6 +58,7 @@ function gotoPhoto(idx) {
   // Update dots
   document.getElementById('g-dots').querySelectorAll('.g-dot').forEach(function(d, i) {
     d.classList.toggle('active', i === idx);
+    d.setAttribute('aria-selected', String(i === idx));
   });
 
   photoIdx = idx;

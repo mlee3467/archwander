@@ -71,19 +71,19 @@ function openReportModal() {
     <div class="report-loc-name" id="report-loc-display">${activeLoc.name}</div>
     <div class="report-field-label">Issue type *</div>
     <select id="report-type" class="report-select">
-      <option value="">${LANG === 'ko' ? '이슈 유형 선택…' : 'Select issue type…'}</option>
-      <option value="wrong_info">${LANG === 'ko' ? '설명에 잘못된 정보' : 'Wrong information in description'}</option>
-      <option value="wrong_coords">${LANG === 'ko' ? '지도 위치 오류' : 'Wrong map location / coordinates'}</option>
-      <option value="wrong_hours">${LANG === 'ko' ? '운영시간 또는 입장료 오류' : 'Wrong hours or admission info'}</option>
-      <option value="missing_info">${LANG === 'ko' ? '중요 정보 누락' : 'Missing important information'}</option>
-      <option value="photo_issue">${LANG === 'ko' ? '사진 문제' : 'Photo issue'}</option>
-      <option value="closed">${LANG === 'ko' ? '영구 폐쇄된 장소' : 'Place is permanently closed'}</option>
-      <option value="other">${LANG === 'ko' ? '기타' : 'Other'}</option>
+      <option value="">Select issue type…</option>
+      <option value="wrong_info">Wrong information in description</option>
+      <option value="wrong_coords">Wrong map location / coordinates</option>
+      <option value="wrong_hours">Wrong hours or admission info</option>
+      <option value="missing_info">Missing important information</option>
+      <option value="photo_issue">Photo issue</option>
+      <option value="closed">Place is permanently closed</option>
+      <option value="other">Other</option>
     </select>
-    <div class="report-field-label">${LANG === 'ko' ? '상세 내용' : 'Details'}</div>
+    <div class="report-field-label">Details</div>
     <textarea id="report-desc" class="report-textarea"
-      placeholder="${LANG === 'ko' ? '문제를 자세히 설명해주세요…' : 'Describe the issue in detail…'}"></textarea>
-    <button class="report-submit" onclick="submitReport()">${LANG === 'ko' ? '신고 제출' : 'Submit Report'}</button>
+      placeholder="Describe the issue in detail…"></textarea>
+    <button class="report-submit" onclick="submitReport()">Submit Report</button>
   `;
 
   overlay.classList.add('open');
@@ -133,7 +133,7 @@ function submitReport() {
   // Show success
   document.getElementById('report-modal-body').innerHTML = `
     <div class="report-success">
-      ✅ ${LANG === 'ko' ? '신고가 접수되었습니다. 감사합니다!' : 'Report submitted. Thank you!'}
+      ✅ Report submitted. Thank you!
     </div>
   `;
   setTimeout(() => closeReportModal(), 2000);
@@ -308,7 +308,7 @@ function locateUserGPS() {
       _startContinuousGps(); // start live tracking after first fix
     },
     () => {
-      alert('위치를 가져올 수 없습니다. 브라우저 위치 권한을 확인하세요.');
+      alert('Unable to get your location. Please check browser location permissions.');
       gpsBtn.classList.remove('locating');
     }
   );
@@ -362,17 +362,13 @@ function _updateSetRouteFab() {
   var showExit  = nearMeActive && walkOrigin && !routeActive;
   if (fab) {
     fab.style.display = showRoute ? 'flex' : 'none';
-    if (typeof LANG !== 'undefined') {
-      var lbl = fab.querySelector('.srf-label');
-      if (lbl) lbl.textContent = LANG === 'ko' ? '루트 설정' : 'Set Route';
-    }
+    var lbl = fab.querySelector('.srf-label');
+    if (lbl) lbl.textContent = 'Set Route';
   }
   if (exitBtn) {
     exitBtn.style.display = showExit ? 'flex' : 'none';
-    if (typeof LANG !== 'undefined') {
-      var exlbl = exitBtn.querySelector('.wex-label');
-      if (exlbl) exlbl.textContent = LANG === 'ko' ? '나가기' : 'Exit';
-    }
+    var exlbl = exitBtn.querySelector('.wex-label');
+    if (exlbl) exlbl.textContent = 'Exit';
   }
 }
 function _setRouteFabTap() {
@@ -514,7 +510,7 @@ function _drawWalkOverlay() {
   // Location count badge — centered below the person marker dot
   const nearby = getFiltered();
   const n    = nearby.length;
-  const lbl  = LANG === 'ko' ? `${n}곳` : `${n} spot${n !== 1 ? 's' : ''}`;
+  const lbl  = `${n} spot${n !== 1 ? 's' : ''}`;
   const zero = n === 0;
   walkCountLabel = L.marker([lat, lng], {
     pane:        'walkMarker',   // same pane as the person icon, renders above it in DOM

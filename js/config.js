@@ -191,3 +191,38 @@ function _ensureSupabaseAuth() {
 }
 
 // Helper: get current session access_token (falls back to anon key)
+function _getAccessToken() {
+  if (!_supabase) return SUPABASE_ANON_KEY;
+  var sess = null;
+  try { sess = JSON.parse(localStorage.getItem('sb-bfhheauvuvrkdeajfjzy-auth-token') || 'null'); } catch(e) {}
+  return (sess && sess.access_token) ? sess.access_token : SUPABASE_ANON_KEY;
+}
+
+// ══════════════════════════════════════════════════════════════════
+// AW NAMESPACE  (window.AW = single namespace for all app globals)
+// Getters/setters bridge to existing vars — zero breaking changes.
+// Gradually migrate call sites to AW.* as modules are touched.
+// ══════════════════════════════════════════════════════════════════
+window.AW = (function() {
+  var ns = {};
+
+  // Live aliases for the three main mutable globals
+  Object.defineProperty(ns, 'locs',       { get: function(){ return LOCS;       }, set: function(v){ LOCS = v;       }, enumerable: true });
+  Object.defineProperty(ns, 'state',      { get: function(){ return state;      }, set: function(v){ state = v;      }, enumerable: true });
+  Object.defineProperty(ns, 'activeLoc',  { get: function(){ return activeLoc;  }, set: function(v){ activeLoc = v;  }, enumerable: true });
+  Object.defineProperty(ns, 'activeCity', { get: function(){ return activeCity; }, set: function(v){ activeCity = v; }, enumerable: true });
+  Object.defineProperty(ns, 'map',        { get: function(){ return map;        }, set: function(v){ map = v;        }, enumerable: true });
+
+  // XSS utility — escapes user/DB-derived text before innerHTML insertion
+  ns.escapeHtml = function(str) {
+    if (str === null || str === undefined) return '';
+    return String(str)
+      .replace(/&/g,  '&amp;')
+      .replace(/</g,  '&lt;')
+      .replace(/>/g,  '&gt;')
+      .replace(/"/g,  '&quot;')
+      .replace(/'/g,  '&#039;');
+  };
+
+  return ns;
+}());

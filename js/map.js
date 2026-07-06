@@ -48,7 +48,7 @@ function _makeStreetLayer() {
   var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
   var mapEl = document.getElementById('map');
   if (MAPTILER_API_KEY) {
-    var mapLang  = LANG === 'ko' ? 'ko' : 'en';
+    var mapLang  = 'en';
     var mapStyle = isDark ? 'streets-v2-dark' : MAPTILER_STYLE;
     // Mark map as using native dark tiles → CSS invert filter will not apply
     if (mapEl) mapEl.classList.toggle('map-native-dark', isDark);
@@ -193,7 +193,6 @@ function _buildCityPins() {
   });
   _cityPinMarkers = {};
 
-  var isKo = typeof LANG !== 'undefined' && LANG === 'ko';
   Object.keys(CITY_META).forEach(function(code) {
     var cm = CITY_META[code];
     var total   = _getCityTotalCount(cm);
@@ -203,7 +202,7 @@ function _buildCityPins() {
 
     var statsHtml = '<div class="cwp-stats">';
     if (total > 0) {
-      statsHtml += '<span class="cwp-stat">' + total + ' ' + (isKo ? '장소' : 'spots') + '</span>';
+      statsHtml += '<span class="cwp-stat">' + total + ' spots</span>';
       var subRow = '';
       if (favCnt > 0) subRow += '<span class="cwp-stat cwp-fav">♥ ' + favCnt + '</span>';
       if (visCnt > 0) subRow += '<span class="cwp-stat cwp-vis">✓ ' + visCnt + '</span>';
@@ -364,10 +363,10 @@ function buildLegend() {
   legendControl.onAdd = function() {
     var isMobile = window.innerWidth <= 900;
     var div = L.DomUtil.create('div', 'map-legend' + (isMobile ? ' collapsed' : ''));
-    var titleText = LANG === 'ko' ? '범례' : 'Legend';
+    var titleText = 'Legend';
     // Header: toggle expand + "All / None" quick links
-    var allTxt  = LANG === 'ko' ? '전체' : 'All';
-    var noneTxt = LANG === 'ko' ? '없음' : 'None';
+    var allTxt  = 'All';
+    var noneTxt = 'None';
     var html = '<div class="legend-toggle" onclick="toggleLegend()">' +
       '<span class="legend-toggle-label">' + titleText + '</span>' +
       '<span class="legend-arrow">▾</span></div>';
@@ -442,21 +441,20 @@ function _buildWorldLegend() {
   legendControl.onAdd = function() {
     var isMobile = window.innerWidth <= 900;
     var div = L.DomUtil.create('div', 'map-legend' + (isMobile ? ' collapsed' : ''));
-    var isKo = typeof LANG !== 'undefined' && LANG === 'ko';
     var totalFav = typeof _favSet !== 'undefined' ? _favSet.size : 0;
     var totalVis = typeof _visSet !== 'undefined' ? _visSet.size : 0;
-    var titleText = isKo ? '내 기록' : 'My Stats';
+    var titleText = 'My Stats';
     var html = '<div class="legend-toggle" onclick="toggleLegend()">' +
       '<span class="legend-toggle-label">' + titleText + '</span>' +
       '<span class="legend-arrow">▾</span></div>';
     html += '<div class="legend-body">';
     html += '<div class="wm-stat-row">' +
       '<span class="wm-stat-icon wm-fav">♥</span>' +
-      '<span class="wm-stat-label">' + (isKo ? '즐겨찾기' : 'Favorites') + '</span>' +
+      '<span class="wm-stat-label">Favorites</span>' +
       '<span class="wm-stat-val">' + totalFav + '</span></div>';
     html += '<div class="wm-stat-row">' +
       '<span class="wm-stat-icon wm-vis">✓</span>' +
-      '<span class="wm-stat-label">' + (isKo ? '방문' : 'Visited') + '</span>' +
+      '<span class="wm-stat-label">Visited</span>' +
       '<span class="wm-stat-val">' + totalVis + '</span></div>';
     html += '</div>';
     div.innerHTML = html;

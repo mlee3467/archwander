@@ -46,7 +46,7 @@ function saveVisitNoteFromUI(id) {
   setVisitNote(id, el.value.trim());
   if (btn) {
     btn.textContent = '✓';
-    setTimeout(function() { if (btn) btn.textContent = LANG === 'ko' ? '저장' : 'Save'; }, 1200);
+    setTimeout(function() { if (btn) btn.textContent = 'Save'; }, 1200);
   }
 }
 
@@ -54,19 +54,18 @@ function saveVisitNoteFromUI(id) {
 function _buildVisitSectionHTML(id) {
   var date  = getVisitDate(id);
   var note  = getVisitNote(id);
-  var isKo  = LANG === 'ko';
   var safeNote = (note || '').replace(/&/g,'&amp;').replace(/"/g,'&quot;');
   return '<div class="vs-row">' +
-      '<span class="vs-label">' + (isKo ? '방문일' : 'Visit date') + '</span>' +
+      '<span class="vs-label">Visit date</span>' +
       '<input type="date" class="vs-date-input" id="visit-date-' + id + '"' +
         ' value="' + (date || '') + '" onchange="saveVisitDateFromUI(\'' + id + '\')">' +
     '</div>' +
     '<div class="vs-row">' +
       '<input type="text" class="vs-note-input" id="visit-note-' + id + '"' +
         ' value="' + safeNote + '"' +
-        ' placeholder="' + (isKo ? '한 줄 메모 (선택)' : 'One-line note (optional)') + '" maxlength="140">' +
+        ' placeholder="One-line note (optional)" maxlength="140">' +
       '<button class="vs-save-btn" id="visit-note-save-' + id + '"' +
-        ' onclick="saveVisitNoteFromUI(\'' + id + '\')">' + (isKo ? '저장' : 'Save') + '</button>' +
+        ' onclick="saveVisitNoteFromUI(\'' + id + '\')">Save</button>' +
     '</div>';
 }
 
@@ -112,7 +111,6 @@ function toggleVisited(id) {
 function _updatePassportStats() {
   var el = document.getElementById('passport-stats');
   if (!el) return;
-  var isKo = typeof LANG !== 'undefined' && LANG === 'ko';
   var visArr = [..._visSet];
   var favArr = [..._favSet];
   var total  = visArr.length;
@@ -163,38 +161,38 @@ function _updatePassportStats() {
   }).join('');
 
   var recentHtml = recentName
-    ? '<div class="pp-recent">' + (isKo ? '최근: ' : 'Recent: ') + '<span>' + recentName + '</span></div>'
+    ? '<div class="pp-recent">Recent: <span>' + recentName + '</span></div>'
     : '';
 
   var legendHtml =
     '<div class="pp-legend">' +
       '<div class="pp-legend-row">' +
         '<span class="pp-legend-icon pp-leg-vis">✓</span>' +
-        '<span class="pp-legend-desc">' + (isKo ? '방문 완료 — 체크마크로 기록, 날짜 자동 저장' : 'Visited — marked with ✓, date auto-saved') + '</span>' +
+        '<span class="pp-legend-desc">Visited — marked with ✓, date auto-saved</span>' +
       '</div>' +
       '<div class="pp-legend-row">' +
         '<span class="pp-legend-icon pp-leg-fav">♥</span>' +
-        '<span class="pp-legend-desc">' + (isKo ? '즐겨찾기 — 가고 싶은 곳 저장' : 'Favorites — places you want to visit') + '</span>' +
+        '<span class="pp-legend-desc">Favorites — places you want to visit</span>' +
       '</div>' +
       '<div class="pp-legend-row">' +
         '<span class="pp-legend-icon pp-leg-route">🗺</span>' +
-        '<span class="pp-legend-desc">' + (isKo ? '루트 — 계획한 도보 코스' : 'Route — your planned walking course') + '</span>' +
+        '<span class="pp-legend-desc">Route — your planned walking course</span>' +
       '</div>' +
     '</div>';
 
   el.innerHTML =
     '<div class="pp-hdr">' +
-      '<span class="pp-title">' + (isKo ? '내 건축 여행' : 'My Journey') + '</span>' +
+      '<span class="pp-title">My Journey</span>' +
     '</div>' +
     '<div class="pp-counts">' +
-      '<span class="pp-count-vis" onclick="_openPpList(\'vis\')" style="cursor:pointer" title="' + (isKo ? '방문 목록 보기' : 'View visited list') + '">' +
-        '<span class="pp-num">' + total + '</span> ' + (isKo ? '방문' : 'visited') + '</span>' +
+      '<span class="pp-count-vis" onclick="_openPpList(\'vis\')" style="cursor:pointer" title="View visited list">' +
+        '<span class="pp-num">' + total + '</span> visited</span>' +
       '<span class="pp-sep">·</span>' +
-      '<span class="pp-count-fav" onclick="_openPpList(\'fav\')" style="cursor:pointer" title="' + (isKo ? '즐겨찾기 목록 보기' : 'View favorites list') + '">' +
-        '<span class="pp-num">' + totalF + '</span> ' + (isKo ? '즐겨찾기' : 'favs') + '</span>' +
+      '<span class="pp-count-fav" onclick="_openPpList(\'fav\')" style="cursor:pointer" title="View favorites list">' +
+        '<span class="pp-num">' + totalF + '</span> favs</span>' +
       '<span class="pp-sep">·</span>' +
-      '<span class="pp-count-route" onclick="if(typeof _openRouteManager===\'function\')_openRouteManager(\'saved\')" style="cursor:pointer" title="' + (isKo ? '저장된 루트 보기' : 'View saved routes') + '">' +
-        '<span class="pp-num">' + totalR + '</span> ' + (isKo ? '루트' : 'routes') + '</span>' +
+      '<span class="pp-count-route" onclick="if(typeof _openRouteManager===\'function\')_openRouteManager(\'saved\')" style="cursor:pointer" title="View saved routes">' +
+        '<span class="pp-num">' + totalR + '</span> routes</span>' +
     '</div>' +
     (cityBars ? '<div class="pp-cities">' + cityBars + '</div>' : '') +
     recentHtml +
@@ -206,12 +204,9 @@ function _openPpList(type) {
   var existing = document.getElementById('aw-pp-list');
   if (existing && existing.parentNode) existing.parentNode.removeChild(existing);
 
-  var isKo      = typeof LANG !== 'undefined' && LANG === 'ko';
   var isFavType = (type === 'fav');
   var ids       = isFavType ? [..._favSet] : [..._visSet];
-  var title     = isFavType
-    ? (isKo ? '⭐ 즐겨찾기' : '⭐ Favorites')
-    : (isKo ? '✓ 방문한 곳' : '✓ Visited');
+  var title     = isFavType ? '⭐ Favorites' : '✓ Visited';
 
   // Show popup immediately with loading state, then fill once all city data loads
   // (IDs may belong to cities not yet lazy-loaded, so we must preload all)
@@ -230,7 +225,7 @@ function _openPpList(type) {
       '<button class="arm-close" onclick="_closePpList()">✕</button>' +
     '</div>' +
     '<div class="arm-scrollable" id="pp-list-body">' +
-      '<div class="arm-empty">' + (isKo ? '불러오는 중…' : 'Loading…') + '</div>' +
+      '<div class="arm-empty">Loading…</div>' +
     '</div>';
   overlay.appendChild(panel);
   document.body.appendChild(overlay);
@@ -242,13 +237,13 @@ function _openPpList(type) {
   });
   Promise.all(loads).then(function() {
     var body = document.getElementById('pp-list-body');
-    if (body) body.innerHTML = _buildPpListRows(type, isFavType, isKo, ids);
+    if (body) body.innerHTML = _buildPpListRows(type, isFavType, ids);
   });
 
 }
 
 // Build the scrollable rows HTML for visited/favs list (called after all city data is loaded)
-function _buildPpListRows(type, isFavType, isKo, ids) {
+function _buildPpListRows(type, isFavType, ids) {
   // Build loc objects — LOCS now has all cities loaded
   var locs = [];
   if (typeof LOCS !== 'undefined') {
@@ -294,9 +289,7 @@ function _buildPpListRows(type, isFavType, isKo, ids) {
 
   if (!locs.length) {
     return '<div class="arm-empty">' +
-      (isFavType
-        ? (isKo ? '즐겨찾기가 없습니다' : 'No favorites yet')
-        : (isKo ? '방문 기록이 없습니다' : 'No visited places yet')) +
+      (isFavType ? 'No favorites yet' : 'No visited places yet') +
     '</div>';
   }
 
@@ -305,7 +298,7 @@ function _buildPpListRows(type, isFavType, isKo, ids) {
     var group = (code === '__unknown') ? unknown : byCity[code];
     if (!group || !group.length) return;
     var cityMeta = (typeof CITY_META !== 'undefined' && CITY_META[code]) ? CITY_META[code] : null;
-    var cityLabel = cityMeta ? cityMeta.label : (isKo ? '기타' : 'Other');
+    var cityLabel = cityMeta ? cityMeta.label : 'Other';
     var sectionHtml =
       '<div style="padding:8px 14px 4px;font-size:10px;font-weight:700;' +
         'color:#aaa;letter-spacing:0.06em;text-transform:uppercase;' +
@@ -590,7 +583,6 @@ function _applyFavFilter() {
 // ── Fav Share ────────────────────────────────────────────────────
 function favShareLocations() {
   // Collect favorited location IDs for the active city
-  var ko = (typeof LANG !== 'undefined' && LANG === 'ko');
   var cityFavIds = [];
   if (typeof LOCS !== 'undefined' && typeof _favSet !== 'undefined') {
     LOCS.forEach(function(loc) {
@@ -600,7 +592,7 @@ function favShareLocations() {
     });
   }
   if (cityFavIds.length === 0) {
-    alert(ko ? '현재 도시에 즐겨찾기한 장소가 없습니다.' : 'No favorited locations in the current city.');
+    alert('No favorited locations in the current city.');
     return;
   }
   if (typeof openShareModal === 'function') {

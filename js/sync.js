@@ -294,55 +294,47 @@ function syncCloseModal() {
   if (el) el.style.display = 'none';
 }
 
-function _isKo() {
-  return (typeof currentLang !== 'undefined' && currentLang === 'ko')
-    || (navigator.language || '').startsWith('ko');
-}
 
 function _syncRenderStep(step, errorMsg, modeOverride) {
   if (modeOverride) _syncModalMode = modeOverride;
   var body = document.getElementById('sync-modal-body');
   if (!body) return;
-  var ko = _isKo();
 
   if (step === 'method') {
     var isSignup = _syncModalMode === 'signup';
     var isLogin  = _syncModalMode === 'login';
-    var title = isSignup ? (ko ? '🙌 ArchWander 가입하기' : '🙌 Create Your Account')
-              : isLogin  ? (ko ? '👋 다시 오셨군요!' : '👋 Welcome Back')
-              : (ko ? '🔄 기기 간 동기화' : '🔄 Sync Across Devices');
+    var title = isSignup ? '🙌 Create Your Account'
+              : isLogin  ? '👋 Welcome Back'
+              : '🔄 Sync Across Devices';
     var sub = isSignup
-      ? (ko ? '이메일로 계정을 만들어 즐겨찾기·방문·루트를<br>모든 기기에서 유지하세요.'
-            : 'Create your account to keep favorites, visits<br>&amp; routes synced across all your devices.')
+      ? 'Create your account to keep favorites, visits<br>&amp; routes synced across all your devices.'
       : isLogin
-      ? (ko ? '이메일로 로그인하면 저장된 즐겨찾기·방문·루트를<br>이 기기로 복원합니다.'
-            : 'Sign in to restore your saved favorites, visits<br>&amp; routes on this device.')
-      : (ko ? '로그인하면 즐겨찾기·방문 기록·저장 루트가<br>모든 기기에 자동 동기화됩니다.'
-            : 'Sign in to keep favorites, visits &amp; routes<br>in sync across all your devices.');
+      ? 'Sign in to restore your saved favorites, visits<br>&amp; routes on this device.'
+      : 'Sign in to keep favorites, visits &amp; routes<br>in sync across all your devices.';
     body.innerHTML =
       '<div class="sm-title">' + title + '</div>' +
       '<div class="sm-sub">' + sub + '</div>' +
       // Google
       '<button class="sm-btn sm-btn-google" onclick="_syncDoGoogle()">' +
         '<svg width="18" height="18" viewBox="0 0 24 24" style="flex-shrink:0;margin-right:8px"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>' +
-        (ko ? 'Google로 계속' : 'Continue with Google') +
+        'Continue with Google' +
       '</button>' +
       // Facebook
       '<button class="sm-btn sm-btn-facebook" onclick="_syncDoFacebook()">' +
         '<svg width="18" height="18" viewBox="0 0 24 24" fill="white" style="flex-shrink:0;margin-right:8px"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>' +
-        (ko ? 'Facebook으로 계속' : 'Continue with Facebook') +
+        'Continue with Facebook' +
       '</button>' +
-      '<div class="sm-divider"><span>' + (ko ? '또는 이메일로' : 'or continue with email') + '</span></div>' +
-      '<label class="sm-label">' + (ko ? '이메일 주소' : 'Email address') + '</label>' +
+      '<div class="sm-divider"><span>or continue with email</span></div>' +
+      '<label class="sm-label">Email address</label>' +
       '<input class="sm-input" id="sm-email" type="email" placeholder="you@example.com" autocomplete="email">' +
       (errorMsg ? '<div class="sm-error">' + errorMsg + '</div>' : '') +
-      '<button class="sm-btn sm-btn-primary" onclick="_syncDoSendOtp()">' + (ko ? '인증 코드 받기 →' : 'Send Code →') + '</button>' +
+      '<button class="sm-btn sm-btn-primary" onclick="_syncDoSendOtp()">Send Code →</button>' +
       // Toggle: Sign In ↔ Sign Up
       (isSignup
-        ? '<div class="sm-switch">' + (ko ? '이미 계정이 있나요? ' : 'Already have an account? ') +
-          '<button class="sm-switch-btn" onclick="_syncRenderStep(\'method\',null,\'login\')">' + (ko ? '로그인' : 'Sign In') + '</button></div>'
-        : '<div class="sm-switch">' + (ko ? '계정이 없으신가요? ' : 'No account yet? ') +
-          '<button class="sm-switch-btn" onclick="_syncRenderStep(\'method\',null,\'signup\')">' + (ko ? '회원가입' : 'Sign Up') + '</button></div>'
+        ? '<div class="sm-switch">Already have an account? ' +
+          '<button class="sm-switch-btn" onclick="_syncRenderStep(\'method\',null,\'login\')">Sign In</button></div>'
+        : '<div class="sm-switch">No account yet? ' +
+          '<button class="sm-switch-btn" onclick="_syncRenderStep(\'method\',null,\'signup\')">Sign Up</button></div>'
       );
     var inp = document.getElementById('sm-email');
     if (inp) {
@@ -352,15 +344,13 @@ function _syncRenderStep(step, errorMsg, modeOverride) {
 
   } else if (step === 'otp') {
     body.innerHTML =
-      '<div class="sm-title">' + (ko ? '📨 코드를 확인하세요' : '📨 Check Your Email') + '</div>' +
-      '<div class="sm-sub">' + (ko
-        ? '<strong>' + _syncPendingEmail + '</strong>으로<br>6자리 인증 코드를 보냈어요.'
-        : 'We sent a 6-digit code to<br><strong>' + _syncPendingEmail + '</strong>.') + '</div>' +
-      '<label class="sm-label">' + (ko ? '인증 코드 6자리' : '6-digit code') + '</label>' +
+      '<div class="sm-title">📨 Check Your Email</div>' +
+      '<div class="sm-sub">We sent a 6-digit code to<br><strong>' + _syncPendingEmail + '</strong>.</div>' +
+      '<label class="sm-label">6-digit code</label>' +
       '<input class="sm-input sm-input-otp" id="sm-otp" type="text" inputmode="numeric" maxlength="6" placeholder="000000" autocomplete="one-time-code">' +
       (errorMsg ? '<div class="sm-error">' + errorMsg + '</div>' : '') +
-      '<button class="sm-btn sm-btn-primary" onclick="_syncDoVerify()">' + (ko ? '인증 완료 →' : 'Verify →') + '</button>' +
-      '<button class="sm-btn sm-btn-text" onclick="_syncRenderStep(\'method\')">' + (ko ? '← 다시 시도' : '← Try again') + '</button>';
+      '<button class="sm-btn sm-btn-primary" onclick="_syncDoVerify()">Verify →</button>' +
+      '<button class="sm-btn sm-btn-text" onclick="_syncRenderStep(\'method\')">← Try again</button>';
     var otpInp = document.getElementById('sm-otp');
     if (otpInp) {
       otpInp.addEventListener('keydown', function(e) { if (e.key === 'Enter') _syncDoVerify(); });
@@ -370,44 +360,39 @@ function _syncRenderStep(step, errorMsg, modeOverride) {
   } else if (step === 'loading') {
     body.innerHTML =
       '<div class="sm-spinner"></div>' +
-      '<div class="sm-title">' + (ko ? '⏳ 동기화 중...' : '⏳ Syncing...') + '</div>' +
-      '<div class="sm-sub">' + (ko ? '잠깐만 기다려 주세요.' : 'Just a moment.') + '</div>';
+      '<div class="sm-title">⏳ Syncing...</div>' +
+      '<div class="sm-sub">Just a moment.</div>';
 
   } else if (step === 'success') {
     var email = _syncUser && _syncUser.email ? _syncUser.email : '';
     body.innerHTML =
       '<div class="sm-check">✓</div>' +
-      '<div class="sm-title">' + (ko ? '동기화 완료!' : 'All Synced!') + '</div>' +
-      '<div class="sm-sub">' + (ko
-        ? (email ? '<strong>' + email + '</strong>으로 로그인되었어요.<br>즐겨찾기·방문·루트가 모든 기기에서 자동으로 동기화됩니다.' : '동기화 완료!')
-        : (email ? 'Signed in as <strong>' + email + '</strong>.<br>Favorites, visits &amp; routes now sync automatically.' : 'Sync complete!')) + '</div>' +
-      '<button class="sm-btn sm-btn-primary" onclick="syncCloseModal()">' + (ko ? '완료' : 'Done') + '</button>';
+      '<div class="sm-title">All Synced!</div>' +
+      '<div class="sm-sub">' + (email ? 'Signed in as <strong>' + email + '</strong>.<br>Favorites, visits &amp; routes now sync automatically.' : 'Sync complete!') + '</div>' +
+      '<button class="sm-btn sm-btn-primary" onclick="syncCloseModal()">Done</button>';
     setTimeout(syncCloseModal, 3500);
   }
 }
 
 async function _syncDoGoogle() {
-  var ko = _isKo();
   try {
     _syncRenderStep('loading');
     await syncSignInGoogle();
   } catch(e) {
-    _syncRenderStep('method', (ko ? 'Google 로그인 실패: ' : 'Google error: ') + e.message);
+    _syncRenderStep('method', 'Google error: ' + e.message);
   }
 }
 
 async function _syncDoFacebook() {
-  var ko = _isKo();
   try {
     _syncRenderStep('loading');
     await syncSignInFacebook();
   } catch(e) {
-    _syncRenderStep('method', (ko ? 'Facebook 로그인 실패: ' : 'Facebook error: ') + e.message);
+    _syncRenderStep('method', 'Facebook error: ' + e.message);
   }
 }
 
 async function _syncDoSendOtp() {
-  var ko = _isKo();
   var emailEl = document.getElementById('sm-email');
   if (!emailEl) return;
   var email = emailEl.value.trim();
@@ -422,12 +407,11 @@ async function _syncDoSendOtp() {
     _syncRenderStep('otp');
   } catch(e) {
     emailEl.disabled = false;
-    _syncRenderStep('method', (ko ? '전송 실패: ' : 'Error: ') + e.message);
+    _syncRenderStep('method', 'Error: ' + e.message);
   }
 }
 
 async function _syncDoVerify() {
-  var ko = _isKo();
   var tokenEl = document.getElementById('sm-otp');
   if (!tokenEl) return;
   var token = tokenEl.value.replace(/\D/g, '').slice(0, 6);
@@ -445,14 +429,13 @@ async function _syncDoVerify() {
     await new Promise(function(res) { setTimeout(res, 1800); });
     _syncRenderStep('success');
   } catch(e) {
-    _syncRenderStep('otp', (ko ? '인증 실패: ' : 'Error: ') + e.message);
+    _syncRenderStep('otp', 'Error: ' + e.message);
   }
 }
 
 // ── Header auth area (Sign Up / Log In / user chip) ───────────────
 function _updateHeaderAuth() {
   var el   = document.getElementById('header-auth-area');
-  var ko   = _isKo();
 
   // Sidebar static elements
   var sbLoginBtn = document.getElementById('sb-login-btn');
@@ -477,14 +460,12 @@ function _updateHeaderAuth() {
   } else {
     // Not logged in — header Sign In button
     if (el) el.innerHTML =
-      '<button class="hdr-auth-btn hdr-auth-login" onclick="syncOpenModal(\'login\')">' +
-        (ko ? '로그인' : 'Sign In') +
-      '</button>';
+      '<button class="hdr-auth-btn hdr-auth-login" onclick="syncOpenModal(\'login\')">Sign In</button>';
 
     // Sidebar Log In (show login btn, hide chip)
     if (sbLoginBtn) {
       sbLoginBtn.style.display = '';
-      sbLoginBtn.textContent = ko ? '로그인' : 'Log In';
+      sbLoginBtn.textContent = 'Log In';
     }
     if (sbChipBtn) sbChipBtn.style.display = 'none';
   }
@@ -494,7 +475,6 @@ function _updateHeaderAuth() {
 function _syncUpdateStatusUI() {
   var el = document.getElementById('mpp-sync-status');
   if (!el) return;
-  var ko = _isKo();
   _syncLastAt = _syncLastAt || localStorage.getItem('aw_sync_last');
 
   if (_syncUser && _syncUser.email) {
@@ -502,27 +482,27 @@ function _syncUpdateStatusUI() {
     var lastStr = '—';
     if (_syncLastAt) {
       try {
-        lastStr = new Date(_syncLastAt).toLocaleString('ko-KR', {month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
+        lastStr = new Date(_syncLastAt).toLocaleString('en-US', {month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
       } catch(e) { lastStr = _syncLastAt.slice(0, 16); }
     }
     el.innerHTML =
       '<div class="mpp-sync-row">' +
         '<div class="mpp-sync-info">' +
           '<div class="mpp-sync-email">✅ ' + _syncUser.email + '</div>' +
-          '<div class="mpp-sync-last">' + (ko ? '마지막 동기화: ' : 'Last sync: ') + lastStr + '</div>' +
+          '<div class="mpp-sync-last">Last sync: ' + lastStr + '</div>' +
         '</div>' +
       '</div>' +
       '<div class="mpp-btn-row" style="margin-top:8px">' +
-        '<button class="mpp-btn mpp-btn-syncon" onclick="_mppDoSync()">' + (ko ? '🔄 지금 동기화' : '🔄 Sync Now') + '</button>' +
-        '<button class="mpp-btn mpp-btn-signout" onclick="_mppDoSignOut()">' + (ko ? '로그아웃' : 'Sign Out') + '</button>' +
+        '<button class="mpp-btn mpp-btn-syncon" onclick="_mppDoSync()">🔄 Sync Now</button>' +
+        '<button class="mpp-btn mpp-btn-signout" onclick="_mppDoSignOut()">Sign Out</button>' +
       '</div>';
   } else {
     el.innerHTML =
       '<button class="mpp-btn mpp-btn-syncon" onclick="syncOpenModal()" style="width:100%">' +
-        (ko ? '🔄 기기 간 동기화 설정하기' : '🔄 Set Up Cross-Device Sync') +
+        '🔄 Set Up Cross-Device Sync' +
       '</button>' +
       '<div class="mpp-sync-hint">' +
-        (ko ? '즐겨찾기·방문·루트를 모든 기기에서 유지' : 'Keep favorites, visits &amp; routes on every device') +
+        'Keep favorites, visits &amp; routes on every device' +
       '</div>';
   }
   // Keep header auth area in sync
@@ -530,9 +510,8 @@ function _syncUpdateStatusUI() {
 }
 
 async function _mppDoSync() {
-  var ko = _isKo();
   var el = document.getElementById('mpp-sync-status');
-  if (el) el.innerHTML = '<div style="text-align:center;padding:12px;color:#888;font-size:12px">' + (ko ? '⏳ 동기화 중...' : '⏳ Syncing...') + '</div>';
+  if (el) el.innerHTML = '<div style="text-align:center;padding:12px;color:#888;font-size:12px">⏳ Syncing...</div>';
   try {
     await syncAll();
     // Re-render My Page to reflect updated status
@@ -544,13 +523,12 @@ async function _mppDoSync() {
     }
   } catch(e) {
     if (el) _syncUpdateStatusUI();
-    alert((ko ? '동기화 실패: ' : 'Sync failed: ') + e.message);
+    alert('Sync failed: ' + e.message);
   }
 }
 
 async function _mppDoSignOut() {
-  var ko = _isKo();
-  if (!confirm(ko ? '로그아웃하면 이 기기의 동기화가 해제됩니다. 계속할까요?' : 'Sign out and disconnect this device from sync?')) return;
+  if (!confirm('Sign out and disconnect this device from sync?')) return;
   await syncSignOut();
   if (typeof _closeMyPage === 'function' && typeof _openMyPage === 'function') {
     _closeMyPage();
@@ -567,16 +545,13 @@ function _checkPwaBanner() {
   if (_pwaBannerDismissed)   return;
   if (document.getElementById('pwa-sync-banner')) return;
 
-  var ko = _isKo();
   var banner = document.createElement('div');
   banner.id = 'pwa-sync-banner';
   banner.className = 'pwa-sync-banner';
   banner.innerHTML =
     '<span class="psb-icon">🔄</span>' +
-    '<span class="psb-text">' +
-      (ko ? '로그인하면 데이터가 모든 기기에 저장돼요' : 'Sign in to keep your data across sessions') +
-    '</span>' +
-    '<button class="psb-cta" onclick="syncOpenModal(\'signup\')">' + (ko ? '로그인' : 'Sign In') + '</button>' +
+    '<span class="psb-text">Sign in to keep your data across sessions</span>' +
+    '<button class="psb-cta" onclick="syncOpenModal(\'signup\')">Sign In</button>' +
     '<button class="psb-close" onclick="_dismissPwaBanner()" aria-label="Dismiss">✕</button>';
   document.body.appendChild(banner);
   requestAnimationFrame(function() {
@@ -618,12 +593,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // 1) Private mode warning
   if (!_storageAvailable) {
-    var ko = _isKo();
-    _showToast(
-      ko ? '⚠️ 프라이빗 브라우징에서는 데이터가 저장되지 않아요'
-         : '⚠️ Private browsing — your data won\'t be saved',
-      6000, 'warn'
-    );
+    _showToast('⚠️ Private browsing — your data won\'t be saved', 6000, 'warn');
   }
 
   // 2) iOS PWA sign-in nudge (slight delay so header renders first)

@@ -46,11 +46,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Press+Start+2P&family=Space+Mono:wght@400;700&family=EB+Garamond:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"/>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/MarkerCluster.css"/>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/MarkerCluster.css"
+        integrity="sha384-pmjIAcz2bAn0xukfxADbZIb3t8oRT9Sv0rvO+BR5Csr6Dhqq+nZs59P0pPKQJkEV" crossorigin="anonymous"/>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.105.4/dist/umd/supabase.js"
+          integrity="sha384-7SfFUrg31wOnGWBLLniKFCNmCSguYA5wI1WPDOt7kP/mom4R9/0pwghVEnv0uwYP" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"
+          integrity="sha384-eXVCORTRlv4FUUgS/xmOyr66XBVraen8ATNLMESp92FKXLAMiKkerixTiBvXriZr" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="css/styles.css?v=20260705c">
 </head>
 <body>
@@ -590,7 +595,7 @@
     <div id="passport-stats" style="display:none"></div>
 
     <!-- Filter toggle button -->
-    <button class="sb-filter-toggle" id="sb-filter-toggle" onclick="toggleSbFilters()">
+    <button class="sb-filter-toggle" id="sb-filter-toggle" onclick="toggleSbFilters()" aria-expanded="false" aria-controls="sb-filter-panel">
       <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
       Filters
       <span class="sb-ft-dot" id="sb-ft-dot"></span>
@@ -598,7 +603,7 @@
     </button>
 
     <!-- Filters section (hidden by default) -->
-    <div class="sb-filters" id="sb-filters" style="display:none">
+    <div class="sb-filters" id="sb-filter-panel" style="display:none">
 
       <!-- Top bar -->
       <div class="sb-top">
@@ -607,7 +612,7 @@
 
       <!-- Category -->
       <div class="fsec" id="fsec-cat">
-        <button class="fsec-hdr" onclick="toggleFsec('cat')">
+        <button class="fsec-hdr" onclick="toggleFsec('cat')" aria-expanded="false" aria-controls="body-cat">
           <span>Category</span>
           <span class="fsec-dot" id="dot-cat"></span>
           <span class="fsec-reset" id="reset-cat" onclick="event.stopPropagation();setFilter('cat','All')" title="Clear">✕ Clear</span>
@@ -618,7 +623,7 @@
 
       <!-- Neighborhood -->
       <div class="fsec" id="fsec-hood">
-        <button class="fsec-hdr" onclick="toggleFsec('hood')">
+        <button class="fsec-hdr" onclick="toggleFsec('hood')" aria-expanded="false" aria-controls="body-hood">
           <span>Neighborhood</span>
           <span class="fsec-dot" id="dot-hood"></span>
           <span class="fsec-reset" id="reset-hood" onclick="event.stopPropagation();setFilter('hood','All')" title="Clear">✕ Clear</span>
@@ -629,7 +634,7 @@
 
       <!-- Access -->
       <div class="fsec" id="fsec-access">
-        <button class="fsec-hdr" onclick="toggleFsec('access')">
+        <button class="fsec-hdr" onclick="toggleFsec('access')" aria-expanded="false" aria-controls="body-access">
           <span>Access</span>
           <span class="fsec-dot" id="dot-access"></span>
           <span class="fsec-reset" id="reset-access" onclick="event.stopPropagation();setFilter('access','All')" title="Clear">✕ Clear</span>
@@ -640,7 +645,7 @@
 
       <!-- Built Era -->
       <div class="fsec" id="fsec-era">
-        <button class="fsec-hdr" onclick="toggleFsec('era')">
+        <button class="fsec-hdr" onclick="toggleFsec('era')" aria-expanded="false" aria-controls="body-era">
           <span>Built Era</span>
           <span class="fsec-dot" id="dot-era"></span>
           <span class="fsec-reset" id="reset-era" onclick="event.stopPropagation();setFilter('era','All')" title="Clear">✕ Clear</span>
@@ -651,7 +656,7 @@
 
       <!-- Style -->
       <div class="fsec" id="fsec-style">
-        <button class="fsec-hdr" onclick="toggleFsec('style')">
+        <button class="fsec-hdr" onclick="toggleFsec('style')" aria-expanded="false" aria-controls="body-style">
           <span>Style</span>
           <span class="fsec-dot" id="dot-style"></span>
           <span class="fsec-reset" id="reset-style" onclick="event.stopPropagation();setFilter('style','All')" title="Clear">✕ Clear</span>
@@ -662,7 +667,7 @@
 
       <!-- Favorites -->
       <div class="fsec" id="fsec-fav">
-        <button class="fsec-hdr" onclick="toggleFsec('fav')">
+        <button class="fsec-hdr" onclick="toggleFsec('fav')" aria-expanded="false" aria-controls="body-fav">
           <span>Favorites</span>
           <span class="fsec-dot" id="dot-fav"></span>
           <span class="fsec-reset" id="reset-fav" onclick="event.stopPropagation();setFilter('fav','All')" title="Clear">✕ Clear</span>
@@ -699,7 +704,7 @@
       </select>
       <button class="list-overlay-close" onclick="_closeListOverlay()">✕</button>
     </div>
-    <div class="loc-list" id="loc-list"></div>
+    <div class="loc-list" id="loc-list" role="list" aria-live="polite" aria-atomic="false"></div>
   </div>
 </div>
 <!-- Report Issue Modal -->
@@ -797,9 +802,9 @@
     <div class="panel-resize" id="panel-resize" title="Drag to resize panel"></div>
     <button class="panel-close" onclick="closePanel()">&#215;</button>
     <div class="gallery" id="gallery">
-      <button class="g-btn g-prev" onclick="prevPhoto()">&#8249;</button>
-      <button class="g-btn g-next" onclick="nextPhoto()">&#8250;</button>
-      <div class="g-dots" id="g-dots"></div>
+      <button class="g-btn g-prev" onclick="prevPhoto()" aria-label="Previous photo">&#8249;</button>
+      <button class="g-btn g-next" onclick="nextPhoto()" aria-label="Next photo">&#8250;</button>
+      <div class="g-dots" id="g-dots" role="tablist" aria-label="Photo slides"></div>
       <div class="g-label" id="g-label"></div>
       <div id="g-attrib" style="display:none;position:absolute;bottom:4px;left:8px;background:rgba(0,0,0,0.45);color:#fff;font-size:9px;padding:2px 6px;border-radius:3px;pointer-events:none;max-width:75%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.5;z-index:10"></div>
     </div>
@@ -1024,9 +1029,7 @@
 <script src="js/core.js?v=20260624a"></script>
 <script src="js/glossary.js?v=20260609"></script>
 <script src="js/badges.js?v=20260609"></script>
-<!-- js/compare.js kept in repo for future use; not loaded -->
 <script src="js/influence.js?v=20260609"></script>
-<!-- js/audio.js kept in repo for future use; not loaded -->
 <script src="js/ui.js?v=20260622e"></script>
 <script src="js/walk.js?v=20260622c"></script>
 <script src="js/city.js?v=20260705c"></script>

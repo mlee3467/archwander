@@ -265,7 +265,6 @@ function checkBadgesOnAction() {
 
 // ── Toast notification ────────────────────────────────────────────
 function _showBadgeToast(badge) {
-  var isKo = typeof LANG !== 'undefined' && LANG === 'ko';
   var existing = document.getElementById('badge-toast');
   if (existing) existing.parentNode.removeChild(existing);
 
@@ -275,8 +274,8 @@ function _showBadgeToast(badge) {
   toast.innerHTML =
     '<div class="badge-toast-icon">' + badge.icon + '</div>'
     + '<div class="badge-toast-body">'
-      + '<div class="badge-toast-label">' + (isKo ? '🏅 뱃지 획득!' : '🏅 Badge Unlocked!') + '</div>'
-      + '<div class="badge-toast-name">' + (isKo ? badge.nameKo : badge.name) + '</div>'
+      + '<div class="badge-toast-label">🏅 Badge Unlocked!</div>'
+      + '<div class="badge-toast-name">' + badge.name + '</div>'
     + '</div>';
 
   document.body.appendChild(toast);
@@ -290,7 +289,7 @@ function _showBadgeToast(badge) {
 }
 
 // ── Rank HTML for My Page (inline section) ─────────────────────────
-function buildRankHtml(isKo) {
+function buildRankHtml() {
   var data    = _badgeComputeData();
   var rank    = _getRank(data.vis);
   var next    = _getNextRank(data.vis);
@@ -305,23 +304,23 @@ function buildRankHtml(isKo) {
         + '<div class="rank-progress-bar"><div class="rank-progress-fill" style="width:' + pct + '%"></div></div>'
         + '<span class="rank-progress-label">' + data.vis + ' / ' + next.min + '</span>'
       + '</div>'
-      + '<div class="rank-next-label">' + (isKo ? '다음: ' : 'Next: ') + next.icon + ' ' + (isKo ? next.labelKo : next.label) + '</div>';
+      + '<div class="rank-next-label">Next: ' + next.icon + ' ' + next.label + '</div>';
   } else {
-    progressHtml = '<div class="rank-next-label rank-maxed">' + (isKo ? '🎊 최고 등급 달성!' : '🎊 Maximum rank achieved!') + '</div>';
+    progressHtml = '<div class="rank-next-label rank-maxed">🎊 Maximum rank achieved!</div>';
   }
 
   return '<div class="mpp-section rank-section">'
-    + '<div class="mpp-sec-title">🎖 ' + (isKo ? '탐험가 등급' : 'Explorer Rank') + '</div>'
+    + '<div class="mpp-sec-title">🎖 Explorer Rank</div>'
     + '<div class="rank-display">'
       + '<div class="rank-icon" style="color:' + rank.color + '">' + rank.icon + '</div>'
       + '<div class="rank-info">'
-        + '<div class="rank-label" style="color:' + rank.color + '">' + (isKo ? rank.labelKo : rank.label) + '</div>'
-        + '<div class="rank-vis-count">' + (isKo ? data.vis + '개 건물 방문' : data.vis + ' buildings visited') + '</div>'
+        + '<div class="rank-label" style="color:' + rank.color + '">' + rank.label + '</div>'
+        + '<div class="rank-vis-count">' + data.vis + ' buildings visited</div>'
       + '</div>'
     + '</div>'
     + progressHtml
     + '<button class="rank-badges-btn" onclick="openBadgesPanel()">'
-      + '🏅 ' + earnedCount + ' / ' + BADGE_DEFS.length + ' ' + (isKo ? '뱃지 보기' : 'badges earned')
+      + '🏅 ' + earnedCount + ' / ' + BADGE_DEFS.length + ' badges earned'
     + '</button>'
   + '</div>';
 }
@@ -331,7 +330,6 @@ function openBadgesPanel() {
   var existing = document.getElementById('badges-overlay');
   if (existing) existing.parentNode.removeChild(existing);
 
-  var isKo   = typeof LANG !== 'undefined' && LANG === 'ko';
   var data   = _badgeComputeData();
   var earned = _getEarnedSet();
 
@@ -347,8 +345,8 @@ function openBadgesPanel() {
 
     return '<div class="badge-card' + (isEarned ? ' badge-earned' : ' badge-locked') + '">'
       + '<div class="badge-card-icon" style="' + (isEarned ? 'opacity:1' : 'filter:grayscale(1);opacity:0.35') + '">' + b.icon + '</div>'
-      + '<div class="badge-card-name">' + (isKo ? b.nameKo : b.name) + '</div>'
-      + '<div class="badge-card-desc">' + (isKo ? b.descKo : b.desc) + '</div>'
+      + '<div class="badge-card-name">' + b.name + '</div>'
+      + '<div class="badge-card-desc">' + b.desc + '</div>'
       + (isEarned
           ? '<div class="badge-card-done">✓</div>'
           : '<div class="badge-card-prog">'
@@ -369,8 +367,8 @@ function openBadgesPanel() {
       + '<div class="badges-hdr">'
         + '<button class="badges-back-btn" onclick="closeBadgesPanel()">◀</button>'
         + '<div class="badges-hdr-center">'
-          + '<div class="badges-hdr-title">🏅 ' + (isKo ? '뱃지' : 'Badges') + '</div>'
-          + '<div class="badges-hdr-sub">' + rank.icon + ' ' + (isKo ? rank.labelKo : rank.label) + ' &nbsp;·&nbsp; ' + earnedCount + ' / ' + BADGE_DEFS.length + '</div>'
+          + '<div class="badges-hdr-title">🏅 Badges</div>'
+          + '<div class="badges-hdr-sub">' + rank.icon + ' ' + rank.label + ' &nbsp;·&nbsp; ' + earnedCount + ' / ' + BADGE_DEFS.length + '</div>'
         + '</div>'
       + '</div>'
       + '<div class="badges-body">'

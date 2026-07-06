@@ -256,7 +256,7 @@ function getFiltered(opts) {
     // Footer showing total count if more than AC_MAX
     if (totalMatches > AC_MAX) {
       html += '<div class="ac-footer" onmousedown="event.preventDefault()" onclick="_acCommit()">'
-        + '↵  ' + (typeof LANG !== 'undefined' && LANG === 'ko' ? totalMatches + '개 결과 모두 보기' : 'View all ' + totalMatches + ' results') + '</div>';
+        + '↵  View all ' + totalMatches + ' results</div>';
     }
 
     acEl.innerHTML = html;
@@ -314,11 +314,16 @@ function getFiltered(opts) {
     setTimeout(function() { openLocById(id); }, 1800);
   };
 
-  // Input handler — update list AND autocomplete
+  // Input handler — update list AND autocomplete (200ms debounce)
+  var _searchDebounce = null;
   searchEl.addEventListener('input', function() {
+    var _self = this;
     state.query = this.value;
-    renderList();
-    syncMarkers();
+    clearTimeout(_searchDebounce);
+    _searchDebounce = setTimeout(function() {
+      renderList();
+      syncMarkers();
+    }, 200);
 
     var q = this.value.trim();
     if (q.length < 1) { closeAc(); return; }
@@ -419,28 +424,11 @@ function cardThumb(loc) {
   if (m.icon) {
     return `<div class="card-thumb-icon" style="background-image:url('${m.icon}');background-color:${m.bg}" title="${_allCats(loc).join(', ')}"></div>`;
   }
-  return `<img class="card-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="background:#e8e8e4">`;
+  return `<img class="card-img" loading="lazy" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="background:#e8e8e4">`;
 }
 
-function renderList() {
-  const list = getFiltered();
-  document.getElementById('list-meta').textContent = t('loc_count')(list.length);
-  // Track search appearances when user has an active query
-  if (state.query && list.length) _awTrackSearchDebounced(list.map(l => l.id));
-
-  const wrap = document.getElementById('loc-list');
-  if (!list.length) {
-    wrap.innerHTML = `<div class="no-results">${t('no_results')}</div>`;
-    return;
-  }
-  var isKo = (typeof LANG !== 'undefined') ? LANG === 'ko' : false;
-  var suggestFooter = '<div class="list-suggest-footer" onclick="event.stopPropagation();_openSuggestForm()">' +
-    (isKo ? '찾는 건물이 없나요? ' : 'Missing a building? ') +
-    '<span class="list-suggest-link">' + (isKo ? '제안하기 →' : 'Suggest it →') + '</span>' +
-    '</div>';
-
-  wrap.innerHTML = list.map(loc => `
-    <div class="loc-card${activeLoc?.id === loc.id ? ' active' : ''}" onclick="openLocById('${loc.id}')">
+function _cardHtml(loc) {
+  return `<div class="loc-card${activeLoc?.id === loc.id ? ' active' : ''}" role="listitem" tabindex="0" onclick="openLocById('${loc.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLocById('${loc.id}')}" aria-label="${loc.name}, ${loc.yr || ''}, ${loc.arch || ''}">
       ${cardThumb(loc)}
       <div class="card-body">
         <div class="card-name">${_displayName(loc)}</div>
@@ -460,8 +448,79 @@ function renderList() {
           ${isVisited(loc.id)?'✓':'○'}
         </button>
       </div>
-    </div>
-  `).join('') + suggestFooter;
+    </div>`;
+}
+
+// ── Chunk render state ─────────────────────────────────────────
+var _CHUNK_SIZE   = 30;
+var _listAll      = [];
+var _listOffset   = 0;
+var _listRenderGen = 0;
+var _listObs      = null;
+
+function _appendChunk(wrap, gen) {
+  if (gen !== _listRenderGen) return;           // stale render — discard
+  var slice = _listAll.slice(_listOffset, _listOffset + _CHUNK_SIZE);
+  _listOffset += slice.length;
+
+  // Build HTML → detached div → fragment (avoids full innerHTML reflow)
+  var tmp = document.createElement('div');
+  tmp.innerHTML = slice.map(_cardHtml).join('');
+  var frag = document.createDocumentFragment();
+  while (tmp.firstChild) frag.appendChild(tmp.firstChild);
+
+  // Remove stale sentinel before appending new content
+  var oldSent = document.getElementById('list-load-sentinel');
+  if (oldSent) oldSent.remove();
+
+  wrap.appendChild(frag);
+
+  if (_listOffset < _listAll.length) {
+    // More items remain — append sentinel and observe it
+    var sentinel = document.createElement('div');
+    sentinel.id = 'list-load-sentinel';
+    sentinel.style.cssText = 'height:1px;overflow:hidden';
+    wrap.appendChild(sentinel);
+    _listObs = new IntersectionObserver(function(entries) {
+      if (!entries[0].isIntersecting) return;
+      _listObs.disconnect();
+      _listObs = null;
+      _appendChunk(wrap, gen);
+    }, { rootMargin: '300px' });
+    _listObs.observe(sentinel);
+  } else {
+    // All items rendered — append suggest footer
+    var footer = document.createElement('div');
+    footer.className = 'list-suggest-footer';
+    footer.onclick = function(e) { e.stopPropagation(); _openSuggestForm(); };
+    footer.innerHTML = 'Missing a building? <span class="list-suggest-link">Suggest it →</span>';
+    wrap.appendChild(footer);
+  }
+}
+
+function renderList() {
+  const list = getFiltered();
+  document.getElementById('list-meta').textContent = t('loc_count')(list.length);
+  // Track search appearances when user has an active query
+  if (state.query && list.length) _awTrackSearchDebounced(list.map(l => l.id));
+
+  const wrap = document.getElementById('loc-list');
+
+  // Disconnect any running observer from a previous render
+  if (_listObs) { _listObs.disconnect(); _listObs = null; }
+
+  if (!list.length) {
+    wrap.innerHTML = `<div class="no-results">${t('no_results')}</div>`;
+    _listAll = []; _listOffset = 0;
+    return;
+  }
+
+  // Reset chunk state and stamp a new generation
+  _listAll    = list;
+  _listOffset = 0;
+  _listRenderGen++;
+  wrap.innerHTML = '';
+  _appendChunk(wrap, _listRenderGen);
 }
 
 function syncMarkers() {
@@ -674,11 +733,13 @@ async function _initWikiHero(loc, gallery) {
     var isSvDot2   = hasSV2 && di2 === photoCount2 + 1;
     var intIdx2    = di2 - photoCount2 - 1 - (hasSV2 ? 1 : 0);
     var isSvIntDot2 = svIntArr2.length > 0 && intIdx2 >= 0 && intIdx2 < svIntArr2.length;
+    var dotLabel2 = isIssDot2 ? 'Image search' : isSvDot2 ? 'Street View exterior' : isSvIntDot2 ? 'Street View interior' : 'Photo ' + (di2 + 1);
     wDotsHtml += '<div class="g-dot' + (di2 === 0 ? ' active' : '') +
       (isIssDot2   ? ' img-search-dot' : '') +
       (isSvDot2    ? ' sv-dot' : '') +
       (isSvIntDot2 ? ' sv-int-dot' : '') +
-      '" onclick="gotoPhoto(' + di2 + ')"></div>';
+      '" role="tab" tabindex="0" aria-label="' + dotLabel2 + '" aria-selected="' + (di2 === 0 ? 'true' : 'false') + '"' +
+      ' onclick="gotoPhoto(' + di2 + ')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();gotoPhoto(' + di2 + ')}"></div>';
   }
   document.getElementById('g-dots').innerHTML = wDotsHtml;
   photoIdx = 0;
@@ -929,11 +990,13 @@ function openLoc(loc) {
       var isSvDot    = hasSV && di === photoCount + 1;             // SV exterior (shifted +1)
       var intIdx     = di - photoCount - 1 - (hasSV ? 1 : 0);     // SV interior (shifted +1)
       var isSvIntDot = hasIntSV && intIdx >= 0 && intIdx < svIntArr.length;
+      var dotLabel = isIssDot ? 'Image search' : isSvDot ? 'Street View exterior' : isSvIntDot ? 'Street View interior' : 'Photo ' + (di + 1);
       dotsHtml += '<div class="g-dot' + (di === 0 ? ' active' : '') +
         (isIssDot   ? ' img-search-dot' : '') +
         (isSvDot    ? ' sv-dot' : '') +
         (isSvIntDot ? ' sv-int-dot' : '') +
-        '" onclick="gotoPhoto(' + di + ')"></div>';
+        '" role="tab" tabindex="0" aria-label="' + dotLabel + '" aria-selected="' + (di === 0 ? 'true' : 'false') + '"' +
+        ' onclick="gotoPhoto(' + di + ')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();gotoPhoto(' + di + ')}"></div>';
     }
     document.getElementById('g-dots').innerHTML = dotsHtml;
     updateGLabel();
@@ -1189,7 +1252,6 @@ function _buildArchLinksHead(loc) {
 function openArchProfile(archName) {
   var existing = document.getElementById('arch-profile-overlay');
   if (existing && existing.parentNode) existing.parentNode.removeChild(existing);
-  var isKo = typeof LANG !== 'undefined' && LANG === 'ko';
   var CITY_LBL = { 'new-york': 'New York', 'seoul': 'Seoul', 'london': 'London', 'tokyo': 'Tokyo', 'chicago': 'Chicago' };
   var works = (typeof LOCS !== 'undefined' ? LOCS : []).filter(function(l) {
     var archs = l.archs || (l.arch ? [l.arch] : []);
@@ -1209,7 +1271,7 @@ function openArchProfile(archName) {
       '</div></div>';
   }).join('');
 
-  if (!worksHtml) worksHtml = '<div style="padding:24px;color:var(--text-secondary);text-align:center;font-size:13px">' + (isKo ? '데이터 없음' : 'No works found in loaded data.') + '</div>';
+  if (!worksHtml) worksHtml = '<div style="padding:24px;color:var(--text-secondary);text-align:center;font-size:13px">No works found in loaded data.</div>';
 
   var overlay = document.createElement('div');
   overlay.id = 'arch-profile-overlay';
@@ -1220,11 +1282,11 @@ function openArchProfile(archName) {
         '<button class="arch-profile-back" onclick="closeArchProfile()">◀</button>' +
         '<div class="ap-hdr-center">' +
           '<div class="arch-profile-name">' + archName + '</div>' +
-          '<div class="arch-profile-sub">' + works.length + (isKo ? '개 작품' : ' works in dataset') + '</div>' +
+          '<div class="arch-profile-sub">' + works.length + ' works in dataset</div>' +
         '</div>' +
-        '<button class="ap-net-btn" onclick="openInfluenceNetwork(\'' + _escArch(archName) + '\')" title="' + (isKo ? '연관 네트워크' : 'Influence Network') + '">🕸</button>' +
+        '<button class="ap-net-btn" onclick="openInfluenceNetwork(\'' + _escArch(archName) + '\')" title="Influence Network">🕸</button>' +
       '</div>' +
-      '<div class="ap-wiki-bio" style="display:none"><div class="ap-wiki-loading">' + (isKo ? '정보 불러오는 중…' : 'Loading bio…') + '</div></div>' +
+      '<div class="ap-wiki-bio" style="display:none"><div class="ap-wiki-loading">Loading bio…</div></div>' +
       '<div class="arch-profile-list">' + worksHtml + '</div>' +
     '</div>';
   document.body.appendChild(overlay);
