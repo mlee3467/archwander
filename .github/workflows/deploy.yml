@@ -12,7 +12,7 @@ permissions:
 
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   deploy:
@@ -26,8 +26,6 @@ jobs:
         uses: actions/checkout@v4
 
       # ── Secret injection ──────────────────────────────────────────
-      # GitHub Secrets에 등록된 값들을 config.js placeholder에 주입.
-      # 절대 실제 값을 config.js에 직접 커밋하지 말 것.
       - name: Inject API keys into config.js
         env:
           GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
