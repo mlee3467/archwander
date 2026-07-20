@@ -38,21 +38,26 @@ function _requestMotionPermission() {
   }
 }
 
-// ── Hard refresh: purge SW caches, keep localStorage (favs/visits) ──
+// ── Hard refresh (with confirm): used in admin panel ──
 function hardRefresh() {
   if (!confirm('캐시를 삭제하고 새로고침합니다.\n즐겨찾기/방문 데이터는 유지됩니다.\n\nClear cache and reload?\nFavorites & visits will be kept.')) return;
+  hardRefreshSilent();
+}
+
+// ── Hard refresh (silent): SW unregister + cache purge + reload — logo tap ──
+function hardRefreshSilent() {
+  function _reload() { location.reload(true); }
   if ('caches' in window) {
     caches.keys().then(function(names) {
       return Promise.all(names.map(function(n) { return caches.delete(n); }));
     }).then(function() {
       if (navigator.serviceWorker) {
         navigator.serviceWorker.getRegistration().then(function(r) {
-          if (r) r.unregister().then(function() { location.reload(true); });
-          else location.reload(true);
+          if (r) r.unregister().then(_reload); else _reload();
         });
-      } else { location.reload(true); }
-    });
-  } else { location.reload(true); }
+      } else { _reload(); }
+    }).catch(_reload);
+  } else { _reload(); }
 }
 
 // ── Tile-only init (called once, used as visual bg behind landing) ──
