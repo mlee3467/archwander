@@ -550,6 +550,94 @@ function openShareSheet(e) {
   }
 }
 
+// ══════════════════════════════════════════════════════════════════
+// 3D AERIAL VIEW (Google Maps JS API — tilt 67.5°)
+// ══════════════════════════════════════════════════════════════════
+var _gmap3d          = null;   // google.maps.Map instance
+var _gmap3dOn        = false;  // currently visible?
+var _gmap3dLoading   = false;  // script tag injected but not yet ready
+
+function _has3DKey() {
+  return typeof GOOGLE_MAPS_API_KEY === 'string' &&
+         GOOGLE_MAPS_API_KEY &&
+         GOOGLE_MAPS_API_KEY !== '__GOOGLE_MAPS_API_KEY__';
+}
+
+// Show or hide the 3D button (called each time a location is opened)
+function _show3DBtn(show) {
+  var btn = document.getElementById('g-3d-btn');
+  if (btn) btn.style.display = show ? '' : 'none';
+}
+
+// Reset 3D view — called when gallery is cleared (new location or panel close)
+function _reset3DView() {
+  var el = document.getElementById('g-3dmap');
+  if (el) el.style.display = 'none';
+  var btn = document.getElementById('g-3d-btn');
+  if (btn) btn.classList.remove('active');
+  _gmap3dOn = false;
+  _gmap3d = null;
+}
+
+// Toggle 3D view on/off
+function toggle3DView() {
+  if (!activeLoc) return;
+  var el  = document.getElementById('g-3dmap');
+  var btn = document.getElementById('g-3d-btn');
+  if (!el) return;
+
+  if (_gmap3dOn) {
+    el.style.display = 'none';
+    if (btn) btn.classList.remove('active');
+    _gmap3dOn = false;
+  } else {
+    el.style.display = 'block';
+    if (btn) btn.classList.add('active');
+    _gmap3dOn = true;
+    _init3DMap(el, activeLoc);
+  }
+}
+
+function _init3DMap(container, loc) {
+  function _buildMap() {
+    container.innerHTML = '';
+    _gmap3d = new google.maps.Map(container, {
+      center:           { lat: loc.lat, lng: loc.lng },
+      zoom:             18,
+      tilt:             67.5,
+      heading:          (loc.gmap_heading != null) ? loc.gmap_heading : 0,
+      mapTypeId:        'satellite',
+      disableDefaultUI: false,
+      zoomControl:      true,
+      mapTypeControl:   false,
+      streetViewControl:false,
+      fullscreenControl:false,
+      rotateControl:    true,
+      gestureHandling:  'greedy'
+    });
+  }
+
+  // Already loaded
+  if (typeof google !== 'undefined' && google.maps) { _buildMap(); return; }
+
+  // Script already injected — wait for it
+  if (_gmap3dLoading) {
+    var _t = setInterval(function() {
+      if (typeof google !== 'undefined' && google.maps) { clearInterval(_t); _buildMap(); }
+    }, 150);
+    return;
+  }
+
+  // First use — inject script
+  _gmap3dLoading = true;
+  var s = document.createElement('script');
+  s.src = 'https://maps.googleapis.com/maps/api/js?key=' + GOOGLE_MAPS_API_KEY + '&v=weekly';
+  s.async = true;
+  s.onerror = function() { _gmap3dLoading = false; console.warn('[3D] Maps API load failed'); };
+  s.onload  = function() { _buildMap(); };
+  document.head.appendChild(s);
+}
+
 function closeShareSheet() {
   document.getElementById('share-sheet-overlay').classList.remove('open');
 }

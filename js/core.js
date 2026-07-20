@@ -865,6 +865,8 @@ function openLoc(loc) {
   gallery.querySelectorAll('.sv-fallback, .sv-fallback-int').forEach(function(el){ el.remove(); });
   gallery.querySelectorAll('.img-search-slide').forEach(function(el){ el.remove(); });
   gallery.classList.remove('sv-mode');
+  // Reset 3D view
+  if (typeof _reset3DView === 'function') _reset3DView();
   // Reset single attribution overlay
   const gAttrib = document.getElementById('g-attrib');
   if (gAttrib) { gAttrib.textContent = ''; gAttrib.style.display = 'none'; }
@@ -879,6 +881,7 @@ function openLoc(loc) {
 
   var hasPhotos = loc.photos && loc.photos.length > 0;
   var hasSV = typeof GOOGLE_MAPS_API_KEY === 'string' && GOOGLE_MAPS_API_KEY && localStorage.getItem('aw_sv_disabled') !== '1';
+  if (typeof _show3DBtn === 'function') _show3DBtn(typeof _has3DKey === 'function' ? _has3DKey() : false);
   var photoCount = hasPhotos ? loc.photos.length : 0;
   // Normalize svInt → always an array (backward compat: single object → [obj])
   var svIntArr = hasSV ? (Array.isArray(loc.svInt) ? loc.svInt : (loc.svInt ? [loc.svInt] : [])) : [];
