@@ -616,10 +616,10 @@ function _init3DMap(container, loc) {
             type: 'fill-extrusion',
             minzoom: 14,
             paint: {
-              'fill-extrusion-color': '#c8c0b0',
+              'fill-extrusion-color': '#5ba8d8',
               'fill-extrusion-height': ['coalesce', ['get', 'render_height'], ['get', 'height'], 8],
               'fill-extrusion-base': 0,
-              'fill-extrusion-opacity': 0.7
+              'fill-extrusion-opacity': 0.88
             }
           }
         ]
