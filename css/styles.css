@@ -160,6 +160,10 @@
     [data-theme="dark"] .arm-back  { color: #a0a0a0; }
     [data-theme="dark"] .arm-back:hover { color: #f0f0ee; }
     [data-theme="dark"] .arm-close { color: #888; }
+    [data-theme="dark"] .pp-city-header { color: #888; background: #1a1a1a; border-bottom-color: #2e2e2e; }
+    [data-theme="dark"] .arm-route-row { border-bottom-color: #2e2e2e; }
+    [data-theme="dark"] .arm-route-name { color: #c8c8c6; }
+    [data-theme="dark"] .arm-tag { background: #252525; color: #888; }
     [data-theme="dark"] .mpp-section { background: #141414; border-color: #2e2e2e; }
     [data-theme="dark"] .mpp-sec-title { color: #f0f0ee; }
     [data-theme="dark"] .mpp-sec-sub { color: #898989; }
@@ -3856,6 +3860,11 @@
   color: #555; cursor: pointer; font-family: inherit;
 }
 .arm-export-btn:hover { background: #e8e8e8; }
+.pp-city-header {
+  padding: 8px 14px 4px; font-size: 10px; font-weight: 700;
+  color: #aaa; letter-spacing: 0.06em; text-transform: uppercase;
+  border-bottom: 1px solid #f0f0f0; background: #fafaf8;
+}
 .arm-route-row {
   display: flex; align-items: center; padding: 12px 14px; gap: 10px;
   border-bottom: 1px solid #f0f0f0;

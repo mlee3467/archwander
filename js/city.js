@@ -300,9 +300,7 @@ function _buildPpListRows(type, isFavType, ids) {
     var cityMeta = (typeof CITY_META !== 'undefined' && CITY_META[code]) ? CITY_META[code] : null;
     var cityLabel = cityMeta ? cityMeta.label : 'Other';
     var sectionHtml =
-      '<div style="padding:8px 14px 4px;font-size:10px;font-weight:700;' +
-        'color:#aaa;letter-spacing:0.06em;text-transform:uppercase;' +
-        'border-bottom:1px solid #f0f0f0;background:#fafaf8">' +
+      '<div class="pp-city-header">' +
         cityLabel + ' <span style="font-weight:400">(' + group.length + ')</span>' +
       '</div>' +
       group.map(function(l) {
@@ -313,7 +311,7 @@ function _buildPpListRows(type, isFavType, ids) {
         var dateStr = (!isFavType && dates2[l.id])
           ? '<span class="arm-tag arm-tag-date">' + new Date(dates2[l.id]).toLocaleDateString() + '</span>' : '';
         var bothBadges = (isFav(l.id) && isVisited(l.id))
-          ? '<span style="font-size:10px;margin-left:4px">⭐✓</span>' : '';
+          ? '<span style="font-size:10px;margin-left:4px">✓</span>' : '';
         return '<div class="arm-route-row" style="cursor:pointer" ' +
             'onclick="_ppListOpenLoc(\'' + l.id + '\',\'' + (l.city || '') + '\')">' +
           '<div class="arm-route-main">' +
