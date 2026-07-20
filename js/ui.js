@@ -610,8 +610,7 @@ function _init3DMap(container, loc) {
     container.innerHTML = '';
     _gmap3d = new google.maps.Map(container, {
       center:           { lat: loc.lat, lng: loc.lng },
-      zoom:             18,
-      tilt:             45,
+      zoom:             19,
       heading:          (loc.gmap_heading != null) ? loc.gmap_heading : 0,
       mapTypeId:        'satellite',   // pure satellite — no labels
       disableDefaultUI: false,
