@@ -140,7 +140,7 @@ function _initScaleBar() {
   var imperial = localStorage.getItem('aw_units') === 'imperial';
   var isMobile = window.innerWidth <= 900;
   _scaleControl = L.control.scale({
-    position: 'topright',
+    position: 'bottomleft',
     metric:   !imperial,
     imperial:  imperial,
     maxWidth:  isMobile ? 60 : 120
@@ -152,7 +152,7 @@ function updateScaleBar() { _initScaleBar(); }
 function _addRulerControl() {
   if (!window.map) return;
   var RulerBtn = L.Control.extend({
-    options: { position: 'topright' },
+    options: { position: 'bottomright' },
     onAdd: function() {
       var c = L.DomUtil.create('div', 'leaflet-bar leaflet-control ruler-btn-wrap');
       var btn = L.DomUtil.create('a', 'ruler-map-btn', c);
