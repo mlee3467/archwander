@@ -553,15 +553,10 @@ function openShareSheet(e) {
 // ══════════════════════════════════════════════════════════════════
 // 3D AERIAL VIEW (Google Maps JS API — tilt 67.5°)
 // ══════════════════════════════════════════════════════════════════
-var _gmap3d        = null;   // google.maps.Map instance
-var _gmap3dOn      = false;  // currently visible?
-var _gmap3dLoading = false;  // script tag injected but not yet ready
+var _gmap3d   = null;   // Leaflet sub-map instance
+var _gmap3dOn = false;  // currently visible?
 
-function _has3DKey() {
-  return typeof GOOGLE_MAPS_API_KEY === 'string' &&
-         GOOGLE_MAPS_API_KEY &&
-         GOOGLE_MAPS_API_KEY !== '__GOOGLE_MAPS_API_KEY__';
-}
+function _has3DKey() { return true; }  // always available — uses Leaflet + ESRI tiles
 
 // Show or hide the 3D button (called each time a location is opened)
 function _show3DBtn(show) {
@@ -571,6 +566,7 @@ function _show3DBtn(show) {
 
 // Reset 3D view — called when gallery is cleared (new location or panel close)
 function _reset3DView() {
+  if (_gmap3d && _gmap3d.remove) { try { _gmap3d.remove(); } catch(e) {} }
   var el = document.getElementById('g-3dmap');
   if (el) { el.style.display = 'none'; el.innerHTML = ''; }
   var btn = document.getElementById('g-3d-btn');
@@ -587,11 +583,7 @@ function toggle3DView() {
   if (!el) return;
 
   if (_gmap3dOn) {
-    el.style.display = 'none';
-    el.innerHTML = '';
-    if (btn) btn.classList.remove('active');
-    _gmap3dOn = false;
-    _gmap3d = null;
+    _reset3DView();
   } else {
     el.style.display = 'block';
     if (btn) btn.classList.add('active');
@@ -601,48 +593,26 @@ function toggle3DView() {
 }
 
 function _init3DMap(container, loc) {
-  function _buildMap() {
-    container.innerHTML = '';
-    _gmap3d = new google.maps.Map(container, {
-      center:           { lat: loc.lat, lng: loc.lng },
-      zoom:             18,
-      tilt:             45,
-      heading:          (loc.gmap_heading != null) ? loc.gmap_heading : 0,
-      mapTypeId:        'satellite',   // pure satellite — no labels
-      disableDefaultUI: false,
-      zoomControl:      true,
-      mapTypeControl:   false,
-      streetViewControl:false,
-      fullscreenControl:false,
-      rotateControl:    true,
-      gestureHandling:  'greedy'
-    });
-    // Trigger resize after first idle to prevent gray-screen on init
-    google.maps.event.addListenerOnce(_gmap3d, 'idle', function() {
-      google.maps.event.trigger(_gmap3d, 'resize');
-      _gmap3d.setCenter({ lat: loc.lat, lng: loc.lng });
-    });
-  }
-
-  // Already loaded
-  if (typeof google !== 'undefined' && google.maps) { _buildMap(); return; }
-
-  // Script already injected — wait for it
-  if (_gmap3dLoading) {
-    var _t = setInterval(function() {
-      if (typeof google !== 'undefined' && google.maps) { clearInterval(_t); _buildMap(); }
-    }, 150);
-    return;
-  }
-
-  // First use — inject script
-  _gmap3dLoading = true;
-  var s = document.createElement('script');
-  s.src = 'https://maps.googleapis.com/maps/api/js?key=' + GOOGLE_MAPS_API_KEY + '&v=weekly';
-  s.async = true;
-  s.onerror = function() { _gmap3dLoading = false; console.warn('[3D] Maps API load failed'); };
-  s.onload  = function() { _buildMap(); };
-  document.head.appendChild(s);
+  // Leaflet sub-map with ESRI World Imagery — no labels, free, no API key
+  container.innerHTML = '';
+  _gmap3d = L.map(container, {
+    center:            [loc.lat, loc.lng],
+    zoom:              18,
+    zoomControl:       false,
+    attributionControl:false,
+    dragging:          true,
+    scrollWheelZoom:   true,
+    doubleClickZoom:   true
+  });
+  L.tileLayer(
+    'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+    { maxZoom: 20 }
+  ).addTo(_gmap3d);
+  L.control.zoom({ position: 'bottomright' }).addTo(_gmap3d);
+  // Force layout recalc after container becomes visible
+  setTimeout(function() {
+    if (_gmap3d) { _gmap3d.invalidateSize(); _gmap3d.setView([loc.lat, loc.lng], 18); }
+  }, 60);
 }
 
 function closeShareSheet() {
