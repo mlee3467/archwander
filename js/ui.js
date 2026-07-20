@@ -596,7 +596,12 @@ function toggle3DView() {
     el.style.display = 'block';
     if (btn) btn.classList.add('active');
     _gmap3dOn = true;
-    _init3DMap(el, activeLoc);
+    // Double rAF: ensures browser finishes layout before Maps reads container size
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        _init3DMap(el, activeLoc);
+      });
+    });
   }
 }
 
@@ -623,7 +628,7 @@ function _init3DMap(container, loc) {
         google.maps.event.trigger(_gmap3d, 'resize');
         _gmap3d.setCenter({ lat: loc.lat, lng: loc.lng });
       }
-    }, 100);
+    }, 300);
   }
 
   if (typeof google !== 'undefined' && google.maps) { _buildMap(); return; }
