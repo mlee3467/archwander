@@ -589,23 +589,46 @@ function toggle3DView() {
 
 function _init3DMap(container, loc) {
   container.innerHTML = '';
-  _gmap3d = L.map(container, {
-    center:             [loc.lat, loc.lng],
-    zoom:               18,
-    zoomControl:        false,
-    attributionControl: false,
-    dragging:           true,
-    scrollWheelZoom:    true,
-    doubleClickZoom:    true
-  });
-  L.tileLayer(
-    'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-    { maxZoom: 20 }
-  ).addTo(_gmap3d);
-  L.control.zoom({ position: 'bottomright' }).addTo(_gmap3d);
-  setTimeout(function() {
-    if (_gmap3d) { _gmap3d.invalidateSize(); _gmap3d.setView([loc.lat, loc.lng], 18); }
-  }, 60);
+
+  function _buildMap() {
+    _gmap3d = new maplibregl.Map({
+      container: container,
+      style: {
+        version: 8,
+        sources: {
+          sat: {
+            type: 'raster',
+            tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'],
+            tileSize: 256,
+            maxzoom: 20
+          }
+        },
+        layers: [{ id: 'sat', type: 'raster', source: 'sat' }]
+      },
+      center:             [loc.lng, loc.lat],
+      zoom:               17,
+      pitch:              45,
+      bearing:            (loc.gmap_heading != null) ? loc.gmap_heading : 0,
+      attributionControl: false
+    });
+    _gmap3d.addControl(new maplibregl.NavigationControl({ showCompass: true }), 'bottom-right');
+  }
+
+  if (typeof maplibregl !== 'undefined') { _buildMap(); return; }
+
+  // Lazy-load MapLibre GL JS (open-source, no API key needed)
+  if (!document.getElementById('maplibre-css')) {
+    var link = document.createElement('link');
+    link.id = 'maplibre-css';
+    link.rel = 'stylesheet';
+    link.href = 'https://unpkg.com/maplibre-gl@4/dist/maplibre-gl.css';
+    document.head.appendChild(link);
+  }
+  var s = document.createElement('script');
+  s.src = 'https://unpkg.com/maplibre-gl@4/dist/maplibre-gl.js';
+  s.onload  = function() { _buildMap(); };
+  s.onerror = function() { console.warn('[3D] MapLibre GL load failed'); };
+  document.head.appendChild(s);
 }
 
 function closeShareSheet() {
