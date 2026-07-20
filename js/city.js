@@ -1013,4 +1013,89 @@ function _initCityByGPS() {
   });
 }
 
+// ══════════════════════════════════════════════════════════════════
+// HIGHLIGHTS FOG MODE
+// ══════════════════════════════════════════════════════════════════
+var _fogModeActive = false;
+var _fogCanvas = null;
+var _fogCtx    = null;
+var FOG_RADIUS_M = 60;   // metres cleared around each visited location
+
+function _metersPerPixel(lat, zoom) {
+  return 156543.03392 * Math.cos(lat * Math.PI / 180) / Math.pow(2, zoom);
+}
+
+function _fogRender() {
+  if (!_fogModeActive || !_fogCanvas || !_fogCtx) return;
+  if (typeof map === 'undefined' || !map) return;
+
+  var size = map.getSize();
+  _fogCanvas.width  = size.x;
+  _fogCanvas.height = size.y;
+
+  var ctx  = _fogCtx;
+  var zoom = map.getZoom();
+  var center = map.getCenter();
+  var mpp  = _metersPerPixel(center.lat, zoom);
+  var radiusPx = FOG_RADIUS_M / mpp;
+
+  // Draw full fog
+  ctx.clearRect(0, 0, size.x, size.y);
+  ctx.fillStyle = 'rgba(0,0,0,0.50)';
+  ctx.fillRect(0, 0, size.x, size.y);
+
+  // Punch holes at visited locations
+  ctx.globalCompositeOperation = 'destination-out';
+  var visitedIds = (typeof _visSet !== 'undefined') ? Array.from(_visSet) : [];
+  var locs = (typeof LOCS !== 'undefined') ? LOCS : [];
+
+  visitedIds.forEach(function(id) {
+    var loc = locs.find(function(l) { return l.id === id; });
+    if (!loc) return;
+    var pt = map.latLngToContainerPoint([loc.lat, loc.lng]);
+    ctx.beginPath();
+    ctx.arc(pt.x, pt.y, radiusPx, 0, Math.PI * 2);
+    ctx.fill();
+  });
+
+  ctx.globalCompositeOperation = 'source-over';
+}
+
+function toggleFogMode(forceState) {
+  if (typeof map === 'undefined' || !map) return;
+
+  if (typeof forceState === 'boolean') {
+    _fogModeActive = forceState;
+  } else {
+    _fogModeActive = !_fogModeActive;
+  }
+
+  // Persist preference
+  localStorage.setItem('aw_fog_mode', _fogModeActive ? '1' : '0');
+
+  if (_fogModeActive) {
+    if (!_fogCanvas) {
+      _fogCanvas = document.createElement('canvas');
+      _fogCanvas.id = 'fog-canvas';
+      _fogCanvas.style.cssText = 'position:absolute;top:0;left:0;pointer-events:none;z-index:450;';
+      var mapEl = document.getElementById('map');
+      if (mapEl) mapEl.appendChild(_fogCanvas);
+      _fogCtx = _fogCanvas.getContext('2d');
+    }
+    _fogCanvas.style.display = 'block';
+    _fogRender();
+    map.on('move zoom moveend zoomend', _fogRender);
+  } else {
+    if (_fogCanvas) _fogCanvas.style.display = 'none';
+    map.off('move zoom moveend zoomend', _fogRender);
+  }
+
+  // Update My Page toggle if open
+  var btn = document.getElementById('mpp-fog-toggle');
+  if (btn) {
+    if (_fogModeActive) btn.classList.add('mpp-toggle-on');
+    else btn.classList.remove('mpp-toggle-on');
+  }
+}
+
 // ══════════════════�

@@ -292,6 +292,10 @@ function _enterCity(code, opts) {
       _rendered = true;
       map.off('moveend', _doRender);
       if (typeof refreshApp === 'function') refreshApp();
+      // Restore fog mode if it was active
+      if (localStorage.getItem('aw_fog_mode') === '1' && typeof toggleFogMode === 'function') {
+        toggleFogMode(true);
+      }
       // IFL archived — auto-trigger removed
       // Set pan bounds: city viewport × PAD to limit tile loading
       // Mobile uses lower zoom + larger PAD for wider geographic coverage on small screen

@@ -334,6 +334,7 @@ function _favSubFavorites() {
   _closeFavPopup();
   if (typeof closeSidebar === 'function') closeSidebar();
   if (typeof toggleFavFilter === 'function') toggleFavFilter();
+  if (typeof toggleFogMode === 'function') toggleFogMode();
 }
 
 function _favSubPassport() {
@@ -502,6 +503,7 @@ function _openMyPage() {
         (function() {
           var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
           var svOn = localStorage.getItem('aw_sv_disabled') !== '1';
+          var fogOn = localStorage.getItem('aw_fog_mode') === '1';
           var isImperial = localStorage.getItem('aw_units') === 'imperial';
           var curPace = localStorage.getItem('aw_visit_pace') || 'normal';
           return '<div class="mpp-section">' +
@@ -518,6 +520,15 @@ function _openMyPage() {
                 '<div class="mpp-setting-sub">Disable to save data</div>' +
               '</div>' +
               '<button class="mpp-toggle' + (svOn ? ' mpp-toggle-on' : '') + '" id="mpp-sv-toggle" onclick="_mppToggleSV(this)" aria-label="Toggle Street View">' +
+                '<span class="mpp-toggle-knob"></span>' +
+              '</button>' +
+            '</div>' +
+            '<div class="mpp-setting-row">' +
+              '<div>' +
+                '<span class="mpp-setting-label">Highlights Fog</span>' +
+                '<div class="mpp-setting-sub">Show fog; clear visited spots</div>' +
+              '</div>' +
+              '<button class="mpp-toggle' + (fogOn ? ' mpp-toggle-on' : '') + '" id="mpp-fog-toggle" onclick="_mppToggleFog(this)" aria-label="Toggle Highlights Fog">' +
                 '<span class="mpp-toggle-knob"></span>' +
               '</button>' +
             '</div>' +
@@ -638,6 +649,15 @@ function _mppToggleSV(btn) {
     localStorage.setItem('aw_sv_disabled', '1');
     btn.classList.remove('mpp-toggle-on');
   }
+}
+
+function _mppToggleFog(btn) {
+  var newState = !btn.classList.contains('mpp-toggle-on');
+  if (typeof toggleFogMode === 'function') {
+    toggleFogMode(newState);
+  }
+  if (newState) btn.classList.add('mpp-toggle-on');
+  else btn.classList.remove('mpp-toggle-on');
 }
 
 function _mppSetUnits(units) {
