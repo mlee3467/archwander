@@ -566,7 +566,7 @@ function _has3DKey() {
 // Show or hide the 3D button (called each time a location is opened)
 function _show3DBtn(show) {
   var btn = document.getElementById('g-3d-btn');
-  if (btn) btn.style.display = show ? '' : 'none';
+  if (btn) btn.style.display = show ? 'block' : 'none';
 }
 
 // Reset 3D view — called when gallery is cleared (new location or panel close)
