@@ -1017,7 +1017,7 @@ function _initCityByGPS() {
 var _fogModeActive = false;
 var _fogCanvas = null;
 var _fogCtx    = null;
-var FOG_RADIUS_M = 60;   // metres cleared around each visited location
+var FOG_RADIUS_M = 120;  // metres cleared around each visited location
 
 function _metersPerPixel(lat, zoom) {
   return 156543.03392 * Math.cos(lat * Math.PI / 180) / Math.pow(2, zoom);
@@ -1039,7 +1039,7 @@ function _fogRender() {
 
   // Draw full fog
   ctx.clearRect(0, 0, size.x, size.y);
-  ctx.fillStyle = 'rgba(0,0,0,0.50)';
+  ctx.fillStyle = 'rgba(0,0,0,0.75)';
   ctx.fillRect(0, 0, size.x, size.y);
 
   // Punch holes at visited locations
