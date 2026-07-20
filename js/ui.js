@@ -600,23 +600,44 @@ function _init3DMap(container, loc) {
             type: 'raster',
             tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'],
             tileSize: 256,
-            maxzoom: 20
+            maxzoom: 19
+          },
+          ofm: {
+            type: 'vector',
+            url: 'https://tiles.openfreemap.org/planet'
           }
         },
-        layers: [{ id: 'sat', type: 'raster', source: 'sat' }]
+        layers: [
+          { id: 'sat', type: 'raster', source: 'sat' },
+          {
+            id: 'buildings-3d',
+            source: 'ofm',
+            'source-layer': 'building',
+            type: 'fill-extrusion',
+            minzoom: 14,
+            paint: {
+              'fill-extrusion-color': '#c8c0b0',
+              'fill-extrusion-height': ['coalesce', ['get', 'render_height'], ['get', 'height'], 8],
+              'fill-extrusion-base': 0,
+              'fill-extrusion-opacity': 0.7
+            }
+          }
+        ]
       },
       center:             [loc.lng, loc.lat],
       zoom:               17,
-      pitch:              45,
+      pitch:              60,
       bearing:            (loc.gmap_heading != null) ? loc.gmap_heading : 0,
       attributionControl: false
     });
-    _gmap3d.addControl(new maplibregl.NavigationControl({ showCompass: true }), 'bottom-right');
+    _gmap3d.addControl(
+      new maplibregl.NavigationControl({ showCompass: true, visualizePitch: true }),
+      'bottom-right'
+    );
   }
 
   if (typeof maplibregl !== 'undefined') { _buildMap(); return; }
 
-  // Lazy-load MapLibre GL JS (open-source, no API key needed)
   if (!document.getElementById('maplibre-css')) {
     var link = document.createElement('link');
     link.id = 'maplibre-css';
