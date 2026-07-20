@@ -634,6 +634,32 @@ function _init3DMap(container, loc) {
       new maplibregl.NavigationControl({ showCompass: true, visualizePitch: true }),
       'bottom-right'
     );
+
+    // After tiles load, highlight the building at the marker location
+    _gmap3d.once('idle', function() {
+      var px  = _gmap3d.project([loc.lng, loc.lat]);
+      var buf = 20;
+      var features = _gmap3d.queryRenderedFeatures(
+        [[px.x - buf, px.y - buf], [px.x + buf, px.y + buf]],
+        { layers: ['buildings-3d'] }
+      );
+      if (features.length > 0 && features[0].id != null) {
+        _gmap3d.addLayer({
+          id: 'building-active',
+          source: 'ofm',
+          'source-layer': 'building',
+          type: 'fill-extrusion',
+          minzoom: 14,
+          filter: ['==', ['id'], features[0].id],
+          paint: {
+            'fill-extrusion-color': '#e85d26',
+            'fill-extrusion-height': ['coalesce', ['get', 'render_height'], ['get', 'height'], 8],
+            'fill-extrusion-base': 0,
+            'fill-extrusion-opacity': 0.95
+          }
+        });
+      }
+    });
   }
 
   if (typeof maplibregl !== 'undefined') { _buildMap(); return; }
