@@ -1576,6 +1576,8 @@
         background: rgb(245,245,245) !important;
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
         transform: translateX(-100%);
         transition: transform var(--dur-slow) var(--ease-standard);
         box-shadow: var(--shadow-right);
@@ -1723,8 +1725,7 @@
 
       .drag-h { display: none; }
       .sb-filters {
-        max-height: 55vh; overflow-y: auto; display: flex;
-        -webkit-overflow-scrolling: touch;
+        max-height: none; overflow-y: visible; display: flex;
       }
       .fsec-body.hood-list { max-height: 200px; }
 
