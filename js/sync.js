@@ -78,13 +78,40 @@ function _syncReadLocal() {
   function _obj(key) {
     try { return JSON.parse(localStorage.getItem(key) || '{}'); } catch(e) { return {}; }
   }
+  function _str(key) { return localStorage.getItem(key) || ''; }
   return {
     favs:        _arr(_SYNC_KEYS.favs),
     visited:     _arr(_SYNC_KEYS.visited),
     visit_dates: _obj(_SYNC_KEYS.visit_dates),
     visit_notes: _obj(_SYNC_KEYS.visit_notes),
-    routes:      _arr(_SYNC_KEYS.routes)
+    routes:      _arr(_SYNC_KEYS.routes),
+    prefs: {
+      theme:        _str('aw_theme'),
+      default_city: _str('AW_DEFAULT_CITY'),
+      sv_disabled:  _str('aw_sv_disabled'),
+      units:        _str('aw_units'),
+      visit_pace:   _str('aw_visit_pace'),
+      fog_mode:     _str('aw_fog_mode')
+    }
   };
+}
+
+// ── Apply synced prefs to localStorage + live DOM ────────────────
+function _syncApplyPrefs(prefs) {
+  if (!prefs) return;
+  function _set(key, val) { if (val) localStorage.setItem(key, val); else localStorage.removeItem(key); }
+  _set('aw_theme',        prefs.theme);
+  _set('AW_DEFAULT_CITY', prefs.default_city);
+  _set('aw_sv_disabled',  prefs.sv_disabled);
+  _set('aw_units',        prefs.units);
+  _set('aw_visit_pace',   prefs.visit_pace);
+  _set('aw_fog_mode',     prefs.fog_mode);
+  // Apply dark mode immediately
+  if (prefs.theme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+  else document.documentElement.removeAttribute('data-theme');
+  if (typeof _updateDarkModeIcon === 'function') _updateDarkModeIcon();
+  // Apply fog mode
+  if (typeof toggleFogMode === 'function') toggleFogMode(prefs.fog_mode === '1');
 }
 
 // ── Write merged state to localStorage + refresh in-memory sets ──
@@ -94,6 +121,7 @@ function _syncWriteLocal(state) {
   localStorage.setItem(_SYNC_KEYS.visit_dates, JSON.stringify(state.visit_dates || {}));
   localStorage.setItem(_SYNC_KEYS.visit_notes, JSON.stringify(state.visit_notes || {}));
   localStorage.setItem(_SYNC_KEYS.routes,      JSON.stringify(state.routes      || []));
+  if (state.prefs) _syncApplyPrefs(state.prefs);
 
   // Refresh in-memory favs/visited sets
   if (typeof _favSet !== 'undefined' && _favSet) {
@@ -147,24 +175,33 @@ function _syncMerge(local, server) {
   });
   var routes = Object.values(routeMap).concat(noIdRoutes);
 
-  return { favs, visited, visit_dates, visit_notes, routes };
+  // Prefs: server wins (last-pushed device's settings are authoritative)
+  var prefs = Object.assign({}, local.prefs || {}, server.prefs || {});
+
+  return { favs, visited, visit_dates, visit_notes, routes, prefs };
 }
 
 // ── Push local → Supabase ─────────────────────────────────────────
 async function syncPush() {
   if (!_supabase || !_syncUser) return;
   var state = _syncReadLocal();
-  var res = await _supabase
-    .from('user_state')
-    .upsert({
-      user_id:     _syncUser.id,
-      favs:        state.favs,
-      visited:     state.visited,
-      visit_dates: state.visit_dates,
-      visit_notes: state.visit_notes,
-      routes:      state.routes,
-      updated_at:  new Date().toISOString()
-    }, { onConflict: 'user_id' });
+  var payload = {
+    user_id:     _syncUser.id,
+    favs:        state.favs,
+    visited:     state.visited,
+    visit_dates: state.visit_dates,
+    visit_notes: state.visit_notes,
+    routes:      state.routes,
+    prefs:       state.prefs,
+    updated_at:  new Date().toISOString()
+  };
+  var res = await _supabase.from('user_state').upsert(payload, { onConflict: 'user_id' });
+  // Graceful fallback: if 'prefs' column not yet added to DB, retry without it
+  if (res.error && (res.error.code === 'PGRST204' || (res.error.message && res.error.message.indexOf('prefs') !== -1))) {
+    console.warn('[sync] prefs column missing — run migration: ALTER TABLE user_state ADD COLUMN IF NOT EXISTS prefs JSONB DEFAULT \'{}\'::jsonb;');
+    delete payload.prefs;
+    res = await _supabase.from('user_state').upsert(payload, { onConflict: 'user_id' });
+  }
   if (res.error) throw new Error(res.error.message);
   _syncLastAt = new Date().toISOString();
   localStorage.setItem('aw_sync_last', _syncLastAt);

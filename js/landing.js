@@ -639,6 +639,7 @@ function _openMyPage() {
 function _mppToggleDark(btn) {
   if (typeof toggleDarkMode === 'function') toggleDarkMode();
   btn.classList.toggle('mpp-toggle-on');
+  if (typeof syncSchedulePush === 'function') syncSchedulePush();
 }
 
 function _mppToggleSV(btn) {
@@ -649,6 +650,7 @@ function _mppToggleSV(btn) {
     localStorage.setItem('aw_sv_disabled', '1');
     btn.classList.remove('mpp-toggle-on');
   }
+  if (typeof syncSchedulePush === 'function') syncSchedulePush();
 }
 
 function _mppToggleFog(btn) {
@@ -658,6 +660,7 @@ function _mppToggleFog(btn) {
   }
   if (newState) btn.classList.add('mpp-toggle-on');
   else btn.classList.remove('mpp-toggle-on');
+  if (typeof syncSchedulePush === 'function') syncSchedulePush();
 }
 
 function _mppSetUnits(units) {
@@ -669,6 +672,7 @@ function _mppSetUnits(units) {
   // Update walk slider + scale bar
   if (typeof _syncWalkSliderUnits === 'function') _syncWalkSliderUnits();
   if (typeof updateScaleBar === 'function') updateScaleBar();
+  if (typeof syncSchedulePush === 'function') syncSchedulePush();
 }
 
 function _mppSetPace(pace) {
@@ -679,6 +683,7 @@ function _mppSetPace(pace) {
   });
   // Refresh route UI if open (re-calculates visit times live)
   if (typeof _refreshRouteUI === 'function') _refreshRouteUI();
+  if (typeof syncSchedulePush === 'function') syncSchedulePush();
 }
 
 function _closeMyPage() {
@@ -788,6 +793,7 @@ function _mpPagePickCity(val) {
     var btnVal = btn.getAttribute('data-cityval') || '';
     btn.classList.toggle('mpp-city-sel', btnVal === val);
   });
+  if (typeof syncSchedulePush === 'function') syncSchedulePush();
 }
 
 // ── Favorites & Visited export/import/delete ─────────────────────
