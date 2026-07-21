@@ -635,30 +635,36 @@ function _init3DMap(container, loc) {
       'bottom-right'
     );
 
-    // After tiles load, highlight the building at the marker location
-    _gmap3d.once('idle', function() {
-      var px  = _gmap3d.project([loc.lng, loc.lat]);
-      var buf = 20;
-      var features = _gmap3d.queryRenderedFeatures(
-        [[px.x - buf, px.y - buf], [px.x + buf, px.y + buf]],
-        { layers: ['buildings-3d'] }
-      );
-      if (features.length > 0 && features[0].id != null) {
-        _gmap3d.addLayer({
-          id: 'building-active',
-          source: 'ofm',
-          'source-layer': 'building',
-          type: 'fill-extrusion',
-          minzoom: 14,
-          filter: ['==', ['id'], features[0].id],
-          paint: {
-            'fill-extrusion-color': '#e85d26',
-            'fill-extrusion-height': ['coalesce', ['get', 'render_height'], ['get', 'height'], 8],
-            'fill-extrusion-base': 0,
-            'fill-extrusion-opacity': 0.95
-          }
-        });
-      }
+    // Add precise location beacon — always accurate regardless of OSM building data quality
+    _gmap3d.on('load', function() {
+      _gmap3d.addSource('active-loc', {
+        type: 'geojson',
+        data: { type: 'Feature', geometry: { type: 'Point', coordinates: [loc.lng, loc.lat] } }
+      });
+      // Outer glow
+      _gmap3d.addLayer({
+        id: 'active-pin-glow',
+        type: 'circle', source: 'active-loc',
+        paint: {
+          'circle-radius': 22,
+          'circle-color': '#e85d26',
+          'circle-opacity': 0.22,
+          'circle-pitch-alignment': 'map'
+        }
+      });
+      // Inner dot
+      _gmap3d.addLayer({
+        id: 'active-pin-dot',
+        type: 'circle', source: 'active-loc',
+        paint: {
+          'circle-radius': 9,
+          'circle-color': '#e85d26',
+          'circle-stroke-width': 2.5,
+          'circle-stroke-color': '#ffffff',
+          'circle-opacity': 1,
+          'circle-pitch-alignment': 'map'
+        }
+      });
     });
   }
 
