@@ -284,3 +284,326 @@ function closeStyleGlossary() {
   el.classList.remove('visible');
   setTimeout(function() { if (el.parentNode) el.parentNode.removeChild(el); }, 250);
 }
+
+/* ================================================================
+   ARCHITECTURAL GLOSSARY PANEL
+   Uses GLOSSARY array from data-glossary.js
+   ================================================================ */
+
+var _glossOpen    = false;
+var _glossCurTerm = null;
+
+var BLANK_GIF = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+
+/* ── Open / Close ──────────────────────────────────────────── */
+
+function openGlossary() {
+  if (_glossOpen) { closeGlossary(); return; }
+  _glossOpen = true;
+
+  var overlay = document.getElementById('gloss-overlay');
+  var panel   = document.getElementById('gloss-panel');
+  if (overlay) overlay.style.display = 'block';
+  if (panel)   panel.style.display   = 'flex';
+
+  var btn = document.getElementById('sba-gloss');
+  if (btn) btn.classList.add('active');
+
+  showGlossaryList();
+}
+
+function closeGlossary() {
+  _glossOpen    = false;
+  _glossCurTerm = null;
+
+  var overlay = document.getElementById('gloss-overlay');
+  var panel   = document.getElementById('gloss-panel');
+  if (overlay) overlay.style.display = 'none';
+  if (panel)   panel.style.display   = 'none';
+
+  var btn = document.getElementById('sba-gloss');
+  if (btn) btn.classList.remove('active');
+}
+
+/* ── List View ──────────────────────────────────────────────── */
+
+function showGlossaryList() {
+  _glossCurTerm = null;
+
+  // Reset header
+  var backBtn  = document.getElementById('gloss-back-btn');
+  var hdrTitle = document.getElementById('gloss-hdr-title');
+  if (backBtn)  backBtn.style.display  = 'none';
+  if (hdrTitle) hdrTitle.textContent   = 'Glossary';
+
+  // Show A-Z bar
+  var azBar = document.getElementById('gloss-az-bar');
+  if (azBar) azBar.style.display = '';
+
+  if (typeof GLOSSARY === 'undefined' || !GLOSSARY.length) {
+    var body = document.getElementById('gloss-body');
+    if (body) body.innerHTML = '<p style="padding:20px;color:#aaa;font-size:13px">No glossary data loaded.</p>';
+    return;
+  }
+
+  // Sort terms A-Z
+  var sorted = GLOSSARY.slice().sort(function(a, b) {
+    return a.term.localeCompare(b.term);
+  });
+
+  // Build set of letters present
+  var letters = [];
+  var seen    = {};
+  sorted.forEach(function(t) {
+    var l = t.term[0].toUpperCase();
+    if (!seen[l]) { seen[l] = true; letters.push(l); }
+  });
+
+  // A-Z bar
+  if (azBar) {
+    azBar.innerHTML = letters.map(function(l) {
+      return '<button class="gloss-az-btn" onclick="_glossScrollLetter(\'' + l + '\')">' + l + '</button>';
+    }).join('');
+  }
+
+  // Build body HTML
+  var html      = '';
+  var curLetter = null;
+  sorted.forEach(function(t) {
+    var l = t.term[0].toUpperCase();
+    if (l !== curLetter) {
+      curLetter = l;
+      html += '<div class="gloss-letter-hdr" id="gloss-letter-' + l + '">' + l + '</div>';
+    }
+    html += '<button class="gloss-term-row" onclick="openGlossaryTerm(\'' + t.id + '\')">'
+          +   '<span class="gloss-term-name">' + _escHtml(t.term) + '</span>'
+          +   '<span class="gloss-cat-badge ' + _glossCatClass(t.cat) + '">' + _escHtml(t.cat) + '</span>'
+          + '</button>';
+  });
+
+  var body = document.getElementById('gloss-body');
+  if (body) body.innerHTML = html;
+}
+
+function _glossScrollLetter(letter) {
+  var el = document.getElementById('gloss-letter-' + letter);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
+
+/* ── Term Detail View ───────────────────────────────────────── */
+
+function openGlossaryTerm(termId) {
+  // Open panel first if not already open
+  if (!_glossOpen) {
+    openGlossary();
+  }
+
+  if (typeof GLOSSARY === 'undefined') return;
+  var t = GLOSSARY.find(function(g) { return g.id === termId; });
+  if (!t) return;
+
+  _glossCurTerm = termId;
+
+  // Update header
+  var backBtn  = document.getElementById('gloss-back-btn');
+  var hdrTitle = document.getElementById('gloss-hdr-title');
+  if (backBtn)  backBtn.style.display  = 'flex';
+  if (hdrTitle) hdrTitle.textContent   = t.term;
+
+  // Hide A-Z bar in detail view
+  var azBar = document.getElementById('gloss-az-bar');
+  if (azBar) azBar.style.display = 'none';
+
+  // Related locations
+  var relLocs = _getRelatedLocs(t);
+
+  // Build detail HTML
+  var wikiBtn = t.wiki
+    ? '<a href="' + t.wiki + '" target="_blank" class="gloss-wiki-btn">Wikipedia →</a>'
+    : '';
+
+  var relHtml = '';
+  if (relLocs.length) {
+    relHtml = '<div class="gloss-rel-hdr">Related Locations<span class="gloss-rel-count">(' + relLocs.length + ')</span></div>'
+            + '<div class="gloss-loc-grid">'
+            + relLocs.map(function(loc) { return _glossLocCard(loc); }).join('')
+            + '</div>';
+  } else {
+    relHtml = '<div class="gloss-rel-hdr">Related Locations</div>'
+            + '<div class="gloss-loc-empty">No locations found for this term.</div>';
+  }
+
+  var html = '<div class="gloss-term-detail">'
+           +   '<div class="gloss-detail-cat">'
+           +     '<span class="gloss-cat-badge ' + _glossCatClass(t.cat) + '">' + _escHtml(t.cat) + '</span>'
+           +   '</div>'
+           +   '<p class="gloss-detail-def">' + _escHtml(t.def) + '</p>'
+           +   wikiBtn
+           +   relHtml
+           + '</div>';
+
+  var body = document.getElementById('gloss-body');
+  if (body) {
+    body.innerHTML = html;
+    body.scrollTop = 0;
+  }
+}
+
+/* ── Navigate to location from glossary ────────────────────── */
+
+function _glossNavLoc(locId) {
+  closeGlossary();
+  if (typeof LOCS === 'undefined') return;
+  var loc = LOCS.find(function(l) { return l.id === locId; });
+  if (!loc) return;
+
+  var cityCode = null;
+  if (typeof CITY_META !== 'undefined') {
+    cityCode = Object.keys(CITY_META).find(function(k) {
+      return CITY_META[k].key === loc.city;
+    });
+  }
+
+  if (cityCode && typeof selectCity === 'function') {
+    selectCity(cityCode);
+  }
+
+  setTimeout(function() {
+    if (typeof openLoc === 'function') openLoc(loc);
+  }, cityCode ? 1400 : 0);
+}
+
+/* ── Related Locations ──────────────────────────────────────── */
+
+function _getRelatedLocs(term) {
+  if (typeof LOCS === 'undefined' || !LOCS.length) return [];
+
+  // Build regex: allow any whitespace/hyphen between words for multi-word terms
+  var escaped = term.term.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+  // Allow whitespace or hyphens between words
+  escaped = escaped.replace(/\\ /g, '[\\s\\-]+');
+  var rx;
+  try {
+    rx = new RegExp(escaped, 'i');
+  } catch(e) {
+    return [];
+  }
+
+  var results = [];
+  for (var i = 0; i < LOCS.length; i++) {
+    var loc = LOCS[i];
+    var desc = (loc.desc || '');
+    if (rx.test(desc)) {
+      results.push(loc);
+      if (results.length >= 30) break;
+    }
+  }
+  return results;
+}
+
+/* ── Location card HTML ─────────────────────────────────────── */
+
+function _glossLocCard(loc) {
+  var photo = (loc.photos && loc.photos.length) ? loc.photos[0] : BLANK_GIF;
+  var cityLabel = '';
+  if (typeof CITY_META !== 'undefined') {
+    var cityKey = Object.keys(CITY_META).find(function(k) {
+      return CITY_META[k].key === loc.city;
+    });
+    if (cityKey) cityLabel = CITY_META[cityKey].label;
+  }
+  var arch = loc.arch || (loc.archs && loc.archs[0]) || '';
+  var meta = [cityLabel, arch].filter(Boolean).join(' · ');
+
+  return '<button class="gloss-loc-card" onclick="_glossNavLoc(\'' + _escAttr(loc.id) + '\')">'
+       +   '<img class="gloss-loc-thumb" src="' + _escAttr(photo) + '" alt=""'
+       +     ' onerror="this.onerror=null;this.src=\'' + BLANK_GIF + '\';this.style.background=\'#e8e8e4\'">'
+       +   '<div class="gloss-loc-info">'
+       +     '<div class="gloss-loc-name">' + _escHtml(loc.name) + '</div>'
+       +     (meta ? '<div class="gloss-loc-meta">' + _escHtml(meta) + '</div>' : '')
+       +   '</div>'
+       + '</button>';
+}
+
+/* ── Linkify glossary terms in description ──────────────────── */
+
+function linkGlossaryTerms(text) {
+  if (typeof GLOSSARY === 'undefined' || !GLOSSARY.length) return text;
+  if (!text || typeof text !== 'string') return text;
+
+  // Skip if the text already contains HTML tags (except entities)
+  if (/<[a-zA-Z]/.test(text)) return text;
+
+  // Sort by term length descending to avoid partial matches
+  var sorted = GLOSSARY.slice().sort(function(a, b) {
+    return b.term.length - a.term.length;
+  });
+
+  var result  = text;
+  var linked  = 0;
+  var MAX_LINKS = 8;
+
+  for (var i = 0; i < sorted.length; i++) {
+    if (linked >= MAX_LINKS) break;
+    var t = sorted[i];
+
+    // Build word-boundary-aware regex
+    // Multi-word: allow any whitespace between words
+    var escaped = t.term.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+    escaped = escaped.replace(/\\ /g, '[\\s]+');
+
+    // Use lookaround to avoid partial-word matches
+    var rxStr = '(?<![a-zA-Z])(' + escaped + ')(?![a-zA-Z])';
+    var rx;
+    try {
+      rx = new RegExp(rxStr, 'gi');
+    } catch(e) {
+      continue;
+    }
+
+    // Check if already linked for this term
+    var alreadyLinked = result.indexOf('openGlossaryTerm(\'' + t.id + '\')') !== -1;
+    if (alreadyLinked) continue;
+
+    var count = 0;
+    result = result.replace(rx, function(match, p1) {
+      if (count > 0) return match; // only first occurrence per term
+      count++;
+      linked++;
+      return '<span class="gloss-term-link" onclick="openGlossaryTerm(\'' + t.id + '\')">' + p1 + '</span>';
+    });
+  }
+
+  return result;
+}
+
+/* ── Utilities ───────────────────────────────────────────────── */
+
+function _glossCatClass(cat) {
+  var map = {
+    'Style':          'gloss-cat-style',
+    'Structure':      'gloss-cat-structure',
+    'Facade':         'gloss-cat-facade',
+    'Space':          'gloss-cat-space',
+    'Sustainability': 'gloss-cat-sustainability',
+    'Urban':          'gloss-cat-urban'
+  };
+  return map[cat] || 'gloss-cat-style';
+}
+
+function _escHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function _escAttr(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}

@@ -1113,7 +1113,7 @@ function buildOverviewTab(loc, trans = {}) {
   const extLinks = (wikiBtn || archBtn || webBtn || siteBtn)
     ? `<div class="overview-ext-links">${wikiBtn}${archBtn}${webBtn}${siteBtn}</div>` : '';
   return `
-    <p class="desc">${desc}</p>
+    <p class="desc">${(typeof linkGlossaryTerms === 'function') ? linkGlossaryTerms(desc) : desc}</p>
     ${extLinks}
     <div class="info-row"><span class="info-label">${t('neighborhood')}</span><span class="info-val">${_displayHood(loc, trans.hood)}</span></div>
     <div class="info-row"><span class="info-label">${t('address')}</span><span class="info-val">${_displayAddr(loc, trans.addr)}</span></div>

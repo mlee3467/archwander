@@ -576,6 +576,17 @@
         </span>
         <span class="sba-label" id="sba-ifl-label">My Page</span>
       </button>
+      <button class="sba-btn" id="sba-gloss" onclick="openGlossary()">
+        <span class="sba-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+            <line x1="10" y1="9" x2="16" y2="9"/>
+            <line x1="10" y1="13" x2="14" y2="13"/>
+          </svg>
+        </span>
+        <span class="sba-label" id="sba-gloss-label">Glossary</span>
+      </button>
       <button class="sba-btn" id="sba-results" onclick="_openListOverlay()">
         <span class="sba-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -947,6 +958,20 @@
 
 </div>
 
+<!-- ── GLOSSARY PANEL ──────────────────────────────────────── -->
+<div id="gloss-overlay" onclick="closeGlossary()" style="display:none"></div>
+<div id="gloss-panel" style="display:none">
+  <div class="gloss-hdr">
+    <button class="gloss-back-btn" id="gloss-back-btn" onclick="showGlossaryList()" style="display:none">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <span class="gloss-hdr-title" id="gloss-hdr-title">Glossary</span>
+    <button class="gloss-close-btn" onclick="closeGlossary()">✕</button>
+  </div>
+  <div class="gloss-az-bar" id="gloss-az-bar"></div>
+  <div class="gloss-body" id="gloss-body"></div>
+</div>
+
 <!-- Mobile: city selection bottom sheet (world mode) -->
 <div id="city-sheet">
   <div class="cs-handle"></div>
@@ -1031,7 +1056,8 @@
 <script src="js/map.js?v=20260621e"></script>
 <script src="js/filters.js?v=20260618"></script>
 <script src="js/core.js?v=20260624a"></script>
-<script src="js/glossary.js?v=20260609"></script>
+<script src="data-glossary.js?v=20260731a"></script>
+<script src="js/glossary.js?v=20260731a"></script>
 <script src="js/badges.js?v=20260609"></script>
 <script src="js/influence.js?v=20260609"></script>
 <script src="js/ui.js?v=20260622e"></script>
