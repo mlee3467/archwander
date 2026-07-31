@@ -838,10 +838,13 @@ function _glossLocCard(loc) {
   var arch = loc.arch || (loc.archs && loc.archs[0]) || '';
   var meta = [cityLabel, arch].filter(Boolean).join(' · ');
 
-  // Thumbnail: category icon div as base layer, photo img stacked on top.
-  // Photo onerror hides itself → icon shows through automatically.
-  var thumb = '<div class="gloss-loc-thumb" style="background:' + catMeta.bg + '">'
-            +   '<div class="gloss-loc-thumb-icon"><img src="' + catMeta.icon + '" alt=""></div>'
+  // Thumbnail: category icon as CSS background (blend-mode removes white),
+  // photo img stacked on top via absolute positioning.
+  var iconBg = 'background-color:' + catMeta.bg + ';'
+             + 'background-image:url(' + catMeta.icon + ');'
+             + 'background-size:62%;background-repeat:no-repeat;background-position:center;'
+             + 'background-blend-mode:multiply;';
+  var thumb = '<div class="gloss-loc-thumb" style="' + iconBg + '">'
             +   (hasPic ? '<img class="gloss-loc-thumb-img" src="' + _escAttr(loc.photos[0]) + '" alt="" onerror="this.style.display=\'none\'">' : '')
             + '</div>';
 

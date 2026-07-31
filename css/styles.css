@@ -6213,11 +6213,6 @@
   width: 100%; height: 80px; flex-shrink: 0;
   position: relative; overflow: hidden;
 }
-.gloss-loc-thumb-icon {
-  position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center;
-}
-.gloss-loc-thumb-icon img { width: 22px; height: 22px; object-fit: contain; }
 .gloss-loc-thumb-img {
   position: absolute; inset: 0;
   width: 100%; height: 100%; object-fit: cover;
