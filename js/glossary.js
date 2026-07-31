@@ -825,20 +825,28 @@ function _getRelatedLocs(term) {
 /* ── Location card HTML ─────────────────────────────────────── */
 
 function _glossLocCard(loc) {
-  var photo = (loc.photos && loc.photos.length) ? loc.photos[0] : BLANK_GIF;
+  // Category icon fallback
+  var catMeta = (typeof _ccMeta === 'function') ? _ccMeta(loc) : { bg: '#FFE3E5', icon: 'img/icon_landmark.png' };
+  var hasPic  = loc.photos && loc.photos.length > 0;
+
+  // City label
   var cityLabel = '';
   if (typeof CITY_META !== 'undefined') {
-    var cityKey = Object.keys(CITY_META).find(function(k) {
-      return CITY_META[k].key === loc.city;
-    });
+    var cityKey = Object.keys(CITY_META).find(function(k) { return CITY_META[k].key === loc.city; });
     if (cityKey) cityLabel = CITY_META[cityKey].label;
   }
   var arch = loc.arch || (loc.archs && loc.archs[0]) || '';
   var meta = [cityLabel, arch].filter(Boolean).join(' · ');
 
+  // Thumbnail: category icon div as base layer, photo img stacked on top.
+  // Photo onerror hides itself → icon shows through automatically.
+  var thumb = '<div class="gloss-loc-thumb" style="background:' + catMeta.bg + '">'
+            +   '<div class="gloss-loc-thumb-icon"><img src="' + catMeta.icon + '" alt=""></div>'
+            +   (hasPic ? '<img class="gloss-loc-thumb-img" src="' + _escAttr(loc.photos[0]) + '" alt="" onerror="this.style.display=\'none\'">' : '')
+            + '</div>';
+
   return '<button class="gloss-loc-card" onclick="_glossNavLoc(\'' + _escAttr(loc.id) + '\')">'
-       +   '<img class="gloss-loc-thumb" src="' + _escAttr(photo) + '" alt=""'
-       +     ' onerror="this.onerror=null;this.src=\'' + BLANK_GIF + '\';this.style.background=\'#e8e8e4\'">'
+       +   thumb
        +   '<div class="gloss-loc-info">'
        +     '<div class="gloss-loc-name">' + _escHtml(loc.name) + '</div>'
        +     (meta ? '<div class="gloss-loc-meta">' + _escHtml(meta) + '</div>' : '')

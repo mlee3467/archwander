@@ -6209,7 +6209,19 @@
 .gloss-loc-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
 [data-theme="dark"] .gloss-loc-card { background: rgba(255,255,255,0.06); }
 [data-theme="dark"] .gloss-loc-card:hover { background: rgba(255,255,255,0.11); }
-.gloss-loc-thumb { width: 100%; height: 80px; object-fit: cover; background: #e8e8e4; display: block; }
+.gloss-loc-thumb {
+  width: 100%; height: 80px; flex-shrink: 0;
+  position: relative; overflow: hidden;
+}
+.gloss-loc-thumb-icon {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.gloss-loc-thumb-icon img { width: 22px; height: 22px; object-fit: contain; }
+.gloss-loc-thumb-img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+}
 .gloss-loc-info { padding: 8px 9px; }
 .gloss-loc-name { font-size: 12px; font-weight: 700; color: var(--text-primary); margin-bottom: 2px; line-height: 1.3; }
 .gloss-loc-meta { font-size: 11px; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
