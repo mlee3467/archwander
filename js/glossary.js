@@ -621,30 +621,29 @@ var BLANK_GIF = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAA
 
 function openGlossary() {
   if (_glossOpen) { closeGlossary(); return; }
+  // Mobile: close sidebar so it doesn't overlap
+  if (window.innerWidth <= 900 && typeof closeSidebar === 'function') closeSidebar();
+  var panel = document.getElementById('gloss-panel');
+  if (!panel) return;
   _glossOpen = true;
-
-  var overlay = document.getElementById('gloss-overlay');
-  var panel   = document.getElementById('gloss-panel');
-  if (overlay) overlay.style.display = 'block';
-  if (panel)   panel.style.display   = 'flex';
-
+  panel.style.display = 'flex';
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() { panel.classList.add('visible'); });
+  });
   var btn = document.getElementById('sba-gloss');
-  if (btn) btn.classList.add('active');
-
+  if (btn) btn.classList.add('sba-active');
   showGlossaryList();
 }
 
 function closeGlossary() {
   _glossOpen    = false;
   _glossCurTerm = null;
-
-  var overlay = document.getElementById('gloss-overlay');
-  var panel   = document.getElementById('gloss-panel');
-  if (overlay) overlay.style.display = 'none';
-  if (panel)   panel.style.display   = 'none';
-
+  var panel = document.getElementById('gloss-panel');
+  if (!panel) return;
+  panel.classList.remove('visible');
+  setTimeout(function() { panel.style.display = 'none'; }, 220);
   var btn = document.getElementById('sba-gloss');
-  if (btn) btn.classList.remove('active');
+  if (btn) btn.classList.remove('sba-active');
 }
 
 /* ── List View ──────────────────────────────────────────────── */

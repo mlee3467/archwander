@@ -959,17 +959,18 @@
 </div>
 
 <!-- ── GLOSSARY PANEL ──────────────────────────────────────── -->
-<div id="gloss-overlay" onclick="closeGlossary()" style="display:none"></div>
-<div id="gloss-panel" style="display:none">
-  <div class="gloss-hdr">
-    <button class="gloss-back-btn" id="gloss-back-btn" onclick="showGlossaryList()" style="display:none">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-    </button>
-    <span class="gloss-hdr-title" id="gloss-hdr-title">Glossary</span>
-    <button class="gloss-close-btn" onclick="closeGlossary()">✕</button>
+<div id="gloss-panel" onclick="closeGlossary()" style="display:none">
+  <div class="gloss-box" onclick="event.stopPropagation()">
+    <div class="gloss-hdr">
+      <button class="gloss-back-btn" id="gloss-back-btn" onclick="showGlossaryList()" style="display:none">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <span class="gloss-hdr-title" id="gloss-hdr-title">Glossary</span>
+      <button class="gloss-close-btn" onclick="closeGlossary()">✕</button>
+    </div>
+    <div class="gloss-az-bar" id="gloss-az-bar"></div>
+    <div class="gloss-body" id="gloss-body"></div>
   </div>
-  <div class="gloss-az-bar" id="gloss-az-bar"></div>
-  <div class="gloss-body" id="gloss-body"></div>
 </div>
 
 <!-- Mobile: city selection bottom sheet (world mode) -->
