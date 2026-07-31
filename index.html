@@ -382,6 +382,9 @@
       <button class="active" id="btn-street" aria-label="Street map view" onclick="setMapType('street')">Street</button>
       <button id="btn-sat" aria-label="Satellite map view" onclick="setMapType('satellite')">Satellite</button>
     </div>
+    <button class="dark-mode-btn" id="dark-mode-btn" aria-label="Toggle dark mode" onclick="toggleDarkMode()" title="Toggle dark/light mode">
+      <span id="dark-mode-icon"></span>
+    </button>
   </div>
   <div class="header-row2">
     <button id="near-me-btn" aria-label="Find architecture near my location" onclick="toggleNearMe()" title="Find architecture near a location">
@@ -566,15 +569,9 @@
         </span>
         <span class="sba-label" id="sba-route-label">Route</span>
       </button>
-      <button class="sba-btn" id="sba-ifl" onclick="_sbaMyPage()">
-        <span class="sba-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="8" r="3.5" fill="currentColor" fill-opacity="0.25"/>
-            <circle cx="12" cy="8" r="3.5"/>
-            <path d="M4 20c0-3.87 3.58-7 8-7s8 3.13 8 7"/>
-          </svg>
-        </span>
-        <span class="sba-label" id="sba-ifl-label">My Page</span>
+      <button class="sba-btn" id="sba-dark" onclick="toggleDarkMode()">
+        <span class="sba-icon" id="sba-dark-icon"></span>
+        <span class="sba-label" id="sba-dark-label">Dark Mode</span>
       </button>
       <button class="sba-btn" id="sba-gloss" onclick="openGlossary()">
         <span class="sba-icon">

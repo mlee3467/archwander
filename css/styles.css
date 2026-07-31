@@ -233,12 +233,14 @@
     [data-theme="dark"] .chip { background: #252525 !important; color: #d0d0ce !important; border-color: #3a3a3a !important; }
     [data-theme="dark"] .chip.active { background: #f0f0ee !important; color: #111 !important; border-color: rgba(255,255,255,0.15) !important; }
     .dark-mode-btn {
-      background: none; border: none; cursor: pointer;
-      color: var(--text-secondary); font-size: var(--fs-lg);
-      padding: var(--sp-3) var(--sp-4); border-radius: var(--radius-md); transition: all 0.15s;
+      background: var(--border); border: none; cursor: pointer;
+      color: var(--text-secondary);
+      padding: 0 var(--sp-4); border-radius: var(--radius-md); transition: all 0.15s;
       display: flex; align-items: center; justify-content: center;
+      height: 30px; flex-shrink: 0;
     }
-    .dark-mode-btn:hover { background: var(--border); color: var(--text-primary); }
+    .dark-mode-btn:hover { background: var(--text-tertiary); color: var(--text-primary); }
+    @media (min-width: 901px) { #sba-dark { display: none !important; } }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { color-scheme: only light; }
@@ -1562,6 +1564,7 @@
       .search-icon { display: block; }
       #search { height: 36px; font-size: var(--fs-base); }
       .map-toggle { display: none !important; }
+      #dark-mode-btn { display: none !important; }
       /* ✦ button: far right */
       #header-star-btn { order: 5; }
       /* ✦ landing button — mobile only */
@@ -1696,6 +1699,7 @@
 
       /* ── Hide desktop-only elements ── */
       .map-toggle { display: none; }
+      #dark-mode-btn { display: none; }
 
       /* ── Map zoom buttons: move up to avoid phone toolbar ── */
       .leaflet-bottom.leaflet-right { bottom: 60px; }

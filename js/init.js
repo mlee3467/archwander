@@ -1,4 +1,7 @@
 // ── Dark / Light mode toggle ─────────────────────────────────────
+var _DM_SUN = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>';
+var _DM_MOON = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+
 function toggleDarkMode() {
   var html = document.documentElement;
   var isDark = html.getAttribute('data-theme') === 'dark';
@@ -12,11 +15,21 @@ function toggleDarkMode() {
   _updateDarkModeIcon();
   // Swap map tile to match new theme
   if (typeof _refreshStreetTile === 'function') _refreshStreetTile();
+  // Sync pref to Supabase (cross-device)
+  if (typeof syncSchedulePush === 'function') syncSchedulePush();
 }
 function _updateDarkModeIcon() {
-  var icon = document.getElementById('dark-mode-icon');
-  if (!icon) return;
-  icon.textContent = document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+  var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  // Header button icon
+  var hdr = document.getElementById('dark-mode-icon');
+  if (hdr) hdr.innerHTML = isDark ? _DM_SUN : _DM_MOON;
+  // Sidebar sba button icon + label
+  var sbaIcon = document.getElementById('sba-dark-icon');
+  if (sbaIcon) sbaIcon.innerHTML = isDark
+    ? '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>'
+    : '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+  var sbaLabel = document.getElementById('sba-dark-label');
+  if (sbaLabel) sbaLabel.textContent = isDark ? 'Light Mode' : 'Dark Mode';
 }
 document.addEventListener('DOMContentLoaded', function() { _updateDarkModeIcon(); });
 
