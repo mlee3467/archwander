@@ -78,6 +78,11 @@ function openRoutePanel() {
   routeActive = true;
   var sbaRoute = document.getElementById('sba-route');
   if (sbaRoute) sbaRoute.classList.add('sba-active');
+  // Hide Near Me radius elements while route panel is open
+  var wrf = document.getElementById('walk-radius-float');
+  if (wrf) wrf.classList.remove('visible');
+  var wctrl = document.getElementById('walk-radius-ctrl-btn');
+  if (wctrl) wctrl.style.display = 'none';
   if (typeof _updateSetRouteFab === 'function') _updateSetRouteFab(); // hide FAB
   if (!document.getElementById('route-panel')) _createRoutePanel();
   var panel = document.getElementById('route-panel');
@@ -108,6 +113,9 @@ function closeRoutePanel() {
   var sbaRoute = document.getElementById('sba-route');
   if (sbaRoute) sbaRoute.classList.remove('sba-active');
   _closeRouteCustomPopup();
+  // Ensure radius ctrl button is hidden before re-showing FAB/Exit (prevents overlap)
+  var wctrl = document.getElementById('walk-radius-ctrl-btn');
+  if (wctrl) wctrl.style.display = 'none';
   if (typeof _updateSetRouteFab === 'function') _updateSetRouteFab(); // re-show FAB
   var panel = document.getElementById('route-panel');
   if (panel) { panel.classList.remove('visible'); panel.classList.remove('minimized'); }
