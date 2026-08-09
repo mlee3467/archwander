@@ -1383,7 +1383,7 @@ function _noFilterHTML() {
     '<div class="route-nf-desc">Apply filters to browse locations, then create a route from your selection. Or load a previously saved route.</div>' +
     '<div class="route-nf-btns">' +
       '<button class="route-nf-btn route-nf-primary" onclick="closeRoutePanel();setTimeout(toggleSbFilters,150)">Apply Filters</button>' +
-      '<button class="route-nf-btn" onclick="_loadMyRoute()">Load Saved</button>' +
+      '<button class="route-nf-btn" onclick="openMyListPanel()">My Lists</button>' +
     '</div>' +
   '</div>';
 }

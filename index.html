@@ -573,6 +573,18 @@
         <span class="sba-icon" id="sba-dark-icon"></span>
         <span class="sba-label" id="sba-dark-label">Dark Mode</span>
       </button>
+      <button class="sba-btn" id="sba-list" onclick="openMyListPanel()">
+        <span class="sba-icon" style="position:relative;display:inline-flex;align-items:center;justify-content:center">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
+            <rect x="9" y="3" width="6" height="4" rx="1" ry="1"/>
+            <line x1="9" y1="12" x2="15" y2="12"/>
+            <line x1="9" y1="16" x2="13" y2="16"/>
+          </svg>
+          <span id="sba-list-badge" style="display:none;position:absolute;top:-4px;right:-6px;background:#4F46E5;color:#fff;font-size:9px;font-weight:700;min-width:14px;height:14px;border-radius:7px;display:none;align-items:center;justify-content:center;padding:0 3px;line-height:1">0</span>
+        </span>
+        <span class="sba-label" id="sba-list-label">My List</span>
+      </button>
       <button class="sba-btn" id="sba-gloss" onclick="openGlossary()">
         <span class="sba-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1061,6 +1073,7 @@
 <script src="js/walk.js?v=20260622c"></script>
 <script src="js/city.js?v=20260705c"></script>
 <script src="js/route.js?v=20260622"></script>
+<script src="js/mylist.js?v=20260809a"></script>
 <script src="js/share.js?v=20260609"></script>
 <script src="js/select.js?v=20260609"></script>
 <script src="js/landing.js?v=20260705c"></script>

@@ -1025,6 +1025,7 @@ function openLoc(loc) {
     <div class="p-action-row">
       <button class="p-action-btn${isFav(loc.id)?' fav-active':''}" id="p-fav-btn" onclick="toggleFav('${loc.id}')"><span class="act-icon">${isFav(loc.id)?'★':'☆'}</span> ${t('fav_label')}</button>
       <button class="p-action-btn${isVisited(loc.id)?' vis-active':''}" id="p-vis-btn" onclick="toggleVisited('${loc.id}')"><span class="act-icon">${isVisited(loc.id)?'✓':'○'}</span> ${t('vis_label')}</button>
+      <button class="p-action-btn${(typeof isInMyList==='function'&&isInMyList(loc.id))?' list-active':''}" id="p-list-btn" data-loc-id="${loc.id}" onclick="toggleMyList('${loc.id}')"><span class="act-icon">${(typeof isInMyList==='function'&&isInMyList(loc.id))?'✓':'+'}</span> ${(typeof isInMyList==='function'&&isInMyList(loc.id))?'In List':'List'}</button>
       <button class="p-action-btn" id="p-share-btn" onclick="openShareSheet(event)"><span class="act-icon">↑</span> Share</button>
     </div>
     <div class="visit-section" id="visit-section-${loc.id}" ${isVisited(loc.id)?'':'style="display:none"'}>
