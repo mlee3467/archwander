@@ -3607,77 +3607,73 @@
 /* ─────────────────────────────────────────────────────────────
    ROUTE PRE-SELECTION MODAL
    ───────────────────────────────────────────────────────────── */
-.route-presel-overlay {
-  position: fixed; inset: 0; z-index: 9500;
-  background: rgba(0,0,0,0.45);
-  display: none; align-items: center; justify-content: center;
-  font-family: Inter, -apple-system, sans-serif;
+/* ── Route chunk tabs ─────────────────────────────────────────── */
+.route-chunk-tabs {
+  display: flex; gap: var(--sp-3); padding: var(--sp-5) var(--sp-6);
+  border-bottom: 1px solid var(--border); background: var(--bg);
+  flex-shrink: 0;
 }
-.route-presel-overlay.open { display: flex; }
-.rps-box {
-  background: white; border-radius: var(--radius-xl);
-  padding: var(--sp-10) var(--sp-9); max-width: 380px; width: 92vw;
-  max-height: 78vh; overflow-y: auto;
-  box-shadow: var(--shadow-xl);
+.route-chunk-tab {
+  flex: 1; padding: var(--sp-4) var(--sp-3); border-radius: var(--radius-sm);
+  border: 1px solid var(--border); background: var(--surface);
+  font-size: var(--fs-sm); font-weight: 500; cursor: pointer;
+  font-family: inherit; color: var(--text-secondary);
+  transition: all 0.12s; text-align: center; line-height: 1.2;
 }
-.rps-title { font-size: var(--fs-lg); font-weight: 700; color: #111; margin-bottom: 5px; }
-.rps-sub { font-size: var(--fs-md); color: #666; margin-bottom: 14px; line-height: 1.45; }
-.rps-section-label {
-  font-size: var(--fs-xs); font-weight: 600; letter-spacing: 0.6px;
-  text-transform: uppercase; color: #999; margin-bottom: 8px;
+.route-chunk-tab:hover { border-color: var(--primary); color: var(--primary); }
+.route-chunk-tab.active {
+  background: var(--primary); color: white; border-color: var(--primary);
 }
-.rps-hoods {
-  display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px;
+[data-theme="dark"] .route-chunk-tab { background: #252525; border-color: #3a3a3a; }
+[data-theme="dark"] .route-chunk-tab.active { background: var(--primary); color: white; }
+.rct-count { font-size: 10px; opacity: 0.75; }
+
+/* ── Route start selector ─────────────────────────────────────── */
+.route-start-row {
+  display: flex; align-items: center; gap: var(--sp-4);
+  padding: var(--sp-4) var(--sp-6); border-bottom: 1px solid var(--border);
+  background: var(--surface); flex-shrink: 0;
 }
-.rps-hood-chip {
-  padding: var(--sp-3) var(--sp-6); border-radius: var(--radius-xl);
-  border: 1.5px solid #E5E7EB; background: white;
-  font-size: var(--fs-md); color: #111; cursor: pointer;
-  font-family: inherit; transition: all 0.12s;
+.route-start-label {
+  font-size: var(--fs-sm); font-weight: 600; color: var(--text-secondary);
+  white-space: nowrap;
 }
-.rps-hood-chip:hover { background: #f5f5f5; border-color: #999; }
-.rps-hood-chip:active { opacity: 0.75; }
-.rps-hood-chip.selected {
-  background: #111; color: white; border-color: #111;
+.route-start-select {
+  flex: 1; min-width: 0; border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: var(--sp-3) var(--sp-4);
+  font-size: var(--fs-sm); background: var(--bg); color: var(--text-primary);
+  font-family: inherit; cursor: pointer;
 }
-.rps-divider {
-  text-align: center; font-size: var(--fs-sm); color: #bbb;
-  margin: var(--sp-4) 0 var(--sp-6); position: relative;
+[data-theme="dark"] .route-start-select { background: #252525; border-color: #3a3a3a; }
+
+/* ── No filter / no locations prompt ─────────────────────────── */
+.route-no-filter {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 40px 24px 28px; text-align: center;
 }
-.rps-divider::before {
-  content: ''; position: absolute;
-  top: 50%; left: 0; right: 0; height: 1px; background: #E5E7EB; z-index: 0;
+.route-nf-icon {
+  color: var(--text-secondary); margin-bottom: 14px; opacity: 0.5;
 }
-.rps-divider span { background: white; padding: 0 8px; position: relative; z-index: 1; }
-.rps-btns { display: flex; gap: 8px; margin-top: 4px; flex-wrap: wrap; }
-.rps-proceed-btn {
-  flex: 1; min-width: 80px; padding: 11px; border-radius: var(--radius-lg);
-  background: var(--primary); color: white; border: none;
-  font-size: var(--fs-base); font-weight: 600; cursor: pointer; font-family: inherit;
-  transition: opacity var(--dur-fast);
+.route-nf-title {
+  font-size: var(--fs-base); font-weight: 600; color: var(--text-primary);
+  margin-bottom: var(--sp-4);
 }
-.rps-proceed-btn:active { opacity: 0.75; }
-.rps-manual-btn {
-  flex: 1; min-width: 80px; padding: 11px; border-radius: var(--radius-lg);
-  background: #111; color: white; border: none;
-  font-size: var(--fs-base); font-weight: 600; cursor: pointer; font-family: inherit;
-  transition: opacity var(--dur-fast);
+.route-nf-desc {
+  font-size: var(--fs-sm); color: var(--text-secondary); line-height: 1.55;
+  margin-bottom: 22px; max-width: 260px;
 }
-.rps-manual-btn:active { opacity: 0.7; }
-.rps-cancel-btn {
-  flex: 1; min-width: 80px; padding: 11px; border-radius: var(--radius-lg);
-  background: #F3F4F6; color: #374151; border: none;
-  font-size: var(--fs-base); cursor: pointer; font-family: inherit;
-  transition: background var(--dur-fast);
+.route-nf-btns { display: flex; gap: var(--sp-5); flex-wrap: wrap; justify-content: center; }
+.route-nf-btn {
+  padding: var(--sp-5) var(--sp-9); border-radius: var(--radius-md);
+  border: 1px solid var(--border); background: var(--surface);
+  font-size: var(--fs-sm); font-weight: 500; cursor: pointer;
+  font-family: inherit; color: var(--text-primary); transition: all 0.12s;
 }
-.rps-cancel-btn:active { background: #E5E7EB; }
-.rps-set-loc-btn {
-  width: 100%; margin-top: 10px; padding: 11px; border-radius: var(--radius-lg);
-  background: #EEF2FF; color: var(--primary-dark); border: 1px solid #C7D2FE;
-  font-size: var(--fs-base); font-weight: 600; cursor: pointer; font-family: inherit;
-  transition: background var(--dur-fast);
+.route-nf-btn:hover { border-color: var(--primary); color: var(--primary); }
+.route-nf-primary {
+  background: var(--primary); color: white; border-color: var(--primary);
 }
-.rps-set-loc-btn:active { background: #E0E7FF; }
+.route-nf-primary:hover { background: var(--primary-dark); border-color: var(--primary-dark); color: white; }
 /* Architect name + tags in mini-popup */
 .rmp-arch {
   font-size: var(--fs-sm); color: #555; font-style: italic;

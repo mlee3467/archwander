@@ -9,8 +9,11 @@ var routeLocations   = [];   // ordered list of locations in the route
 var routeLine        = null; // Leaflet polyline for the route
 var routeMarkers     = [];   // numbered step markers on map
 var routeData        = null; // { distance, duration, steps: [...] }
-var _rpsSelectedHoods = new Set(); // selected hoods in the presel modal (multi-select)
 var _SAVED_ROUTES_KEY = 'aw_saved_routes_v2';  // current: array of named routes
+var _CHUNK_SIZE       = 8;    // max stops per route chunk (A/B/C...)
+var _routeChunks      = [];   // array of location arrays — one per chunk
+var _activeChunkIdx   = 0;    // which chunk tab is active
+var _chunkStarts      = [];   // per-chunk start: null | 'my-loc' | {id,lat,lng}
 var routeOriginMarker = null; // green start marker at walkOrigin
 var _routeTravelMode  = 'walking'; // 'walking' | 'transit' | 'driving'
 
@@ -72,8 +75,6 @@ function _getRouteLocs() {
     : LOCS.filter(function(l) { return l.city === activeCityKey; });
 }
 
-var _ROUTE_PRESEL_THRESHOLD = 12; // max locations before pre-selection modal
-
 function openRoutePanel() {
   routeActive = true;
   var sbaRoute = document.getElementById('sba-route');
@@ -84,28 +85,41 @@ function openRoutePanel() {
   var wctrl = document.getElementById('walk-radius-ctrl-btn');
   if (wctrl) wctrl.style.display = 'none';
   if (typeof _updateSetRouteFab === 'function') _updateSetRouteFab(); // hide FAB
+
   if (!document.getElementById('route-panel')) _createRoutePanel();
   var panel = document.getElementById('route-panel');
   panel.classList.remove('minimized');
   panel.classList.add('visible');
 
-  // If we already have route locations (e.g. "Back to Map" was pressed), restore UI
+  // If pre-existing routeLocations (e.g. loaded route or "Back to Map"), restore UI
   if (routeLocations.length > 0) {
     _refreshRouteUI();
     return;
   }
 
-  // If too many locations, show pre-selection modal first
-  var locs = _getRouteLocs();
-  if (locs.length > _ROUTE_PRESEL_THRESHOLD) {
-    _showRoutePreselModal(locs);
+  // No active filter → show prompt to apply filters
+  if (!_isFilterActive()) {
+    _routeChunks = [];
+    _activeChunkIdx = 0;
+    _chunkStarts = [];
+    routeLocations = [];
+    _refreshRouteUI();
     return;
   }
 
-  // Auto-populate from current filtered list
-  routeLocations = locs.slice();
+  // Build chunks from filtered locations
+  var filtered = _getRouteLocs();
+  if (filtered.length === 0) {
+    routeLocations = [];
+    _routeChunks = [];
+    _refreshRouteUI();
+    return;
+  }
+  _routeChunks = _buildRouteChunks(filtered);
+  _activeChunkIdx = 0;
+  _chunkStarts = _routeChunks.map(function() { return null; });
+  routeLocations = _routeChunks[0].slice();
   _refreshRouteUI();
-  // No auto-routing: user controls Google Maps handoff via action bar
 }
 
 function closeRoutePanel() {
@@ -157,6 +171,9 @@ function _createRoutePanel() {
 function clearRouteSelection() {
   _closeRouteCustomPopup();
   routeLocations = [];
+  _routeChunks = [];
+  _activeChunkIdx = 0;
+  _chunkStarts = [];
   clearRoute();
   _refreshRouteUI();
 }
@@ -585,30 +602,48 @@ function _exportSavedRoutesJson() {
 function removeRouteStop(locId) {
   _closeRouteCustomPopup();
   routeLocations = routeLocations.filter(function(l) { return l.id !== locId; });
+  if (_routeChunks.length > 0) _routeChunks[_activeChunkIdx] = routeLocations.slice();
   _refreshRouteUI();
-  // Route drawing only happens in Near Me context (calcRoute not called here)
   if (routeLocations.length < 2) clearRoute();
 }
 
 function _refreshRouteUI() {
   var selList  = document.getElementById('route-sel-list');
   var topClear = document.getElementById('route-top-clear');
-  if (topClear) topClear.style.display = routeLocations.length >= 1 ? 'flex' : 'none';
-  // Show share button when ≥1 stop added (route calc not required)
   var shareBtn = document.getElementById('route-share-btn');
+  if (topClear) topClear.style.display = routeLocations.length >= 1 ? 'flex' : 'none';
   if (shareBtn) shareBtn.style.display = routeLocations.length >= 1 ? 'flex' : 'none';
   if (!selList) return;
-  if (routeLocations.length === 0) {
-    selList.innerHTML = '<div class="route-sel-empty">No locations match current filters</div>';
+
+  // === NO FILTER / NO LOCATIONS → prompt state ===
+  if (routeLocations.length === 0 && _routeChunks.length === 0) {
+    selList.innerHTML = _noFilterHTML();
     return;
   }
 
-  // Summary header
+  // === CHUNK TABS (multiple chunks) ===
+  var letters = 'ABCDEFGHIJ';
+  var tabsHtml = '';
+  if (_routeChunks.length > 1) {
+    tabsHtml = '<div class="route-chunk-tabs">' +
+      _routeChunks.map(function(chunk, idx) {
+        var cls = idx === _activeChunkIdx ? ' active' : '';
+        return '<button class="route-chunk-tab' + cls + '" onclick="_switchChunkTab(' + idx + ')">' +
+          'Route ' + letters[idx] + ' <span class="rct-count">(' + chunk.length + ')</span></button>';
+      }).join('') +
+    '</div>';
+  }
+
+  // === START SELECTOR ===
+  var startHtml = _buildStartSelectorHTML();
+
+  // === STOP COUNT HEADER ===
+  var chunkLabel = _routeChunks.length > 1 ? 'Route ' + letters[_activeChunkIdx] + ' · ' : '';
   var header = '<div class="rsl-header">' +
-    '<span class="rsl-count">' + routeLocations.length + ' stop' + (routeLocations.length !== 1 ? 's' : '') + '</span>' +
+    '<span class="rsl-count">' + chunkLabel + routeLocations.length + ' stop' + (routeLocations.length !== 1 ? 's' : '') + '</span>' +
   '</div>';
 
-  // Stop list with visit time per stop
+  // === STOP LIST ===
   var pace = _getPaceMult();
   var stopList = routeLocations.map(function(loc, i) {
     var vMin = Math.round(_getVisitMin(loc) * pace);
@@ -621,23 +656,17 @@ function _refreshRouteUI() {
     '</div>';
   }).join('');
 
-  // Action bar (shown when ≥1 stop)
+  // === ACTION BAR ===
   var actionBar = '';
   if (routeLocations.length >= 1) {
-    // Straight-line distance estimate
     var distHtml = '';
     if (routeLocations.length >= 2) {
       var estKm = _estimatedRouteKm(routeLocations);
       var distStr = _fmtRouteDist(estKm);
-      distHtml = '<div class="route-dist-est">' +
-        '📏 ~' + distStr +
-        '<span class="route-dist-note"> straight-line</span>' +
-      '</div>';
+      distHtml = '<div class="route-dist-est">📏 ~' + distStr + '<span class="route-dist-note"> straight-line</span></div>';
     }
-
     var city = (typeof activeCityKey !== 'undefined') ? activeCityKey : '';
     var isSeoul = (city === 'seoul');
-
     var mapsButtons = '';
     if (isSeoul) {
       mapsButtons =
@@ -653,30 +682,19 @@ function _refreshRouteUI() {
           'Open in Google Maps' +
         '</button>';
     }
-
-    // Total visit time estimate
-    var totalVisitMin = routeLocations.reduce(function(sum, loc) {
-      return sum + _getVisitMin(loc) * pace;
-    }, 0);
+    var totalVisitMin = routeLocations.reduce(function(sum, loc) { return sum + _getVisitMin(loc) * pace; }, 0);
     var totalVisitStr = _fmtVisitTime(totalVisitMin);
     var paceLabel = (function() {
       var p = localStorage.getItem('aw_visit_pace') || 'normal';
       return { quick:'Quick', normal:'Normal', relaxed:'Relaxed' }[p];
     })();
     var visitHtml =
-      '<div class="route-visit-total">' +
-        '🕐 Est. visit time: ' +
-        '<strong>' + totalVisitStr + '</strong>' +
-        ' <span class="route-visit-pace">(' + paceLabel + ')</span>' +
-      '</div>' +
-      '<div class="route-visit-disclaimer">' +
-        '⚠ Estimated visit times may vary significantly by individual.' +
-      '</div>';
-
+      '<div class="route-visit-total">🕐 Est. visit time: <strong>' + totalVisitStr + '</strong>' +
+        ' <span class="route-visit-pace">(' + paceLabel + ')</span></div>' +
+      '<div class="route-visit-disclaimer">⚠ Estimated visit times may vary significantly by individual.</div>';
     actionBar =
       '<div class="route-gmaps-bar">' +
-        distHtml +
-        visitHtml +
+        distHtml + visitHtml +
         '<div class="route-gmaps-actions">' +
           '<button id="route-optimize-btn" class="route-gmaps-sec-btn"' +
             (routeLocations.length < 3 ? ' disabled style="opacity:.4;cursor:default"' : '') +
@@ -686,7 +704,7 @@ function _refreshRouteUI() {
       '</div>';
   }
 
-  selList.innerHTML = header + stopList + actionBar;
+  selList.innerHTML = tabsHtml + startHtml + header + stopList + actionBar;
 }
 
 // ── Visit time helpers ───────────────────────────────────────────
@@ -754,7 +772,7 @@ function _fmtRouteDist(km) {
 function _buildNaverMapsUrl() {
   if (!routeLocations.length) return null;
   var stops  = routeLocations;
-  var origin = (typeof walkOrigin !== 'undefined' && walkOrigin && walkOrigin.lat) ? walkOrigin : null;
+  var origin = _getRouteOrigin();
   var dest   = stops[stops.length - 1];
 
   // Mobile: try app deep link
@@ -887,7 +905,7 @@ function _setRouteTravelMode(mode) {
 function _buildGoogleMapsUrl() {
   if (!routeLocations.length) return null;
   var stops  = routeLocations;
-  var origin = (typeof walkOrigin !== 'undefined' && walkOrigin && walkOrigin.lat) ? walkOrigin : null;
+  var origin = _getRouteOrigin();
   var base   = 'https://www.google.com/maps/dir/?api=1&travelmode=' + _routeTravelMode;
 
   if (origin) {
@@ -933,8 +951,9 @@ function _copyGoogleMapsLink() {
 
 function _optimizeRouteBtn() {
   if (routeLocations.length < 3) return;
-  var origin = (typeof walkOrigin !== 'undefined' && walkOrigin && walkOrigin.lat) ? walkOrigin : null;
+  var origin = _getRouteOrigin();
   routeLocations = _optimizeOrder(routeLocations, origin);
+  if (_routeChunks.length > 0) _routeChunks[_activeChunkIdx] = routeLocations.slice();
   _refreshRouteUI();
   var btn = document.getElementById('route-optimize-btn');
   if (btn) {
@@ -1318,107 +1337,126 @@ function clearRoute() {
 // v0.3 route stubs removed
 
 // ══════════════════════════════════════════════════════════════════
-// ROUTE PRE-SELECTION MODAL
+// ROUTE PLANNER HELPERS — filter check, chunking, start selector
 // ══════════════════════════════════════════════════════════════════
 
-function _showRoutePreselModal(locs) {
-  var overlay = document.getElementById('route-presel-overlay');
-  if (!overlay) {
-    overlay = document.createElement('div');
-    overlay.id = 'route-presel-overlay';
-    overlay.className = 'route-presel-overlay';
-    overlay.addEventListener('click', function(e) {
-      if (e.target === overlay) _closeRoutePresel();
-    });
-    document.body.appendChild(overlay);
-  }
+function _isFilterActive() {
+  if (typeof state === 'undefined') return false;
+  return (state.cat    && state.cat.length    > 0) ||
+         (state.style  && state.style.length  > 0) ||
+         (state.era    && state.era.length    > 0) ||
+         (state.access && state.access.length > 0) ||
+         (state.arch   && state.arch   !== 'All')  ||
+         (state.hood   && state.hood   !== 'All')  ||
+         (state.query  && state.query.trim()  !== '');
+}
 
-  // Build unique, sorted neighborhood list from the current locs
-  var hoods = [];
-  var seen = {};
-  locs.forEach(function(l) {
-    if (l.hood && !seen[l.hood]) { seen[l.hood] = true; hoods.push(l.hood); }
+function _buildRouteChunks(locs) {
+  if (!locs || locs.length <= _CHUNK_SIZE) return [locs.slice()];
+  // Nearest-neighbor ordering then split into geographic chunks
+  var ordered = _optimizeOrder(locs, null);
+  var chunks = [];
+  for (var i = 0; i < ordered.length; i += _CHUNK_SIZE) {
+    chunks.push(ordered.slice(i, Math.min(i + _CHUNK_SIZE, ordered.length)));
+  }
+  return chunks;
+}
+
+function _getActiveChunkOrigin() {
+  if (!_chunkStarts || !_chunkStarts.length) return null;
+  var s = _chunkStarts[_activeChunkIdx];
+  if (!s) return null;
+  if (s === 'my-loc') return (typeof walkOrigin !== 'undefined' && walkOrigin && walkOrigin.lat) ? walkOrigin : null;
+  if (s && s.lat) return { lat: s.lat, lng: s.lng };
+  return null;
+}
+
+function _getRouteOrigin() {
+  if (_routeChunks.length > 0) return _getActiveChunkOrigin();
+  return (typeof walkOrigin !== 'undefined' && walkOrigin && walkOrigin.lat) ? walkOrigin : null;
+}
+
+function _noFilterHTML() {
+  return '<div class="route-no-filter">' +
+    '<svg class="route-nf-icon" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>' +
+    '<div class="route-nf-title">No locations selected</div>' +
+    '<div class="route-nf-desc">Apply filters to browse locations, then create a route from your selection. Or load a previously saved route.</div>' +
+    '<div class="route-nf-btns">' +
+      '<button class="route-nf-btn route-nf-primary" onclick="closeRoutePanel();setTimeout(toggleSbFilters,150)">Apply Filters</button>' +
+      '<button class="route-nf-btn" onclick="_loadMyRoute()">Load Saved</button>' +
+    '</div>' +
+  '</div>';
+}
+
+function _buildStartSelectorHTML() {
+  var chunkLocs = _routeChunks.length > 0 ? _routeChunks[_activeChunkIdx] : routeLocations;
+  if (!chunkLocs || chunkLocs.length === 0) return '';
+  var currentStart = (_chunkStarts.length > 0) ? _chunkStarts[_activeChunkIdx] : null;
+  var hasGPS = typeof walkOrigin !== 'undefined' && walkOrigin && walkOrigin.lat;
+
+  var options = '<option value="auto"' + (!currentStart ? ' selected' : '') + '>Optimize automatically</option>';
+  if (hasGPS) {
+    options += '<option value="my-loc"' + (currentStart === 'my-loc' ? ' selected' : '') + '>My current location</option>';
+  }
+  chunkLocs.forEach(function(loc) {
+    var sel = (currentStart && currentStart.id === loc.id) ? ' selected' : '';
+    options += '<option value="loc:' + _escHtml(loc.id) + '"' + sel + '>Start: ' + _escHtml(loc.name) + '</option>';
   });
-  hoods.sort();
 
-  // Count per hood
-  var hoodCount = {};
-  locs.forEach(function(l) { if (l.hood) hoodCount[l.hood] = (hoodCount[l.hood] || 0) + 1; });
-
-  var chipsHtml = hoods.map(function(h) {
-    var cnt  = hoodCount[h] || 0;
-    var hEsc = h.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
-    return '<button class="rps-hood-chip" data-hood="' + _escHtml(h) + '" onclick="_rpsToggleHood(\'' + hEsc + '\')">' +
-      _escHtml(h) + ' <span style="opacity:0.5;font-size:11px">(' + cnt + ')</span></button>';
-  }).join('');
-
-  overlay.innerHTML =
-    '<div class="rps-box">' +
-      '<div class="rps-title">' + locs.length + ' locations in route</div>' +
-      '<div class="rps-sub">Select one or more neighborhoods then proceed, proceed with all, or pick manually.</div>' +
-      '<button class="rps-set-loc-btn" onclick="_closeRoutePresel(true);if(typeof _sbaMyLocation===\'function\')_sbaMyLocation();">Set My Location</button>' +
-      '<div class="rps-btns">' +
-        '<button class="rps-proceed-btn" onclick="_routePreselProceed()">▶ Proceed</button>' +
-        '<button class="rps-manual-btn" onclick="_routePreselManual()">Manual</button>' +
-        '<button class="rps-cancel-btn" onclick="_closeRoutePresel(true)">Cancel</button>' +
-      '</div>' +
-      '<div class="rps-section-label" style="margin-top:18px">Choose a neighborhood</div>' +
-      '<div class="rps-hoods">' + (chipsHtml || '<span style="color:#999;font-size:12px">No neighborhood data</span>') + '</div>' +
-    '</div>';
-
-  overlay.classList.add('open');
+  return '<div class="route-start-row">' +
+    '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" style="flex-shrink:0"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="2.5" fill="#22c55e"/></svg>' +
+    '<span class="route-start-label">Start</span>' +
+    '<select class="route-start-select" onchange="_onStartChange(this.value)">' + options + '</select>' +
+  '</div>';
 }
 
-function _rpsToggleHood(hood) {
-  if (_rpsSelectedHoods.has(hood)) {
-    _rpsSelectedHoods.delete(hood);
-  } else {
-    _rpsSelectedHoods.add(hood);
-  }
-  // Update chip visual state
-  var chips = document.querySelectorAll('.rps-hood-chip');
-  chips.forEach(function(chip) {
-    if (chip.dataset.hood === hood) chip.classList.toggle('selected', _rpsSelectedHoods.has(hood));
-  });
-  // Update Proceed button to show selected count
-  var proceedBtn = document.querySelector('.rps-proceed-btn');
-  if (proceedBtn) {
-    var n = _rpsSelectedHoods.size;
-    proceedBtn.textContent = n > 0
-      ? '▶ Proceed (' + n + ' hoods)'
-      : '▶ Proceed';
-  }
-}
+function _onStartChange(value) {
+  var chunkLocs = _routeChunks.length > 0
+    ? _routeChunks[_activeChunkIdx].slice()
+    : routeLocations.slice();
 
-function _routePreselProceed() {
-  var allLocs = _getRouteLocs();
-  if (_rpsSelectedHoods.size > 0) {
-    var sel = _rpsSelectedHoods;
-    routeLocations = allLocs.filter(function(l) { return l.hood && sel.has(l.hood); });
-  } else {
-    routeLocations = allLocs.slice();
+  if (value === 'auto') {
+    _chunkStarts[_activeChunkIdx] = null;
+    routeLocations = _optimizeOrder(chunkLocs, null);
+  } else if (value === 'my-loc') {
+    _chunkStarts[_activeChunkIdx] = 'my-loc';
+    var gps = (typeof walkOrigin !== 'undefined' && walkOrigin) ? walkOrigin : null;
+    routeLocations = _optimizeOrder(chunkLocs, gps);
+  } else if (value.indexOf('loc:') === 0) {
+    var locId = value.slice(4);
+    var startLoc = chunkLocs.filter(function(l) { return l.id === locId; })[0];
+    if (startLoc) {
+      _chunkStarts[_activeChunkIdx] = { id: locId, lat: startLoc.lat, lng: startLoc.lng };
+      var rest = chunkLocs.filter(function(l) { return l.id !== locId; });
+      rest = rest.length >= 2 ? _optimizeOrder(rest, startLoc) : rest;
+      routeLocations = [startLoc].concat(rest);
+    }
   }
-  _closeRoutePresel();
+  if (_routeChunks.length > 0) _routeChunks[_activeChunkIdx] = routeLocations.slice();
   _refreshRouteUI();
-  if (routeLocations.length >= 2) calcRoute();
 }
 
-function _routePreselManual() {
-  _closeRoutePresel();
-  // Open route panel empty — user can remove stops or use filters then re-open
-  routeLocations = [];
+function _switchChunkTab(idx) {
+  if (idx < 0 || idx >= _routeChunks.length) return;
+  _activeChunkIdx = idx;
+  var s = _chunkStarts[idx];
+  var origin = null;
+  if (s === 'my-loc' && typeof walkOrigin !== 'undefined' && walkOrigin) origin = walkOrigin;
+  else if (s && s.lat) origin = s;
+  routeLocations = _optimizeOrder(_routeChunks[idx], origin);
   _refreshRouteUI();
-  // Show a hint in the empty list state (handled by _refreshRouteUI)
 }
 
-function _closeRoutePresel(andClosePanel) {
-  _rpsSelectedHoods.clear();
-  var overlay = document.getElementById('route-presel-overlay');
-  if (overlay) overlay.classList.remove('open');
-  if (andClosePanel) {
-    closeRoutePanel();
-  }
-}
+// ══════════════════════════════════════════════════════════════════
+// LEGACY PRESEL STUBS (removed — kept as no-ops for safety)
+// ══════════════════════════════════════════════════════════════════
+
+// Presel removed — openRoutePanel() now handles all states directly
+function _showRoutePreselModal() {}
+function _rpsToggleHood() {}
+function _routePreselProceed() {}
+function _routePreselManual() {}
+function _closeRoutePresel(andClosePanel) { if (andClosePanel) closeRoutePanel(); }
 
 // ══════════════════════════════════════════════════════════════════
 // ROUTE 6KM WARNING
