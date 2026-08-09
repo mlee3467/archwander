@@ -3309,9 +3309,15 @@
   background: rgba(255,255,255,0.7); color: var(--text-secondary);
 }
 .lov-clear-btn:hover { background: rgba(239,68,68,0.1); color: #ef4444; border-color: #ef4444; }
+.lov-add-list-btn {
+  background: rgba(16,185,129,0.1); color: #059669; border-color: rgba(16,185,129,0.4);
+}
+.lov-add-list-btn:hover { background: #10b981; color: #fff; border-color: #10b981; }
 [data-theme="dark"] .lov-route-btn { background: var(--primary); border-color: var(--primary); }
 [data-theme="dark"] .lov-clear-btn { background: #2a2a2a; color: #aaa; border-color: #3a3a3a; }
 [data-theme="dark"] .lov-clear-btn:hover { background: rgba(239,68,68,0.15); color: #f87171; border-color: #f87171; }
+[data-theme="dark"] .lov-add-list-btn { background: rgba(16,185,129,0.12); color: #34d399; border-color: rgba(16,185,129,0.3); }
+[data-theme="dark"] .lov-add-list-btn:hover { background: #10b981; color: #fff; border-color: #10b981; }
 .list-overlay-close {
   background: rgba(0,0,0,0.07); border: none; cursor: pointer;
   color: #666; font-size: var(--fs-lg); border-radius: 50%;
@@ -6433,3 +6439,14 @@
   color: #34d399;
   border-color: rgba(16,185,129,0.35);
 }
+/* Toast notification */
+.ml-toast {
+  position: fixed; bottom: 80px; left: 50%;
+  transform: translateX(-50%);
+  background: rgba(15,15,15,0.85); color: #fff;
+  padding: 9px 18px; border-radius: 20px;
+  font-size: 13px; font-weight: 500; letter-spacing: -0.1px;
+  opacity: 0; pointer-events: none; z-index: 9999;
+  transition: opacity 0.2s; white-space: nowrap;
+}
+.ml-toast.visible { opacity: 1; }

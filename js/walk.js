@@ -925,11 +925,13 @@ function _lassoFinalize() {
     }).addTo(map);
   }
 
-  // Banner off, clear button on (in list overlay header)
+  // Banner off, clear + add-to-list buttons on (in list overlay header)
   var banner   = document.getElementById('lasso-banner');
   if (banner)   banner.style.display = 'none';
   var clearBtn = document.getElementById('lov-clear-btn');
   if (clearBtn) clearBtn.style.display = 'flex';
+  var addListBtn = document.getElementById('lov-add-list-btn');
+  if (addListBtn) addListBtn.style.display = 'flex';
 
   // Apply filter + refresh markers
   if (typeof renderList  === 'function') renderList();
@@ -977,6 +979,8 @@ function _lassoHardClear() {
   if (banner) banner.style.display = 'none';
   var clearBtn = document.getElementById('lov-clear-btn');
   if (clearBtn) clearBtn.style.display = 'none';
+  var addListBtn = document.getElementById('lov-add-list-btn');
+  if (addListBtn) addListBtn.style.display = 'none';
   var sbaLoc = document.getElementById('sba-loc');
   if (sbaLoc) sbaLoc.classList.remove('sba-active');
   var lBtn = document.getElementById('walk-lasso-btn');

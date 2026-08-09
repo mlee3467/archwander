@@ -68,13 +68,21 @@ function _mlPutSaved(arr) {
   try { localStorage.setItem(_ML_SAVED_KEY, JSON.stringify(arr)); } catch(e) {}
 }
 
-// ── Badge on the sba-list button ──────────────────────────────────
+// ── Badge + sub-text update ───────────────────────────────────────
 function _mlUpdateBadge() {
-  var badge = document.getElementById('sba-list-badge');
-  if (!badge) return;
   var n = _myListIds.length;
-  badge.textContent = n > 99 ? '99+' : String(n);
-  badge.style.display = n > 0 ? '' : 'none';
+  // Badge inside My Location popup
+  var popupBadge = document.getElementById('ml-popup-badge');
+  if (popupBadge) {
+    popupBadge.textContent = n > 99 ? '99+' : String(n);
+    popupBadge.style.display = n > 0 ? 'inline-flex' : 'none';
+  }
+  // Sub-text in popup button
+  var sub = document.getElementById('ml-popup-sub');
+  if (sub) {
+    sub.textContent = n === 0 ? 'No locations selected' :
+                      n + ' location' + (n > 1 ? 's' : '') + ' selected';
+  }
 }
 
 // ── Resolve IDs → location objects (from global LOCS) ─────────────
@@ -303,6 +311,46 @@ function _mlLoadSaved(listId) {
 function _mlDeleteSaved(listId) {
   _mlPutSaved(_mlGetSaved().filter(function(l) { return l.id !== listId; }));
   _mlRenderBody();
+}
+
+// ── Add all lasso-selected locations to My List ───────────────────
+function _lovAddAllToMyList() {
+  if (typeof LOCS === 'undefined' || !LOCS) return;
+  var added = 0;
+  // If lasso polygon is active, use point-in-polygon filter
+  var useLasso = (typeof lassoPolygon !== 'undefined' && lassoPolygon && lassoPolygon.length >= 3 &&
+                  typeof _pointInLassoPolygon === 'function');
+  LOCS.forEach(function(loc) {
+    if (!useLasso || _pointInLassoPolygon(loc.lat, loc.lng)) {
+      if (!_myListSet.has(loc.id)) {
+        _myListIds.push(loc.id);
+        _myListSet.add(loc.id);
+        added++;
+      }
+    }
+  });
+  if (added > 0) {
+    _mlSaveActive();
+    _mlUpdateBadge();
+    _mlShowToast(added + ' location' + (added !== 1 ? 's' : '') + ' added to My List');
+  } else {
+    _mlShowToast('All locations already in My List');
+  }
+}
+
+// ── Toast notification ────────────────────────────────────────────
+function _mlShowToast(msg) {
+  var t = document.getElementById('ml-toast');
+  if (!t) {
+    t = document.createElement('div');
+    t.id = 'ml-toast';
+    t.className = 'ml-toast';
+    document.body.appendChild(t);
+  }
+  t.textContent = msg;
+  t.classList.add('visible');
+  clearTimeout(t._mlTimer);
+  t._mlTimer = setTimeout(function() { t.classList.remove('visible'); }, 2500);
 }
 
 // ── Helpers ───────────────────────────────────────────────────────
